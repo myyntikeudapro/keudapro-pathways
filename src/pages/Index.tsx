@@ -38,7 +38,7 @@ const Index = () => {
       />
 
       {/* Route Cards Section */}
-      <section className="keuda-section bg-muted/30">
+      <section className="py-10 md:py-16 bg-muted/30">
         <div className="keuda-container">
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {routes.map((route) => (
