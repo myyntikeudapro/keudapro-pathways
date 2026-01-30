@@ -22,9 +22,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/insight" element={<InsightPage />} />
-          <Route path="/workplus" element={<WorkPlusPage />} />
-          <Route path="/growth" element={<GrowthPage />} />
+          <Route path="/aly" element={<InsightPage />} />
+          <Route path="/noste" element={<WorkPlusPage />} />
+          <Route path="/kasvu" element={<GrowthPage />} />
           <Route path="/operaattori" element={<OperaattoriPage />} />
           <Route path="/kumppanit" element={<KumppanitPage />} />
           <Route path="/yhteystiedot" element={<YhteystiedotPage />} />

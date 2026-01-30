@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { LucideIcon } from "lucide-react";
 
 interface RouteCardProps {
   title: string;
   subtitle: string;
-  icon: LucideIcon;
+  image: string;
   href: string;
   buttonText?: string;
 }
@@ -13,16 +12,21 @@ interface RouteCardProps {
 export function RouteCard({
   title,
   subtitle,
-  icon: Icon,
+  image,
   href,
   buttonText = "Siirry reitille",
 }: RouteCardProps) {
   return (
-    <div className="keuda-card flex flex-col h-full">
-      <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-accent mb-6">
-        <Icon className="w-7 h-7 text-primary" />
+    <div className="keuda-card-enhanced flex flex-col h-full overflow-hidden">
+      <div className="relative h-48 -mx-6 -mt-6 mb-6 overflow-hidden">
+        <img 
+          src={image} 
+          alt={title} 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        <h3 className="absolute bottom-4 left-6 text-2xl font-bold text-white">{title}</h3>
       </div>
-      <h3 className="text-xl font-semibold text-foreground mb-2">{title}</h3>
       <p className="text-muted-foreground mb-6 flex-1">{subtitle}</p>
       <Button variant="outline-primary" asChild className="w-full">
         <Link to={href}>{buttonText}</Link>

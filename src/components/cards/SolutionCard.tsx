@@ -29,7 +29,7 @@ export function SolutionCard({
       <p className="text-sm text-muted-foreground mb-4 flex-1">{description}</p>
       <Button variant="ghost" className="justify-start p-0 h-auto text-primary hover:text-primary/80" asChild>
         <a href={buttonHref} target="_blank" rel="noopener noreferrer">
-          {buttonText} →
+          {buttonText}
         </a>
       </Button>
     </div>

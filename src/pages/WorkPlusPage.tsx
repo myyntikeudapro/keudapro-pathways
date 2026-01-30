@@ -33,7 +33,7 @@ const solutions = [
     buttonText: "Katso palvelu",
   },
   {
-    title: "Work+ sparraus",
+    title: "NOSTE-sparraus",
     description: "Ohjattu suunnitelma seuraavaan siirtymään.",
     icon: MessageSquare,
     buttonText: "Varaa sparraus",
@@ -52,8 +52,8 @@ const WorkPlusPage = () => {
       {/* Hero */}
       <HeroSection
         tagline="Reitti työhön, yrittäjyyteen ja siirtymiin"
-        title="Work+"
-        description="Kun tärkeintä on päästä liikkeelle – Work+ auttaa rakentamaan konkreettisen polun."
+        title="NOSTE"
+        description="Kun tärkeintä on päästä liikkeelle – NOSTE auttaa rakentamaan konkreettisen polun."
       />
 
       {/* Kenelle tämä on? */}

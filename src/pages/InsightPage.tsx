@@ -52,8 +52,8 @@ const InsightPage = () => {
       {/* Hero */}
       <HeroSection
         tagline="Osaaminen ja rooli uuteen vaiheeseen"
-        title="Insight+"
-        description="Kun työ muuttuu nopeammin kuin roolisi – Insight+ auttaa kirkastamaan suunnan."
+        title="ÄLY"
+        description="Kun työ muuttuu nopeammin kuin roolisi – ÄLY auttaa kirkastamaan suunnan."
       />
 
       {/* Kenelle tämä on? */}
