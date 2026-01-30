@@ -139,7 +139,7 @@ const GrowthPage = () => {
       {/* Hero */}
       <HeroSection
         tagline="Yritysten ja yhteisöjen uudistuminen"
-        title="Growth+"
+        title="KASVU"
         description="Kestävä kasvu syntyy ihmisistä, osaamisesta ja toimivista rakenteista."
       />
 
@@ -192,7 +192,7 @@ const GrowthPage = () => {
                           href="#" 
                           className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
                         >
-                          {item.buttonText} →
+                          {item.buttonText}
                         </a>
                       </div>
                     </div>

@@ -2,26 +2,29 @@ import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/shared/HeroSection";
 import { RouteCard } from "@/components/cards/RouteCard";
 import { CTASection } from "@/components/shared/CTASection";
-import { Lightbulb, Briefcase, TrendingUp } from "lucide-react";
+
+import routeAly from "@/assets/route-aly.jpg";
+import routeNoste from "@/assets/route-noste.jpg";
+import routeKasvu from "@/assets/route-kasvu.jpg";
 
 const routes = [
   {
-    title: "Insight+",
+    title: "ÄLY",
     subtitle: "Osaaminen ja rooli uuteen vaiheeseen",
-    icon: Lightbulb,
-    href: "/insight",
+    image: routeAly,
+    href: "/aly",
   },
   {
-    title: "Work+",
+    title: "NOSTE",
     subtitle: "Reitti työhön, yrittäjyyteen ja siirtymiin",
-    icon: Briefcase,
-    href: "/workplus",
+    image: routeNoste,
+    href: "/noste",
   },
   {
-    title: "Growth+",
+    title: "KASVU",
     subtitle: "Yritysten ja yhteisöjen uudistuminen",
-    icon: TrendingUp,
-    href: "/growth",
+    image: routeKasvu,
+    href: "/kasvu",
   },
 ];
 
@@ -44,7 +47,7 @@ const Index = () => {
                 key={route.href}
                 title={route.title}
                 subtitle={route.subtitle}
-                icon={route.icon}
+                image={route.image}
                 href={route.href}
               />
             ))}
