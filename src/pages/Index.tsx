@@ -1,7 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/shared/HeroSection";
 import { RouteCard } from "@/components/cards/RouteCard";
-import { CTASection } from "@/components/shared/CTASection";
 
 import routeAly from "@/assets/route-aly.jpg";
 import routeNoste from "@/assets/route-noste.jpg";
@@ -64,9 +63,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* Wide CTA Section */}
-      <CTASection />
     </Layout>
   );
 };
