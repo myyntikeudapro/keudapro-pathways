@@ -54,7 +54,7 @@ const Index = () => {
 
           {/* Bridge Text */}
           <div className="mt-16 text-center max-w-2xl mx-auto">
-            <p className="text-lg text-muted-foreground mb-3">
+            <p className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
               KUUMA-seutu kasvun alustana osaajille ja yrityksille.
             </p>
             <p className="text-muted-foreground">
