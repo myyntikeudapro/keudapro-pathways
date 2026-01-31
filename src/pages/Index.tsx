@@ -33,7 +33,7 @@ const Index = () => {
       {/* Hero Section */}
       <HeroSection
         title="Valitse reitti muutoksessa"
-        description="Kolme reittiä – yksi operaattori. Löydä tilanteeseesi sopiva tapa vahvistaa markkina-arvoa ja suuntaa."
+        description="Kolme reittiä – yksi operaattori. Löydä omaan tai yrityksesi tilanteeseen sopiva tapa vahvistaa osaamista, markkina-arvoa ja suuntaa."
         variant="home"
       />
 
