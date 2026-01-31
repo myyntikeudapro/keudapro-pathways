@@ -1,26 +1,30 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { CTASection } from "@/components/shared/CTASection";
-import { Network, ArrowRightLeft, Users, Building2 } from "lucide-react";
+
+import operatorNetwork from "@/assets/operator-network.jpg";
+import operatorTransitions from "@/assets/operator-transitions.jpg";
+import operatorPersonal from "@/assets/operator-personal.jpg";
+import operatorKuuma from "@/assets/operator-kuuma.jpg";
 
 const features = [
   {
-    icon: Network,
+    image: operatorNetwork,
     title: "Osaamisen verkosto",
     description: "Yhdistämme osaajat, yritykset ja koulutusorganisaatiot toimivaksi ekosysteemiksi.",
   },
   {
-    icon: ArrowRightLeft,
+    image: operatorTransitions,
     title: "Siirtymien tuki",
     description: "Autamme navigoimaan työelämän muutoksissa – oli kyse uramuutoksesta tai organisaation kehityksestä.",
   },
   {
-    icon: Users,
+    image: operatorPersonal,
     title: "Yksilölliset reitit",
     description: "Jokainen tilanne on erilainen. Räätälöimme ratkaisut tarpeiden mukaan.",
   },
   {
-    icon: Building2,
+    image: operatorKuuma,
     title: "KUUMA-seudun vahvuus",
     description: "Toimimme osana kasvavaa KUUMA-seutua, lähellä pääkaupunkiseutua.",
   },
@@ -79,11 +83,15 @@ const OperaattoriPage = () => {
           <SectionHeading title="Miksi KeudaPRO?" centered />
           <div className="grid md:grid-cols-2 gap-6 mt-12">
             {features.map((feature) => (
-              <div key={feature.title} className="keuda-card-static flex gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent flex items-center justify-center">
-                  <feature.icon className="w-6 h-6 text-primary" />
+              <div key={feature.title} className="keuda-card-enhanced overflow-hidden">
+                <div className="aspect-[16/9] overflow-hidden">
+                  <img 
+                    src={feature.image} 
+                    alt={feature.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div>
+                <div className="p-6">
                   <h3 className="font-semibold text-foreground mb-2">{feature.title}</h3>
                   <p className="text-sm text-muted-foreground">{feature.description}</p>
                 </div>
