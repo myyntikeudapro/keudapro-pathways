@@ -1,15 +1,33 @@
+import kuumaLogo from "@/assets/logo-kuuma.svg";
+
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-muted/30">
-      <div className="keuda-container py-8">
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-center">
-            <p className="font-bold text-foreground mb-1">KUUMA-seutu</p>
-            <p className="text-xs text-muted-foreground">
+    <footer className="border-t border-border">
+      {/* KUUMA-seutu Section */}
+      <div className="bg-muted/50 py-6">
+        <div className="keuda-container">
+          <a 
+            href="https://kuuma.fi" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex flex-col items-center gap-3 hover:opacity-80 transition-opacity"
+          >
+            <img 
+              src={kuumaLogo} 
+              alt="KUUMA-seutu" 
+              className="h-12 md:h-14"
+            />
+            <p className="text-xs text-muted-foreground text-center">
               Hyvinkää, Järvenpää, Kerava, Kirkkonummi, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula ja Vihti
             </p>
-          </div>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 w-full pt-4 border-t border-border">
+          </a>
+        </div>
+      </div>
+
+      {/* Main Footer */}
+      <div className="bg-muted/30 py-6">
+        <div className="keuda-container">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-foreground">
               <span className="font-bold">KeudaPRO</span> – osaamisen ja siirtymien operaattori.
             </p>
