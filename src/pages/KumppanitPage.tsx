@@ -1,26 +1,30 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { CTASection } from "@/components/shared/CTASection";
-import { Handshake, School, Building, Globe } from "lucide-react";
+
+import partnerEducation from "@/assets/partner-education.jpg";
+import partnerBusiness from "@/assets/partner-business.jpg";
+import partnerPublic from "@/assets/partner-public.jpg";
+import partnerNetwork from "@/assets/partner-network.jpg";
 
 const partnerCategories = [
   {
-    icon: School,
+    image: partnerEducation,
     title: "Koulutusorganisaatiot",
     description: "Teemme yhteistyötä korkeakoulujen, ammattikorkeakoulujen ja muiden koulutusorganisaatioiden kanssa.",
   },
   {
-    icon: Building,
+    image: partnerBusiness,
     title: "Yritykset ja yhteisöt",
     description: "Kumppanuudet yritysten kanssa mahdollistavat työelämälähtöisen osaamisen kehittämisen.",
   },
   {
-    icon: Globe,
+    image: partnerPublic,
     title: "Julkinen sektori",
     description: "Yhteistyö kuntien ja valtion toimijoiden kanssa alueellisen elinvoiman vahvistamiseksi.",
   },
   {
-    icon: Handshake,
+    image: partnerNetwork,
     title: "Verkostot",
     description: "Olemme osa laajempia osaamisen ja työllisyyden verkostoja KUUMA-seudulla ja valtakunnallisesti.",
   },
@@ -50,11 +54,15 @@ const KumppanitPage = () => {
           <SectionHeading title="Kumppanuuden muodot" centered />
           <div className="grid md:grid-cols-2 gap-6 mt-12">
             {partnerCategories.map((category) => (
-              <div key={category.title} className="keuda-card-static flex gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent flex items-center justify-center">
-                  <category.icon className="w-6 h-6 text-primary" />
+              <div key={category.title} className="keuda-card-enhanced overflow-hidden">
+                <div className="aspect-[16/9] overflow-hidden">
+                  <img 
+                    src={category.image} 
+                    alt={category.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div>
+                <div className="p-6">
                   <h3 className="font-semibold text-foreground mb-2">{category.title}</h3>
                   <p className="text-sm text-muted-foreground">{category.description}</p>
                 </div>
