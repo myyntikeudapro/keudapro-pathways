@@ -18,7 +18,7 @@ export function HeroSection({
   variant = "page",
 }: HeroSectionProps) {
   return (
-    <section className={`${variant === "home" ? "py-20 md:py-28" : "py-16 md:py-20"} bg-gradient-to-b from-accent/50 to-background`}>
+    <section className={`${variant === "home" ? "pt-20 pb-10 md:pt-28 md:pb-14" : "py-16 md:py-20"} bg-gradient-to-b from-accent/50 to-background`}>
       <div className="keuda-container">
         <div className="max-w-3xl mx-auto text-center">
           {tagline && (
