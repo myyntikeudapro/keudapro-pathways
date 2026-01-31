@@ -7,7 +7,7 @@ export function Footer() {
       <div className="bg-muted/50 py-6">
         <div className="keuda-container">
           <a 
-            href="https://kuuma.fi" 
+            href="https://www.kuuma.fi" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex flex-col items-center gap-3 hover:opacity-80 transition-opacity"
