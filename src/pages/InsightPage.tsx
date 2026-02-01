@@ -162,27 +162,34 @@ const InsightPage = () => {
             <div className="hidden md:flex items-center justify-center gap-0">
               {steps.map((step, index) => (
                 <div key={index} className="flex items-center">
-                  {/* Step box with arrow shape */}
-                  <div className="relative">
-                    <div 
-                      className={`
-                        relative flex items-center gap-4 px-8 py-6 min-w-[280px]
-                        ${index === 0 ? 'rounded-l-xl' : ''}
-                        ${index === steps.length - 1 ? 'rounded-r-xl' : ''}
-                        bg-card border-2 border-primary/20 shadow-lg
-                      `}
-                    >
-                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-md">
-                        <span className="text-primary-foreground font-bold text-lg">{index + 1}</span>
-                      </div>
-                      <p className="text-foreground font-semibold">{step}</p>
+                  {/* Process step box - chevron shape */}
+                  <div 
+                    className={`
+                      relative flex items-center min-w-[300px] h-28
+                      bg-gradient-to-br from-primary/5 to-primary/15 
+                      border-2 border-primary/30
+                      ${index === 0 ? 'rounded-l-2xl' : 'rounded-l-none'}
+                      ${index === steps.length - 1 ? 'rounded-r-2xl' : 'rounded-r-none'}
+                      ${index > 0 ? '-ml-2' : ''}
+                    `}
+                    style={{
+                      clipPath: index < steps.length - 1 
+                        ? 'polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%, 20px 50%)'
+                        : index === 0 
+                          ? 'polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%)'
+                          : 'polygon(0 0, 100% 0, 100% 100%, 0 100%, 20px 50%)'
+                    }}
+                  >
+                    <div className="flex items-center gap-4 px-8 pl-10">
+                      <span className="text-5xl font-bold text-primary/80">{index + 1}</span>
+                      <p className="text-foreground font-semibold text-base leading-tight">{step}</p>
                     </div>
                   </div>
                   {/* Arrow between steps */}
                   {index < steps.length - 1 && (
-                    <div className="flex items-center -mx-1 z-10">
-                      <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center shadow-lg">
-                        <ArrowRight className="w-6 h-6 text-secondary-foreground" />
+                    <div className="flex items-center -mx-3 z-10">
+                      <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center shadow-lg">
+                        <ChevronRight className="w-5 h-5 text-secondary-foreground" />
                       </div>
                     </div>
                   )}
@@ -191,21 +198,26 @@ const InsightPage = () => {
             </div>
 
             {/* Mobile: Vertical flow */}
-            <div className="md:hidden flex flex-col items-center gap-4">
+            <div className="md:hidden flex flex-col items-center gap-0">
               {steps.map((step, index) => (
                 <div key={index} className="w-full">
-                  <div className="bg-card border-2 border-primary/20 rounded-xl p-5 shadow-lg">
+                  <div 
+                    className={`
+                      bg-gradient-to-br from-primary/5 to-primary/15 
+                      border-2 border-primary/30 p-6
+                      ${index === 0 ? 'rounded-t-2xl' : 'rounded-t-none border-t-0'}
+                      ${index === steps.length - 1 ? 'rounded-b-2xl' : 'rounded-b-none'}
+                    `}
+                  >
                     <div className="flex items-center gap-4">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                        <span className="text-primary-foreground font-bold text-lg">{index + 1}</span>
-                      </div>
+                      <span className="text-5xl font-bold text-primary/80">{index + 1}</span>
                       <p className="text-foreground font-semibold">{step}</p>
                     </div>
                   </div>
                   {index < steps.length - 1 && (
-                    <div className="flex justify-center py-3">
-                      <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center shadow-md">
-                        <ArrowRight className="w-5 h-5 text-secondary-foreground rotate-90" />
+                    <div className="flex justify-center -my-3 z-10 relative">
+                      <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center shadow-md">
+                        <ChevronRight className="w-5 h-5 text-secondary-foreground rotate-90" />
                       </div>
                     </div>
                   )}
