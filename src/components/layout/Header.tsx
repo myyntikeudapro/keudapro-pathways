@@ -6,7 +6,7 @@ import { useState } from "react";
 const navItems = [
   { label: "Reitit", href: "/" },
   { label: "Operaattori", href: "/operaattori" },
-  { label: "Kumppanit", href: "/kumppanit" },
+  { label: "Toimijaverkosto", href: "/kumppanit" },
   { label: "Ota yhteyttä", href: "/yhteystiedot" },
 ];
 
