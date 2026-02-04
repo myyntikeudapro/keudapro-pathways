@@ -54,7 +54,7 @@ const KumppanitPage = () => {
           <div className="grid md:grid-cols-2 gap-6">
             {partnerCategories.map((category) => (
               <div key={category.title} className="keuda-card-enhanced overflow-hidden">
-                <div className="aspect-[16/9] overflow-hidden">
+                <div className="aspect-[2/1] overflow-hidden">
                   <img 
                     src={category.image} 
                     alt={category.title}
