@@ -1,5 +1,4 @@
 import { Layout } from "@/components/layout/Layout";
-import { SectionHeading } from "@/components/shared/SectionHeading";
 import { CTASection } from "@/components/shared/CTASection";
 
 import partnerEducation from "@/assets/partner-education.jpg";
@@ -34,7 +33,7 @@ const KumppanitPage = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="py-20 md:py-28 bg-gradient-to-b from-accent/50 to-background">
+      <section className="py-16 md:py-20 bg-gradient-to-b from-accent/50 to-background">
         <div className="keuda-container">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -49,7 +48,7 @@ const KumppanitPage = () => {
       </section>
 
       {/* Partner Categories */}
-      <section className="py-12 md:py-16">
+      <section className="py-8 md:py-12">
         <div className="keuda-container">
           <div className="grid md:grid-cols-2 gap-6">
             {partnerCategories.map((category) => (
@@ -71,21 +70,8 @@ const KumppanitPage = () => {
         </div>
       </section>
 
-      {/* Become a Partner */}
-      <section className="keuda-section bg-muted/30">
-        <div className="keuda-container">
-          <div className="max-w-2xl mx-auto text-center">
-            <SectionHeading 
-              title="Haluatko toimijaksi verkostoon?" 
-              subtitle="Olemme aina kiinnostuneita uusista toimijoista. Ota yhteyttä ja keskustellaan, miten voit liittyä osaksi verkostoamme."
-              centered 
-            />
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
-      <CTASection title="Kiinnostaako verkostoon liittyminen?" buttonText="Ota yhteyttä" />
+      <CTASection title="Haluatko toimijaksi verkostoon?" buttonText="Ota yhteyttä" />
     </Layout>
   );
 };
