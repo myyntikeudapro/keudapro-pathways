@@ -76,8 +76,8 @@ const KumppanitPage = () => {
         <div className="keuda-container">
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeading 
-              title="Haluatko kumppaniksi?" 
-              subtitle="Olemme aina kiinnostuneita uusista kumppanuuksista. Ota yhteyttä ja keskustellaan, miten voimme tehdä yhteistyötä."
+              title="Haluatko toimijaksi verkostoon?" 
+              subtitle="Olemme aina kiinnostuneita uusista toimijoista. Ota yhteyttä ja keskustellaan, miten voit liittyä osaksi verkostoamme."
               centered 
             />
           </div>
@@ -85,7 +85,7 @@ const KumppanitPage = () => {
       </section>
 
       {/* CTA */}
-      <CTASection title="Kiinnostaako kumppanuus?" buttonText="Ota yhteyttä" />
+      <CTASection title="Kiinnostaako verkostoon liittyminen?" buttonText="Ota yhteyttä" />
     </Layout>
   );
 };
