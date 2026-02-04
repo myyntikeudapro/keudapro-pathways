@@ -38,7 +38,7 @@ const KumppanitPage = () => {
         <div className="keuda-container">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Kumppanit
+              Toimijaverkosto
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
               KeudaPRO toimii verkostomaisesti – yhdessä kumppaneiden kanssa rakennamme 
@@ -49,10 +49,9 @@ const KumppanitPage = () => {
       </section>
 
       {/* Partner Categories */}
-      <section className="keuda-section">
+      <section className="py-12 md:py-16">
         <div className="keuda-container">
-          <SectionHeading title="Kumppanuuden muodot" centered />
-          <div className="grid md:grid-cols-2 gap-6 mt-12">
+          <div className="grid md:grid-cols-2 gap-6">
             {partnerCategories.map((category) => (
               <div key={category.title} className="keuda-card-enhanced overflow-hidden">
                 <div className="aspect-[16/9] overflow-hidden">
