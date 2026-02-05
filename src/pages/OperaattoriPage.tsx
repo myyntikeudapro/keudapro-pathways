@@ -1,6 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { CTASection } from "@/components/shared/CTASection";
 
 import operatorNetwork from "@/assets/operator-network.jpg";
 import operatorTransitions from "@/assets/operator-transitions.jpg";
@@ -37,9 +36,6 @@ const OperaattoriPage = () => {
       <section className="py-20 md:py-28 bg-gradient-to-b from-accent/50 to-background">
         <div className="keuda-container">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm font-medium text-primary uppercase tracking-wide mb-3">
-              KeudaPRO
-            </p>
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               Osaamisen ja siirtymien operaattori
             </h1>
@@ -47,6 +43,29 @@ const OperaattoriPage = () => {
               KeudaPRO on uudenlainen toimija, joka yhdistää osaamisen kehittämisen, 
               työelämän siirtymät ja organisaatioiden uudistumisen yhdeksi kokonaisuudeksi.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="keuda-section bg-muted/30">
+        <div className="keuda-container">
+          <div className="grid md:grid-cols-2 gap-6">
+            {features.map((feature) => (
+              <div key={feature.title} className="keuda-card-enhanced overflow-hidden">
+                <div className="aspect-[16/9] overflow-hidden">
+                  <img 
+                    src={feature.image} 
+                    alt={feature.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-semibold text-foreground mb-2">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -76,33 +95,6 @@ const OperaattoriPage = () => {
           </div>
         </div>
       </section>
-
-      {/* Features */}
-      <section className="keuda-section bg-muted/30">
-        <div className="keuda-container">
-          <SectionHeading title="Miksi KeudaPRO?" centered />
-          <div className="grid md:grid-cols-2 gap-6 mt-12">
-            {features.map((feature) => (
-              <div key={feature.title} className="keuda-card-enhanced overflow-hidden">
-                <div className="aspect-[16/9] overflow-hidden">
-                  <img 
-                    src={feature.image} 
-                    alt={feature.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-semibold text-foreground mb-2">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <CTASection title="Kiinnostaako yhteistyö?" />
     </Layout>
   );
 };
