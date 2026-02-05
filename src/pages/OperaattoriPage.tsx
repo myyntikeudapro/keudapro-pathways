@@ -48,7 +48,7 @@ const OperaattoriPage = () => {
       </section>
 
       {/* Features */}
-      <section className="keuda-section bg-muted/30">
+      <section className="py-12 md:py-16 bg-muted/30">
         <div className="keuda-container">
           <div className="grid md:grid-cols-2 gap-6">
             {features.map((feature) => (
