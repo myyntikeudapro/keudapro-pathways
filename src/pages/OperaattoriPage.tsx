@@ -71,7 +71,7 @@ const OperaattoriPage = () => {
       </section>
 
       {/* Mitä operaattori tarkoittaa */}
-      <section className="keuda-section">
+      <section className="py-8 md:py-12">
         <div className="keuda-container">
           <div className="max-w-3xl mx-auto">
             <SectionHeading title="Mitä operaattori tarkoittaa?" />
