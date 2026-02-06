@@ -9,7 +9,7 @@ import routeKasvu from "@/assets/route-kasvu.jpg";
 const routes = [
   {
     title: "ÄLY",
-    subtitle: "Osaaminen ja rooli uuteen vaiheeseen",
+    subtitle: "Johtaminen, asiantuntijuus ja tekoäly päätöksenteon tukena",
     image: routeAly,
     href: "/aly",
   },
