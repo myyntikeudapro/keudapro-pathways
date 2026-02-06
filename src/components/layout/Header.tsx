@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import keudaproLogo from "@/assets/keudapro-logo.jpg";
 
 const navItems = [
   { label: "Reitit", href: "/" },
@@ -19,8 +20,8 @@ export function Header() {
       <div className="keuda-container">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold text-foreground">KeudaPRO</span>
+          <Link to="/" className="flex items-center">
+            <img src={keudaproLogo} alt="KeudaPRO" className="h-8" />
           </Link>
 
           {/* Desktop Navigation */}
