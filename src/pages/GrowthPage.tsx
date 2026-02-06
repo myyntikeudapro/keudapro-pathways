@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Button } from "@/components/ui/button";
@@ -11,436 +12,371 @@ import {
   Monitor, 
   UtensilsCrossed, 
   Leaf,
-  Rocket,
   TrendingUp,
-  RefreshCw,
-  Zap,
+  Megaphone,
+  Settings,
   Brain,
-  Package,
-  Globe,
-  Compass,
-  ChevronRight,
-  Quote,
-  CheckCircle2,
-  BarChart3,
+  RefreshCw,
+  ShoppingCart,
   Target,
-  Users
+  Package,
+  Calculator,
+  Users,
+  Wrench,
+  Cpu,
+  UserPlus,
+  ChevronDown,
+  Quote,
+  Clock,
+  ArrowRight
 } from "lucide-react";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
-const pullonkaulat = [
-  "päätöksenteon varovaisuus ja epävarmuus investoinneista",
-  "myynnin ja markkinoinnin käytännön osaamisvaje",
-  "digitaaliset työkalut ja tekoäly jäävät hyödyntämättä arjessa",
-  "talous- ja rahoitusosaamisen puutteet epävarmoina aikoina",
-  "kasvun johtamisen ja prosessien puutteet",
-  "vaikeus muuttaa kehitysideoita teoiksi",
-];
-
-const osaamistarpeetNyt = [
-  "liiketoiminnan perusymmärrys ja talouden hallinta",
-  "asiakaspalvelu ja vuorovaikutus",
-  "palveluliiketoiminnan kehittäminen",
-  "aloitteellisuus, vastuu ja yrittäjämäinen ajattelu",
-  "osaaminen aloilla, joilla osaajapula kasvaa (sote, ICT, palvelut)",
-];
-
-const osaamistarpeet1to2 = [
-  "tekoälyn hyödyntäminen käytännön työssä",
-  "digitaalinen myynti ja markkinointi",
-  "asiakaskokemuksen johtaminen",
-  "talous- ja rahoitusosaaminen epävarmuuden keskellä",
-  "tuki alanvaihtajille ja uusille kasvualoille siirtyville",
-];
-
-const osaamistarpeet3to5 = [
-  "kestävä liiketoiminta ja vastuullisuus",
-  "TKI-osaaminen ja kehittämiskyvykkyys",
-  "ekosysteemit ja verkostomainen yhteistyö",
-  "omistajanvaihdokset ja yritysjärjestelyt",
-  "kansainvälistymisen valmiudet",
-];
-
-const steps = [
+const kasvupolut = [
   {
-    number: 1,
-    title: "Kartoitus ja tilannekuva",
-    description: "Tunnistamme kasvun esteet, osaamisvajeet ja kasvupotentiaalin.",
+    id: "myynti",
+    icon: TrendingUp,
+    title: "Myynti kasvuun",
+    bullets: [
+      "Myyntiprosessin rakentaminen",
+      "Asiakashankinnan tehostaminen",
+      "Tarjousten ja hinnoittelun kehittäminen",
+      "CRM ja myyntityökalut"
+    ]
   },
   {
-    number: 2,
-    title: "Kehityspolku ja kokeilu",
-    description: "Rakennetaan selkeä etenemissuunnitelma ja käynnistetään konkreettinen kokeilu.",
+    id: "markkinointi",
+    icon: Megaphone,
+    title: "Markkinointi ja näkyvyys",
+    bullets: [
+      "Digitaalinen markkinointi",
+      "Brändin ja viestinnän selkeytys",
+      "Sosiaalinen media ja sisällöt",
+      "Liidien generointi"
+    ]
   },
   {
-    number: 3,
-    title: "Ratkaisut ja toteutus",
-    description: "Kun suunta on selvä, viemme kehittämisen käytäntöön oikeilla työkaluilla ja osaajilla.",
+    id: "toiminta",
+    icon: Settings,
+    title: "Toiminnan tehostaminen",
+    bullets: [
+      "Prosessien optimointi",
+      "Tuotannon ja palvelun pullonkaulat",
+      "Kustannustehokkuus",
+      "Laadun varmistaminen"
+    ]
   },
+  {
+    id: "digi",
+    icon: Brain,
+    title: "Digiloikka ja tekoäly käyttöön",
+    bullets: [
+      "Tekoälypilotit käytäntöön",
+      "Automaatio ja työkalujen käyttöönotto",
+      "Digitaalinen asiakaskokemus",
+      "Data ja analytiikka"
+    ]
+  },
+  {
+    id: "uudistuminen",
+    icon: RefreshCw,
+    title: "Uusi suunta / omistajanvaihdos",
+    bullets: [
+      "Liiketoiminnan uudelleensuuntaus",
+      "Omistajanvaihdoksen valmistelu",
+      "Sukupolvenvaihdos",
+      "Strategian kirkastaminen"
+    ]
+  }
 ];
 
-const teknologiahubiItems = [
-  "tunnistaa ilmiöt, kasvualat ja kehitystarpeet",
-  "muodostaa alueellisen tilannekuvan ja yritysanalyysin",
-  "ohjaa yritykset oikeille kasvupoluille",
-  "yhdistää verkostot ja kehitystoimijat",
+const ratkaisukategoriat = [
+  { id: "myynti", icon: ShoppingCart, title: "Myynti ja asiakashankinta" },
+  { id: "markkinointi", icon: Target, title: "Markkinointi ja näkyvyys" },
+  { id: "tuotteistus", icon: Package, title: "Tuotteistus ja palvelukehitys" },
+  { id: "talous", icon: Calculator, title: "Talous ja kannattavuus" },
+  { id: "johtaminen", icon: Users, title: "Johtaminen ja esihenkilötyö" },
+  { id: "digi", icon: Wrench, title: "Digityökalut ja automaatio" },
+  { id: "ai", icon: Cpu, title: "Tekoäly käytäntöön (AI-pilotit)" },
+  { id: "rekry", icon: UserPlus, title: "Rekrytointi ja osaamisen varmistaminen" }
 ];
 
-const keudaproItems = [
-  "toteuttaa kehittämisen käytännössä",
-  "rakentaa osaamista ja toimintamalleja",
-  "tuottaa valmennukset, pilotit ja sparrauksen",
-  "mahdollistaa kehitysprojektit ja kokeilut",
-  "auttaa yritystä ottamaan digitalisaation ja tekoälyn käyttöön",
+const valmiitRatkaisut = [
+  {
+    nimi: "Kasvukartoitus",
+    kesto: "90 min",
+    bullets: ["Nykytilan ja pullonkaulojen tunnistus", "Kasvupotentiaalin arviointi", "Konkreettinen toimenpidesuunnitelma"]
+  },
+  {
+    nimi: "Myyntisprintti",
+    kesto: "2 viikkoa",
+    bullets: ["Myyntiprosessin rakentaminen", "Ensimmäiset uudet asiakkaat", "Työkalut ja mallit käyttöön"]
+  },
+  {
+    nimi: "Markkinoinnin selkeytys",
+    kesto: "1 kk",
+    bullets: ["Kohderyhmän ja viestien kirkastus", "Kanavavalinnat ja sisältösuunnitelma", "Mittarit ja seuranta"]
+  },
+  {
+    nimi: "AI-pilotti yritykselle",
+    kesto: "4 viikkoa",
+    bullets: ["Tekoälyn käyttömahdollisuuksien kartoitus", "Käytännön pilotti valittuun prosessiin", "Osaamisen siirto tiimille"]
+  }
 ];
 
 const kasvualat = [
-  { icon: Factory, label: "Teollisuus ja tuotanto" },
-  { icon: Building2, label: "Rakentaminen ja kiinteistöpalvelut" },
-  { icon: Truck, label: "Logistiikka ja kuljetus" },
+  { icon: Factory, label: "Teollisuus" },
+  { icon: Building2, label: "Rakentaminen" },
+  { icon: Truck, label: "Logistiikka" },
   { icon: ShoppingBag, label: "Kauppa ja palvelut" },
-  { icon: Briefcase, label: "Asiantuntija- ja yrityspalvelut" },
-  { icon: Heart, label: "Hyvinvointi- ja sote-palvelut" },
-  { icon: Monitor, label: "ICT ja digipalvelut" },
-  { icon: UtensilsCrossed, label: "Ruoka- ja elintarvikeala" },
-  { icon: Leaf, label: "Energia ja vihreä siirtymä" },
+  { icon: Briefcase, label: "Yrityspalvelut" },
+  { icon: Heart, label: "Sote ja hyvinvointi" },
+  { icon: Monitor, label: "ICT" },
+  { icon: UtensilsCrossed, label: "Ruoka-ala" },
+  { icon: Leaf, label: "Energia" }
 ];
 
-const yrittajyysPolut = [
-  { icon: Rocket, title: "Aloittava yrittäjä", description: "Perustukset, rohkeus ja ensimmäiset asiakkaat." },
-  { icon: TrendingUp, title: "Pk-yrityksen kasvu (5–25 hlö)", description: "Skaalaus, prosessit, johtaminen ja myynnin vahvistaminen." },
-  { icon: RefreshCw, title: "Omistajanvaihdos / sukupolvenvaihdos", description: "Uusi suunta ja jatkuvuuden varmistaminen." },
-  { icon: Zap, title: "Digiloikka", description: "Työkalut, automaatio ja toiminnan tehostaminen." },
-  { icon: Brain, title: "Tekoälypolku (AI käyttöön arjessa)", description: "Käytännön pilotit ja tekoälyn hyödyntäminen liiketoiminnassa." },
-  { icon: Package, title: "Tuote- ja palvelukehitys", description: "Uusi palvelu, konseptointi ja markkinatestit." },
-  { icon: Globe, title: "Kansainvälistyminen", description: "Verkostot, markkinat ja myynnin kanavat." },
-  { icon: Compass, title: "Uudistuminen ja suunnanmuutos", description: "Kasvun uudelleen rakentaminen murroksessa." },
-];
-
-const dataAnalyysiItems = [
-  "yrityskanta kunnittain ja toimialoittain",
-  "yritysten kokoluokat (henkilöstömäärä)",
-  "kasvupotentiaaliluokitukset",
-  "ammattisiirtymien ja osaajapulan suuntaviivat",
-  "toimialojen kehityssuunnat ja tarpeet",
-];
-
-const mitaYritysSaaItems = [
-  "selkeä kasvutilannekuva ja päätöksenteon tuki",
-  "konkreettinen kehityspolku ja prioriteetit",
-  "käytännön sparraus ja rohkeuden vahvistaminen",
-  "tuki myynnin, markkinoinnin ja asiakaskokemuksen kehittämiseen",
-  "digitalisaation ja tekoälyn käyttöönoton käytännön apu",
-  "mahdollisuus pilotteihin, projekteihin ja verkostoyhteistyöhön",
-  "tuki vastuullisuuteen, TKI-kehittämiseen ja omistajanvaihdoksiin",
-];
+const toimijat = ["Keuda", "KeudaPro", "Wolf Pro", "RTK"];
 
 const GrowthPage = () => {
+  const [openPolku, setOpenPolku] = useState<string | null>(null);
+
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-primary/5 via-background to-accent/20">
+      {/* 1) HERO */}
+      <section className="py-12 md:py-16 bg-gradient-to-br from-primary/5 via-background to-accent/20">
         <div className="keuda-container">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
               Kasvu ei synny sattumalta.<br />
               <span className="text-primary">Se rakennetaan.</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              KUUMA-alueen pienyrityksissä kasvun este ei ole halun puute – vaan rohkeuden, osaamisen ja käytännön toteutuksen puute.
-              Me autamme tunnistamaan kasvun mahdollisuudet ja viemään ne käytäntöön.
+            <p className="text-lg text-muted-foreground mb-6">
+              Autamme yrityksiä kasvattamaan myyntiä, näkyvyyttä ja toimintavarmuutta – käytännön ratkaisuilla.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button size="lg" className="text-base">
-                Aloita kasvukartoitus
-              </Button>
-              <Button size="lg" variant="outline" className="text-base">
-                Katso kasvun polut
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-4">
+              <Button size="lg">Varaa kasvukartoitus</Button>
+              <Button size="lg" variant="outline">Katso kasvupolut</Button>
             </div>
             <p className="text-sm text-muted-foreground">
-              Dataan perustuva tilannekuva – osaamisen vahvistaminen – konkreettiset ratkaisut
+              Tilannekuva → kasvureitti → toteutus.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Miksi kasvu tarvitsee tukea? */}
+      {/* 2) MIKSI KASVU JUMITTAA */}
       <section className="keuda-section">
         <div className="keuda-container">
           <SectionHeading title="Miksi kasvu tarvitsee tukea?" />
-          <div className="max-w-4xl mx-auto mt-8">
-            <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-4">
-              Kasvun pullonkaulat ovat tunnistettavissa – ja ratkaistavissa
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Keski-Uudenmaan yrityskanta painottuu vahvasti palvelualoihin. Tämä tarkoittaa, että kasvu syntyy usein asiakaskokemuksesta, myynnistä, vuorovaikutuksesta ja liiketoiminnan kehittämisestä – ei vain tuotteista.
-            </p>
-            <ul className="space-y-3 mb-8">
-              {pullonkaulat.map((item, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <ChevronRight className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground">{item}</span>
+          <div className="max-w-2xl mx-auto mt-6">
+            <ul className="space-y-2 mb-6">
+              {[
+                "Myynti ei ole systemaattista",
+                "Markkinointi ei tuota liidejä",
+                "Tekeminen jää suunnitelmaksi",
+                "Talouspäätökset epävarmoja",
+                "Digi ja tekoäly jää hyödyntämättä"
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-foreground">
+                  <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
+                  {item}
                 </li>
               ))}
             </ul>
-            <div className="bg-primary/5 border-l-4 border-primary p-6 rounded-r-lg">
-              <Quote className="w-8 h-8 text-primary/40 mb-2" />
-              <p className="text-lg font-medium text-foreground italic">
-                "Kasvu ei kaadu idean puutteeseen. Se kaatuu siihen, ettei kukaan auta toteuttamaan."
-              </p>
+            <div className="bg-primary/5 border-l-4 border-primary p-4 rounded-r-lg">
+              <div className="flex gap-2">
+                <Quote className="w-5 h-5 text-primary/50 flex-shrink-0" />
+                <p className="text-foreground font-medium italic">
+                  Kasvu kaatuu toteutukseen – ei ideaan.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Osaamistarpeiden kartta */}
+      {/* 3) VALITSE KASVUREITTI */}
       <section className="keuda-section bg-muted/30">
         <div className="keuda-container">
-          <SectionHeading title="Yritysten osaamistarpeet nyt ja tulevaisuudessa" />
-          <p className="text-center text-muted-foreground mt-4 mb-10 max-w-2xl mx-auto">
-            Kasvun tukeminen ei ole yksi palvelu – se on kyky vastata oikeisiin osaamistarpeisiin oikealla hetkellä.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Nyt */}
-            <div className="keuda-card-enhanced p-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                <Target className="w-6 h-6 text-primary" />
-              </div>
-              <h4 className="text-lg font-semibold text-foreground mb-4">Tärkeimmät osaamiset juuri nyt</h4>
-              <ul className="space-y-2">
-                {osaamistarpeetNyt.map((item, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {/* 1-2 vuotta */}
-            <div className="keuda-card-enhanced p-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                <TrendingUp className="w-6 h-6 text-primary" />
-              </div>
-              <h4 className="text-lg font-semibold text-foreground mb-4">Kasvavat osaamistarpeet (1–2 vuotta)</h4>
-              <ul className="space-y-2">
-                {osaamistarpeet1to2.map((item, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {/* 3-5 vuotta */}
-            <div className="keuda-card-enhanced p-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                <Compass className="w-6 h-6 text-primary" />
-              </div>
-              <h4 className="text-lg font-semibold text-foreground mb-4">Tulevaisuuden osaamistarpeet (3–5 vuotta)</h4>
-              <ul className="space-y-2">
-                {osaamistarpeet3to5.map((item, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <SectionHeading title="Valitse kasvureitti" />
+          <div className="max-w-3xl mx-auto mt-8 space-y-3">
+            {kasvupolut.map((polku) => (
+              <Collapsible
+                key={polku.id}
+                open={openPolku === polku.id}
+                onOpenChange={(open) => setOpenPolku(open ? polku.id : null)}
+              >
+                <CollapsibleTrigger asChild>
+                  <div className="keuda-card p-4 cursor-pointer hover:shadow-md transition-shadow">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <polku.icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <span className="font-semibold text-foreground">{polku.title}</span>
+                      </div>
+                      <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openPolku === polku.id ? 'rotate-180' : ''}`} />
+                    </div>
+                  </div>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="keuda-card mt-1 p-4 border-l-4 border-primary">
+                    <ul className="space-y-2 mb-4">
+                      {polku.bullets.map((b, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <ArrowRight className="w-3 h-3 text-primary" />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                    <Button size="sm" variant="outline">Näytä ratkaisut</Button>
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            ))}
           </div>
-          <p className="text-center text-lg font-semibold text-primary mt-10">
-            Kasvu syntyy, kun osaaminen ja toteutus kohtaavat.
-          </p>
         </div>
       </section>
 
-      {/* Miten Kasvu-reitti toimii? */}
+      {/* 4) RATKAISUTARJOTIN */}
       <section className="keuda-section">
         <div className="keuda-container">
-          <SectionHeading title="Kasvu-reitti etenee kolmessa vaiheessa" />
-          <div className="grid md:grid-cols-3 gap-6 mt-10">
-            {steps.map((step) => (
-              <div key={step.number} className="keuda-card-enhanced p-6 text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl font-bold text-primary">{step.number}</span>
+          <SectionHeading title="Ratkaisutarjotin – valitse mitä vahvistat" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">
+            {ratkaisukategoriat.map((kat) => (
+              <Dialog key={kat.id}>
+                <DialogTrigger asChild>
+                  <div className="keuda-card p-4 cursor-pointer hover:shadow-md hover:border-primary/30 transition-all text-center">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-2">
+                      <kat.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <span className="text-sm font-medium text-foreground">{kat.title}</span>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2">
+                      <kat.icon className="w-5 h-5 text-primary" />
+                      {kat.title}
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="grid sm:grid-cols-2 gap-4 mt-4">
+                    {valmiitRatkaisut.map((ratkaisu) => (
+                      <div key={ratkaisu.nimi} className="keuda-card p-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="font-semibold text-foreground">{ratkaisu.nimi}</h4>
+                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <Clock className="w-3 h-3" />
+                            {ratkaisu.kesto}
+                          </span>
+                        </div>
+                        <ul className="space-y-1 mb-3">
+                          {ratkaisu.bullets.map((b, i) => (
+                            <li key={i} className="text-xs text-muted-foreground flex items-start gap-1">
+                              <span className="text-primary">•</span>
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                        <Button size="sm" className="w-full">Ota yhteyttä</Button>
+                      </div>
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5) VALMIIT RATKAISUT - 4 nostoa */}
+      <section className="keuda-section bg-muted/30">
+        <div className="keuda-container">
+          <SectionHeading title="Suosituimmat ratkaisut" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+            {valmiitRatkaisut.map((ratkaisu) => (
+              <div key={ratkaisu.nimi} className="keuda-card-enhanced p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="font-semibold text-foreground">{ratkaisu.nimi}</h4>
                 </div>
-                <h4 className="text-lg font-semibold text-foreground mb-2">{step.title}</h4>
-                <p className="text-sm text-muted-foreground">{step.description}</p>
+                <div className="flex items-center gap-1 text-xs text-muted-foreground mb-3">
+                  <Clock className="w-3 h-3" />
+                  {ratkaisu.kesto}
+                </div>
+                <ul className="space-y-1 mb-4">
+                  {ratkaisu.bullets.map((b, i) => (
+                    <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+                <Button size="sm" variant="outline" className="w-full">Varaa</Button>
               </div>
             ))}
           </div>
-          <div className="text-center mt-10">
-            <Button size="lg">Varaa kasvukartoitus</Button>
-          </div>
         </div>
       </section>
 
-      {/* Hubi + KeudaPro */}
-      <section className="keuda-section bg-muted/30">
-        <div className="keuda-container">
-          <SectionHeading title="Hubi kartoittaa. KeudaPro toteuttaa." />
-          <div className="grid md:grid-cols-2 gap-8 mt-10">
-            {/* Teknologiahubi */}
-            <div className="keuda-card-enhanced p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="text-xl font-semibold text-foreground">Teknologiahubi</h4>
-              </div>
-              <ul className="space-y-3">
-                {teknologiahubiItems.map((item, index) => (
-                  <li key={index} className="flex items-start gap-2 text-muted-foreground">
-                    <ChevronRight className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {/* KeudaPro */}
-            <div className="keuda-card-enhanced p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Users className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="text-xl font-semibold text-foreground">KeudaPro (Pro-polku)</h4>
-              </div>
-              <ul className="space-y-3">
-                {keudaproItems.map((item, index) => (
-                  <li key={index} className="flex items-start gap-2 text-muted-foreground">
-                    <ChevronRight className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <p className="text-center text-lg font-semibold text-foreground mt-10 max-w-3xl mx-auto">
-            Kaikkea ei tarvitse tehdä itse. Mutta jotain pitää tehdä – ja me autamme aloittamaan.
-          </p>
-        </div>
-      </section>
-
-      {/* KUUMA-alueen kasvualat */}
+      {/* 6) KASVUALAT */}
       <section className="keuda-section">
         <div className="keuda-container">
-          <SectionHeading title="Kasvun kartta: KUUMA-alueen kasvualat" />
-          <p className="text-center text-muted-foreground mt-4 mb-10 max-w-3xl mx-auto">
-            Kasvu ei jakaudu tasaisesti. Tietyillä toimialoilla on enemmän yrityksiä, enemmän murrosta ja enemmän kasvupotentiaalia.
-            Siksi kohdistamme kehittämisen sinne, missä vaikutus on suurin.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <SectionHeading title="Kasvualat KUUMA-alueella" />
+          <div className="flex flex-wrap justify-center gap-3 mt-6">
             {kasvualat.map((ala) => (
-              <div key={ala.label} className="keuda-card p-4 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <ala.icon className="w-5 h-5 text-primary" />
-                </div>
+              <div key={ala.label} className="flex items-center gap-2 bg-muted/50 rounded-full px-4 py-2">
+                <ala.icon className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium text-foreground">{ala.label}</span>
               </div>
             ))}
           </div>
-          <p className="text-center text-primary font-semibold mt-8">
-            Kasvuala ei ole trendisana – se on dataan perustuva suunta.
-          </p>
         </div>
       </section>
 
-      {/* Yrittäjyyden polut */}
+      {/* 7) TOIMIJAVERKOSTO */}
       <section className="keuda-section bg-muted/30">
         <div className="keuda-container">
-          <SectionHeading title="Yrittäjyyden polut – kasvu ei tarkoita kaikille samaa" />
-          <p className="text-center text-muted-foreground mt-4 mb-10 max-w-2xl mx-auto">
-            Yritykset ovat eri vaiheissa. Siksi kasvun tukeminen rakennetaan eri poluiksi.
-          </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {yrittajyysPolut.map((polku) => (
-              <div key={polku.title} className="keuda-card-enhanced p-5">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                  <polku.icon className="w-5 h-5 text-primary" />
-                </div>
-                <h4 className="text-base font-semibold text-foreground mb-2">{polku.title}</h4>
-                <p className="text-sm text-muted-foreground">{polku.description}</p>
+          <SectionHeading title="Toteuttajat ja asiantuntijat" />
+          <div className="flex flex-wrap justify-center gap-6 mt-6">
+            {toimijat.map((nimi) => (
+              <div key={nimi} className="bg-background border border-border rounded-lg px-6 py-3">
+                <span className="font-semibold text-foreground">{nimi}</span>
               </div>
             ))}
           </div>
-          <p className="text-center text-lg font-semibold text-foreground mt-10">
-            Kasvu ei ole yksi reitti. Siksi meillä on polkuja.
-          </p>
         </div>
       </section>
 
-      {/* Data-analyysi */}
-      <section className="keuda-section">
+      {/* 8) FINAL CTA */}
+      <section className="py-12 md:py-16 bg-gradient-to-br from-primary/10 via-background to-accent/20">
         <div className="keuda-container">
-          <SectionHeading title="Emme arvaa – analysoimme yrityskannan" />
-          <p className="text-center text-muted-foreground mt-4 mb-8 max-w-2xl mx-auto">
-            Rakennamme KUUMA-alueen yrityksistä jatkuvasti päivittyvää tilannekuvaa, jotta kasvu voidaan kohdistaa oikein.
-          </p>
-          <div className="max-w-2xl mx-auto">
-            <ul className="space-y-3 mb-8">
-              {dataAnalyysiItems.map((item, index) => (
-                <li key={index} className="flex items-center gap-3 keuda-card p-4">
-                  <BarChart3 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 text-center">
-              <p className="text-lg font-semibold text-foreground">
-                Tämä tekee kasvusta mitattavaa, kohdennettua ja realistista.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mitä yritys saa? */}
-      <section className="keuda-section bg-muted/30">
-        <div className="keuda-container">
-          <SectionHeading title="Tuloksena ei ole raportti – vaan eteneminen" />
-          <div className="max-w-3xl mx-auto mt-8">
-            <div className="grid sm:grid-cols-2 gap-4">
-              {mitaYritysSaaItems.map((item, index) => (
-                <div key={index} className="flex items-start gap-3 keuda-card p-4">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground text-sm">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-background to-accent/20">
-        <div className="keuda-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Haluatko nähdä, missä kasvusi oikeasti piilee?
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              Haluatko tietää mistä teidän kasvu alkaa?
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Aloita kasvukartoituksella. Saat nopeasti selkeyden siihen, mikä estää kasvua, mitä osaamista tarvitaan ja mitä kannattaa tehdä seuraavaksi.
+            <p className="text-muted-foreground mb-6">
+              Aloita kasvukartoituksella ja saat selkeän etenemissuunnitelman.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-              <Button size="lg" className="text-base">
-                Varaa kasvukartoitus
-              </Button>
-              <Button size="lg" variant="outline" className="text-base">
-                Liity mukaan pilottiin
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-4">
+              <Button size="lg">Varaa kasvukartoitus</Button>
+              <Button size="lg" variant="outline">Liity mukaan pilottiin</Button>
             </div>
             <p className="text-sm text-muted-foreground">
-              Kartoitus ei sido mihinkään – mutta se voi avata uuden suunnan.
+              Kartoitus ei sido mihinkään.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* Footer mission line */}
-      <section className="py-8 bg-muted/50 border-t border-border">
-        <div className="keuda-container">
-          <p className="text-center text-muted-foreground">
-            <span className="font-semibold text-foreground">KeudaPro</span> – käytännön kasvua, osaamista ja ratkaisuja KUUMA-alueen yrityksille.
-          </p>
         </div>
       </section>
     </Layout>
