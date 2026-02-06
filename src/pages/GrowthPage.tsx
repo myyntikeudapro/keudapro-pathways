@@ -124,6 +124,7 @@ const ratkaisukategoriat = [
   { id: "markkinointi", title: "Markkinointi ja näkyvyys" },
   { id: "digi", title: "Digiloikka ja tekoäly yritykselle" },
   { id: "tuotteistus", title: "Tuotteistus ja palvelukehitys" },
+  { id: "kv", title: "Kansainvälisyys ja KV-rekrytointi", desc: "Kansainväliset osaajat ja toimintamallit" },
   { id: "kieli", title: "Kieli työpaikalla" },
   { id: "turvallisuus", title: "Turvallisuus ja lakisääteiset kortit" },
   { id: "vastuullisuus", title: "Vastuullisuus ja vihreä siirtymä" },
@@ -152,6 +153,11 @@ const karkiratkaisut = [
     nimi: "AI-pilotti yritykselle",
     kesto: "4 viikkoa",
     bullets: ["Tekoälyn käyttömahdollisuuksien kartoitus", "Käytännön pilotti valittuun prosessiin", "Osaamisen siirto tiimille"]
+  },
+  {
+    nimi: "KV-rekrytoinnin startti",
+    kesto: "2–4 viikkoa",
+    bullets: ["Kansainvälisen rekrytoinnin suunnitelma", "Perehdytys ja kulttuuriosaaminen", "KV-kortti ja lakisääteiset vaatimukset"]
   },
   {
     nimi: "Työpaikkasuomi",
