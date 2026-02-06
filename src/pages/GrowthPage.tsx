@@ -12,25 +12,9 @@ import {
   Monitor, 
   UtensilsCrossed, 
   Leaf,
-  TrendingUp,
-  Megaphone,
-  Settings,
-  Brain,
-  Users,
   ChevronDown,
   Clock,
   ArrowRight,
-  Target,
-  Compass,
-  Rocket,
-  Network,
-  Languages,
-  Shield,
-  Recycle,
-  GraduationCap,
-  RefreshCcw,
-  Package,
-  Lightbulb,
   CheckCircle2
 } from "lucide-react";
 import {
@@ -45,11 +29,40 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+// Kuvat
+import kasvuKirkastus from "@/assets/kasvu-kirkastus.jpg";
+import kasvuSprintit from "@/assets/kasvu-sprintit.jpg";
+import kasvuVerkosto from "@/assets/kasvu-verkosto.jpg";
+import kasvuMyynti from "@/assets/kasvu-myynti.jpg";
+import kasvuMarkkinointi from "@/assets/kasvu-markkinointi.jpg";
+import kasvuProsessit from "@/assets/kasvu-prosessit.jpg";
+import kasvuDigi from "@/assets/kasvu-digi.jpg";
+import kasvuUusivaihe from "@/assets/kasvu-uusivaihe.jpg";
+
+// 2️⃣ Ydinhyödyt
+const ydinhyodyt = [
+  {
+    image: kasvuKirkastus,
+    title: "Kasvun ja suunnan kirkastus",
+    desc: "Mihin yritys on menossa ja mitä osaamista se vaatii"
+  },
+  {
+    image: kasvuSprintit,
+    title: "Valmiit ratkaisut ja sprintit",
+    desc: "Ei pitkiä projekteja, vaan konkreettisia kokonaisuuksia"
+  },
+  {
+    image: kasvuVerkosto,
+    title: "Toteutus ja verkosto",
+    desc: "Koulutus, valmennus ja käytännön tuki samasta kokonaisuudesta"
+  }
+];
+
 // 3️⃣ Kasvupolut
 const kasvupolut = [
   {
     id: "myynti",
-    icon: TrendingUp,
+    image: kasvuMyynti,
     title: "Myynti kasvuun",
     bullets: [
       "Asiakashankinta ja myyntimallit",
@@ -60,7 +73,7 @@ const kasvupolut = [
   },
   {
     id: "markkinointi",
-    icon: Megaphone,
+    image: kasvuMarkkinointi,
     title: "Markkinointi ja näkyvyys",
     bullets: [
       "Viestin kirkastaminen",
@@ -71,7 +84,7 @@ const kasvupolut = [
   },
   {
     id: "prosessit",
-    icon: Settings,
+    image: kasvuProsessit,
     title: "Prosessit ja kannattavuus",
     bullets: [
       "Tekemisen selkeytys",
@@ -82,7 +95,7 @@ const kasvupolut = [
   },
   {
     id: "digi",
-    icon: Brain,
+    image: kasvuDigi,
     title: "Digiloikka ja tekoäly käyttöön",
     bullets: [
       "Liiketoiminnan tuki",
@@ -93,7 +106,7 @@ const kasvupolut = [
   },
   {
     id: "uusivaihe",
-    icon: Users,
+    image: kasvuUusivaihe,
     title: "Osaaminen, henkilöstö ja uusi vaihe",
     bullets: [
       "Kieli ja turvallisuus työpaikalla",
@@ -106,16 +119,16 @@ const kasvupolut = [
 
 // 4️⃣ Ratkaisukategoriat
 const ratkaisukategoriat = [
-  { id: "kartoitus", icon: Compass, title: "Kasvukartoitus ja suunnitelma" },
-  { id: "myynti", icon: TrendingUp, title: "Myynti ja asiakashankinta" },
-  { id: "markkinointi", icon: Target, title: "Markkinointi ja näkyvyys" },
-  { id: "digi", icon: Brain, title: "Digiloikka ja tekoäly yritykselle" },
-  { id: "tuotteistus", icon: Package, title: "Tuotteistus ja palvelukehitys" },
-  { id: "kieli", icon: Languages, title: "Kieli työpaikalla" },
-  { id: "turvallisuus", icon: Shield, title: "Turvallisuus ja lakisääteiset kortit" },
-  { id: "vastuullisuus", icon: Recycle, title: "Vastuullisuus ja vihreä siirtymä" },
-  { id: "toimiala", icon: GraduationCap, title: "Toimialakohtaiset lyhytkoulutukset" },
-  { id: "uusisuunta", icon: RefreshCcw, title: "Uusi suunta ja omistajanvaihdos", desc: "Osaamisen, vastuiden ja johtamisen siirtymä" }
+  { id: "kartoitus", title: "Kasvukartoitus ja suunnitelma" },
+  { id: "myynti", title: "Myynti ja asiakashankinta" },
+  { id: "markkinointi", title: "Markkinointi ja näkyvyys" },
+  { id: "digi", title: "Digiloikka ja tekoäly yritykselle" },
+  { id: "tuotteistus", title: "Tuotteistus ja palvelukehitys" },
+  { id: "kieli", title: "Kieli työpaikalla" },
+  { id: "turvallisuus", title: "Turvallisuus ja lakisääteiset kortit" },
+  { id: "vastuullisuus", title: "Vastuullisuus ja vihreä siirtymä" },
+  { id: "toimiala", title: "Toimialakohtaiset lyhytkoulutukset" },
+  { id: "uusisuunta", title: "Uusi suunta ja omistajanvaihdos", desc: "Osaamisen, vastuiden ja johtamisen siirtymä" }
 ];
 
 // 5️⃣ Kärkiratkaisut
@@ -228,33 +241,21 @@ const GrowthPage = () => {
         <div className="keuda-container">
           <SectionHeading title="Mitä KASVU-reitti tarjoaa yritykselle?" />
           <div className="grid md:grid-cols-3 gap-6 mt-8">
-            <div className="keuda-card-enhanced p-6 text-center">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <Compass className="w-6 h-6 text-primary" />
+            {ydinhyodyt.map((hyoty) => (
+              <div key={hyoty.title} className="keuda-card-enhanced overflow-hidden">
+                <div className="aspect-[16/9] overflow-hidden">
+                  <img 
+                    src={hyoty.image} 
+                    alt={hyoty.title} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-5 text-center">
+                  <h3 className="font-semibold text-foreground mb-2">{hyoty.title}</h3>
+                  <p className="text-sm text-muted-foreground">{hyoty.desc}</p>
+                </div>
               </div>
-              <h3 className="font-semibold text-foreground mb-2">Kasvun ja suunnan kirkastus</h3>
-              <p className="text-sm text-muted-foreground">
-                Mihin yritys on menossa ja mitä osaamista se vaatii
-              </p>
-            </div>
-            <div className="keuda-card-enhanced p-6 text-center">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <Rocket className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold text-foreground mb-2">Valmiit ratkaisut ja sprintit</h3>
-              <p className="text-sm text-muted-foreground">
-                Ei pitkiä projekteja, vaan konkreettisia kokonaisuuksia
-              </p>
-            </div>
-            <div className="keuda-card-enhanced p-6 text-center">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <Network className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold text-foreground mb-2">Toteutus ja verkosto</h3>
-              <p className="text-sm text-muted-foreground">
-                Koulutus, valmennus ja käytännön tuki samasta kokonaisuudesta
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -263,7 +264,7 @@ const GrowthPage = () => {
       <section className="keuda-section bg-muted/30">
         <div className="keuda-container">
           <SectionHeading title="Mitä haluat saada aikaan seuraavaksi?" />
-          <div className="max-w-3xl mx-auto mt-8 space-y-3">
+          <div className="max-w-4xl mx-auto mt-8 space-y-4">
             {kasvupolut.map((polku) => (
               <Collapsible
                 key={polku.id}
@@ -271,15 +272,19 @@ const GrowthPage = () => {
                 onOpenChange={(open) => setOpenPolku(open ? polku.id : null)}
               >
                 <CollapsibleTrigger asChild>
-                  <div className="keuda-card p-4 cursor-pointer hover:shadow-md transition-shadow">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                          <polku.icon className="w-5 h-5 text-primary" />
-                        </div>
-                        <span className="font-semibold text-foreground">{polku.title}</span>
+                  <div className="keuda-card p-0 cursor-pointer hover:shadow-md transition-shadow overflow-hidden">
+                    <div className="flex items-center">
+                      <div className="w-24 h-20 md:w-32 md:h-24 flex-shrink-0 overflow-hidden">
+                        <img 
+                          src={polku.image} 
+                          alt={polku.title} 
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${openPolku === polku.id ? 'rotate-180' : ''}`} />
+                      <div className="flex-1 flex items-center justify-between px-4 py-3">
+                        <span className="font-semibold text-foreground">{polku.title}</span>
+                        <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform flex-shrink-0 ${openPolku === polku.id ? 'rotate-180' : ''}`} />
+                      </div>
                     </div>
                   </div>
                 </CollapsibleTrigger>
@@ -312,9 +317,6 @@ const GrowthPage = () => {
                 key={kat.id} 
                 className="keuda-card p-4 hover:shadow-md hover:border-primary/30 transition-all text-center"
               >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-2">
-                  <kat.icon className="w-5 h-5 text-primary" />
-                </div>
                 <span className="text-sm font-medium text-foreground block">{kat.title}</span>
                 {kat.desc && (
                   <span className="text-xs text-muted-foreground mt-1 block">{kat.desc}</span>
@@ -361,9 +363,6 @@ const GrowthPage = () => {
       <section className="keuda-section">
         <div className="keuda-container">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Lightbulb className="w-6 h-6 text-primary" />
-            </div>
             <h2 className="text-2xl font-bold text-foreground mb-4">
               Kasvu ei ole yksittäinen koulutus
             </h2>
