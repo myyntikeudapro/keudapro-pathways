@@ -15,13 +15,13 @@ const routes = [
   },
   {
     title: "NOSTE",
-    subtitle: "Reitti työhön, yrittäjyyteen ja siirtymiin",
+    subtitle: "Työelämään, yrittäjyyteen ja muutokseen siirtyminen",
     image: routeNoste,
     href: "/noste",
   },
   {
     title: "KASVU",
-    subtitle: "Yritysten ja yhteisöjen uudistuminen",
+    subtitle: "Yrityksen kasvu, uudistuminen ja osaaminen käytäntöön",
     image: routeKasvu,
     href: "/kasvu",
   },
