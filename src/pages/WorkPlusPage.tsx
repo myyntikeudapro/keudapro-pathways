@@ -3,23 +3,27 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { 
-  Compass, 
-  Lightbulb, 
-  Rocket, 
-  Eye, 
-  FileText, 
-  MessageSquare, 
-  Map, 
-  Brain, 
-  Users, 
-  GraduationCap,
   ChevronDown,
   ChevronUp,
   ArrowRight,
   Clock,
-  Target,
   Sparkles
 } from "lucide-react";
+
+// Import path images
+import pathDirectionImg from "@/assets/noste-path-direction.jpg";
+import pathClarityImg from "@/assets/noste-path-clarity.jpg";
+import pathWorkImg from "@/assets/noste-path-work.jpg";
+
+// Import solution category images
+import skillsImg from "@/assets/noste-skills.jpg";
+import cvLinkedinImg from "@/assets/noste-cv-linkedin.jpg";
+import interviewImg from "@/assets/noste-interview.jpg";
+import careerImg from "@/assets/noste-career.jpg";
+import aiImg from "@/assets/noste-ai.jpg";
+import networkImg from "@/assets/noste-network.jpg";
+import transitionImg from "@/assets/noste-transition.jpg";
+import educationImg from "@/assets/noste-education.jpg";
 
 // Polkujen data
 const paths = [
@@ -28,7 +32,7 @@ const paths = [
     title: "Etsin suuntaa",
     subtitle: "Rinnalla kulkeva valmennus",
     description: "Kun työnhakutaidot tai työelämävalmiudet vaativat vahvaa ja pitkäjänteistä tukea.",
-    icon: Compass,
+    image: pathDirectionImg,
     bullets: ["Työelämätaidot", "Arjen rytmi", "Motivaatio", "Valmentajan tuki"],
     content: {
       items: [
@@ -48,7 +52,7 @@ const paths = [
     title: "Suunta kirkkaaksi",
     subtitle: "AI + valmennus",
     description: "Kun osaaminen on olemassa mutta suunta, profiili tai pitchaus vaatii kirkastamista.",
-    icon: Lightbulb,
+    image: pathClarityImg,
     bullets: ["Osaamisen kirkastus", "Profiili", "Pitchaus", "CV & LinkedIn", "AI-työkalut"],
     content: {
       items: [
@@ -67,7 +71,7 @@ const paths = [
     title: "Suoraan työelämään",
     subtitle: "Nopea ratkaisu",
     description: "Kun tavoitteena on nopea työllistyminen ja käytännön työkalut sekä työllistymiskanavat.",
-    icon: Rocket,
+    image: pathWorkImg,
     bullets: ["CV/pitchaus-työkalu", "Osaamiskartoitus", "Hakemukset", "Haastattelusparraus", "Henkilöstöratkaisut"],
     content: {
       items: [
@@ -88,49 +92,49 @@ const solutionCategories = [
   {
     id: "osaaminen",
     title: "Osaaminen näkyväksi",
-    icon: Eye,
+    image: skillsImg,
     solutions: ["Osaamiskartoitus", "Osaamisen tunnistaminen", "Portfolio-valmennus", "Näyttöjen valmistelu"]
   },
   {
     id: "cv-linkedin",
     title: "CV & LinkedIn kuntoon",
-    icon: FileText,
+    image: cvLinkedinImg,
     solutions: ["CV-paja", "LinkedIn-profiili", "Digitaalinen portfolio", "Personal branding"]
   },
   {
     id: "haastattelut",
     title: "Haastattelut ja itseluottamus",
-    icon: MessageSquare,
+    image: interviewImg,
     solutions: ["Haastattelusparraus", "Pitchaus-valmennus", "Esiintymistaito", "Itseluottamus-valmennus"]
   },
   {
     id: "urakartoitus",
     title: "Uusi suunta / urakartoitus",
-    icon: Map,
+    image: careerImg,
     solutions: ["Uravalmennus", "Suuntakartoitus", "Alanvaihto-ohjaus", "Tavoitteiden kirkastus"]
   },
   {
     id: "ai-osaaminen",
     title: "AI-osaaminen ja markkina-arvon nosto",
-    icon: Brain,
+    image: aiImg,
     solutions: ["AI-perusteet", "AI arjessa ja työssä", "Tekoälypätevyys", "Digitaidot"]
   },
   {
     id: "verkostot",
     title: "Verkostot ja kontaktit",
-    icon: Users,
+    image: networkImg,
     solutions: ["Verkostoitumistapahtumat", "Mentorointi", "Työnantajakontaktit", "Alumni-verkostot"]
   },
   {
     id: "siirtymapolut",
     title: "Ohjatut siirtymäpolut",
-    icon: Target,
+    image: transitionImg,
     solutions: ["Muutosturva-ohjelmat", "Siirtymävalmennus", "Työllistymispolut", "Jatkopolut"]
   },
   {
     id: "koulutus",
     title: "Koulutus ja mikrokoulutukset",
-    icon: GraduationCap,
+    image: educationImg,
     solutions: ["Mikrokoulutukset", "Täsmäkoulutukset", "Sertifikaatit", "Lyhytkoulutukset"]
   }
 ];
@@ -218,7 +222,6 @@ const WorkPlusPage = () => {
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {paths.map((path) => {
-              const IconComponent = path.icon;
               const isOpen = openPath === path.id;
               
               return (
@@ -231,8 +234,12 @@ const WorkPlusPage = () => {
                     }`}
                   >
                     <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10">
-                        <IconComponent className="w-7 h-7 text-primary" />
+                      <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                        <img 
+                          src={path.image} 
+                          alt={path.title}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <div className={`p-2 rounded-full transition-colors ${isOpen ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
                         {isOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
@@ -270,42 +277,43 @@ const WorkPlusPage = () => {
           {/* 3) POLKUJEN SISÄLLÖT */}
           {openPath && (
             <div className="mt-8 animate-in fade-in slide-in-from-top-4 duration-300">
-              {paths.filter(p => p.id === openPath).map((path) => {
-                const IconComponent = path.icon;
-                return (
-                  <div key={path.id} className="bg-card rounded-2xl border-2 border-primary/30 p-8 md:p-10">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10">
-                        <IconComponent className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold text-foreground">{path.title}</h3>
-                        <p className="text-primary font-medium">{path.subtitle}</p>
-                      </div>
+              {paths.filter(p => p.id === openPath).map((path) => (
+                <div key={path.id} className="bg-card rounded-2xl border-2 border-primary/30 p-8 md:p-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
+                      <img 
+                        src={path.image} 
+                        alt={path.title}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    
-                    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-                      {path.content.items.map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-3 p-4 rounded-xl bg-accent/50">
-                          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
-                            <span className="text-secondary-foreground font-semibold text-sm">{idx + 1}</span>
-                          </div>
-                          <span className="text-foreground font-medium">{item}</span>
-                        </div>
-                      ))}
-                    </div>
-                    
-                    <div className="flex justify-center">
-                      <Button variant="cta" size="lg" asChild>
-                        <a href={path.content.ctaHref}>
-                          {path.content.ctaText}
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </a>
-                      </Button>
+                    <div>
+                      <h3 className="text-2xl font-bold text-foreground">{path.title}</h3>
+                      <p className="text-primary font-medium">{path.subtitle}</p>
                     </div>
                   </div>
-                );
-              })}
+                  
+                  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                    {path.content.items.map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-3 p-4 rounded-xl bg-accent/50">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
+                          <span className="text-secondary-foreground font-semibold text-sm">{idx + 1}</span>
+                        </div>
+                        <span className="text-foreground font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="flex justify-center">
+                    <Button variant="cta" size="lg" asChild>
+                      <a href={path.content.ctaHref}>
+                        {path.content.ctaText}
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -325,7 +333,6 @@ const WorkPlusPage = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {solutionCategories.map((category) => {
-              const IconComponent = category.icon;
               const isOpen = openSolution === category.id;
               
               return (
@@ -337,8 +344,12 @@ const WorkPlusPage = () => {
                     }`}
                   >
                     <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-secondary/10">
-                        <IconComponent className="w-6 h-6 text-secondary" />
+                      <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
+                        <img 
+                          src={category.image} 
+                          alt={category.title}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <div className={`p-1.5 rounded-full transition-colors ${isOpen ? "bg-secondary text-secondary-foreground" : "bg-muted"}`}>
                         {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
