@@ -1,103 +1,107 @@
-import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
-interface Program {
-  title: string;
-  description?: string;
-  buttonText: string;
-  isComingSoon?: boolean;
-}
+import solutionAi from "@/assets/solution-ai.jpg";
+import solutionPath from "@/assets/solution-path.jpg";
+import solutionSkills from "@/assets/solution-skills.jpg";
 
-interface Category {
-  id: string;
-  title: string;
-  intro: string;
-  programs: Program[];
-}
-
-const categories: Category[] = [
+const programs = [
   {
     id: "valmennusohjelmat",
     title: "Johtamisen valmennusohjelmat",
-    intro: "Valmennusohjelmat strategiseen johtamiseen, esihenkilötyöhön ja osaamisen kehittämiseen.",
-    programs: [
-      { title: "Osaamisen johtamisen valmennusohjelma", buttonText: "Katso ohjelma" },
-      { title: "Johtamisen ja esihenkilötyön valmennukset", buttonText: "Lue lisää" },
-      { title: "Räätälöidyt valmennukset kunnille ja yrityksille", buttonText: "Ota yhteyttä" },
-      { title: "Puitesopimukset", buttonText: "Lue lisää" },
+    image: solutionPath,
+    description:
+      "Valmennusohjelmat strategiseen johtamiseen, esihenkilötyöhön ja osaamisen kehittämiseen – räätälöitynä tai avoimena.",
+    modules: [
+      { label: "Osaamisen johtamisen valmennusohjelma", href: "#osaamisen-johtaminen" },
+      { label: "Johtamisen ja esihenkilötyön valmennukset", href: "#esihenkilotyo" },
+      { label: "Räätälöidyt valmennukset kunnille ja yrityksille", href: "#raataloidyt" },
+      { label: "Puitesopimukset", href: "#puitesopimukset" },
+      { label: "Tutkintotavoitteiset ratkaisut (EAT & AT)", href: "#tutkinnot" },
     ],
+    ctaText: "Kysy lisää",
+    ctaHref: "#ota-yhteytta",
   },
   {
     id: "ai-ohjelmat",
     title: "Tekoälypätevyys-ohjelmat",
-    intro: "Rakennettu eri rooleille – strategiasta käyttöönottoon.",
-    programs: [
-      { title: "AI-Director", description: "Strateginen tekoälyjohtaminen", buttonText: "Katso ohjelma" },
-      { title: "AI-Manager", description: "Tekoäly johtamistyössä", buttonText: "Katso ohjelma" },
-      { title: "AI-Coordinator", description: "Tekoälyn koordinointi ja käyttöönotto", buttonText: "Katso ohjelma" },
-      { title: "AI-Kaksonen", description: "Johtajan ja asiantuntijan AI & uudistuminen", buttonText: "Katso ohjelma" },
-      { title: "Hyper Engineering", description: "Uusi valmennusohjelma", buttonText: "Lue lisää" },
-      { title: "Yrittäjä AI -ohjelma", buttonText: "Ilmoita kiinnostus", isComingSoon: true },
+    image: solutionAi,
+    description:
+      "Rakennettu eri rooleille – strategiasta käyttöönottoon. Valitse oma tasosi ja kehitä tekoälyosaamista.",
+    modules: [
+      { label: "AI-Director – Strateginen tekoälyjohtaminen", href: "#ai-director" },
+      { label: "AI-Manager – Tekoäly johtamistyössä", href: "#ai-manager" },
+      { label: "AI-Coordinator – Käyttöönotto ja koordinointi", href: "#ai-coordinator" },
+      { label: "AI-Kaksonen – Johtajan ja asiantuntijan AI", href: "#ai-kaksonen" },
+      { label: "Hyper Engineering – Uusi valmennusohjelma", href: "#hyper-engineering" },
+      { label: "Yrittäjä AI -ohjelma (tulossa)", href: "#yrittaja-ai" },
     ],
+    ctaText: "Katso ohjelmat",
+    ctaHref: "#ai-ohjelmat",
   },
   {
     id: "turvallisuus",
     title: "Turvallisuusjohtaminen",
-    intro: "Turvallisuus osa johtamista ja vastuullista organisaatiota.",
-    programs: [
-      { title: "Turvallisuuspäällikön valmennusohjelma", buttonText: "Katso ohjelma" },
-      { title: "Turvallisuusasiantuntijan valmennusohjelma", buttonText: "Katso ohjelma" },
-      { title: "Turvallisuusjohtajan valmennusohjelma (ml. AI)", description: "Tulossa syksyllä 2026", buttonText: "Ilmoita kiinnostus", isComingSoon: true },
+    image: solutionSkills,
+    description:
+      "Turvallisuus osaksi johtamista ja vastuullista organisaatiota. Ohjelmat turvallisuuspäälliköille, -asiantuntijoille ja -johtajille.",
+    modules: [
+      { label: "Turvallisuuspäällikön valmennusohjelma", href: "#turvallisuuspaallikko" },
+      { label: "Turvallisuusasiantuntijan valmennusohjelma", href: "#turvallisuusasiantuntija" },
+      { label: "Turvallisuusjohtajan valmennusohjelma ml. AI (tulossa)", href: "#turvallisuusjohtaja" },
     ],
-  },
-  {
-    id: "tutkinnot",
-    title: "Tutkintotavoitteiset ratkaisut",
-    intro: "Yrityskohtaiset ratkaisut osana tutkintoja.",
-    programs: [
-      { title: "Johtamisen EAT ja Lähiesimiestyön AT -ratkaisut yrityksille", buttonText: "Lue lisää" },
-    ],
+    ctaText: "Tutustu ohjelmiin",
+    ctaHref: "#turvallisuus-cta",
   },
 ];
 
-function ProgramCard({ program }: { program: Program }) {
-  return (
-    <div className="keuda-card p-5 flex flex-col h-full justify-between">
-      <div>
-        <div className="flex items-start gap-2">
-          <h4 className="text-base font-semibold text-foreground">{program.title}</h4>
-          {program.isComingSoon && (
-            <span className="keuda-badge text-xs flex-shrink-0">Tulossa</span>
-          )}
-        </div>
-        {program.description && (
-          <p className="text-sm text-muted-foreground mt-1">{program.description}</p>
-        )}
-      </div>
-      <div className="mt-4 pt-4 border-t border-border">
-        <a href="#" className="text-sm font-medium text-primary hover:text-primary/80 transition-colors">
-          {program.buttonText}
-        </a>
-      </div>
-    </div>
-  );
-}
-
 export function AlySolutionCategories() {
   return (
-    <section className="keuda-section">
+    <section className="py-16 md:py-20 bg-muted/30">
       <div className="keuda-container">
-        <SectionHeading title="Ratkaisut" />
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Valitse ohjelmakokonaisuus
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Kolme kokonaisuutta erilaisiin tarpeisiin – valitse omasi ja löydä sopivat ohjelmat.
+          </p>
+        </div>
 
-        <div className="mt-12 space-y-16">
-          {categories.map((cat) => (
-            <div key={cat.id} id={cat.id}>
-              <h3 className="text-xl font-semibold text-foreground mb-2">{cat.title}</h3>
-              <p className="text-muted-foreground mb-6">{cat.intro}</p>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {cat.programs.map((program) => (
-                  <ProgramCard key={program.title} program={program} />
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          {programs.map((prog) => (
+            <div
+              key={prog.id}
+              id={prog.id}
+              className="keuda-card-enhanced flex flex-col h-full"
+            >
+              {/* Image */}
+              <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 mb-4">
+                <img src={prog.image} alt={prog.title} className="w-full h-full object-cover" />
+              </div>
+
+              {/* Title & description */}
+              <h3 className="text-xl font-bold text-foreground mb-2">{prog.title}</h3>
+              <p className="text-muted-foreground text-sm mb-5">{prog.description}</p>
+
+              {/* Module links */}
+              <div className="flex flex-col gap-2 mb-6 flex-1">
+                {prog.modules.map((mod, idx) => (
+                  <a
+                    key={idx}
+                    href={mod.href}
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group"
+                  >
+                    <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                    {mod.label}
+                  </a>
                 ))}
               </div>
+
+              {/* CTA */}
+              <Button variant="cta" size="lg" asChild className="w-full">
+                <a href={prog.ctaHref}>{prog.ctaText}</a>
+              </Button>
             </div>
           ))}
         </div>
