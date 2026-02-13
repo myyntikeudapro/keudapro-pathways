@@ -27,7 +27,9 @@ export function SolutionFamilies() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
           {families.map((family) => (
             <div key={family.title} className="keuda-card-enhanced p-6 text-center flex flex-col items-center">
-              <img src={family.image} alt={family.title} className="w-16 h-16 mb-4 object-contain" />
+              <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 mb-4">
+                <img src={family.image} alt={family.title} className="w-full h-full object-cover" />
+              </div>
               <h3 className="font-semibold text-foreground mb-2">{family.title}</h3>
               <p className="text-xs text-muted-foreground mb-4">
                 Sparraus – pilotointi – valmennus – projekti

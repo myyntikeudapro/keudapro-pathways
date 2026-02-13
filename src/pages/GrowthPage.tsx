@@ -39,7 +39,9 @@ const GrowthPage = () => {
                 href={s.href}
                 className="keuda-card-enhanced p-8 text-center hover:shadow-lg hover:border-primary/50 transition-all group"
               >
-                <img src={s.image} alt={s.title} className="w-16 h-16 mx-auto mb-4 group-hover:scale-110 transition-transform object-contain" />
+                <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <img src={s.image} alt={s.title} className="w-full h-full object-cover" />
+                </div>
                 <h3 className="font-semibold text-foreground text-lg mb-4">{s.title}</h3>
                 <span className="text-sm font-medium text-primary">Näytä ratkaisut →</span>
               </a>
