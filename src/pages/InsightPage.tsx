@@ -59,39 +59,6 @@ const InsightPage = () => {
         </div>
       </section>
 
-      {/* Mitä saat? */}
-      <section className="keuda-section bg-muted/30">
-        <div className="keuda-container">
-          <SectionHeading title="Mitä saat?" />
-          <div className="flex flex-col md:flex-row items-stretch gap-4 mt-8">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-center flex-1">
-                <div className="relative flex-1 bg-primary/10 border-2 border-primary/30 rounded-xl p-6 pr-10">
-                  <div className="flex items-center gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                      <span className="text-primary-foreground font-bold text-sm">{index + 1}</span>
-                    </div>
-                    <p className="text-foreground font-medium">{benefit}</p>
-                  </div>
-                  {index < benefits.length - 1 && (
-                    <div className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10">
-                      <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center shadow-md">
-                        <ChevronRight className="w-5 h-5 text-secondary-foreground" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-                {index < benefits.length - 1 && (
-                  <div className="md:hidden flex justify-center py-2">
-                    <ArrowRight className="w-5 h-5 text-primary rotate-90" />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Ratkaisut */}
       <AlySolutionCategories />
 
