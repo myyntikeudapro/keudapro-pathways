@@ -1,6 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, Brain, RefreshCw, Compass } from "lucide-react";
 
 import { GrowthHeroCarousel } from "@/components/growth/GrowthHeroCarousel";
 import { SolutionFamilies } from "@/components/growth/SolutionFamilies";
@@ -9,11 +8,16 @@ import { HubiKeudapro } from "@/components/growth/HubiKeudapro";
 import { GrowthIndustries } from "@/components/growth/GrowthIndustries";
 import { GrowthFAQ } from "@/components/growth/GrowthFAQ";
 
+import iconKasvuSkaalaus from "@/assets/icon-kasvu-skaalaus.png";
+import iconDigiAi from "@/assets/icon-digi-ai.png";
+import iconJatkuvuus from "@/assets/icon-jatkuvuus.png";
+import iconUudistuminen from "@/assets/icon-uudistuminen.png";
+
 const situations = [
-  { icon: TrendingUp, title: "Kasvu ja skaalaus", href: "#ratkaisuperheet" },
-  { icon: Brain, title: "Digiloikka ja tekoäly", href: "#ratkaisuperheet" },
-  { icon: RefreshCw, title: "Jatkuvuus ja omistajanvaihdos", href: "#ratkaisuperheet" },
-  { icon: Compass, title: "Uudistuminen ja suunnanmuutos", href: "#ratkaisuperheet" },
+  { image: iconKasvuSkaalaus, title: "Kasvu ja skaalaus", href: "#ratkaisuperheet" },
+  { image: iconDigiAi, title: "Digiloikka ja tekoäly", href: "#ratkaisuperheet" },
+  { image: iconJatkuvuus, title: "Jatkuvuus ja omistajanvaihdos", href: "#ratkaisuperheet" },
+  { image: iconUudistuminen, title: "Uudistuminen ja suunnanmuutos", href: "#ratkaisuperheet" },
 ];
 
 const GrowthPage = () => {
@@ -35,7 +39,7 @@ const GrowthPage = () => {
                 href={s.href}
                 className="keuda-card-enhanced p-8 text-center hover:shadow-lg hover:border-primary/50 transition-all group"
               >
-                <s.icon className="w-12 h-12 text-primary mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                <img src={s.image} alt={s.title} className="w-16 h-16 mx-auto mb-4 group-hover:scale-110 transition-transform object-contain" />
                 <h3 className="font-semibold text-foreground text-lg mb-4">{s.title}</h3>
                 <span className="text-sm font-medium text-primary">Näytä ratkaisut →</span>
               </a>
