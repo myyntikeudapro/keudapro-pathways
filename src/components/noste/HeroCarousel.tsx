@@ -54,6 +54,7 @@ export function HeroCarousel() {
             src={slide.image}
             alt={slide.title}
             className="w-full h-full object-cover"
+            style={i === 0 ? { objectPosition: "center 35%" } : undefined}
           />
           {/* Dark overlay */}
           <div className="absolute inset-0 bg-black/50" />
