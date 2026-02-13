@@ -1,20 +1,19 @@
-import { 
-  ShoppingCart, 
-  TrendingUp, 
-  Brain, 
-  Cog, 
-  Users, 
-  RefreshCw
-} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+import iconMyynti from "@/assets/icon-myynti.png";
+import iconMarkkinointi from "@/assets/icon-markkinointi.png";
+import iconTekoaly from "@/assets/icon-tekoaly.png";
+import iconProsessit from "@/assets/icon-prosessit.png";
+import iconOsaaminen from "@/assets/icon-osaaminen.png";
+import iconOmistajanvaihdos from "@/assets/icon-omistajanvaihdos.png";
+
 const families = [
-  { icon: ShoppingCart, title: "Myynti ja asiakashankinta" },
-  { icon: TrendingUp, title: "Markkinointi ja asiakaskokemus" },
-  { icon: Brain, title: "Tekoäly ja digitalisaatio" },
-  { icon: Cog, title: "Prosessit ja tuottavuus" },
-  { icon: Users, title: "Osaamisen kehittäminen" },
-  { icon: RefreshCw, title: "Omistajanvaihdos ja siirtymät" }
+  { image: iconMyynti, title: "Myynti ja asiakashankinta" },
+  { image: iconMarkkinointi, title: "Markkinointi ja asiakaskokemus" },
+  { image: iconTekoaly, title: "Tekoäly ja digitalisaatio" },
+  { image: iconProsessit, title: "Prosessit ja tuottavuus" },
+  { image: iconOsaaminen, title: "Osaamisen kehittäminen" },
+  { image: iconOmistajanvaihdos, title: "Omistajanvaihdos ja siirtymät" }
 ];
 
 export function SolutionFamilies() {
@@ -28,7 +27,7 @@ export function SolutionFamilies() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
           {families.map((family) => (
             <div key={family.title} className="keuda-card-enhanced p-6 text-center flex flex-col items-center">
-              <family.icon className="w-10 h-10 text-primary mb-4" />
+              <img src={family.image} alt={family.title} className="w-16 h-16 mb-4 object-contain" />
               <h3 className="font-semibold text-foreground mb-2">{family.title}</h3>
               <p className="text-xs text-muted-foreground mb-4">
                 Sparraus – pilotointi – valmennus – projekti
