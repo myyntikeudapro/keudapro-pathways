@@ -1,8 +1,8 @@
-import { useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Sparkles, Clock, ArrowRight } from "lucide-react";
+import { Clock, ArrowRight } from "lucide-react";
 import { PartnersSection } from "@/components/shared/PartnersSection";
+import { HeroCarousel } from "@/components/noste/HeroCarousel";
 
 import pathDirectionImg from "@/assets/noste-path-direction.jpg";
 import pathClarityImg from "@/assets/noste-path-clarity.jpg";
@@ -55,43 +55,14 @@ const paths = [
 ];
 
 const WorkPlusPage = () => {
-  const pathsSectionRef = useRef<HTMLElement>(null);
-
-  const scrollToPaths = () => {
-    pathsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <Layout>
-      {/* HERO */}
-      <section className="relative py-20 md:py-28 bg-gradient-to-b from-accent/60 via-accent/30 to-background overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-primary blur-3xl" />
-          <div className="absolute bottom-10 right-20 w-80 h-80 rounded-full bg-secondary blur-3xl" />
-        </div>
-        <div className="keuda-container relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-              <Sparkles className="w-4 h-4" />
-              <span>Reitti työhön ja uuteen suuntaan</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">NOSTE</h1>
-            <p className="text-xl md:text-2xl font-medium text-foreground mb-4">
-              Löydä tilanteeseesi sopiva reitti työhön tai uuteen suuntaan
-            </p>
-            <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Valitse polku ja löydä valmiit ratkaisut. Nopea tapa löytää tuki, työkalut ja toteuttajat.
-            </p>
-            <Button variant="cta" size="xl" onClick={scrollToPaths} className="group">
-              Aloita valitsemalla polku
-              <ChevronDown className="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform" />
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* HERO CAROUSEL */}
+      <HeroCarousel />
 
       {/* POLUT */}
-      <section ref={pathsSectionRef} className="py-16 md:py-20 bg-muted/30">
+      <section className="py-16 md:py-20 bg-muted/30">
         <div className="keuda-container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Valitse siirtymäreitti</h2>
