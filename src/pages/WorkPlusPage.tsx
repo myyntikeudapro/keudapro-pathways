@@ -1,206 +1,87 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { SectionHeading } from "@/components/shared/SectionHeading";
-import { 
-  ChevronDown,
-  ChevronUp,
-  ArrowRight,
-  Clock,
-  Sparkles
-} from "lucide-react";
+import { ChevronDown, Sparkles, Clock, ArrowRight } from "lucide-react";
 
-// Import path images
 import pathDirectionImg from "@/assets/noste-path-direction.jpg";
 import pathClarityImg from "@/assets/noste-path-clarity.jpg";
 import pathWorkImg from "@/assets/noste-path-work.jpg";
 
-// Import solution category images
-import skillsImg from "@/assets/noste-skills.jpg";
-import cvLinkedinImg from "@/assets/noste-cv-linkedin.jpg";
-import interviewImg from "@/assets/noste-interview.jpg";
-import careerImg from "@/assets/noste-career.jpg";
-import aiImg from "@/assets/noste-ai.jpg";
-import networkImg from "@/assets/noste-network.jpg";
-import transitionImg from "@/assets/noste-transition.jpg";
-import educationImg from "@/assets/noste-education.jpg";
-
-// Polkujen data
 const paths = [
   {
     id: "polku1",
     title: "Etsin suuntaa",
-    subtitle: "Rinnalla kulkeva valmennus",
-    description: "Kun työnhakutaidot tai työelämävalmiudet vaativat vahvaa ja pitkäjänteistä tukea.",
     image: pathDirectionImg,
-    bullets: ["Työelämätaidot", "Arjen rytmi", "Motivaatio", "Valmentajan tuki"],
-    content: {
-      items: [
-        "Työelämätaidot",
-        "Arjen rytmi",
-        "Motivaatio",
-        "Perusvalmiudet",
-        "Valmentajan tuki",
-        "Ohjatut siirtymäpolut (1–3 kk)"
-      ],
-      ctaText: "Aloita kartoituksella",
-      ctaHref: "https://example.com/kartoitus"
-    }
+    description: "Etsitkö selkeää suuntaa työelämällesi ja kaipaat valmentajan tukea työnhakuun? Tämä reitti sopii, kun haluat sparrausta ja rinnalla kulkevan tuen.",
+    modules: [
+      { label: "Valmentajan tuki", href: "#valmentajan-tuki" },
+      { label: "Työelämätaidot", href: "#tyoelamataidot" },
+      { label: "Uraohjaus ja suunnan selkeytys", href: "#uraohjaus" },
+      { label: "Osaamisen tunnistaminen ja sanoittaminen", href: "#osaaminen" },
+      { label: "Työnhakutaidot (CV, työhaastattelu, piilotyöpaikat, työnhaku)", href: "#tyonhakutaidot" },
+    ],
+    ctaText: "Aloita valmennus",
+    ctaHref: "#aloita-valmennus",
   },
   {
     id: "polku2",
     title: "Suunta kirkkaaksi",
-    subtitle: "AI + valmennus",
-    description: "Kun osaaminen on olemassa mutta suunta, profiili tai pitchaus vaatii kirkastamista.",
     image: pathClarityImg,
-    bullets: ["Osaamisen kirkastus", "Profiili", "Pitchaus", "CV & LinkedIn", "AI-työkalut"],
-    content: {
-      items: [
-        "Osaamisen kirkastus",
-        "Profiili",
-        "Pitchaus",
-        "CV & LinkedIn",
-        "AI-työkalupakki + sparraus (ryhmä/yksilö)"
-      ],
-      ctaText: "Katso ratkaisut",
-      ctaHref: "#ratkaisutarjotin"
-    }
+    description: "Tarvitsetko apua osaamisesi sanoittamiseen ja profiilin kirkastamiseen? Tämä polku auttaa sinua erottumaan ja hyödyntämään tekoälyä työnhaussa.",
+    modules: [
+      { label: "CV, LinkedIn ja oman osaamisen hissipuhe", href: "#cv-linkedin" },
+      { label: "AI-avusteinen työnhaku", href: "#ai-tyonhaku" },
+      { label: "Osaamisen tunnistaminen ja sanoittaminen", href: "#osaaminen-kirkastus" },
+      { label: "Valmentajan tuki tarvittaessa", href: "#valmentaja" },
+    ],
+    ctaText: "Kirkasta profiilisi",
+    ctaHref: "#kirkasta-profiili",
   },
   {
     id: "polku3",
     title: "Suoraan työelämään",
-    subtitle: "Nopea ratkaisu",
-    description: "Kun tavoitteena on nopea työllistyminen ja käytännön työkalut sekä työllistymiskanavat.",
     image: pathWorkImg,
-    bullets: ["CV/pitchaus-työkalu", "Osaamiskartoitus", "Hakemukset", "Haastattelusparraus", "Henkilöstöratkaisut"],
-    content: {
-      items: [
-        "CV / Pitchaus-työkalu",
-        "Osaamiskartoitus",
-        "Hakemukset nopeasti",
-        "Haastattelusparraus",
-        "Henkilöstöratkaisut (Wulff PRO / RTK-Henkilöstöpalvelu / Cleodia Group, Pohjanmonni)"
-      ],
-      ctaText: "Siirry suoraan ratkaisuihin",
-      ctaHref: "#ratkaisutarjotin"
-    }
-  }
-];
-
-// Ratkaisukategoriat
-const solutionCategories = [
-  {
-    id: "osaaminen",
-    title: "Osaaminen näkyväksi",
-    image: skillsImg,
-    solutions: ["Osaamiskartoitus", "Osaamisen tunnistaminen", "Portfolio-valmennus", "Näyttöjen valmistelu"]
+    description: "Onko tavoitteenasi nopea työllistyminen? Tämä reitti tarjoaa käytännön työkalut ja väylät työelämään.",
+    modules: [
+      { label: "AI-avusteinen osaamiskartoitus", href: "#ai-kartoitus" },
+      { label: "CV:n ja työhakemuksen pikapäivitys (30 min)", href: "#cv-pikapaivitys" },
+      { label: "Henkilöstövuokrausyhteistyö", href: "#henkilostovuokraus" },
+      { label: "Haastattelusparraus", href: "#haastattelusparraus" },
+    ],
+    ctaText: "Tavoittele työtä nyt",
+    ctaHref: "#tavoittele-tyota",
   },
-  {
-    id: "cv-linkedin",
-    title: "CV & LinkedIn kuntoon",
-    image: cvLinkedinImg,
-    solutions: ["CV-paja", "LinkedIn-profiili", "Digitaalinen portfolio", "Personal branding"]
-  },
-  {
-    id: "haastattelut",
-    title: "Haastattelut ja itseluottamus",
-    image: interviewImg,
-    solutions: ["Haastattelusparraus", "Pitchaus-valmennus", "Esiintymistaito", "Itseluottamus-valmennus"]
-  },
-  {
-    id: "urakartoitus",
-    title: "Uusi suunta / urakartoitus",
-    image: careerImg,
-    solutions: ["Uravalmennus", "Suuntakartoitus", "Alanvaihto-ohjaus", "Tavoitteiden kirkastus"]
-  },
-  {
-    id: "ai-osaaminen",
-    title: "AI-osaaminen ja markkina-arvon nosto",
-    image: aiImg,
-    solutions: ["AI-perusteet", "AI arjessa ja työssä", "Tekoälypätevyys", "Digitaidot"]
-  },
-  {
-    id: "verkostot",
-    title: "Verkostot ja kontaktit",
-    image: networkImg,
-    solutions: ["Verkostoitumistapahtumat", "Mentorointi", "Työnantajakontaktit", "Alumni-verkostot"]
-  },
-  {
-    id: "siirtymapolut",
-    title: "Ohjatut siirtymäpolut",
-    image: transitionImg,
-    solutions: ["Muutosturva-ohjelmat", "Siirtymävalmennus", "Työllistymispolut", "Jatkopolut"]
-  },
-  {
-    id: "koulutus",
-    title: "Koulutus ja mikrokoulutukset",
-    image: educationImg,
-    solutions: ["Mikrokoulutukset", "Täsmäkoulutukset", "Sertifikaatit", "Lyhytkoulutukset"]
-  }
-];
-
-// Toimijaverkoston kumppanit
-const networkPartners = [
-  { name: "Keuda", logo: null },
-  { name: "KeudaPRO", logo: null },
-  { name: "Wulff PRO", logo: null },
-  { name: "RTK-Henkilöstöpalvelu", logo: null },
-  { name: "Cleodia Group", logo: null },
-  { name: "Pohjanmonni", logo: null }
 ];
 
 const WorkPlusPage = () => {
-  const [openPath, setOpenPath] = useState<string | null>(null);
-  const [openSolution, setOpenSolution] = useState<string | null>(null);
   const pathsSectionRef = useRef<HTMLElement>(null);
 
   const scrollToPaths = () => {
     pathsSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const togglePath = (pathId: string) => {
-    setOpenPath(openPath === pathId ? null : pathId);
-  };
-
-  const toggleSolution = (solutionId: string) => {
-    setOpenSolution(openSolution === solutionId ? null : solutionId);
-  };
-
   return (
     <Layout>
-      {/* 1) HERO-OSIO */}
+      {/* HERO */}
       <section className="relative py-20 md:py-28 bg-gradient-to-b from-accent/60 via-accent/30 to-background overflow-hidden">
-        {/* Subtle background pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-primary blur-3xl" />
           <div className="absolute bottom-10 right-20 w-80 h-80 rounded-full bg-secondary blur-3xl" />
         </div>
-        
         <div className="keuda-container relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
               <Sparkles className="w-4 h-4" />
               <span>Reitti työhön ja uuteen suuntaan</span>
             </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              NOSTE
-            </h1>
-            
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">NOSTE</h1>
             <p className="text-xl md:text-2xl font-medium text-foreground mb-4">
               Löydä tilanteeseesi sopiva reitti työhön tai uuteen suuntaan
             </p>
-            
             <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
               Valitse polku ja löydä valmiit ratkaisut. Nopea tapa löytää tuki, työkalut ja toteuttajat.
             </p>
-            
-            <Button 
-              variant="cta" 
-              size="xl" 
-              onClick={scrollToPaths}
-              className="group"
-            >
+            <Button variant="cta" size="xl" onClick={scrollToPaths} className="group">
               Aloita valitsemalla polku
               <ChevronDown className="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform" />
             </Button>
@@ -208,206 +89,51 @@ const WorkPlusPage = () => {
         </div>
       </section>
 
-      {/* 2) VALITSE SIIRTYMÄREITTI */}
+      {/* POLUT */}
       <section ref={pathsSectionRef} className="py-16 md:py-20 bg-muted/30">
         <div className="keuda-container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Valitse siirtymäreitti
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Valitse siirtymäreitti</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Kolme polkua erilaisiin tilanteisiin – valitse omasi ja löydä sopivat ratkaisut.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {paths.map((path) => {
-              const isOpen = openPath === path.id;
-              
-              return (
-                <div key={path.id} className="flex flex-col">
-                  {/* Kortti */}
-                  <button
-                    onClick={() => togglePath(path.id)}
-                    className={`keuda-card-enhanced text-left flex flex-col h-full transition-all ${
-                      isOpen ? "ring-2 ring-primary" : ""
-                    }`}
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                        <img 
-                          src={path.image} 
-                          alt={path.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className={`p-2 rounded-full transition-colors ${isOpen ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
-                        {isOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                      </div>
-                    </div>
-                    
-                    <h3 className="text-xl font-bold text-foreground mb-1">
-                      {path.title}
-                    </h3>
-                    <p className="text-sm font-medium text-primary mb-3">
-                      {path.subtitle}
-                    </p>
-                    <p className="text-muted-foreground mb-4 flex-1">
-                      {path.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2">
-                      {path.bullets.slice(0, 3).map((bullet, idx) => (
-                        <span key={idx} className="text-xs px-2 py-1 rounded-full bg-accent text-accent-foreground">
-                          {bullet}
-                        </span>
-                      ))}
-                      {path.bullets.length > 3 && (
-                        <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
-                          +{path.bullets.length - 3}
-                        </span>
-                      )}
-                    </div>
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* 3) POLKUJEN SISÄLLÖT */}
-          {openPath && (
-            <div className="mt-8 animate-in fade-in slide-in-from-top-4 duration-300">
-              {paths.filter(p => p.id === openPath).map((path) => (
-                <div key={path.id} className="bg-card rounded-2xl border-2 border-primary/30 p-8 md:p-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
-                      <img 
-                        src={path.image} 
-                        alt={path.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-foreground">{path.title}</h3>
-                      <p className="text-primary font-medium">{path.subtitle}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-                    {path.content.items.map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-3 p-4 rounded-xl bg-accent/50">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
-                          <span className="text-secondary-foreground font-semibold text-sm">{idx + 1}</span>
-                        </div>
-                        <span className="text-foreground font-medium">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="flex justify-center">
-                    <Button variant="cta" size="lg" asChild>
-                      <a href={path.content.ctaHref}>
-                        {path.content.ctaText}
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* 4) RATKAISUTARJOTIN */}
-      <section id="ratkaisutarjotin" className="py-16 md:py-20">
-        <div className="keuda-container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Ratkaisutarjotin – valitse tarpeesi
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Valmiit ratkaisut kategorioittain. Klikkaa ja löydä sopivat palvelut.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {solutionCategories.map((category) => {
-              const isOpen = openSolution === category.id;
-              
-              return (
-                <div key={category.id}>
-                  <button
-                    onClick={() => toggleSolution(category.id)}
-                    className={`w-full keuda-card-enhanced text-left transition-all ${
-                      isOpen ? "ring-2 ring-secondary" : ""
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
-                        <img 
-                          src={category.image} 
-                          alt={category.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className={`p-1.5 rounded-full transition-colors ${isOpen ? "bg-secondary text-secondary-foreground" : "bg-muted"}`}>
-                        {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                      </div>
-                    </div>
-                    <h4 className="text-base font-semibold text-foreground leading-tight">
-                      {category.title}
-                    </h4>
-                  </button>
-                  
-                  {isOpen && (
-                    <div className="mt-3 p-4 bg-accent/50 rounded-xl border border-border animate-in fade-in slide-in-from-top-2 duration-200">
-                      <ul className="space-y-2">
-                        {category.solutions.map((solution, idx) => (
-                          <li key={idx} className="flex items-center gap-2 text-sm text-foreground">
-                            <div className="w-1.5 h-1.5 rounded-full bg-secondary" />
-                            {solution}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 5) TOIMIJAVERKOSTO */}
-      <section className="py-16 md:py-20 bg-muted/30">
-        <div className="keuda-container">
-          <div className="text-center mb-10">
-            <SectionHeading 
-              title="Toimijaverkosto ja toteuttajat" 
-              subtitle="NOSTE-reitin ratkaisut toteutetaan yhdessä laajan toimijaverkoston kanssa."
-              centered
-            />
-          </div>
-
-          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 mb-10">
-            {networkPartners.map((partner, idx) => (
-              <div 
-                key={idx} 
-                className="px-6 py-3 bg-card rounded-lg border border-border shadow-sm"
+            {paths.map((path) => (
+              <div
+                key={path.id}
+                className="keuda-card-enhanced flex flex-col h-full"
               >
-                <span className="font-medium text-foreground">{partner.name}</span>
+                {/* Image */}
+                <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 mb-4">
+                  <img src={path.image} alt={path.title} className="w-full h-full object-cover" />
+                </div>
+
+                {/* Title & description */}
+                <h3 className="text-xl font-bold text-foreground mb-2">{path.title}</h3>
+                <p className="text-muted-foreground text-sm mb-5">{path.description}</p>
+
+                {/* Module links */}
+                <div className="flex flex-col gap-2 mb-6 flex-1">
+                  {path.modules.map((mod, idx) => (
+                    <a
+                      key={idx}
+                      href={mod.href}
+                      className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group"
+                    >
+                      <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                      {mod.label}
+                    </a>
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <Button variant="cta" size="lg" asChild className="w-full">
+                  <a href={path.ctaHref}>{path.ctaText}</a>
+                </Button>
               </div>
             ))}
-          </div>
-
-          <div className="flex justify-center">
-            <Button variant="outline-primary" size="lg" asChild>
-              <a href="/kumppanit">
-                Tutustu toimijaverkostoon
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </a>
-            </Button>
           </div>
         </div>
       </section>
@@ -419,9 +145,7 @@ const WorkPlusPage = () => {
             <Clock className="w-5 h-5 text-primary" />
             <span className="text-primary font-medium">15 minuuttia</span>
           </div>
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Etkö tiedä mistä aloittaa?
-          </h3>
+          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">Etkö tiedä mistä aloittaa?</h3>
           <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
             Tee nopea reittikartoitus ja löydä tilanteeseesi sopivat ratkaisut.
           </p>
