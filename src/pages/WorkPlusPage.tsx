@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Sparkles, Clock, ArrowRight } from "lucide-react";
+import { PartnersSection } from "@/components/shared/PartnersSection";
 
 import pathDirectionImg from "@/assets/noste-path-direction.jpg";
 import pathClarityImg from "@/assets/noste-path-clarity.jpg";
@@ -153,11 +154,14 @@ const WorkPlusPage = () => {
             <a href="https://example.com/kartoitus" target="_blank" rel="noopener noreferrer">
               Tee 15 min reittikartoitus
             </a>
-          </Button>
-        </div>
-      </section>
-    </Layout>
-  );
-};
+           </Button>
+         </div>
+       </section>
 
-export default WorkPlusPage;
+       {/* TOIMIJAT */}
+       <PartnersSection />
+     </Layout>
+   );
+ };
+ 
+ export default WorkPlusPage;
