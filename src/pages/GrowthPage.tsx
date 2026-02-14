@@ -60,8 +60,7 @@ const GrowthPage = () => {
         <EntryProducts />
       </div>
 
-      {/* 5) HUBI + KEUDAPRO */}
-      <HubiKeudapro />
+      {/* 5) HUBI + KEUDAPRO – poistettu */}
 
       {/* 6) KASVUALAT */}
       <GrowthIndustries />
