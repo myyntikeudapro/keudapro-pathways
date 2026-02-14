@@ -48,7 +48,7 @@ export function GrowthFinalCTA() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 mb-4">
-            <Button size="lg" asChild>
+            <Button variant="cta" size="lg" asChild>
               <a href="/kasvukartoitus">Varaa kasvukartoitus</a>
             </Button>
             <Button
