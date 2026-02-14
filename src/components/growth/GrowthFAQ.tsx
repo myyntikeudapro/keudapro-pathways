@@ -3,36 +3,25 @@ import { Play, X } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
-import faqThumb1 from "@/assets/faq-thumb-1.jpg";
-import faqThumb2 from "@/assets/faq-thumb-2.jpg";
-import faqThumb3 from "@/assets/faq-thumb-3.jpg";
-import faqThumb4 from "@/assets/faq-thumb-4.jpg";
-import faqThumb5 from "@/assets/faq-thumb-5.jpg";
-
 const faqs = [
   {
     question: "Mitä kasvukartoitus sisältää?",
-    thumbnail: faqThumb1,
     youtubeId: "uW1aXFs0zzE",
   },
   {
     question: "Paljonko tämä vie aikaa?",
-    thumbnail: faqThumb2,
     youtubeId: "y1QSgnwlYxU",
   },
   {
     question: "Onko tämä koulutusta vai käytännön tekemistä?",
-    thumbnail: faqThumb3,
     youtubeId: "1_ms7pT36r8",
   },
   {
     question: "Miten tekoälypolku toimii?",
-    thumbnail: faqThumb4,
     youtubeId: "sNQkNznTxp4",
   },
   {
     question: "Voiko pienyritys osallistua ilman suurta budjettia?",
-    thumbnail: faqThumb5,
     youtubeId: "qv48XLRgTLE",
   },
 ];
@@ -60,7 +49,7 @@ export function GrowthFAQ() {
               {/* Thumbnail with play overlay */}
               <div className="relative aspect-video overflow-hidden">
                 <img
-                  src={faq.thumbnail}
+                  src={`https://img.youtube.com/vi/${faq.youtubeId}/hqdefault.jpg`}
                   alt={faq.question}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />

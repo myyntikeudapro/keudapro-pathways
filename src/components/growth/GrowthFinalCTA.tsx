@@ -53,8 +53,8 @@ export function GrowthFinalCTA() {
             </Button>
             <Button
               size="lg"
-              variant="outline"
-              className="border-white/40 text-white hover:bg-white/10 hover:text-white"
+              variant="outline-primary"
+              className="border-white/40 text-white hover:bg-white/10 hover:text-white hover:border-white/60"
             >
               Liity mukaan pilottiin
             </Button>
