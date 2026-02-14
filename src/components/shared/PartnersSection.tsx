@@ -1,12 +1,12 @@
 export function PartnersSection() {
   const partners = [
     "Keuda",
-    "RTK Henkilöstöpalvelu Oy",
-    "Valo-Valmennusyhdistys ry",
-    "Cleodia Group Oy",
-    "Pohjamonni Oy",
-    "Wulff PRO Oy",
-    "Linduistics Oy",
+    "RTK Henkilöstöpalvelu",
+    "Valo-Valmennusyhdistys",
+    "Cleodia Group",
+    "Pohjamonni",
+    "Wulff PRO",
+    "Linduistics",
   ];
 
   return (
