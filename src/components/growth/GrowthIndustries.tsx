@@ -50,7 +50,7 @@ export function GrowthIndustries() {
       </div>
 
       <div className="relative z-10 py-20 md:py-32">
-        <div className="keuda-container max-w-4xl">
+        <div className="keuda-container">
           {/* Kicker */}
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-3">
             Kasvun kartta
