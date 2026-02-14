@@ -13,12 +13,12 @@ const faqs = [
   {
     question: "Mitä kasvukartoitus sisältää?",
     thumbnail: faqThumb1,
-    youtubeId: "PLACEHOLDER_1",
+    youtubeId: "uW1aXFs0zzE",
   },
   {
     question: "Paljonko tämä vie aikaa?",
     thumbnail: faqThumb2,
-    youtubeId: "PLACEHOLDER_2",
+    youtubeId: "y1QSgnwlYxU",
   },
   {
     question: "Onko tämä koulutusta vai käytännön tekemistä?",
