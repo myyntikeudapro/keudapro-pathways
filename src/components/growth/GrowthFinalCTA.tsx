@@ -34,7 +34,7 @@ export function GrowthFinalCTA() {
 
       {/* Content */}
       <div className="relative z-10 h-full flex items-center">
-        <div className="keuda-container max-w-3xl">
+        <div className="keuda-container">
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-3">
             Kasvu
           </p>
