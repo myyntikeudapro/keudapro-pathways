@@ -1,44 +1,64 @@
-import { Button } from "@/components/ui/button";
-
-import iconMyynti from "@/assets/icon-myynti.png";
-import iconMarkkinointi from "@/assets/icon-markkinointi.png";
-import iconTekoaly from "@/assets/icon-tekoaly.png";
-import iconProsessit from "@/assets/icon-prosessit.png";
-import iconOsaaminen from "@/assets/icon-osaaminen.png";
-import iconOmistajanvaihdos from "@/assets/icon-omistajanvaihdos.png";
+import solutionBg from "@/assets/solution-families-bg.jpg";
 
 const families = [
-  { image: iconMyynti, title: "Myynti ja asiakashankinta" },
-  { image: iconMarkkinointi, title: "Markkinointi ja asiakaskokemus" },
-  { image: iconTekoaly, title: "Tekoäly ja digitalisaatio" },
-  { image: iconProsessit, title: "Prosessit ja tuottavuus" },
-  { image: iconOsaaminen, title: "Osaamisen kehittäminen" },
-  { image: iconOmistajanvaihdos, title: "Omistajanvaihdos ja siirtymät" }
+  { title: "Myynti ja asiakashankinta", href: "#myynti" },
+  { title: "Markkinointi ja asiakaskokemus", href: "#markkinointi" },
+  { title: "Tekoäly ja digitalisaatio", href: "#tekoaly" },
+  { title: "Prosessit ja tuottavuus", href: "#prosessit" },
+  { title: "Osaamisen kehittäminen", href: "#osaaminen" },
+  { title: "Omistajanvaihdos ja siirtymät", href: "#omistajanvaihdos" },
 ];
 
 export function SolutionFamilies() {
   return (
-    <section className="keuda-section bg-muted/30">
-      <div className="keuda-container">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-8">
-          Ratkaisuperheet
-        </h2>
+    <section className="relative w-full">
+      {/* Background image + dark overlay */}
+      <div className="absolute inset-0">
+        <img
+          src={solutionBg}
+          alt="Kehittämistyöpaja"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
-          {families.map((family) => (
-            <div key={family.title} className="keuda-card-enhanced p-6 text-center flex flex-col items-center">
-              <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 mb-4">
-                <img src={family.image} alt={family.title} className="w-full h-full object-cover" />
-              </div>
-              <h3 className="font-semibold text-foreground mb-2">{family.title}</h3>
-              <p className="text-xs text-muted-foreground mb-4">
-                Sparraus – pilotointi – valmennus – projekti
-              </p>
-              <Button variant="outline" size="sm" className="mt-auto">
-                Lue lisää
-              </Button>
-            </div>
-          ))}
+      <div className="relative z-10 py-20 md:py-32">
+        <div className="keuda-container max-w-5xl">
+          {/* Kicker */}
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-3">
+            Ratkaisuperheet
+          </p>
+
+          {/* Heading */}
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
+            Valitse teema – me kokoamme toteutuksen
+          </h2>
+
+          {/* Subtitle */}
+          <p className="text-white/70 text-lg mb-12">
+            Sparraus – pilotointi – valmennus – projekti
+          </p>
+
+          {/* Solution family cards */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {families.map((family) => (
+              <a
+                key={family.title}
+                href={family.href}
+                className="group bg-white/95 hover:bg-white rounded-xl px-5 py-5 shadow-sm hover:shadow-lg border border-white/20 transition-all duration-200 hover:-translate-y-0.5 flex flex-col"
+              >
+                <h3 className="font-semibold text-foreground text-base mb-1.5">
+                  {family.title}
+                </h3>
+                <p className="text-xs text-muted-foreground mb-3">
+                  Sparraus – pilotointi – valmennus – projekti
+                </p>
+                <span className="text-sm font-medium text-primary mt-auto group-hover:underline">
+                  Lue lisää →
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
