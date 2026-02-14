@@ -40,11 +40,11 @@ export function EntryProducts() {
           <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="relative z-10 py-20 md:py-28">
-          <div className="keuda-container">
+          <div className="keuda-container text-center">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Aloita kevyesti – et tarvitse isoa projektia
             </h2>
-            <p className="text-white/80 text-lg max-w-2xl">
+            <p className="text-white/80 text-lg max-w-2xl mx-auto">
               PK-yrityksen kehittäminen alkaa pienestä, mutta oikein kohdistetusta liikkeestä.
             </p>
           </div>
