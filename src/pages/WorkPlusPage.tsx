@@ -7,6 +7,7 @@ import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import pathDirectionImg from "@/assets/noste-path-direction.jpg";
 import pathClarityImg from "@/assets/noste-path-clarity.jpg";
 import pathWorkImg from "@/assets/noste-path-work.jpg";
+import nosteCTABg from "@/assets/noste-cta-bg.jpg";
 
 const paths = [
   {
@@ -113,23 +114,36 @@ const WorkPlusPage = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-accent/50">
-        <div className="keuda-container text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Clock className="w-5 h-5 text-primary" />
-            <span className="text-primary font-medium">15 minuuttia</span>
+      <section className="relative w-full">
+        {/* Background image + dark overlay */}
+        <div className="absolute inset-0">
+          <img
+            src={nosteCTABg}
+            alt="Urasuunnittelu ja ohjaus"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+
+        <div className="relative z-10 py-20 md:py-32">
+          <div className="keuda-container text-center md:text-left">
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-3">
+              15 minuuttia
+            </p>
+            <h3 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+              Etkö tiedä mistä aloittaa?
+            </h3>
+            <p className="text-white/80 text-lg md:text-xl max-w-2xl mb-8 mx-auto md:mx-0">
+              Tee nopea reittikartoitus ja löydä tilanteeseesi sopivat ratkaisut.
+            </p>
+            <Button variant="cta" size="lg" asChild>
+              <a href="https://example.com/kartoitus" target="_blank" rel="noopener noreferrer">
+                Tee 15 min reittikartoitus
+              </a>
+            </Button>
           </div>
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">Etkö tiedä mistä aloittaa?</h3>
-          <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-            Tee nopea reittikartoitus ja löydä tilanteeseesi sopivat ratkaisut.
-          </p>
-          <Button variant="cta" size="lg" asChild>
-            <a href="https://example.com/kartoitus" target="_blank" rel="noopener noreferrer">
-              Tee 15 min reittikartoitus
-            </a>
-           </Button>
-         </div>
-       </section>
+        </div>
+      </section>
 
        {/* TOIMIJAT */}
        <PartnersSection />
