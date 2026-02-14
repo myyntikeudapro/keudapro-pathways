@@ -126,14 +126,14 @@ const WorkPlusPage = () => {
         </div>
 
         <div className="relative z-10 py-20 md:py-32">
-          <div className="keuda-container text-center md:text-left">
+          <div className="keuda-container text-center">
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-3">
               15 minuuttia
             </p>
             <h3 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
               Etkö tiedä mistä aloittaa?
             </h3>
-            <p className="text-white/80 text-lg md:text-xl max-w-2xl mb-8 mx-auto md:mx-0">
+            <p className="text-white/80 text-lg md:text-xl max-w-2xl mb-8 mx-auto">
               Tee nopea reittikartoitus ja löydä tilanteeseesi sopivat ratkaisut.
             </p>
             <Button variant="cta" size="lg" asChild>
