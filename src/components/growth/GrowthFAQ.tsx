@@ -33,7 +33,7 @@ const faqs = [
   {
     question: "Voiko pienyritys osallistua ilman suurta budjettia?",
     thumbnail: faqThumb5,
-    youtubeId: "PLACEHOLDER_5",
+    youtubeId: "qv48XLRgTLE",
   },
 ];
 
