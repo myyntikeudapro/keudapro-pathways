@@ -50,7 +50,7 @@ export function GrowthIndustries() {
       </div>
 
       <div className="relative z-10 py-20 md:py-32">
-        <div className="keuda-container">
+        <div className="keuda-container text-center">
           {/* Kicker */}
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-3">
             Kasvun kartta
@@ -62,7 +62,7 @@ export function GrowthIndustries() {
           </h2>
 
           {/* Intro */}
-          <p className="text-white/80 text-lg md:text-xl max-w-2xl mb-2">
+          <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-2">
             Kasvu ei jakaudu tasaisesti – siksi kohdistamme kehittämisen
             toimialoihin, joissa murros ja potentiaali ovat suurimmat.
           </p>
@@ -77,7 +77,7 @@ export function GrowthIndustries() {
             {tiers.map((tier) => (
               <div key={tier.id}>
                 {/* Tier label with color dot */}
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center justify-center gap-2 mb-3">
                   <span className={`w-2.5 h-2.5 rounded-full ${tier.dotColor} shrink-0`} />
                   <span className="text-xs font-semibold tracking-[0.15em] uppercase text-white/70">
                     {tier.label}
@@ -86,7 +86,7 @@ export function GrowthIndustries() {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap justify-center gap-2">
                   {tier.items.map((item) => (
                     <a
                       key={item.label}
