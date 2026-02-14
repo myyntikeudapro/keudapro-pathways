@@ -7,6 +7,7 @@ import { EntryProducts } from "@/components/growth/EntryProducts";
 import { HubiKeudapro } from "@/components/growth/HubiKeudapro";
 import { GrowthIndustries } from "@/components/growth/GrowthIndustries";
 import { GrowthFAQ } from "@/components/growth/GrowthFAQ";
+import { GrowthFinalCTA } from "@/components/growth/GrowthFinalCTA";
 
 import iconKasvuSkaalaus from "@/assets/icon-kasvu-skaalaus.png";
 import iconDigiAi from "@/assets/icon-digi-ai.png";
@@ -69,29 +70,7 @@ const GrowthPage = () => {
       <GrowthFAQ />
 
       {/* 8) FINAL CTA */}
-      <section className="py-12 md:py-16 bg-gradient-to-br from-primary/10 via-background to-accent/20">
-        <div className="keuda-container">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-              Haluatko tietää yrityksesi seuraavan askeleen?
-            </h2>
-            <p className="text-muted-foreground mb-6">
-              Kasvukartoitus antaa nopeasti selkeyden siihen, mitä kannattaa tehdä nyt.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-4">
-              <Button size="lg" asChild>
-                <a href="/kasvukartoitus">Varaa kasvukartoitus</a>
-              </Button>
-              <Button size="lg" variant="outline">
-                Liity mukaan pilottiin
-              </Button>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Kartoitus ei sido mihinkään. Se voi kuitenkin avata uuden suunnan.
-            </p>
-          </div>
-        </div>
-      </section>
+      <GrowthFinalCTA />
     </Layout>
   );
 };
