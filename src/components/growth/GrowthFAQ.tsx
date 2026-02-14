@@ -23,12 +23,12 @@ const faqs = [
   {
     question: "Onko tämä koulutusta vai käytännön tekemistä?",
     thumbnail: faqThumb3,
-    youtubeId: "PLACEHOLDER_3",
+    youtubeId: "1_ms7pT36r8",
   },
   {
     question: "Miten tekoälypolku toimii?",
     thumbnail: faqThumb4,
-    youtubeId: "PLACEHOLDER_4",
+    youtubeId: "sNQkNznTxp4",
   },
   {
     question: "Voiko pienyritys osallistua ilman suurta budjettia?",
