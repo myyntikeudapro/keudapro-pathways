@@ -24,9 +24,9 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border">
+    <footer className="border-t border-[#333]">
       {/* KUUMA-seutu Section */}
-      <div className="bg-muted/50 py-6">
+      <div className="bg-[#0B0B0B] py-6">
         <div className="keuda-container">
           <a 
             href="https://www.kuuma.fi" 
@@ -37,17 +37,20 @@ export function Footer() {
             <img 
               src={kuumaLogo} 
               alt="KUUMA-seutu" 
-              className="h-12 md:h-14"
+              className="h-12 md:h-14 invert brightness-0 invert"
             />
-            <p className="text-xs text-muted-foreground text-center">
+            <p className="text-xs text-gray-400 text-center">
               Hyvinkää, Järvenpää, Kerava, Kirkkonummi, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula ja Vihti
             </p>
           </a>
         </div>
       </div>
 
+      {/* Divider */}
+      <div className="h-px bg-[#444]" />
+
       {/* Social Media Section */}
-      <div className="bg-muted/40 py-5">
+      <div className="bg-[#0B0B0B] py-5">
         <div className="keuda-container">
           <div className="flex items-center justify-center gap-5">
             {socialLinks.map((social) => (
@@ -56,7 +59,7 @@ export function Footer() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-gray-400 hover:text-[hsl(var(--cta))] transition-colors"
                 aria-label={social.label}
               >
                 {social.icon === "tiktok" ? (
@@ -70,14 +73,17 @@ export function Footer() {
         </div>
       </div>
 
+      {/* Divider */}
+      <div className="h-px bg-[#444]" />
+
       {/* Main Footer */}
-      <div className="bg-muted/30 py-6">
+      <div className="bg-[#0B0B0B] py-6">
         <div className="keuda-container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-foreground">
+            <p className="text-sm text-white">
               <span className="font-bold">KeudaPRO</span> – osaamisen ja siirtymien operaattori.
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-gray-400">
               © {new Date().getFullYear()} KeudaPRO. Kaikki oikeudet pidätetään.
             </p>
           </div>
