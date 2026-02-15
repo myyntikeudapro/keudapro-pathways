@@ -47,8 +47,7 @@ const programs = [
     description:
       "Turvallisuus osaksi johtamista ja vastuullista organisaatiota. Ohjelmat turvallisuuspäälliköille, -asiantuntijoille ja -johtajille.",
     modules: [
-      { label: "Turvallisuuspäällikön valmennusohjelma", href: "#turvallisuuspaallikko" },
-      { label: "Turvallisuusasiantuntijan valmennusohjelma", href: "#turvallisuusasiantuntija" },
+      { label: "Turvallisuuspäällikön ja -asiantuntijan valmennusohjelma", href: "https://www.keuda.fi/koulutus/turvallisuuspaallikon-ja-asiantuntijan-valmennusohjelma/" },
       { label: "Turvallisuusjohtajan valmennusohjelma ml. AI (tulossa)", href: "#turvallisuusjohtaja" },
     ],
     ctaText: "Tutustu ohjelmiin",
