@@ -69,24 +69,18 @@ const helpCards = [
 /* ─── TEAM / CONTACT PERSONS ─── */
 const team = [
   {
-    name: "Matti Virtanen",
-    role: "Toimitusjohtaja",
-    email: "matti.virtanen@keudapro.fi",
-    phone: "+358 40 123 4567",
-    linkedin: "https://linkedin.com/in/example",
+    name: "Heikki Kallunki",
+    role: "Toimitusjohtaja, Keuda Koulutuspalvelut Oy",
+    email: "heikki.kallunki@keuda.fi",
+    phone: "+358 40 190 6912",
+    linkedin: "https://linkedin.com/in/heikkikallunki",
   },
   {
-    name: "Liisa Korhonen",
-    role: "Asiakkuuspäällikkö",
-    email: "liisa.korhonen@keudapro.fi",
-    phone: "+358 40 234 5678",
-    linkedin: "https://linkedin.com/in/example",
-  },
-  {
-    name: "Jukka Mäkinen",
-    role: "Kehityspäällikkö",
-    email: "jukka.makinen@keudapro.fi",
-    phone: "+358 40 345 6789",
+    name: "Satu Vainio",
+    role: "Palveluasiantuntija, Keuda Koulutuspalvelut Oy",
+    email: "satu.vainio@keuda.fi",
+    phone: "+358 40 120 9723",
+    linkedin: "https://linkedin.com/in/satuvainio",
   },
 ];
 
@@ -210,7 +204,7 @@ const YhteystiedotPage = () => {
               </h2>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
               {team.map((person) => (
                 <div
                   key={person.name}
@@ -292,7 +286,7 @@ const YhteystiedotPage = () => {
                 <div>
                   <p className="text-sm text-white/70">Osoite</p>
                   <p className="font-medium text-white">
-                    Sibeliuksenkatu 55, 04400 Järvenpää
+                    Sibeliuksenväylä 55, 04400 Järvenpää
                   </p>
                 </div>
               </a>
