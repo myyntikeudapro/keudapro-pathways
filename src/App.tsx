@@ -3,6 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { WizardProvider } from "@/contexts/WizardContext";
+import { RouteWizard } from "@/components/wizard/RouteWizard";
 import Index from "./pages/Index";
 import InsightPage from "./pages/InsightPage";
 import WorkPlusPage from "./pages/WorkPlusPage";
@@ -17,21 +19,24 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/aly" element={<InsightPage />} />
-          <Route path="/noste" element={<WorkPlusPage />} />
-          <Route path="/kasvu" element={<GrowthPage />} />
-          <Route path="/operaattori" element={<OperaattoriPage />} />
-          <Route path="/kumppanit" element={<KumppanitPage />} />
-          <Route path="/yhteystiedot" element={<YhteystiedotPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <WizardProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <RouteWizard />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/aly" element={<InsightPage />} />
+            <Route path="/noste" element={<WorkPlusPage />} />
+            <Route path="/kasvu" element={<GrowthPage />} />
+            <Route path="/operaattori" element={<OperaattoriPage />} />
+            <Route path="/kumppanit" element={<KumppanitPage />} />
+            <Route path="/yhteystiedot" element={<YhteystiedotPage />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </WizardProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

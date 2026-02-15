@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Clock, ArrowRight } from "lucide-react";
 import { PartnersSection } from "@/components/shared/PartnersSection";
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
+import { useWizard } from "@/contexts/WizardContext";
 
 import pathDirectionImg from "@/assets/noste-path-direction.jpg";
 import pathClarityImg from "@/assets/noste-path-clarity.jpg";
@@ -58,7 +59,7 @@ const paths = [
 ];
 
 const WorkPlusPage = () => {
-
+  const { openWizard } = useWizard();
   return (
     <Layout>
       {/* HERO CAROUSEL */}
@@ -136,10 +137,8 @@ const WorkPlusPage = () => {
             <p className="text-white/80 text-lg md:text-xl max-w-2xl mb-8 mx-auto">
               Tee nopea reittikartoitus ja löydä tilanteeseesi sopivat ratkaisut.
             </p>
-            <Button variant="cta" size="lg" asChild>
-              <a href="https://example.com/kartoitus" target="_blank" rel="noopener noreferrer">
+            <Button variant="cta" size="lg" onClick={openWizard}>
                 Tee 15 min reittikartoitus
-              </a>
             </Button>
           </div>
         </div>

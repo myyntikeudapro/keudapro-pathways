@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
+import { useWizard } from "@/contexts/WizardContext";
 
 interface HeroSectionProps {
   title: string;
   tagline?: string;
   description?: string;
   ctaText?: string;
-  ctaHref?: string;
+  onCtaClick?: () => void;
   variant?: "home" | "page";
 }
 
@@ -14,9 +15,10 @@ export function HeroSection({
   tagline,
   description,
   ctaText = "Tee 15 min reittikartoitus",
-  ctaHref = "https://example.com/kartoitus",
+  onCtaClick,
   variant = "page",
 }: HeroSectionProps) {
+  const { openWizard } = useWizard();
   return (
     <section className={`${variant === "home" ? "pt-20 pb-10 md:pt-28 md:pb-14" : "py-16 md:py-20"} bg-gradient-to-b from-accent/50 to-background`}>
       <div className="keuda-container">
@@ -34,10 +36,8 @@ export function HeroSection({
               {description}
             </p>
           )}
-          <Button variant="cta" size="lg" asChild>
-            <a href={ctaHref} target="_blank" rel="noopener noreferrer">
-              {ctaText}
-            </a>
+          <Button variant="cta" size="lg" onClick={onCtaClick || openWizard}>
+            {ctaText}
           </Button>
         </div>
       </div>
