@@ -137,18 +137,18 @@ export function RouteWizard() {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => { if (!open) handleClose(); }}>
-      <DialogContent className="sm:max-w-xl p-0 gap-0 overflow-hidden">
+      <DialogContent className="sm:max-w-xl p-0 gap-0 overflow-hidden max-h-[90vh] overflow-y-auto">
         {/* Progress bar */}
-        <div className="px-6 pt-6 pb-2">
-          <div className="flex items-center justify-between mb-2">
-            <DialogTitle className="text-sm font-medium text-muted-foreground">
+        <div className="px-5 pt-4 pb-1">
+          <div className="flex items-center justify-between mb-1">
+            <DialogTitle className="text-xs font-medium text-muted-foreground">
               {showResult ? "Tuloksesi" : `Kysymys ${step + 1}/${questions.length}`}
             </DialogTitle>
           </div>
-          <Progress value={progressValue} className="h-2" />
+          <Progress value={progressValue} className="h-1" />
         </div>
 
-        <div className="px-6 pb-6 pt-4">
+        <div className="px-5 pb-5 pt-2">
           {!showResult ? (
             <div
               key={step}
@@ -157,36 +157,36 @@ export function RouteWizard() {
                 animating ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"
               )}
             >
-              <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6">
+              <h2 className="text-base md:text-lg font-bold text-foreground mb-3 leading-snug line-clamp-2">
                 {questions[step].question}
               </h2>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {questions[step].options.map((option, i) => (
                   <button
                     key={i}
                     onClick={() => handleSelect(i)}
                     className={cn(
-                      "w-full text-left p-4 rounded-lg border-2 transition-all duration-200",
+                      "w-full text-left py-2 px-3 rounded-lg border-2 transition-all duration-200",
                       "hover:border-primary hover:bg-accent/50",
                       selectedOption === i
                         ? "border-primary bg-accent"
                         : "border-border bg-background"
                     )}
                   >
-                    <span className="text-sm md:text-base text-foreground">{option.text}</span>
+                    <span className="text-sm text-foreground break-words">{option.text}</span>
                   </button>
                 ))}
               </div>
             </div>
           ) : (
-            <div className="text-center py-4 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-                <span className="text-2xl font-bold text-primary">{result.label[0]}</span>
+            <div className="text-center py-3 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-3">
+                <span className="text-xl font-bold text-primary">{result.label[0]}</span>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+              <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
                 Reitti {result.label}
               </h2>
-              <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-md mx-auto leading-relaxed">
+              <p className="text-muted-foreground text-sm md:text-base mb-5 max-w-md mx-auto leading-relaxed">
                 {result.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
