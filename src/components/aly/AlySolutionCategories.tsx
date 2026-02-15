@@ -32,7 +32,7 @@ const programs = [
       { label: "AI-Director – Strateginen tekoälyjohtaminen", href: "https://www.keuda.fi/koulutus/ai-director-ceo-johtoryhmatason-valmennusohjelma/" },
       { label: "AI-Manager – Tekoäly johtamistyössä", href: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/" },
       { label: "AI-Coordinator – Käyttöönotto ja koordinointi", href: "https://www.keuda.fi/koulutus/ai-coordinator-tekoalykoordinaattori-koulutusohjelma/" },
-      { label: "AI-Kaksonen – Johtajan ja asiantuntijan AI", href: "#ai-kaksonen" },
+      { label: "AI-Kaksonen – Johtajan ja asiantuntijan AI", href: "https://www.keuda.fi/koulutus/ai-kaksonen-osaamisperinto-ja-digiloikka/" },
       { label: "Hyper Engineering (FI)", href: "https://www.keuda.fi/koulutus/hyper-engineering-program-fi/" },
       { label: "Hyper Engineering (EN)", href: "https://www.keuda.fi/en/training/hyper-engineering-program-en/" },
       { label: "Yrittäjä AI -ohjelma (tulossa)", href: "#yrittaja-ai" },
