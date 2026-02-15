@@ -97,8 +97,8 @@ const WorkPlusPage = () => {
                 <div className="flex flex-col gap-2 mb-6 flex-1">
                   {path.modules.map((mod, idx) => {
                     const isMuutosturva =
-                      path.id === "polku3" &&
-                      mod.href === "#muutosturva-tyoelamaan";
+                      (path.id === "polku3" && mod.href === "#muutosturva-tyoelamaan") ||
+                      (path.id === "polku2" && mod.href === "#muutosturva-kirkkaaksi");
                     if (isMuutosturva) {
                       return (
                         <button
