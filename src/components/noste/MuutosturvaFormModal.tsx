@@ -141,12 +141,12 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto p-4 sm:p-5 gap-3">
         {submitted ? (
-          <div className="flex flex-col items-center text-center py-8 gap-4">
-            <CheckCircle className="w-16 h-16 text-primary" />
-            <h3 className="text-xl font-bold text-foreground">Kiitos!</h3>
-            <p className="text-muted-foreground">
+          <div className="flex flex-col items-center text-center py-6 gap-3">
+            <CheckCircle className="w-12 h-12 text-primary" />
+            <h3 className="text-lg font-bold text-foreground">Kiitos!</h3>
+            <p className="text-sm text-muted-foreground">
               Tietosi on lähetetty. Olemme sinuun yhteydessä pian.
             </p>
             <Button variant="cta" onClick={() => handleClose(false)}>
@@ -156,21 +156,20 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
         ) : (
           <>
             <DialogHeader>
-              <DialogTitle className="text-xl">
+              <DialogTitle className="text-base leading-snug line-clamp-2">
                 Haluatko muutosturvakoulutussuunnitelman?
               </DialogTitle>
-              <DialogDescription>
-                Täytä muutama tieto, niin laadimme sinulle sopivan ehdotuksen ja
-                palaamme nopeasti.
+              <DialogDescription className="text-xs">
+                Täytä muutama tieto, niin laadimme sopivan ehdotuksen.
               </DialogDescription>
             </DialogHeader>
 
-            <div className="flex flex-col gap-5 mt-2">
+            <div className="flex flex-col gap-3 mt-1">
               {/* 1. Industry */}
-              <div className="space-y-2">
-                <Label>Miltä alalta olet siirtymässä?</Label>
+              <div className="space-y-1">
+                <Label className="text-xs">Miltä alalta olet siirtymässä?</Label>
                 <Select value={industry} onValueChange={setIndustry}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-8 text-sm">
                     <SelectValue placeholder="Valitse ala" />
                   </SelectTrigger>
                   <SelectContent>
@@ -185,6 +184,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                 {industry === "Muu" && (
                   <Input
                     placeholder="Kirjoita ala"
+                    className="h-8 text-sm"
                     value={customIndustry}
                     onChange={(e) => setCustomIndustry(e.target.value)}
                   />
@@ -192,15 +192,16 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
               </div>
 
               {/* 2. Over 55 */}
-              <div className="space-y-2">
-                <Label>Oletko yli 55-vuotias?</Label>
-                <div className="flex gap-3">
+              <div className="space-y-1">
+                <Label className="text-xs">Oletko yli 55-vuotias?</Label>
+                <div className="flex gap-2">
                   {["Kyllä", "Ei"].map((opt) => (
                     <Button
                       key={opt}
                       type="button"
                       variant={over55 === opt ? "default" : "outline"}
                       size="sm"
+                      className="h-7 text-xs px-3"
                       onClick={() => setOver55(opt)}
                     >
                       {opt}
@@ -210,10 +211,10 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
               </div>
 
               {/* 3. Budget */}
-              <div className="space-y-2">
-                <Label>Muutosturvabudjetti (arvio)</Label>
+              <div className="space-y-1">
+                <Label className="text-xs">Muutosturvabudjetti (arvio)</Label>
                 <Select value={budget} onValueChange={setBudget}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-8 text-sm">
                     <SelectValue placeholder="Valitse budjetti" />
                   </SelectTrigger>
                   <SelectContent>
@@ -227,48 +228,50 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
               </div>
 
               {/* 4. Goals */}
-              <div className="space-y-2">
-                <Label>Mitä toivot seuraavalta suunnalta?</Label>
-                <div className="flex flex-col gap-2">
+              <div className="space-y-1">
+                <Label className="text-xs">Mitä toivot seuraavalta suunnalta?</Label>
+                <div className="flex flex-col gap-1">
                   {GOAL_OPTIONS.map((opt) => (
                     <label
                       key={opt}
                       className="flex items-center gap-2 cursor-pointer"
                     >
                       <Checkbox
+                        className="h-3.5 w-3.5"
                         checked={goals.includes(opt)}
                         onCheckedChange={() => toggleItem(goals, setGoals, opt)}
                       />
-                      <span className="text-sm">{opt}</span>
+                      <span className="text-xs break-words">{opt}</span>
                     </label>
                   ))}
                 </div>
               </div>
 
               {/* 4b. AI usage */}
-              <div className="space-y-2">
-                <Label>Miten käytät tekoälyä tällä hetkellä?</Label>
-                <div className="flex flex-col gap-2">
+              <div className="space-y-1">
+                <Label className="text-xs">Miten käytät tekoälyä tällä hetkellä?</Label>
+                <div className="flex flex-col gap-1">
                   {AI_OPTIONS.map((opt) => (
                     <label
                       key={opt}
                       className="flex items-center gap-2 cursor-pointer"
                     >
                       <Checkbox
+                        className="h-3.5 w-3.5"
                         checked={aiUsage.includes(opt)}
                         onCheckedChange={() => toggleItem(aiUsage, setAiUsage, opt)}
                       />
-                      <span className="text-sm">{opt}</span>
+                      <span className="text-xs break-words">{opt}</span>
                     </label>
                   ))}
                 </div>
               </div>
 
               {/* 5. Timing */}
-              <div className="space-y-2">
-                <Label>Milloin koulutuksen tulisi alkaa?</Label>
+              <div className="space-y-1">
+                <Label className="text-xs">Milloin koulutuksen tulisi alkaa?</Label>
                 <Select value={timing} onValueChange={setTiming}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-8 text-sm">
                     <SelectValue placeholder="Valitse ajankohta" />
                   </SelectTrigger>
                   <SelectContent>
@@ -282,35 +285,39 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
               </div>
 
               {/* 6. Contact */}
-              <div className="space-y-2">
-                <Label>Yhteystiedot</Label>
+              <div className="space-y-1">
+                <Label className="text-xs">Yhteystiedot</Label>
                 <Input
                   placeholder="Nimi *"
+                  className="h-8 text-sm"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
                 <Input
                   type="email"
                   placeholder="Sähköposti *"
+                  className="h-8 text-sm"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                   type="tel"
                   placeholder="Puhelin"
+                  className="h-8 text-sm"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
 
               {/* 7. Extra */}
-              <div className="space-y-2">
-                <Label>Lisätieto (valinnainen)</Label>
+              <div className="space-y-1">
+                <Label className="text-xs">Lisätieto (valinnainen)</Label>
                 <Textarea
                   placeholder="Kerro halutessasi lisää tilanteestasi..."
+                  className="text-sm"
                   value={extra}
                   onChange={(e) => setExtra(e.target.value)}
-                  rows={3}
+                  rows={2}
                 />
               </div>
 
