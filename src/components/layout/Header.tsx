@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import keudaproLogo from "@/assets/keudapro-logo.jpg";
+import { useWizard } from "@/contexts/WizardContext";
 
 const navItems = [
   { label: "Reitit", href: "/" },
@@ -14,6 +15,7 @@ const navItems = [
 export function Header() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { openWizard } = useWizard();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -43,14 +45,8 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="cta" size="default" asChild>
-              <a
-                href="https://example.com/kartoitus"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Tee 15 min reittikartoitus
-              </a>
+            <Button variant="cta" size="default" onClick={openWizard}>
+              Tee 15 min reittikartoitus
             </Button>
           </div>
 
@@ -87,14 +83,8 @@ export function Header() {
                 </Link>
               ))}
               <div className="pt-2">
-                <Button variant="cta" className="w-full" asChild>
-                  <a
-                    href="https://example.com/kartoitus"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Tee 15 min reittikartoitus
-                  </a>
+                <Button variant="cta" className="w-full" onClick={() => { setMobileMenuOpen(false); openWizard(); }}>
+                  Tee 15 min reittikartoitus
                 </Button>
               </div>
             </nav>

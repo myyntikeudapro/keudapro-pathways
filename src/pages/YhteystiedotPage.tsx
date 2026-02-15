@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useWizard } from "@/contexts/WizardContext";
 
 import heroImg1 from "@/assets/contact-hero-1.jpg";
 import heroImg2 from "@/assets/contact-hero-2.jpg";
@@ -86,6 +87,7 @@ const team = [
 
 /* ─── COMPONENT ─── */
 const YhteystiedotPage = () => {
+  const { openWizard } = useWizard();
   const [current, setCurrent] = useState(0);
 
   const next = useCallback(() => {
@@ -131,9 +133,15 @@ const YhteystiedotPage = () => {
                 {heroSlides[current].text}
               </p>
             )}
-            <Button variant="cta" size="xl" asChild>
-              <a href={heroSlides[current].href}>{heroSlides[current].cta}</a>
-            </Button>
+            {heroSlides[current].href.includes("example.com/kartoitus") ? (
+              <Button variant="cta" size="xl" onClick={openWizard}>
+                {heroSlides[current].cta}
+              </Button>
+            ) : (
+              <Button variant="cta" size="xl" asChild>
+                <a href={heroSlides[current].href}>{heroSlides[current].cta}</a>
+              </Button>
+            )}
           </div>
         </div>
 
