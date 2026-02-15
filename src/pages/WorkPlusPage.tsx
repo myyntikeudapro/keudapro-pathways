@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Clock, ArrowRight } from "lucide-react";
 import { PartnersSection } from "@/components/shared/PartnersSection";
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
+import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 
 import pathDirectionImg from "@/assets/noste-path-direction.jpg";
 import pathClarityImg from "@/assets/noste-path-clarity.jpg";
@@ -60,6 +62,7 @@ const paths = [
 
 const WorkPlusPage = () => {
   const { openWizard } = useWizard();
+  const [muutosturvaOpen, setMuutosturvaOpen] = useState(false);
   return (
     <Layout>
       {/* HERO CAROUSEL */}
@@ -92,16 +95,33 @@ const WorkPlusPage = () => {
 
                 {/* Module links */}
                 <div className="flex flex-col gap-2 mb-6 flex-1">
-                  {path.modules.map((mod, idx) => (
-                    <a
-                      key={idx}
-                      href={mod.href}
-                      className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group"
-                    >
-                      <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                      {mod.label}
-                    </a>
-                  ))}
+                  {path.modules.map((mod, idx) => {
+                    const isMuutosturva =
+                      path.id === "polku3" &&
+                      mod.href === "#muutosturva-tyoelamaan";
+                    if (isMuutosturva) {
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => setMuutosturvaOpen(true)}
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group text-left"
+                        >
+                          <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                          {mod.label}
+                        </button>
+                      );
+                    }
+                    return (
+                      <a
+                        key={idx}
+                        href={mod.href}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group"
+                      >
+                        <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                        {mod.label}
+                      </a>
+                    );
+                  })}
                 </div>
 
                 {/* CTA */}
@@ -146,6 +166,7 @@ const WorkPlusPage = () => {
 
        {/* TOIMIJAT */}
        <PartnersSection />
+       <MuutosturvaFormModal open={muutosturvaOpen} onOpenChange={setMuutosturvaOpen} />
      </Layout>
    );
  };
