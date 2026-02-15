@@ -21,7 +21,7 @@ const InsightPage = () => {
     <Layout>
       <AlyHeroCarousel />
 
-      <section className="keuda-section">
+      <section className="pt-16 md:pt-24 pb-6 md:pb-8">
         <div className="keuda-container">
           <SectionHeading title="Kenelle tämä on?" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
