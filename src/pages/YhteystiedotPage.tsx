@@ -70,14 +70,14 @@ const helpCards = [
 const team = [
   {
     name: "Heikki Kallunki",
-    role: "Toimitusjohtaja, Keuda Koulutuspalvelut Oy",
+    role: "Myynti ja asiakkuudet",
     email: "heikki.kallunki@keuda.fi",
     phone: "+358 40 190 6912",
     linkedin: "https://linkedin.com/in/heikkikallunki",
   },
   {
     name: "Satu Vainio",
-    role: "Palveluasiantuntija, Keuda Koulutuspalvelut Oy",
+    role: "Koulutus- ja valmennuspalveluiden toteutukset",
     email: "satu.vainio@keuda.fi",
     phone: "+358 40 120 9723",
     linkedin: "https://linkedin.com/in/satuvainio",
