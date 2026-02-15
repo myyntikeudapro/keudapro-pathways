@@ -61,10 +61,10 @@ export function AlySolutionCategories() {
       <div className="keuda-container">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Valitse ohjelmakokonaisuus
+            Valitse koulutus kokonaisuudesta
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Kolme kokonaisuutta erilaisiin tarpeisiin – valitse omasi ja löydä sopivat ohjelmat.
+            Kolme kokonaisuutta erilaisiin tarpeisiin - valitse omasi ja löydä sopivat koulutus- ja valmennusratkaisut
           </p>
         </div>
 
