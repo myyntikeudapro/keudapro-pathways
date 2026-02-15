@@ -11,7 +11,7 @@ import audienceRenewal from "@/assets/audience-renewal.jpg";
 
 const audiences = [
   { image: audienceExpert, label: "Asiantuntijoille" },
-  { image: audienceSupervisor, label: "Esihenkilöille" },
+  { image: audienceSupervisor, label: "Esihenkilöille ja työnjohdolle" },
   { image: audienceLeader, label: "Johtajille" },
   { image: audienceRenewal, label: "Uudistumista pohtiville osaajille" },
 ];
