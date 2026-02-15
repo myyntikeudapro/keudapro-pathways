@@ -1,3 +1,4 @@
+import keudaproLogo from "@/assets/keudapro-logo.jpg";
 import kuumaLogo from "@/assets/logo-kuuma.svg";
 import { Instagram, Linkedin, Youtube, Facebook } from "lucide-react";
 
@@ -26,23 +27,33 @@ export function Footer() {
   return (
     <footer className="border-t border-[#333]">
       {/* KUUMA-seutu Section */}
-      <div className="bg-[#0B0B0B] py-6">
+      <div className="bg-[#0B0B0B] py-8">
         <div className="keuda-container">
-          <a 
-            href="https://www.kuuma.fi" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex flex-col items-center gap-3 hover:opacity-80 transition-opacity"
-          >
+          {/* KeudaPRO Logo */}
+          <div className="flex flex-col items-center gap-6">
             <img 
-              src={kuumaLogo} 
-              alt="KUUMA-seutu" 
-              className="h-12 md:h-14 invert brightness-0 invert"
+              src={keudaproLogo} 
+              alt="KeudaPRO" 
+              className="h-16 md:h-20 invert brightness-0 invert"
             />
-            <p className="text-xs text-gray-400 text-center">
-              Hyvinkää, Järvenpää, Kerava, Kirkkonummi, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula ja Vihti
-            </p>
-          </a>
+
+            {/* KUUMA-seutu */}
+            <a 
+              href="https://www.kuuma.fi" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 hover:opacity-80 transition-opacity"
+            >
+              <img 
+                src={kuumaLogo} 
+                alt="KUUMA-seutu" 
+                className="h-8 md:h-10 invert brightness-0 invert"
+              />
+              <p className="text-xs text-gray-400 text-center">
+                Hyvinkää, Järvenpää, Kerava, Kirkkonummi, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula ja Vihti
+              </p>
+            </a>
+          </div>
         </div>
       </div>
 
