@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { OperaattoriHeroCarousel } from "@/components/operaattori/OperaattoriHeroCarousel";
+import { ArrowRightLeft, Search, Users, ShieldCheck } from "lucide-react";
 
 import operatorNetwork from "@/assets/operator-network.jpg";
 import operatorTransitions from "@/assets/operator-transitions.jpg";
@@ -59,27 +60,51 @@ const OperaattoriPage = () => {
       </section>
 
       {/* Mitä operaattori tarkoittaa */}
-      <section className="py-8 md:py-12">
+      <section className="py-12 md:py-16">
         <div className="keuda-container">
-          <div className="max-w-3xl mx-auto">
-            <SectionHeading title="Mitä operaattori tarkoittaa?" />
-            <div className="mt-8 space-y-6 text-muted-foreground">
-              <p>
-                Perinteisesti osaamisen kehittäminen, työllistymisen tuki ja yritysten 
-                kehityspalvelut toimivat erillisinä siiloina. KeudaPRO toimii näiden 
-                välillä operaattorina – yhdistäen palvelut, verkostot ja resurssit 
-                asiakkaan tilanteen mukaan.
-              </p>
-              <p>
-                Operaattorimalli mahdollistaa:
-              </p>
-              <ul className="list-disc list-inside space-y-2 pl-4">
-                <li>Sujuvat siirtymät eri tilanteiden välillä</li>
-                <li>Oikean palvelun löytämisen nopeasti</li>
-                <li>Kumppaniverkoston hyödyntämisen tehokkaasti</li>
-                <li>Kokonaisvaltaisen tuen yksilöille ja organisaatioille</li>
-              </ul>
-            </div>
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Mitä operaattori tarkoittaa?
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Perinteisesti osaamisen kehittäminen, työllistymisen tuki ja yritysten 
+              kehityspalvelut toimivat erillisinä siiloina. KeudaPRO toimii näiden 
+              välillä operaattorina – yhdistäen palvelut, verkostot ja resurssit 
+              asiakkaan tilanteen mukaan.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {[
+              {
+                icon: ArrowRightLeft,
+                title: "Sujuvat siirtymät",
+                description: "Sujuvat siirtymät eri tilanteiden välillä",
+              },
+              {
+                icon: Search,
+                title: "Oikea palvelu nopeasti",
+                description: "Oikean palvelun löytäminen nopeasti",
+              },
+              {
+                icon: Users,
+                title: "Verkostot käyttöön",
+                description: "Kumppaniverkoston hyödyntäminen tehokkaasti",
+              },
+              {
+                icon: ShieldCheck,
+                title: "Kokonaisvaltainen tuki",
+                description: "Kokonaisvaltainen tuki yksilöille ja organisaatioille",
+              },
+            ].map((item) => (
+              <div key={item.title} className="keuda-card-enhanced p-6 text-center flex flex-col items-center">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <item.icon className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="font-semibold text-foreground mb-2 text-sm md:text-base">{item.title}</h3>
+                <p className="text-xs md:text-sm text-muted-foreground">{item.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
