@@ -11,7 +11,7 @@ import teamHeikki from "@/assets/team-heikki.jpg";
 import teamSatu from "@/assets/team-satu.jpg";
 import heroImg2 from "@/assets/contact-hero-2.jpg";
 import heroImg3 from "@/assets/contact-hero-3.jpg";
-import ctaBg from "@/assets/contact-cta-bg.jpg";
+import ctaVideo from "@/assets/cta-final-video.mp4";
 import teamBg from "@/assets/contact-team-bg.jpg";
 
 /* ─── HERO CAROUSEL DATA ─── */
@@ -328,12 +328,15 @@ const YhteystiedotPage = () => {
       {/* ════════ FINAL CTA ════════ */}
       <section className="relative w-full">
         <div className="absolute inset-0">
-          <img
-            src={ctaBg}
-            alt="Uusi suunta"
+          <video
+            src={ctaVideo}
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-black/50" />
         </div>
 
         <div className="relative z-10 py-20 md:py-32">
