@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { CTASection } from "@/components/shared/CTASection";
+import { KumppanitHeroCarousel } from "@/components/kumppanit/KumppanitHeroCarousel";
 
 import partnerEducation from "@/assets/partner-education.jpg";
 import partnerBusiness from "@/assets/partner-business.jpg";
@@ -32,20 +33,7 @@ const partnerCategories = [
 const KumppanitPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-accent/50 to-background">
-        <div className="keuda-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Toimijaverkosto
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              KeudaPRO toimii verkostomaisesti – yhdessä kumppaneiden kanssa rakennamme 
-              vaikuttavia ratkaisuja osaamiseen ja siirtymiin.
-            </p>
-          </div>
-        </div>
-      </section>
+      <KumppanitHeroCarousel />
 
       {/* Partner Categories */}
       <section className="py-8 md:py-12">
