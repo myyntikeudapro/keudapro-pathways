@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { OperaattoriHeroCarousel } from "@/components/operaattori/OperaattoriHeroCarousel";
 
 import operatorNetwork from "@/assets/operator-network.jpg";
 import operatorTransitions from "@/assets/operator-transitions.jpg";
@@ -32,20 +33,7 @@ const features = [
 const OperaattoriPage = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-gradient-to-b from-accent/50 to-background">
-        <div className="keuda-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Osaamisen ja siirtymien operaattori
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              KeudaPRO on uudenlainen toimija, joka yhdistää osaamisen kehittämisen, 
-              työelämän siirtymät ja organisaatioiden uudistumisen yhdeksi kokonaisuudeksi.
-            </p>
-          </div>
-        </div>
-      </section>
+      <OperaattoriHeroCarousel />
 
       {/* Features */}
       <section className="py-12 md:py-16 bg-muted/30">
