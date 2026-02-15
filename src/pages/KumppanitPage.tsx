@@ -1,11 +1,13 @@
 import { Layout } from "@/components/layout/Layout";
-import { CTASection } from "@/components/shared/CTASection";
 import { KumppanitHeroCarousel } from "@/components/kumppanit/KumppanitHeroCarousel";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 import partnerEducation from "@/assets/partner-education.jpg";
 import partnerBusiness from "@/assets/partner-business.jpg";
 import partnerPublic from "@/assets/partner-public.jpg";
 import partnerNetwork from "@/assets/partner-network.jpg";
+import kumppanitCtaBg from "@/assets/kumppanit-cta-bg.jpg";
 
 const partnerCategories = [
   {
@@ -31,6 +33,8 @@ const partnerCategories = [
 ];
 
 const KumppanitPage = () => {
+  const navigate = useNavigate();
+
   return (
     <Layout>
       <KumppanitHeroCarousel />
@@ -58,8 +62,27 @@ const KumppanitPage = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <CTASection title="Haluatko toimijaksi verkostoon?" buttonText="Ota yhteyttä" />
+      {/* CTA with background image */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <img
+          src={kumppanitCtaBg}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 text-center px-4">
+          <p className="text-lg md:text-xl text-white/90 mb-8">
+            Haluatko toimijaksi verkostoon?
+          </p>
+          <Button
+            variant="cta"
+            size="lg"
+            onClick={() => navigate("/yhteystiedot#yhteystiedot")}
+          >
+            Ota yhteyttä
+          </Button>
+        </div>
+      </section>
     </Layout>
   );
 };
