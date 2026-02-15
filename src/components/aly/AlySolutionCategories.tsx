@@ -8,7 +8,7 @@ import solutionSkills from "@/assets/solution-skills.jpg";
 const programs = [
   {
     id: "valmennusohjelmat",
-    title: "Johtamisen valmennusohjelmat",
+    title: "Johtamisen koulutukset",
     image: solutionPath,
     description:
       "Valmennusohjelmat strategiseen johtamiseen, esihenkilötyöhön ja osaamisen kehittämiseen – räätälöitynä tai avoimena.",
@@ -24,7 +24,7 @@ const programs = [
   },
   {
     id: "ai-ohjelmat",
-    title: "Tekoälypätevyys-ohjelmat",
+    title: "Tekoälypätevyys-koulutukset",
     image: solutionAi,
     description:
       "Rakennettu eri rooleille – strategiasta käyttöönottoon. Valitse oma tasosi ja kehitä tekoälyosaamista.",
@@ -42,7 +42,7 @@ const programs = [
   },
   {
     id: "turvallisuus",
-    title: "Turvallisuusjohtaminen",
+    title: "Turvallisuus- ja vastuullisuusjohtamisen koulutukset",
     image: solutionSkills,
     description:
       "Turvallisuus osaksi johtamista ja vastuullista organisaatiota. Ohjelmat turvallisuuspäälliköille, -asiantuntijoille ja -johtajille.",
