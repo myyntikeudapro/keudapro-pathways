@@ -191,101 +191,111 @@ const YhteystiedotPage = () => {
       </section>
 
       {/* ════════ YHTEYSTIEDOT ════════ */}
-      <section className="keuda-section">
-        <div className="keuda-container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Yhteystiedot
-            </h2>
-          </div>
+      <section className="relative w-full">
+        <div className="absolute inset-0">
+          <img
+            src={ctaBg}
+            alt="Yhteystiedot tausta"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {team.map((person) => (
-              <div
-                key={person.name}
-                className="keuda-card-enhanced flex flex-col items-center text-center"
-              >
-                {/* Avatar placeholder */}
-                <div className="w-20 h-20 rounded-full bg-accent flex items-center justify-center mb-4">
-                  <span className="text-2xl font-bold text-primary">
-                    {person.name.split(" ").map((n) => n[0]).join("")}
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold text-foreground">{person.name}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{person.role}</p>
-                <div className="space-y-2 text-sm">
-                  <a
-                    href={`mailto:${person.email}`}
-                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors justify-center"
-                  >
-                    <Mail className="w-4 h-4" />
-                    {person.email}
-                  </a>
-                  <a
-                    href={`tel:${person.phone.replace(/\s/g, "")}`}
-                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors justify-center"
-                  >
-                    <Phone className="w-4 h-4" />
-                    {person.phone}
-                  </a>
-                  {person.linkedin && (
+        <div className="relative z-10 py-16 md:py-24">
+          <div className="keuda-container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Yhteystiedot
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {team.map((person) => (
+                <div
+                  key={person.name}
+                  className="flex flex-col items-center text-center rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-6 hover:bg-white/15 transition-all duration-200"
+                >
+                  <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mb-4">
+                    <span className="text-2xl font-bold text-white">
+                      {person.name.split(" ").map((n) => n[0]).join("")}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white">{person.name}</h3>
+                  <p className="text-sm text-white/70 mb-4">{person.role}</p>
+                  <div className="space-y-2 text-sm">
                     <a
-                      href={person.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors justify-center"
+                      href={`mailto:${person.email}`}
+                      className="flex items-center gap-2 text-white/70 hover:text-white transition-colors justify-center"
                     >
-                      <Linkedin className="w-4 h-4" />
-                      LinkedIn
+                      <Mail className="w-4 h-4" />
+                      {person.email}
                     </a>
-                  )}
+                    <a
+                      href={`tel:${person.phone.replace(/\s/g, "")}`}
+                      className="flex items-center gap-2 text-white/70 hover:text-white transition-colors justify-center"
+                    >
+                      <Phone className="w-4 h-4" />
+                      {person.phone}
+                    </a>
+                    {person.linkedin && (
+                      <a
+                        href={person.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-white/70 hover:text-white transition-colors justify-center"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                        LinkedIn
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* General contact info */}
-          <div className="mt-8 grid md:grid-cols-3 gap-4">
-            <a
-              href="mailto:info@keudapro.fi"
-              className="keuda-card flex items-center gap-4"
-            >
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
-                <Mail className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Sähköposti</p>
-                <p className="font-medium text-foreground">info@keudapro.fi</p>
-              </div>
-            </a>
-            <a
-              href="tel:+358912345567"
-              className="keuda-card flex items-center gap-4"
-            >
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
-                <Phone className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Puhelin</p>
-                <p className="font-medium text-foreground">+358 (0)9 123 4567</p>
-              </div>
-            </a>
-            <a
-              href="https://maps.google.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="keuda-card flex items-center gap-4"
-            >
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Osoite</p>
-                <p className="font-medium text-foreground">
-                  Sibeliuksenkatu 55, 04400 Järvenpää
-                </p>
-              </div>
-            </a>
+            {/* General contact info */}
+            <div className="mt-8 grid md:grid-cols-3 gap-4">
+              <a
+                href="mailto:info@keudapro.fi"
+                className="flex items-center gap-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 hover:bg-white/15 transition-all"
+              >
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                  <Mail className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm text-white/70">Sähköposti</p>
+                  <p className="font-medium text-white">info@keudapro.fi</p>
+                </div>
+              </a>
+              <a
+                href="tel:+358912345567"
+                className="flex items-center gap-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 hover:bg-white/15 transition-all"
+              >
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                  <Phone className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm text-white/70">Puhelin</p>
+                  <p className="font-medium text-white">+358 (0)9 123 4567</p>
+                </div>
+              </a>
+              <a
+                href="https://maps.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 hover:bg-white/15 transition-all"
+              >
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm text-white/70">Osoite</p>
+                  <p className="font-medium text-white">
+                    Sibeliuksenkatu 55, 04400 Järvenpää
+                  </p>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </section>
