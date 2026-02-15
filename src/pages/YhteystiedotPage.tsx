@@ -77,7 +77,7 @@ const team = [
     role: "Myynti, asiakkuudet ja kumppanuudet",
     email: "heikki.kallunki@keuda.fi",
     phone: "+358 40 190 6912",
-    linkedin: "https://linkedin.com/in/heikkikallunki",
+    linkedin: "https://www.linkedin.com/feed/",
     photo: teamHeikki,
   },
   {
@@ -85,7 +85,7 @@ const team = [
     role: "Koulutus- ja valmennuspalveluiden toteutukset",
     email: "satu.vainio@keuda.fi",
     phone: "+358 40 120 9723",
-    linkedin: "https://linkedin.com/in/satuvainio",
+    linkedin: "https://www.linkedin.com/in/satu-vainio-9451a597/",
     photo: teamSatu,
   },
 ];
