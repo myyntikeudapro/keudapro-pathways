@@ -7,6 +7,7 @@ import operatorNetwork from "@/assets/operator-network.jpg";
 import operatorTransitions from "@/assets/operator-transitions.jpg";
 import operatorPersonal from "@/assets/operator-personal.jpg";
 import operatorKuuma from "@/assets/operator-kuuma.jpg";
+import operaattoriCtaBg from "@/assets/operaattori-cta-bg.jpg";
 
 const features = [
   {
@@ -60,13 +61,19 @@ const OperaattoriPage = () => {
       </section>
 
       {/* Mitä operaattori tarkoittaa */}
-      <section className="py-12 md:py-16">
-        <div className="keuda-container">
+      <section className="relative py-16 md:py-24 overflow-hidden">
+        <img
+          src={operaattoriCtaBg}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 keuda-container">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Mitä operaattori tarkoittaa?
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-lg text-white/80 max-w-3xl mx-auto">
               Perinteisesti osaamisen kehittäminen, työllistymisen tuki ja yritysten 
               kehityspalvelut toimivat erillisinä siiloina. KeudaPRO toimii näiden 
               välillä operaattorina – yhdistäen palvelut, verkostot ja resurssit 
@@ -97,12 +104,12 @@ const OperaattoriPage = () => {
                 description: "Kokonaisvaltainen tuki yksilöille ja organisaatioille",
               },
             ].map((item) => (
-              <div key={item.title} className="keuda-card-enhanced p-6 text-center flex flex-col items-center">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <item.icon className="w-7 h-7 text-primary" />
+              <div key={item.title} className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-6 text-center flex flex-col items-center">
+                <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-4">
+                  <item.icon className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="font-semibold text-foreground mb-2 text-sm md:text-base">{item.title}</h3>
-                <p className="text-xs md:text-sm text-muted-foreground">{item.description}</p>
+                <h3 className="font-semibold text-white mb-2 text-sm md:text-base">{item.title}</h3>
+                <p className="text-xs md:text-sm text-white/70">{item.description}</p>
               </div>
             ))}
           </div>
