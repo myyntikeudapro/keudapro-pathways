@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import { useWizard } from "@/contexts/WizardContext";
 
 import heroImg1 from "@/assets/contact-hero-1.jpg";
+import teamHeikki from "@/assets/team-heikki.jpg";
+import teamSatu from "@/assets/team-satu.jpg";
 import heroImg2 from "@/assets/contact-hero-2.jpg";
 import heroImg3 from "@/assets/contact-hero-3.jpg";
 import ctaBg from "@/assets/contact-cta-bg.jpg";
@@ -75,6 +77,7 @@ const team = [
     email: "heikki.kallunki@keuda.fi",
     phone: "+358 40 190 6912",
     linkedin: "https://linkedin.com/in/heikkikallunki",
+    photo: teamHeikki,
   },
   {
     name: "Satu Vainio",
@@ -82,6 +85,7 @@ const team = [
     email: "satu.vainio@keuda.fi",
     phone: "+358 40 120 9723",
     linkedin: "https://linkedin.com/in/satuvainio",
+    photo: teamSatu,
   },
 ];
 
@@ -218,10 +222,14 @@ const YhteystiedotPage = () => {
                   key={person.name}
                   className="flex flex-col items-center text-center rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-6 hover:bg-white/15 transition-all duration-200"
                 >
-                  <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mb-4">
-                    <span className="text-2xl font-bold text-white">
-                      {person.name.split(" ").map((n) => n[0]).join("")}
-                    </span>
+                  <div className="w-20 h-20 rounded-full overflow-hidden bg-white/20 flex items-center justify-center mb-4">
+                    {person.photo ? (
+                      <img src={person.photo} alt={person.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-2xl font-bold text-white">
+                        {person.name.split(" ").map((n) => n[0]).join("")}
+                      </span>
+                    )}
                   </div>
                   <h3 className="text-lg font-bold text-white">{person.name}</h3>
                   <p className="text-sm text-white/70 mb-4">{person.role}</p>
