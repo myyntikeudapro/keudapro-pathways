@@ -5,6 +5,7 @@ import { RouteCard } from "@/components/cards/RouteCard";
 import routeAly from "@/assets/route-aly.jpg";
 import routeNoste from "@/assets/route-noste.jpg";
 import routeKasvu from "@/assets/route-kasvu.jpg";
+import reititCtaBg from "@/assets/reitit-cta-bg.jpg";
 
 const routes = [
   {
@@ -52,15 +53,24 @@ const Index = () => {
             ))}
           </div>
 
-          {/* Bridge Text */}
-          <div className="mt-16 text-center max-w-2xl mx-auto">
-            <p className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
-              KUUMA-seutu kasvun alustana osaajille ja yrityksille.
-            </p>
-            <p className="text-muted-foreground">
-              KeudaPRO toimii osaamisen ja siirtymien operaattorina näiden reittien välillä.
-            </p>
-          </div>
+        </div>
+      </section>
+
+      {/* Bridge Text with background image */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <img
+          src={reititCtaBg}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative z-10 text-center max-w-2xl mx-auto px-4">
+          <p className="text-2xl md:text-3xl font-semibold text-white mb-3">
+            KUUMA-seutu kasvun alustana osaajille ja yrityksille.
+          </p>
+          <p className="text-white/80">
+            KeudaPRO toimii osaamisen ja siirtymien operaattorina näiden reittien välillä.
+          </p>
         </div>
       </section>
     </Layout>
