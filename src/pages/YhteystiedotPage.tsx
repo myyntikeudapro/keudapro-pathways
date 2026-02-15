@@ -8,6 +8,7 @@ import heroImg1 from "@/assets/contact-hero-1.jpg";
 import heroImg2 from "@/assets/contact-hero-2.jpg";
 import heroImg3 from "@/assets/contact-hero-3.jpg";
 import ctaBg from "@/assets/contact-cta-bg.jpg";
+import teamBg from "@/assets/contact-team-bg.jpg";
 
 /* ─── HERO CAROUSEL DATA ─── */
 const heroSlides = [
@@ -194,7 +195,7 @@ const YhteystiedotPage = () => {
       <section className="relative w-full">
         <div className="absolute inset-0">
           <img
-            src={ctaBg}
+            src={teamBg}
             alt="Yhteystiedot tausta"
             className="w-full h-full object-cover"
           />
