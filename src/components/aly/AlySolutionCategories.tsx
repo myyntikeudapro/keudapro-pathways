@@ -42,7 +42,7 @@ const programs = [
   },
   {
     id: "turvallisuus",
-    title: "Turvallisuus- ja vastuullisuusjohtamisen koulutukset",
+    title: "Turvallisuus- ja vastuullisuus-johtamisen koulutukset",
     image: solutionSkills,
     description:
       "Turvallisuus osaksi johtamista ja vastuullista organisaatiota. Ohjelmat turvallisuuspäälliköille, -asiantuntijoille ja -johtajille.",
