@@ -29,11 +29,12 @@ const programs = [
     description:
       "Rakennettu eri rooleille – strategiasta käyttöönottoon. Valitse oma tasosi ja kehitä tekoälyosaamista.",
     modules: [
-      { label: "AI-Director – Strateginen tekoälyjohtaminen", href: "#ai-director" },
-      { label: "AI-Manager – Tekoäly johtamistyössä", href: "#ai-manager" },
-      { label: "AI-Coordinator – Käyttöönotto ja koordinointi", href: "#ai-coordinator" },
+      { label: "AI-Director – Strateginen tekoälyjohtaminen", href: "https://www.keuda.fi/koulutus/ai-director-ceo-johtoryhmatason-valmennusohjelma/" },
+      { label: "AI-Manager – Tekoäly johtamistyössä", href: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/" },
+      { label: "AI-Coordinator – Käyttöönotto ja koordinointi", href: "https://www.keuda.fi/koulutus/ai-coordinator-tekoalykoordinaattori-koulutusohjelma/" },
       { label: "AI-Kaksonen – Johtajan ja asiantuntijan AI", href: "#ai-kaksonen" },
-      { label: "Hyper Engineering – Uusi valmennusohjelma", href: "#hyper-engineering" },
+      { label: "Hyper Engineering (FI)", href: "https://www.keuda.fi/koulutus/hyper-engineering-program-fi/" },
+      { label: "Hyper Engineering (EN)", href: "https://www.keuda.fi/en/training/hyper-engineering-program-en/" },
       { label: "Yrittäjä AI -ohjelma (tulossa)", href: "#yrittaja-ai" },
     ],
     ctaText: "Katso ohjelmat",
@@ -90,6 +91,7 @@ export function AlySolutionCategories() {
                   <a
                     key={idx}
                     href={mod.href}
+                    {...(mod.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group"
                   >
                     <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
