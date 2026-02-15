@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
+import CtaVideoCarousel from "@/components/contact/CtaVideoCarousel";
 import { cn } from "@/lib/utils";
 import { useWizard } from "@/contexts/WizardContext";
 
@@ -11,7 +12,6 @@ import teamHeikki from "@/assets/team-heikki.jpg";
 import teamSatu from "@/assets/team-satu.jpg";
 import heroImg2 from "@/assets/contact-hero-2.jpg";
 import heroImg3 from "@/assets/contact-hero-3.jpg";
-import ctaVideo from "@/assets/cta-final-video.mp4";
 import teamBg from "@/assets/contact-team-bg.jpg";
 
 /* ─── HERO CAROUSEL DATA ─── */
@@ -326,30 +326,8 @@ const YhteystiedotPage = () => {
       </section>
 
       {/* ════════ FINAL CTA ════════ */}
-      <section className="relative w-full">
-        <div className="absolute inset-0">
-          <video
-            src={ctaVideo}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
-
-        <div className="relative z-10 py-20 md:py-32">
-          <div className="keuda-container text-center">
-            <h3 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
-              Yksi keskustelu voi muuttaa suunnan.
-            </h3>
-            <Button variant="cta" size="xl" asChild>
-              <a href="#lomake">Varaa aika nyt</a>
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* ════════ FINAL CTA – VIDEO CAROUSEL ════════ */}
+      <CtaVideoCarousel />
     </Layout>
   );
 };
