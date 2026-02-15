@@ -141,7 +141,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto p-4 sm:p-5 gap-3">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-4 sm:p-5 gap-3">
         {submitted ? (
           <div className="flex flex-col items-center text-center py-6 gap-3">
             <CheckCircle className="w-12 h-12 text-primary" />
