@@ -49,6 +49,14 @@ const GOAL_OPTIONS = [
   "En ole vielä varma",
 ];
 
+const AI_OPTIONS = [
+  "En ole käyttänyt tekoälyä lainkaan",
+  "Olen kuullut / pohtinut, mutta en ole kokeillut",
+  "Olen kokeillut ChatGPT:tä tai vastaavaa satunnaisesti",
+  "Käytän tekoälyä säännöllisesti arjessa tai työssä",
+  "Hyödynnän tekoälyä monipuolisesti (tekstit, kuvat, analyysit…)",
+];
+
 const TIMING_OPTIONS = ["Heti", "1 kk sisällä", "2 kk sisällä", "Myöhemmin"];
 
 interface MuutosturvaFormModalProps {
@@ -63,16 +71,15 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
   const [over55, setOver55] = useState<string>("");
   const [budget, setBudget] = useState("");
   const [goals, setGoals] = useState<string[]>([]);
+  const [aiUsage, setAiUsage] = useState<string[]>([]);
   const [timing, setTiming] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [extra, setExtra] = useState("");
 
-  const toggleGoal = (goal: string) => {
-    setGoals((prev) =>
-      prev.includes(goal) ? prev.filter((g) => g !== goal) : [...prev, goal]
-    );
+  const toggleItem = (list: string[], setList: (v: string[]) => void, item: string) => {
+    setList(list.includes(item) ? list.filter((i) => i !== item) : [...list, item]);
   };
 
   const effectiveIndustry = industry === "Muu" ? customIndustry : industry;
@@ -92,6 +99,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
       `Yli 55-vuotias: ${over55}`,
       `Muutosturvabudjetti: ${budget}`,
       `Toiveet seuraavalta suunnalta: ${goals.join(", ")}`,
+      `Tekoälyn käyttö: ${aiUsage.length > 0 ? aiUsage.join(", ") : "–"}`,
       `Koulutuksen aloitus: ${timing}`,
       ``,
       `Nimi: ${name}`,
@@ -121,6 +129,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
       setOver55("");
       setBudget("");
       setGoals([]);
+      setAiUsage([]);
       setTiming("");
       setName("");
       setEmail("");
@@ -228,7 +237,26 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                     >
                       <Checkbox
                         checked={goals.includes(opt)}
-                        onCheckedChange={() => toggleGoal(opt)}
+                        onCheckedChange={() => toggleItem(goals, setGoals, opt)}
+                      />
+                      <span className="text-sm">{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* 4b. AI usage */}
+              <div className="space-y-2">
+                <Label>Miten käytät tekoälyä tällä hetkellä?</Label>
+                <div className="flex flex-col gap-2">
+                  {AI_OPTIONS.map((opt) => (
+                    <label
+                      key={opt}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      <Checkbox
+                        checked={aiUsage.includes(opt)}
+                        onCheckedChange={() => toggleItem(aiUsage, setAiUsage, opt)}
                       />
                       <span className="text-sm">{opt}</span>
                     </label>
