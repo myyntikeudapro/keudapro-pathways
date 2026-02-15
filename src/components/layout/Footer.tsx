@@ -37,7 +37,7 @@ export function Footer() {
             <img 
               src={kuumaLogo} 
               alt="KUUMA-seutu" 
-              className="h-12 md:h-14 invert brightness-0 invert"
+              className="h-9 md:h-11 invert brightness-0 invert"
             />
             <p className="text-xs text-gray-400 text-center">
               Hyvinkää, Järvenpää, Kerava, Kirkkonummi, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula ja Vihti
