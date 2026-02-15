@@ -268,7 +268,7 @@ const YhteystiedotPage = () => {
             {/* General contact info */}
             <div className="mt-8 grid md:grid-cols-3 gap-4">
               <a
-                href="mailto:info@keudapro.fi"
+                href="mailto:keudapro@keuda.fi"
                 className="flex items-center gap-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 hover:bg-white/15 transition-all"
               >
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
@@ -276,7 +276,7 @@ const YhteystiedotPage = () => {
                 </div>
                 <div>
                   <p className="text-sm text-white/70">Sähköposti</p>
-                  <p className="font-medium text-white">info@keudapro.fi</p>
+                  <p className="font-medium text-white">keudapro@keuda.fi</p>
                 </div>
               </a>
               <a
