@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -71,11 +72,20 @@ const inputClass =
   "w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring";
 
 const ContactForm = () => {
+  const [searchParams] = useSearchParams();
   const [category, setCategory] = useState("");
   const [categoryOther, setCategoryOther] = useState("");
   const [sub, setSub] = useState("");
   const [subOther, setSubOther] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const prefill = searchParams.get("prefill");
+    if (prefill) {
+      setMessage(decodeURIComponent(prefill));
+    }
+  }, [searchParams]);
 
   const subs = category ? subcategories[category] ?? [] : [];
   const showCategoryOther = category === MUU;
@@ -236,6 +246,8 @@ const ContactForm = () => {
           name="message"
           required
           rows={5}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           className={`${inputClass} resize-none`}
           placeholder="Kerro, miten voimme auttaa..."
         />

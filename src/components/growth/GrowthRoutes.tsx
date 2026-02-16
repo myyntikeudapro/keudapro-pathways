@@ -1,4 +1,7 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ArrowRight } from "lucide-react";
 
 const routes = [
@@ -23,7 +26,7 @@ const routes = [
       { label: "Tekoäly ja digitalisaatio", href: "#tekoaly" },
       { label: "Prosessit ja tuottavuus", href: "#prosessit" },
       { label: "Automaatio ja työkalut", href: "#automaatio" },
-      { label: "Osaamisen kehittäminen", href: "#osaaminen" },
+      { label: "Henkilöstön sitouttaminen", href: "#sitouttaminen" },
     ],
     ctaText: "Aloita AI-polku",
     ctaHref: "#ai-polku",
@@ -43,6 +46,100 @@ const routes = [
   },
 ];
 
+/* ─── 4th block: tabbed training categories ─── */
+const trainingCategories = [
+  {
+    id: "kortit",
+    label: "Kortit ja pätevyydet",
+    items: [
+      "Työturvallisuuskorttikoulutus",
+      "Tulityökorttikoulutus",
+      "Akkuturvallisuuskoulutus",
+    ],
+  },
+  {
+    id: "kieli",
+    label: "Kieli ja viestintä",
+    items: [
+      "Suomi työkielenä -koulutus",
+      "Työpaikkasuomi-koulutus",
+      "Englanti työkielenä -koulutus",
+      "Ruotsi työkielenä -koulutus",
+    ],
+  },
+  {
+    id: "toimiala",
+    label: "Toimialakohtaiset koulutukset",
+    items: [
+      "Turvallinen kattotyöskentely -koulutus",
+      "Viheralan koulutukset",
+      "Ajoneuvoalan täydennyskoulutukset",
+    ],
+  },
+];
+
+function TrainingBlock() {
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("kortit");
+
+  const handleAskMore = (trainingName: string) => {
+    const msg = encodeURIComponent(`Kiinnostaa: ${trainingName}`);
+    navigate(`/yhteystiedot?prefill=${msg}#lomake`);
+  };
+
+  const handleCtaClick = () => {
+    navigate("/yhteystiedot?prefill=" + encodeURIComponent("Kiinnostaa: Lyhytkoulutukset, kortit ja pätevyydet") + "#lomake");
+  };
+
+  return (
+    <div className="keuda-card-enhanced flex flex-col h-full">
+      <h3 className="text-xl font-bold text-foreground mb-2">
+        Osaaminen käytäntöön
+      </h3>
+      <p className="text-muted-foreground text-sm mb-5">
+        Lyhytkoulutukset, kortit ja pätevyydet ammattitaidon ja kasvun tueksi.
+      </p>
+
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col mb-6">
+        <TabsList className="w-full h-auto flex-wrap gap-1 bg-accent/40 p-1">
+          {trainingCategories.map((cat) => (
+            <TabsTrigger
+              key={cat.id}
+              value={cat.id}
+              className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-background data-[state=active]:text-foreground"
+            >
+              {cat.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        {trainingCategories.map((cat) => (
+          <TabsContent key={cat.id} value={cat.id} className="mt-3 flex flex-col gap-2">
+            {cat.items.map((item) => (
+              <div
+                key={item}
+                className="flex items-center justify-between gap-2 px-4 py-2.5 rounded-lg bg-accent/60 border border-border/50 group"
+              >
+                <span className="text-foreground text-sm font-medium">{item}</span>
+                <button
+                  onClick={() => handleAskMore(item)}
+                  className="text-xs font-semibold text-primary hover:text-primary/80 whitespace-nowrap transition-colors"
+                >
+                  Kysy lisää
+                </button>
+              </div>
+            ))}
+          </TabsContent>
+        ))}
+      </Tabs>
+
+      <Button variant="cta" size="lg" className="w-full" onClick={handleCtaClick}>
+        Kysy koulutuksista
+      </Button>
+    </div>
+  );
+}
+
 export function GrowthRoutes() {
   return (
     <section id="kasvureitit" className="py-16 md:py-20 bg-muted/30">
@@ -56,7 +153,7 @@ export function GrowthRoutes() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {routes.map((route) => (
             <div
               key={route.id}
@@ -87,6 +184,9 @@ export function GrowthRoutes() {
               </Button>
             </div>
           ))}
+
+          {/* 4th block: Osaaminen käytäntöön */}
+          <TrainingBlock />
         </div>
       </div>
     </section>
