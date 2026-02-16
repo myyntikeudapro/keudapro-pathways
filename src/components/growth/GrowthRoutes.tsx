@@ -52,28 +52,36 @@ const trainingCategories = [
     id: "kortit",
     label: "Kortit ja pätevyydet",
     items: [
-      "Työturvallisuuskorttikoulutus",
-      "Tulityökorttikoulutus",
-      "Akkuturvallisuuskoulutus",
+      { label: "Työturvallisuuskorttikoulutus", href: "https://www.keuda.fi/koulutus/tyoturvallisuuskortti-koulutus/" },
+      { label: "Tulityökorttikoulutus", href: "https://www.keuda.fi/koulutus/tulityokortti-koulutus/" },
+      { label: "Akkuturvallisuuskoulutus", href: "https://www.keuda.fi/koulutus/akkuturvallisuuskoulutus/" },
+      { label: "Työhyvinvointikorttikoulutus", href: "https://www.keuda.fi/koulutus/tyohyvinvointikortti-koulutus/" },
+      { label: "Hygieniapassi", href: "https://www.keuda.fi/koulutus/hygieniapassitestit-ja-koulutukset/" },
+      { label: "Anniskelupassi", href: "https://www.keuda.fi/koulutus/anniskelupassikoulutukset-ja-testit/" },
+      { label: "SPR Hätäensiapukurssi 4h", href: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-4-t/" },
+      { label: "SPR Hätäensiapukurssi 8h", href: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-8-t/" },
+      { label: "SPR Ensiapukurssi EA1", href: "https://www.keuda.fi/koulutus/spr-ensiapukurssi-ea-1/" },
+      { label: "SPR Ensiapukurssi EA2", href: "https://www.keuda.fi/koulutus/spr-ensiapukurssi-ea-2/" },
     ],
   },
   {
     id: "kieli",
     label: "Kieli ja viestintä",
     items: [
-      "Suomi työkielenä -koulutus",
-      "Työpaikkasuomi-koulutus",
-      "Englanti työkielenä -koulutus",
-      "Ruotsi työkielenä -koulutus",
+      { label: "Suomi työkielenä -koulutukset", href: "https://www.keuda.fi/koulutus/suomi-tyokielena-koulutukset/" },
+      { label: "Sote-suomi kielikoulutus", href: "https://www.keuda.fi/koulutus/sote-suomi-kielikoulutus/" },
+      { label: "Työpaikkasuomi-koulutus", href: "https://www.keuda.fi/koulutukset/" },
+      { label: "Englanti työkielenä -koulutus", href: "https://www.keuda.fi/koulutukset/" },
+      { label: "Ruotsi työkielenä -koulutus", href: "https://www.keuda.fi/koulutukset/" },
     ],
   },
   {
     id: "toimiala",
     label: "Toimialakohtaiset koulutukset",
     items: [
-      "Turvallinen kattotyöskentely -koulutus",
-      "Viheralan koulutukset",
-      "Ajoneuvoalan täydennyskoulutukset",
+      { label: "Viheralan koulutukset", href: "https://www.keuda.fi/koulutus/viheralan-koulutukset/" },
+      { label: "Turvallinen kattotyöskentely", href: "https://www.keuda.fi/koulutukset/" },
+      { label: "Ajoneuvoalan täydennyskoulutukset", href: "https://www.keuda.fi/koulutukset/" },
     ],
   },
 ];
@@ -81,11 +89,6 @@ const trainingCategories = [
 function TrainingBlock() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("kortit");
-
-  const handleAskMore = (trainingName: string) => {
-    const msg = encodeURIComponent(`Kiinnostaa: ${trainingName}`);
-    navigate(`/yhteystiedot?prefill=${msg}#lomake`);
-  };
 
   const handleCtaClick = () => {
     navigate("/yhteystiedot?prefill=" + encodeURIComponent("Kiinnostaa: Lyhytkoulutukset, kortit ja pätevyydet") + "#lomake");
@@ -116,18 +119,16 @@ function TrainingBlock() {
         {trainingCategories.map((cat) => (
           <TabsContent key={cat.id} value={cat.id} className="mt-3 flex flex-col gap-2">
             {cat.items.map((item) => (
-              <div
-                key={item}
-                className="flex items-center justify-between gap-2 px-4 py-2.5 rounded-lg bg-accent/60 border border-border/50 group"
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group"
               >
-                <span className="text-foreground text-sm font-medium">{item}</span>
-                <button
-                  onClick={() => handleAskMore(item)}
-                  className="text-xs font-semibold text-primary hover:text-primary/80 whitespace-nowrap transition-colors"
-                >
-                  Kysy lisää
-                </button>
-              </div>
+                <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                {item.label}
+              </a>
             ))}
           </TabsContent>
         ))}
