@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { ArrowRight } from "lucide-react";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 const routes = [
   {
@@ -88,7 +87,6 @@ const trainingCategories = [
 
 function TrainingBlock() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("kortit");
 
   const handleCtaClick = () => {
     navigate("/yhteystiedot?prefill=" + encodeURIComponent("Kiinnostaa: Lyhytkoulutukset, kortit ja pätevyydet") + "#lomake");
@@ -103,36 +101,31 @@ function TrainingBlock() {
         Lyhytkoulutukset, kortit ja pätevyydet ammattitaidon ja kasvun tueksi.
       </p>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col mb-6">
-        <TabsList className="w-full h-auto flex-wrap gap-1 bg-accent/40 p-1">
-          {trainingCategories.map((cat) => (
-            <TabsTrigger
-              key={cat.id}
-              value={cat.id}
-              className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-background data-[state=active]:text-foreground"
-            >
-              {cat.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-
+      <Accordion type="single" collapsible className="flex-1 mb-6">
         {trainingCategories.map((cat) => (
-          <TabsContent key={cat.id} value={cat.id} className="mt-3 flex flex-col gap-2">
-            {cat.items.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group"
-              >
-                <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                {item.label}
-              </a>
-            ))}
-          </TabsContent>
+          <AccordionItem key={cat.id} value={cat.id} className="border-border/50">
+            <AccordionTrigger className="text-sm font-semibold text-foreground hover:no-underline py-3">
+              {cat.label}
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="flex flex-col gap-1.5 pt-1">
+                {cat.items.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg hover:bg-accent text-foreground text-sm transition-colors group"
+                  >
+                    <span>{item.label}</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary flex-shrink-0 transition-colors" />
+                  </a>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
         ))}
-      </Tabs>
+      </Accordion>
 
       <Button variant="cta" size="lg" className="w-full" onClick={handleCtaClick}>
         Kysy koulutuksista
