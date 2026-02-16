@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 import solutionAi from "@/assets/solution-ai.jpg";
 import solutionPath from "@/assets/solution-path.jpg";
-import solutionSkills from "@/assets/solution-skills.jpg";
+import solutionSafety from "@/assets/solution-safety.jpg";
 
 const programs = [
   {
@@ -43,7 +43,7 @@ const programs = [
   {
     id: "turvallisuus",
     title: "Turvallisuus- ja vastuullisuus-johtamisen koulutukset",
-    image: solutionSkills,
+    image: solutionSafety,
     description:
       "Turvallisuus osaksi johtamista ja vastuullista organisaatiota. Ohjelmat turvallisuuspäälliköille, -asiantuntijoille ja -johtajille.",
     modules: [
