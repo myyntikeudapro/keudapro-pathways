@@ -104,7 +104,7 @@ function TrainingBlock() {
       <Accordion type="single" collapsible className="flex-1 mb-6">
         {trainingCategories.map((cat) => (
           <AccordionItem key={cat.id} value={cat.id} className="border-border/50">
-            <AccordionTrigger className="text-sm font-semibold text-foreground hover:no-underline py-3">
+            <AccordionTrigger className="text-sm font-semibold text-foreground text-left hover:no-underline py-3">
               {cat.label}
             </AccordionTrigger>
             <AccordionContent>
