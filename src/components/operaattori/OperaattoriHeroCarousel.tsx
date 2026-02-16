@@ -63,7 +63,7 @@ export function OperaattoriHeroCarousel() {
 
       <div className="relative z-20 h-full flex items-center justify-center">
         <div className="text-center px-4">
-          <p className="text-sm md:text-base font-semibold tracking-widest uppercase text-white/80 mb-3">
+          <p className="text-sm md:text-base font-semibold tracking-widest text-white/80 mb-3">
             KeudaPRO
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
