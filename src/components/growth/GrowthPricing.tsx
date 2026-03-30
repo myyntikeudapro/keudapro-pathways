@@ -78,11 +78,7 @@ const comparisonRows = [
 ];
 
 export function GrowthPricing() {
-  const navigate = useNavigate();
-
-  const handleCta = (prefill: string) => {
-    navigate("/yhteystiedot?prefill=" + encodeURIComponent(prefill) + "#lomake");
-  };
+  const [modalLevel, setModalLevel] = useState<1 | 2 | 3 | null>(null);
 
   return (
     <section className="py-16 md:py-20">
