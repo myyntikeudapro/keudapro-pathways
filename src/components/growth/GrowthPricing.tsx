@@ -57,6 +57,25 @@ const packages = [
   },
 ];
 
+/* Comparison table rows: [taso1, taso2, taso3] */
+const comparisonRows = [
+  { label: "Perusvalmennus: myynti ja asiakashankinta", tiers: [true, true, true] },
+  { label: "Tekoälytyökalupaketti (viestintä & markkinointi)", tiers: [true, true, true] },
+  { label: "Digitaalinen oppimisalusta", tiers: [true, true, true] },
+  { label: "Vertaisryhmä (10–15 yrittäjää)", tiers: [true, true, true] },
+  { label: "Reittikartoitus", tiers: [true, true, true] },
+  { label: "Johtamisvalmennus (tiimi, prosessit, myyntiputki)", tiers: [false, true, true] },
+  { label: "Laajennettu AI-alusta (automaatio, CRM, raportointi)", tiers: [false, true, true] },
+  { label: "Henkilökohtainen sparraussessio (1×/kk)", tiers: [false, true, true] },
+  { label: "Verkostoklubi (alihankkijat, kumppanit, rekry)", tiers: [false, true, true] },
+  { label: "Puolivuosittainen reittikatselmus", tiers: [false, true, true] },
+  { label: "Omistaja-valmennus (hallitustyö, strategia)", tiers: [false, false, true] },
+  { label: "Täysi AI-integraatio (BI, ERP, HR-analytiikka)", tiers: [false, false, true] },
+  { label: "Nimetty asiantuntija koko sopimusvuodeksi", tiers: [false, false, true] },
+  { label: "TKI- ja kansainvälistymisverkosto", tiers: [false, false, true] },
+  { label: "Hiljaisen tiedon siirto-ohjelma", tiers: [false, false, true] },
+];
+
 export function GrowthPricing() {
   const navigate = useNavigate();
 
@@ -77,6 +96,7 @@ export function GrowthPricing() {
           </p>
         </div>
 
+        {/* Pricing cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
           {packages.map((pkg) => (
             <div
@@ -86,7 +106,6 @@ export function GrowthPricing() {
                 pkg.featured && "ring-2 ring-primary shadow-xl lg:scale-[1.03]"
               )}
             >
-              {/* Featured label */}
               {pkg.featured && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <Badge className="bg-primary text-primary-foreground text-xs px-3 py-0.5 shadow-md">
@@ -95,17 +114,14 @@ export function GrowthPricing() {
                 </div>
               )}
 
-              {/* Badge */}
               <span className="text-xs font-medium text-muted-foreground mb-2">
                 {pkg.badge}
               </span>
 
-              {/* Title */}
               <h3 className="text-xl font-bold text-foreground mb-4">
                 {pkg.title}
               </h3>
 
-              {/* Price */}
               <div className="mb-1">
                 <span className="text-4xl font-extrabold text-foreground">
                   {pkg.price} €
@@ -116,7 +132,6 @@ export function GrowthPricing() {
                 {pkg.annual}
               </p>
 
-              {/* Features */}
               <ul className="flex flex-col gap-3 mb-8 flex-1">
                 {pkg.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-foreground">
@@ -126,7 +141,6 @@ export function GrowthPricing() {
                 ))}
               </ul>
 
-              {/* CTA */}
               <Button
                 variant="cta"
                 size="lg"
@@ -137,6 +151,64 @@ export function GrowthPricing() {
               </Button>
             </div>
           ))}
+        </div>
+
+        {/* Comparison table */}
+        <div className="mt-16 overflow-x-auto">
+          <h3 className="text-2xl font-bold text-foreground text-center mb-8">
+            Vertaa paketteja
+          </h3>
+          <table className="w-full text-sm border-collapse min-w-[600px]">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="text-left py-3 px-4 font-medium text-muted-foreground w-[40%]">
+                  Ominaisuus
+                </th>
+                {packages.map((pkg) => (
+                  <th
+                    key={pkg.title}
+                    className={cn(
+                      "py-3 px-4 text-center font-semibold text-foreground",
+                      pkg.featured && "bg-primary/5"
+                    )}
+                  >
+                    {pkg.title}
+                    <div className="text-xs font-normal text-muted-foreground mt-0.5">
+                      {pkg.price} €/kk
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row, i) => (
+                <tr
+                  key={row.label}
+                  className={cn(
+                    "border-b border-border/50",
+                    i % 2 === 0 && "bg-muted/30"
+                  )}
+                >
+                  <td className="py-3 px-4 text-foreground">{row.label}</td>
+                  {row.tiers.map((has, ti) => (
+                    <td
+                      key={ti}
+                      className={cn(
+                        "py-3 px-4 text-center",
+                        packages[ti].featured && "bg-primary/5"
+                      )}
+                    >
+                      {has ? (
+                        <Check className="w-4 h-4 text-primary mx-auto" />
+                      ) : (
+                        <span className="text-muted-foreground/40">—</span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         {/* Info note */}
