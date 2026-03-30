@@ -142,7 +142,7 @@ export function GrowthPricing() {
                 variant="cta"
                 size="lg"
                 className="w-full mt-auto"
-                onClick={() => handleCta(pkg.prefill)}
+                onClick={() => setModalLevel(pkg.level)}
               >
                 {pkg.ctaText}
               </Button>
