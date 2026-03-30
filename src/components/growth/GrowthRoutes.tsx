@@ -1,51 +1,79 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink, Zap, TrendingUp, Building2, GraduationCap } from "lucide-react";
+import { cn } from "@/lib/utils";
 
+/* ─── Revenue filter options ─── */
+const levels = [
+  { id: "kaynistys", icon: Zap, label: "Käynnistys", revenue: "40 000 – 120 000 €/v" },
+  { id: "skaalaus", icon: TrendingUp, label: "Skaalaus", revenue: "120 000 – 600 000 €/v" },
+  { id: "kasvu-uudistuminen", icon: Building2, label: "Kasvu ja uudistuminen", revenue: "600 000 – 1 200 000 €/v" },
+  { id: "osaaminen", icon: GraduationCap, label: "Osaamisen kehittäminen", revenue: "Kaikki kokoluokat" },
+];
+
+/* ─── Route cards data ─── */
 const routes = [
   {
-    id: "kasvu-kayntiin",
+    id: "kaynistys",
     title: "Kasvu käyntiin",
-    description: "Myynti, asiakashankinta ja kasvun perusta käytäntöön.",
+    subtitle: "Myynti, asiakashankinta ja ensimmäinen skaalaus",
+    mindset: "Rohkeus myydä — asiakkaasta kassavirtaan",
     modules: [
-      { label: "Myynti ja asiakashankinta", href: "#myynti" },
-      { label: "Markkinointi ja asiakaskokemus", href: "#markkinointi" },
-      { label: "Palvelun kirkastus ja konseptointi", href: "#konseptointi" },
-      { label: "Kasvun sparraus ja pilotointi", href: "#sparraus" },
+      "Myynti ja asiakashankinta",
+      "Markkinointi ja näkyvyys",
+      "Palvelun kirkastus ja hinnoittelu",
+      "Kasvun sparraus (1:1)",
     ],
     ctaText: "Aloita kasvukartoitus",
-    ctaHref: "#kasvukartoitus",
+    transition: "Sinulla on toistuvaa kassavirtaa, vähintään muutama vakioasiakas ja tunnet tarpeesi palkata tai ulkoistaa.",
   },
   {
-    id: "tehostus-digiloikka",
-    title: "Tehostus ja digiloikka",
-    description: "Tuottavuus, prosessit ja tekoäly käyttöön arjessa.",
+    id: "skaalaus",
+    title: "Skaalaus ja systematisointi",
+    subtitle: "Prosessit, tiimi ja myyntiputki kuntoon",
+    mindset: "Johtaja rakentaa — ei tee kaikkea itse",
     modules: [
-      { label: "Tekoäly ja digitalisaatio", href: "#tekoaly" },
-      { label: "Prosessit ja tuottavuus", href: "#prosessit" },
-      { label: "Automaatio ja työkalut", href: "#automaatio" },
-      { label: "Henkilöstön sitouttaminen", href: "#sitouttaminen" },
+      "Myyntiputki ja asiakaspolku",
+      "Tekoäly ja digitalisaatio arjessa",
+      "Prosessit ja tuottavuus",
+      "Henkilöstön sitouttaminen ja rekrytointi",
     ],
-    ctaText: "Aloita AI-polku",
-    ctaHref: "#ai-polku",
+    ctaText: "Aloita skaalauskartoitus",
+    transition: "Liikevaihtosi kasvaa mutta olet itse pullonkaula — tarvitset johtamisrakenteen ja hallitustyön.",
   },
   {
-    id: "jatkuvuus-uudistuminen",
-    title: "Jatkuvuus ja uudistuminen",
-    description: "Omistajanvaihdos, murros ja uuden suunnan rakentaminen.",
+    id: "kasvu-uudistuminen",
+    title: "Teollistuminen ja uudistuminen",
+    subtitle: "Omistajan roolin muutos, hallitustyö ja kansainvälistyminen",
+    mindset: "Omistaja johtaa — yritys toimii ilman sinua",
     modules: [
-      { label: "Omistajanvaihdos ja siirtymät", href: "#omistajanvaihdos" },
-      { label: "Hiljaisen tiedon siirto", href: "#hiljainen-tieto" },
-      { label: "Liiketoiminnan uudelleenfokusointi", href: "#uudelleenfokusointi" },
-      { label: "Verkostot ja TKI-yhteistyö", href: "#verkostot" },
+      "Omistajanvaihdos ja siirtymät",
+      "Hiljaisen tiedon siirto ja dokumentointi",
+      "Liiketoiminnan uudelleenfokusointi",
+      "Verkostot, TKI ja kansainvälistyminen",
     ],
     ctaText: "Keskustele siirtymästä",
-    ctaHref: "#siirtyma",
+    transition: "Harkitset omistajanvaihdosta, kansainvälistymistä tai liiketoiminnan merkittävää muutosta.",
+  },
+  {
+    id: "osaaminen",
+    title: "Osaaminen käytäntöön",
+    subtitle: "Koulutukset, kortit ja pätevyydet yrityksille ja henkilöstölle",
+    mindset: "Osaaminen on kilpailuetu — ei kulu",
+    modules: [
+      "Kortit ja pätevyydet (EA, hygieniapassi, työturvallisuus jne.)",
+      "Kieli ja viestintä (suomi, englanti, ruotsi)",
+      "Toimialakohtaiset koulutukset",
+      "Henkilöstön kehittämisohjelmat",
+    ],
+    ctaText: "Kysy koulutuksista",
+    transition: "Osaaminen on jatkuvaa — sopii kaikille vaiheille rinnakkaisesti.",
   },
 ];
 
-/* ─── 4th block: tabbed training categories ─── */
+/* ─── Training categories for the "Osaaminen" card accordion ─── */
 const trainingCategories = [
   {
     id: "kortit",
@@ -85,59 +113,100 @@ const trainingCategories = [
   },
 ];
 
-function TrainingBlock() {
-  const navigate = useNavigate();
-
-  const handleCtaClick = () => {
-    navigate("/yhteystiedot?prefill=" + encodeURIComponent("Kiinnostaa: Lyhytkoulutukset, kortit ja pätevyydet") + "#lomake");
-  };
-
+/* ─── Training accordion sub-component (for card 4) ─── */
+function TrainingAccordion() {
   return (
-    <div className="keuda-card-enhanced flex flex-col h-full">
-      <h3 className="text-xl font-bold text-foreground mb-2">
-        Osaaminen käytäntöön
-      </h3>
-      <p className="text-muted-foreground text-sm mb-5">
-        Lyhytkoulutukset, kortit ja pätevyydet ammattitaidon ja kasvun tueksi.
-      </p>
-
-      <Accordion type="single" collapsible className="flex-1 mb-6">
-        {trainingCategories.map((cat) => (
-          <AccordionItem key={cat.id} value={cat.id} className="border-border/50">
-            <AccordionTrigger className="text-sm font-semibold text-foreground text-left hover:no-underline py-3">
-              {cat.label}
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="flex flex-col gap-1.5 pt-1">
-                {cat.items.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg hover:bg-accent text-foreground text-sm transition-colors group"
-                  >
-                    <span>{item.label}</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary flex-shrink-0 transition-colors" />
-                  </a>
-                ))}
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-
-      <Button variant="cta" size="lg" className="w-full" onClick={handleCtaClick}>
-        Kysy koulutuksista
-      </Button>
-    </div>
+    <Accordion type="single" collapsible className="mb-4">
+      {trainingCategories.map((cat) => (
+        <AccordionItem key={cat.id} value={cat.id} className="border-border/50">
+          <AccordionTrigger className="text-sm font-semibold text-foreground text-left hover:no-underline py-2.5">
+            {cat.label}
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="flex flex-col gap-1.5 pt-1">
+              {cat.items.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg hover:bg-accent text-foreground text-sm transition-colors group"
+                >
+                  <span>{item.label}</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary flex-shrink-0 transition-colors" />
+                </a>
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
   );
 }
 
+/* ─── Main component ─── */
 export function GrowthRoutes() {
+  const navigate = useNavigate();
+  const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
+
+  const handleLevelClick = (id: string) => {
+    setSelectedLevel(id);
+    const el = document.getElementById(`route-${id}`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleCtaClick = (route: typeof routes[0]) => {
+    if (route.id === "osaaminen") {
+      navigate("/yhteystiedot?prefill=" + encodeURIComponent("Kiinnostaa: Lyhytkoulutukset, kortit ja pätevyydet") + "#lomake");
+    } else {
+      navigate("/yhteystiedot?prefill=" + encodeURIComponent(`Kiinnostaa: ${route.title}`) + "#lomake");
+    }
+  };
+
   return (
     <section id="kasvureitit" className="py-16 md:py-20 bg-muted/30">
       <div className="keuda-container">
+
+        {/* ── Revenue level filter ── */}
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Missä vaiheessa yrityksesi on nyt?
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+            Valitse taso — näet suoraan sopivat ratkaisut ja etenemismallin.
+          </p>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-4xl mx-auto">
+            {levels.map((level) => (
+              <button
+                key={level.id}
+                onClick={() => handleLevelClick(level.id)}
+                className={cn(
+                  "keuda-card p-4 text-center transition-all hover:shadow-md hover:border-primary/50 cursor-pointer",
+                  selectedLevel === level.id && "border-primary bg-primary/5 shadow-md"
+                )}
+              >
+                <level.icon className={cn(
+                  "w-8 h-8 mx-auto mb-2 transition-colors",
+                  selectedLevel === level.id ? "text-primary" : "text-muted-foreground"
+                )} />
+                <span className={cn(
+                  "text-sm font-semibold block mb-1",
+                  selectedLevel === level.id ? "text-primary" : "text-foreground"
+                )}>
+                  {level.label}
+                </span>
+                <span className="text-xs text-muted-foreground block">
+                  {level.revenue}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Section heading for cards ── */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Valitse kasvureitti
@@ -147,40 +216,72 @@ export function GrowthRoutes() {
           </p>
         </div>
 
+        {/* ── Four route cards ── */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {routes.map((route) => (
             <div
               key={route.id}
-              className="keuda-card-enhanced flex flex-col h-full"
+              id={`route-${route.id}`}
+              className={cn(
+                "keuda-card-enhanced flex flex-col h-full transition-all duration-300",
+                selectedLevel === route.id && "ring-2 ring-primary shadow-lg"
+              )}
             >
-              <h3 className="text-xl font-bold text-foreground mb-2">
+              <h3 className="text-xl font-bold text-foreground mb-1">
                 {route.title}
               </h3>
-              <p className="text-muted-foreground text-sm mb-5">
-                {route.description}
+              <p className="text-muted-foreground text-sm mb-3">
+                {route.subtitle}
               </p>
 
-              <div className="flex flex-col gap-2 mb-6 flex-1">
-                {route.modules.map((mod, idx) => (
-                  <a
-                    key={idx}
-                    href={mod.href}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group"
-                  >
-                    <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                    {mod.label}
-                  </a>
-                ))}
-              </div>
+              {/* Mindset badge */}
+              <span className="inline-block text-xs font-medium text-primary bg-primary/10 rounded-full px-3 py-1 mb-5 self-start">
+                {route.mindset}
+              </span>
 
-              <Button variant="cta" size="lg" asChild className="w-full">
-                <a href={route.ctaHref}>{route.ctaText}</a>
+              {/* Services list or training accordion */}
+              {route.id === "osaaminen" ? (
+                <div className="flex-1 mb-4">
+                  <TrainingAccordion />
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2 mb-6 flex-1">
+                  {route.modules.map((mod, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 text-foreground text-sm font-medium border border-border/50"
+                    >
+                      <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                      {mod}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Transition criteria accordion */}
+              <Accordion type="single" collapsible className="mb-4">
+                <AccordionItem value="transition" className="border-border/40">
+                  <AccordionTrigger className="text-xs font-semibold text-muted-foreground text-left hover:no-underline py-2">
+                    Milloin olet valmis seuraavalle tasolle?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {route.transition}
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+
+              <Button
+                variant="cta"
+                size="lg"
+                className="w-full mt-auto"
+                onClick={() => handleCtaClick(route)}
+              >
+                {route.ctaText}
               </Button>
             </div>
           ))}
-
-          {/* 4th block: Osaaminen käytäntöön */}
-          <TrainingBlock />
         </div>
       </div>
     </section>
