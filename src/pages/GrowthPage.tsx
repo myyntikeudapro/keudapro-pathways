@@ -18,7 +18,10 @@ const GrowthPage = () => {
       {/* 3) KASVUALAT */}
       <GrowthIndustries />
 
-      {/* 4) FAQ */}
+      {/* 4) KASVUPAKETIT */}
+      <GrowthPricing />
+
+      {/* 5) FAQ */}
       <GrowthFAQ />
 
       {/* 5) FINAL CTA */}
