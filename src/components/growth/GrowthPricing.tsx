@@ -217,6 +217,15 @@ export function GrowthPricing() {
             Tasojen välillä voi siirtyä joustavasti sopimusvuoden aikana.
           </p>
         </div>
+
+        {/* Assessment Modal */}
+        {modalLevel && (
+          <AssessmentModal
+            level={modalLevel}
+            open={!!modalLevel}
+            onOpenChange={(open) => { if (!open) setModalLevel(null); }}
+          />
+        )}
       </div>
     </section>
   );
