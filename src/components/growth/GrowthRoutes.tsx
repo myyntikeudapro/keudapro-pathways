@@ -287,6 +287,15 @@ export function GrowthRoutes() {
             </div>
           ))}
         </div>
+
+        {/* Assessment Modal */}
+        {modalLevel && (
+          <AssessmentModal
+            level={modalLevel}
+            open={!!modalLevel}
+            onOpenChange={(open) => { if (!open) setModalLevel(null); }}
+          />
+        )}
       </div>
     </section>
   );

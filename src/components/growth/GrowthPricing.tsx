@@ -1,8 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AssessmentModal } from "@/components/growth/AssessmentModal";
 
 const packages = [
   {
