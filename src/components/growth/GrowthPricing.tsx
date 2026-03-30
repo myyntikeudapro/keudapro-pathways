@@ -7,6 +7,7 @@ import { AssessmentModal } from "@/components/growth/AssessmentModal";
 
 const packages = [
   {
+    level: 1 as const,
     badge: "Taso 1 · 40 000–120 000 €/v",
     title: "Kasvu käyntiin",
     price: "290",
@@ -20,9 +21,9 @@ const packages = [
       "Reittikartoitus kerran vuodessa",
     ],
     ctaText: "Aloita kasvukartoitus",
-    prefill: "Kiinnostaa: Käynnistys-kasvupaketti (290 €/kk)",
   },
   {
+    level: 2 as const,
     badge: "Taso 2 · 120 000–600 000 €/v",
     title: "Skaalaus ja systematisointi",
     price: "590",
@@ -37,9 +38,9 @@ const packages = [
       "Puolivuosittainen reittikatselmus ja siirtymäsuunnitelma",
     ],
     ctaText: "Aloita skaalauskartoitus",
-    prefill: "Kiinnostaa: Skaalaus-kasvupaketti (590 €/kk)",
   },
   {
+    level: 3 as const,
     badge: "Taso 3 · 600 000–1 200 000 €/v",
     title: "Teollistuminen ja uudistuminen",
     price: "990",
@@ -54,7 +55,6 @@ const packages = [
       "Hiljaisen tiedon siirto-ohjelma ja dokumentointi",
     ],
     ctaText: "Keskustele siirtymästä",
-    prefill: "Kiinnostaa: Uudistuminen-kasvupaketti (990 €/kk)",
   },
 ];
 
