@@ -144,10 +144,18 @@ function TrainingAccordion() {
   );
 }
 
+/* ─── Route ID to modal level mapping ─── */
+const routeToLevel: Record<string, 1 | 2 | 3 | 4> = {
+  "kaynistys": 1,
+  "skaalaus": 2,
+  "kasvu-uudistuminen": 3,
+  "osaaminen": 4,
+};
+
 /* ─── Main component ─── */
 export function GrowthRoutes() {
-  const navigate = useNavigate();
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
+  const [modalLevel, setModalLevel] = useState<1 | 2 | 3 | 4 | null>(null);
 
   const handleLevelClick = (id: string) => {
     setSelectedLevel(id);
@@ -158,11 +166,7 @@ export function GrowthRoutes() {
   };
 
   const handleCtaClick = (route: typeof routes[0]) => {
-    if (route.id === "osaaminen") {
-      navigate("/yhteystiedot?prefill=" + encodeURIComponent("Kiinnostaa: Lyhytkoulutukset, kortit ja pätevyydet") + "#lomake");
-    } else {
-      navigate("/yhteystiedot?prefill=" + encodeURIComponent(`Kiinnostaa: ${route.title}`) + "#lomake");
-    }
+    setModalLevel(routeToLevel[route.id] ?? 1);
   };
 
   return (
