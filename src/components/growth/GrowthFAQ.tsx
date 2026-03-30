@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Play, X } from "lucide-react";
+import { Play } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 const faqs = [
   {
-    question: "Mitä kasvukartoitus sisältää?",
+    question: "Miten tiedän, mille tasolle kuulun?",
     youtubeId: "uW1aXFs0zzE",
   },
   {
-    question: "Paljonko tämä vie aikaa?",
+    question: "Mitä kasvukartoitus sisältää?",
     youtubeId: "y1QSgnwlYxU",
   },
   {
@@ -23,6 +23,10 @@ const faqs = [
   {
     question: "Voiko pienyritys osallistua ilman suurta budjettia?",
     youtubeId: "qv48XLRgTLE",
+  },
+  {
+    question: "Miten osaamiskoulutukset liittyvät kasvuun?",
+    youtubeId: "uW1aXFs0zzE",
   },
 ];
 
@@ -42,11 +46,10 @@ export function GrowthFAQ() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {faqs.map((faq) => (
             <button
-              key={faq.youtubeId}
+              key={faq.youtubeId + faq.question}
               onClick={() => setOpenVideo(faq.youtubeId)}
               className="group text-left rounded-xl overflow-hidden border border-border bg-card hover:border-primary/40 transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-ring"
             >
-              {/* Thumbnail with play overlay */}
               <div className="relative aspect-video overflow-hidden">
                 <img
                   src={`https://img.youtube.com/vi/${faq.youtubeId}/hqdefault.jpg`}
@@ -60,7 +63,6 @@ export function GrowthFAQ() {
                 </div>
               </div>
 
-              {/* Question text */}
               <div className="p-4">
                 <p className="font-semibold text-foreground text-sm leading-snug mb-1">
                   {faq.question}
@@ -74,7 +76,6 @@ export function GrowthFAQ() {
         </div>
       </div>
 
-      {/* Video modal */}
       <Dialog open={!!openVideo} onOpenChange={() => setOpenVideo(null)}>
         <DialogContent className="max-w-3xl p-0 overflow-hidden bg-black border-none">
           <VisuallyHidden>
