@@ -453,10 +453,10 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
       </div>
 
       {/* Open message */}
-      {answers.open_message && (
+      {answers.avoin && (
         <div className="rounded-lg border border-border bg-accent/40 p-4">
           <h4 className="text-sm font-bold text-foreground mb-1">Vapaa viesti</h4>
-          <p className="text-sm text-foreground">{answers.open_message as string}</p>
+          <p className="text-sm text-foreground">{answers.avoin as string}</p>
         </div>
       )}
 
