@@ -219,7 +219,7 @@ function handlePrint(level: number, config: LevelConfig, answers: Answers, flags
 
   lines.push("<h3>Vastauksesi</h3><dl>");
   for (const [key, val] of Object.entries(answers)) {
-    if (key === "open_message" && !val) continue;
+    if (key === "avoin" && !val) continue;
     const label = getQuestionLabel(key, level);
     const value = Array.isArray(val) ? val.join(", ") : val;
     if (value) lines.push(`<dt style="font-weight:600;margin-top:8px">${label}</dt><dd>${value}</dd>`);
