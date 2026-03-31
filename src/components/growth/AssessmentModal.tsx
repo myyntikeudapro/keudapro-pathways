@@ -9,12 +9,13 @@ import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, Flag, Send, Calendar, Printer, X } from "lucide-react";
 
 /* ─── Types ─── */
+type QuestionType = "single" | "multi" | "text";
+
 interface Question {
   id: string;
   text: string;
-  type: "single" | "multi" | "open";
+  type: QuestionType;
   options?: string[];
-  required: boolean;
 }
 
 interface FlagItem {
