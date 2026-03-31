@@ -109,84 +109,75 @@ const levelConfigs: Record<number, LevelConfig> = {
 /* ─── Flag generation ─── */
 function generateFlags(level: number, answers: Answers): FlagItem[] {
   const flags: FlagItem[] = [];
+  const a = answers;
+  const includes = (id: string, ...terms: string[]) => {
+    const v = a[id];
+    if (!v) return false;
+    if (Array.isArray(v)) return terms.some((t) => v.some((val) => val.includes(t)));
+    return terms.some((t) => v.includes(t));
+  };
 
   if (level === 1) {
-    const src = answers.revenue_source;
-    if (src === "En ole vielä myynyt") flags.push({ label: "Myynti ei ole vielä alkanut", severity: "critical" });
-    if (src === "Yksi pääasiakas") flags.push({ label: "Asiakaskeskittymäriski", severity: "critical" });
-
-    const challenges = answers.biggest_challenge as string[] | undefined;
-    if (challenges?.includes("Rahoitus")) flags.push({ label: "Rahoitustilanne epäselvä", severity: "critical" });
-    if (challenges?.includes("Hinnoittelu")) flags.push({ label: "Hinnoittelu vaatii kirkastusta", severity: "development" });
-    if (challenges?.includes("Näkyvyys ja markkinointi")) flags.push({ label: "Markkinointia on kehitettävä", severity: "development" });
-    if (challenges?.includes("Asiakashankinta")) flags.push({ label: "Asiakashankintaprosessi puuttuu", severity: "development" });
-
-    const goal = answers.goal_6mo;
-    if (goal === "Palkata ensimmäinen työntekijä") flags.push({ label: "Kasvupotentiaali — ensimmäinen rekrytointi", severity: "opportunity" });
-    if (goal === "Kasvattaa myyntiä 50%+") flags.push({ label: "Kunnianhimoinen kasvutavoite", severity: "opportunity" });
+    if (includes("lv", "Vaihtelee", "Laskenut")) flags.push({ label: "Kassavirran ennustettavuus", severity: "critical" });
+    if (includes("asiakkaat", "satunnaisia")) flags.push({ label: "Asiakashankinnan kanava puuttuu", severity: "development" });
+    if (includes("myynti", "alennuksella")) flags.push({ label: "Hinnoittelun perustelu", severity: "development" });
+    if (includes("myynti", "katteeni")) flags.push({ label: "Kateanalyysi puuttuu", severity: "development" });
+    if (includes("myynti", "pakko")) flags.push({ label: "Systemaattinen myynti", severity: "development" });
+    if (includes("nakyvyys", "suusanallisesti", "En tiedä")) flags.push({ label: "Markkinoinnin näkyvyys", severity: "opportunity" });
+    if (includes("kiteys", "monelle", "miettinyt")) flags.push({ label: "Palvelun kirkastus ja kohderyhmä", severity: "opportunity" });
   }
 
   if (level === 2) {
-    const bottlenecks = answers.bottleneck as string[] | undefined;
-    if (bottlenecks?.includes("Olen itse pullonkaula")) flags.push({ label: "Yrittäjä on pullonkaula", severity: "critical" });
-    if (bottlenecks?.includes("Prosessit puuttuvat")) flags.push({ label: "Prosessit puuttuvat", severity: "critical" });
-    if (bottlenecks?.includes("Myyntiputki ei toimi")) flags.push({ label: "Myyntiputki vaatii korjausta", severity: "development" });
-    if (bottlenecks?.includes("Rekrytointi on vaikeaa")) flags.push({ label: "Rekrytointihaaste", severity: "development" });
-
-    const leadership = answers.leadership;
-    if (leadership === "Teen kaiken itse") flags.push({ label: "Delegointi on kehityskohde", severity: "critical" });
-
-    const systems = answers.systems as string[] | undefined;
-    if (systems?.includes("Ei mitään näistä")) flags.push({ label: "Digitalisaation mahdollisuus", severity: "opportunity" });
-    if (systems?.includes("CRM-järjestelmä") && systems?.includes("Markkinointiautomaatio"))
-      flags.push({ label: "Hyvä teknologiapohja — valmis skaalaukseen", severity: "opportunity" });
+    if (includes("johto", "hidastuu", "pysähtyy", "yksin")) flags.push({ label: "Yrittäjä pullonkaulana — delegointi", severity: "critical" });
+    if (includes("putki", "Reaktiivista", "pullonkaula")) flags.push({ label: "Myyntiputki rakentamatta", severity: "development" });
+    if (includes("prosessit", "eri tavalla")) flags.push({ label: "Toistettavat prosessit puuttuvat", severity: "development" });
+    if (includes("prosessit", "Hiljainen tieto")) flags.push({ label: "Hiljaisen tiedon riski", severity: "development" });
+    if (includes("ai", "ei aikaa", "Emme ole")) flags.push({ label: "Tekoälyn käyttöönotto", severity: "opportunity" });
+    if (includes("hr", "Vaihtuvuus", "rekrytointia")) flags.push({ label: "HR ja rekrytointi", severity: "development" });
+    if (includes("talous", "kate on epäselvä", "vahvuuteni")) flags.push({ label: "Talouden näkyvyys", severity: "development" });
   }
 
   if (level === 3) {
-    const knowledge = answers.knowledge_transfer;
-    if (knowledge === "Kaikki tieto on minun päässäni") flags.push({ label: "Hiljainen tieto dokumentoimatta", severity: "critical" });
-    if (knowledge === "Ei juurikaan") flags.push({ label: "Dokumentointi puutteellista", severity: "critical" });
-
-    const board = answers.board_work;
-    if (board === "Ei hallitusta") flags.push({ label: "Hallitustyö puuttuu", severity: "development" });
-
-    const timeline = answers.timeline;
-    if (timeline === "6–12 kuukautta") flags.push({ label: "Nopea aikataulu — valmistelu kiireellinen", severity: "critical" });
-
-    const transitions = answers.transition_type as string[] | undefined;
-    if (transitions?.includes("Kansainvälistyminen")) flags.push({ label: "Kansainvälistymismahdollisuus", severity: "opportunity" });
-    if (transitions?.includes("Omistajanvaihdos")) flags.push({ label: "Omistajanvaihdos edessä", severity: "development" });
+    if (includes("rooli", "liikaa kiinni", "Harkitsen")) flags.push({ label: "Omistajan rooli — kiireellinen", severity: "critical" });
+    if (includes("hallitus", "muodollinen", "yksin")) flags.push({ label: "Hallitustyön kehittäminen", severity: "development" });
+    if (includes("ovaihdos", "käynnissä", "3–7")) flags.push({ label: "Omistajanvaihdoksen valmistelu", severity: "critical" });
+    if (includes("tieto", "Heikosti", "riskin")) flags.push({ label: "Hiljainen tieto — kriittinen riski", severity: "critical" });
+    if (includes("strategia", "Haen suuntaa", "merkittävää")) flags.push({ label: "Strateginen uudelleensuuntaus", severity: "development" });
+    if (includes("tki", "kansainvälistymistä")) flags.push({ label: "Kansainvälistymisstrategia", severity: "opportunity" });
+    if (includes("tki", "Vähän")) flags.push({ label: "Verkostot ja TKI-mahdollisuudet", severity: "opportunity" });
   }
 
   if (level === 4) {
-    const urgency = answers.urgency;
-    if (urgency === "Heti / mahdollisimman pian") flags.push({ label: "Kiireellinen koulutustarve", severity: "critical" });
-
-    const funding = answers.funding;
-    if (funding === "En ole vielä miettinyt rahoitusta") flags.push({ label: "Rahoitus selvitettävä", severity: "development" });
-    if (funding === "Haluaisin tietoa tukimahdollisuuksista") flags.push({ label: "Tukimahdollisuudet kartoitettavissa", severity: "opportunity" });
-
-    const needs = answers.training_need as string[] | undefined;
-    if (needs && needs.length >= 3) flags.push({ label: "Laaja osaamistarve — kokonaisvaltainen ohjelma", severity: "opportunity" });
+    if (includes("nykytila", "aukkoja", "tarpeita", "puuttuu")) flags.push({ label: "Osaamisen aukkoja — kartoitetaan", severity: "development" });
+    if (includes("tyyppi", "Pakolliset kortit")) flags.push({ label: "Pakolliset pätevyydet — priorisoidaan", severity: "opportunity" });
+    if (includes("tyyppi", "Tekoäly")) flags.push({ label: "Tekoäly- ja digitaidot", severity: "opportunity" });
+    if (includes("tyyppi", "Johtamis")) flags.push({ label: "Johtamisosaaminen", severity: "opportunity" });
+    if (includes("rahoitus", "Ei —", "Osittain")) flags.push({ label: "Rahoitusmahdollisuudet selvitetään", severity: "development" });
+    if (includes("aikataulu", "akuutti")) flags.push({ label: "Kiireellinen — priorisoidaan", severity: "critical" });
   }
 
   return flags;
 }
 
 /* ─── Summary description ─── */
+const positiveTexts: Record<number, string> = {
+  1: "Hyvä pohja kasvulle — fokus on myynnin systematisoinnissa ja kassavirran kasvattamisessa. Valmentaja auttaa löytämään seuraavan konkreettisen askeleen.",
+  2: "Hyvä pohja skaalaukselle — yritys on kasvuvaiheessa ja tarvitsee systematiikkaa. Valmentaja auttaa rakentamaan selkeän skaalauspolun.",
+  3: "Yrityksessäsi on vakaa pohja ja selkeä suunta. Asiantuntija auttaa fokusoimaan seuraavan merkittävän siirtymän ja rakentamaan sille polun.",
+  4: "Yrityksenne lähestymistapa osaamisen kehittämiseen on harkittu. Koulutusasiantuntija räätälöi teille sopivan kokonaisuuden — myös rahoitusvaihtoehdot selvitetään.",
+};
+
 function getSummaryDescription(level: number, flags: FlagItem[]): string {
-  const criticalCount = flags.filter((f) => f.severity === "critical").length;
-  const opportunityCount = flags.filter((f) => f.severity === "opportunity").length;
+  const redCount = flags.filter((f) => f.severity === "critical").length;
+  const amberCount = flags.filter((f) => f.severity === "development").length;
+  const total = redCount + amberCount;
 
-  if (level === 4) {
-    if (criticalCount > 0) return "Osaamistarpeesi ovat kiireelliset — katsotaan yhdessä paras etenemissuunnitelma.";
-    return "Hyvä tilannekuva osaamistarpeistasi. Räätälöidään sopiva koulutuskokonaisuus.";
-  }
+  if (total === 0) return positiveTexts[level] ?? "Hyvä pohja — tarkennetaan tapaamisessa.";
 
-  if (criticalCount >= 2) return "Kartoituksesta nousi useita kriittisiä kohteita — tapaaminen auttaa priorisoimaan.";
-  if (criticalCount === 1 && opportunityCount > 0) return "Yksi asia vaatii erityishuomiota, mutta myös mahdollisuuksia on näköpiirissä.";
-  if (opportunityCount >= 2) return "Hienot edellytykset kasvulle — sparraus auttaa hyödyntämään mahdollisuudet.";
-  return "Hyvä pohja — tarkennetaan suunta tapaamisessa.";
+  if (redCount >= 2)
+    return `Kartoitus nosti esiin ${total} kehityskohtaa, joista ${redCount} on kiireellistä. Valmentaja auttaa rakentamaan selkeän toimintasuunnitelman — tapaamisessa käydään nämä läpi järjestyksessä.`;
+
+  return `Kartoituksessa tunnistettiin ${total} kehityskohtaa. Näistä käydään valmentajan kanssa läpi ne, jotka vaikuttavat eniten kasvuun ja arkeen.`;
 }
 
 /* ─── Flag colors ─── */
