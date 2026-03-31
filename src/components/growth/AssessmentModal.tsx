@@ -9,12 +9,13 @@ import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, Flag, Send, Calendar, Printer, X } from "lucide-react";
 
 /* ─── Types ─── */
+type QuestionType = "single" | "multi" | "text";
+
 interface Question {
   id: string;
   text: string;
-  type: "single" | "multi" | "open";
+  type: QuestionType;
   options?: string[];
-  required: boolean;
 }
 
 interface FlagItem {
@@ -44,40 +45,13 @@ const levelConfigs: Record<number, LevelConfig> = {
     badgeClass: "bg-teal-100 text-teal-800 border-teal-200",
     calendarLabel: "Varaa kasvukartoitusaika",
     questions: [
-      {
-        id: "revenue_source",
-        text: "Mikä on tällä hetkellä suurin tulonlähteesi?",
-        type: "single",
-        options: ["Yksi pääasiakas", "Muutama säännöllinen asiakas", "Vaihtelevat projektit", "En ole vielä myynyt"],
-        required: true,
-      },
-      {
-        id: "biggest_challenge",
-        text: "Mikä on suurin haasteesi juuri nyt?",
-        type: "multi",
-        options: ["Asiakashankinta", "Hinnoittelu", "Näkyvyys ja markkinointi", "Ajan puute", "Osaamisen puute", "Rahoitus"],
-        required: true,
-      },
-      {
-        id: "sales_method",
-        text: "Miten hankit tällä hetkellä asiakkaita?",
-        type: "single",
-        options: ["Puskaradio / suositukset", "Some-markkinointi", "Kylmäsoitot / sähköpostit", "En tiedä mistä aloittaa"],
-        required: true,
-      },
-      {
-        id: "goal_6mo",
-        text: "Mikä on tärkein tavoitteesi seuraavalle 6 kuukaudelle?",
-        type: "single",
-        options: ["Saada ensimmäiset maksavat asiakkaat", "Kasvattaa myyntiä 50%+", "Palkata ensimmäinen työntekijä", "Saada kassavirta vakaaksi"],
-        required: true,
-      },
-      {
-        id: "open_message",
-        text: "Onko jotain muuta mitä haluaisit kertoa tilanteestasi?",
-        type: "open",
-        required: false,
-      },
+      { id: "lv", type: "single", text: "Miten liikevaihto on kehittynyt viimeisen 12 kk aikana?", options: ["Kasvanut selvästi", "Pysynyt samana — ei kasva", "Vaihtelee paljon — ei ennustettava", "Laskenut tai haasteita"] },
+      { id: "asiakkaat", type: "single", text: "Mistä uudet asiakkaat pääasiassa tulevat?", options: ["Suosittelut ja verkostot", "Some tai verkkosivut", "Oma aktiivinen myynti", "Ei selvää kanavaa — satunnaisia"] },
+      { id: "myynti", type: "multi", text: "Mikä kuvaa myyntiäsi parhaiten? (valitse kaikki sopivat)", options: ["Hintani on selkeä ja perustelen sen", "Myyn usein alennuksella tai tingitään", "En tiedä tarkalleen mikä katteeni on", "Myyn systemaattisesti — on prosessi", "Myyn vain kun on pakko"] },
+      { id: "aika", type: "single", text: "Mikä vie eniten aikaasi tällä hetkellä?", options: ["Operatiivinen työ — teen kaiken itse", "Asiakastyö — ei jää aikaa myyntiin", "Hallinto ja juoksevat asiat", "Melko hyvä tasapaino"] },
+      { id: "nakyvyys", type: "single", text: "Miten potentiaaliset asiakkaat löytävät sinut?", options: ["Minulla on selkeä someviestintä tai verkkosivut", "Jotain on mutta ei ole systemaattista", "Lähinnä suusanallisesti — ei aktiivista markkinointia", "En tiedä miten asiakkaat löytävät minut"] },
+      { id: "kiteys", type: "single", text: "Miten kirkkaasti olet kiteyttänyt mitä myyt ja kenelle?", options: ["Erittäin selkeästi — osaan sanoa sen yhdellä lauseella", "Melko selkeästi mutta viestintä vaihtelee", "Tarjoan monelle mutta ei ole selkeää kohderyhmää", "En ole oikein miettinyt tätä"] },
+      { id: "avoin", type: "text", text: "Mikä on se yksi asia johon toivot selkeimmän avun kasvukartoituksessa?" },
     ],
   },
   2: {
@@ -88,40 +62,13 @@ const levelConfigs: Record<number, LevelConfig> = {
     badgeClass: "bg-blue-100 text-blue-800 border-blue-200",
     calendarLabel: "Varaa skaalaustapaamisaika",
     questions: [
-      {
-        id: "team_size",
-        text: "Kuinka monta henkilöä tiimissäsi työskentelee?",
-        type: "single",
-        options: ["Vain minä", "2–5 henkeä", "6–15 henkeä", "Yli 15 henkeä"],
-        required: true,
-      },
-      {
-        id: "bottleneck",
-        text: "Mikä on suurin pullonkaula kasvulle?",
-        type: "multi",
-        options: ["Olen itse pullonkaula", "Prosessit puuttuvat", "Myyntiputki ei toimi", "Rekrytointi on vaikeaa", "Teknologia puuttuu", "Johtaminen"],
-        required: true,
-      },
-      {
-        id: "systems",
-        text: "Mitä järjestelmiä käytät liiketoiminnassasi?",
-        type: "multi",
-        options: ["CRM-järjestelmä", "Taloushallinto-ohjelmisto", "Projektinhallinta", "Markkinointiautomaatio", "Ei mitään näistä"],
-        required: true,
-      },
-      {
-        id: "leadership",
-        text: "Miten kuvailisit johtamistapaasi?",
-        type: "single",
-        options: ["Teen kaiken itse", "Delegoin mutta valvon tarkasti", "Tiimillä on selkeät vastuut", "Haluaisin kehittää johtamistani"],
-        required: true,
-      },
-      {
-        id: "open_message",
-        text: "Kerro vapaasti tilanteestasi tai odotuksistasi?",
-        type: "open",
-        required: false,
-      },
+      { id: "johto", type: "single", text: "Miten yritys toimii ilman sinua — esim. lomasi aikana?", options: ["Hyvin — tiimillä on selkeät vastuut", "Toimii mutta vaatii paljon viestejä minulle", "Käytännössä hidastuu tai pysähtyy", "Ei tiimiä — toimin yksin tai osa-aikaisten kanssa"] },
+      { id: "putki", type: "single", text: "Miten uudet asiakasmahdollisuudet syntyvät ja etenevät?", options: ["Selkeä myyntiprosessi — seuraamme aktiivisesti", "Myynti tapahtuu mutta ei ole systemaattista", "Reaktiivista — vastataan tarjouspyyntöihin", "Myyntiputki on pullonkaula — liidejä ei tule"] },
+      { id: "prosessit", type: "multi", text: "Mitkä kuvaavat prosessejanne? (valitse kaikki sopivat)", options: ["Toimitusprosessi on dokumentoitu ja toistettava", "Jokaisella projektilla tehdään asiat eri tavalla", "Laskutus ja talous ovat ajantasaiset", "HR-prosessit ovat olemassa", "Hiljainen tieto on pääasiassa vain minulla"] },
+      { id: "ai", type: "single", text: "Miten tekoäly tai digitaaliset työkalut näkyvät toiminnassanne?", options: ["Aktiivisessa käytössä — haluamme skaalata", "Yksittäiset henkilöt kokeilevat — ei systemaattista", "Haluaisimme mutta ei aikaa tai osaamista", "Emme ole hyödyntäneet — ei tuntunut ajankohtaiselta"] },
+      { id: "hr", type: "single", text: "Miten kuvailisit henkilöstösi sitoutumista ja rekrytointia?", options: ["Tiimi sitoutunut — vähän vaihtuvuutta", "Avainhenkilöt ok mutta muilla on haasteita", "Vaihtuvuus tai rekrytointi on ongelma", "Kasvamme — tarvitsemme rekrytointia lähiaikoina"] },
+      { id: "talous", type: "single", text: "Miten hyvin tunnet yrityksesi taloudellisen tilanteen?", options: ["Seuraan kuukausittain — tiedän katteen ja kassavirran", "Seuraan kvartaaleittain tai kirjanpitäjän kautta", "Tiedän myynnin mutta kate on epäselvä", "Talous ei ole vahvuuteni — haluaisin näkyvyyttä"] },
+      { id: "avoin", type: "text", text: "Mitä haluaisit valmentajan erityisesti ymmärtävän tilanteestasi?" },
     ],
   },
   3: {
@@ -132,40 +79,13 @@ const levelConfigs: Record<number, LevelConfig> = {
     badgeClass: "bg-purple-100 text-purple-800 border-purple-200",
     calendarLabel: "Varaa siirtymäkeskusteluaika",
     questions: [
-      {
-        id: "transition_type",
-        text: "Millaista siirtymää harkitset?",
-        type: "multi",
-        options: ["Omistajanvaihdos", "Kansainvälistyminen", "Liiketoiminnan uudelleenfokusointi", "Sukupolvenvaihdos", "Yrityskauppa"],
-        required: true,
-      },
-      {
-        id: "board_work",
-        text: "Onko yrityksessäsi hallitustyöskentelyä?",
-        type: "single",
-        options: ["Kyllä, aktiivinen hallitus", "Hallitus on muodollinen", "Ei hallitusta", "Harkitsen hallituksen perustamista"],
-        required: true,
-      },
-      {
-        id: "knowledge_transfer",
-        text: "Miten hiljainen tieto on dokumentoitu yrityksessäsi?",
-        type: "single",
-        options: ["Hyvin dokumentoitu", "Osittain dokumentoitu", "Ei juurikaan", "Kaikki tieto on minun päässäni"],
-        required: true,
-      },
-      {
-        id: "timeline",
-        text: "Mikä on siirtymän aikataulu?",
-        type: "single",
-        options: ["6–12 kuukautta", "1–2 vuotta", "3–5 vuotta", "En ole vielä päättänyt"],
-        required: true,
-      },
-      {
-        id: "open_message",
-        text: "Mitä muuta haluaisit kertoa tilanteestasi?",
-        type: "open",
-        required: false,
-      },
+      { id: "rooli", type: "single", text: "Miten kuvailisit omaa rooliasi yrityksessäsi tällä hetkellä?", options: ["Strateginen omistaja — johto hoitaa operatiivisen", "Toimitusjohtaja-omistaja — johdan ja teen itse", "Olen yhä liikaa kiinni operatiivisessa arjessa", "Harkitsen oman roolini muuttamista tai vetäytymistä"] },
+      { id: "hallitus", type: "single", text: "Miten hallitustyö toimii yrityksessäsi?", options: ["Aktiivinen hallitus — tuo lisäarvoa strategiaan", "Hallitus on olemassa mutta lähinnä muodollinen", "Ei varsinaista hallitusta — teen päätökset yksin", "Harkitsen hallituksen rakentamista tai ulkoista neuvonantajaa"] },
+      { id: "ovaihdos", type: "single", text: "Oletko ajatellut omistajanvaihdosta tai liiketoiminnan jatkuvuutta?", options: ["En aktiivisesti — jatkan toistaiseksi", "Olen alkanut miettiä — aikajänne 3–7 vuotta", "Prosessi on jo käynnissä tai käynnistymässä", "Haen sukupolvenvaihdosta tai sisäistä siirtoa"] },
+      { id: "tieto", type: "single", text: "Miten hyvin yrityksen osaaminen on dokumentoitu ja siirretty tiimille?", options: ["Hyvin — prosessit ja asiakastieto on dokumentoitu", "Osittain — tärkeimmät asiat tallessa mutta aukkoja on", "Heikosti — kriittinen tieto on vain minulla", "Tiedostamme tähän liittyvän riskin"] },
+      { id: "strategia", type: "single", text: "Miten selkeä yrityksesi strateginen suunta on seuraavalle 3–5 vuodelle?", options: ["Erittäin selkeä — kirjattu strategia ja sitoudumme siihen", "Suunnilleen selkeä — suunta tiedossa mutta ei kirjattuna", "Haen suuntaa — toimiala tai markkina on muutoksessa", "Harkitsen merkittävää liiketoimintamallin muutosta"] },
+      { id: "tki", type: "single", text: "Miten hyödynnät ulkopuolisia verkostoja tai kehitysmahdollisuuksia?", options: ["Aktiivisesti — kumppanuuksia, hankkeita tai kansainvälisiä yhteyksiä", "Jonkin verran — käymme tapahtumissa mutta ei syvempää", "Vähän — ei ole ollut prioriteetti", "Haemme kansainvälistymistä tai uusia markkinoita"] },
+      { id: "avoin", type: "text", text: "Mitä valmentajan on tärkeintä tietää tilanteestasi ennen tapaamista?" },
     ],
   },
   4: {
@@ -176,40 +96,12 @@ const levelConfigs: Record<number, LevelConfig> = {
     badgeClass: "bg-amber-100 text-amber-800 border-amber-200",
     calendarLabel: "Varaa osaamiskeskusteluaika",
     questions: [
-      {
-        id: "training_need",
-        text: "Millaista osaamista tarvitset?",
-        type: "multi",
-        options: ["Kortit ja pätevyydet", "Kielikoulutus", "Toimialakohtainen osaaminen", "Henkilöstön kehittämisohjelma", "Johtamiskoulutus"],
-        required: true,
-      },
-      {
-        id: "participants",
-        text: "Kuinka monelle henkilölle koulutusta tarvitaan?",
-        type: "single",
-        options: ["1–3 henkilöä", "4–10 henkilöä", "11–30 henkilöä", "Yli 30 henkilöä"],
-        required: true,
-      },
-      {
-        id: "urgency",
-        text: "Millä aikataululla koulutusta tarvitaan?",
-        type: "single",
-        options: ["Heti / mahdollisimman pian", "1–3 kuukauden sisällä", "Seuraavan puolen vuoden aikana", "Suunnittelemme ensi vuodelle"],
-        required: true,
-      },
-      {
-        id: "funding",
-        text: "Onko rahoitus jo selvillä?",
-        type: "single",
-        options: ["Kyllä, budjetti on varattu", "Haluaisin tietoa tukimahdollisuuksista", "En ole vielä miettinyt rahoitusta"],
-        required: true,
-      },
-      {
-        id: "open_message",
-        text: "Kerro vapaasti osaamistarpeistasi tai toiveistasi?",
-        type: "open",
-        required: false,
-      },
+      { id: "nykytila", type: "single", text: "Miten hyvin henkilöstönne osaaminen vastaa nykyisiä ja tulevia tarpeita?", options: ["Hyvin — kehitämme aktiivisesti", "Osittain — joillakin alueilla aukkoja", "Meillä on tarpeita joita emme ole pystyneet täyttämään", "En tiedä tarkalleen — tilannekuva puuttuu"] },
+      { id: "tyyppi", type: "multi", text: "Millaista osaamisen kehittämistä etsit? (valitse kaikki sopivat)", options: ["Pakolliset kortit ja pätevyydet (EA, hygienia, työturvallisuus jne.)", "Kieli- ja viestintäosaaminen (suomi, englanti, ruotsi)", "Toimialakohtainen ammatillinen osaaminen", "Johtamis- ja esihenkilöosaaminen", "Tekoäly ja digitaaliset taidot arjessa", "Myynti- ja asiakaspalveluosaaminen"] },
+      { id: "kohde", type: "single", text: "Kenelle koulutusta ensisijaisesti haetaan?", options: ["Koko henkilöstölle — yhteinen ohjelma", "Tietylle tiimille tai yksikölle", "Yksittäisille avainhenkilöille", "Itselleni yrittäjänä tai johtajana"] },
+      { id: "aikataulu", type: "single", text: "Millä aikataululla koulutus sopisi parhaiten?", options: ["Mahdollisimman pian — tarve on akuutti", "Seuraavan 3–6 kuukauden sisällä", "Kartoitamme vasta — ei kiireellistä", "Jatkuva kehittäminen — haemme pitkäaikaista kumppania"] },
+      { id: "rahoitus", type: "single", text: "Onko yrityksellänne tietoa osaamisen kehittämisen rahoitusmahdollisuuksista?", options: ["Kyllä — olemme hakeneet tai hyödyntäneet tukia", "Osittain — tiedämme että tukia on mutta emme tunne niitä hyvin", "Ei — emme tiedä mitä rahoitusta on saatavilla", "Rahoitamme itse — ei tarvetta tuille"] },
+      { id: "avoin", type: "text", text: "Kerro lisää osaamistarpeistanne tai erityistoiveistanne koulutuksen suhteen." },
     ],
   },
 };
@@ -217,84 +109,75 @@ const levelConfigs: Record<number, LevelConfig> = {
 /* ─── Flag generation ─── */
 function generateFlags(level: number, answers: Answers): FlagItem[] {
   const flags: FlagItem[] = [];
+  const a = answers;
+  const includes = (id: string, ...terms: string[]) => {
+    const v = a[id];
+    if (!v) return false;
+    if (Array.isArray(v)) return terms.some((t) => v.some((val) => val.includes(t)));
+    return terms.some((t) => v.includes(t));
+  };
 
   if (level === 1) {
-    const src = answers.revenue_source;
-    if (src === "En ole vielä myynyt") flags.push({ label: "Myynti ei ole vielä alkanut", severity: "critical" });
-    if (src === "Yksi pääasiakas") flags.push({ label: "Asiakaskeskittymäriski", severity: "critical" });
-
-    const challenges = answers.biggest_challenge as string[] | undefined;
-    if (challenges?.includes("Rahoitus")) flags.push({ label: "Rahoitustilanne epäselvä", severity: "critical" });
-    if (challenges?.includes("Hinnoittelu")) flags.push({ label: "Hinnoittelu vaatii kirkastusta", severity: "development" });
-    if (challenges?.includes("Näkyvyys ja markkinointi")) flags.push({ label: "Markkinointia on kehitettävä", severity: "development" });
-    if (challenges?.includes("Asiakashankinta")) flags.push({ label: "Asiakashankintaprosessi puuttuu", severity: "development" });
-
-    const goal = answers.goal_6mo;
-    if (goal === "Palkata ensimmäinen työntekijä") flags.push({ label: "Kasvupotentiaali — ensimmäinen rekrytointi", severity: "opportunity" });
-    if (goal === "Kasvattaa myyntiä 50%+") flags.push({ label: "Kunnianhimoinen kasvutavoite", severity: "opportunity" });
+    if (includes("lv", "Vaihtelee", "Laskenut")) flags.push({ label: "Kassavirran ennustettavuus", severity: "critical" });
+    if (includes("asiakkaat", "satunnaisia")) flags.push({ label: "Asiakashankinnan kanava puuttuu", severity: "development" });
+    if (includes("myynti", "alennuksella")) flags.push({ label: "Hinnoittelun perustelu", severity: "development" });
+    if (includes("myynti", "katteeni")) flags.push({ label: "Kateanalyysi puuttuu", severity: "development" });
+    if (includes("myynti", "pakko")) flags.push({ label: "Systemaattinen myynti", severity: "development" });
+    if (includes("nakyvyys", "suusanallisesti", "En tiedä")) flags.push({ label: "Markkinoinnin näkyvyys", severity: "opportunity" });
+    if (includes("kiteys", "monelle", "miettinyt")) flags.push({ label: "Palvelun kirkastus ja kohderyhmä", severity: "opportunity" });
   }
 
   if (level === 2) {
-    const bottlenecks = answers.bottleneck as string[] | undefined;
-    if (bottlenecks?.includes("Olen itse pullonkaula")) flags.push({ label: "Yrittäjä on pullonkaula", severity: "critical" });
-    if (bottlenecks?.includes("Prosessit puuttuvat")) flags.push({ label: "Prosessit puuttuvat", severity: "critical" });
-    if (bottlenecks?.includes("Myyntiputki ei toimi")) flags.push({ label: "Myyntiputki vaatii korjausta", severity: "development" });
-    if (bottlenecks?.includes("Rekrytointi on vaikeaa")) flags.push({ label: "Rekrytointihaaste", severity: "development" });
-
-    const leadership = answers.leadership;
-    if (leadership === "Teen kaiken itse") flags.push({ label: "Delegointi on kehityskohde", severity: "critical" });
-
-    const systems = answers.systems as string[] | undefined;
-    if (systems?.includes("Ei mitään näistä")) flags.push({ label: "Digitalisaation mahdollisuus", severity: "opportunity" });
-    if (systems?.includes("CRM-järjestelmä") && systems?.includes("Markkinointiautomaatio"))
-      flags.push({ label: "Hyvä teknologiapohja — valmis skaalaukseen", severity: "opportunity" });
+    if (includes("johto", "hidastuu", "pysähtyy", "yksin")) flags.push({ label: "Yrittäjä pullonkaulana — delegointi", severity: "critical" });
+    if (includes("putki", "Reaktiivista", "pullonkaula")) flags.push({ label: "Myyntiputki rakentamatta", severity: "development" });
+    if (includes("prosessit", "eri tavalla")) flags.push({ label: "Toistettavat prosessit puuttuvat", severity: "development" });
+    if (includes("prosessit", "Hiljainen tieto")) flags.push({ label: "Hiljaisen tiedon riski", severity: "development" });
+    if (includes("ai", "ei aikaa", "Emme ole")) flags.push({ label: "Tekoälyn käyttöönotto", severity: "opportunity" });
+    if (includes("hr", "Vaihtuvuus", "rekrytointia")) flags.push({ label: "HR ja rekrytointi", severity: "development" });
+    if (includes("talous", "kate on epäselvä", "vahvuuteni")) flags.push({ label: "Talouden näkyvyys", severity: "development" });
   }
 
   if (level === 3) {
-    const knowledge = answers.knowledge_transfer;
-    if (knowledge === "Kaikki tieto on minun päässäni") flags.push({ label: "Hiljainen tieto dokumentoimatta", severity: "critical" });
-    if (knowledge === "Ei juurikaan") flags.push({ label: "Dokumentointi puutteellista", severity: "critical" });
-
-    const board = answers.board_work;
-    if (board === "Ei hallitusta") flags.push({ label: "Hallitustyö puuttuu", severity: "development" });
-
-    const timeline = answers.timeline;
-    if (timeline === "6–12 kuukautta") flags.push({ label: "Nopea aikataulu — valmistelu kiireellinen", severity: "critical" });
-
-    const transitions = answers.transition_type as string[] | undefined;
-    if (transitions?.includes("Kansainvälistyminen")) flags.push({ label: "Kansainvälistymismahdollisuus", severity: "opportunity" });
-    if (transitions?.includes("Omistajanvaihdos")) flags.push({ label: "Omistajanvaihdos edessä", severity: "development" });
+    if (includes("rooli", "liikaa kiinni", "Harkitsen")) flags.push({ label: "Omistajan rooli — kiireellinen", severity: "critical" });
+    if (includes("hallitus", "muodollinen", "yksin")) flags.push({ label: "Hallitustyön kehittäminen", severity: "development" });
+    if (includes("ovaihdos", "käynnissä", "3–7")) flags.push({ label: "Omistajanvaihdoksen valmistelu", severity: "critical" });
+    if (includes("tieto", "Heikosti", "riskin")) flags.push({ label: "Hiljainen tieto — kriittinen riski", severity: "critical" });
+    if (includes("strategia", "Haen suuntaa", "merkittävää")) flags.push({ label: "Strateginen uudelleensuuntaus", severity: "development" });
+    if (includes("tki", "kansainvälistymistä")) flags.push({ label: "Kansainvälistymisstrategia", severity: "opportunity" });
+    if (includes("tki", "Vähän")) flags.push({ label: "Verkostot ja TKI-mahdollisuudet", severity: "opportunity" });
   }
 
   if (level === 4) {
-    const urgency = answers.urgency;
-    if (urgency === "Heti / mahdollisimman pian") flags.push({ label: "Kiireellinen koulutustarve", severity: "critical" });
-
-    const funding = answers.funding;
-    if (funding === "En ole vielä miettinyt rahoitusta") flags.push({ label: "Rahoitus selvitettävä", severity: "development" });
-    if (funding === "Haluaisin tietoa tukimahdollisuuksista") flags.push({ label: "Tukimahdollisuudet kartoitettavissa", severity: "opportunity" });
-
-    const needs = answers.training_need as string[] | undefined;
-    if (needs && needs.length >= 3) flags.push({ label: "Laaja osaamistarve — kokonaisvaltainen ohjelma", severity: "opportunity" });
+    if (includes("nykytila", "aukkoja", "tarpeita", "puuttuu")) flags.push({ label: "Osaamisen aukkoja — kartoitetaan", severity: "development" });
+    if (includes("tyyppi", "Pakolliset kortit")) flags.push({ label: "Pakolliset pätevyydet — priorisoidaan", severity: "opportunity" });
+    if (includes("tyyppi", "Tekoäly")) flags.push({ label: "Tekoäly- ja digitaidot", severity: "opportunity" });
+    if (includes("tyyppi", "Johtamis")) flags.push({ label: "Johtamisosaaminen", severity: "opportunity" });
+    if (includes("rahoitus", "Ei —", "Osittain")) flags.push({ label: "Rahoitusmahdollisuudet selvitetään", severity: "development" });
+    if (includes("aikataulu", "akuutti")) flags.push({ label: "Kiireellinen — priorisoidaan", severity: "critical" });
   }
 
   return flags;
 }
 
 /* ─── Summary description ─── */
+const positiveTexts: Record<number, string> = {
+  1: "Hyvä pohja kasvulle — fokus on myynnin systematisoinnissa ja kassavirran kasvattamisessa. Valmentaja auttaa löytämään seuraavan konkreettisen askeleen.",
+  2: "Hyvä pohja skaalaukselle — yritys on kasvuvaiheessa ja tarvitsee systematiikkaa. Valmentaja auttaa rakentamaan selkeän skaalauspolun.",
+  3: "Yrityksessäsi on vakaa pohja ja selkeä suunta. Asiantuntija auttaa fokusoimaan seuraavan merkittävän siirtymän ja rakentamaan sille polun.",
+  4: "Yrityksenne lähestymistapa osaamisen kehittämiseen on harkittu. Koulutusasiantuntija räätälöi teille sopivan kokonaisuuden — myös rahoitusvaihtoehdot selvitetään.",
+};
+
 function getSummaryDescription(level: number, flags: FlagItem[]): string {
-  const criticalCount = flags.filter((f) => f.severity === "critical").length;
-  const opportunityCount = flags.filter((f) => f.severity === "opportunity").length;
+  const redCount = flags.filter((f) => f.severity === "critical").length;
+  const amberCount = flags.filter((f) => f.severity === "development").length;
+  const total = redCount + amberCount;
 
-  if (level === 4) {
-    if (criticalCount > 0) return "Osaamistarpeesi ovat kiireelliset — katsotaan yhdessä paras etenemissuunnitelma.";
-    return "Hyvä tilannekuva osaamistarpeistasi. Räätälöidään sopiva koulutuskokonaisuus.";
-  }
+  if (total === 0) return positiveTexts[level] ?? "Hyvä pohja — tarkennetaan tapaamisessa.";
 
-  if (criticalCount >= 2) return "Kartoituksesta nousi useita kriittisiä kohteita — tapaaminen auttaa priorisoimaan.";
-  if (criticalCount === 1 && opportunityCount > 0) return "Yksi asia vaatii erityishuomiota, mutta myös mahdollisuuksia on näköpiirissä.";
-  if (opportunityCount >= 2) return "Hienot edellytykset kasvulle — sparraus auttaa hyödyntämään mahdollisuudet.";
-  return "Hyvä pohja — tarkennetaan suunta tapaamisessa.";
+  if (redCount >= 2)
+    return `Kartoitus nosti esiin ${total} kehityskohtaa, joista ${redCount} on kiireellistä. Valmentaja auttaa rakentamaan selkeän toimintasuunnitelman — tapaamisessa käydään nämä läpi järjestyksessä.`;
+
+  return `Kartoituksessa tunnistettiin ${total} kehityskohtaa. Näistä käydään valmentajan kanssa läpi ne, jotka vaikuttavat eniten kasvuun ja arkeen.`;
 }
 
 /* ─── Flag colors ─── */
@@ -336,15 +219,15 @@ function handlePrint(level: number, config: LevelConfig, answers: Answers, flags
 
   lines.push("<h3>Vastauksesi</h3><dl>");
   for (const [key, val] of Object.entries(answers)) {
-    if (key === "open_message" && !val) continue;
+    if (key === "avoin" && !val) continue;
     const label = getQuestionLabel(key, level);
     const value = Array.isArray(val) ? val.join(", ") : val;
     if (value) lines.push(`<dt style="font-weight:600;margin-top:8px">${label}</dt><dd>${value}</dd>`);
   }
   lines.push("</dl>");
 
-  if (answers.open_message) {
-    lines.push(`<h3>Vapaa viesti</h3><p>${answers.open_message}</p>`);
+  if (answers.avoin) {
+    lines.push(`<h3>Vapaa viesti</h3><p>${answers.avoin}</p>`);
   }
 
   lines.push(`<p style="color:gray;font-size:12px;margin-top:24px">Tietojasi käytetään vain kartoitustapaamiseen valmistautumiseen.</p>`);
@@ -415,7 +298,7 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
   /* ─── navigation ─── */
   const canAdvance = () => {
     if (!currentQ) return true;
-    if (!currentQ.required) return true;
+    if (currentQ.type === "text") return true; // text fields are optional
     const a = answers[currentQ.id];
     if (currentQ.type === "multi") return Array.isArray(a) && a.length > 0;
     if (currentQ.type === "single") return typeof a === "string" && a.length > 0;
@@ -474,7 +357,7 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
     if (!currentQ) return null;
     const a = answers[currentQ.id];
 
-    if (currentQ.type === "open") {
+    if (currentQ.type === "text") {
       return (
         <div className="space-y-3">
           <p className="text-base font-semibold text-foreground">{currentQ.text}</p>
@@ -484,7 +367,7 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
             placeholder="Kirjoita vapaasti..."
             className="min-h-[120px]"
           />
-          {!currentQ.required && <p className="text-xs text-muted-foreground">Valinnainen</p>}
+          <p className="text-xs text-muted-foreground">Valinnainen</p>
         </div>
       );
     }
@@ -558,7 +441,7 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
           {questions.map((q) => {
             const a = answers[q.id];
             if (!a || (Array.isArray(a) && a.length === 0)) return null;
-            if (q.id === "open_message") return null;
+            if (q.id === "avoin") return null;
             return (
               <div key={q.id}>
                 <dt className="font-semibold text-muted-foreground">{q.text}</dt>
@@ -570,10 +453,10 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
       </div>
 
       {/* Open message */}
-      {answers.open_message && (
+      {answers.avoin && (
         <div className="rounded-lg border border-border bg-accent/40 p-4">
           <h4 className="text-sm font-bold text-foreground mb-1">Vapaa viesti</h4>
-          <p className="text-sm text-foreground">{answers.open_message as string}</p>
+          <p className="text-sm text-foreground">{answers.avoin as string}</p>
         </div>
       )}
 
