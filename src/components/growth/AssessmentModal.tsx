@@ -298,7 +298,7 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
   /* ─── navigation ─── */
   const canAdvance = () => {
     if (!currentQ) return true;
-    if (!currentQ.required) return true;
+    if (currentQ.type === "text") return true; // text fields are optional
     const a = answers[currentQ.id];
     if (currentQ.type === "multi") return Array.isArray(a) && a.length > 0;
     if (currentQ.type === "single") return typeof a === "string" && a.length > 0;
