@@ -441,7 +441,7 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
           {questions.map((q) => {
             const a = answers[q.id];
             if (!a || (Array.isArray(a) && a.length === 0)) return null;
-            if (q.id === "open_message") return null;
+            if (q.id === "avoin") return null;
             return (
               <div key={q.id}>
                 <dt className="font-semibold text-muted-foreground">{q.text}</dt>
