@@ -357,7 +357,7 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
     if (!currentQ) return null;
     const a = answers[currentQ.id];
 
-    if (currentQ.type === "open") {
+    if (currentQ.type === "text") {
       return (
         <div className="space-y-3">
           <p className="text-base font-semibold text-foreground">{currentQ.text}</p>
@@ -367,7 +367,7 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
             placeholder="Kirjoita vapaasti..."
             className="min-h-[120px]"
           />
-          {!currentQ.required && <p className="text-xs text-muted-foreground">Valinnainen</p>}
+          <p className="text-xs text-muted-foreground">Valinnainen</p>
         </div>
       );
     }
