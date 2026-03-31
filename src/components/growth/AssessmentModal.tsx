@@ -226,8 +226,8 @@ function handlePrint(level: number, config: LevelConfig, answers: Answers, flags
   }
   lines.push("</dl>");
 
-  if (answers.open_message) {
-    lines.push(`<h3>Vapaa viesti</h3><p>${answers.open_message}</p>`);
+  if (answers.avoin) {
+    lines.push(`<h3>Vapaa viesti</h3><p>${answers.avoin}</p>`);
   }
 
   lines.push(`<p style="color:gray;font-size:12px;margin-top:24px">Tietojasi käytetään vain kartoitustapaamiseen valmistautumiseen.</p>`);
