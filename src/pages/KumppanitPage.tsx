@@ -11,8 +11,6 @@ import {
   Network,
   Lightbulb,
   Cog,
-  Bot,
-  Sprout,
   ArrowRight,
   CheckCircle2,
   Quote,
@@ -31,6 +29,11 @@ import partnerBusiness from "@/assets/partner-business.jpg";
 import partnerPublic from "@/assets/partner-public.jpg";
 import partnerNetwork from "@/assets/partner-network.jpg";
 import kumppanitCtaBg from "@/assets/kumppanit-cta-bg.jpg";
+import devAjattelu from "@/assets/dev-step-ajattelu.jpg";
+import devToiminta from "@/assets/dev-step-toiminta.jpg";
+import devTyokalut from "@/assets/dev-step-tyokalut.jpg";
+import devKulttuuri from "@/assets/dev-step-kulttuuri.jpg";
+import { DevLogicAnimatedBg } from "@/components/kumppanit/DevLogicAnimatedBg";
 
 /* ── Data ── */
 
@@ -93,10 +96,10 @@ const processSteps = [
 ];
 
 const devSteps = [
-  { icon: Lightbulb, label: "Ajattelu", text: "Näet ja johdat eri tavalla" },
-  { icon: Cog, label: "Toiminta", text: "Viet opit suoraan omaan työhösi" },
-  { icon: Bot, label: "Työkalut", text: "Otat modernit työkalut – myös tekoälyn – käyttöön" },
-  { icon: Sprout, label: "Kulttuuri", text: "Vaikutat tiimiin ja koko organisaatioon" },
+  { image: devAjattelu, label: "Ajattelu", text: "Näet ja johdat eri tavalla" },
+  { image: devToiminta, label: "Toiminta", text: "Viet opit suoraan omaan työhösi" },
+  { image: devTyokalut, label: "Työkalut", text: "Otat modernit työkalut – myös tekoälyn – käyttöön" },
+  { image: devKulttuuri, label: "Kulttuuri", text: "Vaikutat tiimiin ja koko organisaatioon" },
 ];
 
 const themes = [
@@ -312,26 +315,34 @@ const KumppanitPage = () => {
       </section>
 
       {/* 8. Development logic */}
-      <section className="py-10 md:py-14 bg-foreground">
-        <div className="keuda-container text-center">
+      <section className="relative py-14 md:py-20 bg-gradient-to-br from-foreground via-foreground to-primary/90 overflow-hidden">
+        <DevLogicAnimatedBg />
+        <div className="keuda-container text-center relative z-10">
           <h2 className="text-2xl md:text-3xl font-bold text-background mb-2">
             Näin kehitys tapahtuu
           </h2>
-          <p className="text-background/70 mb-8 max-w-xl mx-auto text-sm">
+          <p className="text-background/70 mb-10 max-w-xl mx-auto text-sm">
             Kehitys etenee sisältä ulospäin – yksilöstä tiimiin ja organisaatioon.
           </p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-2 max-w-3xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-3 max-w-4xl mx-auto">
             {devSteps.map((step, i) => (
-              <div key={step.label} className="flex items-center gap-2">
-                <div className="flex flex-col items-center text-center gap-2 bg-background/10 rounded-xl px-6 py-5 min-w-[140px]">
-                  <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center">
-                    <step.icon className="w-5 h-5 text-primary-foreground" />
+              <div key={step.label} className="flex items-center gap-3">
+                <div className="flex flex-col items-center text-center gap-3 bg-background/[0.08] backdrop-blur-sm rounded-2xl px-6 py-6 min-w-[160px] border border-background/10">
+                  <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-primary/40 ring-offset-2 ring-offset-foreground">
+                    <img
+                      src={step.image}
+                      alt={step.label}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      width={64}
+                      height={64}
+                    />
                   </div>
                   <p className="font-semibold text-background text-sm">{step.label}</p>
-                  <p className="text-xs text-background/70">{step.text}</p>
+                  <p className="text-xs text-background/70 leading-relaxed">{step.text}</p>
                 </div>
                 {i < devSteps.length - 1 && (
-                  <ArrowRight className="w-5 h-5 text-background/50 hidden md:block flex-shrink-0" />
+                  <ArrowRight className="w-5 h-5 text-background/40 hidden md:block flex-shrink-0" />
                 )}
               </div>
             ))}
