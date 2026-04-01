@@ -93,10 +93,10 @@ const partnerCategories = [
 ];
 
 const processSteps = [
-  { icon: Lightbulb, label: "Jätä idea tai hakemus" },
-  { icon: Users, label: "Arviointi ja sparraus" },
-  { icon: Cog, label: "Toteutus yhdessä" },
-  { icon: Trophy, label: "Tulokset ja näkyvyys" },
+  { image: processIdea, label: "Jätä idea tai hakemus" },
+  { image: processSparraus, label: "Arviointi ja sparraus" },
+  { image: processToteutus, label: "Toteutus yhdessä" },
+  { image: processTulokset, label: "Tulokset ja näkyvyys" },
 ];
 
 const devSteps = [
