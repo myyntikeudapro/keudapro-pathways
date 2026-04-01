@@ -16,7 +16,7 @@ import {
   Rocket,
   Calendar,
   Wrench,
-  Trophy,
+  
   UserPlus,
   BriefcaseBusiness,
   Mail,
