@@ -98,10 +98,10 @@ const processSteps = [
 ];
 
 const devSteps = [
-  { icon: Lightbulb, label: "Ajattelu", text: "Näet ja johdat eri tavalla" },
-  { icon: Cog, label: "Toiminta", text: "Viet opit suoraan omaan työhösi" },
-  { icon: Bot, label: "Työkalut", text: "Otat modernit työkalut – myös tekoälyn – käyttöön" },
-  { icon: Sprout, label: "Kulttuuri", text: "Vaikutat tiimiin ja koko organisaatioon" },
+  { image: devAjattelu, label: "Ajattelu", text: "Näet ja johdat eri tavalla" },
+  { image: devToiminta, label: "Toiminta", text: "Viet opit suoraan omaan työhösi" },
+  { image: devTyokalut, label: "Työkalut", text: "Otat modernit työkalut – myös tekoälyn – käyttöön" },
+  { image: devKulttuuri, label: "Kulttuuri", text: "Vaikutat tiimiin ja koko organisaatioon" },
 ];
 
 const themes = [
