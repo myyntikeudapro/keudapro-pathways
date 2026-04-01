@@ -9,8 +9,6 @@ import {
   Building2,
   Users,
   Network,
-  Lightbulb,
-  Cog,
   ArrowRight,
   CheckCircle2,
   Quote,
@@ -18,7 +16,7 @@ import {
   Rocket,
   Calendar,
   Wrench,
-  Trophy,
+  
   UserPlus,
   BriefcaseBusiness,
   Mail,
@@ -33,7 +31,12 @@ import devAjattelu from "@/assets/dev-step-ajattelu.jpg";
 import devToiminta from "@/assets/dev-step-toiminta.jpg";
 import devTyokalut from "@/assets/dev-step-tyokalut.jpg";
 import devKulttuuri from "@/assets/dev-step-kulttuuri.jpg";
+import processIdea from "@/assets/process-idea.jpg";
+import processSparraus from "@/assets/process-sparraus.jpg";
+import processToteutus from "@/assets/process-toteutus.jpg";
+import processTulokset from "@/assets/process-tulokset.jpg";
 import { DevLogicAnimatedBg } from "@/components/kumppanit/DevLogicAnimatedBg";
+
 
 /* ── Data ── */
 
@@ -89,10 +92,10 @@ const partnerCategories = [
 ];
 
 const processSteps = [
-  { icon: Lightbulb, label: "Jätä idea tai hakemus" },
-  { icon: Users, label: "Arviointi ja sparraus" },
-  { icon: Cog, label: "Toteutus yhdessä" },
-  { icon: Trophy, label: "Tulokset ja näkyvyys" },
+  { image: processIdea, label: "Jätä idea tai hakemus" },
+  { image: processSparraus, label: "Arviointi ja sparraus" },
+  { image: processToteutus, label: "Toteutus yhdessä" },
+  { image: processTulokset, label: "Tulokset ja näkyvyys" },
 ];
 
 const devSteps = [
@@ -274,23 +277,36 @@ const KumppanitPage = () => {
       </section>
 
       {/* 6. Process */}
-      <section className="py-10 md:py-14">
-        <div className="keuda-container">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-8">
+      <section className="relative py-14 md:py-20 bg-gradient-to-br from-foreground via-foreground to-primary/90 overflow-hidden">
+        <DevLogicAnimatedBg />
+        <div className="keuda-container relative z-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-background text-center mb-10">
             Näin pääset mukaan
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-3 max-w-4xl mx-auto">
             {processSteps.map((step, i) => (
-              <div key={step.label} className="flex flex-col items-center text-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                  <step.icon className="w-5 h-5 text-primary-foreground" />
+              <div key={step.label} className="flex items-center gap-3">
+                <div className="flex flex-col items-center text-center gap-3 bg-background/[0.08] backdrop-blur-sm rounded-2xl px-6 py-6 min-w-[160px] border border-background/10">
+                  <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-primary/40 ring-offset-2 ring-offset-foreground">
+                    <img
+                      src={step.image}
+                      alt={step.label}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      width={64}
+                      height={64}
+                    />
+                  </div>
+                  <div>
+                    <span className="text-xs font-semibold text-background/50">
+                      {i + 1}.
+                    </span>
+                    <p className="text-sm font-medium text-background">{step.label}</p>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-xs font-semibold text-muted-foreground">
-                    {i + 1}.
-                  </span>
-                  <p className="text-sm font-medium text-foreground">{step.label}</p>
-                </div>
+                {i < processSteps.length - 1 && (
+                  <ArrowRight className="w-5 h-5 text-background/40 hidden md:block flex-shrink-0" />
+                )}
               </div>
             ))}
           </div>
