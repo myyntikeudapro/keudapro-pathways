@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 interface RouteCardProps {
   title: string;
   subtitle: string;
+  clarification?: string;
   image: string;
   href: string;
   buttonText?: string;
@@ -12,6 +13,7 @@ interface RouteCardProps {
 export function RouteCard({
   title,
   subtitle,
+  clarification,
   image,
   href,
   buttonText = "Siirry reitille",
@@ -27,7 +29,10 @@ export function RouteCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         <h3 className="absolute bottom-4 left-6 text-2xl font-bold text-white">{title}</h3>
       </div>
-      <p className="text-muted-foreground mb-6 flex-1">{subtitle}</p>
+      <p className="text-muted-foreground mb-4 flex-1">{subtitle}</p>
+      {clarification && (
+        <p className="text-sm italic text-muted-foreground mb-6">{clarification}</p>
+      )}
       <Button variant="outline-primary" asChild className="w-full">
         <Link to={href}>{buttonText}</Link>
       </Button>
