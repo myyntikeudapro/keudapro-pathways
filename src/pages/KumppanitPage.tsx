@@ -93,10 +93,10 @@ const processSteps = [
 ];
 
 const devSteps = [
-  { emoji: "💡", label: "Ajattelu", text: "Näet ja johdat eri tavalla" },
-  { emoji: "⚙️", label: "Toiminta", text: "Viet opit suoraan omaan työhösi" },
-  { emoji: "🤖", label: "Työkalut", text: "Otat modernit työkalut – myös tekoälyn – käyttöön" },
-  { emoji: "🌱", label: "Kulttuuri", text: "Vaikutat tiimiin ja koko organisaatioon" },
+  { icon: Lightbulb, label: "Ajattelu", text: "Näet ja johdat eri tavalla" },
+  { icon: Cog, label: "Toiminta", text: "Viet opit suoraan omaan työhösi" },
+  { icon: Bot, label: "Työkalut", text: "Otat modernit työkalut – myös tekoälyn – käyttöön" },
+  { icon: Sprout, label: "Kulttuuri", text: "Vaikutat tiimiin ja koko organisaatioon" },
 ];
 
 const themes = [
