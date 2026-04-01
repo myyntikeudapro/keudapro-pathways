@@ -64,9 +64,12 @@ export function AlyHeroCarousel() {
           <p className="text-sm md:text-base font-semibold tracking-widest uppercase text-white/80 mb-3">
             ÄLY
           </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
             {slides[current].title}
           </h1>
+          <p className="text-white/80 text-base md:text-lg max-w-[680px] mx-auto mb-8 leading-relaxed">
+            ÄLY-reitti on rakennettu johtajille, esihenkilöille ja asiantuntijoille, jotka haluavat kehittyä – ei vain oppia. Reitti yhdistää johtamisen, asiantuntijuuden vahvistamisen ja tekoälyn käytännön hyödyntämisen yhdeksi kokonaisuudeksi. Äly ei ole vain teknologiaa – se on tapa johtaa, päättää ja toimia paremmin.
+          </p>
           <Button variant="cta" size="xl" asChild>
             <a href={slides[current].href}>{slides[current].cta}</a>
           </Button>
