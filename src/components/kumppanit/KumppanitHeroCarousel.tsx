@@ -64,13 +64,16 @@ export function KumppanitHeroCarousel() {
       <div className="relative z-20 h-full flex items-center justify-center">
         <div className="text-center px-4">
           <p className="text-sm md:text-base font-semibold tracking-widest uppercase text-white/80 mb-3">
-            Toimijaverkosto
+            Asiantuntijaverkosto & KeudaPRO Hub
           </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
             {slides[current].title}
           </h1>
-          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-6">
             {slides[current].subtitle}
+          </p>
+          <p className="text-sm md:text-base text-white/70 max-w-xl mx-auto">
+            Tule mukaan rakentamaan tulevaisuuden työelämää – yhdessä asiantuntijoiden, organisaatioiden ja kehittäjien kanssa.
           </p>
         </div>
       </div>
