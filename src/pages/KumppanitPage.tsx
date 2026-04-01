@@ -37,6 +37,7 @@ import processIdea from "@/assets/process-idea.jpg";
 import processSparraus from "@/assets/process-sparraus.jpg";
 import processToteutus from "@/assets/process-toteutus.jpg";
 import processTulokset from "@/assets/process-tulokset.jpg";
+import { DevLogicAnimatedBg } from "@/components/kumppanit/DevLogicAnimatedBg";
 
 
 /* ── Data ── */
