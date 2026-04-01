@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 interface RouteCardProps {
   title: string;
   subtitle: string;
+  clarification?: string;
   image: string;
   href: string;
   buttonText?: string;
