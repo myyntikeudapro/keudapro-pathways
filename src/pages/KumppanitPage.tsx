@@ -93,10 +93,10 @@ const processSteps = [
 ];
 
 const devSteps = [
-  { emoji: "💡", label: "Ajattelu", text: "Näet ja johdat eri tavalla" },
-  { emoji: "⚙️", label: "Toiminta", text: "Viet opit suoraan omaan työhösi" },
-  { emoji: "🤖", label: "Työkalut", text: "Otat modernit työkalut – myös tekoälyn – käyttöön" },
-  { emoji: "🌱", label: "Kulttuuri", text: "Vaikutat tiimiin ja koko organisaatioon" },
+  { icon: Lightbulb, label: "Ajattelu", text: "Näet ja johdat eri tavalla" },
+  { icon: Cog, label: "Toiminta", text: "Viet opit suoraan omaan työhösi" },
+  { icon: Bot, label: "Työkalut", text: "Otat modernit työkalut – myös tekoälyn – käyttöön" },
+  { icon: Sprout, label: "Kulttuuri", text: "Vaikutat tiimiin ja koko organisaatioon" },
 ];
 
 const themes = [
@@ -312,24 +312,26 @@ const KumppanitPage = () => {
       </section>
 
       {/* 8. Development logic */}
-      <section className="py-10 md:py-14">
+      <section className="py-10 md:py-14 bg-foreground">
         <div className="keuda-container text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+          <h2 className="text-2xl md:text-3xl font-bold text-background mb-2">
             Näin kehitys tapahtuu
           </h2>
-          <p className="text-muted-foreground mb-8 max-w-xl mx-auto text-sm">
+          <p className="text-background/70 mb-8 max-w-xl mx-auto text-sm">
             Kehitys etenee sisältä ulospäin – yksilöstä tiimiin ja organisaatioon.
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-2 max-w-3xl mx-auto">
             {devSteps.map((step, i) => (
               <div key={step.label} className="flex items-center gap-2">
-                <div className="flex flex-col items-center text-center gap-2 bg-accent/60 rounded-xl px-6 py-5 min-w-[140px]">
-                  <span className="text-2xl">{step.emoji}</span>
-                  <p className="font-semibold text-foreground text-sm">{step.label}</p>
-                  <p className="text-xs text-muted-foreground">{step.text}</p>
+                <div className="flex flex-col items-center text-center gap-2 bg-background/10 rounded-xl px-6 py-5 min-w-[140px]">
+                  <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center">
+                    <step.icon className="w-5 h-5 text-primary-foreground" />
+                  </div>
+                  <p className="font-semibold text-background text-sm">{step.label}</p>
+                  <p className="text-xs text-background/70">{step.text}</p>
                 </div>
                 {i < devSteps.length - 1 && (
-                  <ArrowRight className="w-5 h-5 text-muted-foreground hidden md:block flex-shrink-0" />
+                  <ArrowRight className="w-5 h-5 text-background/50 hidden md:block flex-shrink-0" />
                 )}
               </div>
             ))}
