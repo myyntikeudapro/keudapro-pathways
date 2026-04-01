@@ -31,6 +31,11 @@ import partnerBusiness from "@/assets/partner-business.jpg";
 import partnerPublic from "@/assets/partner-public.jpg";
 import partnerNetwork from "@/assets/partner-network.jpg";
 import kumppanitCtaBg from "@/assets/kumppanit-cta-bg.jpg";
+import devAjattelu from "@/assets/dev-step-ajattelu.jpg";
+import devToiminta from "@/assets/dev-step-toiminta.jpg";
+import devTyokalut from "@/assets/dev-step-tyokalut.jpg";
+import devKulttuuri from "@/assets/dev-step-kulttuuri.jpg";
+import { DevLogicAnimatedBg } from "@/components/kumppanit/DevLogicAnimatedBg";
 
 /* ── Data ── */
 
