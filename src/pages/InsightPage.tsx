@@ -84,7 +84,9 @@ const InsightPage = () => {
         </div>
       </section>
 
-      <AlySolutionCategories />
+      <AlyPhilosophySection />
+
+      <AlyProgramGrid />
     </Layout>
   );
 };
