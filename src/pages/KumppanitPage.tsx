@@ -33,7 +33,11 @@ import devAjattelu from "@/assets/dev-step-ajattelu.jpg";
 import devToiminta from "@/assets/dev-step-toiminta.jpg";
 import devTyokalut from "@/assets/dev-step-tyokalut.jpg";
 import devKulttuuri from "@/assets/dev-step-kulttuuri.jpg";
-import { DevLogicAnimatedBg } from "@/components/kumppanit/DevLogicAnimatedBg";
+import processIdea from "@/assets/process-idea.jpg";
+import processSparraus from "@/assets/process-sparraus.jpg";
+import processToteutus from "@/assets/process-toteutus.jpg";
+import processTulokset from "@/assets/process-tulokset.jpg";
+
 
 /* ── Data ── */
 
