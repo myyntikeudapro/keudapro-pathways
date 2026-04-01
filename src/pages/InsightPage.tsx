@@ -1,7 +1,8 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { AlyHeroCarousel } from "@/components/aly/AlyHeroCarousel";
-import { AlySolutionCategories } from "@/components/aly/AlySolutionCategories";
+import { AlyPhilosophySection } from "@/components/aly/AlyPhilosophySection";
+import { AlyProgramGrid } from "@/components/aly/AlyProgramGrid";
 import { ArrowDown } from "lucide-react";
 
 // Audience images
@@ -83,7 +84,9 @@ const InsightPage = () => {
         </div>
       </section>
 
-      <AlySolutionCategories />
+      <AlyPhilosophySection />
+
+      <AlyProgramGrid />
     </Layout>
   );
 };
