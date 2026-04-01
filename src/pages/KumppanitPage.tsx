@@ -11,8 +11,6 @@ import {
   Network,
   Lightbulb,
   Cog,
-  Bot,
-  Sprout,
   ArrowRight,
   CheckCircle2,
   Quote,
