@@ -9,8 +9,6 @@ import {
   Building2,
   Users,
   Network,
-  Lightbulb,
-  Cog,
   ArrowRight,
   CheckCircle2,
   Quote,
