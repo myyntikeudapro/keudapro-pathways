@@ -68,7 +68,7 @@ export function HeroCarousel() {
             NOSTE
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
-            {slides[current].title}
+            Löydä seuraava askeleesi
           </h1>
           <Button variant="cta" size="xl" asChild>
             <a href={slides[current].href}>{slides[current].cta}</a>
