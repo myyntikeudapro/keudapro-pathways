@@ -215,9 +215,15 @@ const WorkPlusPage = () => {
                   </a>
 
                   {/* CTA */}
-                  <Button variant="cta" size="lg" asChild className="w-full mt-auto">
-                    <a href={path.ctaHref}>{path.ctaText}</a>
-                  </Button>
+                  {path.ctaModal ? (
+                    <Button variant="cta" size="lg" className="w-full mt-auto" onClick={() => setPathModalOpen(path.id)}>
+                      {path.ctaText}
+                    </Button>
+                  ) : (
+                    <Button variant="cta" size="lg" asChild className="w-full mt-auto">
+                      <a href={path.ctaHref}>{path.ctaText}</a>
+                    </Button>
+                  )}
                 </div>
               </div>
             ))}
