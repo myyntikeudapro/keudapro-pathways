@@ -7,6 +7,7 @@ import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 import { RegionalServices } from "@/components/noste/RegionalServices";
+import { ServiceButtons } from "@/components/noste/ServiceModals";
 
 import nosteDirectionImg from "@/assets/noste-direction.jpg";
 import nosteClarityImg from "@/assets/noste-clarity.jpg";
@@ -33,11 +34,11 @@ const paths = [
     title: "Suunta kirkkaaksi",
     image: nosteClarityImg,
     description: "Tarvitsetko apua osaamisesi sanoittamiseen ja profiilin kirkastamiseen? Tämä polku auttaa sinua erottumaan ja hyödyntämään tekoälyä työnhaussa.",
-    modules: [
-      { label: "CV, LinkedIn ja oman osaamisen hissipuhe", href: "#cv-linkedin" },
-      { label: "AI-avusteinen työnhaku", href: "#ai-tyonhaku" },
-      { label: "Valmentajan tuki tarvittaessa", href: "#valmentaja" },
-    ],
+    modules: [],
+    inlineContent: "CV, LinkedIn ja hissipuhe · AI-avusteinen työnhaku · valmentajan tuki tarvittaessa",
+    hasRegionalServices: true,
+    hasServiceButtons: true,
+    serviceHeading: "Muut palvelut",
     crossLink: "Sama osaaminen voidaan tuotteistaa myös toimeksiannoiksi. ↓",
     ctaText: "Kirkasta profiilisi",
     ctaHref: "#kirkasta-profiili",
@@ -47,13 +48,11 @@ const paths = [
     title: "Suoraan työelämään",
     image: nosteEmploymentImg,
     description: "Onko tavoitteenasi nopea työllistyminen? Tämä reitti tarjoaa käytännön työkalut ja väylät työelämään.",
-    modules: [
-      { label: "AI-avusteinen osaamiskartoitus", href: "#ai-kartoitus" },
-      { label: "CV:n ja työhakemuksen pikapäivitys (30 min)", href: "#cv-pikapaivitys" },
-      { label: "Henkilöstövuokrausyhteistyö", href: "#henkilostovuokraus" },
-      { label: "Haastattelusparraus", href: "#haastattelusparraus" },
-      { label: "Muutosturvakoulutuksella takaisin työelämään", href: "#muutosturva-tyoelamaan" },
-    ],
+    modules: [],
+    inlineContent: "AI-avusteinen osaamiskartoitus · CV:n pikapäivitys (30 min) · henkilöstövuokrausyhteistyö · haastattelusparraus · muutosturvakoulutus",
+    hasRegionalServices: true,
+    hasServiceButtons: true,
+    serviceHeading: "Tavoittele työtä nyt – konkreettiset väylät",
     crossLink: "Tai suoraan töihin – omalla tavallasi. ↓",
     ctaText: "Tavoittele työtä nyt",
     ctaHref: "#tavoittele-tyota",
@@ -195,8 +194,11 @@ const WorkPlusPage = () => {
                   {/* Spacer for cards without modules or inline content */}
                   {path.modules.length === 0 && !path.inlineContent && <div className="flex-1" />}
 
-                  {/* Regional services (only for Etsin suuntaa) */}
+                  {/* Regional services */}
                   {path.hasRegionalServices && <RegionalServices />}
+
+                  {/* Service buttons */}
+                  {path.hasServiceButtons && <ServiceButtons heading={path.serviceHeading} />}
 
                   {/* Kytkentälause */}
                   <a
