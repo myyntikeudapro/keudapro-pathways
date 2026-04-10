@@ -67,6 +67,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Animated Counters / Social Proof */}
+      <AnimatedCounters />
+
       {/* Trust & Mission Block */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <img
