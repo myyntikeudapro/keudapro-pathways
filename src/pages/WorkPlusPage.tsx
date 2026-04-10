@@ -6,6 +6,7 @@ import { PartnersSection } from "@/components/shared/PartnersSection";
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
+import { RegionalServices } from "@/components/noste/RegionalServices";
 
 import nosteDirectionImg from "@/assets/noste-direction.jpg";
 import nosteClarityImg from "@/assets/noste-clarity.jpg";
@@ -27,7 +28,8 @@ const paths = [
       { label: "Osaamisen tunnistaminen ja sanoittaminen", href: "#osaaminen" },
       { label: "Työnhakutaidot (CV, työhaastattelu, piilotyöpaikat, työnhaku)", href: "#tyonhakutaidot" },
     ],
-    crossLink: "Yrittäjyys voi olla yksi suunta – tutustu ennen päätöstä. ↓",
+    crossLink: "HAASTE voi olla yksi suunta – tutustu ennen päätöstä. ↓",
+    hasRegionalServices: true,
     ctaText: "Aloita valmennus",
     ctaHref: "#aloita-valmennus",
   },
