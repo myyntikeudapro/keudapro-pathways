@@ -1,4 +1,5 @@
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { useWizard } from "@/contexts/WizardContext";
 import industriesBg from "@/assets/growth-industries-bg.jpg";
 
 const tiers = [
@@ -37,8 +38,10 @@ const tiers = [
 ];
 
 export function GrowthIndustries() {
+  const { openWizard } = useWizard();
+
   return (
-    <section className="relative w-full">
+    <section id="toimialakartta" className="relative w-full">
       {/* Background image + dark overlay */}
       <div className="absolute inset-0">
         <img
@@ -99,6 +102,16 @@ export function GrowthIndustries() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Hook text + CTA */}
+          <div className="mt-12">
+            <p className="text-white/70 italic text-sm max-w-lg mx-auto mb-5">
+              Toimialasi on listattu kasvun kärkeen? Katso miten KASVU-reitti tukee juuri teidän toimialanne kehitystä.
+            </p>
+            <Button variant="cta" size="lg" onClick={openWizard}>
+              Aloita kasvukartoitus →
+            </Button>
           </div>
         </div>
       </div>
