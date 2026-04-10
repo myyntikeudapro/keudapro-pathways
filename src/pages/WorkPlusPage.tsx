@@ -110,6 +110,7 @@ function useScrollReveal() {
 const WorkPlusPage = () => {
   const { openWizard } = useWizard();
   const [muutosturvaOpen, setMuutosturvaOpen] = useState(false);
+  const [pathModalOpen, setPathModalOpen] = useState<string | null>(null);
   const stepsReveal = useScrollReveal();
 
   return (
