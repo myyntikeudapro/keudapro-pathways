@@ -194,8 +194,11 @@ const WorkPlusPage = () => {
                   {/* Spacer for cards without modules or inline content */}
                   {path.modules.length === 0 && !path.inlineContent && <div className="flex-1" />}
 
-                  {/* Regional services (only for Etsin suuntaa) */}
+                  {/* Regional services */}
                   {path.hasRegionalServices && <RegionalServices />}
+
+                  {/* Service buttons */}
+                  {path.hasServiceButtons && <ServiceButtons heading={path.serviceHeading} />}
 
                   {/* Kytkentälause */}
                   <a
