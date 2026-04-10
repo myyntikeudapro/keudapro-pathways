@@ -190,7 +190,10 @@ const WorkPlusPage = () => {
                         </a>
                       );
                     })}
-                  </div>
+                  </div>}
+
+                  {/* Spacer for cards without modules or inline content */}
+                  {path.modules.length === 0 && !path.inlineContent && <div className="flex-1" />}
 
                   {/* Regional services (only for Etsin suuntaa) */}
                   {path.hasRegionalServices && <RegionalServices />}
