@@ -22,17 +22,17 @@ const serviceLabels: Record<ServiceKey, string> = {
 
 /* ────────────────────────── public component ────────────────────────── */
 
-export function ServiceButtons({ heading }: { heading?: string }) {
+export function ServiceButtons({ heading, standalone = false }: { heading?: string; standalone?: boolean }) {
   const [open, setOpen] = useState<ServiceKey | null>(null);
 
   return (
     <>
-      <div className="mt-5 mb-2">
+      {!standalone && <div className="mt-5 mb-2">
         <h4 className="text-sm font-bold text-foreground">{heading || "Muut palvelut"}</h4>
         <p className="text-xs text-muted-foreground mt-0.5">
           Valitse palvelu – näet tiedot ja pääset suoraan eteenpäin.
         </p>
-      </div>
+      </div>}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
         {(Object.keys(serviceLabels) as ServiceKey[]).map((k) => (

@@ -8,6 +8,7 @@ import { useWizard } from "@/contexts/WizardContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 import { RegionalServices } from "@/components/noste/RegionalServices";
 import { ServiceButtons } from "@/components/noste/ServiceModals";
+import { PathServicesModal } from "@/components/noste/PathServicesModal";
 
 import nosteDirectionImg from "@/assets/noste-direction.jpg";
 import nosteClarityImg from "@/assets/noste-clarity.jpg";
