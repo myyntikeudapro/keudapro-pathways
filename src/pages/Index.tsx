@@ -2,7 +2,6 @@ import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/shared/HeroSection";
 import { RouteCard } from "@/components/cards/RouteCard";
 import { AnimatedCounters } from "@/components/shared/AnimatedCounters";
-import { Users, Globe, Network, Quote } from "lucide-react";
 
 import routeAly from "@/assets/route-aly.jpg";
 import routeNoste from "@/assets/route-noste.jpg";
@@ -31,12 +30,6 @@ const routes = [
     image: routeKasvu,
     href: "/kasvu",
   },
-];
-
-const proofStats = [
-  { icon: Users, text: "Yli 1 700 osallistujaa eri koulutuksissa" },
-  { icon: Globe, text: "Valtakunnalliset ja kansainväliset verkostot" },
-  { icon: Network, text: "Laaja asiantuntijaverkosto toteuttajana" },
 ];
 
 const Index = () => {
@@ -70,7 +63,7 @@ const Index = () => {
       {/* Animated Counters / Social Proof */}
       <AnimatedCounters />
 
-      {/* Trust & Mission Block */}
+      {/* KUUMA Mission Block */}
       <section className="relative py-16 md:py-24 overflow-hidden">
         <img
           src={reititCtaBg}
@@ -79,47 +72,13 @@ const Index = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/75" />
 
-        <div className="relative z-10 keuda-container flex flex-col items-center gap-10 md:gap-14">
-          {/* Headline */}
-          <h2 className="text-2xl md:text-4xl font-bold text-white text-center tracking-tight">
-            Luotettu kumppani osaamisen kehittämisessä
-          </h2>
-
-          {/* Credibility metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full max-w-4xl">
-            {proofStats.map((stat) => (
-              <div
-                key={stat.text}
-                className="flex items-center gap-4 md:flex-col md:items-center md:text-center bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl px-5 py-4 md:px-6 md:py-5"
-              >
-                <stat.icon className="w-6 h-6 md:w-7 md:h-7 text-white/80 shrink-0" />
-                <span className="text-sm md:text-base font-medium text-white/90">
-                  {stat.text}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* Testimonial */}
-          <blockquote className="max-w-2xl text-center">
-            <Quote className="w-5 h-5 text-white/40 mx-auto mb-3" />
-            <p className="text-base md:text-lg italic text-white/75 leading-relaxed">
-              "Koulutus toi heti käytännön hyötyjä – pystyimme ottamaan opit käyttöön saman tien."
-            </p>
-          </blockquote>
-
-          {/* Divider */}
-          <div className="w-16 h-px bg-white/20" />
-
-          {/* Mission */}
-          <div className="text-center max-w-2xl">
-            <p className="text-xl md:text-2xl font-semibold text-white mb-2">
-              KUUMA-seutu kasvun alustana osaajille ja yrityksille.
-            </p>
-            <p className="text-sm md:text-base text-white/70">
-              KeudaPRO toimii osaamisen ja siirtymien operaattorina näiden reittien välillä.
-            </p>
-          </div>
+        <div className="relative z-10 keuda-container flex flex-col items-center gap-6">
+          <p className="text-xl md:text-2xl font-semibold text-white text-center mb-2">
+            KUUMA-seutu kasvun alustana osaajille ja yrityksille.
+          </p>
+          <p className="text-sm md:text-base text-white/70 text-center max-w-2xl">
+            KeudaPRO toimii osaamisen ja siirtymien operaattorina näiden reittien välillä.
+          </p>
         </div>
       </section>
 

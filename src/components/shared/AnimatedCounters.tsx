@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Quote } from "lucide-react";
 
 const counters = [
@@ -25,7 +25,7 @@ function useCountUp(target: number, duration: number, delay: number, trigger: bo
       const step = (now: number) => {
         const elapsed = now - start;
         const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
         setValue(Math.round(eased * target));
         if (progress < 1) requestAnimationFrame(step);
       };
@@ -61,7 +61,7 @@ export function AnimatedCounters() {
   return (
     <section
       ref={sectionRef}
-      className="py-14 md:py-20 bg-primary/5"
+      className="relative py-14 md:py-20 bg-foreground overflow-hidden"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -69,23 +69,27 @@ export function AnimatedCounters() {
       }}
     >
       <div className="keuda-container flex flex-col items-center gap-10">
-        <h2 className="text-2xl md:text-4xl font-bold text-foreground text-center tracking-tight">
+        {/* Heading */}
+        <h2 className="text-2xl md:text-4xl font-bold text-background text-center tracking-tight">
           Luotettu kumppani osaamisen kehittämisessä
         </h2>
 
+        {/* Counters */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 w-full max-w-4xl">
           {counters.map((c, i) => (
             <CounterCard key={c.label} {...c} index={i} trigger={visible} />
           ))}
         </div>
 
-        <p className="text-sm md:text-base text-muted-foreground text-center">
+        {/* Supporting text */}
+        <p className="text-sm md:text-base text-background/50 text-center">
           Valtakunnalliset ja kansainväliset verkostot
         </p>
 
-        <blockquote className="max-w-2xl text-center bg-muted/40 border border-border/60 rounded-xl px-6 py-5">
-          <Quote className="w-5 h-5 text-muted-foreground/40 mx-auto mb-3" />
-          <p className="text-base md:text-lg italic text-muted-foreground leading-relaxed">
+        {/* Testimonial */}
+        <blockquote className="max-w-2xl text-center bg-background/[0.06] border border-background/10 rounded-xl px-6 py-5">
+          <Quote className="w-5 h-5 text-background/30 mx-auto mb-3" />
+          <p className="text-base md:text-lg italic text-background/60 leading-relaxed">
             "Koulutus toi heti käytännön hyötyjä – pystyimme ottamaan opit käyttöön saman tien."
           </p>
         </blockquote>
@@ -101,10 +105,10 @@ function CounterCard({ target, suffix, label, index, trigger }: {
 
   return (
     <div className="text-center">
-      <div className="text-3xl md:text-4xl font-bold text-primary mb-1">
+      <div className="text-4xl md:text-5xl font-bold text-background mb-1">
         {formatNumber(value)}{suffix}
       </div>
-      <div className="text-sm text-muted-foreground">{label}</div>
+      <div className="text-sm text-background/50">{label}</div>
     </div>
   );
 }
