@@ -5,6 +5,11 @@ import { ArrowRight, ExternalLink, Zap, TrendingUp, Building2, GraduationCap } f
 import { cn } from "@/lib/utils";
 import { AssessmentModal } from "@/components/growth/AssessmentModal";
 
+import imgKaynistys from "@/assets/growth-kaynistys.jpg";
+import imgSkaalaus from "@/assets/growth-skaalaus.jpg";
+import imgUudistuminen from "@/assets/growth-uudistuminen.jpg";
+import imgOsaaminen from "@/assets/growth-osaaminen.jpg";
+
 /* ─── Revenue filter options ─── */
 const levels = [
   { id: "kaynistys", icon: Zap, label: "Käynnistys", revenue: "40 000 – 120 000 €/v" },
@@ -17,6 +22,7 @@ const levels = [
 const routes = [
   {
     id: "kaynistys",
+    image: imgKaynistys,
     title: "Kasvu käyntiin",
     subtitle: "Myynti, asiakashankinta ja ensimmäinen skaalaus",
     mindset: "Rohkeus myydä — asiakkaasta kassavirtaan",
@@ -28,9 +34,11 @@ const routes = [
     ],
     ctaText: "Aloita kasvukartoitus",
     transition: "Sinulla on toistuvaa kassavirtaa, vähintään muutama vakioasiakas ja tunnet tarpeesi palkata tai ulkoistaa.",
+    hookLine: "Valmis aloittamaan? Katso myös yrittäjyyden mahdollisuudet. ↓",
   },
   {
     id: "skaalaus",
+    image: imgSkaalaus,
     title: "Skaalaus ja systematisointi",
     subtitle: "Prosessit, tiimi ja myyntiputki kuntoon",
     mindset: "Johtaja rakentaa — ei tee kaikkea itse",
@@ -42,9 +50,11 @@ const routes = [
     ],
     ctaText: "Aloita skaalauskartoitus",
     transition: "Liikevaihtosi kasvaa mutta olet itse pullonkaula — tarvitset johtamisrakenteen ja hallitustyön.",
+    hookLine: "Onko tiimisi valmis seuraavaan tasoon? Kartoitetaan yhdessä. ↓",
   },
   {
     id: "kasvu-uudistuminen",
+    image: imgUudistuminen,
     title: "Teollistuminen ja uudistuminen",
     subtitle: "Omistajan roolin muutos, hallitustyö ja kansainvälistyminen",
     mindset: "Omistaja johtaa — yritys toimii ilman sinua",
@@ -56,9 +66,11 @@ const routes = [
     ],
     ctaText: "Keskustele siirtymästä",
     transition: "Harkitset omistajanvaihdosta, kansainvälistymistä tai liiketoiminnan merkittävää muutosta.",
+    hookLine: "Omistajan rooli muuttuu – oletko valmis? Keskustellaan siirtymästä. ↓",
   },
   {
     id: "osaaminen",
+    image: imgOsaaminen,
     title: "Osaaminen käytäntöön",
     subtitle: "Koulutukset, kortit ja pätevyydet yrityksille ja henkilöstölle",
     mindset: "Osaaminen on kilpailuetu — ei kulu",
@@ -70,6 +82,7 @@ const routes = [
     ],
     ctaText: "Kysy koulutuksista",
     transition: "Osaaminen on jatkuvaa — sopii kaikille vaiheille rinnakkaisesti.",
+    hookLine: "Osaaminen on kilpailuetusi – rakennetaan se yhdessä. ↓",
   },
 ];
 
@@ -211,7 +224,7 @@ export function GrowthRoutes() {
         </div>
 
         {/* ── Section heading for cards ── */}
-        <div className="text-center mb-12">
+        <div id="kasvupolut" className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Valitse kasvureitti
           </h2>
@@ -220,70 +233,91 @@ export function GrowthRoutes() {
           </p>
         </div>
 
-        {/* ── Four route cards ── */}
+        {/* ── Four route cards with photos ── */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {routes.map((route) => (
             <div
               key={route.id}
               id={`route-${route.id}`}
               className={cn(
-                "keuda-card-enhanced flex flex-col h-full transition-all duration-300",
+                "flex flex-col h-full rounded-xl border border-border bg-card overflow-hidden transition-all duration-200 hover:border-primary/50 hover:shadow-md",
                 selectedLevel === route.id && "ring-2 ring-primary shadow-lg"
               )}
             >
-              <h3 className="text-xl font-bold text-foreground mb-1">
-                {route.title}
-              </h3>
-              <p className="text-muted-foreground text-sm mb-3">
-                {route.subtitle}
-              </p>
+              {/* Photo */}
+              <div className="relative h-[160px] overflow-hidden flex-shrink-0">
+                <img
+                  src={route.image}
+                  alt={route.title}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  width={768}
+                  height={512}
+                />
+                <div className="absolute inset-0 bg-black/25" />
+              </div>
 
-              {/* Mindset badge */}
-              <span className="inline-block text-xs font-medium text-primary bg-primary/10 rounded-full px-3 py-1 mb-5 self-start">
-                {route.mindset}
-              </span>
+              {/* Content */}
+              <div className="flex flex-col flex-1 p-5">
+                <h3 className="text-xl font-bold text-card-foreground mb-1">
+                  {route.title}
+                </h3>
+                <p className="text-muted-foreground text-sm mb-3">
+                  {route.subtitle}
+                </p>
 
-              {/* Services list or training accordion */}
-              {route.id === "osaaminen" ? (
-                <div className="flex-1 mb-4">
-                  <TrainingAccordion />
-                </div>
-              ) : (
-                <div className="flex flex-col gap-2 mb-6 flex-1">
-                  {route.modules.map((mod, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 text-foreground text-sm font-medium border border-border/50"
-                    >
-                      <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-                      {mod}
-                    </div>
-                  ))}
-                </div>
-              )}
+                {/* Mindset badge */}
+                <span className="inline-block text-xs font-medium text-primary bg-primary/10 rounded-full px-3 py-1 mb-5 self-start">
+                  {route.mindset}
+                </span>
 
-              {/* Transition criteria accordion */}
-              <Accordion type="single" collapsible className="mb-4">
-                <AccordionItem value="transition" className="border-border/40">
-                  <AccordionTrigger className="text-xs font-semibold text-muted-foreground text-left hover:no-underline py-2">
-                    Milloin olet valmis seuraavalle tasolle?
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {route.transition}
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+                {/* Services list or training accordion */}
+                {route.id === "osaaminen" ? (
+                  <div className="flex-1 mb-4">
+                    <TrainingAccordion />
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2 mb-6 flex-1">
+                    {route.modules.map((mod, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 text-foreground text-sm font-medium border border-border/50"
+                      >
+                        <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                        {mod}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-              <Button
-                variant="cta"
-                size="lg"
-                className="w-full mt-auto"
-                onClick={() => handleCtaClick(route)}
-              >
-                {route.ctaText}
-              </Button>
+                {/* Transition criteria accordion */}
+                <Accordion type="single" collapsible className="mb-3">
+                  <AccordionItem value="transition" className="border-border/40">
+                    <AccordionTrigger className="text-xs font-semibold text-muted-foreground text-left hover:no-underline py-2">
+                      Milloin olet valmis seuraavalle tasolle?
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {route.transition}
+                      </p>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+
+                {/* Hook line */}
+                <p className="text-xs italic text-muted-foreground mb-4">
+                  {route.hookLine}
+                </p>
+
+                <Button
+                  variant="cta"
+                  size="lg"
+                  className="w-full mt-auto"
+                  onClick={() => handleCtaClick(route)}
+                >
+                  {route.ctaText}
+                </Button>
+              </div>
             </div>
           ))}
         </div>
