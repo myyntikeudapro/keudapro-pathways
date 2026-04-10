@@ -157,8 +157,13 @@ const WorkPlusPage = () => {
                   <h3 className="text-xl font-bold text-foreground mb-2">{path.title}</h3>
                   <p className="text-muted-foreground text-sm mb-5">{path.description}</p>
 
+                  {/* Inline content text (for Etsin suuntaa) */}
+                  {path.inlineContent && (
+                    <p className="text-muted-foreground text-xs leading-relaxed mb-4">{path.inlineContent}</p>
+                  )}
+
                   {/* Module links */}
-                  <div className="flex flex-col gap-2 mb-4 flex-1">
+                  {path.modules.length > 0 && <div className="flex flex-col gap-2 mb-4 flex-1">
                     {path.modules.map((mod, idx) => {
                       const isMuutosturva =
                         path.id === "polku3" && mod.href === "#muutosturva-tyoelamaan";
