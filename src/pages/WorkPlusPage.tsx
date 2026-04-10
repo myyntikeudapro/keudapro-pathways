@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Compass, Map, Handshake, Rocket } from "lucide-react";
+import { ArrowRight, Compass, Map, Handshake, Rocket, ArrowLeftRight } from "lucide-react";
 import { PartnersSection } from "@/components/shared/PartnersSection";
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
@@ -11,6 +11,7 @@ import nosteDirectionImg from "@/assets/noste-direction.jpg";
 import nosteClarityImg from "@/assets/noste-clarity.jpg";
 import nosteEmploymentImg from "@/assets/noste-employment.jpg";
 import nosteEntrepreneurImg from "@/assets/noste-entrepreneur.jpg";
+import nosteChallengeImg from "@/assets/noste-challenge.jpg";
 import nosteCTABg from "@/assets/noste-cta-bg.jpg";
 
 const paths = [
@@ -206,55 +207,119 @@ const WorkPlusPage = () => {
             ))}
           </div>
 
-          {/* Plus-polku */}
+          {/* Plus-polku – HAASTE */}
           <div id="plus-polku" className="mt-12 pt-10 border-t border-border/60">
-            <div className="max-w-4xl mx-auto rounded-xl border border-border bg-accent/10 overflow-hidden border-l-[5px] border-l-primary/60">
+            <div className="max-w-[860px] mx-auto rounded-xl border border-border bg-accent/5 overflow-hidden border-l-[8px] border-l-primary shadow-lg">
               {/* Valokuva */}
-              <div className="relative h-[180px] md:h-[200px] overflow-hidden">
+              <div className="relative h-[180px] md:h-[220px] overflow-hidden">
                 <img
-                  src={nosteEntrepreneurImg}
-                  alt="Tee työelämä omalla tavallasi"
+                  src={nosteChallengeImg}
+                  alt="Rakenna oma profiilisi mahdollisuuksien tekijänä"
                   className="w-full h-full object-cover"
                   loading="lazy"
-                  width={800}
-                  height={512}
+                  width={1024}
+                  height={576}
                 />
                 <div className="absolute inset-0 bg-black/25" />
               </div>
 
               <div className="p-6 md:p-8">
-                <p className="text-sm text-muted-foreground text-center mb-6 italic">
-                  Tämä polku on auki kaikissa vaiheissa – yrittäjyys ei vaadi erillistä lähtölaukausta.
+                {/* HAASTE badge */}
+                <span className="inline-block px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider mb-4">
+                  HAASTE
+                </span>
+
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3 leading-tight">
+                  Rakenna oma profiilisi mahdollisuuksien tekijänä
+                </h3>
+
+                <p className="text-muted-foreground mb-3 leading-relaxed">
+                  Työ ei synny enää vain valmiista paikoista. Se syntyy mahdollisuuksista – joihin joku tarttuu. Tai jotka joku näkee ennen muita.
                 </p>
 
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Compass className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground">Tee työelämä omalla tavallasi</h3>
-                    <p className="text-muted-foreground text-sm mt-1">Kevytyrittäjyys, toimeksiannot ja oma polku</p>
-                  </div>
+                <p className="italic text-foreground font-medium mb-6">
+                  Tässä haasteessa sinä rakennat itsestäsi sen ihmisen.
+                </p>
+
+                <div className="border-t border-border/60 pt-5 mb-5">
+                  <h4 className="font-bold text-foreground mb-2">Kenelle tämä on?</h4>
+                  <p className="italic text-muted-foreground text-sm mb-3">Sinulle, alle 30-vuotias, joka:</p>
+                  <ul className="space-y-2 text-sm text-foreground mb-4">
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                      haluat tehdä, et vain hakea
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                      näet tai aavistat, että ympärillä on tekemätöntä työtä
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                      mietit, miten oma osaaminen voisi muuttua keikoiksi, projekteiksi tai työksi
+                    </li>
+                  </ul>
+                  <p className="italic text-primary text-sm font-medium">
+                    Sinun ei tarvitse olla valmis. Riittää, että olet valmis liikkeelle.
+                  </p>
                 </div>
 
-                <p className="text-sm italic text-muted-foreground mb-5">
-                  Sinulle, jos haluat tehdä töitä omilla ehdoillasi – ilman pakkoa valita perinteisen työsuhteen ja täyden yrittäjyyden välillä.
-                </p>
-
-                <div className="grid md:grid-cols-2 gap-2 mb-6">
-                  {plusPathModules.map((mod, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-background/60 text-foreground text-sm font-medium border border-border/50"
-                    >
-                      <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-                      {mod}
+                <div className="border-t border-border/60 pt-5 mb-5">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-bold text-foreground mb-3">Mitä teet?</h4>
+                      <ul className="space-y-2 text-sm text-foreground">
+                        <li className="flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                          sanoitat mitä osaat – ja mitä haluat oppia
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                          kerrot millaisiin mahdollisuuksiin haluat tarttua
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                          tuot esiin millaisia mahdollisuuksia itse näet
+                        </li>
+                      </ul>
                     </div>
-                  ))}
+                    <div>
+                      <h4 className="font-bold text-foreground mb-3">Mitä saat?</h4>
+                      <ul className="space-y-2 text-sm text-foreground">
+                        <li className="flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                          sparrausta profiilin rakentamiseen
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                          mentoreita ja verkostoja
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                          konkreettisia toimeksiantoja ja kokeiluja
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                          tukea idean viemiseen tekemiseksi
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
 
-                <Button variant="cta" size="lg" className="w-full md:w-auto">
-                  Tutki yrittäjyyspolkua →
+                {/* Kaksisuuntainen liike */}
+                <div className="border-t border-border/60 pt-5 mb-6 text-center">
+                  <div className="flex items-center justify-center gap-3 mb-2">
+                    <span className="text-sm font-bold text-foreground">tekijä</span>
+                    <ArrowLeftRight className="w-5 h-5 text-primary" />
+                    <span className="text-sm font-bold text-foreground">mahdollisuus</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Et vain tartu valmiisiin mahdollisuuksiin – voit myös olla se joka huomaa ne ensimmäisenä.
+                  </p>
+                </div>
+
+                <Button variant="cta" size="lg" className="w-full">
+                  Luo oma profiilisi →
                 </Button>
               </div>
             </div>
