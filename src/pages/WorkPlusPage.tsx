@@ -21,13 +21,8 @@ const paths = [
     title: "Etsin suuntaa",
     image: nosteDirectionImg,
     description: "Etsitkö selkeää suuntaa työelämällesi ja kaipaat valmentajan tukea työnhakuun? Tämä reitti sopii, kun haluat sparrausta ja rinnalla kulkevan tuen.",
-    modules: [
-      { label: "Valmentajan tuki", href: "#valmentajan-tuki" },
-      { label: "Työelämätaidot", href: "#tyoelamataidot" },
-      { label: "Uraohjaus ja suunnan selkeytys", href: "#uraohjaus" },
-      { label: "Osaamisen tunnistaminen ja sanoittaminen", href: "#osaaminen" },
-      { label: "Työnhakutaidot (CV, työhaastattelu, piilotyöpaikat, työnhaku)", href: "#tyonhakutaidot" },
-    ],
+    modules: [],
+    inlineContent: "Valmentajan tuki · työelämätaidot · uraohjaus · osaamisen tunnistaminen · työnhakutaidot (CV, haastattelu, piilotyöpaikat)",
     crossLink: "HAASTE voi olla yksi suunta – tutustu ennen päätöstä. ↓",
     hasRegionalServices: true,
     ctaText: "Aloita valmennus",
@@ -162,8 +157,13 @@ const WorkPlusPage = () => {
                   <h3 className="text-xl font-bold text-foreground mb-2">{path.title}</h3>
                   <p className="text-muted-foreground text-sm mb-5">{path.description}</p>
 
+                  {/* Inline content text (for Etsin suuntaa) */}
+                  {path.inlineContent && (
+                    <p className="text-muted-foreground text-xs leading-relaxed mb-4">{path.inlineContent}</p>
+                  )}
+
                   {/* Module links */}
-                  <div className="flex flex-col gap-2 mb-4 flex-1">
+                  {path.modules.length > 0 && <div className="flex flex-col gap-2 mb-4 flex-1">
                     {path.modules.map((mod, idx) => {
                       const isMuutosturva =
                         path.id === "polku3" && mod.href === "#muutosturva-tyoelamaan";
@@ -190,7 +190,10 @@ const WorkPlusPage = () => {
                         </a>
                       );
                     })}
-                  </div>
+                  </div>}
+
+                  {/* Spacer for cards without modules or inline content */}
+                  {path.modules.length === 0 && !path.inlineContent && <div className="flex-1" />}
 
                   {/* Regional services (only for Etsin suuntaa) */}
                   {path.hasRegionalServices && <RegionalServices />}
