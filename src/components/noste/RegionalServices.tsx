@@ -22,18 +22,18 @@ const regionLabels: Record<Region, string> = {
 
 /* ────────────────────────── component ────────────────────────── */
 
-export function RegionalServices() {
+export function RegionalServices({ standalone = false }: { standalone?: boolean }) {
   const [open, setOpen] = useState<Region | null>(null);
 
   return (
     <>
       {/* Section heading */}
-      <div className="mt-5 mb-2">
+      {!standalone && <div className="mt-5 mb-2">
         <h4 className="text-sm font-bold text-foreground">Työhönvalmennus alueellasi</h4>
         <p className="text-xs text-muted-foreground mt-0.5">
           Valitse alueesi – näet palvelun tiedot ja ohjautumisen.
         </p>
-      </div>
+      </div>}
 
       {/* Buttons */}
       <div className="grid grid-cols-2 gap-2 mb-4">

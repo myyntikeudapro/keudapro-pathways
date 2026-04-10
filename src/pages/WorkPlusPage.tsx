@@ -8,6 +8,7 @@ import { useWizard } from "@/contexts/WizardContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 import { RegionalServices } from "@/components/noste/RegionalServices";
 import { ServiceButtons } from "@/components/noste/ServiceModals";
+import { PathServicesModal } from "@/components/noste/PathServicesModal";
 
 import nosteDirectionImg from "@/assets/noste-direction.jpg";
 import nosteClarityImg from "@/assets/noste-clarity.jpg";
@@ -36,8 +37,10 @@ const paths = [
     description: "Tarvitsetko apua osaamisesi sanoittamiseen ja profiilin kirkastamiseen? Tämä polku auttaa sinua erottumaan ja hyödyntämään tekoälyä työnhaussa.",
     modules: [],
     inlineContent: "CV, LinkedIn ja hissipuhe · AI-avusteinen työnhaku · valmentajan tuki tarvittaessa",
-    hasRegionalServices: true,
-    hasServiceButtons: true,
+    hasRegionalServices: false,
+    hasServiceButtons: false,
+    ctaModal: true,
+    serviceTabLabel: "Muut palvelut",
     serviceHeading: "Muut palvelut",
     crossLink: "Sama osaaminen voidaan tuotteistaa myös toimeksiannoiksi. ↓",
     ctaText: "Kirkasta profiilisi",
@@ -50,8 +53,10 @@ const paths = [
     description: "Onko tavoitteenasi nopea työllistyminen? Tämä reitti tarjoaa käytännön työkalut ja väylät työelämään.",
     modules: [],
     inlineContent: "AI-avusteinen osaamiskartoitus · CV:n pikapäivitys (30 min) · henkilöstövuokrausyhteistyö · haastattelusparraus · muutosturvakoulutus",
-    hasRegionalServices: true,
-    hasServiceButtons: true,
+    hasRegionalServices: false,
+    hasServiceButtons: false,
+    ctaModal: true,
+    serviceTabLabel: "Tavoittele työtä nyt",
     serviceHeading: "Tavoittele työtä nyt – konkreettiset väylät",
     crossLink: "Tai suoraan töihin – omalla tavallasi. ↓",
     ctaText: "Tavoittele työtä nyt",
@@ -105,6 +110,7 @@ function useScrollReveal() {
 const WorkPlusPage = () => {
   const { openWizard } = useWizard();
   const [muutosturvaOpen, setMuutosturvaOpen] = useState(false);
+  const [pathModalOpen, setPathModalOpen] = useState<string | null>(null);
   const stepsReveal = useScrollReveal();
 
   return (
@@ -209,15 +215,31 @@ const WorkPlusPage = () => {
                   </a>
 
                   {/* CTA */}
-                  <Button variant="cta" size="lg" asChild className="w-full mt-auto">
-                    <a href={path.ctaHref}>{path.ctaText}</a>
-                  </Button>
+                  {path.ctaModal ? (
+                    <Button variant="cta" size="lg" className="w-full mt-auto" onClick={() => setPathModalOpen(path.id)}>
+                      {path.ctaText}
+                    </Button>
+                  ) : (
+                    <Button variant="cta" size="lg" asChild className="w-full mt-auto">
+                      <a href={path.ctaHref}>{path.ctaText}</a>
+                    </Button>
+                  )}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Plus-polku – HAASTE */}
+          {/* Path service modals for polku2 and polku3 */}
+          {paths.filter(p => p.ctaModal).map(p => (
+            <PathServicesModal
+              key={p.id}
+              open={pathModalOpen === p.id}
+              onClose={() => setPathModalOpen(null)}
+              serviceTabLabel={p.serviceTabLabel || "Palvelut"}
+              serviceHeading={p.serviceHeading || "Palvelut"}
+            />
+          ))}
+
           <div id="plus-polku" className="mt-12 pt-10 border-t border-border/60">
             <div className="max-w-[860px] mx-auto rounded-xl border border-border bg-accent/5 overflow-hidden border-l-[8px] border-l-primary shadow-lg">
               {/* Valokuva */}
