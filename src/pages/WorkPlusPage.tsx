@@ -229,7 +229,17 @@ const WorkPlusPage = () => {
             ))}
           </div>
 
-          {/* Plus-polku – HAASTE */}
+          {/* Path service modals for polku2 and polku3 */}
+          {paths.filter(p => p.ctaModal).map(p => (
+            <PathServicesModal
+              key={p.id}
+              open={pathModalOpen === p.id}
+              onClose={() => setPathModalOpen(null)}
+              serviceTabLabel={p.serviceTabLabel || "Palvelut"}
+              serviceHeading={p.serviceHeading || "Palvelut"}
+            />
+          ))}
+
           <div id="plus-polku" className="mt-12 pt-10 border-t border-border/60">
             <div className="max-w-[860px] mx-auto rounded-xl border border-border bg-accent/5 overflow-hidden border-l-[8px] border-l-primary shadow-lg">
               {/* Valokuva */}
