@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Compass, Map, Handshake, Rocket, ArrowLeftRight } from "lucide-react";
+import { ArrowRight, Compass, Map, Handshake, Rocket, ArrowLeftRight, Plus } from "lucide-react";
 import { PartnersSection } from "@/components/shared/PartnersSection";
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 import { RegionalServices } from "@/components/noste/RegionalServices";
-import { ServiceButtons } from "@/components/noste/ServiceModals";
-import { PathServicesModal } from "@/components/noste/PathServicesModal";
+import { SharedServicesModal } from "@/components/noste/SharedServicesModal";
 
 import nosteDirectionImg from "@/assets/noste-direction.jpg";
 import nosteClarityImg from "@/assets/noste-clarity.jpg";
