@@ -1,22 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Clock, ArrowRight, Compass, Map, Handshake, Rocket } from "lucide-react";
+import { ArrowRight, Compass, Map, Handshake, Rocket } from "lucide-react";
 import { PartnersSection } from "@/components/shared/PartnersSection";
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 
-import pathDirectionImg from "@/assets/noste-path-direction.jpg";
-import pathClarityImg from "@/assets/noste-path-clarity.jpg";
-import pathWorkImg from "@/assets/noste-path-work.jpg";
+import nosteDirectionImg from "@/assets/noste-direction.jpg";
+import nosteClarityImg from "@/assets/noste-clarity.jpg";
+import nosteEmploymentImg from "@/assets/noste-employment.jpg";
+import nosteEntrepreneurImg from "@/assets/noste-entrepreneur.jpg";
 import nosteCTABg from "@/assets/noste-cta-bg.jpg";
 
 const paths = [
   {
     id: "polku1",
     title: "Etsin suuntaa",
-    image: pathDirectionImg,
+    image: nosteDirectionImg,
     description: "Etsitkö selkeää suuntaa työelämällesi ja kaipaat valmentajan tukea työnhakuun? Tämä reitti sopii, kun haluat sparrausta ja rinnalla kulkevan tuen.",
     modules: [
       { label: "Valmentajan tuki", href: "#valmentajan-tuki" },
@@ -32,7 +33,7 @@ const paths = [
   {
     id: "polku2",
     title: "Suunta kirkkaaksi",
-    image: pathClarityImg,
+    image: nosteClarityImg,
     description: "Tarvitsetko apua osaamisesi sanoittamiseen ja profiilin kirkastamiseen? Tämä polku auttaa sinua erottumaan ja hyödyntämään tekoälyä työnhaussa.",
     modules: [
       { label: "CV, LinkedIn ja oman osaamisen hissipuhe", href: "#cv-linkedin" },
@@ -46,7 +47,7 @@ const paths = [
   {
     id: "polku3",
     title: "Suoraan työelämään",
-    image: pathWorkImg,
+    image: nosteEmploymentImg,
     description: "Onko tavoitteenasi nopea työllistyminen? Tämä reitti tarjoaa käytännön työkalut ja väylät työelämään.",
     modules: [
       { label: "AI-avusteinen osaamiskartoitus", href: "#ai-kartoitus" },
@@ -88,9 +89,27 @@ const gettingStartedSteps = [
   },
 ];
 
+function useScrollReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return { ref, visible };
+}
+
 const WorkPlusPage = () => {
   const { openWizard } = useWizard();
   const [muutosturvaOpen, setMuutosturvaOpen] = useState(false);
+  const stepsReveal = useScrollReveal();
+
   return (
     <Layout>
       {/* HERO CAROUSEL */}
@@ -115,103 +134,129 @@ const WorkPlusPage = () => {
             </p>
           </div>
 
+          {/* Pääpolkukortit – etusivun reittivalintalaatikoiden tyyli */}
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {paths.map((path) => (
               <div
                 key={path.id}
-                className="keuda-card-enhanced flex flex-col h-full"
+                className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-colors h-full"
               >
-                {/* Image */}
-                <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 mb-4">
-                  <img src={path.image} alt={path.title} className="w-full h-full object-cover" />
+                {/* Valokuva */}
+                <div className="relative h-[160px] overflow-hidden flex-shrink-0">
+                  <img
+                    src={path.image}
+                    alt={path.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                    width={800}
+                    height={512}
+                  />
+                  <div className="absolute inset-0 bg-black/25" />
                 </div>
 
-                {/* Title & description */}
-                <h3 className="text-xl font-bold text-foreground mb-2">{path.title}</h3>
-                <p className="text-muted-foreground text-sm mb-5">{path.description}</p>
+                {/* Sisältö */}
+                <div className="flex flex-col flex-1 p-5">
+                  <h3 className="text-xl font-bold text-foreground mb-2">{path.title}</h3>
+                  <p className="text-muted-foreground text-sm mb-5">{path.description}</p>
 
-                {/* Module links */}
-                <div className="flex flex-col gap-2 mb-4 flex-1">
-                  {path.modules.map((mod, idx) => {
-                    const isMuutosturva =
-                      path.id === "polku3" && mod.href === "#muutosturva-tyoelamaan";
-                    if (isMuutosturva) {
+                  {/* Module links */}
+                  <div className="flex flex-col gap-2 mb-4 flex-1">
+                    {path.modules.map((mod, idx) => {
+                      const isMuutosturva =
+                        path.id === "polku3" && mod.href === "#muutosturva-tyoelamaan";
+                      if (isMuutosturva) {
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => setMuutosturvaOpen(true)}
+                            className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group/mod text-left"
+                          >
+                            <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover/mod:translate-x-0.5 transition-transform" />
+                            {mod.label}
+                          </button>
+                        );
+                      }
                       return (
-                        <button
+                        <a
                           key={idx}
-                          onClick={() => setMuutosturvaOpen(true)}
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group text-left"
+                          href={mod.href}
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group/mod"
                         >
-                          <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                          <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover/mod:translate-x-0.5 transition-transform" />
                           {mod.label}
-                        </button>
+                        </a>
                       );
-                    }
-                    return (
-                      <a
-                        key={idx}
-                        href={mod.href}
-                        className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group"
-                      >
-                        <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                        {mod.label}
-                      </a>
-                    );
-                  })}
+                    })}
+                  </div>
+
+                  {/* Kytkentälause */}
+                  <a
+                    href="#plus-polku"
+                    className="text-sm italic text-primary/80 hover:text-primary mb-4 transition-colors"
+                  >
+                    {path.crossLink}
+                  </a>
+
+                  {/* CTA */}
+                  <Button variant="cta" size="lg" asChild className="w-full mt-auto">
+                    <a href={path.ctaHref}>{path.ctaText}</a>
+                  </Button>
                 </div>
-
-                {/* TÄYDENNYS 5 – Kytkentä Plus-polkuun */}
-                <a
-                  href="#plus-polku"
-                  className="text-sm italic text-primary/80 hover:text-primary mb-4 transition-colors"
-                >
-                  {path.crossLink}
-                </a>
-
-                {/* CTA */}
-                <Button variant="cta" size="lg" asChild className="w-full">
-                  <a href={path.ctaHref}>{path.ctaText}</a>
-                </Button>
               </div>
             ))}
           </div>
 
-          {/* TÄYDENNYS 4 – Plus-polku */}
+          {/* Plus-polku */}
           <div id="plus-polku" className="mt-12 pt-10 border-t border-border/60">
-            <p className="text-sm text-muted-foreground text-center mb-6 italic">
-              Tämä polku on auki kaikissa vaiheissa – yrittäjyys ei vaadi erillistä lähtölaukausta.
-            </p>
-
-            <div className="max-w-3xl mx-auto keuda-card-enhanced border-2 border-primary/20 bg-accent/20 p-6 md:p-8">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Compass className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-foreground">Tee työelämä omalla tavallasi</h3>
-                  <p className="text-muted-foreground text-sm mt-1">Kevytyrittäjyys, toimeksiannot ja oma polku</p>
-                </div>
+            <div className="max-w-4xl mx-auto rounded-xl border border-border bg-accent/10 overflow-hidden border-l-[5px] border-l-primary/60">
+              {/* Valokuva */}
+              <div className="relative h-[180px] md:h-[200px] overflow-hidden">
+                <img
+                  src={nosteEntrepreneurImg}
+                  alt="Tee työelämä omalla tavallasi"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  width={800}
+                  height={512}
+                />
+                <div className="absolute inset-0 bg-black/25" />
               </div>
 
-              <p className="text-sm italic text-muted-foreground mb-5">
-                Sinulle, jos haluat tehdä töitä omilla ehdoillasi – ilman pakkoa valita perinteisen työsuhteen ja täyden yrittäjyyden välillä.
-              </p>
+              <div className="p-6 md:p-8">
+                <p className="text-sm text-muted-foreground text-center mb-6 italic">
+                  Tämä polku on auki kaikissa vaiheissa – yrittäjyys ei vaadi erillistä lähtölaukausta.
+                </p>
 
-              <div className="flex flex-col gap-2 mb-6">
-                {plusPathModules.map((mod, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-background/60 text-foreground text-sm font-medium border border-border/50"
-                  >
-                    <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-                    {mod}
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Compass className="w-6 h-6 text-primary" />
                   </div>
-                ))}
-              </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground">Tee työelämä omalla tavallasi</h3>
+                    <p className="text-muted-foreground text-sm mt-1">Kevytyrittäjyys, toimeksiannot ja oma polku</p>
+                  </div>
+                </div>
 
-              <Button variant="cta" size="lg" className="w-full md:w-auto">
-                Tutki yrittäjyyspolkua →
-              </Button>
+                <p className="text-sm italic text-muted-foreground mb-5">
+                  Sinulle, jos haluat tehdä töitä omilla ehdoillasi – ilman pakkoa valita perinteisen työsuhteen ja täyden yrittäjyyden välillä.
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-2 mb-6">
+                  {plusPathModules.map((mod, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-background/60 text-foreground text-sm font-medium border border-border/50"
+                    >
+                      <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                      {mod}
+                    </div>
+                  ))}
+                </div>
+
+                <Button variant="cta" size="lg" className="w-full md:w-auto">
+                  Tutki yrittäjyyspolkua →
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -246,10 +291,10 @@ const WorkPlusPage = () => {
         </div>
       </section>
 
-      {/* TÄYDENNYS 7 – Muutosturva-nosto */}
+      {/* Muutosturva-nosto */}
       <section className="py-12 md:py-16">
         <div className="keuda-container">
-          <div className="max-w-3xl mx-auto rounded-2xl border-2 border-primary/30 bg-primary/5 p-6 md:p-8 text-center">
+          <div className="max-w-3xl mx-auto rounded-2xl border border-primary/30 bg-primary/5 p-6 md:p-8 text-center border-l-[5px] border-l-primary">
             <h3 className="text-2xl font-bold text-foreground mb-3">Oletko muutosturvatilanteessa?</h3>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
               Muutosturva on oikeutesi – ja me autamme sinua hyödyntämään sen täysimääräisesti. KeudaPRO:n kautta pääset muutosturvakoulutuksiin ja saat tuen seuraavan askeleen löytämiseen.
@@ -261,21 +306,64 @@ const WorkPlusPage = () => {
         </div>
       </section>
 
-      {/* TÄYDENNYS 8 – Miten pääset alkuun */}
-      <section className="py-16 md:py-20 bg-muted/30">
+      {/* Miten pääset alkuun – tumma osio */}
+      <section
+        ref={stepsReveal.ref}
+        className="py-16 md:py-20 bg-foreground overflow-hidden"
+        style={{
+          opacity: stepsReveal.visible ? 1 : 0,
+          transform: stepsReveal.visible ? "translateY(0)" : "translateY(20px)",
+          transition: "opacity 600ms ease-out, transform 600ms ease-out",
+        }}
+      >
         <div className="keuda-container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Miten pääset alkuun?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-background mb-4">Miten pääset alkuun?</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-10">
+          {/* Desktop: horizontal with arrows */}
+          <div className="hidden md:flex items-start justify-center gap-0 max-w-4xl mx-auto mb-10">
             {gettingStartedSteps.map((step, i) => (
-              <div key={i} className="keuda-card-enhanced text-center p-6">
-                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <step.icon className="w-7 h-7 text-primary" />
+              <div key={i} className="flex items-start">
+                <div className="flex flex-col items-center text-center w-56 rounded-xl border border-primary/20 p-6"
+                  style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(8px)" }}
+                >
+                  <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+                    <step.icon className="w-7 h-7 text-primary" />
+                  </div>
+                  <h4 className="text-base font-bold text-background mb-2">{step.title}</h4>
+                  <p className="text-sm" style={{ color: "hsl(210 15% 65%)" }}>{step.text}</p>
                 </div>
-                <h4 className="text-lg font-bold text-foreground mb-2">{step.title}</h4>
-                <p className="text-sm text-muted-foreground">{step.text}</p>
+                {i < gettingStartedSteps.length - 1 && (
+                  <div className="flex items-center pt-16 px-2">
+                    <div className="w-8 h-px bg-primary/30" />
+                    <ArrowRight className="w-4 h-4 text-primary/60 -ml-1" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile: stacked */}
+          <div className="flex md:hidden flex-col items-center gap-4 mb-10">
+            {gettingStartedSteps.map((step, i) => (
+              <div key={i}>
+                <div className="flex items-center gap-4 rounded-xl border border-primary/20 p-5"
+                  style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(8px)" }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <step.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-background">{step.title}</h4>
+                    <p className="text-xs" style={{ color: "hsl(210 15% 65%)" }}>{step.text}</p>
+                  </div>
+                </div>
+                {i < gettingStartedSteps.length - 1 && (
+                  <div className="flex justify-center py-1">
+                    <div className="w-px h-5 bg-primary/30" />
+                  </div>
+                )}
               </div>
             ))}
           </div>

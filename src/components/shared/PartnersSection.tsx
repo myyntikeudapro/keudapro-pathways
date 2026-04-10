@@ -23,9 +23,9 @@ export function PartnersSection() {
           {partners.map((partner) => (
             <div
               key={partner.name}
-              className="keuda-card-enhanced flex flex-col items-center justify-center p-5 md:p-6 text-center min-h-[100px]"
+              className="flex flex-col items-center justify-center p-5 md:p-6 text-center min-h-[100px] rounded-xl border border-border bg-card hover:border-primary/50 transition-colors"
             >
-              <p className="text-sm md:text-base font-medium text-foreground mb-1">{partner.name}</p>
+              <p className="text-sm md:text-base font-bold text-foreground mb-1">{partner.name}</p>
               <p className="text-xs text-muted-foreground leading-snug">{partner.desc}</p>
             </div>
           ))}
