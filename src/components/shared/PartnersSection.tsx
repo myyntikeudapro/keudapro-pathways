@@ -1,12 +1,12 @@
 export function PartnersSection() {
   const partners = [
-    "Keuda",
-    "RTK Henkilöstöpalvelu",
-    "Valo-Valmennusyhdistys",
-    "Cleodia Group",
-    "Pohjamonni",
-    "Wulff PRO",
-    "Linduistics",
+    { name: "Keuda", desc: "Koulutus ja osaamisen kehittäminen siirtymän tueksi." },
+    { name: "RTK Henkilöstöpalvelu", desc: "Työllistymisväylät ja henkilöstövuokrausratkaisut." },
+    { name: "Valo-Valmennusyhdistys", desc: "Yksilöllinen valmennus ja tuki työelämäsiirtymissä." },
+    { name: "Cleodia Group", desc: "Yrittäjyyden ja liiketoiminnan käynnistämisen tuki." },
+    { name: "Pohjamonni", desc: "Verkostot ja alustat kevytyrittäjille ja toimeksiantojen tekijöille." },
+    { name: "Wulff PRO", desc: "Työelämän käytännön työkalut ja palveluratkaisut." },
+    { name: "Linduistics", desc: "Kieli- ja viestintäosaaminen työelämään ja työnhakuun." },
   ];
 
   return (
@@ -19,14 +19,14 @@ export function PartnersSection() {
           </p>
         </div>
 
-        {/* Partners Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {partners.map((partner) => (
             <div
-              key={partner}
-              className="keuda-card-enhanced flex items-center justify-center p-5 md:p-6 text-center min-h-[72px]"
+              key={partner.name}
+              className="keuda-card-enhanced flex flex-col items-center justify-center p-5 md:p-6 text-center min-h-[100px]"
             >
-              <p className="text-sm md:text-base font-medium text-foreground">{partner}</p>
+              <p className="text-sm md:text-base font-medium text-foreground mb-1">{partner.name}</p>
+              <p className="text-xs text-muted-foreground leading-snug">{partner.desc}</p>
             </div>
           ))}
         </div>
