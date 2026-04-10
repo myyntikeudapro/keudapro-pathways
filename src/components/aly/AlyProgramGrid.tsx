@@ -26,6 +26,7 @@ type Category = {
   image: string;
   icon: typeof BookOpen;
   valueProposition: string;
+  cta: string;
   programs: Program[];
   hasComingSoon: boolean;
 };
@@ -47,6 +48,7 @@ const categories: Category[] = [
     icon: BookOpen,
     valueProposition:
       "Kehitä johtamisotettasi ja kasva esihenkilönä, joka saa tiimin kukoistamaan – käytännön valmennuksilla jotka näkyvät arjessa heti.",
+    cta: "Tutustu johtamisen ohjelmiin →",
     hasComingSoon: false,
     programs: [
       {
@@ -90,6 +92,7 @@ const categories: Category[] = [
     icon: Brain,
     valueProposition:
       "Opi hyödyntämään tekoälyä omalla tasollasi – strategisesta johtamisesta käytännön käyttöönottoon. Valitse roolisi ja ala rakentaa tekoälyosaamista tänään.",
+    cta: "Löydä oma tasosi →",
     hasComingSoon: true,
     programs: [
       {
@@ -133,6 +136,7 @@ const categories: Category[] = [
     icon: Shield,
     valueProposition:
       "Tee turvallisuudesta kilpailuetu ja vastuullisuudesta johtamisen ydin – ohjelmilla jotka on rakennettu turvallisuuspäälliköille, asiantuntijoille ja johtajille.",
+    cta: "Tutustu turvallisuusohjelmiin →",
     hasComingSoon: true,
     programs: [
       {
@@ -161,8 +165,8 @@ function ComingSoonBox() {
 
   if (submitted) {
     return (
-      <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-center">
-        <p className="text-sm font-medium text-primary">
+      <div className="rounded-lg border border-primary/30 bg-primary/10 p-4 text-center">
+        <p className="text-sm font-medium text-primary-foreground">
           Kiitos! Saat tiedon heti kun ohjelma avautuu.
         </p>
       </div>
@@ -170,22 +174,22 @@ function ComingSoonBox() {
   }
 
   return (
-    <div className="rounded-lg border border-border bg-muted/40 p-4">
-      <p className="text-xs font-semibold text-foreground mb-1">
+    <div className="rounded-lg border border-dashed border-primary/30 p-4" style={{ background: "hsl(215 25% 18% / 0.6)" }}>
+      <p className="text-xs font-semibold text-background mb-1">
         Tulossa pian – ilmoittaudu kiinnostuneeksi
       </p>
-      <p className="text-xs text-muted-foreground mb-3">
+      <p className="text-xs mb-3" style={{ color: "hsl(210 15% 65%)" }}>
         Saat tiedon heti kun ohjelma avautuu.
       </p>
       <form onSubmit={handleSubmit} className="flex gap-2">
         <div className="relative flex-1">
-          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "hsl(210 15% 55%)" }} />
           <Input
             type="email"
             placeholder="Sähköpostiosoite"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="pl-9 h-9 text-sm"
+            className="pl-9 h-9 text-sm bg-foreground border-primary/20 text-background placeholder:text-muted-foreground"
             required
           />
         </div>
@@ -206,11 +210,14 @@ function ProgramCard({ program, categoryIcon: Icon }: { program: Program; catego
     <a
       href={program.href}
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="relative block rounded-xl border border-border bg-card overflow-hidden h-44 group"
+      className={cn(
+        "relative block rounded-xl border overflow-hidden h-44 group transition-all duration-200",
+        hovered ? "border-primary/50" : "border-primary/15"
+      )}
+      style={{ background: "hsl(215 25% 18%)" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={(e) => {
-        // Mobile: first tap shows hover, second tap follows link
         if ("ontouchstart" in window && !hovered) {
           e.preventDefault();
           setHovered(true);
@@ -225,9 +232,9 @@ function ProgramCard({ program, categoryIcon: Icon }: { program: Program; catego
         )}
       >
         <Icon className="w-6 h-6 text-primary/60 mb-3" />
-        <p className="text-sm font-semibold text-foreground leading-snug px-2">{program.label}</p>
+        <p className="text-sm font-semibold text-background leading-snug px-2">{program.label}</p>
         {program.badge && (
-          <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-5 mt-2">
+          <Badge className="text-[10px] px-2 py-0.5 h-5 mt-2 bg-primary/20 text-primary-foreground border-primary/30">
             {program.badge.emoji} {program.badge.text}
           </Badge>
         )}
@@ -236,14 +243,15 @@ function ProgramCard({ program, categoryIcon: Icon }: { program: Program; catego
       {/* Hover state */}
       <div
         className={cn(
-          "absolute inset-0 flex flex-col justify-between p-4 bg-primary/5 transition-opacity duration-200",
+          "absolute inset-0 flex flex-col justify-between p-4 transition-opacity duration-200",
           hovered ? "opacity-100" : "opacity-0"
         )}
+        style={{ background: "hsl(215 25% 15%)" }}
       >
         <div>
-          <p className="text-sm font-bold text-foreground mb-2 leading-snug">{program.label}</p>
-          <div className="w-8 h-px bg-border mb-2" />
-          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
+          <p className="text-sm font-bold text-background mb-2 leading-snug">{program.label}</p>
+          <div className="w-8 h-px bg-primary/30 mb-2" />
+          <p className="text-xs leading-relaxed line-clamp-3" style={{ color: "hsl(210 15% 65%)" }}>
             {program.description}
           </p>
         </div>
@@ -260,26 +268,27 @@ export function AlyProgramGrid() {
   const [activeRole, setActiveRole] = useState<Role | null>(null);
 
   return (
-    <section className="py-8 md:py-12 bg-muted/30">
+    <section className="py-8 md:py-12 bg-foreground">
       <div className="keuda-container">
         <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-background mb-4">
             Valitse koulutus kokonaisuudesta
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+          <p className="text-lg max-w-2xl mx-auto mb-8" style={{ color: "hsl(210 15% 65%)" }}>
             Kolme kokonaisuutta erilaisiin tarpeisiin – suodata roolisi mukaan tai selaa kaikkia
           </p>
 
           {/* Role filter bar */}
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
             <button
               onClick={() => setActiveRole(null)}
               className={cn(
                 "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border",
                 activeRole === null
                   ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
+                  : "bg-transparent border-primary/30 hover:border-primary/50 hover:text-background"
               )}
+              style={activeRole !== null ? { color: "hsl(210 15% 65%)" } : undefined}
             >
               Kaikki
             </button>
@@ -291,8 +300,9 @@ export function AlyProgramGrid() {
                   "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border",
                   activeRole === role.id
                     ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-card text-muted-foreground border-border hover:border-primary/30 hover:text-foreground"
+                    : "bg-transparent border-primary/30 hover:border-primary/50 hover:text-background"
                 )}
+                style={activeRole !== role.id ? { color: "hsl(210 15% 65%)" } : undefined}
               >
                 {role.label}
               </button>
@@ -311,13 +321,16 @@ export function AlyProgramGrid() {
 
             return (
               <div key={cat.id} id={cat.id}>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
-                    <img src={cat.image} alt={cat.title} className="w-full h-full object-cover" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground">{cat.title}</h3>
-                    <p className="text-xs italic text-muted-foreground">{cat.valueProposition}</p>
+                {/* Category header - dark card with accent left border */}
+                <div className="rounded-xl p-5 border-l-4 border-primary" style={{ background: "hsl(215 25% 13%)" }}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+                      <img src={cat.image} alt={cat.title} className="w-full h-full object-cover" loading="lazy" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-background">{cat.title}</h3>
+                      <p className="text-xs italic" style={{ color: "hsl(210 15% 60%)" }}>{cat.valueProposition}</p>
+                    </div>
                   </div>
                 </div>
 
@@ -328,7 +341,7 @@ export function AlyProgramGrid() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-sm text-muted-foreground mt-4 italic">
+                  <p className="text-sm mt-4 italic" style={{ color: "hsl(210 15% 55%)" }}>
                     Ei ohjelmia valitulla roolilla tässä kategoriassa.
                   </p>
                 )}

@@ -5,7 +5,6 @@ import { AlyPhilosophySection } from "@/components/aly/AlyPhilosophySection";
 import { AlyProgramGrid } from "@/components/aly/AlyProgramGrid";
 import { ArrowDown } from "lucide-react";
 
-// Audience images
 import audienceExpert from "@/assets/audience-expert.jpg";
 import audienceSupervisor from "@/assets/audience-supervisor.jpg";
 import audienceLeader from "@/assets/audience-leader.jpg";
@@ -63,6 +62,7 @@ const InsightPage = () => {
                       src={item.image}
                       alt={item.label}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
