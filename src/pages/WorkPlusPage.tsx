@@ -188,11 +188,20 @@ const WorkPlusPage = () => {
                   {/* Spacer for cards without modules or inline content */}
                   {path.modules.length === 0 && !path.inlineContent && <div className="flex-1" />}
 
-                  {/* Regional services */}
-                  {path.hasRegionalServices && <RegionalServices />}
+                  {/* Separator */}
+                  <div className="border-t border-border/60 my-4" />
 
-                  {/* Service buttons */}
-                  {path.hasServiceButtons && <ServiceButtons heading={path.serviceHeading} />}
+                  {/* Regional services – all cards */}
+                  <RegionalServices />
+
+                  {/* Shared services button */}
+                  <button
+                    onClick={() => setSharedServicesOpen(true)}
+                    className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-primary/40 bg-muted hover:bg-accent text-foreground text-xs font-medium transition-colors mb-4"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    Yhteiset työkalut ja palvelut
+                  </button>
 
                   {/* Kytkentälause */}
                   <a
@@ -203,30 +212,17 @@ const WorkPlusPage = () => {
                   </a>
 
                   {/* CTA */}
-                  {path.ctaModal ? (
-                    <Button variant="cta" size="lg" className="w-full mt-auto" onClick={() => setPathModalOpen(path.id)}>
-                      {path.ctaText}
-                    </Button>
-                  ) : (
-                    <Button variant="cta" size="lg" asChild className="w-full mt-auto">
-                      <a href={path.ctaHref}>{path.ctaText}</a>
-                    </Button>
-                  )}
+                  <Button variant="cta" size="lg" asChild className="w-full mt-auto">
+                    <a href={path.ctaHref}>{path.ctaText}</a>
+                  </Button>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Path service modals for polku2 and polku3 */}
-          {paths.filter(p => p.ctaModal).map(p => (
-            <PathServicesModal
-              key={p.id}
-              open={pathModalOpen === p.id}
-              onClose={() => setPathModalOpen(null)}
-              serviceTabLabel={p.serviceTabLabel || "Palvelut"}
-              serviceHeading={p.serviceHeading || "Palvelut"}
-            />
-          ))}
+          {/* Shared services modal – single instance */}
+          <SharedServicesModal open={sharedServicesOpen} onClose={() => setSharedServicesOpen(false)} />
+
 
           <div id="plus-polku" className="mt-12 pt-10 border-t border-border/60">
             <div className="max-w-[860px] mx-auto rounded-xl border border-border bg-accent/5 overflow-hidden border-l-[8px] border-l-primary shadow-lg">
