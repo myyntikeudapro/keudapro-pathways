@@ -192,6 +192,9 @@ const WorkPlusPage = () => {
                     })}
                   </div>
 
+                  {/* Regional services (only for Etsin suuntaa) */}
+                  {path.hasRegionalServices && <RegionalServices />}
+
                   {/* Kytkentälause */}
                   <a
                     href="#plus-polku"
