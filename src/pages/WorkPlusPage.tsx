@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Compass, Map, Handshake, Rocket, ArrowLeftRight } from "lucide-react";
+import { ArrowRight, Compass, Map, Handshake, Rocket, ArrowLeftRight, Plus } from "lucide-react";
 import { PartnersSection } from "@/components/shared/PartnersSection";
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 import { RegionalServices } from "@/components/noste/RegionalServices";
-import { ServiceButtons } from "@/components/noste/ServiceModals";
-import { PathServicesModal } from "@/components/noste/PathServicesModal";
+import { SharedServicesModal } from "@/components/noste/SharedServicesModal";
 
 import nosteDirectionImg from "@/assets/noste-direction.jpg";
 import nosteClarityImg from "@/assets/noste-clarity.jpg";
@@ -25,8 +24,7 @@ const paths = [
     description: "Etsitkö selkeää suuntaa työelämällesi ja kaipaat valmentajan tukea työnhakuun? Tämä reitti sopii, kun haluat sparrausta ja rinnalla kulkevan tuen.",
     modules: [],
     inlineContent: "Valmentajan tuki · työelämätaidot · uraohjaus · osaamisen tunnistaminen · työnhakutaidot (CV, haastattelu, piilotyöpaikat)",
-    crossLink: "HAASTE voi olla yksi suunta – tutustu ennen päätöstä. ↓",
-    hasRegionalServices: true,
+    crossLink: "Yrittäjyys voi olla yksi suunta – tutustu ennen päätöstä. ↓",
     ctaText: "Aloita valmennus",
     ctaHref: "#aloita-valmennus",
   },
@@ -37,11 +35,6 @@ const paths = [
     description: "Tarvitsetko apua osaamisesi sanoittamiseen ja profiilin kirkastamiseen? Tämä polku auttaa sinua erottumaan ja hyödyntämään tekoälyä työnhaussa.",
     modules: [],
     inlineContent: "CV, LinkedIn ja hissipuhe · AI-avusteinen työnhaku · valmentajan tuki tarvittaessa",
-    hasRegionalServices: false,
-    hasServiceButtons: false,
-    ctaModal: true,
-    serviceTabLabel: "Muut palvelut",
-    serviceHeading: "Muut palvelut",
     crossLink: "Sama osaaminen voidaan tuotteistaa myös toimeksiannoiksi. ↓",
     ctaText: "Kirkasta profiilisi",
     ctaHref: "#kirkasta-profiili",
@@ -53,11 +46,6 @@ const paths = [
     description: "Onko tavoitteenasi nopea työllistyminen? Tämä reitti tarjoaa käytännön työkalut ja väylät työelämään.",
     modules: [],
     inlineContent: "AI-avusteinen osaamiskartoitus · CV:n pikapäivitys (30 min) · henkilöstövuokrausyhteistyö · haastattelusparraus · muutosturvakoulutus",
-    hasRegionalServices: false,
-    hasServiceButtons: false,
-    ctaModal: true,
-    serviceTabLabel: "Tavoittele työtä nyt",
-    serviceHeading: "Tavoittele työtä nyt – konkreettiset väylät",
     crossLink: "Tai suoraan töihin – omalla tavallasi. ↓",
     ctaText: "Tavoittele työtä nyt",
     ctaHref: "#tavoittele-tyota",
@@ -110,7 +98,7 @@ function useScrollReveal() {
 const WorkPlusPage = () => {
   const { openWizard } = useWizard();
   const [muutosturvaOpen, setMuutosturvaOpen] = useState(false);
-  const [pathModalOpen, setPathModalOpen] = useState<string | null>(null);
+  const [sharedServicesOpen, setSharedServicesOpen] = useState(false);
   const stepsReveal = useScrollReveal();
 
   return (
@@ -200,11 +188,20 @@ const WorkPlusPage = () => {
                   {/* Spacer for cards without modules or inline content */}
                   {path.modules.length === 0 && !path.inlineContent && <div className="flex-1" />}
 
-                  {/* Regional services */}
-                  {path.hasRegionalServices && <RegionalServices />}
+                  {/* Separator */}
+                  <div className="border-t border-border/60 my-4" />
 
-                  {/* Service buttons */}
-                  {path.hasServiceButtons && <ServiceButtons heading={path.serviceHeading} />}
+                  {/* Regional services – all cards */}
+                  <RegionalServices />
+
+                  {/* Shared services button */}
+                  <button
+                    onClick={() => setSharedServicesOpen(true)}
+                    className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-primary/40 bg-muted hover:bg-accent text-foreground text-xs font-medium transition-colors mb-4"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    Yhteiset työkalut ja palvelut
+                  </button>
 
                   {/* Kytkentälause */}
                   <a
@@ -215,30 +212,17 @@ const WorkPlusPage = () => {
                   </a>
 
                   {/* CTA */}
-                  {path.ctaModal ? (
-                    <Button variant="cta" size="lg" className="w-full mt-auto" onClick={() => setPathModalOpen(path.id)}>
-                      {path.ctaText}
-                    </Button>
-                  ) : (
-                    <Button variant="cta" size="lg" asChild className="w-full mt-auto">
-                      <a href={path.ctaHref}>{path.ctaText}</a>
-                    </Button>
-                  )}
+                  <Button variant="cta" size="lg" asChild className="w-full mt-auto">
+                    <a href={path.ctaHref}>{path.ctaText}</a>
+                  </Button>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Path service modals for polku2 and polku3 */}
-          {paths.filter(p => p.ctaModal).map(p => (
-            <PathServicesModal
-              key={p.id}
-              open={pathModalOpen === p.id}
-              onClose={() => setPathModalOpen(null)}
-              serviceTabLabel={p.serviceTabLabel || "Palvelut"}
-              serviceHeading={p.serviceHeading || "Palvelut"}
-            />
-          ))}
+          {/* Shared services modal – single instance */}
+          <SharedServicesModal open={sharedServicesOpen} onClose={() => setSharedServicesOpen(false)} />
+
 
           <div id="plus-polku" className="mt-12 pt-10 border-t border-border/60">
             <div className="max-w-[860px] mx-auto rounded-xl border border-border bg-accent/5 overflow-hidden border-l-[8px] border-l-primary shadow-lg">
