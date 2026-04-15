@@ -160,7 +160,7 @@ export function PathPanel({ open, onClose, title, ingressi, children }: PanelPro
 
 /* ────────────── PANEL 1 – Aloita valmennus ────────────── */
 
-export function Panel1({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function Panel1({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Aloita valmennus – selkeytä suuntasi" ingressi="Valitse sinulle sopivin tapa edetä.">
       <StepCard title="Henkilökohtainen valmennus (maksullinen)" tooltip="Rinnalla kulkeva tuki suunnan löytämiseen.">
@@ -168,6 +168,15 @@ export function Panel1({ open, onClose }: { open: boolean; onClose: () => void }
           Yksilöllistä valmennusta tavoitteidesi mukaan. Valmentaja auttaa sinua hahmottamaan vaihtoehdot ja tekemään seuraavat askeleet.
         </p>
         <CtaLink href="mailto:keudapro@keuda.fi" mailto>Varaa aika →</CtaLink>
+      </StepCard>
+
+      <StepCard title="Muutosturva" tooltip="Oletko muutosturvatilanteessa? Katso oikeutesi.">
+        <p className="text-sm text-muted-foreground mb-3">
+          Muutosturva on oikeutesi – autamme sinua hyödyntämään sen täysimääräisesti. KeudaPRO:n kautta pääset muutosturvakoulutuksiin.
+        </p>
+        <Button variant="cta" size="default" className="w-full mt-3" onClick={onOpenMuutosturva}>
+          Lue lisää muutosturvasta →
+        </Button>
       </StepCard>
 
       <RegionalStep />
@@ -178,7 +187,7 @@ export function Panel1({ open, onClose }: { open: boolean; onClose: () => void }
 
 /* ────────────── PANEL 2 – Kirkasta profiilisi ────────────── */
 
-export function Panel2({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function Panel2({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Kirkasta profiilisi – tee osaamisestasi näkyvää" ingressi="Valitse sinulle sopivin tapa edetä.">
       <StepCard title="LinkedIn-kortti" tooltip="2h verkkokoulutus – optimoi profiilisi ja työnhakusi LinkedInissä.">
@@ -204,13 +213,22 @@ export function Panel2({ open, onClose }: { open: boolean; onClose: () => void }
         <CtaLink href="https://www.lyyti.in/ARPRO_20_pilotti_1172">Ilmoittaudu →</CtaLink>
       </StepCard>
 
+      <StepCard title="Muutosturva" tooltip="Oletko muutosturvatilanteessa? Katso oikeutesi.">
+        <p className="text-sm text-muted-foreground mb-3">
+          Muutosturva on oikeutesi – autamme sinua hyödyntämään sen täysimääräisesti. KeudaPRO:n kautta pääset muutosturvakoulutuksiin.
+        </p>
+        <Button variant="cta" size="default" className="w-full mt-3" onClick={onOpenMuutosturva}>
+          Lue lisää muutosturvasta →
+        </Button>
+      </StepCard>
+
     </PathPanel>
   );
 }
 
 /* ────────────── PANEL 3 – Tavoittele työtä nyt ────────────── */
 
-export function Panel3({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function Panel3({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Etene nopeasti – konkreettiset väylät työhön" ingressi="Valitse sinulle sopivin tapa edetä.">
       <StepCard title="RTK Henkilöstöpalvelut" tooltip="Suora yhteys työnantajiin ja avoimiin paikkoihin.">
@@ -247,6 +265,15 @@ export function Panel3({ open, onClose }: { open: boolean; onClose: () => void }
           Kielitaito avaa ovia työelämässä. Tarjolla suomi, ruotsi ja englanti työkielenä – alkeista sujuvaan ammatilliseen viestintään.
         </p>
         <CtaLink href="mailto:keudapro@keuda.fi?subject=Kiinnostus: Työkieli haltuun" mailto>Ilmoittaudu kiinnostuneeksi →</CtaLink>
+      </StepCard>
+
+      <StepCard title="Muutosturva" tooltip="Oletko muutosturvatilanteessa? Katso oikeutesi.">
+        <p className="text-sm text-muted-foreground mb-3">
+          Muutosturva on oikeutesi – autamme sinua hyödyntämään sen täysimääräisesti. KeudaPRO:n kautta pääset muutosturvakoulutuksiin.
+        </p>
+        <Button variant="cta" size="default" className="w-full mt-3" onClick={onOpenMuutosturva}>
+          Lue lisää muutosturvasta →
+        </Button>
       </StepCard>
 
       <RegionalStep />
@@ -291,7 +318,7 @@ export function Panel4({ open, onClose, onOpenMuutosturva }: { open: boolean; on
 
 /* ────────────── PANEL 5 – Luo oma profiilisi ────────────── */
 
-export function Panel5({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function Panel5({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Rakenna oma tapasi tehdä työtä" ingressi="Valitse sinulle sopivin tapa edetä.">
       <StepCard title="Rakenna profiilisi" tooltip="Sanoita osaamisesi ja tee itsestäsi näkyvä mahdollisuuksien tekijänä.">
@@ -314,6 +341,15 @@ export function Panel5({ open, onClose }: { open: boolean; onClose: () => void }
           Moderni tapa löytää töitä ja rakentaa hakijaprofiili tekoälyn avulla.
         </p>
         <CtaLink href="https://www.lyyti.in/ARPRO_20_pilotti_1172">Ilmoittaudu →</CtaLink>
+      </StepCard>
+
+      <StepCard title="Muutosturva" tooltip="Oletko muutosturvatilanteessa? Katso oikeutesi.">
+        <p className="text-sm text-muted-foreground mb-3">
+          Muutosturva on oikeutesi – autamme sinua hyödyntämään sen täysimääräisesti. KeudaPRO:n kautta pääset muutosturvakoulutuksiin.
+        </p>
+        <Button variant="cta" size="default" className="w-full mt-3" onClick={onOpenMuutosturva}>
+          Lue lisää muutosturvasta →
+        </Button>
       </StepCard>
 
     </PathPanel>

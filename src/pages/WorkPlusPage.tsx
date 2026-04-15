@@ -300,11 +300,11 @@ const WorkPlusPage = () => {
                         </Button>
 
                         {/* Panel */}
-                        {path.id === "polku1" && <Panel1 open={openPanel === "polku1"} onClose={() => setOpenPanel(null)} />}
-                        {path.id === "polku2" && <Panel2 open={openPanel === "polku2"} onClose={() => setOpenPanel(null)} />}
-                        {path.id === "polku3" && <Panel3 open={openPanel === "polku3"} onClose={() => setOpenPanel(null)} />}
+                        {path.id === "polku1" && <Panel1 open={openPanel === "polku1"} onClose={() => setOpenPanel(null)} onOpenMuutosturva={() => setMuutosturvaOpen(true)} />}
+                        {path.id === "polku2" && <Panel2 open={openPanel === "polku2"} onClose={() => setOpenPanel(null)} onOpenMuutosturva={() => setMuutosturvaOpen(true)} />}
+                        {path.id === "polku3" && <Panel3 open={openPanel === "polku3"} onClose={() => setOpenPanel(null)} onOpenMuutosturva={() => setMuutosturvaOpen(true)} />}
                         {path.id === "polku4" && <Panel4 open={openPanel === "polku4"} onClose={() => setOpenPanel(null)} onOpenMuutosturva={() => setMuutosturvaOpen(true)} />}
-                        {path.id === "polku5" && <Panel5 open={openPanel === "polku5"} onClose={() => setOpenPanel(null)} />}
+                        {path.id === "polku5" && <Panel5 open={openPanel === "polku5"} onClose={() => setOpenPanel(null)} onOpenMuutosturva={() => setMuutosturvaOpen(true)} />}
                       </div>
                     </div>
                   )}
