@@ -257,14 +257,16 @@ export function Panel3({ open, onClose }: { open: boolean; onClose: () => void }
 
 /* ────────────── PANEL 4 – Rakenna uusi polku ────────────── */
 
-export function Panel4({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function Panel4({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Rakenna uusi polku – tuki muutostilanteeseen" ingressi="Valitse sinulle sopivin tapa edetä.">
       <StepCard title="Muutosturva" tooltip="Oletko muutosturvatilanteessa? Katso oikeutesi.">
         <p className="text-sm text-muted-foreground mb-3">
           Muutosturva on oikeutesi – autamme sinua hyödyntämään sen täysimääräisesti. KeudaPRO:n kautta pääset muutosturvakoulutuksiin.
         </p>
-        <CtaLink href="mailto:keudapro@keuda.fi" mailto>Lue lisää →</CtaLink>
+        <Button variant="cta" size="default" className="w-full mt-3" onClick={onOpenMuutosturva}>
+          Lue lisää muutosturvasta →
+        </Button>
       </StepCard>
 
       <StepCard title="Henkilökohtainen valmennus (maksullinen)" tooltip="Yksilöllistä tukea muutostilanteessa.">
