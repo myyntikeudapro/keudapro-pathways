@@ -1,64 +1,109 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Compass, Map, Handshake, Rocket, ArrowLeftRight, Plus } from "lucide-react";
+import { ArrowRight, Map, Handshake, Rocket, ChevronDown } from "lucide-react";
 import { PartnersSection } from "@/components/shared/PartnersSection";
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
-import { RegionalServices } from "@/components/noste/RegionalServices";
-import { SharedServicesModal } from "@/components/noste/SharedServicesModal";
+import { Panel1, Panel2, Panel3, Panel4, Panel5 } from "@/components/noste/PathPanels";
+import { cn } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-import nosteDirectionImg from "@/assets/noste-direction.jpg";
-import nosteClarityImg from "@/assets/noste-clarity.jpg";
-import nosteEmploymentImg from "@/assets/noste-employment.jpg";
-import nosteEntrepreneurImg from "@/assets/noste-entrepreneur.jpg";
-import nosteChallengeImg from "@/assets/noste-challenge.jpg";
+import nostePathDirection from "@/assets/noste-path-direction.jpg";
+import nostePathBranding from "@/assets/noste-path-branding.jpg";
+import nostePathEmployment from "@/assets/noste-path-employment.jpg";
+import nostePathTransition from "@/assets/noste-path-transition.jpg";
+import nostePathOwnwork from "@/assets/noste-path-ownwork.jpg";
 import nosteCTABg from "@/assets/noste-cta-bg.jpg";
 
-const paths = [
+/* ────────────── Data ────────────── */
+
+const situations = [
+  { id: "polku1", label: "En tiedä suuntaani", tooltip: "Tarvitset selkeyttä ja apua seuraaviin askeliin." },
+  { id: "polku2", label: "Haluan erottua", tooltip: "Tiedät mitä haluat mutta et saa sitä näkyväksi." },
+  { id: "polku3", label: "Haluan töihin nopeasti", tooltip: "Tarvitset konkreettisia väyliä ja tukea työllistymiseen." },
+  { id: "polku4", label: "Tilanteeni muuttuu", tooltip: "Työtilanteesi muuttuu tai ala ei tunnu enää oikealta." },
+  { id: "polku5", label: "Haluan luoda oman työn", tooltip: "Haluat projekteja, toimeksiantoja tai yrittäjyyttä." },
+];
+
+const pathsData = [
   {
     id: "polku1",
-    title: "Etsin suuntaa",
-    image: nosteDirectionImg,
-    description: "Etsitkö selkeää suuntaa työelämällesi ja kaipaat valmentajan tukea työnhakuun? Tämä reitti sopii, kun haluat sparrausta ja rinnalla kulkevan tuen.",
-    modules: [],
-    inlineContent: "Valmentajan tuki · työelämätaidot · uraohjaus · osaamisen tunnistaminen · työnhakutaidot (CV, haastattelu, piilotyöpaikat)",
-    crossLink: "Yrittäjyys voi olla yksi suunta – tutustu ennen päätöstä. ↓",
-    ctaText: "Aloita valmennus",
-    ctaHref: "#aloita-valmennus",
+    image: nostePathDirection,
+    title: "Selkeytä suuntasi ja ota ensimmäiset askeleet",
+    ingressi: "Kun et vielä tiedä mihin suuntaan mennä, tärkeintä on päästä liikkeelle. Saat rinnallesi valmentajan joka auttaa sinua hahmottamaan vaihtoehdot.",
+    practice: [
+      "Tunnistat mitä osaat ja mikä sinua kiinnostaa",
+      "Hahmotat realistiset uravaihtoehdot",
+      "Rakennat ensimmäiset askeleet työnhakuun",
+      "Saat tukea ja sparrausta matkan varrella",
+    ],
+    result: "Saat selkeän suunnan ja suunnitelman jonka pohjalta etenet eteenpäin.",
+    ctaText: "Aloita valmennus →",
   },
   {
     id: "polku2",
-    title: "Suunta kirkkaaksi",
-    image: nosteClarityImg,
-    description: "Tarvitsetko apua osaamisesi sanoittamiseen ja profiilin kirkastamiseen? Tämä polku auttaa sinua erottumaan ja hyödyntämään tekoälyä työnhaussa.",
-    modules: [],
-    inlineContent: "CV, LinkedIn ja hissipuhe · AI-avusteinen työnhaku · valmentajan tuki tarvittaessa",
-    crossLink: "Sama osaaminen voidaan tuotteistaa myös toimeksiannoiksi. ↓",
-    ctaText: "Kirkasta profiilisi",
-    ctaHref: "#kirkasta-profiili",
+    image: nostePathBranding,
+    title: "Tee osaamisestasi näkyvää ja erottuvaa",
+    ingressi: "Hyvä osaaminen ei riitä jos sitä ei ymmärretä. Rakennat profiilin jonka avulla työnantaja näkee nopeasti mitä tuot mukanasi.",
+    practice: [
+      "Rakennat selkeän CV:n ja LinkedIn-profiilin",
+      "Kiteytät osaamisesi ja vahvuutesi",
+      "Hyödynnät tekoälyä työnhaussa",
+      "Harjoittelet kertomaan osaamisestasi vakuuttavasti",
+    ],
+    result: "Erotut hakijoiden joukosta ja lisäät mahdollisuuksiasi päästä haastatteluihin.",
+    ctaText: "Kirkasta profiilisi →",
   },
   {
     id: "polku3",
-    title: "Suoraan työelämään",
-    image: nosteEmploymentImg,
-    description: "Onko tavoitteenasi nopea työllistyminen? Tämä reitti tarjoaa käytännön työkalut ja väylät työelämään.",
-    modules: [],
-    inlineContent: "AI-avusteinen osaamiskartoitus · CV:n pikapäivitys (30 min) · henkilöstövuokrausyhteistyö · haastattelusparraus · muutosturvakoulutus",
-    crossLink: "Tai suoraan töihin – omalla tavallasi. ↓",
-    ctaText: "Tavoittele työtä nyt",
-    ctaHref: "#tavoittele-tyota",
+    image: nostePathEmployment,
+    title: "Etene nopeasti kohti työtä",
+    ingressi: "Kun tavoitteena on nopea työllistyminen, keskitytään siihen mikä vie sinut suoraan työelämään.",
+    practice: [
+      "Päivität CV:si nopeasti kuntoon (jopa 30 min)",
+      "Hyödynnät tekoälyä hakemuksissa ja työnhaussa",
+      "Saat sparrausta haastatteluihin",
+      "Pääset kiinni työmahdollisuuksiin ja rekrykanaviin",
+    ],
+    result: "Lyhennät matkaa työnhaku → työ ja pääset nopeammin kiinni työelämään.",
+    ctaText: "Tavoittele työtä nyt →",
   },
-];
-
-const plusPathModules = [
-  "Kevytyrittäjyyden pelisäännöt ja käytännöt",
-  "Oman osaamisen tuotteistaminen ja hinnoittelu",
-  "Toimeksiantojen hankinta ja asiakasviestintä",
-  "Verkostot ja alustat jotka yhdistävät tekijät ja tilaajat",
-  "AI-avusteinen oman brändin rakentaminen",
-  "Muutosturvasta yrittäjyyspolulle – miten se onnistuu",
+  {
+    id: "polku4",
+    image: nostePathTransition,
+    title: "Löydä uusi suunta muuttuvassa tilanteessa",
+    ingressi: "Kun työtilanne muuttuu, tarvitset enemmän kuin työnhakuvinkkejä. Autamme sinua rakentamaan uuden toimivan suunnan.",
+    practice: [
+      "Arvioit vaihtoehtosi realistisesti",
+      "Tunnistat siirrettävän osaamisesi",
+      "Suunnittelet uuden urapolun tai koulutusvaihtoehdot",
+      "Saat tukea muutostilanteeseen",
+    ],
+    result: "Löydät suunnan joka toimii myös pitkällä aikavälillä – ei vain seuraavaa työpaikkaa.",
+    ctaText: "Rakenna uusi polku →",
+  },
+  {
+    id: "polku5",
+    image: nostePathOwnwork,
+    title: "Rakenna oma tapasi tehdä työtä",
+    ingressi: "Työ ei synny enää vain valmiista paikoista. Voit myös rakentaa sen itse – projekteista, toimeksiannoista tai yrittäjyydestä.",
+    practice: [
+      "Sanoitat osaamisesi uudella tavalla",
+      "Tunnistat mahdollisuuksia ympärilläsi",
+      "Rakennat omaa profiilia ja näkyvyyttä",
+      "Saat sparrausta ja verkostoja",
+    ],
+    result: "Voit luoda työtä omilla ehdoillasi – ei vain hakea sitä.",
+    ctaText: "Luo oma profiilisi →",
+    badge: "HAASTE",
+  },
 ];
 
 const gettingStartedSteps = [
@@ -79,6 +124,8 @@ const gettingStartedSteps = [
   },
 ];
 
+/* ────────────── Hooks ────────────── */
+
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -95,18 +142,35 @@ function useScrollReveal() {
   return { ref, visible };
 }
 
+/* ────────────── Page ────────────── */
+
 const WorkPlusPage = () => {
   const { openWizard } = useWizard();
   const [muutosturvaOpen, setMuutosturvaOpen] = useState(false);
-  const [sharedServicesOpen, setSharedServicesOpen] = useState(false);
+  const [activeSituation, setActiveSituation] = useState<string | null>(null);
+  const [openPanel, setOpenPanel] = useState<string | null>(null);
   const stepsReveal = useScrollReveal();
+  const pathRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const handleSituationClick = useCallback((id: string) => {
+    setActiveSituation(id);
+    setOpenPanel(null);
+    // Scroll to the path
+    setTimeout(() => {
+      pathRefs.current[id]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  }, []);
+
+  const handleCtaClick = useCallback((id: string) => {
+    setOpenPanel((prev) => (prev === id ? null : id));
+  }, []);
 
   return (
     <Layout>
       {/* HERO CAROUSEL */}
       <HeroCarousel />
 
-      {/* TÄYDENNYS 1 – Empaattinen avauslause */}
+      {/* Empaattinen avauslause */}
       <section className="py-12 md:py-16">
         <div className="keuda-container">
           <p className="text-base md:text-lg text-muted-foreground text-center max-w-[640px] mx-auto leading-relaxed">
@@ -115,230 +179,137 @@ const WorkPlusPage = () => {
         </div>
       </section>
 
-      {/* POLUT */}
+      {/* TILANNEVALINTA + POLUT */}
       <section className="py-16 md:py-20 bg-muted/30">
         <div className="keuda-container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Valitse siirtymäreitti</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Kolme polkua erilaisiin tilanteisiin – valitse omasi ja löydä sopivat ratkaisut.
+          {/* Tilannevalinta */}
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Missä tilanteessa olet nyt?</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+              Valitse tilanteeseesi sopivin – näet suoraan oikeat ratkaisut.
             </p>
+
+            <TooltipProvider delayDuration={200}>
+              <div className="flex flex-wrap justify-center gap-3">
+                {situations.map((s) => (
+                  <Tooltip key={s.id}>
+                    <TooltipTrigger asChild>
+                      <button
+                        onClick={() => handleSituationClick(s.id)}
+                        className={cn(
+                          "px-5 py-2.5 rounded-xl text-sm font-medium border-2 transition-all duration-200",
+                          activeSituation === s.id
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-card text-foreground border-primary/30 hover:bg-primary/10 hover:border-primary/60"
+                        )}
+                      >
+                        {s.label}
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-[200px] text-center">
+                      <p className="text-xs">{s.tooltip}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </div>
+            </TooltipProvider>
           </div>
 
-          {/* Pääpolkukortit – etusivun reittivalintalaatikoiden tyyli */}
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {paths.map((path) => (
-              <div
-                key={path.id}
-                className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-colors h-full"
-              >
-                {/* Valokuva */}
-                <div className="relative h-[160px] overflow-hidden flex-shrink-0">
-                  <img
-                    src={path.image}
-                    alt={path.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                    width={800}
-                    height={512}
-                  />
-                  <div className="absolute inset-0 bg-black/25" />
-                </div>
+          {/* Viisi polkua */}
+          <div className="flex flex-col gap-4 max-w-4xl mx-auto">
+            {pathsData.map((path) => {
+              const isExpanded = activeSituation === path.id || activeSituation === null;
+              const isActive = activeSituation === path.id;
 
-                {/* Sisältö */}
-                <div className="flex flex-col flex-1 p-5">
-                  <h3 className="text-xl font-bold text-foreground mb-2">{path.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-5">{path.description}</p>
-
-                  {/* Inline content text (for Etsin suuntaa) */}
-                  {path.inlineContent && (
-                    <p className="text-muted-foreground text-xs leading-relaxed mb-4">{path.inlineContent}</p>
+              return (
+                <div
+                  key={path.id}
+                  ref={(el) => { pathRefs.current[path.id] = el; }}
+                  className={cn(
+                    "rounded-xl border overflow-hidden bg-card transition-all duration-300",
+                    isActive ? "border-primary shadow-lg" : "border-border",
+                    !isExpanded && "opacity-60"
                   )}
-
-                  {/* Module links */}
-                  {path.modules.length > 0 && <div className="flex flex-col gap-2 mb-4 flex-1">
-                    {path.modules.map((mod, idx) => {
-                      const isMuutosturva =
-                        path.id === "polku3" && mod.href === "#muutosturva-tyoelamaan";
-                      if (isMuutosturva) {
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => setMuutosturvaOpen(true)}
-                            className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group/mod text-left"
-                          >
-                            <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover/mod:translate-x-0.5 transition-transform" />
-                            {mod.label}
-                          </button>
-                        );
-                      }
-                      return (
-                        <a
-                          key={idx}
-                          href={mod.href}
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 hover:bg-accent text-foreground text-sm font-medium transition-colors border border-border/50 hover:border-primary/30 group/mod"
-                        >
-                          <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0 group-hover/mod:translate-x-0.5 transition-transform" />
-                          {mod.label}
-                        </a>
-                      );
-                    })}
-                  </div>}
-
-                  {/* Spacer for cards without modules or inline content */}
-                  {path.modules.length === 0 && !path.inlineContent && <div className="flex-1" />}
-
-                  {/* Separator */}
-                  <div className="border-t border-border/60 my-4" />
-
-                  {/* Regional services – all cards */}
-                  <RegionalServices />
-
-                  {/* Shared services button */}
+                >
+                  {/* Compact header (always visible) */}
                   <button
-                    onClick={() => setSharedServicesOpen(true)}
-                    className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-primary/40 bg-muted hover:bg-accent text-foreground text-xs font-medium transition-colors mb-4"
+                    onClick={() => handleSituationClick(path.id)}
+                    className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"
                   >
-                    <Plus className="w-3.5 h-3.5" />
-                    Yhteiset työkalut ja palvelut
+                    <div className="flex items-center gap-3">
+                      {path.badge && (
+                        <span className="inline-block px-2.5 py-0.5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider">
+                          {path.badge}
+                        </span>
+                      )}
+                      <span className="font-bold text-foreground">{situations.find(s => s.id === path.id)?.label}</span>
+                    </div>
+                    <ChevronDown className={cn(
+                      "w-5 h-5 text-muted-foreground transition-transform duration-300",
+                      isActive && "rotate-180"
+                    )} />
                   </button>
 
-                  {/* Kytkentälause */}
-                  <a
-                    href="#plus-polku"
-                    className="text-sm italic text-primary/80 hover:text-primary mb-4 transition-colors"
-                  >
-                    {path.crossLink}
-                  </a>
+                  {/* Expanded content */}
+                  {isActive && (
+                    <div className="animate-accordion-down">
+                      {/* Image */}
+                      <div className="relative h-[140px] overflow-hidden">
+                        <img
+                          src={path.image}
+                          alt={path.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          width={1024}
+                          height={576}
+                        />
+                        <div className="absolute inset-0 bg-black/25" />
+                      </div>
 
-                  {/* CTA */}
-                  <Button variant="cta" size="lg" asChild className="w-full mt-auto">
-                    <a href={path.ctaHref}>{path.ctaText}</a>
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
+                      {/* Content */}
+                      <div className="p-5 md:p-6">
+                        <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">{path.title}</h3>
+                        <p className="italic text-muted-foreground text-sm mb-5">{path.ingressi}</p>
 
-          {/* Shared services modal – single instance */}
-          <SharedServicesModal open={sharedServicesOpen} onClose={() => setSharedServicesOpen(false)} />
+                        <div className="grid md:grid-cols-2 gap-6 mb-6">
+                          <div>
+                            <h4 className="font-bold text-foreground text-sm mb-2">Mitä teet käytännössä?</h4>
+                            <ul className="space-y-1.5">
+                              {path.practice.map((item, i) => (
+                                <li key={i} className="flex items-start gap-2 text-sm text-foreground">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                                  {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-foreground text-sm mb-2">Mitä tämä mahdollistaa?</h4>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{path.result}</p>
+                          </div>
+                        </div>
 
+                        <Button
+                          variant="cta"
+                          size="lg"
+                          className="w-full"
+                          onClick={() => handleCtaClick(path.id)}
+                        >
+                          {path.ctaText}
+                        </Button>
 
-          <div id="plus-polku" className="mt-12 pt-10 border-t border-border/60">
-            <div className="max-w-[860px] mx-auto rounded-xl border border-border bg-accent/5 overflow-hidden border-l-[8px] border-l-primary shadow-lg">
-              {/* Valokuva */}
-              <div className="relative h-[180px] md:h-[220px] overflow-hidden">
-                <img
-                  src={nosteChallengeImg}
-                  alt="Rakenna oma profiilisi mahdollisuuksien tekijänä"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  width={1024}
-                  height={576}
-                />
-                <div className="absolute inset-0 bg-black/25" />
-              </div>
-
-              <div className="p-6 md:p-8">
-                {/* HAASTE badge */}
-                <span className="inline-block px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider mb-4">
-                  HAASTE
-                </span>
-
-                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3 leading-tight">
-                  Rakenna oma profiilisi mahdollisuuksien tekijänä
-                </h3>
-
-                <p className="text-muted-foreground mb-3 leading-relaxed">
-                  Työ ei synny enää vain valmiista paikoista. Se syntyy mahdollisuuksista – joihin joku tarttuu. Tai jotka joku näkee ennen muita.
-                </p>
-
-                <p className="italic text-foreground font-medium mb-6">
-                  Tässä haasteessa sinä rakennat itsestäsi sen ihmisen.
-                </p>
-
-                <div className="border-t border-border/60 pt-5 mb-5">
-                  <h4 className="font-bold text-foreground mb-2">Kenelle tämä on?</h4>
-                  <p className="italic text-muted-foreground text-sm mb-3">Sinulle, alle 30-vuotias, joka:</p>
-                  <ul className="space-y-2 text-sm text-foreground mb-4">
-                    <li className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                      haluat tehdä, et vain hakea
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                      näet tai aavistat, että ympärillä on tekemätöntä työtä
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                      mietit, miten oma osaaminen voisi muuttua keikoiksi, projekteiksi tai työksi
-                    </li>
-                  </ul>
-                  <p className="italic text-primary text-sm font-medium">
-                    Sinun ei tarvitse olla valmis. Riittää, että olet valmis liikkeelle.
-                  </p>
-                </div>
-
-                <div className="border-t border-border/60 pt-5 mb-5">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-bold text-foreground mb-3">Mitä teet?</h4>
-                      <ul className="space-y-2 text-sm text-foreground">
-                        <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                          sanoitat mitä osaat – ja mitä haluat oppia
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                          kerrot millaisiin mahdollisuuksiin haluat tarttua
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                          tuot esiin millaisia mahdollisuuksia itse näet
-                        </li>
-                      </ul>
+                        {/* Panel */}
+                        {path.id === "polku1" && <Panel1 open={openPanel === "polku1"} onClose={() => setOpenPanel(null)} />}
+                        {path.id === "polku2" && <Panel2 open={openPanel === "polku2"} onClose={() => setOpenPanel(null)} />}
+                        {path.id === "polku3" && <Panel3 open={openPanel === "polku3"} onClose={() => setOpenPanel(null)} />}
+                        {path.id === "polku4" && <Panel4 open={openPanel === "polku4"} onClose={() => setOpenPanel(null)} />}
+                        {path.id === "polku5" && <Panel5 open={openPanel === "polku5"} onClose={() => setOpenPanel(null)} />}
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-foreground mb-3">Mitä saat?</h4>
-                      <ul className="space-y-2 text-sm text-foreground">
-                        <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                          sparrausta profiilin rakentamiseen
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                          mentoreita ja verkostoja
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                          konkreettisia toimeksiantoja ja kokeiluja
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                          tukea idean viemiseen tekemiseksi
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                  )}
                 </div>
-
-                {/* Kaksisuuntainen liike */}
-                <div className="border-t border-border/60 pt-5 mb-6 text-center">
-                  <div className="flex items-center justify-center gap-3 mb-2">
-                    <span className="text-sm font-bold text-foreground">tekijä</span>
-                    <ArrowLeftRight className="w-5 h-5 text-primary" />
-                    <span className="text-sm font-bold text-foreground">mahdollisuus</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Et vain tartu valmiisiin mahdollisuuksiin – voit myös olla se joka huomaa ne ensimmäisenä.
-                  </p>
-                </div>
-
-                <Button variant="cta" size="lg" className="w-full">
-                  Luo oma profiilisi →
-                </Button>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -356,17 +327,14 @@ const WorkPlusPage = () => {
 
         <div className="relative z-10 py-20 md:py-32">
           <div className="keuda-container text-center">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-3">
-              15 minuuttia
-            </p>
             <h3 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-              Etkö tiedä mistä aloittaa?
+              Etkö ole varma mistä aloittaa?
             </h3>
             <p className="text-white/80 text-lg md:text-xl max-w-2xl mb-8 mx-auto">
-              Tee nopea reittikartoitus ja löydä tilanteeseesi sopivat ratkaisut.
+              15 minuutissa saat selkeän suunnan ja seuraavat askeleet.
             </p>
             <Button variant="cta" size="lg" onClick={openWizard}>
-              Tee 15 min reittikartoitus
+              Tee 15 min reittikartoitus →
             </Button>
           </div>
         </div>
