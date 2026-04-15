@@ -7,10 +7,10 @@ import stepTools from "@/assets/step-tools.jpg";
 import stepCulture from "@/assets/step-culture.jpg";
 
 const steps = [
-  { image: stepThinking, title: "Ajattelu", text: "Näet ja johdat eri tavalla" },
-  { image: stepAction, title: "Toiminta", text: "Viet opit suoraan omaan työhösi" },
-  { image: stepTools, title: "Työkalut", text: "Otat modernit työkalut – myös tekoälyn – käyttöön" },
-  { image: stepCulture, title: "Kulttuuri", text: "Vaikutat tiimiin ja koko organisaatioon" },
+  { image: stepThinking, title: "Ajattelu", text: "Ajattelumallisi on joko kilpailuetusi tai heikkoutesi – riippuu siitä, mitä näet" },
+  { image: stepAction, title: "Taidot", text: "Opit jäsentämään taitosi: mikä on ehdottomasti sinun, mikä kasvaa, mikä voidaan jo siirtää" },
+  { image: stepTools, title: "Työkalut", text: "Otat tekoälyn käyttöön siellä, missä se tuottaa – ei kaikkialle" },
+  { image: stepCulture, title: "Kulttuuri", text: "Kulttuuri ratkaisee enemmän kuin yksilön osaaminen – muutos ei kestä yksin" },
 ];
 
 export function AlyPhilosophySection() {
@@ -46,11 +46,10 @@ export function AlyPhilosophySection() {
       <div className="keuda-container">
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-background mb-3">
-            Näin kehität osaamistasi – ei vain opi uutta
+            Neljä koordinaattia – ei irrallisia kursseja
           </h2>
           <p className="text-muted-foreground text-sm md:text-base max-w-[620px] mx-auto leading-relaxed" style={{ color: "hsl(210 15% 65%)" }}>
-            Koulutuksemme eivät ole irrallisia kursseja. Ne rakentavat osaamista
-            vaiheittain – ajattelusta käytäntöön ja kulttuuriin.
+            Tekoälyaika ei vaadi vain uusia työkaluja – se vaatii uudenlaista ajattelua, osaamisen jäsentämistä ja kulttuuria, joka pitää muutoksen yllä. Koulutuksemme rakentuvat tältä pohjalta.
           </p>
         </div>
 
@@ -114,7 +113,7 @@ export function AlyPhilosophySection() {
         </div>
 
         <p className="text-center text-sm italic mt-8" style={{ color: "hsl(210 15% 65%)" }}>
-          Kehitys ei jää yksilötasolle – se näkyy tavassa toimia.
+          Kehitys ei jää yksilötasolle – se näkyy siinä, miten tiimi toimii ja organisaatio johtaa muutosta.
         </p>
       </div>
     </section>
