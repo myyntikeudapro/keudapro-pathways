@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { CoachChatWidget } from "@/components/chat/CoachChatWidget";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Map, Handshake, Rocket, ChevronDown } from "lucide-react";
@@ -435,6 +436,7 @@ const WorkPlusPage = () => {
       {/* TOIMIJAT */}
       <PartnersSection />
       <MuutosturvaFormModal open={muutosturvaOpen} onOpenChange={setMuutosturvaOpen} />
+      <CoachChatWidget />
     </Layout>
   );
 };

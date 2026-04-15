@@ -1,56 +1,42 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useLocation } from "react-router-dom";
-import { MessageCircle, X, Send } from "lucide-react";
+import { MessageCircle, X, Send, UserCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/coach-chat`;
 
-const QUICK_OPTIONS = [
-  "En tiedä suuntaani",
-  "Etsin töitä",
-  "Haluan kehittää osaamistani",
-  "Yrittäjyys kiinnostaa",
-  "Muu kysymys",
-];
+const GREETING = "Hei! Olen täällä sinua varten. Kerro – missä tilanteessa olet juuri nyt?";
 
-const GREETING =
-  "Hei! Olen KeudaPRO-avustaja. Autan sinua löytämään oikean reitin ja palvelun tilanteeseesi.\n\nMistä haluaisit aloittaa?";
-
-export function ChatWidget() {
-  const location = useLocation();
+export function CoachChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showQuickOptions, setShowQuickOptions] = useState(true);
   const [showPulse, setShowPulse] = useState(true);
+  const [showEndSession, setShowEndSession] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Hide pulse on scroll
+  const userMessageCount = messages.filter((m) => m.role === "user").length;
+  const showCoachCTA = userMessageCount >= 5;
+
   useEffect(() => {
     const handler = () => setShowPulse(false);
     window.addEventListener("scroll", handler, { once: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Auto-scroll
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, isLoading]);
 
-  // Show greeting on open
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([{ role: "assistant", content: GREETING }]);
     }
   }, [isOpen]);
 
-  // Focus input
   useEffect(() => {
     if (isOpen) inputRef.current?.focus();
   }, [isOpen]);
@@ -63,7 +49,7 @@ export function ChatWidget() {
       assistantSoFar += chunk;
       setMessages((prev) => {
         const last = prev[prev.length - 1];
-        if (last?.role === "assistant" && last === prev[prev.length - 1] && prev.length > 1) {
+        if (last?.role === "assistant" && prev.length > 1) {
           return prev.map((m, i) => (i === prev.length - 1 ? { ...m, content: assistantSoFar } : m));
         }
         return [...prev, { role: "assistant", content: assistantSoFar }];
@@ -80,9 +66,7 @@ export function ChatWidget() {
         body: JSON.stringify({ messages: allMessages }),
       });
 
-      if (!resp.ok || !resp.body) {
-        throw new Error("Failed");
-      }
+      if (!resp.ok || !resp.body) throw new Error("Failed");
 
       const reader = resp.body.getReader();
       const decoder = new TextDecoder();
@@ -118,8 +102,7 @@ export function ChatWidget() {
         ...prev,
         {
           role: "assistant",
-          content:
-            "Pahoittelen – minulla on tekninen ongelma juuri nyt. Ota yhteyttä suoraan: keudapro@keuda.fi",
+          content: "Pahoittelen – minulla on tekninen ongelma juuri nyt. Ota yhteyttä suoraan: keudapro@keuda.fi",
         },
       ]);
     } finally {
@@ -134,15 +117,21 @@ export function ChatWidget() {
       const history = messages.filter((m) => !(m === messages[0] && m.content === GREETING));
       const newAll = [...history, userMsg];
       setMessages((prev) => [...prev, userMsg]);
-      setShowQuickOptions(false);
       setInput("");
       streamChat(newAll);
     },
     [messages, isLoading, streamChat]
   );
 
-  // Hide on NOSTE page where CoachChatWidget is used
-  if (location.pathname === "/noste") return null;
+  const handleSaveSession = () => {
+    const transcript = messages
+      .map((m) => `${m.role === "user" ? "Sinä" : "Valmentaja"}: ${m.content}`)
+      .join("\n\n");
+    const subject = encodeURIComponent("Keskusteluhistoria – KeudaPRO Työhönvalmentaja");
+    const body = encodeURIComponent(transcript);
+    window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
+    setShowEndSession(false);
+  };
 
   return (
     <>
@@ -152,26 +141,37 @@ export function ChatWidget() {
           "fixed z-50 transition-all duration-200 ease-out",
           "bottom-0 right-0 md:bottom-24 md:right-6",
           "w-full md:w-[360px]",
-          isOpen
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 translate-y-4 pointer-events-none"
+          isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"
         )}
       >
-        <div className="flex flex-col h-[100dvh] md:h-[500px] md:rounded-2xl overflow-hidden border border-border shadow-2xl bg-background">
+        <div className="flex flex-col h-[100dvh] md:h-[520px] md:rounded-2xl overflow-hidden border border-border shadow-2xl bg-background">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-foreground">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-sm font-semibold text-background">KeudaPRO-avustaja</span>
-              <span className="text-xs text-background/60">Online</span>
+              <UserCheck className="w-4 h-4 text-green-400" />
+              <span className="text-sm font-semibold text-background">Työhönvalmentaja AI</span>
+              <span className="flex items-center gap-1 text-xs text-background/60">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                Online
+              </span>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-background/70 hover:text-background transition-colors"
-              aria-label="Sulje chat"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-1">
+              {messages.length > 2 && (
+                <button
+                  onClick={() => setShowEndSession(true)}
+                  className="text-[10px] text-background/50 hover:text-background/80 transition-colors px-2"
+                >
+                  Päätä sessio
+                </button>
+              )}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-background/70 hover:text-background transition-colors"
+                aria-label="Sulje chat"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Messages */}
@@ -191,21 +191,6 @@ export function ChatWidget() {
               </div>
             ))}
 
-            {/* Quick options */}
-            {showQuickOptions && messages.length === 1 && (
-              <div className="flex flex-wrap gap-2 pt-1">
-                {QUICK_OPTIONS.map((opt) => (
-                  <button
-                    key={opt}
-                    onClick={() => send(opt)}
-                    className="px-3 py-1.5 text-xs font-medium rounded-full border-2 border-primary/30 text-foreground bg-background hover:bg-primary/10 hover:border-primary/50 transition-all"
-                  >
-                    {opt}
-                  </button>
-                ))}
-              </div>
-            )}
-
             {/* Typing indicator */}
             {isLoading && (
               <div className="flex justify-start">
@@ -216,10 +201,47 @@ export function ChatWidget() {
                 </div>
               </div>
             )}
+
+            {/* Coach CTA after 5 messages */}
+            {showCoachCTA && !isLoading && (
+              <div className="flex justify-center pt-2">
+                <a
+                  href="mailto:keudapro@keuda.fi?subject=Varaa%20aika%20valmentajalle"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30 text-sm text-secondary hover:bg-secondary/20 transition-colors"
+                >
+                  <UserCheck className="w-4 h-4" />
+                  Haluatko jutella oikean valmentajan kanssa?
+                  <span className="font-semibold">Varaa aika →</span>
+                </a>
+              </div>
+            )}
+
+            {/* End session dialog */}
+            {showEndSession && (
+              <div className="bg-card border border-border rounded-xl p-4 space-y-3">
+                <p className="text-sm font-medium text-foreground">Haluatko tallentaa keskustelun sähköpostiisi?</p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleSaveSession}
+                    className="px-4 py-1.5 text-xs font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                  >
+                    Kyllä
+                  </button>
+                  <button
+                    onClick={() => setShowEndSession(false)}
+                    className="px-4 py-1.5 text-xs font-medium rounded-lg border border-border text-muted-foreground hover:bg-muted transition-colors"
+                  >
+                    Ei kiitos
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Input */}
-          <div className="p-3 border-t border-border bg-background">
+          <div className="p-3 border-t border-border bg-background space-y-1.5">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -244,8 +266,8 @@ export function ChatWidget() {
                 <Send className="w-4 h-4" />
               </button>
             </form>
-            <p className="text-[11px] text-muted-foreground mt-1.5 text-center">
-              Tai ota yhteyttä suoraan:{" "}
+            <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+              <span className="italic">AI-valmentaja – ei ihminen. Ei tallenna tietojasi.</span>
               <a
                 href="mailto:keudapro@keuda.fi"
                 target="_blank"
@@ -254,7 +276,7 @@ export function ChatWidget() {
               >
                 keudapro@keuda.fi
               </a>
-            </p>
+            </div>
           </div>
         </div>
       </div>
@@ -264,17 +286,17 @@ export function ChatWidget() {
         onClick={() => setIsOpen((o) => !o)}
         className={cn(
           "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full shadow-lg transition-all duration-200",
-          "bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-105",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/90 hover:scale-105",
           isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100",
           "px-4 py-3 md:px-5 md:py-3.5"
         )}
-        aria-label="Avaa chat"
+        aria-label="Avaa työhönvalmentaja"
       >
         {showPulse && (
-          <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-30" />
+          <span className="absolute inset-0 rounded-full bg-secondary animate-ping opacity-30" />
         )}
         <MessageCircle className="w-5 h-5 relative" />
-        <span className="text-sm font-medium hidden sm:inline relative">Apua? Kysy minulta</span>
+        <span className="text-sm font-medium hidden sm:inline relative">Työhönvalmentaja</span>
       </button>
     </>
   );
