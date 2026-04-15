@@ -426,6 +426,12 @@ const WorkPlusPage = () => {
         </div>
       </section>
 
+      {/* Ristiin-nosto ÄLY */}
+      <div className="py-6 text-center">
+        <span className="text-sm text-muted-foreground">Kiinnostaisiko myös osaamisen kehittäminen, johtaminen tai tekoäly? </span>
+        <a href="/aly" className="text-sm font-medium text-primary hover:underline">Tutustu ÄLY-reittiin →</a>
+      </div>
+
       {/* TOIMIJAT */}
       <PartnersSection />
       <MuutosturvaFormModal open={muutosturvaOpen} onOpenChange={setMuutosturvaOpen} />
