@@ -168,7 +168,7 @@ const WorkPlusPage = () => {
   return (
     <Layout>
       {/* HERO CAROUSEL */}
-      <HeroCarousel />
+      <HeroCarousel onSituationActivate={handleSituationClick} />
 
       {/* Empaattinen avauslause */}
       <section className="py-12 md:py-16">
