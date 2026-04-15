@@ -34,8 +34,9 @@ const App = () => (
             <Route path="/kumppanit" element={<KumppanitPage />} />
             <Route path="/yhteystiedot" element={<YhteystiedotPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
           </Routes>
+          <ChatWidget />
         </BrowserRouter>
       </WizardProvider>
     </TooltipProvider>
