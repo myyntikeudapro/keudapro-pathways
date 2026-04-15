@@ -13,6 +13,7 @@ import OperaattoriPage from "./pages/OperaattoriPage";
 import KumppanitPage from "./pages/KumppanitPage";
 import YhteystiedotPage from "./pages/YhteystiedotPage";
 import NotFound from "./pages/NotFound";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 
 const queryClient = new QueryClient();
 
