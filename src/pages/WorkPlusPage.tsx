@@ -71,6 +71,7 @@ const pathsData = [
       "Hyödynnät tekoälyä hakemuksissa ja työnhaussa",
       "Saat sparrausta haastatteluihin",
       "Pääset kiinni työmahdollisuuksiin ja rekrykanaviin",
+      "Vahvistat työkielen osaamistasi (suomi, ruotsi, englanti)",
     ],
     result: "Lyhennät matkaa työnhaku → työ ja pääset nopeammin kiinni työelämään.",
     ctaText: "Tavoittele työtä nyt →",
