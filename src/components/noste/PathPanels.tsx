@@ -172,12 +172,6 @@ export function Panel1({ open, onClose }: { open: boolean; onClose: () => void }
 
       <RegionalStep />
 
-      <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
-        <p className="text-sm text-muted-foreground mb-3">
-          15 minuutissa selviää missä olet ja mitä seuraavaksi.
-        </p>
-        <CtaLink href="#reittikartoitus" mailto>Tee reittikartoitus →</CtaLink>
-      </StepCard>
     </PathPanel>
   );
 }
@@ -210,12 +204,6 @@ export function Panel2({ open, onClose }: { open: boolean; onClose: () => void }
         <CtaLink href="https://www.lyyti.in/ARPRO_20_pilotti_1172">Ilmoittaudu →</CtaLink>
       </StepCard>
 
-      <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
-        <p className="text-sm text-muted-foreground mb-3">
-          15 minuutissa selviää missä olet ja mitä seuraavaksi.
-        </p>
-        <CtaLink href="#reittikartoitus" mailto>Tee reittikartoitus →</CtaLink>
-      </StepCard>
     </PathPanel>
   );
 }
@@ -263,12 +251,6 @@ export function Panel3({ open, onClose }: { open: boolean; onClose: () => void }
 
       <RegionalStep />
 
-      <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
-        <p className="text-sm text-muted-foreground mb-3">
-          15 minuutissa selviää missä olet ja mitä seuraavaksi.
-        </p>
-        <CtaLink href="#reittikartoitus" mailto>Tee reittikartoitus →</CtaLink>
-      </StepCard>
     </PathPanel>
   );
 }
@@ -301,12 +283,6 @@ export function Panel4({ open, onClose }: { open: boolean; onClose: () => void }
 
       <RegionalStep />
 
-      <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
-        <p className="text-sm text-muted-foreground mb-3">
-          15 minuutissa selviää missä olet ja mitä seuraavaksi.
-        </p>
-        <CtaLink href="#reittikartoitus" mailto>Tee reittikartoitus →</CtaLink>
-      </StepCard>
     </PathPanel>
   );
 }
@@ -338,12 +314,6 @@ export function Panel5({ open, onClose }: { open: boolean; onClose: () => void }
         <CtaLink href="https://www.lyyti.in/ARPRO_20_pilotti_1172">Ilmoittaudu →</CtaLink>
       </StepCard>
 
-      <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
-        <p className="text-sm text-muted-foreground mb-3">
-          15 minuutissa selviää missä olet ja mitä seuraavaksi.
-        </p>
-        <CtaLink href="#reittikartoitus" mailto>Tee reittikartoitus →</CtaLink>
-      </StepCard>
     </PathPanel>
   );
 }
