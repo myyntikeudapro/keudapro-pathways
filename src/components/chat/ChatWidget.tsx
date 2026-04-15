@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import { MessageCircle, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 
