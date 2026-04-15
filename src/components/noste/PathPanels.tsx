@@ -172,12 +172,6 @@ export function Panel1({ open, onClose }: { open: boolean; onClose: () => void }
 
       <RegionalStep />
 
-      <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
-        <p className="text-sm text-muted-foreground mb-3">
-          15 minuutissa selviää missä olet ja mitä seuraavaksi.
-        </p>
-        <CtaLink href="#reittikartoitus" mailto>Tee reittikartoitus →</CtaLink>
-      </StepCard>
     </PathPanel>
   );
 }
@@ -210,12 +204,6 @@ export function Panel2({ open, onClose }: { open: boolean; onClose: () => void }
         <CtaLink href="https://www.lyyti.in/ARPRO_20_pilotti_1172">Ilmoittaudu →</CtaLink>
       </StepCard>
 
-      <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
-        <p className="text-sm text-muted-foreground mb-3">
-          15 minuutissa selviää missä olet ja mitä seuraavaksi.
-        </p>
-        <CtaLink href="#reittikartoitus" mailto>Tee reittikartoitus →</CtaLink>
-      </StepCard>
     </PathPanel>
   );
 }
@@ -263,26 +251,22 @@ export function Panel3({ open, onClose }: { open: boolean; onClose: () => void }
 
       <RegionalStep />
 
-      <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
-        <p className="text-sm text-muted-foreground mb-3">
-          15 minuutissa selviää missä olet ja mitä seuraavaksi.
-        </p>
-        <CtaLink href="#reittikartoitus" mailto>Tee reittikartoitus →</CtaLink>
-      </StepCard>
     </PathPanel>
   );
 }
 
 /* ────────────── PANEL 4 – Rakenna uusi polku ────────────── */
 
-export function Panel4({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function Panel4({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Rakenna uusi polku – tuki muutostilanteeseen" ingressi="Valitse sinulle sopivin tapa edetä.">
       <StepCard title="Muutosturva" tooltip="Oletko muutosturvatilanteessa? Katso oikeutesi.">
         <p className="text-sm text-muted-foreground mb-3">
           Muutosturva on oikeutesi – autamme sinua hyödyntämään sen täysimääräisesti. KeudaPRO:n kautta pääset muutosturvakoulutuksiin.
         </p>
-        <CtaLink href="mailto:keudapro@keuda.fi" mailto>Lue lisää →</CtaLink>
+        <Button variant="cta" size="default" className="w-full mt-3" onClick={onOpenMuutosturva}>
+          Lue lisää muutosturvasta →
+        </Button>
       </StepCard>
 
       <StepCard title="Henkilökohtainen valmennus (maksullinen)" tooltip="Yksilöllistä tukea muutostilanteessa.">
@@ -301,12 +285,6 @@ export function Panel4({ open, onClose }: { open: boolean; onClose: () => void }
 
       <RegionalStep />
 
-      <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
-        <p className="text-sm text-muted-foreground mb-3">
-          15 minuutissa selviää missä olet ja mitä seuraavaksi.
-        </p>
-        <CtaLink href="#reittikartoitus" mailto>Tee reittikartoitus →</CtaLink>
-      </StepCard>
     </PathPanel>
   );
 }
@@ -338,12 +316,6 @@ export function Panel5({ open, onClose }: { open: boolean; onClose: () => void }
         <CtaLink href="https://www.lyyti.in/ARPRO_20_pilotti_1172">Ilmoittaudu →</CtaLink>
       </StepCard>
 
-      <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
-        <p className="text-sm text-muted-foreground mb-3">
-          15 minuutissa selviää missä olet ja mitä seuraavaksi.
-        </p>
-        <CtaLink href="#reittikartoitus" mailto>Tee reittikartoitus →</CtaLink>
-      </StepCard>
     </PathPanel>
   );
 }

@@ -71,6 +71,7 @@ const pathsData = [
       "Hyödynnät tekoälyä hakemuksissa ja työnhaussa",
       "Saat sparrausta haastatteluihin",
       "Pääset kiinni työmahdollisuuksiin ja rekrykanaviin",
+      "Vahvistat työkielen osaamistasi (suomi, ruotsi, englanti)",
     ],
     result: "Lyhennät matkaa työnhaku → työ ja pääset nopeammin kiinni työelämään.",
     ctaText: "Tavoittele työtä nyt →",
@@ -302,7 +303,7 @@ const WorkPlusPage = () => {
                         {path.id === "polku1" && <Panel1 open={openPanel === "polku1"} onClose={() => setOpenPanel(null)} />}
                         {path.id === "polku2" && <Panel2 open={openPanel === "polku2"} onClose={() => setOpenPanel(null)} />}
                         {path.id === "polku3" && <Panel3 open={openPanel === "polku3"} onClose={() => setOpenPanel(null)} />}
-                        {path.id === "polku4" && <Panel4 open={openPanel === "polku4"} onClose={() => setOpenPanel(null)} />}
+                        {path.id === "polku4" && <Panel4 open={openPanel === "polku4"} onClose={() => setOpenPanel(null)} onOpenMuutosturva={() => setMuutosturvaOpen(true)} />}
                         {path.id === "polku5" && <Panel5 open={openPanel === "polku5"} onClose={() => setOpenPanel(null)} />}
                       </div>
                     </div>
