@@ -141,6 +141,9 @@ export function ChatWidget() {
     [messages, isLoading, streamChat]
   );
 
+  // Hide on NOSTE page where CoachChatWidget is used
+  if (location.pathname === "/noste") return null;
+
   return (
     <>
       {/* Chat Window */}
