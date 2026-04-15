@@ -13,6 +13,7 @@ import OperaattoriPage from "./pages/OperaattoriPage";
 import KumppanitPage from "./pages/KumppanitPage";
 import YhteystiedotPage from "./pages/YhteystiedotPage";
 import NotFound from "./pages/NotFound";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 
 const queryClient = new QueryClient();
 
@@ -33,8 +34,9 @@ const App = () => (
             <Route path="/kumppanit" element={<KumppanitPage />} />
             <Route path="/yhteystiedot" element={<YhteystiedotPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
           </Routes>
+          <ChatWidget />
         </BrowserRouter>
       </WizardProvider>
     </TooltipProvider>
