@@ -13,7 +13,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { MapPin, Clock, Euro, Globe, Users, Calendar, Mail, Phone } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { MapPin, Clock, Euro, Globe, Users, Calendar, Mail, Phone, Check } from "lucide-react";
 
 function Dot({ children }: { children: React.ReactNode }) {
   return (
@@ -153,7 +155,176 @@ const services = [
     ],
     cta: { label: "Varaa aika →", href: "mailto:keudapro@keuda.fi" },
   },
-] as const;
+];
+
+/* ── Language skills interest form ── */
+
+const languageOptions = [
+  {
+    id: "suomi",
+    title: "Suomi työkielenä",
+    text: "Tasot 0–C1 – alkeista sujuvaan työelämän suomeen. Sopii maahanmuuttajille ja kansainvälisille osaajille jotka haluavat vahvistaa asemaansa suomalaisilla työmarkkinoilla.",
+  },
+  {
+    id: "ruotsi",
+    title: "Ruotsi työkielenä",
+    text: "Aktivoi tai kehitä ruotsin kielen osaamistasi työelämän tarpeisiin. Sopii eri tasoisille oppijoille – oli kyse sitten ruotsin kertaamisesta tai sujuvuuden vahvistamisesta ammatillisessa viestinnässä.",
+  },
+  {
+    id: "englanti",
+    title: "Englanti työkielenä",
+    text: "Vahvista englannin kielen taitoa työnhakuun, työhaastatteluihin ja kansainväliseen työelämään. Käytännönläheinen koulutus joka näkyy suoraan arjen työviestinnässä.",
+  },
+];
+
+function LanguageInterestForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [selected, setSelected] = useState<string[]>([]);
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  const toggle = (id: string) =>
+    setSelected((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !email.trim() || selected.length === 0) return;
+    setSending(true);
+
+    const languages = selected
+      .map((id) => languageOptions.find((l) => l.id === id)?.title)
+      .join(", ");
+
+    const subject = encodeURIComponent("Kiinnostus: Kieliosaaminen työelämässä");
+    const body = encodeURIComponent(
+      `Nimi: ${name}\nSähköposti: ${email}\nKiinnostuksen kohteet: ${languages}`
+    );
+    window.open(`mailto:keudapro@keuda.fi?subject=${subject}&body=${body}`, "_blank");
+
+    setSubmitted(true);
+    setSending(false);
+  };
+
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center gap-2 py-6 text-center">
+        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+          <Check className="w-5 h-5 text-primary" />
+        </div>
+        <p className="text-sm font-medium text-foreground">
+          Kiitos! Olemme yhteydessä kun seuraava ohjelma aikataulutetaan.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-3">
+      <Input
+        placeholder="Nimesi"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+        className="text-sm"
+      />
+      <Input
+        type="email"
+        placeholder="Sähköpostiosoitteesi"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className="text-sm"
+      />
+      <div className="space-y-2">
+        {languageOptions.map((lang) => (
+          <label
+            key={lang.id}
+            className="flex items-center gap-2 text-sm text-foreground cursor-pointer"
+          >
+            <Checkbox
+              checked={selected.includes(lang.id)}
+              onCheckedChange={() => toggle(lang.id)}
+            />
+            {lang.title}
+          </label>
+        ))}
+      </div>
+      <Button
+        type="submit"
+        variant="cta"
+        size="default"
+        className="w-full"
+        disabled={sending || !name.trim() || !email.trim() || selected.length === 0}
+      >
+        Ilmoittaudu kiinnostuneeksi →
+      </Button>
+    </form>
+  );
+}
+
+/* ── Language skills card content (custom layout) ── */
+
+function LanguageServiceContent() {
+  return (
+    <div className="px-3 pb-2">
+      <p className="italic text-muted-foreground text-sm mb-4">
+        Kielitaito avaa ovia työelämässä. Ilmoittaudu kiinnostuneeksi – olemme yhteydessä kun seuraava ohjelma aikataulutetaan.
+      </p>
+
+      <div className="grid md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <h4 className="font-bold text-foreground text-sm mb-1">Kenelle?</h4>
+          <p className="text-xs text-muted-foreground mb-1">Sinulle jos:</p>
+          <ul className="space-y-1">
+            <Dot>suomi ei ole äidinkielesi ja haluat vahvistaa työelämän kielitaitoa</Dot>
+            <Dot>haluat aktivoida tai kehittää ruotsin kielen osaamista</Dot>
+            <Dot>tarvitset englantia työnhaussa tai työssä</Dot>
+            <Dot>haluat erottua kielitaidolla hakijoiden joukosta</Dot>
+          </ul>
+        </div>
+        <div>
+          <h4 className="font-bold text-foreground text-sm mb-1">Mitä on tarjolla?</h4>
+          <div className="flex flex-col gap-2">
+            {languageOptions.map((lang) => (
+              <div
+                key={lang.id}
+                className="rounded-lg border-2 border-primary/30 p-3"
+              >
+                <h5 className="text-xs font-bold text-foreground mb-1">{lang.title}</h5>
+                <p className="text-xs text-muted-foreground leading-relaxed">{lang.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Ilmoittautumisosio */}
+      <div className="border-t border-border/60 pt-4 mt-4">
+        <h4 className="font-bold text-foreground text-sm mb-1">Ei avoinna olevia ryhmiä juuri nyt</h4>
+        <p className="text-xs text-muted-foreground italic mb-4">
+          Uusia ohjelmia aikataulutetaan lähiaikajaksoille. Jätä kiinnostuksesi – olemme yhteydessä heti kun seuraava ohjelma avautuu.
+        </p>
+
+        <LanguageInterestForm />
+
+        <p className="text-xs text-muted-foreground mt-3">
+          Tai ota yhteyttä suoraan:{" "}
+          <a
+            href="mailto:keudapro@keuda.fi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            keudapro@keuda.fi
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export function SharedServicesModal({ open, onClose }: SharedServicesModalProps) {
   return (
@@ -202,7 +373,7 @@ export function SharedServicesModal({ open, onClose }: SharedServicesModalProps)
 
                     {"secondary" in s && s.secondary && (
                       <Button variant="outline-primary" size="default" asChild className="w-full mt-2">
-                        <a href={s.secondary.href} target="_blank" rel="noopener noreferrer">{s.secondary.label}</a>
+                        <a href={(s as any).secondary.href} target="_blank" rel="noopener noreferrer">{(s as any).secondary.label}</a>
                       </Button>
                     )}
 
@@ -210,11 +381,11 @@ export function SharedServicesModal({ open, onClose }: SharedServicesModalProps)
                       <div className="mt-3 p-2.5 rounded-lg bg-muted/50 text-xs text-foreground">
                         <p className="font-medium mb-1">Kysy lisää:</p>
                         <div className="flex flex-col gap-0.5">
-                          <a href={`mailto:${s.contact.email}`} className="flex items-center gap-1.5 text-primary hover:underline">
-                            <Mail className="w-3 h-3" />{s.contact.email}
+                          <a href={`mailto:${(s as any).contact.email}`} className="flex items-center gap-1.5 text-primary hover:underline">
+                            <Mail className="w-3 h-3" />{(s as any).contact.email}
                           </a>
-                          <a href={`tel:${s.contact.phone.replace(/\s/g, "")}`} className="flex items-center gap-1.5 text-primary hover:underline">
-                            <Phone className="w-3 h-3" />{s.contact.phone}
+                          <a href={`tel:${(s as any).contact.phone.replace(/\s/g, "")}`} className="flex items-center gap-1.5 text-primary hover:underline">
+                            <Phone className="w-3 h-3" />{(s as any).contact.phone}
                           </a>
                         </div>
                       </div>
@@ -223,6 +394,16 @@ export function SharedServicesModal({ open, onClose }: SharedServicesModalProps)
                 </AccordionContent>
               </AccordionItem>
             ))}
+
+            {/* Kieliosaaminen – custom card */}
+            <AccordionItem value="kieliosaaminen" className="border-border/60">
+              <AccordionTrigger className="text-sm font-semibold hover:no-underline px-3 py-3 rounded-lg hover:bg-accent/50">
+                Kieliosaaminen työelämässä
+              </AccordionTrigger>
+              <AccordionContent>
+                <LanguageServiceContent />
+              </AccordionContent>
+            </AccordionItem>
           </Accordion>
         </div>
       </DialogContent>
