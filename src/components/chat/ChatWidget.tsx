@@ -19,6 +19,7 @@ const GREETING =
   "Hei! Olen KeudaPRO-avustaja. Autan sinua löytämään oikean reitin ja palvelun tilanteeseesi.\n\nMistä haluaisit aloittaa?";
 
 export function ChatWidget() {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
