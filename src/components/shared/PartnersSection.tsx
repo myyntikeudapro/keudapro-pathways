@@ -226,18 +226,53 @@ function PartnerInfoPanel({ partner, onClose }: { partner: Partner; onClose: () 
   );
 }
 
-export function PartnersSection() {
+function PartnerGrid({ cols, className }: { cols: number; className?: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const handleCardClick = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Calculate where to insert the info panel (after the row containing the clicked card)
-  const getInsertAfterIndex = (index: number, cols: number) => {
-    return Math.floor(index / cols) * cols + cols - 1;
-  };
+  // Build rows with panels inserted after the correct row
+  const elements: React.ReactNode[] = [];
+  for (let i = 0; i < partners.length; i++) {
+    elements.push(
+      <PartnerCard
+        key={partners[i].name}
+        partner={partners[i]}
+        isActive={openIndex === i}
+        onClick={() => handleCardClick(i)}
+      />
+    );
 
+    // After last card in each row, insert panel if open card is in this row
+    const isEndOfRow = (i + 1) % cols === 0 || i === partners.length - 1;
+    if (isEndOfRow && openIndex !== null) {
+      const rowStart = Math.floor(i / cols) * cols;
+      const rowEnd = Math.min(rowStart + cols - 1, partners.length - 1);
+      if (openIndex >= rowStart && openIndex <= rowEnd) {
+        elements.push(
+          <PartnerInfoPanel
+            key={`panel-${openIndex}`}
+            partner={partners[openIndex]}
+            onClose={() => setOpenIndex(null)}
+          />
+        );
+      }
+    }
+  }
+
+  const gridClass =
+    cols === 4
+      ? "hidden lg:grid grid-cols-4 gap-4 md:gap-6"
+      : cols === 2
+        ? "hidden sm:grid lg:hidden grid-cols-2 gap-4"
+        : "grid sm:hidden grid-cols-1 gap-4";
+
+  return <div className={gridClass}>{elements}</div>;
+}
+
+export function PartnersSection() {
   return (
     <section className="py-16 md:py-20 bg-accent/30">
       <div className="keuda-container">
@@ -251,87 +286,9 @@ export function PartnersSection() {
           </p>
         </div>
 
-        {/* Desktop: 4 cols */}
-        <div className="hidden lg:grid grid-cols-4 gap-4 md:gap-6">
-          {partners.map((partner, i) => {
-            const insertAfter = getInsertAfterIndex(i, 4);
-            const showPanel = openIndex === i;
-            const showPanelAfterRow =
-              openIndex !== null &&
-              getInsertAfterIndex(openIndex, 4) === getInsertAfterIndex(i, 4) &&
-              i === Math.min(insertAfter, partners.length - 1);
-            // Show panel after the last card in this row
-            const isLastInRow = i === insertAfter || i === partners.length - 1;
-            const rowEnd = getInsertAfterIndex(openIndex ?? 0, 4);
-            const shouldShowPanel = openIndex !== null && isLastInRow && rowEnd === getInsertAfterIndex(i, 4);
-
-            return (
-              <>
-                <PartnerCard
-                  key={partner.name}
-                  partner={partner}
-                  isActive={openIndex === i}
-                  onClick={() => handleCardClick(i)}
-                />
-                {shouldShowPanel && (
-                  <PartnerInfoPanel
-                    key={`panel-${openIndex}`}
-                    partner={partners[openIndex!]}
-                    onClose={() => setOpenIndex(null)}
-                  />
-                )}
-              </>
-            );
-          })}
-        </div>
-
-        {/* Tablet: 2 cols */}
-        <div className="hidden sm:grid lg:hidden grid-cols-2 gap-4">
-          {partners.map((partner, i) => {
-            const isLastInRow = i % 2 === 1 || i === partners.length - 1;
-            const rowEnd = getInsertAfterIndex(openIndex ?? 0, 2);
-            const shouldShowPanel = openIndex !== null && isLastInRow && rowEnd === getInsertAfterIndex(i, 2);
-
-            return (
-              <>
-                <PartnerCard
-                  key={partner.name}
-                  partner={partner}
-                  isActive={openIndex === i}
-                  onClick={() => handleCardClick(i)}
-                />
-                {shouldShowPanel && (
-                  <PartnerInfoPanel
-                    key={`panel-${openIndex}`}
-                    partner={partners[openIndex!]}
-                    onClose={() => setOpenIndex(null)}
-                  />
-                )}
-              </>
-            );
-          })}
-        </div>
-
-        {/* Mobile: 1 col */}
-        <div className="grid sm:hidden grid-cols-1 gap-4">
-          {partners.map((partner, i) => (
-            <div key={partner.name}>
-              <PartnerCard
-                partner={partner}
-                isActive={openIndex === i}
-                onClick={() => handleCardClick(i)}
-              />
-              {openIndex === i && (
-                <div className="mt-2">
-                  <PartnerInfoPanel
-                    partner={partner}
-                    onClose={() => setOpenIndex(null)}
-                  />
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        <PartnerGrid cols={4} />
+        <PartnerGrid cols={2} />
+        <PartnerGrid cols={1} />
       </div>
     </section>
   );
