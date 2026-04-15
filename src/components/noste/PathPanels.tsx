@@ -98,7 +98,7 @@ function RegionalStep() {
         onClick={() => setShow(!show)}
         className="w-full flex items-center justify-between p-4 rounded-xl border border-border hover:border-primary/50 transition-colors bg-card text-left"
       >
-        <span className="font-semibold text-sm text-foreground">Työhönvalmennus alueellasi</span>
+        <span className="font-semibold text-sm text-foreground">Henkilökohtainen valmennus (maksuton)</span>
         <ChevronDown className={cn("w-4 h-4 text-muted-foreground transition-transform duration-200", show && "rotate-180")} />
       </button>
       {show && (
@@ -163,7 +163,7 @@ export function PathPanel({ open, onClose, title, ingressi, children }: PanelPro
 export function Panel1({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Aloita valmennus – selkeytä suuntasi" ingressi="Valitse sinulle sopivin tapa edetä.">
-      <StepCard title="Henkilökohtainen valmennus" tooltip="Rinnalla kulkeva tuki suunnan löytämiseen.">
+      <StepCard title="Henkilökohtainen valmennus (maksullinen)" tooltip="Rinnalla kulkeva tuki suunnan löytämiseen.">
         <p className="text-sm text-muted-foreground mb-3">
           Yksilöllistä valmennusta tavoitteidesi mukaan. Valmentaja auttaa sinua hahmottamaan vaihtoehdot ja tekemään seuraavat askeleet.
         </p>
@@ -278,7 +278,7 @@ export function Panel4({ open, onClose }: { open: boolean; onClose: () => void }
         <CtaLink href="mailto:keudapro@keuda.fi" mailto>Lue lisää →</CtaLink>
       </StepCard>
 
-      <StepCard title="Henkilökohtainen valmennus" tooltip="Yksilöllistä tukea muutostilanteessa.">
+      <StepCard title="Henkilökohtainen valmennus (maksullinen)" tooltip="Yksilöllistä tukea muutostilanteessa.">
         <p className="text-sm text-muted-foreground mb-3">
           Valmentaja auttaa sinua rakentamaan uuden suunnan – ei vain löytämään seuraavaa työpaikkaa.
         </p>

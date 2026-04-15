@@ -16,9 +16,9 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 
 const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/keudapro/", label: "Instagram" },
-  { icon: Linkedin, href: "https://www.linkedin.com/search/results/all/?keywords=keudapro&origin=RICH_QUERY_SUGGESTION&heroEntityKey=urn%3Ali%3Aorganization%3A86385419&position=0", label: "LinkedIn" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/keudapro/", label: "LinkedIn" },
   { icon: Youtube, href: "https://www.youtube.com/@KeudaPRO", label: "YouTube" },
-  { icon: "tiktok", href: "https://www.tiktok.com/search?q=keudapro&t=1770211535723", label: "TikTok" },
+  { icon: "tiktok", href: "https://www.tiktok.com/@keudapro", label: "TikTok" },
   { icon: Facebook, href: "https://www.facebook.com/profile.php?id=61571861071287", label: "Facebook" },
 ];
 
