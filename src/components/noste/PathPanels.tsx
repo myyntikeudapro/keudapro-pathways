@@ -18,7 +18,7 @@ function StepCard({
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="rounded-xl border border-border hover:border-primary/50 transition-colors bg-card overflow-hidden">
+    <div className="rounded-xl border border-border hover:border-primary/50 transition-colors bg-card overflow-hidden" title={tooltip}>
       <button
         onClick={() => setExpanded(!expanded)}
         className="w-full flex items-center justify-between p-4 text-left group"
@@ -31,20 +31,9 @@ function StepCard({
           )}
         />
       </button>
-      {/* Tooltip on hover – desktop only */}
-      <div className="hidden group-hover:block" />
       {expanded && (
         <div className="px-4 pb-4 animate-accordion-down">{children}</div>
       )}
-    </div>
-  );
-}
-
-function InfoRow({ icon: Icon, children }: { icon: React.ElementType; children: React.ReactNode }) {
-  return (
-    <div className="flex items-start gap-2 text-sm text-foreground">
-      <Icon className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-      <span>{children}</span>
     </div>
   );
 }
@@ -72,41 +61,45 @@ function SecondaryCtaLink({ href, children }: { href: string; children: React.Re
   );
 }
 
-function ContactBlock({ email, phone }: { email: string; phone: string }) {
-  return (
-    <div className="mt-3 p-3 rounded-lg bg-muted/50 text-xs text-foreground">
-      <p className="font-medium mb-1">Kysy lisää:</p>
-      <div className="flex flex-col gap-0.5">
-        <a href={`mailto:${email}`} className="flex items-center gap-1.5 text-primary hover:underline">
-          <Mail className="w-3 h-3" />{email}
-        </a>
-        <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex items-center gap-1.5 text-primary hover:underline">
-          <Phone className="w-3 h-3" />{phone}
-        </a>
-      </div>
-    </div>
-  );
-}
+/* ────────────── Reusable coaching steps ────────────── */
 
-/* ────────────── Regional step (reused) ────────────── */
-
-function RegionalStep() {
+function AlueellinenValmennusStep() {
   const [show, setShow] = useState(false);
   return (
-    <div>
+    <div title="Maksuton palvelu työttömille työnhakijoille Helsinki, Vantaa, Keski-Uusimaa ja Kerava–Sipoo -alueilla.">
       <button
         onClick={() => setShow(!show)}
         className="w-full flex items-center justify-between p-4 rounded-xl border border-border hover:border-primary/50 transition-colors bg-card text-left"
       >
-        <span className="font-semibold text-sm text-foreground">Henkilökohtainen valmennus (maksuton)</span>
+        <span className="font-semibold text-sm text-foreground">Työhönvalmennus alueellasi</span>
         <ChevronDown className={cn("w-4 h-4 text-muted-foreground transition-transform duration-200", show && "rotate-180")} />
       </button>
       {show && (
         <div className="mt-2 px-2 animate-accordion-down">
           <RegionalServices standalone />
+          <p className="text-xs italic text-muted-foreground mt-2 px-2">
+            Palvelu on maksuton työttömille työnhakijoille jotka ovat alueensa työvoimaviranomaisen asiakkaita.
+          </p>
         </div>
       )}
     </div>
+  );
+}
+
+function MaksullinenValmennusStep() {
+  return (
+    <StepCard
+      title="Henkilökohtainen valmennus – koko Suomi"
+      tooltip="Sopii sinulle jos olet muualta Suomesta tai et ole oikeutettu maksuttomaan alueelliseen palveluun."
+    >
+      <p className="text-sm text-muted-foreground mb-2">
+        Yksilöllistä valmennusta työnhakuun ja suunnan löytämiseen – riippumatta siitä missä päin Suomea olet. Valmentaja auttaa sinua hahmottamaan vaihtoehdot ja tekemään seuraavat askeleet.
+      </p>
+      <p className="text-xs italic text-muted-foreground mb-3">
+        Maksullinen palvelu – kysy hinnasta yhteydenotolla.
+      </p>
+      <CtaLink href="mailto:keudapro@keuda.fi" mailto>Varaa aika →</CtaLink>
+    </StepCard>
   );
 }
 
@@ -158,17 +151,13 @@ export function PathPanel({ open, onClose, title, ingressi, children }: PanelPro
   );
 }
 
-/* ────────────── PANEL 1 – Aloita valmennus ────────────── */
+/* ────────────── PANEL 1 – En tiedä suuntaani ────────────── */
 
 export function Panel1({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Aloita valmennus – selkeytä suuntasi" ingressi="Valitse sinulle sopivin tapa edetä.">
-      <StepCard title="Henkilökohtainen valmennus (maksullinen)" tooltip="Rinnalla kulkeva tuki suunnan löytämiseen.">
-        <p className="text-sm text-muted-foreground mb-3">
-          Yksilöllistä valmennusta tavoitteidesi mukaan. Valmentaja auttaa sinua hahmottamaan vaihtoehdot ja tekemään seuraavat askeleet.
-        </p>
-        <CtaLink href="mailto:keudapro@keuda.fi" mailto>Varaa aika →</CtaLink>
-      </StepCard>
+      <AlueellinenValmennusStep />
+      <MaksullinenValmennusStep />
 
       <StepCard title="Muutosturva" tooltip="Oletko muutosturvatilanteessa? Katso oikeutesi.">
         <p className="text-sm text-muted-foreground mb-3">
@@ -178,18 +167,18 @@ export function Panel1({ open, onClose, onOpenMuutosturva }: { open: boolean; on
           Lue lisää muutosturvasta →
         </Button>
       </StepCard>
-
-      <RegionalStep />
-
     </PathPanel>
   );
 }
 
-/* ────────────── PANEL 2 – Kirkasta profiilisi ────────────── */
+/* ────────────── PANEL 2 – Haluan erottua ────────────── */
 
 export function Panel2({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Kirkasta profiilisi – tee osaamisestasi näkyvää" ingressi="Valitse sinulle sopivin tapa edetä.">
+      <AlueellinenValmennusStep />
+      <MaksullinenValmennusStep />
+
       <StepCard title="LinkedIn-kortti" tooltip="2h verkkokoulutus – optimoi profiilisi ja työnhakusi LinkedInissä.">
         <p className="text-sm text-muted-foreground mb-2">
           LinkedIn on digitaalinen käyntikorttisi. Tässä koulutuksessa opit käyttämään sen täyden potentiaalin – työnhakijana tai asiantuntijana.
@@ -221,16 +210,18 @@ export function Panel2({ open, onClose, onOpenMuutosturva }: { open: boolean; on
           Lue lisää muutosturvasta →
         </Button>
       </StepCard>
-
     </PathPanel>
   );
 }
 
-/* ────────────── PANEL 3 – Tavoittele työtä nyt ────────────── */
+/* ────────────── PANEL 3 – Haluan töihin nopeasti ────────────── */
 
 export function Panel3({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Etene nopeasti – konkreettiset väylät työhön" ingressi="Valitse sinulle sopivin tapa edetä.">
+      <AlueellinenValmennusStep />
+      <MaksullinenValmennusStep />
+
       <StepCard title="RTK Henkilöstöpalvelut" tooltip="Suora yhteys työnantajiin ja avoimiin paikkoihin.">
         <p className="text-sm text-muted-foreground mb-3">
           RTK yhdistää työnhakijat ja työnantajat nopeasti – rekrytointi ja henkilöstövuokraus.
@@ -275,18 +266,18 @@ export function Panel3({ open, onClose, onOpenMuutosturva }: { open: boolean; on
           Lue lisää muutosturvasta →
         </Button>
       </StepCard>
-
-      <RegionalStep />
-
     </PathPanel>
   );
 }
 
-/* ────────────── PANEL 4 – Rakenna uusi polku ────────────── */
+/* ────────────── PANEL 4 – Tilanteeni muuttuu ────────────── */
 
 export function Panel4({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Rakenna uusi polku – tuki muutostilanteeseen" ingressi="Valitse sinulle sopivin tapa edetä.">
+      <AlueellinenValmennusStep />
+      <MaksullinenValmennusStep />
+
       <StepCard title="Muutosturva" tooltip="Oletko muutosturvatilanteessa? Katso oikeutesi.">
         <p className="text-sm text-muted-foreground mb-3">
           Muutosturva on oikeutesi – autamme sinua hyödyntämään sen täysimääräisesti. KeudaPRO:n kautta pääset muutosturvakoulutuksiin.
@@ -296,31 +287,24 @@ export function Panel4({ open, onClose, onOpenMuutosturva }: { open: boolean; on
         </Button>
       </StepCard>
 
-      <StepCard title="Henkilökohtainen valmennus (maksullinen)" tooltip="Yksilöllistä tukea muutostilanteessa.">
-        <p className="text-sm text-muted-foreground mb-3">
-          Valmentaja auttaa sinua rakentamaan uuden suunnan – ei vain löytämään seuraavaa työpaikkaa.
-        </p>
-        <CtaLink href="mailto:keudapro@keuda.fi" mailto>Varaa aika →</CtaLink>
-      </StepCard>
-
       <StepCard title="Wulff PRO" tooltip="Tukea muutostilanteeseen ja uudelleensijoittumiseen.">
         <p className="text-sm text-muted-foreground mb-3">
           Yksilöllistä valmennusta ja tukea muutostilanteessa oleville.
         </p>
         <CtaLink href="https://wulffpro.fi/henkiloasiakkaille">Tutustu Wulff PRO:hon →</CtaLink>
       </StepCard>
-
-      <RegionalStep />
-
     </PathPanel>
   );
 }
 
-/* ────────────── PANEL 5 – Luo oma profiilisi ────────────── */
+/* ────────────── PANEL 5 – Haluan luoda oman työn ────────────── */
 
 export function Panel5({ open, onClose, onOpenMuutosturva }: { open: boolean; onClose: () => void; onOpenMuutosturva?: () => void }) {
   return (
     <PathPanel open={open} onClose={onClose} title="Rakenna oma tapasi tehdä työtä" ingressi="Valitse sinulle sopivin tapa edetä.">
+      <AlueellinenValmennusStep />
+      <MaksullinenValmennusStep />
+
       <StepCard title="Rakenna profiilisi" tooltip="Sanoita osaamisesi ja tee itsestäsi näkyvä mahdollisuuksien tekijänä.">
         <p className="text-sm text-muted-foreground mb-3">
           Tässä et rakenna CV:tä. Rakennat profiilin mahdollisuuksien tekijänä – sanoitat mitä osaat, kerrot millaisiin mahdollisuuksiin haluat tarttua ja tuot esiin mitä mahdollisuuksia itse näet.
@@ -351,7 +335,6 @@ export function Panel5({ open, onClose, onOpenMuutosturva }: { open: boolean; on
           Lue lisää muutosturvasta →
         </Button>
       </StepCard>
-
     </PathPanel>
   );
 }
