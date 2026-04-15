@@ -254,6 +254,13 @@ export function Panel3({ open, onClose }: { open: boolean; onClose: () => void }
         <CtaLink href="mailto:keudapro@keuda.fi" mailto>Varaa aika →</CtaLink>
       </StepCard>
 
+      <StepCard title="Työkieli haltuun" tooltip="Vahvista suomen, ruotsin tai englannin taitoa työelämässä.">
+        <p className="text-sm text-muted-foreground mb-3">
+          Kielitaito avaa ovia työelämässä. Tarjolla suomi, ruotsi ja englanti työkielenä – alkeista sujuvaan ammatilliseen viestintään.
+        </p>
+        <CtaLink href="mailto:keudapro@keuda.fi?subject=Kiinnostus: Työkieli haltuun" mailto>Ilmoittaudu kiinnostuneeksi →</CtaLink>
+      </StepCard>
+
       <RegionalStep />
 
       <StepCard title="Tee reittikartoitus" tooltip="15 minuutissa selviää missä olet.">
