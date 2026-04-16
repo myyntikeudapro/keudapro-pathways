@@ -3,7 +3,7 @@ import { CoachChatWidget } from "@/components/chat/CoachChatWidget";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Map, Handshake, Rocket, ChevronDown } from "lucide-react";
-import { PartnersSection } from "@/components/shared/PartnersSection";
+
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
@@ -433,8 +433,6 @@ const WorkPlusPage = () => {
         <a href="/aly" className="text-sm font-medium text-primary hover:underline">Tutustu ÄLY-reittiin →</a>
       </div>
 
-      {/* TOIMIJAT */}
-      <PartnersSection />
       <MuutosturvaFormModal open={muutosturvaOpen} onOpenChange={setMuutosturvaOpen} />
       <CoachChatWidget />
     </Layout>

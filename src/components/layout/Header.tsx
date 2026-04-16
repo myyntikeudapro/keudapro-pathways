@@ -8,7 +8,7 @@ import { useWizard } from "@/contexts/WizardContext";
 const navItems = [
   { label: "Reitit", href: "/" },
   { label: "Operaattori", href: "/operaattori" },
-  { label: "Toimijaverkosto", href: "/kumppanit" },
+  { label: "Asiantuntijaverkosto", href: "/kumppanit" },
   { label: "Ota yhteyttä", href: "/yhteystiedot" },
 ];
 
