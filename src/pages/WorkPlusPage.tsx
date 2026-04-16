@@ -434,7 +434,7 @@ const WorkPlusPage = () => {
       </div>
 
       <MuutosturvaFormModal open={muutosturvaOpen} onOpenChange={setMuutosturvaOpen} />
-      <CoachChatWidget />
+      
     </Layout>
   );
 };
