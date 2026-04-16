@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
+import { PartnersSection } from "@/components/shared/PartnersSection";
 import { KumppanitHeroCarousel } from "@/components/kumppanit/KumppanitHeroCarousel";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -204,9 +205,12 @@ const KumppanitPage = () => {
                 </div>
               </div>
             ))}
-          </div>
+        </div>
         </div>
       </section>
+
+      {/* Partner Grid */}
+      <PartnersSection />
 
       {/* 4. KeudaPRO Hub */}
       <section className="py-10 md:py-14">
