@@ -35,8 +35,6 @@ const GrowthPage = () => {
       {/* 5) FAQ */}
       <GrowthFAQ />
 
-      {/* 6) MOTIVATION BANNER */}
-      <GrowthMotivationBanner />
     </Layout>
   );
 };
