@@ -45,7 +45,7 @@ export function BackgroundMusic() {
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/bg-music.wav" loop preload="none" />
+      <audio ref={audioRef} src="/audio/bg-music.mp3" loop preload="none" />
 
       {/* Prompt toast */}
       {showPrompt && (
