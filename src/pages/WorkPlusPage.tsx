@@ -316,31 +316,6 @@ const WorkPlusPage = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative w-full">
-        <div className="absolute inset-0">
-          <img
-            src={nosteCTABg}
-            alt="Urasuunnittelu ja ohjaus"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
-
-        <div className="relative z-10 py-20 md:py-32">
-          <div className="keuda-container text-center">
-            <h3 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-              Etkö ole varma mistä aloittaa?
-            </h3>
-            <p className="text-white/80 text-lg md:text-xl max-w-2xl mb-8 mx-auto">
-              15 minuutissa saat selkeän suunnan ja seuraavat askeleet.
-            </p>
-            <Button variant="cta" size="lg" onClick={openWizard}>
-              Tee 15 min reittikartoitus →
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* Muutosturva-nosto */}
       <section className="py-12 md:py-16">

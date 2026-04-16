@@ -1,5 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
-import { HeroSection } from "@/components/shared/HeroSection";
+
 import { RouteCard } from "@/components/cards/RouteCard";
 import { AnimatedCounters } from "@/components/shared/AnimatedCounters";
 import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
@@ -38,11 +38,18 @@ const Index = () => {
     <Layout>
       <BackgroundMusic />
       {/* Hero Section */}
-      <HeroSection
-        title="Valitse reitti muutoksessa"
-        description="Kolme reittiä – yksi operaattori. Löydä omaan tai yrityksesi tilanteeseen sopiva tapa vahvistaa osaamista, markkina-arvoa ja suuntaa."
-        variant="home"
-      />
+      <section className="pt-20 pb-10 md:pt-28 md:pb-14 bg-gradient-to-b from-accent/50 to-background">
+        <div className="keuda-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+              Valitse reitti muutoksessa
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
+              Kolme reittiä – yksi operaattori. Löydä omaan tai yrityksesi tilanteeseen sopiva tapa vahvistaa osaamista, markkina-arvoa ja suuntaa.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Route Cards Section */}
       <section className="py-10 md:py-16 bg-muted/30">

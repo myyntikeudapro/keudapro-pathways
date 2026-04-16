@@ -46,7 +46,7 @@ export function Header() {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="cta" size="default" onClick={openPanel}>
-              Tarkenna tilannettasi AI-valmentajan kanssa
+              Apua? Kysy AI-valmentajalta
             </Button>
           </div>
 
@@ -84,7 +84,7 @@ export function Header() {
               ))}
               <div className="pt-2">
                 <Button variant="cta" className="w-full" onClick={() => { setMobileMenuOpen(false); openPanel(); }}>
-                  Tarkenna tilannettasi AI-valmentajan kanssa
+                  Apua? Kysy AI-valmentajalta
                 </Button>
               </div>
             </nav>
