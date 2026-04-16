@@ -36,6 +36,7 @@ const routes = [
 const Index = () => {
   return (
     <Layout>
+      <BackgroundMusic />
       {/* Hero Section */}
       <HeroSection
         title="Valitse reitti muutoksessa"
