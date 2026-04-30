@@ -162,4 +162,9 @@
   .keuda-link {
     @apply text-primary hover:text-primary/80 transition-colors underline-offset-4 hover:underline;
   }
+
+  .aly-cta:hover {
+    background: #FFBC3C !important;
+    color: #00232B !important;
+  }
 }
