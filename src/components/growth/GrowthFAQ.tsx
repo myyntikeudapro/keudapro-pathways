@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Play } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+const VisuallyHidden = ({ children }: { children: React.ReactNode }) => (
+  <span className="sr-only">{children}</span>
+);
 
 const faqs = [
   {
