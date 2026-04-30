@@ -15,7 +15,7 @@ import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
 
 /* ── Types ── */
 type Role = "asiantuntija" | "esihenkilö" | "johtaja" | "uudistuja";
-type LeadershipTag = "Ajattelu" | "Taidot" | "Työkalut" | "Kulttuuri";
+type LeadershipTag = "Itsensä johtaminen" | "Ihmisten johtaminen" | "Organisaation johtaminen";
 
 type Program = {
   label: string;
