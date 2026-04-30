@@ -15,7 +15,7 @@ import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
 
 /* ── Types ── */
 type Role = "asiantuntija" | "esihenkilö" | "johtaja" | "uudistuja";
-type LeadershipTag = "Ajattelu" | "Taidot" | "Työkalut" | "Kulttuuri";
+type LeadershipTag = "Itsensä johtaminen" | "Ihmisten johtaminen" | "Organisaation johtaminen";
 
 type Program = {
   label: string;
@@ -51,7 +51,7 @@ const roles: { id: Role; label: string }[] = [
 ];
 
 /* ── Leadership sub-filter ── */
-const leadershipTags: LeadershipTag[] = ["Ajattelu", "Taidot", "Työkalut", "Kulttuuri"];
+const leadershipTags: LeadershipTag[] = ["Itsensä johtaminen", "Ihmisten johtaminen", "Organisaation johtaminen"];
 
 /* ── Data ── */
 const categories: Category[] = [
@@ -69,7 +69,7 @@ const categories: Category[] = [
         image: progJohtaminen,
         roles: ["esihenkilö", "uudistuja"],
         cta: "Katso sisältö →",
-        leadershipTags: ["Ajattelu", "Taidot"],
+        leadershipTags: ["Ihmisten johtaminen", "Itsensä johtaminen"],
         alsoAvailable: "Räätälöity valmennus · Puitesopimus",
       },
       {
@@ -80,7 +80,7 @@ const categories: Category[] = [
         image: progOsaaminen,
         roles: ["esihenkilö", "johtaja"],
         cta: "Tutustu ohjelmaan →",
-        leadershipTags: ["Kulttuuri", "Taidot"],
+        leadershipTags: ["Organisaation johtaminen", "Ihmisten johtaminen"],
       },
       {
         label: "Tutkintotavoitteiset ratkaisut (EAT & AT)",
@@ -90,7 +90,7 @@ const categories: Category[] = [
         image: progTutkinnot,
         roles: ["asiantuntija", "uudistuja"],
         cta: "Tutustu tutkintoihin →",
-        leadershipTags: ["Taidot", "Ajattelu"],
+        leadershipTags: ["Itsensä johtaminen", "Organisaation johtaminen"],
       },
     ],
   },
