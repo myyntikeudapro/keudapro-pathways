@@ -433,7 +433,7 @@ export function AlyProgramGrid() {
               );
             }
 
-            const showComingSoon = !!cat.comingSoonCard && !activeRole;
+            const showComingSoon = !!cat.comingSoonCard;
 
             if (filtered.length === 0 && !showComingSoon) return null;
 
