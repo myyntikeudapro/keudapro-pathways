@@ -161,6 +161,14 @@ const categories: Category[] = [
         image: progTurvallisuus,
         roles: ["asiantuntija"],
       },
+      {
+        label: "Turvallisuusjohtaja 2.6 -valmennusohjelma",
+        href: "https://www.keuda.fi/koulutus/turvallisuusjohtaja-2-6/",
+        description:
+          "Strategisen turvallisuusjohtamisen valmennus johtajille – rakennat kokonaisvaltaisen turvallisuuskulttuurin ja viet sen osaksi liiketoiminnan johtamista.",
+        image: progTurvallisuus,
+        roles: ["johtaja", "uudistuja"],
+      },
     ],
   },
 ];
