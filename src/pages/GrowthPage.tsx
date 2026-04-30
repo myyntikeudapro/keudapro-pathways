@@ -22,13 +22,6 @@ const GrowthPage = () => {
       {/* 3) KASVUALAT */}
       <GrowthIndustries />
 
-      {/* ELY-TUKI INFO */}
-      <GrowthElyInfo />
-
-      {/* 4) KASVUPAKETIT */}
-      <div id="paketit">
-        <GrowthPricing />
-      </div>
 
       {/* 5) FAQ */}
       <GrowthFAQ />
