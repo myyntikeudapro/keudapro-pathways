@@ -4,8 +4,6 @@ import { GrowthHeroCarousel } from "@/components/growth/GrowthHeroCarousel";
 import { GrowthAnchorNav } from "@/components/growth/GrowthAnchorNav";
 import { GrowthRoutes } from "@/components/growth/GrowthRoutes";
 import { GrowthIndustries } from "@/components/growth/GrowthIndustries";
-import { GrowthElyInfo } from "@/components/growth/GrowthElyInfo";
-import { GrowthPricing } from "@/components/growth/GrowthPricing";
 import { GrowthFAQ } from "@/components/growth/GrowthFAQ";
 import { GrowthMotivationBanner } from "@/components/growth/GrowthMotivationBanner";
 
@@ -24,13 +22,6 @@ const GrowthPage = () => {
       {/* 3) KASVUALAT */}
       <GrowthIndustries />
 
-      {/* ELY-TUKI INFO */}
-      <GrowthElyInfo />
-
-      {/* 4) KASVUPAKETIT */}
-      <div id="paketit">
-        <GrowthPricing />
-      </div>
 
       {/* 5) FAQ */}
       <GrowthFAQ />
