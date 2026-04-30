@@ -278,16 +278,38 @@ function ComingSoonCard({
 /* ── Program Card ── */
 function ProgramCard({ program }: { program: Program }) {
   const isExternal = program.href.startsWith("http");
-  const commonClass =
+  const cardClass =
     "group flex flex-col overflow-hidden transition-all duration-200 hover:shadow-md";
-  const commonStyle: React.CSSProperties = {
+  const cardStyle: React.CSSProperties = {
     border: `1px solid ${C.border}`,
     borderRadius: 8,
     background: C.paper,
   };
 
-  const inner = (
-    <>
+  const ctaClass =
+    "inline-flex items-center justify-center h-10 px-4 rounded-md text-sm font-semibold transition-colors mt-auto aly-cta";
+
+  const ctaInner = program.isInternal ? (
+    <Link
+      to={program.href}
+      className={ctaClass}
+      style={{ background: C.ink, color: C.paper }}
+    >
+      {program.cta}
+    </Link>
+  ) : (
+    <a
+      href={program.href}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={ctaClass}
+      style={{ background: C.ink, color: C.paper }}
+    >
+      {program.cta}
+    </a>
+  );
+
+  return (
+    <div className={cardClass} style={cardStyle}>
       <div className="relative h-[160px] overflow-hidden flex-shrink-0">
         <img
           src={program.image}
@@ -324,41 +346,9 @@ function ProgramCard({ program }: { program: Program }) {
           </div>
         )}
 
-        <span
-          className="inline-flex items-center justify-center h-10 px-4 rounded-md text-sm font-semibold transition-colors mt-auto"
-          style={{ background: C.ink, color: C.paper }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.background = C.accent;
-            (e.currentTarget as HTMLElement).style.color = C.ink;
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.background = C.ink;
-            (e.currentTarget as HTMLElement).style.color = C.paper;
-          }}
-        >
-          {program.cta}
-        </span>
+        {ctaInner}
       </div>
-    </>
-  );
-
-  if (program.isInternal) {
-    return (
-      <Link to={program.href} className={commonClass} style={commonStyle}>
-        {inner}
-      </Link>
-    );
-  }
-
-  return (
-    <a
-      href={program.href}
-      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={commonClass}
-      style={commonStyle}
-    >
-      {inner}
-    </a>
+    </div>
   );
 }
 
