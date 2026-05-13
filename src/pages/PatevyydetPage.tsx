@@ -80,13 +80,12 @@ const PatevyydetPage = () => {
         path="/patevyydet"
       />
 
-      {/* Hero */}
-      <section className="pt-20 pb-10 md:pt-28 md:pb-14 bg-gradient-to-b from-accent/50 to-background">
+      <PatevyydetHeroCarousel />
+
+      {/* Intro + CTAs */}
+      <section className="py-10 md:py-14">
         <div className="keuda-container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              Pätevyydet ja osaamiskortit
-            </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
               Nopeat, tunnustetut kortit — ryhmille, tiimeille ja yksittäisille osallistujille. Löydä tarvitsemasi koulutus ja ilmoittaudu suoraan.
             </p>
