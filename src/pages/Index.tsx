@@ -1,14 +1,25 @@
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 
 import { RouteCard } from "@/components/cards/RouteCard";
 import { AnimatedCounters } from "@/components/shared/AnimatedCounters";
 import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
+import { Button } from "@/components/ui/button";
 
 import routeAly from "@/assets/route-aly.jpg";
 import routeNoste from "@/assets/route-noste.jpg";
 import routeKasvu from "@/assets/route-kasvu.jpg";
 import reititCtaBg from "@/assets/reitit-cta-bg.jpg";
+
+const patevyysCategories = [
+  { icon: "🦺", title: "Turvallisuus ja pätevyydet", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus." },
+  { icon: "🩺", title: "Ensiapu", desc: "EA1, EA2 ja hätäensiapu." },
+  { icon: "🍽️", title: "Hygienia ja ravintola", desc: "Hygieniapassi ja anniskelupassi." },
+  { icon: "💼", title: "Työelämätaidot", desc: "LinkedIn, työnhaku ja urasuunnittelu." },
+  { icon: "🤖", title: "AI ja tulevaisuustaidot", desc: "Tekoäly työssä ja 3T-ohjelma." },
+  { icon: "🏭", title: "Toimialakohtaiset", desc: "Räätälöidyt pätevyydet toimialalle." },
+];
 
 const routes = [
   {
