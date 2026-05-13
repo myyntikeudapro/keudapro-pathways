@@ -15,6 +15,7 @@ import GrowthPage from "./pages/GrowthPage";
 import OperaattoriPage from "./pages/OperaattoriPage";
 import KumppanitPage from "./pages/KumppanitPage";
 import YhteystiedotPage from "./pages/YhteystiedotPage";
+import PatevyydetPage from "./pages/PatevyydetPage";
 import NotFound from "./pages/NotFound";
 
 
