@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
 import { Layout } from "@/components/layout/Layout";
+import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Map, Handshake, Rocket, ChevronDown } from "lucide-react";
 
@@ -169,6 +170,7 @@ const WorkPlusPage = () => {
 
   return (
     <Layout>
+      <SEO title={"NOSTE – Työhönvalmennus ja uramuutos KUUMA-seudulla | KeudaPRO"} description={"Työnhakijoille ja siirtymävaiheessa oleville: viisi polkua, ARPRO AI-työnhaku, LinkedIn- ja 3T-kortti, alueellinen työhönvalmennus – maksuton työttömille."} path="/noste" />
       {/* HERO CAROUSEL */}
       <HeroCarousel onSituationActivate={handleSituationClick} />
 

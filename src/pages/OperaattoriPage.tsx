@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import { SEO } from "@/components/seo/SEO";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { OperaattoriHeroCarousel } from "@/components/operaattori/OperaattoriHeroCarousel";
 import { ArrowRightLeft, Search, Users, ShieldCheck } from "lucide-react";
@@ -35,6 +36,7 @@ const features = [
 const OperaattoriPage = () => {
   return (
     <Layout>
+      <SEO title={"Operaattori – Osaamisen verkosto KUUMA-seudulla | KeudaPRO"} description={"KeudaPRO yhdistää osaajat, yritykset ja koulutusorganisaatiot toimivaksi ekosysteemiksi KUUMA-seudulla."} path="/operaattori" />
       <OperaattoriHeroCarousel />
 
       {/* Features */}

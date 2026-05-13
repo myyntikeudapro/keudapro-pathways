@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
+import { SEO } from "@/components/seo/SEO";
 import { PartnersSection } from "@/components/shared/PartnersSection";
 import { KumppanitHeroCarousel } from "@/components/kumppanit/KumppanitHeroCarousel";
 import { Button } from "@/components/ui/button";
@@ -139,6 +140,7 @@ const KumppanitPage = () => {
 
   return (
     <Layout>
+      <SEO title={"Kumppanit – Verkostomme ja yhteistyökumppanit | KeudaPRO"} description={"KeudaPRO:n kumppaniverkosto: koulutusorganisaatiot, yritykset, julkiset toimijat ja kehittäjäverkostot KUUMA-seudulla."} path="/kumppanit" />
       {/* 1. Hero */}
       <KumppanitHeroCarousel />
 
