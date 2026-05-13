@@ -2,7 +2,7 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 
-const BASE_URL = "https://keudapro.lovable.app";
+const BASE_URL = "https://keudapro.com";
 
 interface SitemapEntry {
   path: string;
