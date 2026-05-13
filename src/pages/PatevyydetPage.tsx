@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { MapPin, Monitor } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
 
 const categories = [
   { id: "Turvallisuus", icon: "🦺", title: "Turvallisuus ja pätevyydet", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus" },
