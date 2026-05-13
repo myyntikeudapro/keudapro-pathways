@@ -55,7 +55,27 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    const rawMessages = body?.messages;
+
+    if (!Array.isArray(rawMessages) || rawMessages.length === 0 || rawMessages.length > 20) {
+      return new Response(JSON.stringify({ error: "Invalid request" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const messages = [];
+    for (const m of rawMessages) {
+      if (!m || typeof m !== "object") continue;
+      if (m.role !== "user" && m.role !== "assistant") continue;
+      if (typeof m.content !== "string") continue;
+      if (m.content.length === 0 || m.content.length > 2000) continue;
+      messages.push({ role: m.role, content: m.content });
+    }
+    if (messages.length === 0) {
+      return new Response(JSON.stringify({ error: "Invalid request" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
