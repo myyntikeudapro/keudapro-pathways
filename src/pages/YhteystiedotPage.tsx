@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
+import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
@@ -106,6 +107,7 @@ const YhteystiedotPage = () => {
 
   return (
     <Layout>
+      <SEO title={"Yhteystiedot – Ota yhteyttä KeudaPRO:hon"} description={"Varaa keskusteluaika tai jätä yhteydenottopyyntö – löydetään yhdessä sopiva reitti ja ratkaisu. keudapro@keuda.fi."} path="/yhteystiedot" />
       {/* ════════ HERO CAROUSEL ════════ */}
       <section className="relative w-full h-[70vh] min-h-[420px] max-h-[700px] overflow-hidden">
         {heroSlides.map((slide, i) => (

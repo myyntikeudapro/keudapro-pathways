@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import { SEO } from "@/components/seo/SEO";
 
 import { RouteCard } from "@/components/cards/RouteCard";
 import { AnimatedCounters } from "@/components/shared/AnimatedCounters";
@@ -36,6 +37,7 @@ const routes = [
 const Index = () => {
   return (
     <Layout>
+      <SEO title={"KeudaPRO – Osaamisen ja siirtymien operaattori KUUMA-seudulla"} description={"Johtamiskoulutukset (ÄLY), työhönvalmennus (NOSTE) ja yritysten kasvuohjelmat (KASVU) KUUMA-seudulla – yksi reitti, kolme suuntaa."} path="/" />
       <BackgroundMusic />
       {/* Hero Section */}
       <section className="pt-20 pb-10 md:pt-28 md:pb-14 bg-gradient-to-b from-accent/50 to-background">

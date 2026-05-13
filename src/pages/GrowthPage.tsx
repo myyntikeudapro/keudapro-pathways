@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import { SEO } from "@/components/seo/SEO";
 
 import { GrowthHeroCarousel } from "@/components/growth/GrowthHeroCarousel";
 import { GrowthAnchorNav } from "@/components/growth/GrowthAnchorNav";
@@ -10,6 +11,7 @@ import { GrowthMotivationBanner } from "@/components/growth/GrowthMotivationBann
 const GrowthPage = () => {
   return (
     <Layout>
+      <SEO title={"KASVU – Yrityksen kasvuohjelmat ja kehittäminen | KeudaPRO"} description={"Yrittäjille ja pk-yrityksille: myynnin, skaalauksen, tekoälyn käyttöönoton ja osaamisen kehittämisen ohjelmat KUUMA-seudulla."} path="/kasvu" />
       {/* 1) HERO CAROUSEL */}
       <GrowthHeroCarousel />
 

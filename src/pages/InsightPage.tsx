@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import { SEO } from "@/components/seo/SEO";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { AlyHeroCarousel } from "@/components/aly/AlyHeroCarousel";
 import { AlyPhilosophySection } from "@/components/aly/AlyPhilosophySection";
@@ -44,6 +45,7 @@ const audiences = [
 const InsightPage = () => {
   return (
     <Layout>
+      <SEO title={"ÄLY – Johtamisen, asiantuntijuuden ja tekoälyn koulutukset | KeudaPRO"} description={"Johtajille, esihenkilöille ja asiantuntijoille: johtamisen koulutukset, tekoälypätevyys-ohjelmat (AI-Director, AI-Manager, AI-Coordinator) ja turvallisuusjohtaminen."} path="/aly" />
       <AlyHeroCarousel />
 
       <section className="pt-16 md:pt-24 pb-6 md:pb-8">
