@@ -1,14 +1,25 @@
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 
 import { RouteCard } from "@/components/cards/RouteCard";
 import { AnimatedCounters } from "@/components/shared/AnimatedCounters";
 import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
+import { Button } from "@/components/ui/button";
 
 import routeAly from "@/assets/route-aly.jpg";
 import routeNoste from "@/assets/route-noste.jpg";
 import routeKasvu from "@/assets/route-kasvu.jpg";
 import reititCtaBg from "@/assets/reitit-cta-bg.jpg";
+
+const patevyysCategories = [
+  { icon: "🦺", title: "Turvallisuus ja pätevyydet", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus." },
+  { icon: "🩺", title: "Ensiapu", desc: "EA1, EA2 ja hätäensiapu." },
+  { icon: "🍽️", title: "Hygienia ja ravintola", desc: "Hygieniapassi ja anniskelupassi." },
+  { icon: "💼", title: "Työelämätaidot", desc: "LinkedIn, työnhaku ja urasuunnittelu." },
+  { icon: "🤖", title: "AI ja tulevaisuustaidot", desc: "Tekoäly työssä ja 3T-ohjelma." },
+  { icon: "🏭", title: "Toimialakohtaiset", desc: "Räätälöidyt pätevyydet toimialalle." },
+];
 
 const routes = [
   {
@@ -67,6 +78,38 @@ const Index = () => {
                 href={route.href}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pätevyydet & osaamiskortit */}
+      <section className="py-12 md:py-20">
+        <div className="keuda-container">
+          <div className="max-w-3xl mx-auto text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Pätevyydet ja osaamiskortit
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Nopeat kortit ja tunnustetut pätevyydet — yrityksille ja yksittäisille osallistujille.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {patevyysCategories.map((cat) => (
+              <Link
+                key={cat.title}
+                to="/patevyydet"
+                className="keuda-card-enhanced p-6 block transition-all hover:-translate-y-1"
+              >
+                <div className="text-3xl mb-3">{cat.icon}</div>
+                <h3 className="font-semibold text-foreground mb-1">{cat.title}</h3>
+                <p className="text-sm text-muted-foreground">{cat.desc}</p>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Button variant="outline-primary" size="lg" asChild>
+              <Link to="/patevyydet">Katso kaikki koulutukset →</Link>
+            </Button>
           </div>
         </div>
       </section>
