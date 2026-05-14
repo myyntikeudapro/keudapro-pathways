@@ -9,13 +9,21 @@ import { MapPin, Monitor } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
 
+import catKaikki from "@/assets/cat-kaikki.jpg";
+import catTurvallisuus from "@/assets/prog-turvallisuus.jpg";
+import catEnsiapu from "@/assets/cat-ensiapu.jpg";
+import catHygienia from "@/assets/cat-hygienia.jpg";
+import catTyoelamataidot from "@/assets/cat-tyoelamataidot.jpg";
+import catAi from "@/assets/cat-ai.jpg";
+import catToimialakohtaiset from "@/assets/cat-toimialakohtaiset.jpg";
+
 const categories = [
-  { id: "Turvallisuus", icon: "🦺", title: "Turvallisuus ja pätevyydet", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus" },
-  { id: "Ensiapu", icon: "🩺", title: "Ensiapu", desc: "EA1, EA2, hätäensiapu" },
-  { id: "Hygienia", icon: "🍽️", title: "Hygienia ja ravintola", desc: "Hygieniapassi, anniskelupassi" },
-  { id: "Työelämätaidot", icon: "💼", title: "Työelämätaidot", desc: "LinkedIn, työnhaku, urasuunnittelu" },
-  { id: "AI", icon: "🤖", title: "AI ja tulevaisuustaidot", desc: "Tekoäly työssä, 3T-ohjelma" },
-  { id: "Toimialakohtaiset", icon: "🏭", title: "Toimialakohtaiset", desc: "Räätälöidyt pätevyydet" },
+  { id: "Turvallisuus", image: catTurvallisuus, title: "Turvallisuus ja pätevyydet", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus" },
+  { id: "Ensiapu", image: catEnsiapu, title: "Ensiapu", desc: "EA1, EA2, hätäensiapu" },
+  { id: "Hygienia", image: catHygienia, title: "Hygienia ja ravintola", desc: "Hygieniapassi, anniskelupassi" },
+  { id: "Työelämätaidot", image: catTyoelamataidot, title: "Työelämätaidot", desc: "LinkedIn, työnhaku, urasuunnittelu" },
+  { id: "AI", image: catAi, title: "AI ja tulevaisuustaidot", desc: "Tekoäly työssä, 3T-ohjelma" },
+  { id: "Toimialakohtaiset", image: catToimialakohtaiset, title: "Toimialakohtaiset", desc: "Räätälöidyt pätevyydet" },
 ];
 
 type Course = {
