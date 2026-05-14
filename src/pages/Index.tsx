@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 
 import { RouteCard } from "@/components/cards/RouteCard";
+import { Button } from "@/components/ui/button";
 import { AnimatedCounters } from "@/components/shared/AnimatedCounters";
 import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
 
