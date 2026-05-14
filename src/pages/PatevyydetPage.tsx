@@ -16,6 +16,11 @@ import catHygienia from "@/assets/cat-hygienia.jpg";
 import catTyoelamataidot from "@/assets/cat-tyoelamataidot.jpg";
 import catAi from "@/assets/cat-ai.jpg";
 import catToimialakohtaiset from "@/assets/cat-toimialakohtaiset.jpg";
+import courseTulityo from "@/assets/course-tulityo.jpg";
+
+const courseImageOverrides: Record<string, string> = {
+  "Tulityökortti": courseTulityo,
+};
 
 const categories = [
   { id: "Turvallisuus", image: catTurvallisuus, title: "Turvallisuus", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus" },
@@ -132,7 +137,7 @@ const PatevyydetPage = () => {
             {filtered.map((c) => {
               const free = c.total - c.taken;
               const fillingUp = c.total > 0 && free <= 5 && free > 0;
-              const courseImage = categories.find((cat) => cat.id === c.category)?.image;
+              const courseImage = courseImageOverrides[c.name] ?? categories.find((cat) => cat.id === c.category)?.image;
               return (
                 <div key={c.name} className="keuda-card-enhanced p-6 flex flex-col overflow-hidden">
                   {courseImage && (
