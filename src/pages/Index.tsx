@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 
 import { RouteCard } from "@/components/cards/RouteCard";
+import { Button } from "@/components/ui/button";
 import { AnimatedCounters } from "@/components/shared/AnimatedCounters";
 import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
 
@@ -92,6 +93,7 @@ const Index = () => {
                 "Tekoälyn ammattiosaaja",
                 "KV-kortti",
                 "Työkieli-Suomi",
+                "Lääkehoito",
               ].map((tag) => (
                 <a
                   key={tag}
@@ -102,12 +104,9 @@ const Index = () => {
                 </a>
               ))}
             </div>
-            <a
-              href="/patevyydet"
-              className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground transition-all duration-200 h-12 px-8 text-base font-medium"
-            >
-              Katso kaikki koulutukset →
-            </a>
+            <Button variant="outline-primary" size="lg" asChild>
+              <a href="/patevyydet">Katso kaikki koulutukset →</a>
+            </Button>
           </div>
         </div>
       </section>
