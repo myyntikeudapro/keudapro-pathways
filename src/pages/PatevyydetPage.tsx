@@ -39,16 +39,9 @@ const courses: Course[] = [
   { name: "Toimialakohtainen pätevyys", category: "Toimialakohtaiset", date: "Kysy toteutusta", taken: 0, total: 0, format: "Räätälöity", openSeats: false },
 ];
 
-const partnerCards = [
-  { title: "Strategic Partner", desc: "Prioriteettipaikat, ennakkovarausoikeus, kumppanuusalennukset, näkyvyys palvelussa" },
-  { title: "Access Partner", desc: "Pääsy avoimiin ryhmiin, Open Seats -paikat, yritysosallistujaedut" },
-  { title: "Delivery Partner", desc: "Tarjoa koulutuksiasi KeudaPRO Skills Hubin kautta, hyväksytty palveluntuottaja" },
-];
-
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
   const { toast } = useToast();
-  const [partnerOpen, setPartnerOpen] = useState(false);
 
   const filtered = active === "Kaikki" ? courses : courses.filter((c) => c.category === active);
 
