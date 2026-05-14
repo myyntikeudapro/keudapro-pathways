@@ -90,12 +90,9 @@ const PatevyydetPage = () => {
             <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
               Nopeat, tunnustetut kortit — ryhmille, tiimeille ja yksittäisille osallistujille. Löydä tarvitsemasi koulutus ja ilmoittaudu suoraan.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex justify-center">
               <Button variant="cta" size="lg" asChild>
                 <a href="#koulutukset">Selaa koulutuksia</a>
-              </Button>
-              <Button variant="outline-primary" size="lg" asChild>
-                <a href="#kumppanit">Hae kumppaniksi</a>
               </Button>
             </div>
           </div>
