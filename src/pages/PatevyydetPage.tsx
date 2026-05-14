@@ -54,9 +54,57 @@ const courses: Course[] = [
 
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
   const { toast } = useToast();
 
   const filtered = active === "Kaikki" ? courses : courses.filter((c) => c.category === active);
+  const inlineCourses = openCategory ? courses.filter((c) => c.category === openCategory) : [];
+
+  const toggleCategory = (id: string) => {
+    setActive(id);
+    if (id === "Kaikki") {
+      setOpenCategory(null);
+    } else {
+      setOpenCategory((prev) => (prev === id ? null : id));
+    }
+  };
+
+  const renderCourseCard = (c: Course) => {
+    const free = c.total - c.taken;
+    const fillingUp = c.total > 0 && free <= 5 && free > 0;
+    const courseImage = courseImageOverrides[c.name] ?? categories.find((cat) => cat.id === c.category)?.image;
+    return (
+      <div key={c.name} className="keuda-card-enhanced p-6 flex flex-col overflow-hidden">
+        {courseImage && (
+          <div className="relative h-40 -mx-6 -mt-6 mb-5 overflow-hidden">
+            <img src={courseImage} alt={c.name} loading="lazy" width={1024} height={640} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          </div>
+        )}
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <Badge className="bg-primary text-primary-foreground hover:bg-primary">{c.category}</Badge>
+          {c.openSeats && (
+            <Badge variant="outline" className="border-primary text-primary">Avoin osallistujille</Badge>
+          )}
+          {fillingUp && (
+            <Badge className="bg-orange-500 text-white hover:bg-orange-500">Täyttymässä</Badge>
+          )}
+        </div>
+        <h3 className="text-lg font-bold text-foreground mb-2">{c.name}</h3>
+        <div className="text-sm text-muted-foreground space-y-1 mb-4">
+          <div>Seuraava: {c.date}</div>
+          {c.total > 0 && <div>{free} / {c.total} paikkaa vapaana</div>}
+          <div className="flex items-center gap-1.5">
+            {c.format === "Etätoteutus" ? <Monitor className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
+            {c.format}
+          </div>
+        </div>
+        <div className="mt-auto">
+          <Button variant="outline-primary" className="w-full">Ilmoittaudu</Button>
+        </div>
+      </div>
+    );
+  };
 
   const handleSubmit = (e: React.FormEvent, msg: string) => {
     e.preventDefault();
