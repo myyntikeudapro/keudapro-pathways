@@ -112,8 +112,19 @@ const PatevyydetPage = () => {
             {c.format}
           </div>
         </div>
-        <div className="mt-auto">
-          <Button variant="outline-primary" className="w-full">Ilmoittaudu</Button>
+        <div className="mt-auto space-y-2">
+          {c.infoUrl && (
+            <Button variant="ghost" className="w-full" asChild>
+              <a href={c.infoUrl} target="_blank" rel="noopener noreferrer">Lue lisää</a>
+            </Button>
+          )}
+          {c.signupUrl ? (
+            <Button variant="outline-primary" className="w-full" asChild>
+              <a href={c.signupUrl} target="_blank" rel="noopener noreferrer">Ilmoittaudu</a>
+            </Button>
+          ) : (
+            <Button variant="outline-primary" className="w-full">Ilmoittaudu</Button>
+          )}
         </div>
       </div>
     );
