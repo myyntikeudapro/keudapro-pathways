@@ -132,8 +132,22 @@ const PatevyydetPage = () => {
             {filtered.map((c) => {
               const free = c.total - c.taken;
               const fillingUp = c.total > 0 && free <= 5 && free > 0;
+              const courseImage = categories.find((cat) => cat.id === c.category)?.image;
               return (
-                <div key={c.name} className="keuda-card-enhanced p-6 flex flex-col">
+                <div key={c.name} className="keuda-card-enhanced p-6 flex flex-col overflow-hidden">
+                  {courseImage && (
+                    <div className="relative h-40 -mx-6 -mt-6 mb-5 overflow-hidden">
+                      <img
+                        src={courseImage}
+                        alt={c.name}
+                        loading="lazy"
+                        width={1024}
+                        height={640}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    </div>
+                  )}
                   <div className="flex flex-wrap items-center gap-2 mb-3">
                     <Badge className="bg-primary text-primary-foreground hover:bg-primary">
                       {c.category}
