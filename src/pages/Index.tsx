@@ -73,7 +73,7 @@ const Index = () => {
       </section>
 
       {/* Pätevyydet – kevyt viittausosio */}
-      <section className="py-10 md:py-14 bg-accent/30">
+      <section className="py-10 md:py-14 bg-[#F0F7F6]">
         <div className="keuda-container">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
