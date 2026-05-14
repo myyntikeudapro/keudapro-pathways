@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
 
 import catKaikki from "@/assets/cat-kaikki.jpg";
-import catTurvallisuus from "@/assets/prog-turvallisuus.jpg";
+import catTurvallisuus from "@/assets/cat-turvallisuus.jpg";
 import catEnsiapu from "@/assets/cat-ensiapu.jpg";
 import catHygienia from "@/assets/cat-hygienia.jpg";
 import catTyoelamataidot from "@/assets/cat-tyoelamataidot.jpg";
@@ -18,7 +18,7 @@ import catAi from "@/assets/cat-ai.jpg";
 import catToimialakohtaiset from "@/assets/cat-toimialakohtaiset.jpg";
 
 const categories = [
-  { id: "Turvallisuus", image: catTurvallisuus, title: "Turvallisuus ja pätevyydet", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus" },
+  { id: "Turvallisuus", image: catTurvallisuus, title: "Turvallisuus", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus" },
   { id: "Ensiapu", image: catEnsiapu, title: "Ensiapu", desc: "EA1, EA2, hätäensiapu" },
   { id: "Hygienia", image: catHygienia, title: "Hygienia ja ravintola", desc: "Hygieniapassi, anniskelupassi" },
   { id: "Työelämätaidot", image: catTyoelamataidot, title: "Työelämätaidot", desc: "LinkedIn, työnhaku, urasuunnittelu" },
