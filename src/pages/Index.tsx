@@ -76,20 +76,22 @@ const Index = () => {
         <div className="keuda-container">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
-              Pätevyydet
+              Pätevyydet ja osaamiskortit
             </h2>
-            <p className="text-muted-foreground text-lg mb-6">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
               Nopeat, tunnustetut kortit ja osaamispätevyydet — yrityksille ja yksittäisille osallistujille.
             </p>
             <div className="flex flex-wrap justify-center gap-2 mb-6">
               {[
                 "Työturvallisuuskortti",
                 "Hygieniapassi",
-                "EA1 Ensiapu",
+                "Ensiapu",
                 "Tulityökortti",
                 "Anniskelupassi",
                 "LinkedIn-kortti",
-                "Tekoäly työssä",
+                "Tekoälyn ammattiosaaja",
+                "KV-kortti",
+                "Työkieli-Suomi",
               ].map((tag) => (
                 <a
                   key={tag}
