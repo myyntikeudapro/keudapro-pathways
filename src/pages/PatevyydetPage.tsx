@@ -9,13 +9,21 @@ import { MapPin, Monitor } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
 
+import catKaikki from "@/assets/cat-kaikki.jpg";
+import catTurvallisuus from "@/assets/prog-turvallisuus.jpg";
+import catEnsiapu from "@/assets/cat-ensiapu.jpg";
+import catHygienia from "@/assets/cat-hygienia.jpg";
+import catTyoelamataidot from "@/assets/cat-tyoelamataidot.jpg";
+import catAi from "@/assets/cat-ai.jpg";
+import catToimialakohtaiset from "@/assets/cat-toimialakohtaiset.jpg";
+
 const categories = [
-  { id: "Turvallisuus", icon: "🦺", title: "Turvallisuus ja pätevyydet", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus" },
-  { id: "Ensiapu", icon: "🩺", title: "Ensiapu", desc: "EA1, EA2, hätäensiapu" },
-  { id: "Hygienia", icon: "🍽️", title: "Hygienia ja ravintola", desc: "Hygieniapassi, anniskelupassi" },
-  { id: "Työelämätaidot", icon: "💼", title: "Työelämätaidot", desc: "LinkedIn, työnhaku, urasuunnittelu" },
-  { id: "AI", icon: "🤖", title: "AI ja tulevaisuustaidot", desc: "Tekoäly työssä, 3T-ohjelma" },
-  { id: "Toimialakohtaiset", icon: "🏭", title: "Toimialakohtaiset", desc: "Räätälöidyt pätevyydet" },
+  { id: "Turvallisuus", image: catTurvallisuus, title: "Turvallisuus ja pätevyydet", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus" },
+  { id: "Ensiapu", image: catEnsiapu, title: "Ensiapu", desc: "EA1, EA2, hätäensiapu" },
+  { id: "Hygienia", image: catHygienia, title: "Hygienia ja ravintola", desc: "Hygieniapassi, anniskelupassi" },
+  { id: "Työelämätaidot", image: catTyoelamataidot, title: "Työelämätaidot", desc: "LinkedIn, työnhaku, urasuunnittelu" },
+  { id: "AI", image: catAi, title: "AI ja tulevaisuustaidot", desc: "Tekoäly työssä, 3T-ohjelma" },
+  { id: "Toimialakohtaiset", image: catToimialakohtaiset, title: "Toimialakohtaiset", desc: "Räätälöidyt pätevyydet" },
 ];
 
 type Course = {
@@ -83,24 +91,30 @@ const PatevyydetPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <button
               onClick={() => setActive("Kaikki")}
-              className={`keuda-card-enhanced p-6 text-left transition-all ${
+              className={`keuda-card-enhanced p-6 text-left transition-all overflow-hidden flex flex-col ${
                 active === "Kaikki" ? "ring-2 ring-primary border-primary" : ""
               }`}
             >
-              <div className="text-3xl mb-3">✨</div>
-              <h3 className="font-semibold text-foreground mb-1">Kaikki</h3>
+              <div className="relative h-40 -mx-6 -mt-6 mb-5 overflow-hidden">
+                <img src={catKaikki} alt="Kaikki koulutukset" loading="lazy" width={1024} height={640} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
+                <h3 className="absolute bottom-3 left-6 text-xl font-bold text-white">Kaikki</h3>
+              </div>
               <p className="text-sm text-muted-foreground">Näytä kaikki koulutukset</p>
             </button>
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActive(cat.id)}
-                className={`keuda-card-enhanced p-6 text-left transition-all ${
+                className={`keuda-card-enhanced p-6 text-left transition-all overflow-hidden flex flex-col ${
                   active === cat.id ? "ring-2 ring-primary border-primary" : ""
                 }`}
               >
-                <div className="text-3xl mb-3">{cat.icon}</div>
-                <h3 className="font-semibold text-foreground mb-1">{cat.title}</h3>
+                <div className="relative h-40 -mx-6 -mt-6 mb-5 overflow-hidden">
+                  <img src={cat.image} alt={cat.title} loading="lazy" width={1024} height={640} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
+                  <h3 className="absolute bottom-3 left-6 text-xl font-bold text-white">{cat.title}</h3>
+                </div>
                 <p className="text-sm text-muted-foreground">{cat.desc}</p>
               </button>
             ))}
