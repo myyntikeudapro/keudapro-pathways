@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
@@ -54,9 +54,57 @@ const courses: Course[] = [
 
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
   const { toast } = useToast();
 
   const filtered = active === "Kaikki" ? courses : courses.filter((c) => c.category === active);
+  const inlineCourses = openCategory ? courses.filter((c) => c.category === openCategory) : [];
+
+  const toggleCategory = (id: string) => {
+    setActive(id);
+    if (id === "Kaikki") {
+      setOpenCategory(null);
+    } else {
+      setOpenCategory((prev) => (prev === id ? null : id));
+    }
+  };
+
+  const renderCourseCard = (c: Course) => {
+    const free = c.total - c.taken;
+    const fillingUp = c.total > 0 && free <= 5 && free > 0;
+    const courseImage = courseImageOverrides[c.name] ?? categories.find((cat) => cat.id === c.category)?.image;
+    return (
+      <div key={c.name} className="keuda-card-enhanced p-6 flex flex-col overflow-hidden">
+        {courseImage && (
+          <div className="relative h-40 -mx-6 -mt-6 mb-5 overflow-hidden">
+            <img src={courseImage} alt={c.name} loading="lazy" width={1024} height={640} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          </div>
+        )}
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <Badge className="bg-primary text-primary-foreground hover:bg-primary">{c.category}</Badge>
+          {c.openSeats && (
+            <Badge variant="outline" className="border-primary text-primary">Avoin osallistujille</Badge>
+          )}
+          {fillingUp && (
+            <Badge className="bg-orange-500 text-white hover:bg-orange-500">Täyttymässä</Badge>
+          )}
+        </div>
+        <h3 className="text-lg font-bold text-foreground mb-2">{c.name}</h3>
+        <div className="text-sm text-muted-foreground space-y-1 mb-4">
+          <div>Seuraava: {c.date}</div>
+          {c.total > 0 && <div>{free} / {c.total} paikkaa vapaana</div>}
+          <div className="flex items-center gap-1.5">
+            {c.format === "Etätoteutus" ? <Monitor className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
+            {c.format}
+          </div>
+        </div>
+        <div className="mt-auto">
+          <Button variant="outline-primary" className="w-full">Ilmoittaudu</Button>
+        </div>
+      </div>
+    );
+  };
 
   const handleSubmit = (e: React.FormEvent, msg: string) => {
     e.preventDefault();
@@ -94,34 +142,41 @@ const PatevyydetPage = () => {
       <section className="py-10 md:py-16 bg-muted/30">
         <div className="keuda-container">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <button
-              onClick={() => setActive("Kaikki")}
-              className={`keuda-card-enhanced p-6 text-left transition-all overflow-hidden flex flex-col ${
-                active === "Kaikki" ? "ring-2 ring-primary border-primary" : ""
-              }`}
-            >
-              <div className="relative h-40 -mx-6 -mt-6 mb-5 overflow-hidden">
-                <img src={catKaikki} alt="Kaikki koulutukset" loading="lazy" width={1024} height={640} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
-                <h3 className="absolute bottom-3 left-6 text-xl font-bold text-white">Kaikki</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">Näytä kaikki koulutukset</p>
-            </button>
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActive(cat.id)}
-                className={`keuda-card-enhanced p-6 text-left transition-all overflow-hidden flex flex-col ${
-                  active === cat.id ? "ring-2 ring-primary border-primary" : ""
-                }`}
-              >
-                <div className="relative h-40 -mx-6 -mt-6 mb-5 overflow-hidden">
-                  <img src={cat.image} alt={cat.title} loading="lazy" width={1024} height={640} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
-                  <h3 className="absolute bottom-3 left-6 text-xl font-bold text-white">{cat.title}</h3>
-                </div>
-                <p className="text-sm text-muted-foreground">{cat.desc}</p>
-              </button>
+            {[{ id: "Kaikki", image: catKaikki, title: "Kaikki", desc: "Näytä kaikki koulutukset" }, ...categories].map((cat) => (
+              <React.Fragment key={cat.id}>
+                <button
+                  onClick={() => toggleCategory(cat.id)}
+                  className={`keuda-card-enhanced p-6 text-left transition-all overflow-hidden flex flex-col ${
+                    active === cat.id ? "ring-2 ring-primary border-primary" : ""
+                  }`}
+                >
+                  <div className="relative h-40 -mx-6 -mt-6 mb-5 overflow-hidden">
+                    <img src={cat.image} alt={cat.title} loading="lazy" width={1024} height={640} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
+                    <h3 className="absolute bottom-3 left-6 text-xl font-bold text-white">{cat.title}</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{cat.desc}</p>
+                </button>
+                {openCategory === cat.id && cat.id !== "Kaikki" && (
+                  <div className="col-span-full animate-accordion-down">
+                    <div className="keuda-card-enhanced p-6 md:p-8 bg-background">
+                      <div className="flex items-center justify-between mb-6 gap-4">
+                        <h3 className="text-2xl font-bold text-foreground">
+                          Tulevat {cat.title.toLowerCase()}-koulutukset
+                        </h3>
+                        <Button variant="ghost" size="sm" onClick={() => setOpenCategory(null)}>Sulje</Button>
+                      </div>
+                      {inlineCourses.length > 0 ? (
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          {inlineCourses.map(renderCourseCard)}
+                        </div>
+                      ) : (
+                        <p className="text-muted-foreground">Ei tulevia koulutuksia tällä hetkellä.</p>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </React.Fragment>
             ))}
           </div>
         </div>
@@ -134,63 +189,7 @@ const PatevyydetPage = () => {
             Tulevat koulutukset
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((c) => {
-              const free = c.total - c.taken;
-              const fillingUp = c.total > 0 && free <= 5 && free > 0;
-              const courseImage = courseImageOverrides[c.name] ?? categories.find((cat) => cat.id === c.category)?.image;
-              return (
-                <div key={c.name} className="keuda-card-enhanced p-6 flex flex-col overflow-hidden">
-                  {courseImage && (
-                    <div className="relative h-40 -mx-6 -mt-6 mb-5 overflow-hidden">
-                      <img
-                        src={courseImage}
-                        alt={c.name}
-                        loading="lazy"
-                        width={1024}
-                        height={640}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                    </div>
-                  )}
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <Badge className="bg-primary text-primary-foreground hover:bg-primary">
-                      {c.category}
-                    </Badge>
-                    {c.openSeats && (
-                      <Badge variant="outline" className="border-primary text-primary">
-                        Avoin osallistujille
-                      </Badge>
-                    )}
-                    {fillingUp && (
-                      <Badge className="bg-orange-500 text-white hover:bg-orange-500">
-                        Täyttymässä
-                      </Badge>
-                    )}
-                  </div>
-                  <h3 className="text-lg font-bold text-foreground mb-2">{c.name}</h3>
-                  <div className="text-sm text-muted-foreground space-y-1 mb-4">
-                    <div>Seuraava: {c.date}</div>
-                    {c.total > 0 && (
-                      <div>{free} / {c.total} paikkaa vapaana</div>
-                    )}
-                    <div className="flex items-center gap-1.5">
-                      {c.format === "Etätoteutus" ? (
-                        <Monitor className="w-4 h-4" />
-                      ) : (
-                        <MapPin className="w-4 h-4" />
-                      )}
-                      {c.format}
-                    </div>
-                  </div>
-                  <div className="mt-auto">
-                    <Button variant="outline-primary" className="w-full">
-                      Ilmoittaudu
-                    </Button>
-                  </div>
-                </div>
-              );
-            })}
+            {filtered.map(renderCourseCard)}
           </div>
         </div>
       </section>
