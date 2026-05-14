@@ -71,6 +71,45 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Pätevyydet – kevyt viittausosio */}
+      <section className="py-10 md:py-14">
+        <div className="keuda-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
+              Pätevyydet
+            </h2>
+            <p className="text-muted-foreground text-lg mb-6">
+              Nopeat, tunnustetut kortit ja osaamispätevyydet — yrityksille ja yksittäisille osallistujille.
+            </p>
+            <div className="flex flex-wrap justify-center gap-2 mb-6">
+              {[
+                "Työturvallisuuskortti",
+                "Hygieniapassi",
+                "EA1 Ensiapu",
+                "Tulityökortti",
+                "Anniskelupassi",
+                "LinkedIn-kortti",
+                "Tekoäly työssä",
+              ].map((tag) => (
+                <a
+                  key={tag}
+                  href="/patevyydet"
+                  className="inline-flex items-center rounded-full border-2 border-primary text-primary px-3 py-1 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
+                >
+                  {tag}
+                </a>
+              ))}
+            </div>
+            <a
+              href="/patevyydet"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground transition-all duration-200 h-12 px-8 text-base font-medium"
+            >
+              Katso kaikki koulutukset →
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Animated Counters / Social Proof */}
       <AnimatedCounters />
 
