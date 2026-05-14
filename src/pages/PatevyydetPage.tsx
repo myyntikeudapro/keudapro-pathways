@@ -39,6 +39,8 @@ type Course = {
   total: number;
   format: "Lähitoteutus" | "Etätoteutus" | "Räätälöity";
   openSeats: boolean;
+  infoUrl?: string;
+  signupUrl?: string;
 };
 
 const courses: Course[] = [
@@ -46,6 +48,17 @@ const courses: Course[] = [
   { name: "Hygieniapassi", category: "Hygienia", date: "18.6.2025", taken: 8, total: 16, format: "Lähitoteutus", openSeats: true },
   { name: "EA1 Ensiapu", category: "Ensiapu", date: "20.6.2025", taken: 6, total: 12, format: "Lähitoteutus", openSeats: true },
   { name: "Tulityökortti", category: "Turvallisuus", date: "25.6.2025", taken: 7, total: 10, format: "Lähitoteutus", openSeats: false },
+  {
+    name: "Akkuturvallisuuskoulutus",
+    category: "Turvallisuus",
+    date: "16.12.2025",
+    taken: 0,
+    total: 0,
+    format: "Etätoteutus",
+    openSeats: true,
+    infoUrl: "https://www.keuda.fi/koulutus/akkuturvallisuuskoulutus/",
+    signupUrl: "https://www.lyyti.fi/reg/Akkuturvallisuuskoulutuslanding_page_6706",
+  },
   { name: "Anniskelupassi", category: "Hygienia", date: "10.7.2025", taken: 6, total: 16, format: "Lähitoteutus", openSeats: true },
   { name: "LinkedIn-kortti", category: "Työelämätaidot", date: "2.9.2025", taken: 4, total: 16, format: "Etätoteutus", openSeats: true },
   { name: "3T: Tehoa työnhakuun tekoälyllä", category: "AI", date: "10.9.2025", taken: 8, total: 16, format: "Etätoteutus", openSeats: true },
