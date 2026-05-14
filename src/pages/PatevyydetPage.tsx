@@ -3,23 +3,8 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { MapPin, Monitor } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
@@ -54,16 +39,9 @@ const courses: Course[] = [
   { name: "Toimialakohtainen pätevyys", category: "Toimialakohtaiset", date: "Kysy toteutusta", taken: 0, total: 0, format: "Räätälöity", openSeats: false },
 ];
 
-const partnerCards = [
-  { title: "Strategic Partner", desc: "Prioriteettipaikat, ennakkovarausoikeus, kumppanuusalennukset, näkyvyys palvelussa" },
-  { title: "Access Partner", desc: "Pääsy avoimiin ryhmiin, Open Seats -paikat, yritysosallistujaedut" },
-  { title: "Delivery Partner", desc: "Tarjoa koulutuksiasi KeudaPRO Skills Hubin kautta, hyväksytty palveluntuottaja" },
-];
-
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
   const { toast } = useToast();
-  const [partnerOpen, setPartnerOpen] = useState(false);
 
   const filtered = active === "Kaikki" ? courses : courses.filter((c) => c.category === active);
 
@@ -90,12 +68,9 @@ const PatevyydetPage = () => {
             <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
               Nopeat, tunnustetut kortit — ryhmille, tiimeille ja yksittäisille osallistujille. Löydä tarvitsemasi koulutus ja ilmoittaudu suoraan.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex justify-center">
               <Button variant="cta" size="lg" asChild>
                 <a href="#koulutukset">Selaa koulutuksia</a>
-              </Button>
-              <Button variant="outline-primary" size="lg" asChild>
-                <a href="#kumppanit">Hae kumppaniksi</a>
               </Button>
             </div>
           </div>
@@ -183,78 +158,6 @@ const PatevyydetPage = () => {
                 </div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* Partners */}
-      <section id="kumppanit" className="py-12 md:py-20 bg-accent/40">
-        <div className="keuda-container">
-          <div className="max-w-3xl mx-auto text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              UNIIKKI-kumppanuus
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Tarjoa koulutuksiasi KeudaPRO:n kautta tai hyödynnä avoimia ryhmiä oman organisaatiosi tarpeisiin.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
-            {partnerCards.map((p) => (
-              <div key={p.title} className="keuda-card-enhanced p-6">
-                <h3 className="text-xl font-bold text-foreground mb-3">{p.title}</h3>
-                <p className="text-sm text-muted-foreground">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center">
-            <Dialog open={partnerOpen} onOpenChange={setPartnerOpen}>
-              <DialogTrigger asChild>
-                <Button variant="cta" size="lg">Hae kumppaniksi</Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-lg">
-                <DialogHeader>
-                  <DialogTitle>Hae kumppaniksi</DialogTitle>
-                </DialogHeader>
-                <form
-                  onSubmit={(e) => {
-                    handleSubmit(e, "Kiitos! Olemme yhteydessä pian.");
-                    setPartnerOpen(false);
-                  }}
-                  className="space-y-4"
-                >
-                  <div>
-                    <Label htmlFor="org">Organisaation nimi</Label>
-                    <Input id="org" required />
-                  </div>
-                  <div>
-                    <Label htmlFor="contact">Yhteyshenkilö</Label>
-                    <Input id="contact" required />
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Sähköposti</Label>
-                    <Input id="email" type="email" required />
-                  </div>
-                  <div>
-                    <Label htmlFor="ptype">Kumppanuustyyppi</Label>
-                    <Select>
-                      <SelectTrigger id="ptype">
-                        <SelectValue placeholder="Valitse" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="strategic">Strategic Partner</SelectItem>
-                        <SelectItem value="access">Access Partner</SelectItem>
-                        <SelectItem value="delivery">Delivery Partner</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label htmlFor="msg">Kerro tarpeitanne lyhyesti</Label>
-                    <Textarea id="msg" rows={4} />
-                  </div>
-                  <Button type="submit" variant="cta" className="w-full">Lähetä</Button>
-                </form>
-              </DialogContent>
-            </Dialog>
           </div>
         </div>
       </section>
