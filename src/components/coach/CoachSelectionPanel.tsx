@@ -40,7 +40,7 @@ const coaches = [
 ];
 
 export function CoachSelectionPanel() {
-  const { isPanelOpen, closePanel, openChat, highlightedCoach } = useCoachPanel();
+  const { isPanelOpen, closePanel, openChat, highlightedCoach, openBooking } = useCoachPanel();
 
   return (
     <>
