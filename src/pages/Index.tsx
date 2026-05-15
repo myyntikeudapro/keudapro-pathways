@@ -90,22 +90,22 @@ const Index = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-left">
               {[
                 {
-                  icon: ShieldCheck,
+                  image: categoryTurvallisuus,
                   title: "Turvallisuus",
                   items: "Työturvallisuus · Tulityö · Ensiapu",
                 },
                 {
-                  icon: UtensilsCrossed,
+                  image: categoryHygienia,
                   title: "Hygienia & ravintola",
                   items: "Hygieniapassi · Anniskelupassi · Lääkehoito",
                 },
                 {
-                  icon: Briefcase,
+                  image: categoryTyoelama,
                   title: "Työelämä",
                   items: "LinkedIn-kortti · Työkieli-Suomi · KV-kortti",
                 },
                 {
-                  icon: Sparkles,
+                  image: categoryAi,
                   title: "AI & digi",
                   items: "Tekoälyn ammattiosaaja",
                 },
@@ -113,13 +113,22 @@ const Index = () => {
                 <a
                   key={cat.title}
                   href="/osaaminen"
-                  className="group flex flex-col h-full rounded-xl bg-background border border-border p-5 hover:border-primary hover:shadow-md transition-all"
+                  className="group flex flex-col h-full rounded-xl bg-background border border-border overflow-hidden hover:border-primary hover:shadow-md transition-all"
                 >
-                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary mb-3 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    <cat.icon className="w-5 h-5" />
+                  <div className="aspect-[16/10] overflow-hidden bg-muted">
+                    <img
+                      src={cat.image}
+                      alt={cat.title}
+                      width={800}
+                      height={512}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <h3 className="text-base font-semibold text-foreground mb-1">{cat.title}</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{cat.items}</p>
+                  <div className="p-4">
+                    <h3 className="text-base font-semibold text-foreground mb-1">{cat.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{cat.items}</p>
+                  </div>
                 </a>
               ))}
             </div>
