@@ -63,7 +63,51 @@ type Course = {
   description: string;
   infoUrl?: string;
   signupUrl?: string;
+  tags?: string[];
 };
+
+const courseTags: Record<string, string[]> = {
+  "Työturvallisuuskortti": ["kortti", "yritys", "nopea", "lähi"],
+  "Hygieniapassi": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "EA1 Ensiapu": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "EA2 Ensiapu": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "Hätäensiapu 4 t": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "Hätäensiapu 8 t": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "Tulityökortti": ["kortti", "yritys", "nopea", "lähi"],
+  "Anniskelupassi": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "Akkuturvallisuuskoulutus": ["kortti", "yritys", "nopea", "lähi"],
+  "Työhyvinvointikortti": ["osaaminen", "yritys", "tiimi", "räätälöity"],
+  "KV-kortti": ["kortti", "osaaminen", "yritys", "nopea", "verkko"],
+  "3T: Tehoa työnhakuun tekoälyllä": ["tekoäly", "yksilö", "nopea", "verkko"],
+  "LinkedIn-kortti": ["osaaminen", "yksilö", "työnhaku", "nopea", "verkko"],
+  "Toimialakohtainen pätevyys": ["osaaminen", "yritys", "räätälöity", "tiimi"],
+};
+
+type WhoOption = { id: string; label: string; tag: string };
+type GoalOption = { id: string; label: string; tags: string[] };
+type FormatOption = { id: string; label: string; tag: string };
+
+const whoOptions: WhoOption[] = [
+  { id: "yksilo", label: "👤 Yksilö tai työnhakija", tag: "yksilö" },
+  { id: "yritys", label: "🏢 Yritys tai organisaatio", tag: "yritys" },
+  { id: "muutos", label: "🔄 Muutostilanteessa", tag: "muutos" },
+];
+
+const goalOptions: GoalOption[] = [
+  { id: "kortti", label: "🪪 Virallinen kortti tai pätevyys", tags: ["kortti"] },
+  { id: "osaaminen", label: "💡 Kehittää osaamistani", tags: ["osaaminen"] },
+  { id: "tekoaly", label: "🤖 Oppia tekoälyn hyödyntämistä", tags: ["tekoäly"] },
+  { id: "suunta", label: "🧭 Löytää uusi suunta", tags: ["muutos", "työnhaku"] },
+  { id: "tiimi", label: "👥 Kehittää tiimiä tai henkilöstöä", tags: ["tiimi"] },
+];
+
+const formatOptions: FormatOption[] = [
+  { id: "nopea", label: "⚡ Nopea (1 pv tai alle)", tag: "nopea" },
+  { id: "ohjelma", label: "📅 Lyhyt ohjelma", tag: "ohjelma" },
+  { id: "verkko", label: "🌐 Verkossa", tag: "verkko" },
+  { id: "lahi", label: "🏫 Lähitoteutus", tag: "lähi" },
+  { id: "raataloity", label: "🔧 Räätälöity ryhmälle", tag: "räätälöity" },
+];
 
 const courses: Course[] = [
   {
@@ -153,21 +197,80 @@ const courses: Course[] = [
   },
 ];
 
+const reittiCards: Course[] = [
+  {
+    name: "Reitit: Äly · Noste · Kasvu",
+    category: "Reitit",
+    description: "KeudaPRO:n ohjelmalliset kehityspolut yksilöille ja muutostilanteisiin — Äly (osaamisen kehittäminen), Noste (työn murros) ja Kasvu (yritysten kehittäminen).",
+    infoUrl: "/kasvu",
+    tags: ["osaaminen", "yksilö", "muutos", "ohjelma"],
+  },
+];
+
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [who, setWho] = useState<string | null>(null);
+  const [goals, setGoals] = useState<string[]>([]);
+  const [formats, setFormats] = useState<string[]>([]);
+  const [wizardActive, setWizardActive] = useState(false);
   const { toast } = useToast();
 
-  const filtered = active === "Kaikki" ? courses : courses.filter((c) => c.category === active);
-  const inlineCourses = openCategory ? courses.filter((c) => c.category === openCategory) : [];
+  const baseCourses: Course[] = courses.map((c) => ({ ...c, tags: courseTags[c.name] }));
+  const allCourses: Course[] = [...baseCourses, ...reittiCards];
+
+  const wizardSelectedTags: string[] = [];
+  if (who) {
+    const w = whoOptions.find((o) => o.id === who);
+    if (w) wizardSelectedTags.push(w.tag);
+  }
+  goals.forEach((g) => {
+    const o = goalOptions.find((x) => x.id === g);
+    if (o) wizardSelectedTags.push(...o.tags);
+  });
+  formats.forEach((f) => {
+    const o = formatOptions.find((x) => x.id === f);
+    if (o) wizardSelectedTags.push(o.tag);
+  });
+
+  const wizardFiltered = wizardActive && wizardSelectedTags.length > 0
+    ? allCourses.filter((c) => (c.tags ?? []).some((t) => wizardSelectedTags.includes(t)))
+    : null;
+
+  const filtered = wizardFiltered
+    ? wizardFiltered
+    : active === "Kaikki"
+      ? baseCourses
+      : baseCourses.filter((c) => c.category === active);
+  const inlineCourses = openCategory ? baseCourses.filter((c) => c.category === openCategory) : [];
 
   const toggleCategory = (id: string) => {
+    setWizardActive(false);
     setActive(id);
     if (id === "Kaikki") {
       setOpenCategory(null);
     } else {
       setOpenCategory((prev) => (prev === id ? null : id));
     }
+  };
+
+  const toggleInArray = (arr: string[], v: string) =>
+    arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v];
+
+  const resetWizard = () => {
+    setWho(null);
+    setGoals([]);
+    setFormats([]);
+    setWizardActive(false);
+  };
+
+  const runWizard = () => {
+    setWizardActive(true);
+    setActive("Kaikki");
+    setOpenCategory(null);
+    setTimeout(() => {
+      document.getElementById("koulutukset")?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
   };
 
   const renderCourseCard = (c: Course) => {
@@ -188,7 +291,11 @@ const PatevyydetPage = () => {
         <div className="mt-auto space-y-2">
           {c.infoUrl && (
             <Button variant="ghost" className="w-full" asChild>
-              <a href={c.infoUrl} target="_blank" rel="noopener noreferrer">Lue lisää</a>
+              {c.infoUrl.startsWith("/") ? (
+                <a href={c.infoUrl}>Lue lisää</a>
+              ) : (
+                <a href={c.infoUrl} target="_blank" rel="noopener noreferrer">Lue lisää</a>
+              )}
             </Button>
           )}
           {c.signupUrl ? (
@@ -230,6 +337,106 @@ const PatevyydetPage = () => {
               <Button variant="cta" size="lg" asChild>
                 <a href="#koulutukset">Selaa koulutuksia</a>
               </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Ohjattu osaamishaku */}
+      <section className="py-12 md:py-16" style={{ backgroundColor: "#F0F7F6" }}>
+        <div className="keuda-container">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+                Löydä sinulle sopiva ratkaisu
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Vastaa kolmeen kysymykseen — näytämme sopivimmat vaihtoehdot.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <p className="font-semibold text-foreground mb-3">Olen…</p>
+                <div className="flex flex-wrap gap-2">
+                  {whoOptions.map((o) => {
+                    const selected = who === o.id;
+                    return (
+                      <button
+                        key={o.id}
+                        type="button"
+                        onClick={() => setWho(selected ? null : o.id)}
+                        className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
+                          selected
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {o.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <p className="font-semibold text-foreground mb-3">Tavoitteeni on…</p>
+                <div className="flex flex-wrap gap-2">
+                  {goalOptions.map((o) => {
+                    const selected = goals.includes(o.id);
+                    return (
+                      <button
+                        key={o.id}
+                        type="button"
+                        onClick={() => setGoals((prev) => toggleInArray(prev, o.id))}
+                        className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
+                          selected
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {o.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <p className="font-semibold text-foreground mb-3">Sopii minulle…</p>
+                <div className="flex flex-wrap gap-2">
+                  {formatOptions.map((o) => {
+                    const selected = formats.includes(o.id);
+                    return (
+                      <button
+                        key={o.id}
+                        type="button"
+                        onClick={() => setFormats((prev) => toggleInArray(prev, o.id))}
+                        className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
+                          selected
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {o.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-2">
+                <Button variant="default" size="lg" onClick={runWizard} className="bg-primary hover:bg-primary/90">
+                  Näytä sopivat ratkaisut ↓
+                </Button>
+                <button
+                  type="button"
+                  onClick={resetWizard}
+                  className="text-sm text-muted-foreground underline-offset-4 hover:underline self-start sm:self-center"
+                >
+                  Tyhjennä valinnat
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -279,20 +486,55 @@ const PatevyydetPage = () => {
         </div>
       </section>
 
-      {/* Courses */}
-      <section id="koulutukset" className="py-12 md:py-16">
+      {/* Tutkintopolku-banneri */}
+      <section className="py-6" style={{ backgroundColor: "#F5F5F5" }}>
         <div className="keuda-container">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
-            Tulevat koulutukset
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map(renderCourseCard)}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <p className="text-base text-foreground">
+              Etsitkö tutkintotavoitteista koulutusta tai pidempää ammatillista polkua?
+            </p>
+            <div className="flex flex-col md:items-end">
+              <a
+                href="https://www.keuda.fi/koulutukset/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-semibold hover:underline"
+              >
+                Tutustu Keudan tutkintokoulutuksiin →
+              </a>
+              <span className="text-xs text-muted-foreground mt-1">
+                Keuda tarjoaa ammatillisia tutkintoja KUUMA-seudulla.
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Courses */}
+      <section id="koulutukset" className="py-12 md:py-16">
+        <div className="keuda-container">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
+            {wizardActive && wizardSelectedTags.length > 0 ? "Sinulle sopivat ratkaisut" : "Tulevat koulutukset"}
+          </h2>
+          {filtered.length === 0 ? (
+            <div className="max-w-2xl mx-auto text-center keuda-card-enhanced p-8">
+              <p className="text-lg text-foreground mb-4">
+                Ei tarkkaa osumaa — kerro tarpeesi ja räätälöimme ratkaisun.
+              </p>
+              <Button variant="cta" asChild>
+                <a href="#tarvelomake">Kerro tarpeesi</a>
+              </Button>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map(renderCourseCard)}
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Need form */}
-      <section className="py-12 md:py-20">
+      <section id="tarvelomake" className="py-12 md:py-20">
         <div className="keuda-container">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-8">
