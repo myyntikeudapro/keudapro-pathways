@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -8,6 +9,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "sonner";
+
+/* ─── VALIDATION SCHEMA ─── */
+const contactSchema = z.object({
+  name: z.string().trim().min(2, "Anna nimesi").max(100, "Nimi on liian pitkä"),
+  company: z.string().trim().max(150, "Yrityksen nimi on liian pitkä").optional(),
+  email: z.string().trim().email("Tarkista sähköpostiosoite").max(255),
+  phone: z.string().trim().max(40, "Puhelinnumero on liian pitkä").optional(),
+  message: z.string().trim().min(5, "Kerro hieman tarkemmin").max(2000, "Viesti on liian pitkä"),
+});
 
 /* ─── CATEGORY DATA ─── */
 const MUU = "Muu";
