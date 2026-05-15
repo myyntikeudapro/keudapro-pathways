@@ -115,8 +115,54 @@ const ContactForm = () => {
     setSubOther("");
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    // Honeypot — bots fill hidden fields
+    if (formData.get("website")) {
+      toast.success("Kiitos! Otamme yhteyttä pian.");
+      return;
+    }
+
+    if (!category) {
+      toast.error("Valitse aihe, johon asiasi liittyy.");
+      return;
+    }
+
+    const result = contactSchema.safeParse({
+      name: formData.get("name"),
+      company: formData.get("company") || undefined,
+      email: formData.get("email"),
+      phone: formData.get("phone") || undefined,
+      message: formData.get("message"),
+    });
+
+    if (!result.success) {
+      const first = result.error.issues[0];
+      toast.error(first?.message ?? "Tarkista lomakkeen tiedot");
+      return;
+    }
+
+    toast.success("Kiitos viestistäsi! Otamme yhteyttä mahdollisimman pian.");
+    e.currentTarget.reset();
+    setCategory("");
+    setSub("");
+    setMessage("");
+  };
+
   return (
-    <form className="keuda-card-enhanced space-y-6">
+    <form onSubmit={handleSubmit} className="keuda-card-enhanced space-y-6" noValidate>
+      {/* Honeypot — hidden from users, attractive to bots */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute left-[-9999px] w-px h-px opacity-0"
+      />
+
       {/* Nimi */}
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
