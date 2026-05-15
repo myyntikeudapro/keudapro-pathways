@@ -369,24 +369,6 @@ const PatevyydetPage = () => {
         path="/osaaminen"
       />
 
-      <PatevyydetHeroCarousel />
-
-      {/* Intro + CTAs */}
-      <section className="py-10 md:py-14">
-        <div className="keuda-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
-              Nopeat, tunnustetut kortit — ryhmille, tiimeille ja yksittäisille osallistujille. Löydä tarvitsemasi koulutus ja ilmoittaudu suoraan.
-            </p>
-            <div className="flex justify-center">
-              <Button variant="cta" size="lg" asChild>
-                <a href="#koulutukset">Selaa koulutuksia</a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Mistä tarpeesta liikkeelle? */}
       <section className="py-12 md:py-16 bg-foreground">
         <div className="keuda-container">
