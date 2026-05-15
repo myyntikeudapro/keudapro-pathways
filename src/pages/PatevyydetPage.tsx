@@ -291,7 +291,11 @@ const PatevyydetPage = () => {
         <div className="mt-auto space-y-2">
           {c.infoUrl && (
             <Button variant="ghost" className="w-full" asChild>
-              <a href={c.infoUrl} target="_blank" rel="noopener noreferrer">Lue lisää</a>
+              {c.infoUrl.startsWith("/") ? (
+                <a href={c.infoUrl}>Lue lisää</a>
+              ) : (
+                <a href={c.infoUrl} target="_blank" rel="noopener noreferrer">Lue lisää</a>
+              )}
             </Button>
           )}
           {c.signupUrl ? (
