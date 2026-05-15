@@ -216,6 +216,7 @@ const PatevyydetPage = () => {
   const [formats, setFormats] = useState<string[]>([]);
   const [wizardActive, setWizardActive] = useState(false);
   const { toast } = useToast();
+  const { openPanel } = useCoachPanel();
 
   const baseCourses: Course[] = courses.map((c) => ({ ...c, tags: courseTags[c.name] }));
   const allCourses: Course[] = [...baseCourses, ...reittiCards];
