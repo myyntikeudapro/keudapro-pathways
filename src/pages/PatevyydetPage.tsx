@@ -197,21 +197,82 @@ const courses: Course[] = [
   },
 ];
 
+const reittiCards: Course[] = [
+  {
+    name: "Reitit: Äly · Noste · Kasvu",
+    category: "Reitit",
+    description: "KeudaPRO:n ohjelmalliset kehityspolut yksilöille ja muutostilanteisiin — Äly (osaamisen kehittäminen), Noste (työn murros) ja Kasvu (yritysten kehittäminen).",
+    infoUrl: "/kasvu",
+    tags: ["osaaminen", "yksilö", "muutos", "ohjelma"],
+  },
+];
+
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [who, setWho] = useState<string | null>(null);
+  const [goals, setGoals] = useState<string[]>([]);
+  const [formats, setFormats] = useState<string[]>([]);
+  const [wizardActive, setWizardActive] = useState(false);
   const { toast } = useToast();
 
-  const filtered = active === "Kaikki" ? courses : courses.filter((c) => c.category === active);
-  const inlineCourses = openCategory ? courses.filter((c) => c.category === openCategory) : [];
+  const allCourses: Course[] = [
+    ...courses.map((c) => ({ ...c, tags: courseTags[c.name] })),
+    ...reittiCards,
+  ];
+
+  const wizardSelectedTags: string[] = [];
+  if (who) {
+    const w = whoOptions.find((o) => o.id === who);
+    if (w) wizardSelectedTags.push(w.tag);
+  }
+  goals.forEach((g) => {
+    const o = goalOptions.find((x) => x.id === g);
+    if (o) wizardSelectedTags.push(...o.tags);
+  });
+  formats.forEach((f) => {
+    const o = formatOptions.find((x) => x.id === f);
+    if (o) wizardSelectedTags.push(o.tag);
+  });
+
+  const wizardFiltered = wizardActive && wizardSelectedTags.length > 0
+    ? allCourses.filter((c) => (c.tags ?? []).some((t) => wizardSelectedTags.includes(t)))
+    : null;
+
+  const filtered = wizardFiltered
+    ? wizardFiltered
+    : active === "Kaikki"
+      ? allCourses
+      : allCourses.filter((c) => c.category === active);
+  const inlineCourses = openCategory ? allCourses.filter((c) => c.category === openCategory) : [];
 
   const toggleCategory = (id: string) => {
+    setWizardActive(false);
     setActive(id);
     if (id === "Kaikki") {
       setOpenCategory(null);
     } else {
       setOpenCategory((prev) => (prev === id ? null : id));
     }
+  };
+
+  const toggleInArray = (arr: string[], v: string) =>
+    arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v];
+
+  const resetWizard = () => {
+    setWho(null);
+    setGoals([]);
+    setFormats([]);
+    setWizardActive(false);
+  };
+
+  const runWizard = () => {
+    setWizardActive(true);
+    setActive("Kaikki");
+    setOpenCategory(null);
+    setTimeout(() => {
+      document.getElementById("koulutukset")?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
   };
 
   const renderCourseCard = (c: Course) => {
