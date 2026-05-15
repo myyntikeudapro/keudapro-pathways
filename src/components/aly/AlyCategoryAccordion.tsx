@@ -11,6 +11,9 @@ import progAiManager from "@/assets/prog-ai-manager.jpg";
 import progAiCoordinator from "@/assets/prog-ai-coordinator.jpg";
 import progHyperEngineering from "@/assets/prog-hyper-engineering.jpg";
 import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
+import progTurvallisuusPaallikko from "@/assets/prog-turvallisuus-paallikko.jpg";
+import progTurvallisuusJohtaja from "@/assets/prog-turvallisuus-johtaja.jpg";
+import progLuotettavuusAi from "@/assets/prog-luotettavuus-ai.jpg";
 
 type Program = {
   label: string;
