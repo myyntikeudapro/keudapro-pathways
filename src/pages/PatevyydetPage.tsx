@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
+import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
 
 import catKaikki from "@/assets/cat-kaikki.jpg";
 import catTurvallisuus from "@/assets/cat-turvallisuus.jpg";
