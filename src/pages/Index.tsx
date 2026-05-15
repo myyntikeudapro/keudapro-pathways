@@ -9,7 +9,7 @@ import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
 import routeAly from "@/assets/route-aly.jpg";
 import routeNoste from "@/assets/route-noste.jpg";
 import routeKasvu from "@/assets/route-kasvu.jpg";
-import reititCtaBg from "@/assets/reitit-cta-bg.jpg";
+
 
 const routes = [
   {
