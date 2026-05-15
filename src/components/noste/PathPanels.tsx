@@ -98,7 +98,7 @@ function MaksullinenValmennusStep() {
       <p className="text-xs italic text-muted-foreground mb-3">
         Maksullinen palvelu – kysy hinnasta yhteydenotolla.
       </p>
-      <CtaLink href="https://calendar.google.com/calendar/embed?src=myynti%40keudapro.com&ctz=Europe%2FHelsinki">Varaa aika →</CtaLink>
+      <CtaLink href="https://calendar.app.google/KEf8whD71iKruG979">Varaa aika →</CtaLink>
     </StepCard>
   );
 }
@@ -192,7 +192,7 @@ export function Panel2({ open, onClose, onOpenMuutosturva }: { open: boolean; on
         <p className="text-sm text-muted-foreground mb-3">
           Varaa aika ja päivitetään CV:si yhdessä – käytännössä ja nopeasti.
         </p>
-        <CtaLink href="https://calendar.google.com/calendar/embed?src=myynti%40keudapro.com&ctz=Europe%2FHelsinki">Varaa aika →</CtaLink>
+        <CtaLink href="https://calendar.app.google/KEf8whD71iKruG979">Varaa aika →</CtaLink>
       </StepCard>
 
       <StepCard title="ARPRO AI-työnhaku" tooltip="Tekoälyavusteinen työnhakuvalmennus.">
@@ -248,7 +248,7 @@ export function Panel3({ open, onClose, onOpenMuutosturva }: { open: boolean; on
         <p className="text-sm text-muted-foreground mb-3">
           Nopea ja käytännöllinen sessio CV:si päivittämiseen.
         </p>
-        <CtaLink href="https://calendar.google.com/calendar/embed?src=myynti%40keudapro.com&ctz=Europe%2FHelsinki">Varaa aika →</CtaLink>
+        <CtaLink href="https://calendar.app.google/KEf8whD71iKruG979">Varaa aika →</CtaLink>
       </StepCard>
 
       <StepCard title="Työkieli haltuun" tooltip="Vahvista suomen, ruotsin tai englannin taitoa työelämässä.">
