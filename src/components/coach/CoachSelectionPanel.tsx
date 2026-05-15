@@ -112,15 +112,13 @@ export function CoachSelectionPanel() {
                     <MessageCircle className="w-4 h-4" />
                     Keskustele AI:n kanssa
                   </button>
-                  <a
-                    href={coach.bookingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={() => openBooking(coach.id)}
                     className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors"
                   >
                     <CalendarDays className="w-4 h-4" />
-                    Varaa aika
-                  </a>
+                    Varaa aika ihmiselle
+                  </button>
                 </div>
               </div>
             );
