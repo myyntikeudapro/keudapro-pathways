@@ -7,6 +7,7 @@ import { WizardProvider } from "@/contexts/WizardContext";
 import { CoachPanelProvider } from "@/contexts/CoachPanelContext";
 import { RouteWizard } from "@/components/wizard/RouteWizard";
 import { CoachSelectionPanel } from "@/components/coach/CoachSelectionPanel";
+import { BookingPanel } from "@/components/coach/BookingPanel";
 import { MultiCoachChat } from "@/components/coach/MultiCoachChat";
 import Index from "./pages/Index";
 import InsightPage from "./pages/InsightPage";
@@ -31,6 +32,7 @@ const App = () => (
           <BrowserRouter>
             <RouteWizard />
             <CoachSelectionPanel />
+            <BookingPanel />
             <MultiCoachChat />
             <Routes>
               <Route path="/" element={<Index />} />
