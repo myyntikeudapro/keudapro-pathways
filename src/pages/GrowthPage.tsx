@@ -22,6 +22,9 @@ const GrowthPage = () => {
       {/* 2) KASVUREITIT (polut + ratkaisut) */}
       <GrowthRoutes />
 
+      {/* 2b) VALITSE KASVUREITTI – kategoriat */}
+      <KasvuCategoryAccordion />
+
       {/* 3) KASVUALAT */}
       <GrowthIndustries />
 
