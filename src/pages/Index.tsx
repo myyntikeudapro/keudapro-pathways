@@ -114,30 +114,14 @@ const Index = () => {
       {/* Animated Counters / Social Proof */}
       <AnimatedCounters />
 
-      {/* KUUMA Mission Block */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
-        <img
-          src={reititCtaBg}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/75" />
-
-        <div className="relative z-10 keuda-container flex flex-col items-center gap-6">
-          <p className="text-xl md:text-2xl font-semibold text-white text-center mb-2">
+      {/* KUUMA Mission / Motivation banner */}
+      <section className="py-10 md:py-12 bg-muted/20">
+        <div className="keuda-container flex flex-col items-center gap-4 text-center">
+          <p className="text-xl md:text-2xl font-semibold text-foreground">
             KUUMA-seutu kasvun alustana osaajille ja yrityksille.
           </p>
-          <p className="text-sm md:text-base text-white/70 text-center max-w-2xl">
-            KeudaPRO toimii osaamisen ja siirtymien operaattorina näiden reittien välillä.
-          </p>
-        </div>
-      </section>
-
-      {/* Motivation banner before footer */}
-      <section className="py-10 md:py-12 bg-muted/20">
-        <div className="keuda-container text-center">
-          <p className="text-lg md:text-xl font-medium text-foreground">
-            Kasvu syntyy tekemällä – kehitä osaamistasi nyt, jotta pysyt mukana.
+          <p className="text-sm md:text-base text-muted-foreground max-w-3xl">
+            KeudaPRO toimii osaamisen ja siirtymien operaattorina KUUMA-seudulla, Uudellamaalla ja koko Suomessa — kansainvälisen rekrytoinnin osalta yhdessä kumppaneiden kanssa Euroopassa ja sen ulkopuolella.
           </p>
         </div>
       </section>
