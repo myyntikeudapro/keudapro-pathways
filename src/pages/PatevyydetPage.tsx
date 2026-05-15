@@ -342,101 +342,61 @@ const PatevyydetPage = () => {
         </div>
       </section>
 
-      {/* Ohjattu osaamishaku */}
+      {/* Mistä tarpeesta liikkeelle? */}
       <section className="py-12 md:py-16" style={{ backgroundColor: "#F0F7F6" }}>
         <div className="keuda-container">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <div className="text-center mb-8">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-                Löydä sinulle sopiva ratkaisu
+                Mistä tarpeesta liikkeelle?
               </h2>
               <p className="text-lg text-muted-foreground">
-                Vastaa kolmeen kysymykseen — näytämme sopivimmat vaihtoehdot.
+                Valitse tilanne — ohjaamme sinut oikean AI-valmentajan luo.
               </p>
             </div>
 
-            <div className="space-y-6">
-              <div>
-                <p className="font-semibold text-foreground mb-3">Olen…</p>
-                <div className="flex flex-wrap gap-2">
-                  {whoOptions.map((o) => {
-                    const selected = who === o.id;
-                    return (
-                      <button
-                        key={o.id}
-                        type="button"
-                        onClick={() => setWho(selected ? null : o.id)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
-                          selected
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-background text-foreground border-border hover:border-primary/50"
-                        }`}
-                      >
-                        {o.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Tarvitsen kortin tai pätevyyden",
+                  desc: "Työturvallisuus, ensiapu, hygienia tai muu virallinen pätevyys itselleni tai tiimilleni.",
+                  coach: "reitti" as const,
+                },
+                {
+                  title: "Etsin uutta suuntaa",
+                  desc: "Uramuutos, työnhaku tai uusi ammatillinen polku.",
+                  coach: "ana" as const,
+                },
+                {
+                  title: "Kehitän osaamista",
+                  desc: "Tekoäly, digitaaliset taidot tai tiimin osaamisen kehittäminen.",
+                  coach: "veli" as const,
+                },
+              ].map((card) => (
+                <button
+                  key={card.title}
+                  type="button"
+                  onClick={() => openPanel(card.coach)}
+                  aria-label={`${card.title} — avaa AI-valmentajan`}
+                  className="keuda-card-enhanced p-6 text-left flex flex-col h-full transition-all hover:border-teal-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+                >
+                  <h3 className="text-lg font-bold text-foreground mb-2">{card.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
+                </button>
+              ))}
+            </div>
 
-              <div>
-                <p className="font-semibold text-foreground mb-3">Tavoitteeni on…</p>
-                <div className="flex flex-wrap gap-2">
-                  {goalOptions.map((o) => {
-                    const selected = goals.includes(o.id);
-                    return (
-                      <button
-                        key={o.id}
-                        type="button"
-                        onClick={() => setGoals((prev) => toggleInArray(prev, o.id))}
-                        className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
-                          selected
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-background text-foreground border-border hover:border-primary/50"
-                        }`}
-                      >
-                        {o.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div>
-                <p className="font-semibold text-foreground mb-3">Sopii minulle…</p>
-                <div className="flex flex-wrap gap-2">
-                  {formatOptions.map((o) => {
-                    const selected = formats.includes(o.id);
-                    return (
-                      <button
-                        key={o.id}
-                        type="button"
-                        onClick={() => setFormats((prev) => toggleInArray(prev, o.id))}
-                        className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
-                          selected
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-background text-foreground border-border hover:border-primary/50"
-                        }`}
-                      >
-                        {o.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-2">
-                <Button variant="default" size="lg" onClick={runWizard} className="bg-primary hover:bg-primary/90">
-                  Näytä sopivat ratkaisut ↓
-                </Button>
+            <div className="text-center mt-6">
+              <p className="text-sm text-muted-foreground">
+                Ei mikään näistä?{" "}
                 <button
                   type="button"
-                  onClick={resetWizard}
-                  className="text-sm text-muted-foreground underline-offset-4 hover:underline self-start sm:self-center"
+                  onClick={() => openPanel(null)}
+                  className="text-teal-600 hover:text-teal-700 underline-offset-4 hover:underline font-medium"
                 >
-                  Tyhjennä valinnat
+                  Kerro tarpeesi omin sanoin
                 </button>
-              </div>
+              </p>
             </div>
           </div>
         </div>
