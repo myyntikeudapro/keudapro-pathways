@@ -184,7 +184,7 @@ const WorkPlusPage = () => {
       </section>
 
       {/* TILANNEVALINTA + POLUT */}
-      <section className="py-16 md:py-20 bg-muted/30">
+      <section className="py-16 md:py-20 bg-[#E4F0EE]">
         <div className="keuda-container">
           {/* Tilannevalinta */}
           <div className="text-center mb-10">
