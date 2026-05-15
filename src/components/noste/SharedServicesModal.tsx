@@ -153,7 +153,7 @@ const services = [
       { icon: Clock, text: "30 minuuttia" },
       { icon: MapPin, text: "Etänä tai lähitapaamisena" },
     ],
-    cta: { label: "Varaa aika →", href: "https://calendar.app.google/iY2TDLg3b8RpyKjK7" },
+    cta: { label: "Varaa aika →", href: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ14Dw7NAt63yAIEiGiboZjtx6D26SN0IZ_LD9_Cv5kPhkgRhLsAZySJ2q-GNTsMH5UTg00lKurU?gv=true" },
   },
 ];
 
