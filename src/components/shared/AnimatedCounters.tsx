@@ -83,12 +83,31 @@ export function AnimatedCounters() {
 
 
         {/* Testimonial */}
-        <blockquote className="max-w-2xl text-center bg-background/[0.06] border border-background/10 rounded-xl px-6 py-5">
-          <Quote className="w-5 h-5 text-background/30 mx-auto mb-3" />
-          <p className="text-base md:text-lg italic text-background/60 leading-relaxed">
-            "Koulutus toi heti käytännön hyötyjä – pystyimme ottamaan opit käyttöön saman tien."
-          </p>
-        </blockquote>
+        <figure className="relative max-w-3xl mx-auto mt-4 px-6 md:px-10">
+          {/* Large decorative opening quote */}
+          <Quote
+            className="absolute -top-4 -left-2 md:-top-6 md:-left-4 w-16 h-16 md:w-24 md:h-24 text-primary/30"
+            strokeWidth={1}
+            aria-hidden="true"
+          />
+          {/* Accent line */}
+          <span className="absolute left-1/2 -translate-x-1/2 -top-2 w-16 h-px bg-gradient-to-r from-transparent via-primary to-transparent" aria-hidden="true" />
+
+          <blockquote className="relative z-10 text-center">
+            <p className="text-xl md:text-3xl font-light leading-snug text-background tracking-tight">
+              <span className="text-primary">“</span>
+              Koulutus toi heti käytännön hyötyjä — pystyimme ottamaan opit käyttöön{" "}
+              <span className="font-semibold text-primary">saman tien</span>.
+              <span className="text-primary">”</span>
+            </p>
+          </blockquote>
+
+          <figcaption className="mt-6 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.2em] text-background/50">
+            <span className="h-px w-8 bg-background/30" aria-hidden="true" />
+            Asiakaspalaute
+            <span className="h-px w-8 bg-background/30" aria-hidden="true" />
+          </figcaption>
+        </figure>
       </div>
     </section>
   );
