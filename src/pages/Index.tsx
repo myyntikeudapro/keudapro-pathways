@@ -4,6 +4,7 @@ import { SEO } from "@/components/seo/SEO";
 import { RouteCard } from "@/components/cards/RouteCard";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounters } from "@/components/shared/AnimatedCounters";
+import { ShieldCheck, UtensilsCrossed, Briefcase, Sparkles } from "lucide-react";
 import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
 
 import routeAly from "@/assets/route-aly.jpg";
@@ -82,25 +83,39 @@ const Index = () => {
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
               Nopeat, tunnustetut kortit ja osaamispätevyydet — yrityksille ja yksittäisille osallistujille.
             </p>
-            <div className="flex flex-wrap justify-center gap-2 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-left">
               {[
-                "Työturvallisuuskortti",
-                "Hygieniapassi",
-                "Ensiapu",
-                "Tulityökortti",
-                "Anniskelupassi",
-                "LinkedIn-kortti",
-                "Tekoälyn ammattiosaaja",
-                "KV-kortti",
-                "Työkieli-Suomi",
-                "Lääkehoito",
-              ].map((tag) => (
+                {
+                  icon: ShieldCheck,
+                  title: "Turvallisuus",
+                  items: "Työturvallisuus · Tulityö · Ensiapu",
+                },
+                {
+                  icon: UtensilsCrossed,
+                  title: "Hygienia & ravintola",
+                  items: "Hygieniapassi · Anniskelupassi · Lääkehoito",
+                },
+                {
+                  icon: Briefcase,
+                  title: "Työelämä",
+                  items: "LinkedIn-kortti · Työkieli-Suomi · KV-kortti",
+                },
+                {
+                  icon: Sparkles,
+                  title: "AI & digi",
+                  items: "Tekoälyn ammattiosaaja",
+                },
+              ].map((cat) => (
                 <a
-                  key={tag}
+                  key={cat.title}
                   href="/osaaminen"
-                  className="inline-flex items-center rounded-full border-2 border-primary text-primary px-3 py-1 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="group flex flex-col h-full rounded-xl bg-background border border-border p-5 hover:border-primary hover:shadow-md transition-all"
                 >
-                  {tag}
+                  <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary mb-3 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    <cat.icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-base font-semibold text-foreground mb-1">{cat.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{cat.items}</p>
                 </a>
               ))}
             </div>
