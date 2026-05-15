@@ -423,10 +423,18 @@ const PatevyydetPage = () => {
                   type="button"
                   onClick={() => openPanel(card.coach)}
                   aria-label={`${card.title} — avaa AI-valmentajan`}
-                  className="keuda-card-enhanced p-6 text-left flex flex-col h-full transition-all hover:border-teal-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+                  className="keuda-card-enhanced p-6 text-left flex flex-row items-center gap-4 h-full transition-all hover:border-teal-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
                 >
-                  <h3 className="text-lg font-bold text-foreground mb-2">{card.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-bold text-foreground mb-2">{card.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
+                  </div>
+                  <img
+                    src={coachImages[card.coach]}
+                    alt=""
+                    aria-hidden="true"
+                    className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-2 border-teal-500/30 shrink-0"
+                  />
                 </button>
               ))}
             </div>
