@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
+import { NeedsBannerCarousel } from "@/components/patevyydet/NeedsBannerCarousel";
 import { useWizard } from "@/contexts/WizardContext";
 import { cn } from "@/lib/utils";
 import { ChevronDown, ArrowRight } from "lucide-react";
@@ -375,7 +376,7 @@ const PatevyydetPage = () => {
         path="/osaaminen"
       />
 
-      {/* Mistä tarpeesta liikkeelle? — photo banner */}
+      {/* Mistä tarpeesta liikkeelle? — vaihtuva valokuvabanneri */}
       <section className="py-12 md:py-16 bg-foreground">
         <div className="keuda-container">
           <div className="text-center mb-8">
@@ -387,88 +388,7 @@ const PatevyydetPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-            {[
-              {
-                image: bannerKortit,
-                coach: "reitti" as const,
-                tag: "Reitti — kortit & pätevyydet",
-                title: "Tarvitsen kortin tai pätevyyden",
-                desc: "Työturvallisuus, ensiapu, hygienia tai muu virallinen pätevyys.",
-                cta: "Keskustele Reitin kanssa",
-                onClick: () => openPanel("reitti"),
-              },
-              {
-                image: bannerSuunta,
-                coach: "ana" as const,
-                tag: "Ana — uusi suunta",
-                title: "Etsin uutta suuntaa",
-                desc: "Uramuutos, työnhaku tai uusi ammatillinen polku.",
-                cta: "Keskustele Anan kanssa",
-                onClick: () => openPanel("ana"),
-              },
-              {
-                image: bannerAi,
-                coach: "veli" as const,
-                tag: "Veli — AI & osaaminen",
-                title: "Kehitän osaamista",
-                desc: "Tekoäly, digitaaliset taidot tai tiimin kehittäminen.",
-                cta: "Keskustele Velin kanssa",
-                onClick: () => openPanel("veli"),
-              },
-              {
-                image: bannerRatkaisee,
-                coach: null,
-                tag: "Osaaminen ratkaisee työssä",
-                title: "Tiedätkö mikä työelämän osaaminen kannattaa hankkia juuri nyt?",
-                desc: "Tee 15 min reittikartoitus — saat suosituksen sinulle parhaiten sopivasta poluista ja koulutuksista.",
-                cta: "Aloita reittikartoitus",
-                onClick: openWizard,
-              },
-            ].map((card) => (
-              <button
-                key={card.title}
-                type="button"
-                onClick={card.onClick}
-                aria-label={card.title}
-                className="group relative overflow-hidden rounded-xl text-left h-72 md:h-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 transition-transform duration-300 hover:-translate-y-1"
-              >
-                <img
-                  src={card.image}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  width={1280}
-                  height={896}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
-                {card.coach && (
-                  <img
-                    src={coachImages[card.coach]}
-                    alt=""
-                    aria-hidden="true"
-                    className="absolute top-3 right-3 w-14 h-14 md:w-16 md:h-16 rounded-full object-cover border-2 border-white/80 shadow-lg z-10"
-                  />
-                )}
-                <div className="relative z-10 h-full flex flex-col justify-end p-5">
-                  <p className="text-xs font-semibold tracking-wide uppercase text-teal-300 mb-2">
-                    {card.tag}
-                  </p>
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-2 leading-snug">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm text-white/80 mb-3 leading-relaxed line-clamp-3">
-                    {card.desc}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-300 group-hover:text-teal-200">
-                    {card.cta}
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </div>
-              </button>
-            ))}
-          </div>
+          <NeedsBannerCarousel />
 
           <div className="text-center mt-6">
             <p className="text-sm text-background/70">
