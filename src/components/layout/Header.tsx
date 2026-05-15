@@ -45,7 +45,7 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="cta" size="default" onClick={openPanel}>
+            <Button variant="cta" size="default" onClick={() => openPanel()}>
               Apua? Kysy AI-valmentajalta
             </Button>
           </div>
