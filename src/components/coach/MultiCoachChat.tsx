@@ -232,7 +232,7 @@ export function MultiCoachChat() {
           {showCoachCTA && !isLoading && (
             <div className="flex justify-center pt-2">
               <a
-                href="mailto:keudapro@keuda.fi?subject=Varaa%20aika%20valmentajalle"
+                href="https://calendar.app.google/iY2TDLg3b8RpyKjK7"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30 text-sm text-secondary hover:bg-secondary/20 transition-colors"

@@ -98,7 +98,7 @@ function MaksullinenValmennusStep() {
       <p className="text-xs italic text-muted-foreground mb-3">
         Maksullinen palvelu – kysy hinnasta yhteydenotolla.
       </p>
-      <CtaLink href="mailto:keudapro@keuda.fi" mailto>Varaa aika →</CtaLink>
+      <CtaLink href="https://calendar.app.google/iY2TDLg3b8RpyKjK7">Varaa aika →</CtaLink>
     </StepCard>
   );
 }

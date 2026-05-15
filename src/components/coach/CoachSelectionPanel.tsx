@@ -1,6 +1,7 @@
 import { X, MessageCircle, CalendarDays } from "lucide-react";
 import { useCoachPanel, CoachType } from "@/contexts/CoachPanelContext";
 import { cn } from "@/lib/utils";
+import { BOOKING_URL } from "@/lib/booking";
 
 import coachAna from "@/assets/coach-ana.png";
 import coachVeli from "@/assets/coach-veli.png";
@@ -40,7 +41,7 @@ const coaches = [
 ];
 
 export function CoachSelectionPanel() {
-  const { isPanelOpen, closePanel, openChat, highlightedCoach, openBooking } = useCoachPanel();
+  const { isPanelOpen, closePanel, openChat, highlightedCoach } = useCoachPanel();
 
   return (
     <>
@@ -112,13 +113,16 @@ export function CoachSelectionPanel() {
                     <MessageCircle className="w-4 h-4" />
                     Keskustele AI:n kanssa
                   </button>
-                  <button
-                    onClick={() => openBooking(coach.id)}
+                  <a
+                    href={BOOKING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => closePanel()}
                     className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors"
                   >
                     <CalendarDays className="w-4 h-4" />
                     Varaa aika ihmiselle
-                  </button>
+                  </a>
                 </div>
               </div>
             );
