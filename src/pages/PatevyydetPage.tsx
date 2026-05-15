@@ -63,7 +63,51 @@ type Course = {
   description: string;
   infoUrl?: string;
   signupUrl?: string;
+  tags?: string[];
 };
+
+const courseTags: Record<string, string[]> = {
+  "Työturvallisuuskortti": ["kortti", "yritys", "nopea", "lähi"],
+  "Hygieniapassi": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "EA1 Ensiapu": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "EA2 Ensiapu": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "Hätäensiapu 4 t": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "Hätäensiapu 8 t": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "Tulityökortti": ["kortti", "yritys", "nopea", "lähi"],
+  "Anniskelupassi": ["kortti", "yksilö", "yritys", "nopea", "lähi"],
+  "Akkuturvallisuuskoulutus": ["kortti", "yritys", "nopea", "lähi"],
+  "Työhyvinvointikortti": ["osaaminen", "yritys", "tiimi", "räätälöity"],
+  "KV-kortti": ["kortti", "osaaminen", "yritys", "nopea", "verkko"],
+  "3T: Tehoa työnhakuun tekoälyllä": ["tekoäly", "yksilö", "nopea", "verkko"],
+  "LinkedIn-kortti": ["osaaminen", "yksilö", "työnhaku", "nopea", "verkko"],
+  "Toimialakohtainen pätevyys": ["osaaminen", "yritys", "räätälöity", "tiimi"],
+};
+
+type WhoOption = { id: string; label: string; tag: string };
+type GoalOption = { id: string; label: string; tags: string[] };
+type FormatOption = { id: string; label: string; tag: string };
+
+const whoOptions: WhoOption[] = [
+  { id: "yksilo", label: "👤 Yksilö tai työnhakija", tag: "yksilö" },
+  { id: "yritys", label: "🏢 Yritys tai organisaatio", tag: "yritys" },
+  { id: "muutos", label: "🔄 Muutostilanteessa", tag: "muutos" },
+];
+
+const goalOptions: GoalOption[] = [
+  { id: "kortti", label: "🪪 Virallinen kortti tai pätevyys", tags: ["kortti"] },
+  { id: "osaaminen", label: "💡 Kehittää osaamistani", tags: ["osaaminen"] },
+  { id: "tekoaly", label: "🤖 Oppia tekoälyn hyödyntämistä", tags: ["tekoäly"] },
+  { id: "suunta", label: "🧭 Löytää uusi suunta", tags: ["muutos", "työnhaku"] },
+  { id: "tiimi", label: "👥 Kehittää tiimiä tai henkilöstöä", tags: ["tiimi"] },
+];
+
+const formatOptions: FormatOption[] = [
+  { id: "nopea", label: "⚡ Nopea (1 pv tai alle)", tag: "nopea" },
+  { id: "ohjelma", label: "📅 Lyhyt ohjelma", tag: "ohjelma" },
+  { id: "verkko", label: "🌐 Verkossa", tag: "verkko" },
+  { id: "lahi", label: "🏫 Lähitoteutus", tag: "lähi" },
+  { id: "raataloity", label: "🔧 Räätälöity ryhmälle", tag: "räätälöity" },
+];
 
 const courses: Course[] = [
   {
