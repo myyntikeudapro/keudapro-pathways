@@ -275,6 +275,7 @@ export function KasvuCategoryAccordion() {
                               ))}
                             </div>
                           </div>
+                        </>
                       ) : (
                         <div className="grid sm:grid-cols-2 gap-2 mb-5">
                           {cat.modules.map((mod) => (
