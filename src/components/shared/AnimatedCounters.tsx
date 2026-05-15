@@ -95,10 +95,8 @@ export function AnimatedCounters() {
 
           <blockquote className="relative z-10 text-center">
             <p className="text-xl md:text-3xl font-light leading-snug text-background tracking-tight">
-              <span className="text-primary">“</span>
               Koulutus toi heti käytännön hyötyjä — pystyimme ottamaan opit käyttöön{" "}
               <span className="font-semibold text-primary">saman tien</span>.
-              <span className="text-primary">”</span>
             </p>
           </blockquote>
 
