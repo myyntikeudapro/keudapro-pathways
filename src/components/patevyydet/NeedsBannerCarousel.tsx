@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
@@ -74,6 +74,9 @@ export function NeedsBannerCarousel() {
   const [paused, setPaused] = useState(false);
   const { openPanel } = useCoachPanel();
   const { openWizard } = useWizard();
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
 
   const goTo = useCallback((i: number) => setCurrent((i + slides.length) % slides.length), []);
   const next = useCallback(() => goTo(current + 1), [current, goTo]);
@@ -96,20 +99,43 @@ export function NeedsBannerCarousel() {
     else if (e.key === " " || e.key === "Spacebar") { e.preventDefault(); setPaused((p) => !p); }
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+    touchStartY.current = e.targetTouches[0].clientY;
+    touchEndX.current = null;
+    setPaused(true);
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+  const handleTouchEnd = () => {
+    if (touchStartX.current !== null && touchEndX.current !== null) {
+      const dx = touchStartX.current - touchEndX.current;
+      if (Math.abs(dx) > 50) {
+        dx > 0 ? next() : prev();
+      }
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+    touchEndX.current = null;
+    setPaused(false);
+  };
+
   return (
     <div
       role="region"
       aria-roledescription="carousel"
       aria-label="Mistä tarpeesta liikkeelle"
       tabIndex={0}
-      className="relative w-full overflow-hidden rounded-2xl h-[420px] md:h-[460px] lg:h-[500px] shadow-2xl outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+      className="relative w-full overflow-hidden rounded-2xl h-[420px] md:h-[460px] lg:h-[500px] shadow-2xl outline-none focus-visible:ring-2 focus-visible:ring-teal-400 touch-pan-y select-none"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
-      onTouchStart={() => setPaused(true)}
-      onTouchEnd={() => setPaused(false)}
-      onTouchCancel={() => setPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
       onKeyDown={handleKeyDown}
     >
       {slides.map((slide, i) => (
