@@ -17,9 +17,35 @@ import catTyoelamataidot from "@/assets/cat-tyoelamataidot.jpg";
 import catAi from "@/assets/cat-ai.jpg";
 import catToimialakohtaiset from "@/assets/cat-toimialakohtaiset.jpg";
 import courseTulityo from "@/assets/course-tulityo.jpg";
+import courseTyoturvallisuus from "@/assets/course-tyoturvallisuus.jpg";
+import courseAkku from "@/assets/course-akku.jpg";
+import courseEa1 from "@/assets/course-ea1.jpg";
+import courseEa2 from "@/assets/course-ea2.jpg";
+import courseHataensi4 from "@/assets/course-hataensi4.jpg";
+import courseHataensi8 from "@/assets/course-hataensi8.jpg";
+import courseHygienia from "@/assets/course-hygienia.jpg";
+import courseAnniskelu from "@/assets/course-anniskelu.jpg";
+import courseTyohyvinvointi from "@/assets/course-tyohyvinvointi.jpg";
+import courseLinkedin from "@/assets/course-linkedin.jpg";
+import courseKv from "@/assets/course-kv.jpg";
+import course3t from "@/assets/course-3t.jpg";
+import courseToimiala from "@/assets/course-toimiala.jpg";
 
 const courseImageOverrides: Record<string, string> = {
+  "Työturvallisuuskortti": courseTyoturvallisuus,
   "Tulityökortti": courseTulityo,
+  "Akkuturvallisuuskoulutus": courseAkku,
+  "EA1 Ensiapu": courseEa1,
+  "EA2 Ensiapu": courseEa2,
+  "Hätäensiapu 4 t": courseHataensi4,
+  "Hätäensiapu 8 t": courseHataensi8,
+  "Hygieniapassi": courseHygienia,
+  "Anniskelupassi": courseAnniskelu,
+  "Työhyvinvointikortti": courseTyohyvinvointi,
+  "LinkedIn-kortti": courseLinkedin,
+  "KV-kortti": courseKv,
+  "3T: Tehoa työnhakuun tekoälyllä": course3t,
+  "Toimialakohtainen pätevyys": courseToimiala,
 };
 
 const categories = [
