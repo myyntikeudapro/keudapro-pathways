@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ArrowRight, ExternalLink, Zap, TrendingUp, Building2, GraduationCap } from "lucide-react";
+import { ChevronDown, ChevronRight, ArrowRight, ExternalLink, Zap, TrendingUp, Building2, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { AssessmentModal } from "@/components/growth/AssessmentModal";
@@ -225,6 +226,7 @@ export function KasvuCategoryAccordion() {
                       </span>
 
                       {cat.id === "osaaminen" ? (
+                        <>
                         <Accordion type="single" collapsible className="mb-5">
                           {trainingCategories.map((tc) => (
                             <AccordionItem key={tc.id} value={tc.id} className="border-border/50">
@@ -250,6 +252,30 @@ export function KasvuCategoryAccordion() {
                             </AccordionItem>
                           ))}
                         </Accordion>
+
+                          <div className="mb-5">
+                            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
+                              Asiantuntija- ja johtamiskoulutukset
+                            </p>
+                            <div className="flex flex-col gap-1.5">
+                              {[
+                                { label: "Esihenkilö- ja johtamiskoulutukset", hash: "esihenkilo-johtaminen" },
+                                { label: "Tekoälypätevyys-koulutukset", hash: "tekoalypatevyys" },
+                                { label: "Turvallisuusjohtamisen koulutukset", hash: "turvallisuusjohtaminen" },
+                                { label: "Muut asiantuntija- ja osaajakoulutukset", hash: "muut-asiantuntija" },
+                              ].map((item) => (
+                                <Link
+                                  key={item.hash}
+                                  to={`/aly#${item.hash}`}
+                                  className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg bg-card hover:bg-accent border border-border/50 text-foreground text-sm font-semibold transition-colors group"
+                                >
+                                  <span>{item.label}</span>
+                                  <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary flex-shrink-0 transition-colors" />
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        </>
                       ) : (
                         <div className="grid sm:grid-cols-2 gap-2 mb-5">
                           {cat.modules.map((mod) => (

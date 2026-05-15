@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
@@ -227,11 +228,25 @@ function ProgramCard({ program }: { program: Program }) {
 
 export function AlyCategoryAccordion() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash.replace("#", "");
+    if (!hash) return;
+    const match = categories.find((c) => c.id === hash);
+    if (match) {
+      setOpenCategory(match.id);
+      setTimeout(() => {
+        document.getElementById("aly-kategoriat")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  }, [location.hash]);
+
 
   const toggle = (id: string) => setOpenCategory((prev) => (prev === id ? null : id));
 
   return (
-    <section className="py-16 md:py-20 bg-[#E4F0EE]">
+    <section id="aly-kategoriat" className="py-16 md:py-20 bg-[#E4F0EE]">
       <div className="keuda-container">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
