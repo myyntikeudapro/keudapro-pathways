@@ -33,6 +33,15 @@ import courseLinkedin from "@/assets/course-linkedin.jpg";
 import courseKv from "@/assets/course-kv.jpg";
 import course3t from "@/assets/course-3t.jpg";
 import courseToimiala from "@/assets/course-toimiala.jpg";
+import coachReitti from "@/assets/coach-reitti.png";
+import coachAna from "@/assets/coach-ana.png";
+import coachVeli from "@/assets/coach-veli.png";
+
+const coachImages = {
+  reitti: coachReitti,
+  ana: coachAna,
+  veli: coachVeli,
+} as const;
 
 const courseImageOverrides: Record<string, string> = {
   "Työturvallisuuskortti": courseTyoturvallisuus,
