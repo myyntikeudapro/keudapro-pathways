@@ -232,7 +232,7 @@ export function MultiCoachChat() {
           {showCoachCTA && !isLoading && (
             <div className="flex justify-center pt-2">
               <a
-                href="https://calendar.google.com/calendar/embed?src=myynti%40keudapro.com&ctz=Europe%2FHelsinki"
+                href="https://calendar.app.google/KEf8whD71iKruG979"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30 text-sm text-secondary hover:bg-secondary/20 transition-colors"
