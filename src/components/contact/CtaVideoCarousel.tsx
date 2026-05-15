@@ -66,7 +66,7 @@ const CtaVideoCarousel = () => {
             Yksi keskustelu voi muuttaa suunnan.
           </h3>
           <Button variant="cta" size="xl" asChild>
-            <a href="https://calendar.app.google/iY2TDLg3b8RpyKjK7" target="_blank" rel="noopener noreferrer">Varaa aika nyt</a>
+            <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ14Dw7NAt63yAIEiGiboZjtx6D26SN0IZ_LD9_Cv5kPhkgRhLsAZySJ2q-GNTsMH5UTg00lKurU?gv=true" target="_blank" rel="noopener noreferrer">Varaa aika nyt</a>
           </Button>
         </div>
       </div>

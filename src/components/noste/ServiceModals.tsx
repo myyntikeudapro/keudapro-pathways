@@ -373,7 +373,7 @@ function VaraaModal({ open, onClose }: { open: boolean; onClose: () => void }) {
           <Info icon={MapPin}>Etänä tai lähitapaamisena</Info>
         </ul>
         <div className="mt-6">
-          <CtaButton href="https://calendar.app.google/iY2TDLg3b8RpyKjK7">Varaa aika →</CtaButton>
+          <CtaButton href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ14Dw7NAt63yAIEiGiboZjtx6D26SN0IZ_LD9_Cv5kPhkgRhLsAZySJ2q-GNTsMH5UTg00lKurU?gv=true">Varaa aika →</CtaButton>
         </div>
       </div>
     </ModalShell>
