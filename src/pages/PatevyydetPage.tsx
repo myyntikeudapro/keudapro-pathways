@@ -50,12 +50,41 @@ const courseImageOverrides: Record<string, string> = {
 };
 
 const categories = [
-  { id: "Turvallisuus", image: catTurvallisuus, title: "Turvallisuus", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus" },
-  { id: "Ensiapu", image: catEnsiapu, title: "Ensiapu", desc: "EA1, EA2, hätäensiapu" },
-  { id: "Hygienia", image: catHygienia, title: "Hygienia ja ravintola", desc: "Hygieniapassi, anniskelupassi" },
-  { id: "Työelämätaidot", image: catTyoelamataidot, title: "Työelämätaidot", desc: "LinkedIn, työnhaku, urasuunnittelu" },
-  { id: "AI", image: catAi, title: "AI ja tulevaisuustaidot", desc: "Tekoäly työssä, 3T-ohjelma" },
-  { id: "Toimialakohtaiset", image: catToimialakohtaiset, title: "Toimialakohtaiset", desc: "Räätälöidyt pätevyydet" },
+  {
+    id: "Turvallisuus",
+    image: catTurvallisuus,
+    title: "Turvallisuus",
+    desc: "Työturvallisuus · Tulityö · Ensiapu · Akkuturvallisuus",
+    intro: "Viralliset turvallisuus- ja ensiapukortit yrityksille ja työntekijöille — käytännönläheisesti, lyhyessä ajassa.",
+  },
+  {
+    id: "Hygienia",
+    image: catHygienia,
+    title: "Hygienia & ravintola",
+    desc: "Hygieniapassi · Anniskelupassi",
+    intro: "Elintarvike- ja anniskelualan viralliset passit. Sopii ravintola-, kahvila- ja vähittäiskaupan henkilöstölle.",
+  },
+  {
+    id: "Työelämätaidot",
+    image: catTyoelamataidot,
+    title: "Työelämä",
+    desc: "LinkedIn-kortti · Työkieli-Suomi · KV-kortti · Työhyvinvointikortti",
+    intro: "Työnhakuun, kansainväliseen työyhteisöön ja oman osaamisen näkyväksi tekemiseen suunnatut valmennukset.",
+  },
+  {
+    id: "AI",
+    image: catAi,
+    title: "AI & digi",
+    desc: "Tekoälyn ammattiosaaja · 3T-kortti",
+    intro: "Tekoälyn ja digitaalisten työkalujen hyödyntäminen työnhaussa ja arjen työssä — sertifioidut osaamistodistukset.",
+  },
+  {
+    id: "Toimialakohtaiset",
+    image: catToimialakohtaiset,
+    title: "Toimialakohtainen osaaminen",
+    desc: "Räätälöidyt pätevyydet ja koulutukset",
+    intro: "Toimialalle räätälöity pätevyyskoulutus — sisältö, laajuus ja toteutus sovitaan yhdessä organisaation kanssa.",
+  },
 ];
 
 type Course = {
