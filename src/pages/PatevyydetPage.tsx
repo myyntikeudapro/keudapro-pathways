@@ -240,9 +240,9 @@ const PatevyydetPage = () => {
   const filtered = wizardFiltered
     ? wizardFiltered
     : active === "Kaikki"
-      ? allCourses
-      : allCourses.filter((c) => c.category === active);
-  const inlineCourses = openCategory ? allCourses.filter((c) => c.category === openCategory) : [];
+      ? baseCourses
+      : baseCourses.filter((c) => c.category === active);
+  const inlineCourses = openCategory ? baseCourses.filter((c) => c.category === openCategory) : [];
 
   const toggleCategory = (id: string) => {
     setWizardActive(false);
