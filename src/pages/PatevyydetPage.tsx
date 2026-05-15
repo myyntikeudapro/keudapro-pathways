@@ -177,6 +177,7 @@ const courses: Course[] = [
     category: "Työelämätaidot",
     description: "Verkkovalmennus, jossa rakennat ammattimaisen LinkedIn-profiilin ja opit hyödyntämään palvelua työnhaussa tai asiantuntijaroolin vahvistamisessa.",
     infoUrl: "https://www.keuda.fi/koulutus/linkedin-tyonhakukortti/",
+    signupUrl: "https://www.lyyti.fi/reg/LinkedIn_Tyonhakukorttilanding_page_5313?_gl=1*1kgcoya*_gcl_aw*R0NMLjE3Nzg3ODMxNDkuQ2p3S0NBanc1WlhRQmhCZEVpd0FJNVhWV2FJcEJ1aktZT2YyazVQcFpQaEtIYzJfbkM0ajZMQzJvRUJxSXpfSDAtUE9GYk8wT2lqdEtCb0NKUUFRQXZEX0J3RQ..*_gcl_au*Njg1NTgwMTQzLjE3NzUwMjk0NzY.*_ga*MTAzNDAxMTI5NC4xNzc1MDI5NDc3*_ga_EWEWG37T54*czE3Nzg4NzUwNDQkbzE1NSRnMSR0MTc3ODg3NTM1NyRqNDEkbDAkaDA.",
   },
   {
     name: "KV-kortti",
