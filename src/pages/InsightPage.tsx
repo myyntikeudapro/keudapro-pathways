@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { AlyHeroCarousel } from "@/components/aly/AlyHeroCarousel";
 import { AlyPhilosophySection } from "@/components/aly/AlyPhilosophySection";
 import { AlyProgramGrid } from "@/components/aly/AlyProgramGrid";
+import { AlyCategoryAccordion } from "@/components/aly/AlyCategoryAccordion";
 import { ArrowDown } from "lucide-react";
 
 import audienceExpert from "@/assets/audience-expert.jpg";
