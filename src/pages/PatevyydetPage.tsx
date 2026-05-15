@@ -9,8 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
+import { useWizard } from "@/contexts/WizardContext";
 import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
+import bannerKortit from "@/assets/banner-osaaminen-kortit.jpg";
+import bannerSuunta from "@/assets/banner-osaaminen-suunta.jpg";
+import bannerAi from "@/assets/banner-osaaminen-ai.jpg";
+import bannerRatkaisee from "@/assets/banner-osaaminen-ratkaisee.jpg";
 
 import catKaikki from "@/assets/cat-kaikki.jpg";
 import catTurvallisuus from "@/assets/cat-turvallisuus.jpg";
