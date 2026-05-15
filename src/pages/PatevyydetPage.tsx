@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Monitor } from "lucide-react";
+
 import { useToast } from "@/hooks/use-toast";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
 
@@ -34,35 +34,66 @@ const categories = [
 type Course = {
   name: string;
   category: string;
-  date: string;
-  taken: number;
-  total: number;
-  format: "Lähitoteutus" | "Etätoteutus" | "Räätälöity";
-  openSeats: boolean;
+  description: string;
   infoUrl?: string;
   signupUrl?: string;
 };
 
 const courses: Course[] = [
-  { name: "Työturvallisuuskortti", category: "Turvallisuus", date: "15.6.2025", taken: 6, total: 20, format: "Lähitoteutus", openSeats: true },
-  { name: "Hygieniapassi", category: "Hygienia", date: "18.6.2025", taken: 8, total: 16, format: "Lähitoteutus", openSeats: true },
-  { name: "EA1 Ensiapu", category: "Ensiapu", date: "20.6.2025", taken: 6, total: 12, format: "Lähitoteutus", openSeats: true },
-  { name: "Tulityökortti", category: "Turvallisuus", date: "25.6.2025", taken: 7, total: 10, format: "Lähitoteutus", openSeats: false },
+  {
+    name: "Työturvallisuuskortti",
+    category: "Turvallisuus",
+    description: "Yhteisten työpaikkojen perustason turvallisuuskoulutus. Voimassa 5 vuotta ja vaaditaan yleisesti rakennus- ja teollisuusaloilla.",
+  },
+  {
+    name: "Tulityökortti",
+    category: "Turvallisuus",
+    description: "Pakollinen kortti kaikille, jotka tekevät tulitöitä tilapäisillä tulityöpaikoilla. Voimassa 5 vuotta.",
+  },
   {
     name: "Akkuturvallisuuskoulutus",
     category: "Turvallisuus",
-    date: "16.12.2025",
-    taken: 0,
-    total: 0,
-    format: "Etätoteutus",
-    openSeats: true,
+    description: "Litiumioniakkujen turvallinen käsittely, varastointi ja riskienhallinta työpaikalla. Sopii kaikille akkujen kanssa työskenteleville.",
     infoUrl: "https://www.keuda.fi/koulutus/akkuturvallisuuskoulutus/",
     signupUrl: "https://www.lyyti.fi/reg/Akkuturvallisuuskoulutuslanding_page_6706",
   },
-  { name: "Anniskelupassi", category: "Hygienia", date: "10.7.2025", taken: 6, total: 16, format: "Lähitoteutus", openSeats: true },
-  { name: "LinkedIn-kortti", category: "Työelämätaidot", date: "2.9.2025", taken: 4, total: 16, format: "Etätoteutus", openSeats: true },
-  { name: "3T: Tehoa työnhakuun tekoälyllä", category: "AI", date: "10.9.2025", taken: 8, total: 16, format: "Etätoteutus", openSeats: true },
-  { name: "Toimialakohtainen pätevyys", category: "Toimialakohtaiset", date: "Kysy toteutusta", taken: 0, total: 0, format: "Räätälöity", openSeats: false },
+  {
+    name: "EA1 Ensiapu",
+    category: "Ensiapu",
+    description: "Ensiavun peruskurssi (16 h). Antaa valmiudet auttaa hätätilanteissa ja yleisimmissä sairaus- ja tapaturmatilanteissa.",
+  },
+  {
+    name: "Hygieniapassi",
+    category: "Hygienia",
+    description: "Pakollinen elintarvikkeita käsitteleville. Osoittaa elintarvikehygienian perusosaamisen ja on voimassa toistaiseksi.",
+  },
+  {
+    name: "Anniskelupassi",
+    category: "Hygienia",
+    description: "Anniskeluravintolan vastaavan hoitajan pätevyystodistus. Tarvitaan alkoholijuomien anniskelutehtävissä.",
+  },
+  {
+    name: "LinkedIn-kortti",
+    category: "Työelämätaidot",
+    description: "Opit rakentamaan ammattimaisen LinkedIn-profiilin, verkostoitumaan ja hyödyntämään palvelua työnhaussa sekä asiantuntijabrändäyksessä.",
+  },
+  {
+    name: "KV-kortti",
+    category: "Työelämätaidot",
+    description: "Kansainvälisen työelämän valmiuksia kehittävä kortti — kulttuurienvälinen viestintä, monikulttuurinen työyhteisö ja globaalin työelämän taidot.",
+    infoUrl: "https://kvkortti.fi",
+    signupUrl: "https://www.lyyti.fi/reg/KVkorttikoulutus_2530",
+  },
+  {
+    name: "3T: Tehoa työnhakuun tekoälyllä",
+    category: "AI",
+    description: "Käytännönläheinen koulutus, jossa opit hyödyntämään tekoälyä CV:n, hakemusten ja haastatteluiden valmistelussa.",
+  },
+  {
+    name: "Toimialakohtainen pätevyys",
+    category: "Toimialakohtaiset",
+    description: "Räätälöity pätevyyskoulutus organisaation tarpeisiin — sisältö, laajuus ja toteutus sovitaan yhdessä.",
+  },
 ];
 
 const PatevyydetPage = () => {
@@ -83,8 +114,6 @@ const PatevyydetPage = () => {
   };
 
   const renderCourseCard = (c: Course) => {
-    const free = c.total - c.taken;
-    const fillingUp = c.total > 0 && free <= 5 && free > 0;
     const courseImage = courseImageOverrides[c.name] ?? categories.find((cat) => cat.id === c.category)?.image;
     return (
       <div key={c.name} className="keuda-card-enhanced p-6 flex flex-col overflow-hidden">
@@ -96,22 +125,9 @@ const PatevyydetPage = () => {
         )}
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <Badge className="bg-primary text-primary-foreground hover:bg-primary">{c.category}</Badge>
-          {c.openSeats && (
-            <Badge variant="outline" className="border-primary text-primary">Avoin osallistujille</Badge>
-          )}
-          {fillingUp && (
-            <Badge className="bg-orange-500 text-white hover:bg-orange-500">Täyttymässä</Badge>
-          )}
         </div>
         <h3 className="text-lg font-bold text-foreground mb-2">{c.name}</h3>
-        <div className="text-sm text-muted-foreground space-y-1 mb-4">
-          <div>Seuraava: {c.date}</div>
-          {c.total > 0 && <div>{free} / {c.total} paikkaa vapaana</div>}
-          <div className="flex items-center gap-1.5">
-            {c.format === "Etätoteutus" ? <Monitor className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
-            {c.format}
-          </div>
-        </div>
+        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{c.description}</p>
         <div className="mt-auto space-y-2">
           {c.infoUrl && (
             <Button variant="ghost" className="w-full" asChild>
@@ -123,7 +139,7 @@ const PatevyydetPage = () => {
               <a href={c.signupUrl} target="_blank" rel="noopener noreferrer">Ilmoittaudu</a>
             </Button>
           ) : (
-            <Button variant="outline-primary" className="w-full">Ilmoittaudu</Button>
+            <Button variant="outline-primary" className="w-full">Kysy lisää</Button>
           )}
         </div>
       </div>
