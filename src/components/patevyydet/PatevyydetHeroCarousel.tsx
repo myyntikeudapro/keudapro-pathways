@@ -8,8 +8,8 @@ import heroImg3 from "@/assets/hero-kasvu-1.jpg";
 const slides = [
   {
     image: heroImg1,
-    title: "Pätevyydet ja osaamiskortit",
-    subtitle: "Nopeat, tunnustetut kortit — ryhmille, tiimeille ja yksittäisille osallistujille",
+    title: "Osaaminen ja pätevyydet",
+    subtitle: "Kortit, valmennukset ja ohjelmat — nopeat ja käytännönläheiset ratkaisut yrityksille ja yksilöille.",
   },
   {
     image: heroImg2,

@@ -212,9 +212,9 @@ const PatevyydetPage = () => {
   return (
     <Layout>
       <SEO
-        title="Pätevyydet ja osaamiskortit | KeudaPRO"
-        description="Tunnustetut osaamiskortit ja pätevyyskoulutukset KUUMA-seudulla — ryhmille, tiimeille ja yksittäisille osallistujille."
-        path="/patevyydet"
+        title="Osaaminen ja pätevyydet | KeudaPRO"
+        description="Kortit, valmennukset ja ohjelmat — nopeat ja käytännönläheiset ratkaisut yrityksille ja yksilöille."
+        path="/osaaminen"
       />
 
       <PatevyydetHeroCarousel />
