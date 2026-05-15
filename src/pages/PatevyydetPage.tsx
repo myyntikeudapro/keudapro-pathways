@@ -216,10 +216,8 @@ const PatevyydetPage = () => {
   const [wizardActive, setWizardActive] = useState(false);
   const { toast } = useToast();
 
-  const allCourses: Course[] = [
-    ...courses.map((c) => ({ ...c, tags: courseTags[c.name] })),
-    ...reittiCards,
-  ];
+  const baseCourses: Course[] = courses.map((c) => ({ ...c, tags: courseTags[c.name] }));
+  const allCourses: Course[] = [...baseCourses, ...reittiCards];
 
   const wizardSelectedTags: string[] = [];
   if (who) {
