@@ -228,6 +228,20 @@ function ProgramCard({ program }: { program: Program }) {
 
 export function AlyCategoryAccordion() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash.replace("#", "");
+    if (!hash) return;
+    const match = categories.find((c) => c.id === hash);
+    if (match) {
+      setOpenCategory(match.id);
+      setTimeout(() => {
+        document.getElementById("aly-kategoriat")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  }, [location.hash]);
+
 
   const toggle = (id: string) => setOpenCategory((prev) => (prev === id ? null : id));
 
