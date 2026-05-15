@@ -342,6 +342,106 @@ const PatevyydetPage = () => {
         </div>
       </section>
 
+      {/* Ohjattu osaamishaku */}
+      <section className="py-12 md:py-16" style={{ backgroundColor: "#F0F7F6" }}>
+        <div className="keuda-container">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+                Löydä sinulle sopiva ratkaisu
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Vastaa kolmeen kysymykseen — näytämme sopivimmat vaihtoehdot.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <p className="font-semibold text-foreground mb-3">Olen…</p>
+                <div className="flex flex-wrap gap-2">
+                  {whoOptions.map((o) => {
+                    const selected = who === o.id;
+                    return (
+                      <button
+                        key={o.id}
+                        type="button"
+                        onClick={() => setWho(selected ? null : o.id)}
+                        className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
+                          selected
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {o.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <p className="font-semibold text-foreground mb-3">Tavoitteeni on…</p>
+                <div className="flex flex-wrap gap-2">
+                  {goalOptions.map((o) => {
+                    const selected = goals.includes(o.id);
+                    return (
+                      <button
+                        key={o.id}
+                        type="button"
+                        onClick={() => setGoals((prev) => toggleInArray(prev, o.id))}
+                        className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
+                          selected
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {o.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <p className="font-semibold text-foreground mb-3">Sopii minulle…</p>
+                <div className="flex flex-wrap gap-2">
+                  {formatOptions.map((o) => {
+                    const selected = formats.includes(o.id);
+                    return (
+                      <button
+                        key={o.id}
+                        type="button"
+                        onClick={() => setFormats((prev) => toggleInArray(prev, o.id))}
+                        className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
+                          selected
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {o.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-2">
+                <Button variant="default" size="lg" onClick={runWizard} className="bg-primary hover:bg-primary/90">
+                  Näytä sopivat ratkaisut ↓
+                </Button>
+                <button
+                  type="button"
+                  onClick={resetWizard}
+                  className="text-sm text-muted-foreground underline-offset-4 hover:underline self-start sm:self-center"
+                >
+                  Tyhjennä valinnat
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Categories */}
       <section className="py-10 md:py-16 bg-muted/30">
         <div className="keuda-container">
