@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
+import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
 
 import catKaikki from "@/assets/cat-kaikki.jpg";
 import catTurvallisuus from "@/assets/cat-turvallisuus.jpg";
@@ -50,12 +52,41 @@ const courseImageOverrides: Record<string, string> = {
 };
 
 const categories = [
-  { id: "Turvallisuus", image: catTurvallisuus, title: "Turvallisuus", desc: "Työturvallisuuskortti, tulityö, sähköturvallisuus" },
-  { id: "Ensiapu", image: catEnsiapu, title: "Ensiapu", desc: "EA1, EA2, hätäensiapu" },
-  { id: "Hygienia", image: catHygienia, title: "Hygienia ja ravintola", desc: "Hygieniapassi, anniskelupassi" },
-  { id: "Työelämätaidot", image: catTyoelamataidot, title: "Työelämätaidot", desc: "LinkedIn, työnhaku, urasuunnittelu" },
-  { id: "AI", image: catAi, title: "AI ja tulevaisuustaidot", desc: "Tekoäly työssä, 3T-ohjelma" },
-  { id: "Toimialakohtaiset", image: catToimialakohtaiset, title: "Toimialakohtaiset", desc: "Räätälöidyt pätevyydet" },
+  {
+    id: "Turvallisuus",
+    image: catTurvallisuus,
+    title: "Turvallisuus",
+    desc: "Työturvallisuus · Tulityö · Ensiapu · Akkuturvallisuus",
+    intro: "Viralliset turvallisuus- ja ensiapukortit yrityksille ja työntekijöille — käytännönläheisesti, lyhyessä ajassa.",
+  },
+  {
+    id: "Hygienia",
+    image: catHygienia,
+    title: "Hygienia & ravintola",
+    desc: "Hygieniapassi · Anniskelupassi",
+    intro: "Elintarvike- ja anniskelualan viralliset passit. Sopii ravintola-, kahvila- ja vähittäiskaupan henkilöstölle.",
+  },
+  {
+    id: "Työelämätaidot",
+    image: catTyoelamataidot,
+    title: "Työelämä",
+    desc: "LinkedIn-kortti · Työkieli-Suomi · KV-kortti · Työhyvinvointikortti",
+    intro: "Työnhakuun, kansainväliseen työyhteisöön ja oman osaamisen näkyväksi tekemiseen suunnatut valmennukset.",
+  },
+  {
+    id: "AI",
+    image: catAi,
+    title: "AI & digi",
+    desc: "Tekoälyn ammattiosaaja · 3T-kortti",
+    intro: "Tekoälyn ja digitaalisten työkalujen hyödyntäminen työnhaussa ja arjen työssä — sertifioidut osaamistodistukset.",
+  },
+  {
+    id: "Toimialakohtaiset",
+    image: catToimialakohtaiset,
+    title: "Toimialakohtainen osaaminen",
+    desc: "Räätälöidyt pätevyydet ja koulutukset",
+    intro: "Toimialalle räätälöity pätevyyskoulutus — sisältö, laajuus ja toteutus sovitaan yhdessä organisaation kanssa.",
+  },
 ];
 
 type Course = {
@@ -132,25 +163,25 @@ const courses: Course[] = [
   },
   {
     name: "EA1 Ensiapu",
-    category: "Ensiapu",
+    category: "Turvallisuus",
     description: "Ensiavun peruskurssi (16 h), joka antaa valmiudet auttaa onnettomuus- ja hätätilanteissa sekä yleisimmissä sairaus- ja tapaturmatilanteissa.",
     infoUrl: "https://www.keuda.fi/koulutus/spr-ensiapukurssi-ea-1/",
   },
   {
     name: "EA2 Ensiapu",
-    category: "Ensiapu",
+    category: "Turvallisuus",
     description: "Ensiavun jatkokurssi (16 h), joka syventää EA1:n osaamista vakavampien tapaturmien ja sairauskohtausten ensiapuun. Edellyttää voimassa olevaa EA1-koulutusta.",
     infoUrl: "https://www.keuda.fi/koulutus/spr-ensiapukurssi-ea-2/",
   },
   {
     name: "Hätäensiapu 4 t",
-    category: "Ensiapu",
+    category: "Turvallisuus",
     description: "Lyhyt 4 tunnin hätäensiapukurssi, joka antaa perusvalmiudet toimia onnettomuus- ja hätätilanteessa. Sopii hyvin työpaikan ensiapuvalmiuden ylläpitoon.",
     infoUrl: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-4-t/",
   },
   {
     name: "Hätäensiapu 8 t",
-    category: "Ensiapu",
+    category: "Turvallisuus",
     description: "Laajempi 8 tunnin hätäensiapukurssi, joka antaa kattavammat valmiudet auttaa hätä- ja sairauskohtaustilanteissa työpaikalla ja arjessa.",
     infoUrl: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-8-t/",
   },
@@ -408,45 +439,90 @@ const PatevyydetPage = () => {
       </section>
 
       {/* Categories */}
-      <section className="py-10 md:py-16 bg-muted/30">
+      {/* Categories — NOSTE-style chips + accordion */}
+      <section className="py-16 md:py-20 bg-[#E4F0EE]">
         <div className="keuda-container">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {[{ id: "Kaikki", image: catKaikki, title: "Kaikki", desc: "Näytä kaikki koulutukset" }, ...categories].map((cat) => (
-              <React.Fragment key={cat.id}>
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Mitä osaamista etsit?
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+              Valitse kategoria — näet suoraan siihen kuuluvat kortit ja koulutukset.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {categories.map((cat) => (
                 <button
+                  key={cat.id}
                   onClick={() => toggleCategory(cat.id)}
-                  className={`keuda-card-enhanced p-6 text-left transition-all overflow-hidden flex flex-col ${
-                    active === cat.id ? "ring-2 ring-primary border-primary" : ""
-                  }`}
+                  className={cn(
+                    "px-5 py-2.5 rounded-xl text-sm font-medium border-2 transition-all duration-200",
+                    openCategory === cat.id
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-card text-foreground border-primary/30 hover:bg-primary/10 hover:border-primary/60"
+                  )}
                 >
-                  <div className="relative h-40 -mx-6 -mt-6 mb-5 overflow-hidden">
-                    <img src={cat.image} alt={cat.title} loading="lazy" width={1024} height={640} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
-                    <h3 className="absolute bottom-3 left-6 text-xl font-bold text-white">{cat.title}</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground">{cat.desc}</p>
+                  {cat.title}
                 </button>
-                {openCategory === cat.id && cat.id !== "Kaikki" && (
-                  <div className="col-span-full animate-accordion-down">
-                    <div className="keuda-card-enhanced p-6 md:p-8 bg-background">
-                      <div className="flex items-center justify-between mb-6 gap-4">
-                        <h3 className="text-2xl font-bold text-foreground">
-                          Tulevat {cat.title.toLowerCase()}-koulutukset
-                        </h3>
-                        <Button variant="ghost" size="sm" onClick={() => setOpenCategory(null)}>Sulje</Button>
-                      </div>
-                      {inlineCourses.length > 0 ? (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                          {inlineCourses.map(renderCourseCard)}
-                        </div>
-                      ) : (
-                        <p className="text-muted-foreground">Ei tulevia koulutuksia tällä hetkellä.</p>
-                      )}
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4 max-w-4xl mx-auto">
+            {categories.map((cat) => {
+              const isActive = openCategory === cat.id;
+              const isExpanded = isActive || openCategory === null;
+              const catCourses = baseCourses.filter((c) => c.category === cat.id);
+              return (
+                <div
+                  key={cat.id}
+                  className={cn(
+                    "rounded-xl border overflow-hidden bg-card transition-all duration-300",
+                    isActive ? "border-primary shadow-lg" : "border-border",
+                    !isExpanded && "opacity-60"
+                  )}
+                >
+                  <button
+                    onClick={() => toggleCategory(cat.id)}
+                    className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-bold text-foreground">{cat.title}</span>
+                      <span className="hidden sm:inline text-xs text-muted-foreground">{cat.desc}</span>
                     </div>
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
+                    <ChevronDown className={cn(
+                      "w-5 h-5 text-muted-foreground transition-transform duration-300",
+                      isActive && "rotate-180"
+                    )} />
+                  </button>
+
+                  {isActive && (
+                    <div className="animate-accordion-down">
+                      <div className="relative h-[140px] overflow-hidden">
+                        <img
+                          src={cat.image}
+                          alt={cat.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          width={1024}
+                          height={576}
+                        />
+                        <div className="absolute inset-0 bg-black/25" />
+                      </div>
+                      <div className="p-5 md:p-6">
+                        <p className="italic text-muted-foreground text-sm mb-5">{cat.intro}</p>
+                        {catCourses.length > 0 ? (
+                          <div className="grid md:grid-cols-2 gap-6">
+                            {catCourses.map(renderCourseCard)}
+                          </div>
+                        ) : (
+                          <p className="text-muted-foreground">Ei tulevia koulutuksia tällä hetkellä — kysy lisää lomakkeen kautta.</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
