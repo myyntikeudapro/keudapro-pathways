@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 
 import { useToast } from "@/hooks/use-toast";
+import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
 
 import catKaikki from "@/assets/cat-kaikki.jpg";
