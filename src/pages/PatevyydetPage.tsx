@@ -466,22 +466,6 @@ const PatevyydetPage = () => {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
               Valitse kategoria — näet suoraan siihen kuuluvat kortit ja koulutukset.
             </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => toggleCategory(cat.id)}
-                  className={cn(
-                    "px-5 py-2.5 rounded-xl text-sm font-medium border-2 transition-all duration-200",
-                    openCategory === cat.id
-                      ? "bg-primary text-primary-foreground border-primary"
-                      : "bg-card text-foreground border-primary/30 hover:bg-primary/10 hover:border-primary/60"
-                  )}
-                >
-                  {cat.title}
-                </button>
-              ))}
-            </div>
           </div>
 
           <div className="flex flex-col gap-4 max-w-4xl mx-auto">
