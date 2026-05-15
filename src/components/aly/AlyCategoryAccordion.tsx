@@ -11,6 +11,9 @@ import progAiManager from "@/assets/prog-ai-manager.jpg";
 import progAiCoordinator from "@/assets/prog-ai-coordinator.jpg";
 import progHyperEngineering from "@/assets/prog-hyper-engineering.jpg";
 import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
+import progTurvallisuusPaallikko from "@/assets/prog-turvallisuus-paallikko.jpg";
+import progTurvallisuusJohtaja from "@/assets/prog-turvallisuus-johtaja.jpg";
+import progLuotettavuusAi from "@/assets/prog-luotettavuus-ai.jpg";
 
 type Program = {
   label: string;
@@ -113,7 +116,7 @@ const categories: Category[] = [
         href: "https://www.keuda.fi/koulutus/turvallisuuspaallikon-ja-asiantuntijan-valmennusohjelma/",
         description:
           "Kehitä turvallisuusosaamistasi ja vahvista roolisi organisaation turvallisuuskulttuurin rakentajana.",
-        image: progTurvallisuus,
+        image: progTurvallisuusPaallikko,
         cta: "Tutustu ohjelmaan →",
       },
       {
@@ -121,7 +124,7 @@ const categories: Category[] = [
         href: "https://www.keuda.fi/koulutus/turvallisuusjohtaja-2-6/",
         description:
           "Strategisen turvallisuusjohtamisen valmennus – kokonaisvaltainen turvallisuuskulttuuri osaksi liiketoiminnan johtamista.",
-        image: progTurvallisuus,
+        image: progTurvallisuusJohtaja,
         cta: "Tutustu ohjelmaan →",
       },
       {
@@ -129,7 +132,7 @@ const categories: Category[] = [
         href: "/yhteystiedot",
         description:
           "Johda tekoälyjärjestelmien luotettavuutta, läpinäkyvyyttä ja eettistä käyttöä – uusi erikoisohjelma tulossa 2026.",
-        image: progTurvallisuus,
+        image: progLuotettavuusAi,
         cta: "Ilmoittaudu kiinnostuneeksi →",
         isInternal: true,
         comingSoon: true,
