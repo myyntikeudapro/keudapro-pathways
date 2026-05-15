@@ -305,7 +305,9 @@ const PatevyydetPage = () => {
               <a href={c.signupUrl} target="_blank" rel="noopener noreferrer">Ilmoittaudu</a>
             </Button>
           ) : (
-            <Button variant="outline-primary" className="w-full">Kysy lisää</Button>
+            <Button variant="outline-primary" className="w-full" asChild>
+              <a href="/yhteystiedot#lomake">Kysy lisää</a>
+            </Button>
           )}
         </div>
       </div>
