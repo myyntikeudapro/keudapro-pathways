@@ -114,8 +114,6 @@ const PatevyydetPage = () => {
   };
 
   const renderCourseCard = (c: Course) => {
-    const free = c.total - c.taken;
-    const fillingUp = c.total > 0 && free <= 5 && free > 0;
     const courseImage = courseImageOverrides[c.name] ?? categories.find((cat) => cat.id === c.category)?.image;
     return (
       <div key={c.name} className="keuda-card-enhanced p-6 flex flex-col overflow-hidden">
@@ -127,22 +125,9 @@ const PatevyydetPage = () => {
         )}
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <Badge className="bg-primary text-primary-foreground hover:bg-primary">{c.category}</Badge>
-          {c.openSeats && (
-            <Badge variant="outline" className="border-primary text-primary">Avoin osallistujille</Badge>
-          )}
-          {fillingUp && (
-            <Badge className="bg-orange-500 text-white hover:bg-orange-500">Täyttymässä</Badge>
-          )}
         </div>
         <h3 className="text-lg font-bold text-foreground mb-2">{c.name}</h3>
-        <div className="text-sm text-muted-foreground space-y-1 mb-4">
-          <div>Seuraava: {c.date}</div>
-          {c.total > 0 && <div>{free} / {c.total} paikkaa vapaana</div>}
-          <div className="flex items-center gap-1.5">
-            {c.format === "Etätoteutus" ? <Monitor className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
-            {c.format}
-          </div>
-        </div>
+        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{c.description}</p>
         <div className="mt-auto space-y-2">
           {c.infoUrl && (
             <Button variant="ghost" className="w-full" asChild>
@@ -154,7 +139,7 @@ const PatevyydetPage = () => {
               <a href={c.signupUrl} target="_blank" rel="noopener noreferrer">Ilmoittaudu</a>
             </Button>
           ) : (
-            <Button variant="outline-primary" className="w-full">Ilmoittaudu</Button>
+            <Button variant="outline-primary" className="w-full">Kysy lisää</Button>
           )}
         </div>
       </div>
