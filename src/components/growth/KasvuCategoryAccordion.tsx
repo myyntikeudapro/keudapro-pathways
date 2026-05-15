@@ -251,6 +251,29 @@ export function KasvuCategoryAccordion() {
                             </AccordionItem>
                           ))}
                         </Accordion>
+
+                          <div className="mb-5">
+                            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
+                              Asiantuntija- ja johtamiskoulutukset
+                            </p>
+                            <div className="flex flex-col gap-1.5">
+                              {[
+                                { label: "Esihenkilö- ja johtamiskoulutukset", hash: "esihenkilo-johtaminen" },
+                                { label: "Tekoälypätevyys-koulutukset", hash: "tekoalypatevyys" },
+                                { label: "Turvallisuusjohtamisen koulutukset", hash: "turvallisuusjohtaminen" },
+                                { label: "Muut asiantuntija- ja osaajakoulutukset", hash: "muut-asiantuntija" },
+                              ].map((item) => (
+                                <Link
+                                  key={item.hash}
+                                  to={`/aly#${item.hash}`}
+                                  className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg bg-card hover:bg-accent border border-border/50 text-foreground text-sm font-semibold transition-colors group"
+                                >
+                                  <span>{item.label}</span>
+                                  <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary flex-shrink-0 transition-colors" />
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
                       ) : (
                         <div className="grid sm:grid-cols-2 gap-2 mb-5">
                           {cat.modules.map((mod) => (
