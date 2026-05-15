@@ -81,10 +81,6 @@ export function AnimatedCounters() {
           ))}
         </div>
 
-        {/* Supporting text */}
-        <p className="text-sm md:text-base text-background/50 text-center">
-          Valtakunnalliset ja kansainväliset verkostot
-        </p>
 
         {/* Testimonial */}
         <blockquote className="max-w-2xl text-center bg-background/[0.06] border border-background/10 rounded-xl px-6 py-5">
