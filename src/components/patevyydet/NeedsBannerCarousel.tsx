@@ -81,7 +81,7 @@ export function NeedsBannerCarousel() {
 
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => setCurrent((p) => (p + 1) % slides.length), 6000);
+    const t = setInterval(() => setCurrent((p) => (p + 1) % slides.length), 9000);
     return () => clearInterval(t);
   }, [paused]);
 
@@ -90,11 +90,27 @@ export function NeedsBannerCarousel() {
     else if (slide.coach) openPanel(slide.coach);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+    else if (e.key === " " || e.key === "Spacebar") { e.preventDefault(); setPaused((p) => !p); }
+  };
+
   return (
     <div
-      className="relative w-full overflow-hidden rounded-2xl h-[420px] md:h-[460px] lg:h-[500px] shadow-2xl"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Mistä tarpeesta liikkeelle"
+      tabIndex={0}
+      className="relative w-full overflow-hidden rounded-2xl h-[420px] md:h-[460px] lg:h-[500px] shadow-2xl outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      onTouchStart={() => setPaused(true)}
+      onTouchEnd={() => setPaused(false)}
+      onTouchCancel={() => setPaused(false)}
+      onKeyDown={handleKeyDown}
     >
       {slides.map((slide, i) => (
         <div
