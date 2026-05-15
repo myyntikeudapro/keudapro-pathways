@@ -7,7 +7,7 @@ import { useCoachPanel } from "@/contexts/CoachPanelContext";
 
 const navItems = [
   { label: "Reitit", href: "/" },
-  { label: "Pätevyydet", href: "/patevyydet" },
+  { label: "Osaaminen", href: "/osaaminen" },
   { label: "Operaattori", href: "/operaattori" },
   { label: "Ota yhteyttä", href: "/yhteystiedot" },
 ];
