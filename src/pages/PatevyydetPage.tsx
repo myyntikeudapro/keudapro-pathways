@@ -486,20 +486,55 @@ const PatevyydetPage = () => {
         </div>
       </section>
 
-      {/* Courses */}
-      <section id="koulutukset" className="py-12 md:py-16">
+      {/* Tutkintopolku-banneri */}
+      <section className="py-6" style={{ backgroundColor: "#F5F5F5" }}>
         <div className="keuda-container">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
-            Tulevat koulutukset
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map(renderCourseCard)}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <p className="text-base text-foreground">
+              Etsitkö tutkintotavoitteista koulutusta tai pidempää ammatillista polkua?
+            </p>
+            <div className="flex flex-col md:items-end">
+              <a
+                href="https://www.keuda.fi/koulutukset/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-semibold hover:underline"
+              >
+                Tutustu Keudan tutkintokoulutuksiin →
+              </a>
+              <span className="text-xs text-muted-foreground mt-1">
+                Keuda tarjoaa ammatillisia tutkintoja KUUMA-seudulla.
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Courses */}
+      <section id="koulutukset" className="py-12 md:py-16">
+        <div className="keuda-container">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
+            {wizardActive && wizardSelectedTags.length > 0 ? "Sinulle sopivat ratkaisut" : "Tulevat koulutukset"}
+          </h2>
+          {filtered.length === 0 ? (
+            <div className="max-w-2xl mx-auto text-center keuda-card-enhanced p-8">
+              <p className="text-lg text-foreground mb-4">
+                Ei tarkkaa osumaa — kerro tarpeesi ja räätälöimme ratkaisun.
+              </p>
+              <Button variant="cta" asChild>
+                <a href="#tarvelomake">Kerro tarpeesi</a>
+              </Button>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map(renderCourseCard)}
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Need form */}
-      <section className="py-12 md:py-20">
+      <section id="tarvelomake" className="py-12 md:py-20">
         <div className="keuda-container">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-8">
