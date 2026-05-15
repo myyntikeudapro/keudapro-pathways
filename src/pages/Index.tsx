@@ -4,7 +4,11 @@ import { SEO } from "@/components/seo/SEO";
 import { RouteCard } from "@/components/cards/RouteCard";
 import { Button } from "@/components/ui/button";
 import { AnimatedCounters } from "@/components/shared/AnimatedCounters";
-import { ShieldCheck, UtensilsCrossed, Briefcase, Sparkles } from "lucide-react";
+
+import categoryTurvallisuus from "@/assets/category-turvallisuus.jpg";
+import categoryHygienia from "@/assets/category-hygienia.jpg";
+import categoryTyoelama from "@/assets/category-tyoelama.jpg";
+import categoryAi from "@/assets/category-ai.jpg";
 import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
 
 import routeAly from "@/assets/route-aly.jpg";
