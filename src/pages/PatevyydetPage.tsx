@@ -388,14 +388,14 @@ const PatevyydetPage = () => {
       </section>
 
       {/* Mistä tarpeesta liikkeelle? */}
-      <section className="py-12 md:py-16" style={{ backgroundColor: "#F0F7F6" }}>
+      <section className="py-12 md:py-16 bg-foreground">
         <div className="keuda-container">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
                 Mistä tarpeesta liikkeelle?
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-background/70">
                 Valitse tilanne — ohjaamme sinut oikean AI-valmentajan luo.
               </p>
             </div>
