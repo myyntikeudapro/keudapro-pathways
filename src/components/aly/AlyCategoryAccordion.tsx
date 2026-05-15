@@ -116,24 +116,15 @@ const categories: Category[] = [
         href: "https://www.keuda.fi/koulutus/turvallisuuspaallikon-ja-asiantuntijan-valmennusohjelma/",
         description:
           "Kehitä turvallisuusosaamistasi ja vahvista roolisi organisaation turvallisuuskulttuurin rakentajana.",
-        image: progTurvallisuus,
-        cta: "Tutustu ohjelmaan →",
-      },
-      {
-        label: "Turvallisuusjohtaja 2.6 -valmennusohjelma",
+        image: progTurvallisuusPaallikko,
         href: "https://www.keuda.fi/koulutus/turvallisuusjohtaja-2-6/",
         description:
           "Strategisen turvallisuusjohtamisen valmennus – kokonaisvaltainen turvallisuuskulttuuri osaksi liiketoiminnan johtamista.",
-        image: progTurvallisuus,
-        cta: "Tutustu ohjelmaan →",
-      },
-      {
-        label: "Luotettavuuspäällikkö (AI)",
+        image: progTurvallisuusJohtaja,
         href: "/yhteystiedot",
         description:
           "Johda tekoälyjärjestelmien luotettavuutta, läpinäkyvyyttä ja eettistä käyttöä – uusi erikoisohjelma tulossa 2026.",
-        image: progTurvallisuus,
-        cta: "Ilmoittaudu kiinnostuneeksi →",
+        image: progLuotettavuusAi,
         isInternal: true,
         comingSoon: true,
       },
