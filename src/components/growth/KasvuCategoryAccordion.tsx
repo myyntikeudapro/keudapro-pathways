@@ -226,6 +226,7 @@ export function KasvuCategoryAccordion() {
                       </span>
 
                       {cat.id === "osaaminen" ? (
+                        <>
                         <Accordion type="single" collapsible className="mb-5">
                           {trainingCategories.map((tc) => (
                             <AccordionItem key={tc.id} value={tc.id} className="border-border/50">
