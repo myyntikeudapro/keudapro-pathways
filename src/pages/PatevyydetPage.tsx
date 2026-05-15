@@ -9,8 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { PatevyydetHeroCarousel } from "@/components/patevyydet/PatevyydetHeroCarousel";
+import { useWizard } from "@/contexts/WizardContext";
 import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
+import bannerKortit from "@/assets/banner-osaaminen-kortit.jpg";
+import bannerSuunta from "@/assets/banner-osaaminen-suunta.jpg";
+import bannerAi from "@/assets/banner-osaaminen-ai.jpg";
+import bannerRatkaisee from "@/assets/banner-osaaminen-ratkaisee.jpg";
 
 import catKaikki from "@/assets/cat-kaikki.jpg";
 import catTurvallisuus from "@/assets/cat-turvallisuus.jpg";
@@ -258,6 +263,7 @@ const PatevyydetPage = () => {
   const [wizardActive, setWizardActive] = useState(false);
   const { toast } = useToast();
   const { openPanel } = useCoachPanel();
+  const { openWizard } = useWizard();
 
   const baseCourses: Course[] = courses.map((c) => ({ ...c, tags: courseTags[c.name] }));
   const allCourses: Course[] = [...baseCourses, ...reittiCards];
@@ -369,73 +375,116 @@ const PatevyydetPage = () => {
         path="/osaaminen"
       />
 
-      {/* Mistä tarpeesta liikkeelle? */}
+      {/* Mistä tarpeesta liikkeelle? — photo banner */}
       <section className="py-12 md:py-16 bg-foreground">
         <div className="keuda-container">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
-                Mistä tarpeesta liikkeelle?
-              </h2>
-              <p className="text-lg text-background/70">
-                Valitse tilanne — ohjaamme sinut oikean AI-valmentajan luo.
-              </p>
-            </div>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
+              Mistä tarpeesta liikkeelle?
+            </h2>
+            <p className="text-lg text-background/70">
+              Valitse tilanne — ohjaamme sinut oikean AI-valmentajan luo.
+            </p>
+          </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "Tarvitsen kortin tai pätevyyden",
-                  desc: "Työturvallisuus, ensiapu, hygienia tai muu virallinen pätevyys itselleni tai tiimilleni.",
-                  coach: "reitti" as const,
-                },
-                {
-                  title: "Etsin uutta suuntaa",
-                  desc: "Uramuutos, työnhaku tai uusi ammatillinen polku.",
-                  coach: "ana" as const,
-                },
-                {
-                  title: "Kehitän osaamista",
-                  desc: "Tekoäly, digitaaliset taidot tai tiimin osaamisen kehittäminen.",
-                  coach: "veli" as const,
-                },
-              ].map((card) => (
-                <button
-                  key={card.title}
-                  type="button"
-                  onClick={() => openPanel(card.coach)}
-                  aria-label={`${card.title} — avaa AI-valmentajan`}
-                  className="keuda-card-enhanced p-6 text-left flex flex-row items-center gap-4 h-full transition-all hover:border-teal-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
-                >
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-bold text-foreground mb-2">{card.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
-                  </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+            {[
+              {
+                image: bannerKortit,
+                coach: "reitti" as const,
+                tag: "Reitti — kortit & pätevyydet",
+                title: "Tarvitsen kortin tai pätevyyden",
+                desc: "Työturvallisuus, ensiapu, hygienia tai muu virallinen pätevyys.",
+                cta: "Keskustele Reitin kanssa",
+                onClick: () => openPanel("reitti"),
+              },
+              {
+                image: bannerSuunta,
+                coach: "ana" as const,
+                tag: "Ana — uusi suunta",
+                title: "Etsin uutta suuntaa",
+                desc: "Uramuutos, työnhaku tai uusi ammatillinen polku.",
+                cta: "Keskustele Anan kanssa",
+                onClick: () => openPanel("ana"),
+              },
+              {
+                image: bannerAi,
+                coach: "veli" as const,
+                tag: "Veli — AI & osaaminen",
+                title: "Kehitän osaamista",
+                desc: "Tekoäly, digitaaliset taidot tai tiimin kehittäminen.",
+                cta: "Keskustele Velin kanssa",
+                onClick: () => openPanel("veli"),
+              },
+              {
+                image: bannerRatkaisee,
+                coach: null,
+                tag: "Osaaminen ratkaisee työssä",
+                title: "Tiedätkö mikä työelämän osaaminen kannattaa hankkia juuri nyt?",
+                desc: "Tee 15 min reittikartoitus — saat suosituksen sinulle parhaiten sopivasta poluista ja koulutuksista.",
+                cta: "Aloita reittikartoitus",
+                onClick: openWizard,
+              },
+            ].map((card) => (
+              <button
+                key={card.title}
+                type="button"
+                onClick={card.onClick}
+                aria-label={card.title}
+                className="group relative overflow-hidden rounded-xl text-left h-72 md:h-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 transition-transform duration-300 hover:-translate-y-1"
+              >
+                <img
+                  src={card.image}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  width={1280}
+                  height={896}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
+                {card.coach && (
                   <img
                     src={coachImages[card.coach]}
                     alt=""
                     aria-hidden="true"
-                    className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-2 border-teal-500/30 shrink-0"
+                    className="absolute top-3 right-3 w-14 h-14 md:w-16 md:h-16 rounded-full object-cover border-2 border-white/80 shadow-lg z-10"
                   />
-                </button>
-              ))}
-            </div>
+                )}
+                <div className="relative z-10 h-full flex flex-col justify-end p-5">
+                  <p className="text-xs font-semibold tracking-wide uppercase text-teal-300 mb-2">
+                    {card.tag}
+                  </p>
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-2 leading-snug">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm text-white/80 mb-3 leading-relaxed line-clamp-3">
+                    {card.desc}
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-300 group-hover:text-teal-200">
+                    {card.cta}
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
 
-            <div className="text-center mt-6">
-              <p className="text-sm text-background/70">
-                Ei mikään näistä?{" "}
-                <button
-                  type="button"
-                  onClick={() => openPanel(null)}
-                  className="text-teal-300 hover:text-teal-200 underline-offset-4 hover:underline font-medium"
-                >
-                  Kerro tarpeesi omin sanoin
-                </button>
-              </p>
-            </div>
+          <div className="text-center mt-6">
+            <p className="text-sm text-background/70">
+              Ei mikään näistä?{" "}
+              <button
+                type="button"
+                onClick={() => openPanel(null)}
+                className="text-teal-300 hover:text-teal-200 underline-offset-4 hover:underline font-medium"
+              >
+                Kerro tarpeesi omin sanoin
+              </button>
+            </p>
           </div>
         </div>
       </section>
+
 
       {/* Categories */}
       {/* Categories — NOSTE-style chips + accordion */}
