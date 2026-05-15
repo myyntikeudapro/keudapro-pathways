@@ -192,7 +192,7 @@ export function Panel2({ open, onClose, onOpenMuutosturva }: { open: boolean; on
         <p className="text-sm text-muted-foreground mb-3">
           Varaa aika ja päivitetään CV:si yhdessä – käytännössä ja nopeasti.
         </p>
-        <CtaLink href="mailto:keudapro@keuda.fi" mailto>Varaa aika →</CtaLink>
+        <CtaLink href="https://calendar.app.google/iY2TDLg3b8RpyKjK7">Varaa aika →</CtaLink>
       </StepCard>
 
       <StepCard title="ARPRO AI-työnhaku" tooltip="Tekoälyavusteinen työnhakuvalmennus.">
@@ -248,7 +248,7 @@ export function Panel3({ open, onClose, onOpenMuutosturva }: { open: boolean; on
         <p className="text-sm text-muted-foreground mb-3">
           Nopea ja käytännöllinen sessio CV:si päivittämiseen.
         </p>
-        <CtaLink href="mailto:keudapro@keuda.fi" mailto>Varaa aika →</CtaLink>
+        <CtaLink href="https://calendar.app.google/iY2TDLg3b8RpyKjK7">Varaa aika →</CtaLink>
       </StepCard>
 
       <StepCard title="Työkieli haltuun" tooltip="Vahvista suomen, ruotsin tai englannin taitoa työelämässä.">
