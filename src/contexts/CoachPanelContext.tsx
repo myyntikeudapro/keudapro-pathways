@@ -4,8 +4,9 @@ export type CoachType = "ana" | "veli" | "reitti";
 
 interface CoachPanelContextType {
   isPanelOpen: boolean;
-  openPanel: () => void;
+  openPanel: (highlight?: CoachType | null) => void;
   closePanel: () => void;
+  highlightedCoach: CoachType | null;
   activeChat: CoachType | null;
   openChat: (coach: CoachType) => void;
   closeChat: () => void;
@@ -16,17 +17,26 @@ const CoachPanelContext = createContext<CoachPanelContextType | undefined>(undef
 export function CoachPanelProvider({ children }: { children: ReactNode }) {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [activeChat, setActiveChat] = useState<CoachType | null>(null);
+  const [highlightedCoach, setHighlightedCoach] = useState<CoachType | null>(null);
 
   return (
     <CoachPanelContext.Provider
       value={{
         isPanelOpen,
-        openPanel: () => setIsPanelOpen(true),
-        closePanel: () => setIsPanelOpen(false),
+        highlightedCoach,
+        openPanel: (highlight = null) => {
+          setHighlightedCoach(highlight);
+          setIsPanelOpen(true);
+        },
+        closePanel: () => {
+          setIsPanelOpen(false);
+          setHighlightedCoach(null);
+        },
         activeChat,
         openChat: (coach) => {
           setActiveChat(coach);
           setIsPanelOpen(false);
+          setHighlightedCoach(null);
         },
         closeChat: () => setActiveChat(null),
       }}

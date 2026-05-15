@@ -40,7 +40,7 @@ const coaches = [
 ];
 
 export function CoachSelectionPanel() {
-  const { isPanelOpen, closePanel, openChat } = useCoachPanel();
+  const { isPanelOpen, closePanel, openChat, highlightedCoach } = useCoachPanel();
 
   return (
     <>
@@ -72,50 +72,59 @@ export function CoachSelectionPanel() {
 
         {/* Coach Cards */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
-          {coaches.map((coach) => (
-            <div
-              key={coach.id}
-              className={cn(
-                "rounded-xl border-2 p-4 transition-all duration-200 hover:shadow-md",
-                coach.color
-              )}
-            >
-              <div className="flex gap-4">
-                <img
-                  src={coach.image}
-                  alt={coach.name}
-                  className="w-16 h-16 rounded-full object-cover border-2 border-background shadow-sm flex-shrink-0"
-                  loading="lazy"
-                  width={64}
-                  height={64}
-                />
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-foreground text-base">{coach.name}</h3>
-                  <p className="text-xs font-medium text-primary">{coach.role}</p>
-                  <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{coach.description}</p>
+          {coaches.map((coach) => {
+            const isHighlighted = highlightedCoach === coach.id;
+            return (
+              <div
+                key={coach.id}
+                className={cn(
+                  "rounded-xl border-2 p-4 transition-all duration-200 hover:shadow-md",
+                  isHighlighted ? "border-teal-500 shadow-md" : coach.color
+                )}
+              >
+                <div className="flex gap-4">
+                  <img
+                    src={coach.image}
+                    alt={coach.name}
+                    className="w-16 h-16 rounded-full object-cover border-2 border-background shadow-sm flex-shrink-0"
+                    loading="lazy"
+                    width={64}
+                    height={64}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-foreground text-base">{coach.name}</h3>
+                    <p className="text-xs font-medium text-primary">{coach.role}</p>
+                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{coach.description}</p>
+                  </div>
+                </div>
+
+                {isHighlighted && (
+                  <p className="text-xs font-medium text-teal-600 mt-3">
+                    Suositeltu tilanteesi perusteella
+                  </p>
+                )}
+
+                <div className="flex gap-2 mt-4">
+                  <button
+                    onClick={() => openChat(coach.id)}
+                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    Keskustele AI:n kanssa
+                  </button>
+                  <a
+                    href={coach.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors"
+                  >
+                    <CalendarDays className="w-4 h-4" />
+                    Varaa aika
+                  </a>
                 </div>
               </div>
-
-              <div className="flex gap-2 mt-4">
-                <button
-                  onClick={() => openChat(coach.id)}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  Keskustele AI:n kanssa
-                </button>
-                <a
-                  href={coach.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-muted transition-colors"
-                >
-                  <CalendarDays className="w-4 h-4" />
-                  Varaa aika
-                </a>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Footer */}
