@@ -10,6 +10,9 @@ interface CoachPanelContextType {
   activeChat: CoachType | null;
   openChat: (coach: CoachType) => void;
   closeChat: () => void;
+  bookingCoach: CoachType | null;
+  openBooking: (coach: CoachType) => void;
+  closeBooking: () => void;
 }
 
 const CoachPanelContext = createContext<CoachPanelContextType | undefined>(undefined);
@@ -18,6 +21,7 @@ export function CoachPanelProvider({ children }: { children: ReactNode }) {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [activeChat, setActiveChat] = useState<CoachType | null>(null);
   const [highlightedCoach, setHighlightedCoach] = useState<CoachType | null>(null);
+  const [bookingCoach, setBookingCoach] = useState<CoachType | null>(null);
 
   return (
     <CoachPanelContext.Provider
@@ -39,6 +43,13 @@ export function CoachPanelProvider({ children }: { children: ReactNode }) {
           setHighlightedCoach(null);
         },
         closeChat: () => setActiveChat(null),
+        bookingCoach,
+        openBooking: (coach) => {
+          setIsPanelOpen(false);
+          setHighlightedCoach(null);
+          setBookingCoach(coach);
+        },
+        closeBooking: () => setBookingCoach(null),
       }}
     >
       {children}
