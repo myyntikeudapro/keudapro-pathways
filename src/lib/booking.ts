@@ -1,4 +1,5 @@
-// Public Google Calendar appointment booking URL for myynti@keudapro.com
-// Short share link — opens the full booking page with available time slots.
-// Do NOT use the ?gv=true variant: Safari blocks it via Cross-Origin-Opener-Policy.
-export const BOOKING_URL = "https://calendar.app.google/iY2TDLg3b8RpyKjK7";
+// Public Google Calendar view for myynti@keudapro.com
+// Note: this is a view-only embed link — users see availability but cannot
+// self-book. Replace with an Appointment Scheduling URL when available.
+export const BOOKING_URL =
+  "https://calendar.google.com/calendar/embed?src=myynti%40keudapro.com&ctz=Europe%2FHelsinki";
