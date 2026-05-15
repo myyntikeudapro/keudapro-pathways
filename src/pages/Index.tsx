@@ -97,7 +97,7 @@ const Index = () => {
               ].map((tag) => (
                 <a
                   key={tag}
-                  href="/patevyydet"
+                  href="/osaaminen"
                   className="inline-flex items-center rounded-full border-2 border-primary text-primary px-3 py-1 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
                 >
                   {tag}
@@ -105,7 +105,7 @@ const Index = () => {
               ))}
             </div>
             <Button variant="outline-primary" size="lg" asChild>
-              <a href="/patevyydet">Katso kaikki koulutukset →</a>
+              <a href="/osaaminen">Katso kaikki koulutukset →</a>
             </Button>
           </div>
         </div>
