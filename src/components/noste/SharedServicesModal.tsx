@@ -153,7 +153,7 @@ const services = [
       { icon: Clock, text: "30 minuuttia" },
       { icon: MapPin, text: "Etänä tai lähitapaamisena" },
     ],
-    cta: { label: "Varaa aika →", href: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ14Dw7NAt63yAIEiGiboZjtx6D26SN0IZ_LD9_Cv5kPhkgRhLsAZySJ2q-GNTsMH5UTg00lKurU?gv=true" },
+    cta: { label: "Varaa aika →", href: "https://calendar.google.com/calendar/embed?src=myynti%40keudapro.com&ctz=Europe%2FHelsinki" },
   },
 ];
 
