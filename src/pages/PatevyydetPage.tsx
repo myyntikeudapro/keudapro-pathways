@@ -34,35 +34,66 @@ const categories = [
 type Course = {
   name: string;
   category: string;
-  date: string;
-  taken: number;
-  total: number;
-  format: "Lähitoteutus" | "Etätoteutus" | "Räätälöity";
-  openSeats: boolean;
+  description: string;
   infoUrl?: string;
   signupUrl?: string;
 };
 
 const courses: Course[] = [
-  { name: "Työturvallisuuskortti", category: "Turvallisuus", date: "15.6.2025", taken: 6, total: 20, format: "Lähitoteutus", openSeats: true },
-  { name: "Hygieniapassi", category: "Hygienia", date: "18.6.2025", taken: 8, total: 16, format: "Lähitoteutus", openSeats: true },
-  { name: "EA1 Ensiapu", category: "Ensiapu", date: "20.6.2025", taken: 6, total: 12, format: "Lähitoteutus", openSeats: true },
-  { name: "Tulityökortti", category: "Turvallisuus", date: "25.6.2025", taken: 7, total: 10, format: "Lähitoteutus", openSeats: false },
+  {
+    name: "Työturvallisuuskortti",
+    category: "Turvallisuus",
+    description: "Yhteisten työpaikkojen perustason turvallisuuskoulutus. Voimassa 5 vuotta ja vaaditaan yleisesti rakennus- ja teollisuusaloilla.",
+  },
+  {
+    name: "Tulityökortti",
+    category: "Turvallisuus",
+    description: "Pakollinen kortti kaikille, jotka tekevät tulitöitä tilapäisillä tulityöpaikoilla. Voimassa 5 vuotta.",
+  },
   {
     name: "Akkuturvallisuuskoulutus",
     category: "Turvallisuus",
-    date: "16.12.2025",
-    taken: 0,
-    total: 0,
-    format: "Etätoteutus",
-    openSeats: true,
+    description: "Litiumioniakkujen turvallinen käsittely, varastointi ja riskienhallinta työpaikalla. Sopii kaikille akkujen kanssa työskenteleville.",
     infoUrl: "https://www.keuda.fi/koulutus/akkuturvallisuuskoulutus/",
     signupUrl: "https://www.lyyti.fi/reg/Akkuturvallisuuskoulutuslanding_page_6706",
   },
-  { name: "Anniskelupassi", category: "Hygienia", date: "10.7.2025", taken: 6, total: 16, format: "Lähitoteutus", openSeats: true },
-  { name: "LinkedIn-kortti", category: "Työelämätaidot", date: "2.9.2025", taken: 4, total: 16, format: "Etätoteutus", openSeats: true },
-  { name: "3T: Tehoa työnhakuun tekoälyllä", category: "AI", date: "10.9.2025", taken: 8, total: 16, format: "Etätoteutus", openSeats: true },
-  { name: "Toimialakohtainen pätevyys", category: "Toimialakohtaiset", date: "Kysy toteutusta", taken: 0, total: 0, format: "Räätälöity", openSeats: false },
+  {
+    name: "EA1 Ensiapu",
+    category: "Ensiapu",
+    description: "Ensiavun peruskurssi (16 h). Antaa valmiudet auttaa hätätilanteissa ja yleisimmissä sairaus- ja tapaturmatilanteissa.",
+  },
+  {
+    name: "Hygieniapassi",
+    category: "Hygienia",
+    description: "Pakollinen elintarvikkeita käsitteleville. Osoittaa elintarvikehygienian perusosaamisen ja on voimassa toistaiseksi.",
+  },
+  {
+    name: "Anniskelupassi",
+    category: "Hygienia",
+    description: "Anniskeluravintolan vastaavan hoitajan pätevyystodistus. Tarvitaan alkoholijuomien anniskelutehtävissä.",
+  },
+  {
+    name: "LinkedIn-kortti",
+    category: "Työelämätaidot",
+    description: "Opit rakentamaan ammattimaisen LinkedIn-profiilin, verkostoitumaan ja hyödyntämään palvelua työnhaussa sekä asiantuntijabrändäyksessä.",
+  },
+  {
+    name: "KV-kortti",
+    category: "Työelämätaidot",
+    description: "Kansainvälisen työelämän valmiuksia kehittävä kortti — kulttuurienvälinen viestintä, monikulttuurinen työyhteisö ja globaalin työelämän taidot.",
+    infoUrl: "https://kvkortti.fi",
+    signupUrl: "https://www.lyyti.fi/reg/KVkorttikoulutus_2530",
+  },
+  {
+    name: "3T: Tehoa työnhakuun tekoälyllä",
+    category: "AI",
+    description: "Käytännönläheinen koulutus, jossa opit hyödyntämään tekoälyä CV:n, hakemusten ja haastatteluiden valmistelussa.",
+  },
+  {
+    name: "Toimialakohtainen pätevyys",
+    category: "Toimialakohtaiset",
+    description: "Räätälöity pätevyyskoulutus organisaation tarpeisiin — sisältö, laajuus ja toteutus sovitaan yhdessä.",
+  },
 ];
 
 const PatevyydetPage = () => {
