@@ -105,6 +105,8 @@ const InsightPage = () => {
 
       <AlyPhilosophySection />
 
+      <AlyCategoryAccordion />
+
       <AlyProgramGrid />
     </Layout>
   );
