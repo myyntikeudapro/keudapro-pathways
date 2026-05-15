@@ -32,6 +32,7 @@ const App = () => (
           <BrowserRouter>
             <RouteWizard />
             <CoachSelectionPanel />
+            <BookingPanel />
             <MultiCoachChat />
             <Routes>
               <Route path="/" element={<Index />} />
