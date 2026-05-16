@@ -1,7 +1,7 @@
 // Shared route metadata for sitemap generation and meta-prerender.
 // Keep this in sync with <SEO> calls in src/pages/*.
 
-export const BASE_URL = "https://keudapro.com";
+export const BASE_URL = "https://keudapro.fi";
 
 export interface RouteMeta {
   path: string;
