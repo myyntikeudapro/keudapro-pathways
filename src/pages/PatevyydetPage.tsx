@@ -261,6 +261,8 @@ type AccordionCard = {
   description: string;
   ctaText: string;
   ctaHref: string;
+  badge?: string;
+  infoUrl?: string;
 };
 type AccordionCategory = {
   id: string;
@@ -268,6 +270,7 @@ type AccordionCategory = {
   intro: string;
   cards: AccordionCard[];
   bottomCta?: { text: string; href: string };
+  bottomBanner?: { text: string; linkText: string; linkHref: string };
 };
 
 const accordionCategories: AccordionCategory[] = [
@@ -349,7 +352,33 @@ const accordionCategories: AccordionCategory[] = [
     ],
     bottomCta: { text: "Katso kaikki Kasvu-reitin ohjelmat", href: "/kasvu" },
   },
-  { id: "cat-4", title: "Kategoria 4 (määritellään)", intro: "Tulossa.", cards: [] },
+  {
+    id: "kortit",
+    title: "Kortit ja pätevyydet",
+    intro: "Viralliset kortit ja pätevyydet nopeasti — yrityksille, tiimeille ja yksittäisille osallistujille.",
+    cards: [
+      { title: "Työturvallisuuskortti", badge: "Turvallisuus", description: "Yhteisten työpaikkojen turvallisuuden parantamiseen — voimassa 5 vuotta.", infoUrl: "https://www.keuda.fi/koulutus/tyoturvallisuuskortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Tulityökortti", badge: "Turvallisuus", description: "Tulitöiden turvallinen tekeminen — teoria, käytännön harjoitukset ja koe — voimassa 5 vuotta.", infoUrl: "https://www.keuda.fi/koulutus/tulityokortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Sähkötyöturvallisuuskortti", badge: "Turvallisuus", description: "Sähkötöitä tekevien pakollinen pätevyys — parantaa sähköturvallisuusosaamista.", infoUrl: "https://www.keuda.fi/koulutus/sfs6002-sahkotyoturvallisuuskortti/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Akkuturvallisuuskoulutus", badge: "Turvallisuus", description: "Litiumioniakkujen turvallinen käsittely ja riskienhallinta — erityisesti ajoneuvoalalle.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "EA1 Ensiapu", badge: "Ensiapu", description: "Ensiavun peruskurssi 16 h — valmiudet auttaa onnettomuus- ja hätätilanteissa.", infoUrl: "https://www.keuda.fi/koulutus/spr-ensiapukurssi-ea-1/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "EA2 Ensiapu", badge: "Ensiapu", description: "Ensiavun jatkokurssi 16 h — syventää EA1:n osaamista. Edellyttää voimassa olevaa EA1-koulutusta.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Hätäensiapu 4 t", badge: "Ensiapu", description: "Lyhyt hätäensiapukurssi työpaikan ensiapuvalmiuden ylläpitoon.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Hätäensiapu 8 t", badge: "Ensiapu", description: "Laajempi hätäensiapukurssi kattavampiin valmiuksiin.", infoUrl: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-8-t/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Hygieniapassi", badge: "Hygienia", description: "Virallinen toistaiseksi voimassa oleva passi elintarvikealalle.", infoUrl: "https://www.keuda.fi/koulutus/hygieniapassitestit-ja-koulutukset/", ctaText: "Ilmoittaudu", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Anniskelupassi", badge: "Hygienia", description: "Osoittaa alkoholilainsäädännön hallinnan — oikeuttaa toimimaan vastaavana hoitajana.", infoUrl: "https://www.keuda.fi/koulutukset/anniskelupassikoulutukset/", ctaText: "Ilmoittaudu", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Työhyvinvointikortti", badge: "Työelämä", description: "Innostaa johtoa ja henkilöstöä kehittämään työpaikan hyvinvointia — tilauksesta.", infoUrl: "https://www.keuda.fi/koulutus/tyohyvinvointikortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "LinkedIn-kortti", badge: "Työelämä", description: "Rakenna ammattimainen LinkedIn-profiili ja hyödynnä palvelua työnhaussa.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "KV-kortti", badge: "Työelämä", description: "Käytännönläheinen koulutus kansainvälisten työntekijöiden kanssa toimimiseen.", infoUrl: "https://www.keuda.fi/koulutus/kv-korttikoulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "3T-kortti", badge: "AI", description: "Sertifioitu osaamistodistus tekoälyn hyödyntämisestä työnhaussa.", infoUrl: "https://www.keuda.fi/koulutus/3t-kortti/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Toimialakohtainen pätevyys", badge: "Toimialakohtainen", description: "Räätälöity pätevyyskoulutus organisaation tarpeisiin — sovitaan yhdessä.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+    ],
+    bottomBanner: {
+      text: "Etsitkö tutkintotavoitteista koulutusta?",
+      linkText: "Tutustu Keudan tutkintokoulutuksiin →",
+      linkHref: "https://www.keuda.fi/koulutukset/",
+    },
+  },
   { id: "cat-5", title: "Kategoria 5 (määritellään)", intro: "Tulossa.", cards: [] },
 ];
 
@@ -582,21 +611,35 @@ const PatevyydetPage = () => {
                                   key={card.title}
                                   className="rounded-xl border border-border bg-background p-5 flex flex-col"
                                 >
+                                  {card.badge && (
+                                    <span className="self-start inline-block text-[11px] font-semibold uppercase tracking-wide text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-2.5 py-0.5 mb-2">
+                                      {card.badge}
+                                    </span>
+                                  )}
                                   <h4 className="text-base font-bold text-foreground mb-2 leading-snug">
                                     {card.title}
                                   </h4>
-                                  <p className="text-sm text-muted-foreground mb-5 leading-relaxed flex-1">
+                                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed flex-1">
                                     {card.description}
                                   </p>
-                                  <Button variant="outline-primary" size="sm" className="w-full" asChild>
-                                    {isExternal ? (
-                                      <a href={card.ctaHref} target="_blank" rel="noopener noreferrer">
-                                        {card.ctaText}
-                                      </a>
-                                    ) : (
-                                      <a href={card.ctaHref}>{card.ctaText}</a>
+                                  <div className="mt-auto space-y-2">
+                                    {card.infoUrl && (
+                                      <Button variant="ghost" size="sm" className="w-full" asChild>
+                                        <a href={card.infoUrl} target="_blank" rel="noopener noreferrer">
+                                          Lue lisää
+                                        </a>
+                                      </Button>
                                     )}
-                                  </Button>
+                                    <Button variant="outline-primary" size="sm" className="w-full" asChild>
+                                      {isExternal ? (
+                                        <a href={card.ctaHref} target="_blank" rel="noopener noreferrer">
+                                          {card.ctaText}
+                                        </a>
+                                      ) : (
+                                        <a href={card.ctaHref}>{card.ctaText}</a>
+                                      )}
+                                    </Button>
+                                  </div>
                                 </div>
                               );
                             })}
@@ -629,6 +672,19 @@ const PatevyydetPage = () => {
                               </a>
                             )}
                           </Button>
+                        )}
+                        {cat.bottomBanner && (
+                          <div className="mt-2 rounded-lg bg-muted/60 border border-border p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                            <p className="text-sm text-foreground">{cat.bottomBanner.text}</p>
+                            <a
+                              href={cat.bottomBanner.linkHref}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm font-semibold text-primary hover:underline whitespace-nowrap"
+                            >
+                              {cat.bottomBanner.linkText}
+                            </a>
+                          </div>
                         )}
                       </div>
                     </div>
