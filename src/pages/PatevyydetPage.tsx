@@ -585,21 +585,35 @@ const PatevyydetPage = () => {
                                   key={card.title}
                                   className="rounded-xl border border-border bg-background p-5 flex flex-col"
                                 >
+                                  {card.badge && (
+                                    <span className="self-start inline-block text-[11px] font-semibold uppercase tracking-wide text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-2.5 py-0.5 mb-2">
+                                      {card.badge}
+                                    </span>
+                                  )}
                                   <h4 className="text-base font-bold text-foreground mb-2 leading-snug">
                                     {card.title}
                                   </h4>
-                                  <p className="text-sm text-muted-foreground mb-5 leading-relaxed flex-1">
+                                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed flex-1">
                                     {card.description}
                                   </p>
-                                  <Button variant="outline-primary" size="sm" className="w-full" asChild>
-                                    {isExternal ? (
-                                      <a href={card.ctaHref} target="_blank" rel="noopener noreferrer">
-                                        {card.ctaText}
-                                      </a>
-                                    ) : (
-                                      <a href={card.ctaHref}>{card.ctaText}</a>
+                                  <div className="mt-auto space-y-2">
+                                    {card.infoUrl && (
+                                      <Button variant="ghost" size="sm" className="w-full" asChild>
+                                        <a href={card.infoUrl} target="_blank" rel="noopener noreferrer">
+                                          Lue lisää
+                                        </a>
+                                      </Button>
                                     )}
-                                  </Button>
+                                    <Button variant="outline-primary" size="sm" className="w-full" asChild>
+                                      {isExternal ? (
+                                        <a href={card.ctaHref} target="_blank" rel="noopener noreferrer">
+                                          {card.ctaText}
+                                        </a>
+                                      ) : (
+                                        <a href={card.ctaHref}>{card.ctaText}</a>
+                                      )}
+                                    </Button>
+                                  </div>
                                 </div>
                               );
                             })}
