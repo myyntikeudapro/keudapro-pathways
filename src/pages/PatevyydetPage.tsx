@@ -255,6 +255,54 @@ const reittiCards: Course[] = [
   },
 ];
 
+/* ─── Uusi 5-kategorian accordion-rakenne ─── */
+type AccordionCard = {
+  title: string;
+  description: string;
+  ctaText: string;
+  ctaHref: string;
+};
+type AccordionCategory = {
+  id: string;
+  title: string;
+  intro: string;
+  cards: AccordionCard[];
+  bottomCta?: { text: string; href: string };
+};
+
+const accordionCategories: AccordionCategory[] = [
+  {
+    id: "johtaminen",
+    title: "Johtaminen ja asiantuntijuus",
+    intro: "Johtamisen, esihenkilötyön ja tekoälyn ohjelmat.",
+    cards: [
+      {
+        title: "Johtamisen ja esihenkilötyön valmennukset",
+        description: "Käytännön työkalut esihenkilötyöhön — kehityt johtajana ja tiimisi kehittyy kanssasi.",
+        ctaText: "Tutustu",
+        ctaHref: "/aly",
+      },
+      {
+        title: "Tekoälypätevyys-ohjelmat",
+        description: "AI-Director, AI-Manager, AI-Coordinator — strategisesta johtamisesta käytännön käyttöönottoon.",
+        ctaText: "Tutustu",
+        ctaHref: "/aly",
+      },
+      {
+        title: "Turvallisuusjohtamisen ohjelmat",
+        description: "Turvallisuuspäällikön valmennus ja Turvallisuusjohtaja 2.6 — tee turvallisuudesta kilpailuetu.",
+        ctaText: "Tutustu",
+        ctaHref: "/aly",
+      },
+    ],
+    bottomCta: { text: "Katso kaikki Äly-reitin ohjelmat", href: "/aly" },
+  },
+  { id: "cat-2", title: "Kategoria 2 (määritellään)", intro: "Tulossa.", cards: [] },
+  { id: "cat-3", title: "Kategoria 3 (määritellään)", intro: "Tulossa.", cards: [] },
+  { id: "cat-4", title: "Kategoria 4 (määritellään)", intro: "Tulossa.", cards: [] },
+  { id: "cat-5", title: "Kategoria 5 (määritellään)", intro: "Tulossa.", cards: [] },
+
+
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
