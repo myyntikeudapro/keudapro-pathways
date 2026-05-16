@@ -301,7 +301,7 @@ const accordionCategories: AccordionCategory[] = [
   { id: "cat-3", title: "Kategoria 3 (määritellään)", intro: "Tulossa.", cards: [] },
   { id: "cat-4", title: "Kategoria 4 (määritellään)", intro: "Tulossa.", cards: [] },
   { id: "cat-5", title: "Kategoria 5 (määritellään)", intro: "Tulossa.", cards: [] },
-
+];
 
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
