@@ -379,7 +379,22 @@ const accordionCategories: AccordionCategory[] = [
       linkHref: "https://www.keuda.fi/koulutukset/",
     },
   },
-  { id: "cat-5", title: "Kategoria 5 (määritellään)", intro: "Tulossa.", cards: [] },
+  {
+    id: "kieli",
+    title: "Työpaikan kieli ja viestintä",
+    intro: "Kielikoulutukset monikulttuurisille työpaikoille — suomi, englanti, ruotsi ja selkoviestintä.",
+    cards: [
+      { title: "Suomi työkielenä", badge: "Kieli", description: "Työelämän suomen kielen koulutus maahanmuuttajataustaisille työntekijöille.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
+      { title: "Sote-suomi", badge: "Kieli", description: "Sosiaali- ja terveysalan työelämäsuomi — ammattisanaston ja viestinnän hallinta.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
+      { title: "Työpaikkasuomi", badge: "Kieli", description: "Suomen kielen koulutus suoraan omaan työympäristöön räätälöitynä.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
+      { title: "Selkosuomi työnjohdolle", badge: "Kieli", description: "Selkeä ja ymmärrettävä viestintä monikulttuurisessa työyhteisössä — työnjohtajille.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
+      { title: "Selkosuomi työyhteisölle", badge: "Kieli", description: "Selkoviestinnän perusteet koko työyhteisölle — parantaa arjen vuorovaikutusta.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
+      { title: "Englanti työkielenä", badge: "Kieli", description: "Työelämän englannin koulutus — viestintä kansainvälisessä työympäristössä.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
+      { title: "Ruotsi työkielenä", badge: "Kieli", description: "Ruotsin kielen koulutus työelämän tarpeisiin.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
+      { title: "KV-kortti", badge: "Kieli & kulttuuri", description: "Käytännönläheinen koulutus kansainvälisten työntekijöiden kanssa toimimiseen.", infoUrl: "https://www.keuda.fi/koulutus/kv-korttikoulutus/", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
+    ],
+    bottomCta: { text: "Kysy räätälöidystä kielikoulutuksesta", href: "#tarvelomake" },
+  },
 ];
 
 const PatevyydetPage = () => {
