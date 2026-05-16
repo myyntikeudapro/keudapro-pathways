@@ -323,7 +323,32 @@ const accordionCategories: AccordionCategory[] = [
     ],
     bottomCta: { text: "Katso kaikki Noste-reitin palvelut", href: "/noste" },
   },
-  { id: "cat-3", title: "Kategoria 3 (määritellään)", intro: "Tulossa.", cards: [] },
+  {
+    id: "kasvu",
+    title: "Yrityksen kasvu ja kehittäminen",
+    intro: "Kasvuohjelmat ja henkilöstön osaamisen kehittäminen — käynnistyksestä uudistumiseen.",
+    cards: [
+      {
+        title: "Kasvu käyntiin",
+        description: "Ensimmäiset rakenteet, prosessit ja osaaminen kasvun pohjaksi. Sopii yrityksille 40 000–120 000 €/v.",
+        ctaText: "Lue lisää",
+        ctaHref: "/kasvu",
+      },
+      {
+        title: "Skaalaus ja systematisointi",
+        description: "Systematisoi kasvu ja rakenna skaalautuva toimintamalli. Sopii yrityksille 120 000–600 000 €/v.",
+        ctaText: "Lue lisää",
+        ctaHref: "/kasvu",
+      },
+      {
+        title: "Osaaminen käytäntöön",
+        description: "Räätälöidyt henkilöstökoulutukset ja valmennukset kaikille kokoluokille.",
+        ctaText: "Lue lisää",
+        ctaHref: "/kasvu",
+      },
+    ],
+    bottomCta: { text: "Katso kaikki Kasvu-reitin ohjelmat", href: "/kasvu" },
+  },
   { id: "cat-4", title: "Kategoria 4 (määritellään)", intro: "Tulossa.", cards: [] },
   { id: "cat-5", title: "Kategoria 5 (määritellään)", intro: "Tulossa.", cards: [] },
 ];
