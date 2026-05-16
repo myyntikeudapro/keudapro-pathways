@@ -424,69 +424,77 @@ const PatevyydetPage = () => {
       </section>
 
 
-      {/* Categories */}
-      {/* Categories — NOSTE-style chips + accordion */}
+      {/* Kategoriat — accordion (5 paneelia, vain yksi auki kerrallaan) */}
       <section className="py-16 md:py-20 bg-[#E4F0EE]">
         <div className="keuda-container">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Mitä osaamista etsit?
+              Selaa osaamisalueita
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              Valitse kategoria — näet suoraan siihen kuuluvat kortit ja koulutukset.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Avaa kategoria — näet sisältyvät kortit, valmennukset ja ohjelmat.
             </p>
           </div>
 
-          <div className="flex flex-col gap-4 max-w-4xl mx-auto">
+          <div className="flex flex-col gap-3 max-w-4xl mx-auto">
             {categories.map((cat) => {
               const isActive = openCategory === cat.id;
-              const isExpanded = isActive || openCategory === null;
               const catCourses = baseCourses.filter((c) => c.category === cat.id);
               return (
                 <div
                   key={cat.id}
                   className={cn(
                     "rounded-xl border overflow-hidden bg-card transition-all duration-300",
-                    isActive ? "border-primary shadow-lg" : "border-border",
-                    !isExpanded && "opacity-60"
+                    isActive
+                      ? "border-teal-500 shadow-lg ring-1 ring-teal-500/30"
+                      : "border-border hover:border-teal-300"
                   )}
                 >
                   <button
-                    onClick={() => toggleCategory(cat.id)}
-                    className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"
+                    onClick={() => setOpenCategory((prev) => (prev === cat.id ? null : cat.id))}
+                    aria-expanded={isActive}
+                    className={cn(
+                      "w-full flex items-center justify-between gap-4 p-5 text-left transition-colors",
+                      isActive ? "bg-teal-50" : "hover:bg-muted/40"
+                    )}
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="font-bold text-foreground">{cat.title}</span>
-                      <span className="hidden sm:inline text-xs text-muted-foreground">{cat.desc}</span>
+                    <div className="flex-1 min-w-0">
+                      <h3 className={cn(
+                        "text-lg md:text-xl font-bold mb-1",
+                        isActive ? "text-teal-700" : "text-foreground"
+                      )}>
+                        {cat.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{cat.intro}</p>
                     </div>
                     <ChevronDown className={cn(
-                      "w-5 h-5 text-muted-foreground transition-transform duration-300",
-                      isActive && "rotate-180"
+                      "w-5 h-5 flex-shrink-0 transition-transform duration-300",
+                      isActive ? "rotate-180 text-teal-600" : "text-muted-foreground"
                     )} />
                   </button>
 
                   {isActive && (
-                    <div className="animate-accordion-down">
-                      <div className="relative h-[140px] overflow-hidden">
-                        <img
-                          src={cat.image}
-                          alt={cat.title}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          width={1024}
-                          height={576}
-                        />
-                        <div className="absolute inset-0 bg-black/25" />
-                      </div>
-                      <div className="p-5 md:p-6">
-                        <p className="italic text-muted-foreground text-sm mb-5">{cat.intro}</p>
+                    <div className="animate-accordion-down border-t border-teal-100">
+                      <div className="p-5 md:p-6 bg-card">
                         {catCourses.length > 0 ? (
-                          <div className="grid md:grid-cols-2 gap-6">
+                          <div className="grid md:grid-cols-2 gap-5 mb-6">
                             {catCourses.map(renderCourseCard)}
                           </div>
                         ) : (
-                          <p className="text-muted-foreground">Ei tulevia koulutuksia tällä hetkellä — kysy lisää lomakkeen kautta.</p>
+                          <p className="text-muted-foreground mb-6">
+                            Räätälöity sisältö — kerro tarpeesi lomakkeen kautta.
+                          </p>
                         )}
+                        <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2 border-t border-border">
+                          <Button variant="cta" asChild>
+                            <a href="#tarvelomake">Kysy tästä kategoriasta</a>
+                          </Button>
+                          <Button variant="outline-primary" asChild>
+                            <a href="https://www.keuda.fi/koulutukset/" target="_blank" rel="noopener noreferrer">
+                              Katso kaikki Keudan koulutukset
+                            </a>
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -521,30 +529,6 @@ const PatevyydetPage = () => {
         </div>
       </section>
 
-      {/* Courses */}
-      <section id="koulutukset" className="py-12 md:py-16">
-        <div className="keuda-container">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">
-            {wizardActive && wizardSelectedTags.length > 0 ? "Sinulle sopivat ratkaisut" : "Tulevat koulutukset"}
-          </h2>
-          {filtered.length === 0 ? (
-            <div className="max-w-2xl mx-auto text-center keuda-card-enhanced p-8">
-              <p className="text-lg text-foreground mb-4">
-                Ei tarkkaa osumaa — kerro tarpeesi ja räätälöimme ratkaisun.
-              </p>
-              <Button variant="cta" asChild>
-                <a href="#tarvelomake">Kerro tarpeesi</a>
-              </Button>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map(renderCourseCard)}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Need form */}
       <section id="tarvelomake" className="py-12 md:py-20">
         <div className="keuda-container">
           <div className="max-w-2xl mx-auto">
