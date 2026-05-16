@@ -376,7 +376,25 @@ const PatevyydetPage = () => {
         path="/osaaminen"
       />
 
-      {/* Mistä tarpeesta liikkeelle? — vaihtuva valokuvabanneri */}
+      {/* Hero banner — valokuva + otsikko */}
+      <section className="relative w-full h-[220px] md:h-[340px] overflow-hidden">
+        <img
+          src={heroOsaaminen}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative z-10 h-full keuda-container flex flex-col items-center justify-center text-center">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">
+            Osaaminen ja pätevyydet
+          </h1>
+          <p className="text-base md:text-lg text-white/90 max-w-2xl">
+            Kortit, valmennukset ja ohjelmat — löydä tilanteesi mukainen ratkaisu.
+          </p>
+        </div>
+      </section>
+
       <section className="py-12 md:py-16 bg-foreground">
         <div className="keuda-container">
           <div className="text-center mb-8">
