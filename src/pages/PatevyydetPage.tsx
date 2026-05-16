@@ -261,6 +261,8 @@ type AccordionCard = {
   description: string;
   ctaText: string;
   ctaHref: string;
+  badge?: string;
+  infoUrl?: string;
 };
 type AccordionCategory = {
   id: string;
@@ -268,6 +270,7 @@ type AccordionCategory = {
   intro: string;
   cards: AccordionCard[];
   bottomCta?: { text: string; href: string };
+  bottomBanner?: { text: string; linkText: string; linkHref: string };
 };
 
 const accordionCategories: AccordionCategory[] = [
