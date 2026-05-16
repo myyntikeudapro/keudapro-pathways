@@ -484,10 +484,9 @@ const PatevyydetPage = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 max-w-4xl mx-auto">
-            {categories.map((cat) => {
+          <div className="flex flex-col gap-3 max-w-5xl mx-auto">
+            {accordionCategories.map((cat) => {
               const isActive = openCategory === cat.id;
-              const catCourses = baseCourses.filter((c) => c.category === cat.id);
               return (
                 <div
                   key={cat.id}
@@ -513,7 +512,7 @@ const PatevyydetPage = () => {
                       )}>
                         {cat.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2">{cat.intro}</p>
+                      <p className="text-sm text-muted-foreground">{cat.intro}</p>
                     </div>
                     <ChevronDown className={cn(
                       "w-5 h-5 flex-shrink-0 transition-transform duration-300",
@@ -524,25 +523,63 @@ const PatevyydetPage = () => {
                   {isActive && (
                     <div className="animate-accordion-down border-t border-teal-100">
                       <div className="p-5 md:p-6 bg-card">
-                        {catCourses.length > 0 ? (
-                          <div className="grid md:grid-cols-2 gap-5 mb-6">
-                            {catCourses.map(renderCourseCard)}
+                        {cat.cards.length > 0 ? (
+                          <div className="grid md:grid-cols-3 gap-5 mb-6">
+                            {cat.cards.map((card) => {
+                              const isExternal = !card.ctaHref.startsWith("/") && !card.ctaHref.startsWith("#");
+                              return (
+                                <div
+                                  key={card.title}
+                                  className="rounded-xl border border-border bg-background p-5 flex flex-col"
+                                >
+                                  <h4 className="text-base font-bold text-foreground mb-2 leading-snug">
+                                    {card.title}
+                                  </h4>
+                                  <p className="text-sm text-muted-foreground mb-5 leading-relaxed flex-1">
+                                    {card.description}
+                                  </p>
+                                  <Button variant="outline-primary" size="sm" className="w-full" asChild>
+                                    {isExternal ? (
+                                      <a href={card.ctaHref} target="_blank" rel="noopener noreferrer">
+                                        {card.ctaText}
+                                      </a>
+                                    ) : (
+                                      <a href={card.ctaHref}>{card.ctaText}</a>
+                                    )}
+                                  </Button>
+                                </div>
+                              );
+                            })}
                           </div>
                         ) : (
                           <p className="text-muted-foreground mb-6">
-                            Räätälöity sisältö — kerro tarpeesi lomakkeen kautta.
+                            Sisältö määritellään seuraavaksi.
                           </p>
                         )}
-                        <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2 border-t border-border">
-                          <Button variant="cta" asChild>
-                            <a href="#tarvelomake">Kysy tästä kategoriasta</a>
+                        {cat.bottomCta && (
+                          <Button
+                            asChild
+                            variant="outline"
+                            className="w-full border-teal-500 text-teal-700 hover:bg-teal-50 hover:text-teal-800"
+                          >
+                            {cat.bottomCta.href.startsWith("/") ? (
+                              <a href={cat.bottomCta.href} className="inline-flex items-center justify-center gap-2">
+                                {cat.bottomCta.text}
+                                <ArrowRight className="w-4 h-4" />
+                              </a>
+                            ) : (
+                              <a
+                                href={cat.bottomCta.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-2"
+                              >
+                                {cat.bottomCta.text}
+                                <ArrowRight className="w-4 h-4" />
+                              </a>
+                            )}
                           </Button>
-                          <Button variant="outline-primary" asChild>
-                            <a href="https://www.keuda.fi/koulutukset/" target="_blank" rel="noopener noreferrer">
-                              Katso kaikki Keudan koulutukset
-                            </a>
-                          </Button>
-                        </div>
+                        )}
                       </div>
                     </div>
                   )}
