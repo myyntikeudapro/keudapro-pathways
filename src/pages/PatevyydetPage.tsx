@@ -297,7 +297,32 @@ const accordionCategories: AccordionCategory[] = [
     ],
     bottomCta: { text: "Katso kaikki Äly-reitin ohjelmat", href: "/aly" },
   },
-  { id: "cat-2", title: "Kategoria 2 (määritellään)", intro: "Tulossa.", cards: [] },
+  {
+    id: "tyollistyminen",
+    title: "Työllistyminen ja urasiirtymät",
+    intro: "Valmennus suunnan löytämiseen, työnhakuun ja muutokseen siirtymiseen.",
+    cards: [
+      {
+        title: "Työhönvalmennus",
+        description: "Maksuton palvelu työttömille työnhakijoille — saatavilla Helsinki, Keski-Uusimaa, Vantaa, Kerava ja Sipoo.",
+        ctaText: "Lue lisää",
+        ctaHref: "/noste",
+      },
+      {
+        title: "Henkilökohtainen valmennus",
+        description: "Yksilöllistä valmennusta työnhakuun ja suunnan löytämiseen koko Suomessa.",
+        ctaText: "Lue lisää",
+        ctaHref: "/noste",
+      },
+      {
+        title: "Muutosturva",
+        description: "Muutosturva on oikeutesi — autamme sinua hyödyntämään sen täysimääräisesti.",
+        ctaText: "Lue lisää",
+        ctaHref: "/noste",
+      },
+    ],
+    bottomCta: { text: "Katso kaikki Noste-reitin palvelut", href: "/noste" },
+  },
   { id: "cat-3", title: "Kategoria 3 (määritellään)", intro: "Tulossa.", cards: [] },
   { id: "cat-4", title: "Kategoria 4 (määritellään)", intro: "Tulossa.", cards: [] },
   { id: "cat-5", title: "Kategoria 5 (määritellään)", intro: "Tulossa.", cards: [] },
