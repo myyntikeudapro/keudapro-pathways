@@ -647,6 +647,19 @@ const PatevyydetPage = () => {
                             )}
                           </Button>
                         )}
+                        {cat.bottomBanner && (
+                          <div className="mt-2 rounded-lg bg-muted/60 border border-border p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                            <p className="text-sm text-foreground">{cat.bottomBanner.text}</p>
+                            <a
+                              href={cat.bottomBanner.linkHref}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm font-semibold text-primary hover:underline whitespace-nowrap"
+                            >
+                              {cat.bottomBanner.linkText}
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
