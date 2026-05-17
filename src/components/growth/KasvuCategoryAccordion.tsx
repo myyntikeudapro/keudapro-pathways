@@ -307,6 +307,14 @@ export function KasvuCategoryAccordion() {
                         {cat.hookLine}
                       </p>
 
+                      {cat.id === "kaynistys" && (
+                        <p className="text-sm mb-4">
+                          <Link to="/aly" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
+                            Tarvitsetko johtamisosaamista kasvun tueksi? Tutustu Äly-reittiin →
+                          </Link>
+                        </p>
+                      )}
+
                       <Button
                         variant="cta"
                         size="lg"
