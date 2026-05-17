@@ -315,6 +315,14 @@ export function KasvuCategoryAccordion() {
                         </p>
                       )}
 
+                      {cat.id === "skaalaus" && (
+                        <p className="text-sm mb-4">
+                          <Link to="/operaattori" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
+                            Rekrytoitko kansainvälisesti? Kysy kumppanuudesta →
+                          </Link>
+                        </p>
+                      )}
+
                       <Button
                         variant="cta"
                         size="lg"
