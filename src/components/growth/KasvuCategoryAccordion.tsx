@@ -92,14 +92,14 @@ const categories: Category[] = [
     title: "Osaaminen käytäntöön",
     desc: "Osaamisen kehittäminen · Kaikki kokoluokat",
     intro:
-      "Koulutukset, kortit ja pätevyydet yrityksille ja henkilöstölle — osaaminen on kilpailuetu.",
+      "Osaamisen kehittäminen on investointi joka näkyy suoraan tuloksessa — ei irrallinen koulutuspäivä vaan osa kasvustrategiaa.",
     mindset: "Osaaminen on kilpailuetu — ei kulu",
     image: imgOsaaminen,
     modules: [
-      "Kortit ja pätevyydet (EA, hygieniapassi, työturvallisuus jne.)",
-      "Kieli ja viestintä (suomi, englanti, ruotsi)",
-      "Toimialakohtaiset koulutukset",
-      "Henkilöstön kehittämisohjelmat",
+      "Henkilöstön pätevyydet ja kortit ajan tasalle — turvallisuus, hygienia, toimialakohtaiset",
+      "Kielikoulutukset monikulttuuriselle työpaikalle — suomi, englanti, ruotsi, selkoviestintä",
+      "Johtamis- ja esihenkilövalmennus kasvavan tiimin tarpeisiin",
+      "Tekoälyosaaminen käytäntöön — tiimi pysyy muutoksen vauhdissa",
     ],
     ctaText: "Kysy koulutuksista",
     transition: "Osaaminen on jatkuvaa — sopii kaikille vaiheille rinnakkaisesti.",
@@ -225,69 +225,26 @@ export function KasvuCategoryAccordion() {
                         {cat.mindset}
                       </span>
 
-                      {cat.id === "osaaminen" ? (
-                        <>
-                        <Accordion type="single" collapsible className="mb-5">
-                          {trainingCategories.map((tc) => (
-                            <AccordionItem key={tc.id} value={tc.id} className="border-border/50">
-                              <AccordionTrigger className="text-sm font-semibold text-foreground text-left hover:no-underline py-2.5">
-                                {tc.label}
-                              </AccordionTrigger>
-                              <AccordionContent>
-                                <div className="flex flex-col gap-1.5 pt-1">
-                                  {tc.items.map((item) => (
-                                    <a
-                                      key={item.label}
-                                      href={item.href}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg hover:bg-accent text-foreground text-sm transition-colors group"
-                                    >
-                                      <span>{item.label}</span>
-                                      <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary flex-shrink-0 transition-colors" />
-                                    </a>
-                                  ))}
-                                </div>
-                              </AccordionContent>
-                            </AccordionItem>
-                          ))}
-                        </Accordion>
-
-                          <div className="mb-5">
-                            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-                              Asiantuntija- ja johtamiskoulutukset
-                            </p>
-                            <div className="flex flex-col gap-1.5">
-                              {[
-                                { label: "Esihenkilö- ja johtamiskoulutukset", hash: "esihenkilo-johtaminen" },
-                                { label: "Tekoälypätevyys-koulutukset", hash: "tekoalypatevyys" },
-                                { label: "Turvallisuusjohtamisen koulutukset", hash: "turvallisuusjohtaminen" },
-                                { label: "Muut asiantuntija- ja osaajakoulutukset", hash: "muut-asiantuntija" },
-                              ].map((item) => (
-                                <Link
-                                  key={item.hash}
-                                  to={`/aly#${item.hash}`}
-                                  className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg bg-card hover:bg-accent border border-border/50 text-foreground text-sm font-semibold transition-colors group"
-                                >
-                                  <span>{item.label}</span>
-                                  <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary flex-shrink-0 transition-colors" />
-                                </Link>
-                              ))}
-                            </div>
+                      <div className="grid sm:grid-cols-2 gap-2 mb-5">
+                        {cat.modules.map((mod) => (
+                          <div
+                            key={mod}
+                            className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 text-foreground text-sm font-medium border border-border/50"
+                          >
+                            <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                            {mod}
                           </div>
-                        </>
-                      ) : (
-                        <div className="grid sm:grid-cols-2 gap-2 mb-5">
-                          {cat.modules.map((mod) => (
-                            <div
-                              key={mod}
-                              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent/60 text-foreground text-sm font-medium border border-border/50"
-                            >
-                              <ArrowRight className="w-3.5 h-3.5 text-primary flex-shrink-0" />
-                              {mod}
-                            </div>
-                          ))}
-                        </div>
+                        ))}
+                      </div>
+
+                      {cat.id === "osaaminen" && (
+                        <Link
+                          to="/osaaminen"
+                          className="flex items-center justify-center gap-2 w-full px-4 py-3 mb-5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold transition-colors"
+                        >
+                          Katso kaikki koulutukset ja pätevyydet
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
                       )}
 
                       <Accordion type="single" collapsible className="mb-3">
@@ -327,6 +284,14 @@ export function KasvuCategoryAccordion() {
                         <p className="text-sm mb-4">
                           <Link to="/aly" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
                             Johdon ja hallituksen osaamisen kehittäminen? Tutustu Äly-reittiin →
+                          </Link>
+                        </p>
+                      )}
+
+                      {cat.id === "osaaminen" && (
+                        <p className="text-sm mb-4">
+                          <Link to="/aly" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
+                            Tarvitsetko johtamisohjelman kasvavan tiimisi tueksi? Tutustu Äly-reittiin →
                           </Link>
                         </p>
                       )}
