@@ -15,25 +15,13 @@ function StepCard({
   tooltip: string;
   children: React.ReactNode;
 }) {
-  const [expanded, setExpanded] = useState(false);
-
   return (
-    <div className="rounded-xl border border-border hover:border-primary/50 transition-colors bg-card overflow-hidden" title={tooltip}>
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between p-4 text-left group"
-      >
-        <span className="font-semibold text-sm text-foreground">{title}</span>
-        <ChevronDown
-          className={cn(
-            "w-4 h-4 text-muted-foreground transition-transform duration-200",
-            expanded && "rotate-180"
-          )}
-        />
-      </button>
-      {expanded && (
-        <div className="px-4 pb-4 animate-accordion-down">{children}</div>
-      )}
+    <div
+      className="rounded-xl border border-border bg-background overflow-hidden flex flex-col p-5 hover:border-primary/50 transition-colors"
+      title={tooltip}
+    >
+      <h4 className="text-base font-bold text-foreground mb-2 leading-snug">{title}</h4>
+      <div className="flex flex-col flex-1">{children}</div>
     </div>
   );
 }
