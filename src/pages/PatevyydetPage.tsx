@@ -87,8 +87,8 @@ const badgeImageFallback: Record<string, string> = {
   "Kieli & kulttuuri": courseKv,
 };
 
-const getCardImage = (card: { title: string; badge?: string }): string | undefined =>
-  courseImageOverrides[card.title] ?? (card.badge ? badgeImageFallback[card.badge] : undefined);
+const getCardImage = (card: { title: string; badge?: string; image?: string }): string | undefined =>
+  card.image ?? courseImageOverrides[card.title] ?? (card.badge ? badgeImageFallback[card.badge] : undefined);
 
 const categories = [
   {
