@@ -664,18 +664,20 @@ const PatevyydetPage = () => {
                                   key={card.title}
                                   className="rounded-xl border border-border bg-background overflow-hidden flex flex-col"
                                 >
-                                  {cardImage && (
-                                    <div className="w-full h-20 md:h-24 overflow-hidden">
-                                      <img
-                                        src={cardImage}
-                                        alt={card.title}
-                                        loading="lazy"
-                                        width={1024}
-                                        height={512}
-                                        className="w-full h-full object-cover"
-                                      />
-                                    </div>
-                                  )}
+                                  <div className="w-full h-36 md:h-44 overflow-hidden bg-muted">
+                                    <img
+                                      src={cardImage}
+                                      alt={card.title}
+                                      loading="lazy"
+                                      width={1024}
+                                      height={576}
+                                      onError={(e) => {
+                                        const img = e.currentTarget;
+                                        if (img.src !== FALLBACK_CARD_IMAGE) img.src = FALLBACK_CARD_IMAGE;
+                                      }}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </div>
                                   <div className="p-5 flex flex-col flex-1">
                                   {card.badge && (
                                     <span className="self-start inline-block text-[11px] font-semibold uppercase tracking-wide text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-2.5 py-0.5 mb-2">
