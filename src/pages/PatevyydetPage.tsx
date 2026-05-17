@@ -387,13 +387,6 @@ const accordionCategories: AccordionCategory[] = [
         ctaHref: "/kasvu#kasvupolut",
         image: growthUudistuminen,
       },
-      {
-        title: "Osaaminen käytäntöön",
-        description: "Koulutukset, kortit ja pätevyydet yrityksille ja henkilöstölle — osaaminen on kilpailuetu. Sopii kaikille kokoluokille.",
-        ctaText: "Lue lisää",
-        ctaHref: "/kasvu#kasvupolut",
-        image: growthOsaaminen,
-      },
     ],
     bottomCta: { text: "Katso kaikki Kasvu-reitin ohjelmat", href: "/kasvu" },
   },
