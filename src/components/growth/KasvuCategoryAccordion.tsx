@@ -288,6 +288,14 @@ export function KasvuCategoryAccordion() {
                         </p>
                       )}
 
+                      {cat.id === "osaaminen" && (
+                        <p className="text-sm mb-4">
+                          <Link to="/aly" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
+                            Tarvitsetko johtamisohjelman kasvavan tiimisi tueksi? Tutustu Äly-reittiin →
+                          </Link>
+                        </p>
+                      )}
+
                       <Button
                         variant="cta"
                         size="lg"
