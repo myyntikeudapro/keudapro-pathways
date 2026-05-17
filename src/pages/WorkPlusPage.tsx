@@ -23,6 +23,7 @@ import nostePathEmployment from "@/assets/noste-path-employment.jpg";
 import nostePathTransition from "@/assets/noste-path-transition.jpg";
 import nostePathOwnwork from "@/assets/noste-path-ownwork.jpg";
 import nosteCTABg from "@/assets/noste-cta-bg.jpg";
+import nosteTransition from "@/assets/noste-transition.jpg";
 
 /* ────────────── Data ────────────── */
 
