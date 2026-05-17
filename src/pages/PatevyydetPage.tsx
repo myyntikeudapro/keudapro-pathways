@@ -684,6 +684,7 @@ const PatevyydetPage = () => {
                                       )}
                                     </Button>
                                   </div>
+                                  </div>
                                 </div>
                               );
                             })}
