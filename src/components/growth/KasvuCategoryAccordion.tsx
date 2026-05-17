@@ -36,10 +36,10 @@ const categories: Category[] = [
     mindset: "Rohkeus myydä — asiakkaasta kassavirtaan",
     image: imgKaynistys,
     modules: [
-      "Myynti ja asiakashankinta",
-      "Markkinointi ja näkyvyys",
-      "Palvelun kirkastus ja hinnoittelu",
-      "Kasvun sparraus (1:1)",
+      "Rakennat ensimmäisen toimivan myyntiputken ja vakioasiakkuudet",
+      "Kirkkastat palvelusi ja hinnoittelet sen kannattavasti",
+      "Saat näkyvyyttä oikeille asiakkaille ilman isoa markkinointibudjettia",
+      "Kasvun sparraus 1:1 — et jää yksin päätösten kanssa",
     ],
     ctaText: "Aloita kasvukartoitus",
     transition:
@@ -306,6 +306,14 @@ export function KasvuCategoryAccordion() {
                       <p className="text-xs italic text-muted-foreground mb-4">
                         {cat.hookLine}
                       </p>
+
+                      {cat.id === "kaynistys" && (
+                        <p className="text-sm mb-4">
+                          <Link to="/aly" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
+                            Tarvitsetko johtamisosaamista kasvun tueksi? Tutustu Äly-reittiin →
+                          </Link>
+                        </p>
+                      )}
 
                       <Button
                         variant="cta"
