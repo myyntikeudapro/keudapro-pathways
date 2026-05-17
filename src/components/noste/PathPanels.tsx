@@ -176,7 +176,7 @@ export function PathPanel({ open, onClose, title, ingressi, children }: PanelPro
             <a href="mailto:keudapro@keuda.fi">Lähetä viesti</a>
           </Button>
           <Button variant="cta" asChild className="w-full">
-            <a href="#reittikartoitus">Tee reittikartoitus</a>
+            <a href="#aloita">Hahmottele suunnitelmaa AI-valmentajan kanssa</a>
           </Button>
         </div>
       </div>
