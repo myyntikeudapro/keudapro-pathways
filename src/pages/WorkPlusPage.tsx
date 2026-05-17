@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Map, Handshake, Rocket, ChevronDown } from "lucide-react";
+import { ArrowRight, Map, Handshake, Rocket, ChevronDown, Wallet, ShieldCheck, Sparkles } from "lucide-react";
 
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
@@ -23,6 +23,7 @@ import nostePathEmployment from "@/assets/noste-path-employment.jpg";
 import nostePathTransition from "@/assets/noste-path-transition.jpg";
 import nostePathOwnwork from "@/assets/noste-path-ownwork.jpg";
 import nosteCTABg from "@/assets/noste-cta-bg.jpg";
+import nosteTransition from "@/assets/noste-transition.jpg";
 
 /* ────────────── Data ────────────── */
 
@@ -319,20 +320,78 @@ const WorkPlusPage = () => {
       </section>
 
 
-      {/* Muutosturva-nosto */}
-      <section className="py-12 md:py-16">
+      {/* Muutosturva-nosto – huomiota herättävä budjettiframing */}
+      <section className="py-16 md:py-24 bg-foreground">
         <div className="keuda-container">
-          <div className="max-w-3xl mx-auto rounded-2xl border border-primary/30 bg-primary/5 p-6 md:p-8 text-center border-l-[5px] border-l-primary">
-            <h3 className="text-2xl font-bold text-foreground mb-3">Oletko muutosturvatilanteessa?</h3>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              Muutosturva on oikeutesi – ja me autamme sinua hyödyntämään sen täysimääräisesti. KeudaPRO:n kautta pääset muutosturvakoulutuksiin ja saat tuen seuraavan askeleen löytämiseen.
-            </p>
-            <Button variant="cta" size="lg" onClick={() => setMuutosturvaOpen(true)}>
-              Lue lisää muutosturvasta →
-            </Button>
+          <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-primary/20 grid md:grid-cols-2 bg-card">
+            {/* Vasen: kuva + overlay */}
+            <div className="relative min-h-[280px] md:min-h-[460px]">
+              <img
+                src={nosteTransition}
+                alt="Muutosturvaan oikeutettu henkilö keskustelemassa valmentajan kanssa"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                width={1024}
+                height={576}
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-foreground/85 via-foreground/55 to-primary/40" />
+              <div className="relative z-10 h-full flex flex-col justify-between p-7 md:p-10 text-background">
+                <span className="inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Vain muutosturvan piirissä oleville
+                </span>
+                <div>
+                  <div className="text-5xl md:text-7xl font-black leading-none mb-2 text-secondary">
+                    € 0
+                  </div>
+                  <p className="text-sm md:text-base text-background/85 max-w-[280px]">
+                    Sinulle maksuton – kustannukset katetaan muutosturvan koulutusbudjetista.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Oikea: viesti + CTA */}
+            <div className="p-7 md:p-12 flex flex-col justify-center">
+              <div className="inline-flex items-center gap-2 self-start mb-4 text-xs font-bold uppercase tracking-wider text-primary">
+                <ShieldCheck className="w-4 h-4" />
+                Muutosturva
+              </div>
+              <h3 className="text-2xl md:text-4xl font-black text-foreground mb-4 leading-tight">
+                Mihin aiot käyttää <span className="text-primary">koulutusbudjettisi?</span>
+              </h3>
+              <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
+                Jos työsuhteesi on päättymässä tai päättynyt tuotannollisista syistä, sinulla on lakisääteinen oikeus muutosturvakoulutukseen – jopa <strong className="text-foreground">enintään 2 kk palkkaa vastaavan</strong> arvosta. Älä jätä sitä käyttämättä.
+              </p>
+
+              <ul className="space-y-2.5 mb-7">
+                {[
+                  { icon: Wallet, text: "Koulutuksen rahoittaa työnantajasi tai TE-palvelut – ei sinun lompakkosi" },
+                  { icon: Rocket, text: "Valitset itse polun: uudelleenkoulutus, sertifikaatti tai uravalmennus" },
+                  { icon: ShieldCheck, text: "Käytettävissä 12 kk irtisanomisesta – me autamme hakemuksessa" },
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm md:text-base text-foreground">
+                    <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="w-4 h-4 text-primary" />
+                    </span>
+                    <span className="pt-1">{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button variant="cta" size="lg" onClick={() => setMuutosturvaOpen(true)} className="flex-1">
+                  Selvitä oikeutesi ilmaiseksi →
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                Vastaat muutamaan kysymykseen – saat henkilökohtaisen ehdotuksen 24 h sisällä.
+              </p>
+            </div>
           </div>
         </div>
       </section>
+
 
       {/* Miten pääset alkuun – tumma osio */}
       <section
