@@ -200,30 +200,6 @@ const WorkPlusPage = () => {
               Valitse tilanteeseesi sopivin – näet suoraan oikeat ratkaisut.
             </p>
 
-            <TooltipProvider delayDuration={200}>
-              <div className="flex flex-wrap justify-center gap-3">
-                {situations.map((s) => (
-                  <Tooltip key={s.id}>
-                    <TooltipTrigger asChild>
-                      <button
-                        onClick={() => handleSituationClick(s.id)}
-                        className={cn(
-                          "px-5 py-2.5 rounded-xl text-sm font-medium border-2 transition-all duration-200",
-                          activeSituation === s.id
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-card text-foreground border-primary/30 hover:bg-primary/10 hover:border-primary/60"
-                        )}
-                      >
-                        {s.label}
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-[200px] text-center">
-                      <p className="text-xs">{s.tooltip}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                ))}
-              </div>
-            </TooltipProvider>
           </div>
 
           {/* Viisi polkua */}
