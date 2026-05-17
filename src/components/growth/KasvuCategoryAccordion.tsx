@@ -323,6 +323,14 @@ export function KasvuCategoryAccordion() {
                         </p>
                       )}
 
+                      {cat.id === "kasvu-uudistuminen" && (
+                        <p className="text-sm mb-4">
+                          <Link to="/aly" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
+                            Johdon ja hallituksen osaamisen kehittäminen? Tutustu Äly-reittiin →
+                          </Link>
+                        </p>
+                      )}
+
                       <Button
                         variant="cta"
                         size="lg"
