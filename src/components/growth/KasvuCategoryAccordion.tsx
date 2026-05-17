@@ -56,10 +56,10 @@ const categories: Category[] = [
     mindset: "Johtaja rakentaa — ei tee kaikkea itse",
     image: imgSkaalaus,
     modules: [
-      "Myyntiputki ja asiakaspolku",
-      "Tekoäly ja digitalisaatio arjessa",
-      "Prosessit ja tuottavuus",
-      "Henkilöstön sitouttaminen ja rekrytointi",
+      "Vapautat itsesi operatiivisesta työstä rakentamalla toimivat prosessit",
+      "Rakennat myyntiputken joka toimii ilman jatkuvaa huomiotasi",
+      "Otat tekoälyn ja digitalisaation käyttöön siellä missä ne tuottavat eniten",
+      "Rekrytoit ja sitoutat oikeat ihmiset kasvun vauhtiin",
     ],
     ctaText: "Aloita skaalauskartoitus",
     transition:
@@ -311,6 +311,14 @@ export function KasvuCategoryAccordion() {
                         <p className="text-sm mb-4">
                           <Link to="/aly" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
                             Tarvitsetko johtamisosaamista kasvun tueksi? Tutustu Äly-reittiin →
+                          </Link>
+                        </p>
+                      )}
+
+                      {cat.id === "skaalaus" && (
+                        <p className="text-sm mb-4">
+                          <Link to="/operaattori" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
+                            Rekrytoitko kansainvälisesti? Kysy kumppanuudesta →
                           </Link>
                         </p>
                       )}
