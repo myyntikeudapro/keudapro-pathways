@@ -40,6 +40,15 @@ import courseKv from "@/assets/course-kv.jpg";
 import course3t from "@/assets/course-3t.jpg";
 import courseToimiala from "@/assets/course-toimiala.jpg";
 import courseKieli from "@/assets/course-kieli.jpg";
+import progJohtaminen from "@/assets/prog-johtaminen.jpg";
+import progAiManager from "@/assets/prog-ai-manager.jpg";
+import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
+import nosteEmployment from "@/assets/noste-employment.jpg";
+import nosteCareer from "@/assets/noste-career.jpg";
+import nosteTransition from "@/assets/noste-transition.jpg";
+import growthKaynistys from "@/assets/growth-kaynistys.jpg";
+import growthSkaalaus from "@/assets/growth-skaalaus.jpg";
+import growthOsaaminen from "@/assets/growth-osaaminen.jpg";
 import coachReitti from "@/assets/coach-reitti.png";
 import coachAna from "@/assets/coach-ana.png";
 import coachVeli from "@/assets/coach-veli.png";
@@ -78,8 +87,8 @@ const badgeImageFallback: Record<string, string> = {
   "Kieli & kulttuuri": courseKv,
 };
 
-const getCardImage = (card: { title: string; badge?: string }): string | undefined =>
-  courseImageOverrides[card.title] ?? (card.badge ? badgeImageFallback[card.badge] : undefined);
+const getCardImage = (card: { title: string; badge?: string; image?: string }): string | undefined =>
+  card.image ?? courseImageOverrides[card.title] ?? (card.badge ? badgeImageFallback[card.badge] : undefined);
 
 const categories = [
   {
@@ -278,6 +287,8 @@ type AccordionCard = {
   ctaHref: string;
   badge?: string;
   infoUrl?: string;
+  signupUrl?: string;
+  image?: string;
 };
 type AccordionCategory = {
   id: string;
@@ -299,18 +310,21 @@ const accordionCategories: AccordionCategory[] = [
         description: "Käytännön työkalut esihenkilötyöhön — kehityt johtajana ja tiimisi kehittyy kanssasi.",
         ctaText: "Tutustu",
         ctaHref: "/aly",
+        image: progJohtaminen,
       },
       {
         title: "Tekoälypätevyys-ohjelmat",
         description: "AI-Director, AI-Manager, AI-Coordinator — strategisesta johtamisesta käytännön käyttöönottoon.",
         ctaText: "Tutustu",
         ctaHref: "/aly",
+        image: progAiManager,
       },
       {
         title: "Turvallisuusjohtamisen ohjelmat",
         description: "Turvallisuuspäällikön valmennus ja Turvallisuusjohtaja 2.6 — tee turvallisuudesta kilpailuetu.",
         ctaText: "Tutustu",
         ctaHref: "/aly",
+        image: progTurvallisuus,
       },
     ],
     bottomCta: { text: "Katso kaikki Äly-reitin ohjelmat", href: "/aly" },
@@ -325,18 +339,21 @@ const accordionCategories: AccordionCategory[] = [
         description: "Maksuton palvelu työttömille työnhakijoille — saatavilla Helsinki, Keski-Uusimaa, Vantaa, Kerava ja Sipoo.",
         ctaText: "Lue lisää",
         ctaHref: "/noste",
+        image: nosteEmployment,
       },
       {
         title: "Henkilökohtainen valmennus",
         description: "Yksilöllistä valmennusta työnhakuun ja suunnan löytämiseen koko Suomessa.",
         ctaText: "Lue lisää",
         ctaHref: "/noste",
+        image: nosteCareer,
       },
       {
         title: "Muutosturva",
         description: "Muutosturva on oikeutesi — autamme sinua hyödyntämään sen täysimääräisesti.",
         ctaText: "Lue lisää",
         ctaHref: "/noste",
+        image: nosteTransition,
       },
     ],
     bottomCta: { text: "Katso kaikki Noste-reitin palvelut", href: "/noste" },
@@ -351,18 +368,21 @@ const accordionCategories: AccordionCategory[] = [
         description: "Ensimmäiset rakenteet, prosessit ja osaaminen kasvun pohjaksi. Sopii yrityksille 40 000–120 000 €/v.",
         ctaText: "Lue lisää",
         ctaHref: "/kasvu",
+        image: growthKaynistys,
       },
       {
         title: "Skaalaus ja systematisointi",
         description: "Systematisoi kasvu ja rakenna skaalautuva toimintamalli. Sopii yrityksille 120 000–600 000 €/v.",
         ctaText: "Lue lisää",
         ctaHref: "/kasvu",
+        image: growthSkaalaus,
       },
       {
         title: "Osaaminen käytäntöön",
         description: "Räätälöidyt henkilöstökoulutukset ja valmennukset kaikille kokoluokille.",
         ctaText: "Lue lisää",
         ctaHref: "/kasvu",
+        image: growthOsaaminen,
       },
     ],
     bottomCta: { text: "Katso kaikki Kasvu-reitin ohjelmat", href: "/kasvu" },
@@ -375,16 +395,16 @@ const accordionCategories: AccordionCategory[] = [
       { title: "Työturvallisuuskortti", badge: "Turvallisuus", description: "Yhteisten työpaikkojen turvallisuuden parantamiseen — voimassa 5 vuotta.", infoUrl: "https://www.keuda.fi/koulutus/tyoturvallisuuskortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "Tulityökortti", badge: "Turvallisuus", description: "Tulitöiden turvallinen tekeminen — teoria, käytännön harjoitukset ja koe — voimassa 5 vuotta.", infoUrl: "https://www.keuda.fi/koulutus/tulityokortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "Sähkötyöturvallisuuskortti", badge: "Turvallisuus", description: "Sähkötöitä tekevien pakollinen pätevyys — parantaa sähköturvallisuusosaamista.", infoUrl: "https://www.keuda.fi/koulutus/sfs6002-sahkotyoturvallisuuskortti/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
-      { title: "Akkuturvallisuuskoulutus", badge: "Turvallisuus", description: "Litiumioniakkujen turvallinen käsittely ja riskienhallinta — erityisesti ajoneuvoalalle.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Akkuturvallisuuskoulutus", badge: "Turvallisuus", description: "Litiumioniakkujen turvallinen käsittely ja riskienhallinta — erityisesti ajoneuvoalalle.", infoUrl: "https://www.keuda.fi/koulutus/akkuturvallisuuskoulutus/", signupUrl: "https://www.lyyti.fi/reg/Akkuturvallisuuskoulutuslanding_page_6706", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "EA1 Ensiapu", badge: "Ensiapu", description: "Ensiavun peruskurssi 16 h — valmiudet auttaa onnettomuus- ja hätätilanteissa.", infoUrl: "https://www.keuda.fi/koulutus/spr-ensiapukurssi-ea-1/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
-      { title: "EA2 Ensiapu", badge: "Ensiapu", description: "Ensiavun jatkokurssi 16 h — syventää EA1:n osaamista. Edellyttää voimassa olevaa EA1-koulutusta.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
-      { title: "Hätäensiapu 4 t", badge: "Ensiapu", description: "Lyhyt hätäensiapukurssi työpaikan ensiapuvalmiuden ylläpitoon.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "EA2 Ensiapu", badge: "Ensiapu", description: "Ensiavun jatkokurssi 16 h — syventää EA1:n osaamista. Edellyttää voimassa olevaa EA1-koulutusta.", infoUrl: "https://www.keuda.fi/koulutus/spr-ensiapukurssi-ea-2/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Hätäensiapu 4 t", badge: "Ensiapu", description: "Lyhyt hätäensiapukurssi työpaikan ensiapuvalmiuden ylläpitoon.", infoUrl: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-4-t/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "Hätäensiapu 8 t", badge: "Ensiapu", description: "Laajempi hätäensiapukurssi kattavampiin valmiuksiin.", infoUrl: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-8-t/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "Hygieniapassi", badge: "Hygienia", description: "Virallinen toistaiseksi voimassa oleva passi elintarvikealalle.", infoUrl: "https://www.keuda.fi/koulutus/hygieniapassitestit-ja-koulutukset/", ctaText: "Ilmoittaudu", ctaHref: "/yhteystiedot#lomake" },
-      { title: "Anniskelupassi", badge: "Hygienia", description: "Osoittaa alkoholilainsäädännön hallinnan — oikeuttaa toimimaan vastaavana hoitajana.", infoUrl: "https://www.keuda.fi/koulutukset/anniskelupassikoulutukset/", ctaText: "Ilmoittaudu", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Anniskelupassi", badge: "Hygienia", description: "Osoittaa alkoholilainsäädännön hallinnan — oikeuttaa toimimaan vastaavana hoitajana.", infoUrl: "https://www.keuda.fi/koulutus/anniskelupassikoulutukset-ja-testit/", ctaText: "Ilmoittaudu", ctaHref: "/yhteystiedot#lomake" },
       { title: "Työhyvinvointikortti", badge: "Työelämä", description: "Innostaa johtoa ja henkilöstöä kehittämään työpaikan hyvinvointia — tilauksesta.", infoUrl: "https://www.keuda.fi/koulutus/tyohyvinvointikortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
-      { title: "LinkedIn-kortti", badge: "Työelämä", description: "Rakenna ammattimainen LinkedIn-profiili ja hyödynnä palvelua työnhaussa.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
-      { title: "KV-kortti", badge: "Työelämä", description: "Käytännönläheinen koulutus kansainvälisten työntekijöiden kanssa toimimiseen.", infoUrl: "https://www.keuda.fi/koulutus/kv-korttikoulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "LinkedIn-kortti", badge: "Työelämä", description: "Rakenna ammattimainen LinkedIn-profiili ja hyödynnä palvelua työnhaussa.", infoUrl: "https://www.keuda.fi/koulutus/linkedin-tyonhakukortti/", signupUrl: "https://www.lyyti.fi/reg/LinkedIn_Tyonhakukorttilanding_page_5313", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "KV-kortti", badge: "Työelämä", description: "Käytännönläheinen koulutus kansainvälisten työntekijöiden kanssa toimimiseen.", infoUrl: "https://www.keuda.fi/koulutus/kv-korttikoulutus/", signupUrl: "https://www.lyyti.fi/reg/KVkorttikoulutus_2530", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "3T-kortti", badge: "AI", description: "Sertifioitu osaamistodistus tekoälyn hyödyntämisestä työnhaussa.", infoUrl: "https://www.keuda.fi/koulutus/3t-kortti/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "Toimialakohtainen pätevyys", badge: "Toimialakohtainen", description: "Räätälöity pätevyyskoulutus organisaation tarpeisiin — sovitaan yhdessä.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
     ],
@@ -671,6 +691,13 @@ const PatevyydetPage = () => {
                                       <Button variant="ghost" size="sm" className="w-full" asChild>
                                         <a href={card.infoUrl} target="_blank" rel="noopener noreferrer">
                                           Lue lisää
+                                        </a>
+                                      </Button>
+                                    )}
+                                    {card.signupUrl && (
+                                      <Button variant="cta" size="sm" className="w-full" asChild>
+                                        <a href={card.signupUrl} target="_blank" rel="noopener noreferrer">
+                                          Ilmoittaudu
                                         </a>
                                       </Button>
                                     )}
