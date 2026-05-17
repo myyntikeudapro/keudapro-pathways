@@ -402,72 +402,126 @@ const WorkPlusPage = () => {
       {/* Miten pääset alkuun – tumma osio */}
       <section
         ref={stepsReveal.ref}
-        className="py-16 md:py-20 bg-foreground overflow-hidden"
+        className="py-16 md:py-24 bg-foreground overflow-hidden relative"
         style={{
           opacity: stepsReveal.visible ? 1 : 0,
           transform: stepsReveal.visible ? "translateY(0)" : "translateY(20px)",
           transition: "opacity 600ms ease-out, transform 600ms ease-out",
         }}
       >
-        <div className="keuda-container">
-          <div className="text-center mb-12">
+        {/* Subtle background accent */}
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{ background: "radial-gradient(circle at 20% 30%, hsl(var(--primary)) 0%, transparent 50%), radial-gradient(circle at 80% 70%, hsl(var(--secondary)) 0%, transparent 50%)" }}
+        />
+
+        <div className="keuda-container relative">
+          <div className="text-center mb-12 md:mb-14">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/15 text-primary text-xs font-bold uppercase tracking-wider mb-4">
+              <Rocket className="w-3.5 h-3.5" />
+              Kolme askelta
+            </span>
             <h2 className="text-3xl md:text-4xl font-bold text-background mb-4">Miten pääset alkuun?</h2>
+            <p className="text-base md:text-lg max-w-xl mx-auto" style={{ color: "hsl(210 15% 70%)" }}>
+              Etene omassa tahdissasi – aloita anonyymisti, jatka ihmisen kanssa kun siltä tuntuu.
+            </p>
           </div>
 
-          {/* Desktop: horizontal with arrows */}
-          <div className="hidden md:flex items-start justify-center gap-0 max-w-4xl mx-auto mb-10">
+          {/* Steps grid */}
+          <div className="grid md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto mb-12">
             {gettingStartedSteps.map((step, i) => (
-              <div key={i} className="flex items-start">
-                <div className="flex flex-col items-center text-center w-56 rounded-xl border border-primary/20 p-6"
-                  style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(8px)" }}
-                >
-                  <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-4">
-                    <step.icon className="w-7 h-7 text-primary" />
-                  </div>
-                  <h4 className="text-base font-bold text-background mb-2">{step.title}</h4>
-                  <p className="text-sm" style={{ color: "hsl(210 15% 65%)" }}>{step.text}</p>
-                </div>
-                {i < gettingStartedSteps.length - 1 && (
-                  <div className="flex items-center pt-16 px-2">
-                    <div className="w-8 h-px bg-primary/30" />
-                    <ArrowRight className="w-4 h-4 text-primary/60 -ml-1" />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+              <div
+                key={i}
+                className="relative rounded-2xl border border-primary/20 p-6 md:p-7 flex flex-col"
+                style={{ background: "rgba(255,255,255,0.04)", backdropFilter: "blur(8px)" }}
+              >
+                {/* Step number */}
+                <span className="absolute -top-3 -left-3 w-9 h-9 rounded-full bg-primary text-primary-foreground text-sm font-black flex items-center justify-center shadow-lg">
+                  {i + 1}
+                </span>
 
-          {/* Mobile: stacked */}
-          <div className="flex md:hidden flex-col items-center gap-4 mb-10">
-            {gettingStartedSteps.map((step, i) => (
-              <div key={i}>
-                <div className="flex items-center gap-4 rounded-xl border border-primary/20 p-5"
-                  style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(8px)" }}
-                >
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center">
                     <step.icon className="w-6 h-6 text-primary" />
                   </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-background">{step.title}</h4>
-                    <p className="text-xs" style={{ color: "hsl(210 15% 65%)" }}>{step.text}</p>
-                  </div>
+                  <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-background/10 text-background text-[11px] font-semibold">
+                    <Clock className="w-3 h-3" />
+                    {step.badge}
+                  </span>
                 </div>
-                {i < gettingStartedSteps.length - 1 && (
-                  <div className="flex justify-center py-1">
-                    <div className="w-px h-5 bg-primary/30" />
-                  </div>
-                )}
+
+                <h4 className="text-base md:text-lg font-bold text-background mb-2 leading-snug">{step.title}</h4>
+                <p className="text-sm leading-relaxed flex-1" style={{ color: "hsl(210 15% 70%)" }}>{step.text}</p>
+
+                <div className="mt-4 pt-4 border-t border-primary/15 flex items-center gap-2 text-xs" style={{ color: "hsl(210 15% 65%)" }}>
+                  <Lock className="w-3.5 h-3.5 text-primary/70" />
+                  <span>{step.note}</span>
+                </div>
               </div>
             ))}
           </div>
 
-          <div className="text-center">
-            <Button variant="cta" size="lg" onClick={openWizard}>
-              Tee 15 min reittikartoitus
+          {/* AI-valmentaja: hyödyt + tietosuoja */}
+          <div className="max-w-4xl mx-auto rounded-2xl border border-primary/20 p-6 md:p-8 mb-10"
+            style={{ background: "rgba(255,255,255,0.04)", backdropFilter: "blur(8px)" }}
+          >
+            <div className="flex items-start gap-4 mb-5">
+              <div className="w-11 h-11 rounded-xl bg-secondary/20 flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-5 h-5 text-secondary" />
+              </div>
+              <div>
+                <h3 className="text-lg md:text-xl font-bold text-background mb-1">Miksi aloittaa AI-valmentajan kanssa?</h3>
+                <p className="text-sm" style={{ color: "hsl(210 15% 70%)" }}>
+                  Ei kynnystä, ei kalenteria, ei tuomiota. Saat ensiviipaleen suunnitelmasta omassa tahdissasi.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-3 gap-4 mb-5">
+              {[
+                { icon: Clock, title: "Käytettävissä 24/7", text: "Aloita silloin kun sinulle sopii – yöllä, työmatkalla, sohvalla." },
+                { icon: MessageSquare, title: "Auttaa sanoittamaan", text: "Saat selkeät kysymykset jotka jäsentävät tilanteen." },
+                { icon: UserCheck, title: "Saumaton siirto ihmiselle", text: "Kun olet valmis, jatkat Reittivalmentajan kanssa." },
+              ].map((b, i) => (
+                <div key={i} className="flex flex-col">
+                  <b.icon className="w-4 h-4 text-primary mb-2" />
+                  <h5 className="text-sm font-bold text-background mb-1">{b.title}</h5>
+                  <p className="text-xs leading-relaxed" style={{ color: "hsl(210 15% 65%)" }}>{b.text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-start gap-2 p-3 rounded-lg bg-background/5 border border-primary/10">
+              <Lock className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <p className="text-xs leading-relaxed" style={{ color: "hsl(210 15% 75%)" }}>
+                <strong className="text-background">Tietosuoja:</strong> Voit keskustella ilman kirjautumista. Emme tallenna henkilötietoja keskustelusta, emmekä jaa sisältöä työnantajalle tai viranomaisille. Ihmiselle siirrytään vain sinun luvallasi.
+              </p>
+            </div>
+          </div>
+
+          {/* CTAt */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-2xl mx-auto">
+            <Button variant="cta" size="lg" onClick={openWizard} className="flex-1">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Hahmottele AI-valmentajan kanssa
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              asChild
+              className="flex-1 bg-transparent border-background/30 text-background hover:bg-background hover:text-foreground"
+            >
+              <a href="/yhteystiedot">
+                <Handshake className="w-4 h-4 mr-2" />
+                Varaa aika Reittivalmentajalle
+              </a>
             </Button>
           </div>
+          <p className="text-center text-xs mt-4" style={{ color: "hsl(210 15% 60%)" }}>
+            Molemmat ovat maksuttomia ja sinua ei sidota mihinkään.
+          </p>
         </div>
       </section>
+
 
       {/* Ristiin-nosto ÄLY */}
       <div className="py-6 text-center">
