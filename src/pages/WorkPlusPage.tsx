@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Map, Handshake, Rocket, ChevronDown, Wallet, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Map, Handshake, Rocket, ChevronDown, Wallet, ShieldCheck, Sparkles, Lock, MessageSquare, Clock, UserCheck } from "lucide-react";
 
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
