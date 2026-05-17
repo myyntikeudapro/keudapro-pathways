@@ -287,6 +287,8 @@ type AccordionCard = {
   ctaHref: string;
   badge?: string;
   infoUrl?: string;
+  signupUrl?: string;
+  image?: string;
 };
 type AccordionCategory = {
   id: string;
