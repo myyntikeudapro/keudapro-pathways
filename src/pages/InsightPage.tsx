@@ -1,10 +1,13 @@
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Button } from "@/components/ui/button";
 import { AlyHeroCarousel } from "@/components/aly/AlyHeroCarousel";
 import { AlyPhilosophySection } from "@/components/aly/AlyPhilosophySection";
 import { AlyCategoryAccordion } from "@/components/aly/AlyCategoryAccordion";
+import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { ArrowDown } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import audienceExpert from "@/assets/audience-expert.jpg";
 import audienceSupervisor from "@/assets/audience-supervisor.jpg";
@@ -38,11 +41,13 @@ const audiences = [
     label: "Uudistumista pohtiville",
     description: "Löydät suunnan ja työkalut seuraavaan askeleeseen.",
     anchorLabel: "Tee reittikartoitus",
-    href: "#turvallisuus",
+    href: "/yhteystiedot",
   },
 ];
 
 const InsightPage = () => {
+  const { openPanel } = useCoachPanel();
+
   return (
     <Layout>
       <SEO title={"ÄLY – Johtamisen, asiantuntijuuden ja tekoälyn koulutukset | KeudaPRO"} description={"Johtajille, esihenkilöille ja asiantuntijoille: johtamisen koulutukset, tekoälypätevyys-ohjelmat (AI-Director, AI-Manager, AI-Coordinator) ja turvallisuusjohtaminen."} path="/aly" />
@@ -102,9 +107,34 @@ const InsightPage = () => {
         </div>
       </section>
 
+      <AlyCategoryAccordion />
+
       <AlyPhilosophySection />
 
-      <AlyCategoryAccordion />
+      <section className="py-16 md:py-20 bg-primary/5">
+        <div className="keuda-container text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            Valmis aloittamaan?
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            Valitse sinulle sopivin tapa edetä.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <Button variant="cta" size="lg" onClick={() => openPanel("veli")}>
+              Kysy AI-valmentajalta
+            </Button>
+            <Button variant="outline-primary" size="lg" asChild>
+              <Link to="/yhteystiedot">Ota yhteyttä</Link>
+            </Button>
+          </div>
+          <p className="text-sm text-muted-foreground mt-6">
+            Sopiiko paremmin yrityksen kehittäminen?{" "}
+            <Link to="/kasvu" className="text-primary hover:underline font-medium">
+              Tutustu Kasvu-reittiin →
+            </Link>
+          </p>
+        </div>
+      </section>
     </Layout>
   );
 };
