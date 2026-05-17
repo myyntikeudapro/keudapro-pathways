@@ -128,7 +128,7 @@ export function PathPanel({ open, onClose, title, ingressi, children }: PanelPro
 
       <h4 className="text-sm font-bold text-foreground mb-4 border-b border-border/60 pb-2">Seuraavat askeleet</h4>
 
-      <div className="grid md:grid-cols-2 gap-3 mb-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6 items-stretch">
         {children}
       </div>
 
