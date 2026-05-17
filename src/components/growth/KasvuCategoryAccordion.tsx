@@ -36,10 +36,10 @@ const categories: Category[] = [
     mindset: "Rohkeus myydä — asiakkaasta kassavirtaan",
     image: imgKaynistys,
     modules: [
-      "Myynti ja asiakashankinta",
-      "Markkinointi ja näkyvyys",
-      "Palvelun kirkastus ja hinnoittelu",
-      "Kasvun sparraus (1:1)",
+      "Rakennat ensimmäisen toimivan myyntiputken ja vakioasiakkuudet",
+      "Kirkkastat palvelusi ja hinnoittelet sen kannattavasti",
+      "Saat näkyvyyttä oikeille asiakkaille ilman isoa markkinointibudjettia",
+      "Kasvun sparraus 1:1 — et jää yksin päätösten kanssa",
     ],
     ctaText: "Aloita kasvukartoitus",
     transition:
