@@ -21,7 +21,7 @@ const slides = [
   },
   {
     image: heroImg3,
-    title: "Turvallisuus ja vastuullinen johtaminen",
+    title: "Johtaminen, asiantuntijuus ja tekoäly",
     cta: "Tutustu ohjelmiin",
     href: "#turvallisuus",
   },
