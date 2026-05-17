@@ -694,6 +694,13 @@ const PatevyydetPage = () => {
                                         </a>
                                       </Button>
                                     )}
+                                    {card.signupUrl && (
+                                      <Button variant="cta" size="sm" className="w-full" asChild>
+                                        <a href={card.signupUrl} target="_blank" rel="noopener noreferrer">
+                                          Ilmoittaudu
+                                        </a>
+                                      </Button>
+                                    )}
                                     <Button variant="outline-primary" size="sm" className="w-full" asChild>
                                       {isExternal ? (
                                         <a href={card.ctaHref} target="_blank" rel="noopener noreferrer">
