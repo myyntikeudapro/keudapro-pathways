@@ -4,24 +4,50 @@ import { ChevronDown, ArrowLeft, X, Mail, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RegionalServices } from "@/components/noste/RegionalServices";
 
+import imgValmennusKokoSuomi from "@/assets/noste-clarity.jpg";
+import imgMuutosturva from "@/assets/noste-transition.jpg";
+import imgLinkedIn from "@/assets/course-linkedin.jpg";
+import imgCV from "@/assets/noste-cv-linkedin.jpg";
+import imgArpro from "@/assets/noste-ai.jpg";
+import imgRtk from "@/assets/noste-employment.jpg";
+import imgWulff from "@/assets/noste-career.jpg";
+import img3T from "@/assets/course-3t.jpg";
+import imgKieli from "@/assets/course-kieli.jpg";
+import imgProfiili from "@/assets/noste-path-branding.jpg";
+import imgAlueellinen from "@/assets/noste-path-work.jpg";
+
 /* ────────────── shared helpers ────────────── */
 
 function StepCard({
   title,
   tooltip,
+  image,
   children,
 }: {
   title: string;
   tooltip: string;
+  image: string;
   children: React.ReactNode;
 }) {
   return (
     <div
-      className="rounded-xl border border-border bg-background overflow-hidden flex flex-col p-5 hover:border-primary/50 transition-colors"
+      className="rounded-xl border border-border bg-background overflow-hidden flex flex-col hover:border-primary/50 transition-colors"
       title={tooltip}
     >
-      <h4 className="text-base font-bold text-foreground mb-2 leading-snug">{title}</h4>
-      <div className="flex flex-col flex-1">{children}</div>
+      <div className="w-full h-32 md:h-36 overflow-hidden bg-muted">
+        <img
+          src={image}
+          alt={title}
+          loading="lazy"
+          width={1024}
+          height={576}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="p-5 flex flex-col flex-1">
+        <h4 className="text-base font-bold text-foreground mb-2 leading-snug">{title}</h4>
+        <div className="flex flex-col flex-1">{children}</div>
+      </div>
     </div>
   );
 }
