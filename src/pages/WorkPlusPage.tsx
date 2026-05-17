@@ -113,18 +113,24 @@ const pathsData = [
 const gettingStartedSteps = [
   {
     icon: Map,
-    title: "Tee 15 min reittikartoitus",
-    text: "Selvitetään yhdessä tilanteesi ja sopiva polku.",
+    title: "Hahmottele suunnitelmaa AI-valmentajan kanssa",
+    text: "Anonyymi keskustelu joka antaa sinulle nopean kuvan vaihtoehdoista – omaan tahtiin, ilman kirjautumista.",
+    badge: "n. 10 min",
+    note: "Ei tallenna henkilötietoja",
   },
   {
     icon: Handshake,
-    title: "Tapaat oikean asiantuntijan",
-    text: "Sinut yhdistetään tilanteesi kannalta sopivaan toimijaan.",
+    title: "Tarkenna suunnitelmia Reittivalmentajan kanssa",
+    text: "Ihminen sparraa kanssasi tilanteen läpi ja yhdistää sinut oikeaan asiantuntijaan tai palveluun.",
+    badge: "45 min",
+    note: "Maksuton ja luottamuksellinen",
   },
   {
     icon: Rocket,
     title: "Aloitat oman polkusi",
-    text: "Konkreettinen suunnitelma ja tuki matkan varrella.",
+    text: "Saat konkreettisen suunnitelman ja tuen matkan varrella – etenet omassa tahdissasi.",
+    badge: "Heti",
+    note: "Voit jatkaa milloin haluat",
   },
 ];
 
