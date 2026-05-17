@@ -636,11 +636,25 @@ const PatevyydetPage = () => {
                           <div className="grid md:grid-cols-3 gap-5 mb-6">
                             {cat.cards.map((card) => {
                               const isExternal = !card.ctaHref.startsWith("/") && !card.ctaHref.startsWith("#");
+                              const cardImage = getCardImage(card);
                               return (
                                 <div
                                   key={card.title}
-                                  className="rounded-xl border border-border bg-background p-5 flex flex-col"
+                                  className="rounded-xl border border-border bg-background overflow-hidden flex flex-col"
                                 >
+                                  {cardImage && (
+                                    <div className="w-full h-20 md:h-24 overflow-hidden">
+                                      <img
+                                        src={cardImage}
+                                        alt={card.title}
+                                        loading="lazy"
+                                        width={1024}
+                                        height={512}
+                                        className="w-full h-full object-cover"
+                                      />
+                                    </div>
+                                  )}
+                                  <div className="p-5 flex flex-col flex-1">
                                   {card.badge && (
                                     <span className="self-start inline-block text-[11px] font-semibold uppercase tracking-wide text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-2.5 py-0.5 mb-2">
                                       {card.badge}
