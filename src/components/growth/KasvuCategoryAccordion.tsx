@@ -76,10 +76,10 @@ const categories: Category[] = [
     mindset: "Omistaja johtaa — yritys toimii ilman sinua",
     image: imgUudistuminen,
     modules: [
-      "Omistajanvaihdos ja siirtymät",
-      "Hiljaisen tiedon siirto ja dokumentointi",
-      "Liiketoiminnan uudelleenfokusointi",
-      "Verkostot, TKI ja kansainvälistyminen",
+      "Omistajanvaihdos tai sukupolvenvaihdos suunnitellaan ja toteutetaan hallitusti",
+      "Yrityksen tieto ja osaaminen dokumentoidaan — ei jää yhden ihmisen varaan",
+      "Liiketoiminta fokusoidaan uudelleen muuttuvan markkinan mukaan",
+      "Kansainvälistyminen ja verkostot avaavat uudet kasvumarkkinat",
     ],
     ctaText: "Keskustele siirtymästä",
     transition:
