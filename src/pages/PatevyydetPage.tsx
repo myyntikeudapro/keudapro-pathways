@@ -368,28 +368,28 @@ const accordionCategories: AccordionCategory[] = [
     cards: [
       {
         title: "Kasvu käyntiin",
-        description: "Käynnistys · 40 000–120 000 €/v. Myynti, asiakashankinta ja ensimmäinen skaalaus — rakenna kassavirta ja vakioasiakkuudet. Mindset: Rohkeus myydä — asiakkaasta kassavirtaan. Sisältää: myynti ja asiakashankinta, markkinointi ja näkyvyys, palvelun kirkastus ja hinnoittelu sekä kasvun sparraus (1:1).",
+        description: "Myynti, asiakashankinta ja ensimmäinen skaalaus — rakenna kassavirta ja vakioasiakkuudet. Sopii yrityksille 40 000–120 000 €/v.",
         ctaText: "Lue lisää",
         ctaHref: "/kasvu#kasvupolut",
         image: growthKaynistys,
       },
       {
         title: "Skaalaus ja systematisointi",
-        description: "Skaalaus · 120 000–600 000 €/v. Prosessit, tiimi ja myyntiputki kuntoon — rakenna johtamisrakenne ja vapaudu pullonkaulasta. Mindset: Johtaja rakentaa — ei tee kaikkea itse. Sisältää: myyntiputki ja asiakaspolku, tekoäly ja digitalisaatio arjessa, prosessit ja tuottavuus sekä henkilöstön sitouttaminen ja rekrytointi.",
+        description: "Prosessit, tiimi ja myyntiputki kuntoon — rakenna johtamisrakenne ja vapaudu pullonkaulasta. Sopii yrityksille 120 000–600 000 €/v.",
         ctaText: "Lue lisää",
         ctaHref: "/kasvu#kasvupolut",
         image: growthSkaalaus,
       },
       {
         title: "Teollistuminen ja uudistuminen",
-        description: "Kasvu ja uudistuminen · 600 000–1 200 000 €/v. Omistajan roolin muutos, hallitustyö ja kansainvälistyminen — yritys toimii ilman sinua. Mindset: Omistaja johtaa — yritys toimii ilman sinua. Sisältää: omistajanvaihdos ja siirtymät, hiljaisen tiedon siirto ja dokumentointi, liiketoiminnan uudelleenfokusointi sekä verkostot, TKI ja kansainvälistyminen.",
+        description: "Omistajan roolin muutos, hallitustyö ja kansainvälistyminen — yritys toimii ilman sinua. Sopii yrityksille 600 000–1 200 000 €/v.",
         ctaText: "Lue lisää",
         ctaHref: "/kasvu#kasvupolut",
         image: growthUudistuminen,
       },
       {
         title: "Osaaminen käytäntöön",
-        description: "Osaamisen kehittäminen · kaikki kokoluokat. Koulutukset, kortit ja pätevyydet yrityksille ja henkilöstölle — osaaminen on kilpailuetu. Mindset: Osaaminen on kilpailuetu — ei kulu. Sisältää: kortit ja pätevyydet, kieli ja viestintä, toimialakohtaiset koulutukset sekä henkilöstön kehittämisohjelmat.",
+        description: "Koulutukset, kortit ja pätevyydet yrityksille ja henkilöstölle — osaaminen on kilpailuetu. Sopii kaikille kokoluokille.",
         ctaText: "Lue lisää",
         ctaHref: "/kasvu#kasvupolut",
         image: growthOsaaminen,
