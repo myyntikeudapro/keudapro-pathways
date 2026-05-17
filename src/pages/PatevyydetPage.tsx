@@ -67,6 +67,20 @@ const courseImageOverrides: Record<string, string> = {
   "Toimialakohtainen pätevyys": courseToimiala,
 };
 
+const badgeImageFallback: Record<string, string> = {
+  "Turvallisuus": catTurvallisuus,
+  "Ensiapu": catEnsiapu,
+  "Hygienia": catHygienia,
+  "Työelämä": catTyoelamataidot,
+  "AI": catAi,
+  "Toimialakohtainen": catToimialakohtaiset,
+  "Kieli": courseKieli,
+  "Kieli & kulttuuri": courseKv,
+};
+
+const getCardImage = (card: { title: string; badge?: string }): string | undefined =>
+  courseImageOverrides[card.title] ?? (card.badge ? badgeImageFallback[card.badge] : undefined);
+
 const categories = [
   {
     id: "Turvallisuus",
