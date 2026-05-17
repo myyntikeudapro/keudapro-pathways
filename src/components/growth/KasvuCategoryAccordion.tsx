@@ -76,10 +76,10 @@ const categories: Category[] = [
     mindset: "Omistaja johtaa — yritys toimii ilman sinua",
     image: imgUudistuminen,
     modules: [
-      "Omistajanvaihdos ja siirtymät",
-      "Hiljaisen tiedon siirto ja dokumentointi",
-      "Liiketoiminnan uudelleenfokusointi",
-      "Verkostot, TKI ja kansainvälistyminen",
+      "Omistajanvaihdos tai sukupolvenvaihdos suunnitellaan ja toteutetaan hallitusti",
+      "Yrityksen tieto ja osaaminen dokumentoidaan — ei jää yhden ihmisen varaan",
+      "Liiketoiminta fokusoidaan uudelleen muuttuvan markkinan mukaan",
+      "Kansainvälistyminen ja verkostot avaavat uudet kasvumarkkinat",
     ],
     ctaText: "Keskustele siirtymästä",
     transition:
@@ -319,6 +319,14 @@ export function KasvuCategoryAccordion() {
                         <p className="text-sm mb-4">
                           <Link to="/operaattori" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
                             Rekrytoitko kansainvälisesti? Kysy kumppanuudesta →
+                          </Link>
+                        </p>
+                      )}
+
+                      {cat.id === "kasvu-uudistuminen" && (
+                        <p className="text-sm mb-4">
+                          <Link to="/aly" className="text-teal-600 hover:text-teal-700 hover:underline font-medium">
+                            Johdon ja hallituksen osaamisen kehittäminen? Tutustu Äly-reittiin →
                           </Link>
                         </p>
                       )}
