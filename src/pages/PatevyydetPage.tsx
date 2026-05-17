@@ -49,6 +49,7 @@ import nosteTransition from "@/assets/noste-transition.jpg";
 import growthKaynistys from "@/assets/growth-kaynistys.jpg";
 import growthSkaalaus from "@/assets/growth-skaalaus.jpg";
 import growthOsaaminen from "@/assets/growth-osaaminen.jpg";
+import growthUudistuminen from "@/assets/growth-uudistuminen.jpg";
 import coachReitti from "@/assets/coach-reitti.png";
 import coachAna from "@/assets/coach-ana.png";
 import coachVeli from "@/assets/coach-veli.png";
