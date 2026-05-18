@@ -176,9 +176,22 @@ function ComingSoonBox() {
 
 export function AlySolutionCategories() {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const toggleExpand = (id: string) => {
-    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+    setExpanded((prev) => {
+      const next = { ...prev, [id]: !prev[id] };
+      if (next[id]) {
+        requestAnimationFrame(() => {
+          const el = cardRefs.current[id];
+          if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        });
+      }
+      return next;
+    });
   };
 
   return (
