@@ -128,15 +128,9 @@ const OperaattoriPage = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Verkosto ja kumppanit
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg text-muted-foreground">
               KeudaPRO toimii osana laajaa asiantuntija- ja kumppaniverkostoa. Mukana on yli 25 organisaatiota koulutuksesta, yrityskehityksestä, työllistymisestä ja tekoälystä — yhdessä rakennamme toimivan osaamisen ekosysteemin KUUMA-seudulla.
             </p>
-            <Link
-              to="/kumppanit"
-              className="inline-flex items-center justify-center rounded-lg border-2 border-teal-600 text-teal-700 hover:bg-teal-600 hover:text-white px-6 py-3 text-sm font-medium transition-colors"
-            >
-              Tutustu verkostoon ja Hub-toimintaan →
-            </Link>
           </div>
         </div>
       </section>
