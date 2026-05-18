@@ -203,18 +203,48 @@ const VerkostoPage = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-12">
-            {providerBenefits.map((b) => (
-              <div key={b.title} className="keuda-card-enhanced p-6 flex gap-4">
-                <div className="w-11 h-11 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
-                  <b.icon className="w-5 h-5 text-teal-700" />
+          <div className="max-w-4xl mx-auto mb-12 flex flex-col gap-3">
+            {providerBenefits.map((b) => {
+              const isOpen = openBenefit === b.id;
+              return (
+                <div
+                  key={b.id}
+                  className={cn(
+                    "rounded-xl border bg-white overflow-hidden transition-all duration-300",
+                    isOpen ? "border-teal-600 shadow-md" : "border-border"
+                  )}
+                >
+                  <button
+                    onClick={() => setOpenBenefit(isOpen ? null : b.id)}
+                    aria-expanded={isOpen}
+                    className="w-full flex items-center gap-4 p-4 text-left hover:bg-muted/40 transition-colors"
+                  >
+                    <div className={cn(
+                      "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors",
+                      isOpen ? "bg-teal-700 text-white" : "bg-teal-100 text-teal-700"
+                    )}>
+                      <b.icon className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-foreground leading-snug">{b.title}</div>
+                      <div className="text-xs text-muted-foreground mt-0.5">{b.desc}</div>
+                    </div>
+                    <ChevronDown className={cn("w-5 h-5 text-muted-foreground transition-transform shrink-0", isOpen && "rotate-180")} />
+                  </button>
+                  {isOpen && (
+                    <div className="animate-accordion-down grid md:grid-cols-[220px_1fr]">
+                      <div className="relative h-40 md:h-full overflow-hidden">
+                        <img src={b.image} alt={b.title} loading="lazy" className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:bg-gradient-to-r" />
+                      </div>
+                      <div className="p-5 md:p-6">
+                        <p className="text-sm text-foreground leading-relaxed">{b.body}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1">{b.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{b.text}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="max-w-3xl mx-auto bg-muted/40 rounded-2xl p-6 md:p-8 border border-border">
