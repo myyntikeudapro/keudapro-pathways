@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { X, Send, UserCheck, Mail, ArrowLeft } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useCoachPanel, CoachType } from "@/contexts/CoachPanelContext";
 
@@ -203,8 +204,26 @@ export function MultiCoachChat() {
     const subject = encodeURIComponent(EMAIL_SUBJECT);
     const body = encodeURIComponent(transcriptDraft);
     const to = previewTarget === "coach" ? "keudapro@keuda.fi" : "";
-    window.open(`mailto:${to}?subject=${subject}&body=${body}`, "_blank");
-    setPreviewTarget(null);
+    try {
+      const win = window.open(`mailto:${to}?subject=${subject}&body=${body}`, "_blank");
+      // Popup blockers / missing mail client → win is null on most browsers
+      if (win === null) {
+        // Fallback: try same-window navigation
+        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+      }
+      toast.success(
+        previewTarget === "coach"
+          ? "Muistio avattiin sähköpostiohjelmassa – tarkista vielä ja paina Lähetä"
+          : "Muistio avattiin sähköpostiohjelmassa omaan osoitteeseesi",
+        { description: "Jos ikkuna ei auennut, salli ponnahdusikkunat selaimessa." }
+      );
+      setPreviewTarget(null);
+    } catch (err) {
+      console.error("mailto open failed:", err);
+      toast.error("Lähetys ei onnistunut", {
+        description: "Sähköpostiohjelmaa ei voitu avata. Kopioi muistio ja lähetä se manuaalisesti osoitteeseen keudapro@keuda.fi.",
+      });
+    }
   };
 
   if (!activeChat || !config) return null;
