@@ -258,6 +258,7 @@ const courses: Course[] = [
     category: "Työelämätaidot",
     description: "Innostaa ja ohjaa johtoa sekä henkilöstöä kehittämään työpaikan hyvinvointia yhteisvoimin. Toteutetaan tilauksesta yrityksille ja ryhmille.",
     infoUrl: "https://www.keuda.fi/koulutus/tyohyvinvointikortti-koulutus/",
+    signupUrl: "https://www.lyyti.in/Yritysasiakas__Yhteydenotto_tai_tarjouspyynto_0692",
   },
   {
     name: "LinkedIn-kortti",
