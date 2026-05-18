@@ -103,6 +103,7 @@ const team = [
 const YhteystiedotPage = () => {
   const { openWizard } = useWizard();
   const [current, setCurrent] = useState(0);
+  const [billingOpen, setBillingOpen] = useState(false);
 
   const next = useCallback(() => {
     setCurrent((prev) => (prev + 1) % heroSlides.length);
