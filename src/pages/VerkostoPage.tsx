@@ -1,12 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
-import { Check, Users, Lightbulb, Handshake, Rocket, Network, GraduationCap, Sparkles, Leaf, Globe, Brain, Heart, Briefcase, Calendar, MessageSquare, Send, ClipboardList, ArrowRight } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
+import { Check, Users, Lightbulb, Handshake, Rocket, Network, GraduationCap, Sparkles, Leaf, Globe, Brain, Heart, Briefcase, Send, ClipboardList, ArrowRight, ChevronDown } from "lucide-react";
 
 import partnerNetwork from "@/assets/operator-partner-network.jpg";
 import kasvuVerkosto from "@/assets/kasvu-verkosto.jpg";
+import imgRouteOpinnaytetyo from "@/assets/audience-expert.jpg";
+import imgRouteIdea from "@/assets/dev-step-ajattelu.jpg";
+import imgThemeHuman from "@/assets/audience-leader.jpg";
+import imgThemeAi from "@/assets/banner-osaaminen-ai.jpg";
+import imgThemeKestava from "@/assets/dev-step-kulttuuri.jpg";
+import imgThemeKumppanit from "@/assets/audience-renewal.jpg";
+import imgThemeKv from "@/assets/banner-osaaminen-suunta.jpg";
+import imgThemeTyollisyys from "@/assets/audience-supervisor.jpg";
+import imgThemeJohtaminen from "@/assets/dev-step-toiminta.jpg";
+import imgFormatAamukahvit from "@/assets/banner-osaaminen-kortit.jpg";
+import imgFormatTyopajat from "@/assets/dev-step-tyokalut.jpg";
+import imgFormatWebinaarit from "@/assets/banner-osaaminen-ratkaisee.jpg";
+import imgFormatVerkostot from "@/assets/kasvu-verkosto.jpg";
 
 const providerBenefits = [
   {
@@ -39,20 +54,69 @@ const providerCriteria = [
 ];
 
 const hubThemes = [
-  { icon: Heart, text: "Inhimillisesti älykäs ja turvallinen työelämä" },
-  { icon: Brain, text: "Tekoäly, data ja uudistuminen" },
-  { icon: Leaf, text: "Kestävä ja vihreä osaaminen" },
-  { icon: Handshake, text: "Kumppanuudet ja yhteiskehittäminen" },
-  { icon: Globe, text: "Kansainvälinen ja monikielinen koulutus" },
-  { icon: Briefcase, text: "Työllisyys ja jatkuva oppiminen" },
-  { icon: Sparkles, text: "Johtaminen ja Human Future – inhimillinen kilpailuetu" },
+  {
+    id: "inhimillisesti-alykas",
+    icon: Heart,
+    title: "Inhimillisesti älykäs ja turvallinen työelämä",
+    desc: "Ihminen keskiössä – teknologia tukena.",
+    image: imgThemeHuman,
+    body: "Rakennamme työelämää, jossa turvallisuus, hyvinvointi ja inhimillisyys yhdistyvät tekoälyn ja datan tuomiin mahdollisuuksiin. Etsimme ideoita, jotka vahvistavat työyhteisöjen psykologista turvallisuutta, johtamiskulttuuria ja arjen jaksamista.",
+  },
+  {
+    id: "tekoaly-data",
+    icon: Brain,
+    title: "Tekoäly, data ja uudistuminen",
+    desc: "AI käyttöön koulutuksessa, johtamisessa ja palveluissa.",
+    image: imgThemeAi,
+    body: "Kehitämme tekoälyn ja datan käytäntöjä koulutuksen, asiakkuuksien ja palvelumuotoilun rajapinnoilla. Sopii opinnäytetöihin, piloteille ja yhteiskehittämiseen, jotka tuottavat mitattavaa hyötyä.",
+  },
+  {
+    id: "kestava-osaaminen",
+    icon: Leaf,
+    title: "Kestävä ja vihreä osaaminen",
+    desc: "Vihreä siirtymä ja kestävät käytännöt.",
+    image: imgThemeKestava,
+    body: "Vihreän siirtymän ja kestävän liiketoiminnan osaamistarpeet kasvavat. Etsimme malleja, koulutuksia ja työkaluja, joilla organisaatiot pääsevät kiinni kestävyysmuutokseen konkreettisesti.",
+  },
+  {
+    id: "kumppanuudet",
+    icon: Handshake,
+    title: "Kumppanuudet ja yhteiskehittäminen",
+    desc: "Yhdessä enemmän kuin yksin.",
+    image: imgThemeKumppanit,
+    body: "Hub yhdistää oppilaitokset, yritykset, julkiset toimijat ja asiantuntijat saman pöydän ääreen. Etsimme yhteiskehittämisen malleja, jotka tuottavat aitoja tuloksia – eivät vain tilaisuuksia.",
+  },
+  {
+    id: "kansainvalisyys",
+    icon: Globe,
+    title: "Kansainvälinen ja monikielinen koulutus",
+    desc: "Globaali osaaminen ja kielet.",
+    image: imgThemeKv,
+    body: "Suomalainen työelämä on yhä monikielisempi. Etsimme malleja, joilla työpaikkasuomi, kielelliset valmiudet ja kansainvälinen yhteistyö viedään käytäntöön.",
+  },
+  {
+    id: "tyollisyys",
+    icon: Briefcase,
+    title: "Työllisyys ja jatkuva oppiminen",
+    desc: "Polkuja työhön ja uuteen osaamiseen.",
+    image: imgThemeTyollisyys,
+    body: "Työn murros vaatii joustavia oppimispolkuja ja vahvaa yhteistyötä työllisyystoimijoiden kanssa. Etsimme käytännön ratkaisuja, jotka helpottavat siirtymiä työelämään ja uudelleenkouluttautumista.",
+  },
+  {
+    id: "johtaminen",
+    icon: Sparkles,
+    title: "Johtaminen ja Human Future – inhimillinen kilpailuetu",
+    desc: "Johtaminen on tulevaisuuden kilpailutekijä.",
+    image: imgThemeJohtaminen,
+    body: "Tulevaisuuden johtaminen rakentuu inhimillisyydelle, oppimiselle ja kyvylle uudistua. Hub kehittää johtamiskäytäntöjä, jotka tekevät ihmisestä organisaation suurimman vahvuuden.",
+  },
 ];
 
 const hubFormats = [
-  { icon: Calendar, title: "Aamukahvit ja Hub Live", text: "Lyhyet verkkokeskustelut ajankohtaisista teemoista." },
-  { icon: Users, title: "Työpajat ja Grab!-tapaamiset", text: "Osallistavat yhteiskehittämiset ja sparraukset." },
-  { icon: MessageSquare, title: "Webinaarit ja asiantuntijakeskustelut", text: "Syventävät teemoihin liittyvät tilaisuudet." },
-  { icon: Network, title: "Verkostot ja uutiskirjeet", text: "Pysy mukana, jaa ja opi yhdessä muiden kanssa." },
+  { title: "Aamukahvit ja Hub Live", text: "Lyhyet verkkokeskustelut ajankohtaisista teemoista – kahvi kädessä, ideat liikkeellä.", image: imgFormatAamukahvit },
+  { title: "Työpajat ja Grab!-tapaamiset", text: "Osallistavat yhteiskehittämiset ja sparraukset, joissa ratkotaan oikeita haasteita yhdessä.", image: imgFormatTyopajat },
+  { title: "Webinaarit ja asiantuntijakeskustelut", text: "Syventävät teemoihin liittyvät tilaisuudet – kuule ja kysy alan kärkinimiltä.", image: imgFormatWebinaarit },
+  { title: "Verkostot ja uutiskirjeet", text: "Pysy mukana virrassa: kuukausittain koostettua tietoa, uusia avauksia ja kutsuja.", image: imgFormatVerkostot },
 ];
 
 const hubProcess = [
@@ -65,7 +129,7 @@ const hubProcess = [
 
 const VerkostoPage = () => {
   const location = useLocation();
-
+  const [openTheme, setOpenTheme] = useState<string | null>(hubThemes[0].id);
   useEffect(() => {
     if (location.hash === "#hub") {
       const el = document.getElementById("hub");
@@ -191,13 +255,19 @@ const VerkostoPage = () => {
               KeudaPRO Hubiin voi tulla mukaan kahdella pääreitillä.
             </p>
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white rounded-2xl p-6 md:p-8 border border-border shadow-sm flex flex-col">
-                <div className="w-11 h-11 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-                  <GraduationCap className="w-5 h-5 text-teal-700" />
+              <div className="bg-white rounded-2xl border border-border shadow-sm flex flex-col overflow-hidden">
+                <div className="relative h-44 overflow-hidden">
+                  <img src={imgRouteOpinnaytetyo} alt="Opinnäytetyö- ja harjoittelureitti" className="w-full h-full object-cover" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                  <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur">
+                    <GraduationCap className="w-4 h-4 text-teal-700" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-teal-700">Reitti 1</span>
+                  </div>
+                  <h4 className="absolute bottom-4 left-5 right-5 text-xl font-bold text-white leading-tight">
+                    Opinnäytetyö- ja harjoittelureitti
+                  </h4>
                 </div>
-                <h4 className="text-xl font-semibold text-foreground mb-2">
-                  Opinnäytetyö- ja harjoittelureitti
-                </h4>
+                <div className="flex flex-col flex-1 p-6 md:p-8">
                 <p className="text-sm text-muted-foreground mb-4">
                   Korkeakouluopiskelijoille, jotka haluavat tehdä opinnäytetyön tai
                   kehittämisprojektin KeudaPRO:n teemoista.
@@ -223,15 +293,22 @@ const VerkostoPage = () => {
                     Opinnäytetyö- ja harjoittelulomake <ArrowRight className="w-4 h-4 ml-1" />
                   </a>
                 </Button>
+                </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-6 md:p-8 border border-border shadow-sm flex flex-col">
-                <div className="w-11 h-11 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-                  <Lightbulb className="w-5 h-5 text-teal-700" />
+              <div className="bg-white rounded-2xl border border-border shadow-sm flex flex-col overflow-hidden">
+                <div className="relative h-44 overflow-hidden">
+                  <img src={imgRouteIdea} alt="Idea- ja koulutuspalvelureitti" className="w-full h-full object-cover" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                  <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur">
+                    <Lightbulb className="w-4 h-4 text-teal-700" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-teal-700">Reitti 2</span>
+                  </div>
+                  <h4 className="absolute bottom-4 left-5 right-5 text-xl font-bold text-white leading-tight">
+                    Idea- ja koulutuspalvelureitti
+                  </h4>
                 </div>
-                <h4 className="text-xl font-semibold text-foreground mb-2">
-                  Idea- ja koulutuspalvelureitti
-                </h4>
+                <div className="flex flex-col flex-1 p-6 md:p-8">
                 <p className="text-sm text-muted-foreground mb-4">
                   Sinulle, jolla on idea, koulutusaihio tai kehitysehdotus, jonka haluaisit
                   toteuttaa yhdessä KeudaPRO:n kanssa.
@@ -257,6 +334,7 @@ const VerkostoPage = () => {
                     Idea- ja koulutuspalvelulomake <ArrowRight className="w-4 h-4 ml-1" />
                   </a>
                 </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -287,15 +365,48 @@ const VerkostoPage = () => {
             <p className="text-center text-muted-foreground mb-8">
               Ideointi ja yhteistyö keskittyvät seuraaviin kehittämisen painopisteisiin.
             </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {hubThemes.map((t) => (
-                <div key={t.text} className="bg-white rounded-lg p-4 border border-border flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-teal-100 flex items-center justify-center flex-shrink-0">
-                    <t.icon className="w-4 h-4 text-teal-700" />
+            <div className="flex flex-col gap-3">
+              {hubThemes.map((t) => {
+                const isOpen = openTheme === t.id;
+                return (
+                  <div
+                    key={t.id}
+                    className={cn(
+                      "rounded-xl border bg-white overflow-hidden transition-all duration-300",
+                      isOpen ? "border-teal-600 shadow-md" : "border-border"
+                    )}
+                  >
+                    <button
+                      onClick={() => setOpenTheme(isOpen ? null : t.id)}
+                      aria-expanded={isOpen}
+                      className="w-full flex items-center gap-4 p-4 text-left hover:bg-muted/40 transition-colors"
+                    >
+                      <div className={cn(
+                        "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors",
+                        isOpen ? "bg-teal-700 text-white" : "bg-teal-100 text-teal-700"
+                      )}>
+                        <t.icon className="w-5 h-5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-semibold text-foreground leading-snug">{t.title}</div>
+                        <div className="text-xs text-muted-foreground mt-0.5">{t.desc}</div>
+                      </div>
+                      <ChevronDown className={cn("w-5 h-5 text-muted-foreground transition-transform shrink-0", isOpen && "rotate-180")} />
+                    </button>
+                    {isOpen && (
+                      <div className="animate-accordion-down grid md:grid-cols-[220px_1fr]">
+                        <div className="relative h-40 md:h-full overflow-hidden">
+                          <img src={t.image} alt={t.title} loading="lazy" className="w-full h-full object-cover" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:bg-gradient-to-r" />
+                        </div>
+                        <div className="p-5 md:p-6">
+                          <p className="text-sm text-foreground leading-relaxed">{t.body}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <span className="text-sm font-medium text-foreground">{t.text}</span>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -307,17 +418,28 @@ const VerkostoPage = () => {
             <p className="text-center text-muted-foreground mb-8">
               KeudaPRO Hub tarjoaa yhteisölleen erilaisia maksuttomia osallistumismuotoja.
             </p>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {hubFormats.map((f) => (
-                <div key={f.title} className="bg-white rounded-xl p-6 border border-border shadow-sm">
-                  <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-3">
-                    <f.icon className="w-5 h-5 text-teal-700" />
-                  </div>
-                  <h4 className="font-semibold text-foreground mb-2">{f.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{f.text}</p>
-                </div>
-              ))}
-            </div>
+            <Carousel opts={{ align: "start", loop: true }} className="max-w-6xl mx-auto px-2">
+              <CarouselContent className="-ml-4">
+                {hubFormats.map((f) => (
+                  <CarouselItem key={f.title} className="pl-4 sm:basis-1/2 lg:basis-1/3">
+                    <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden flex flex-col h-full">
+                      <div className="relative h-44 overflow-hidden">
+                        <img src={f.image} alt={f.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+                        <h4 className="absolute bottom-3 left-4 right-4 text-lg font-bold text-white leading-tight">
+                          {f.title}
+                        </h4>
+                      </div>
+                      <div className="p-5 flex-1">
+                        <p className="text-sm text-muted-foreground leading-relaxed">{f.text}</p>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden sm:flex -left-2" />
+              <CarouselNext className="hidden sm:flex -right-2" />
+            </Carousel>
           </div>
 
           {/* Values */}
