@@ -2,7 +2,15 @@ import { useState, useEffect, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Receipt } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@/components/ui/dialog";
 import ContactForm from "@/components/contact/ContactForm";
 import CtaVideoCarousel from "@/components/contact/CtaVideoCarousel";
 import { cn } from "@/lib/utils";
