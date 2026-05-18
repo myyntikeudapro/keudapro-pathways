@@ -25,7 +25,7 @@ export function SmartSearch() {
   const [error, setError] = useState<string | null>(null);
 
   const { openWizard } = useWizard();
-  const { openChat } = useCoachPanel();
+  const { openPanel } = useCoachPanel();
 
   const runSearch = async (q: string) => {
     setLoading(true);
