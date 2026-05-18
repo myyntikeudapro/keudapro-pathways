@@ -229,6 +229,17 @@ function ProgramCard({ program }: { program: Program }) {
 export function AlyCategoryAccordion() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const location = useLocation();
+  const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const scrollToCategory = (id: string) => {
+    requestAnimationFrame(() => {
+      const el = categoryRefs.current[id];
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    });
+  };
 
   useEffect(() => {
     const hash = location.hash.replace("#", "");
@@ -236,14 +247,17 @@ export function AlyCategoryAccordion() {
     const match = categories.find((c) => c.id === hash);
     if (match) {
       setOpenCategory(match.id);
-      setTimeout(() => {
-        document.getElementById("aly-kategoriat")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
+      setTimeout(() => scrollToCategory(match.id), 100);
     }
   }, [location.hash]);
 
 
-  const toggle = (id: string) => setOpenCategory((prev) => (prev === id ? null : id));
+  const toggle = (id: string) =>
+    setOpenCategory((prev) => {
+      const next = prev === id ? null : id;
+      if (next) scrollToCategory(next);
+      return next;
+    });
 
   return (
     <section id="aly-kategoriat" className="py-16 md:py-20 bg-[#E4F0EE]">
