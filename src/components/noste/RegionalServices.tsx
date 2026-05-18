@@ -129,7 +129,7 @@ function HowToApply({ children }: { children: React.ReactNode }) {
 function HelsinkiModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <ModalShell open={open} onClose={onClose}>
-      <div className="p-5 sm:p-6 md:p-8">
+      <div className="px-5 py-5 pr-6 sm:p-6 md:p-8">
         <DialogHeader className="mb-4">
           <DialogTitle className="text-xl sm:text-2xl font-bold pr-8">Työhönvalmennus – Helsinki</DialogTitle>
           <DialogDescription className="italic text-muted-foreground">
@@ -184,7 +184,7 @@ function HelsinkiModal({ open, onClose }: { open: boolean; onClose: () => void }
 function KeskiUusimaaModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <ModalShell open={open} onClose={onClose}>
-      <div className="p-5 sm:p-6 md:p-8">
+      <div className="px-5 py-5 pr-6 sm:p-6 md:p-8">
         <DialogHeader className="mb-4">
           <DialogTitle className="text-xl sm:text-2xl font-bold pr-8">Työhönvalmennus – Keski-Uusimaa</DialogTitle>
           <DialogDescription className="italic text-muted-foreground">
@@ -246,7 +246,7 @@ function VantaaModal({ open, onClose }: { open: boolean; onClose: () => void }) 
 
   return (
     <ModalShell open={open} onClose={onClose}>
-      <div className="p-5 sm:p-6 md:p-8">
+      <div className="px-5 py-5 pr-6 sm:p-6 md:p-8">
         <DialogHeader className="mb-4">
           <DialogTitle className="text-xl sm:text-2xl font-bold pr-8">Työhönvalmennus – Vantaa</DialogTitle>
           <DialogDescription className="sr-only">Vantaan alueelliset palvelut</DialogDescription>
@@ -421,7 +421,7 @@ function VantaaKansainvaliset() {
 function KeravaSipooModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <ModalShell open={open} onClose={onClose}>
-      <div className="p-5 sm:p-6 md:p-8">
+      <div className="px-5 py-5 pr-6 sm:p-6 md:p-8">
         <DialogHeader className="mb-4">
           <DialogTitle className="text-xl sm:text-2xl font-bold pr-8">Työhönvalmennus – Kerava &amp; Sipoo</DialogTitle>
           <DialogDescription className="italic text-muted-foreground">
