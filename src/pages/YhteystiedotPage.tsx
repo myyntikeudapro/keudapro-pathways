@@ -2,7 +2,15 @@ import { useState, useEffect, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Receipt } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@/components/ui/dialog";
 import ContactForm from "@/components/contact/ContactForm";
 import CtaVideoCarousel from "@/components/contact/CtaVideoCarousel";
 import { cn } from "@/lib/utils";
@@ -95,6 +103,7 @@ const team = [
 const YhteystiedotPage = () => {
   const { openWizard } = useWizard();
   const [current, setCurrent] = useState(0);
+  const [billingOpen, setBillingOpen] = useState(false);
 
   const next = useCallback(() => {
     setCurrent((prev) => (prev + 1) % heroSlides.length);
@@ -268,7 +277,7 @@ const YhteystiedotPage = () => {
             </div>
 
             {/* General contact info */}
-            <div className="mt-8 grid md:grid-cols-3 gap-4">
+            <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <a
                 href="mailto:keudapro@keuda.fi"
                 className="flex items-center gap-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 hover:bg-white/15 transition-all"
@@ -282,7 +291,7 @@ const YhteystiedotPage = () => {
                 </div>
               </a>
               <a
-                href="tel:+358912345567"
+                href="tel:+358927381"
                 className="flex items-center gap-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 hover:bg-white/15 transition-all"
               >
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
@@ -290,7 +299,7 @@ const YhteystiedotPage = () => {
                 </div>
                 <div>
                   <p className="text-sm text-white/70">Puhelin</p>
-                  <p className="font-medium text-white">+358 (0)9 123 4567</p>
+                  <p className="font-medium text-white">09 27 381</p>
                 </div>
               </a>
               <a
@@ -309,7 +318,62 @@ const YhteystiedotPage = () => {
                   </p>
                 </div>
               </a>
+              <button
+                type="button"
+                onClick={() => setBillingOpen(true)}
+                className="flex items-center gap-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 hover:bg-white/15 transition-all text-left"
+              >
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                  <Receipt className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm text-white/70">Laskutus</p>
+                  <p className="font-medium text-white">Laskutustiedot</p>
+                </div>
+              </button>
             </div>
+
+            <Dialog open={billingOpen} onOpenChange={setBillingOpen}>
+              <DialogContent className="w-[calc(100%-1.5rem)] sm:w-full max-w-lg rounded-xl">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl pr-8">Laskutustiedot</DialogTitle>
+                  <DialogDescription>
+                    Tiedot toimittajille ja yhteistyökumppaneille.
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="space-y-5 text-sm text-foreground">
+                  <div className="space-y-1">
+                    <p><span className="text-muted-foreground">Yritys: </span>Keuda Koulutuspalvelut Oy</p>
+                    <p><span className="text-muted-foreground">Y-tunnus: </span>2764396-2</p>
+                    <p><span className="text-muted-foreground">Osoite: </span>Sibeliuksenväylä 55, 04400 Järvenpää</p>
+                  </div>
+
+                  <div className="rounded-lg border border-border bg-muted/40 p-4 space-y-2">
+                    <p className="font-semibold text-foreground">Verkkolaskutus</p>
+                    <p className="text-muted-foreground">
+                      Pyydämme ensisijaisesti toimittamaan laskut verkkolaskuina.
+                    </p>
+                    <div className="pt-1 space-y-1">
+                      <p><span className="text-muted-foreground">Verkkolaskuosoite: </span>003727643962</p>
+                      <p><span className="text-muted-foreground">Välittäjä: </span>Maventa</p>
+                      <p><span className="text-muted-foreground">Välittäjätunnus: </span>003721291126</p>
+                      <p><span className="text-muted-foreground">Välittäjätunnus pankkiverkosta: </span>DABAFIHH</p>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-muted-foreground">
+                    Mikäli verkkolasku ei onnistu, toimita paperilasku yllä olevaan osoitteeseen.
+                  </p>
+                </div>
+
+                <div className="flex justify-end pt-2">
+                  <DialogClose asChild>
+                    <Button variant="outline-primary" size="default">Sulje</Button>
+                  </DialogClose>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </section>
