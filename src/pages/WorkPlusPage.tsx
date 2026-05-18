@@ -7,6 +7,7 @@ import { ArrowRight, Map, Handshake, Rocket, ChevronDown, Wallet, ShieldCheck, S
 
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
+import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 import { Panel1, Panel2, Panel3, Panel4, Panel5 } from "@/components/noste/PathPanels";
 import { cn } from "@/lib/utils";
@@ -157,6 +158,7 @@ function useScrollReveal() {
 
 const WorkPlusPage = () => {
   const { openWizard } = useWizard();
+  const { openChat, openBooking } = useCoachPanel();
   const [muutosturvaOpen, setMuutosturvaOpen] = useState(false);
   const [activeSituation, setActiveSituation] = useState<string | null>(null);
   const [openPanel, setOpenPanel] = useState<string | null>(null);
@@ -483,22 +485,21 @@ const WorkPlusPage = () => {
 
           {/* CTAt */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-2xl mx-auto">
-            <Button variant="cta" size="lg" onClick={openWizard} className="flex-1">
+            <Button variant="cta" size="lg" onClick={() => openChat("ana")} className="flex-1">
               <Sparkles className="w-4 h-4 mr-2" />
               Hahmottele AI-valmentajan kanssa
             </Button>
             <Button
               variant="outline"
               size="lg"
-              asChild
+              onClick={() => openBooking("reitti")}
               className="flex-1 bg-transparent border-background/30 text-background hover:bg-background hover:text-foreground"
             >
-              <a href="/yhteystiedot">
-                <Handshake className="w-4 h-4 mr-2" />
-                Varaa aika Reittivalmentajalle
-              </a>
+              <Handshake className="w-4 h-4 mr-2" />
+              Varaa aika Reittivalmentajalle
             </Button>
           </div>
+
           <p className="text-center text-xs mt-4" style={{ color: "hsl(210 15% 60%)" }}>
             Molemmat ovat maksuttomia ja sinua ei sidota mihinkään.
           </p>
