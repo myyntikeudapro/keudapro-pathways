@@ -8,8 +8,7 @@ import { Badge } from "@/components/ui/badge";
 
 import { useToast } from "@/hooks/use-toast";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
-import { NeedsBannerCarousel } from "@/components/patevyydet/NeedsBannerCarousel";
-import heroOsaaminen from "@/assets/banner-osaaminen-kortit.jpg";
+import { HeroAutoCarousel } from "@/components/patevyydet/HeroAutoCarousel";
 import { useWizard } from "@/contexts/WizardContext";
 import { cn } from "@/lib/utils";
 import { ChevronDown, ArrowRight } from "lucide-react";
