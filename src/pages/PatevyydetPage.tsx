@@ -8,8 +8,7 @@ import { Badge } from "@/components/ui/badge";
 
 import { useToast } from "@/hooks/use-toast";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
-import { NeedsBannerCarousel } from "@/components/patevyydet/NeedsBannerCarousel";
-import heroOsaaminen from "@/assets/banner-osaaminen-kortit.jpg";
+import { HeroAutoCarousel } from "@/components/patevyydet/HeroAutoCarousel";
 import { useWizard } from "@/contexts/WizardContext";
 import { cn } from "@/lib/utils";
 import { ChevronDown, ArrowRight } from "lucide-react";
@@ -556,60 +555,19 @@ const PatevyydetPage = () => {
         path="/osaaminen"
       />
 
-      {/* Hero banner — valokuva + otsikko */}
-      <section className="relative w-full h-[220px] md:h-[340px] overflow-hidden">
-        <img
-          src={heroOsaaminen}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          loading="eager"
-        />
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="relative z-10 h-full keuda-container flex flex-col items-center justify-center text-center">
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">
-            Osaaminen ja pätevyydet
-          </h1>
-          <p className="text-base md:text-lg text-white/90 max-w-2xl">
-            Kortit, valmennukset ja ohjelmat — löydä tilanteesi mukainen ratkaisu.
-          </p>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16 bg-foreground">
-        <div className="keuda-container">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
-              Mistä tarpeesta liikkeelle?
-            </h2>
-            <p className="text-lg text-background/70">
-              Valitse tilanne — ohjaamme sinut oikean AI-valmentajan luo.
-            </p>
-          </div>
-
-          <NeedsBannerCarousel />
-
-          <div className="text-center mt-6">
-            <p className="text-sm text-background/70">
-              Ei mikään näistä?{" "}
-              <button
-                type="button"
-                onClick={() => openPanel(null)}
-                className="text-teal-300 hover:text-teal-200 underline-offset-4 hover:underline font-medium"
-              >
-                Kerro tarpeesi omin sanoin
-              </button>
-            </p>
-          </div>
-        </div>
-      </section>
-
+      {/* Hero — hiljainen automaattinen kuvakaruselli taustalla */}
+      <HeroAutoCarousel
+        images={[bannerKortit, bannerSuunta, bannerAi, bannerRatkaisee]}
+        title="Osaaminen ja pätevyydet"
+        subtitle="Kortit, valmennukset ja ohjelmat — avaa kategoria ja löydä tilanteesi mukainen ratkaisu."
+      />
 
       {/* Kategoriat — accordion (5 paneelia, vain yksi auki kerrallaan) */}
       <section className="py-16 md:py-20 bg-[#E4F0EE]">
         <div className="keuda-container">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Selaa osaamisalueita
+              Valitse osaamisalue
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Avaa kategoria — näet sisältyvät kortit, valmennukset ja ohjelmat.
