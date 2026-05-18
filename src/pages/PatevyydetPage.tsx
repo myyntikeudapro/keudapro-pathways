@@ -239,6 +239,7 @@ const courses: Course[] = [
     category: "Turvallisuus",
     description: "Laajempi 8 tunnin hätäensiapukurssi, joka antaa kattavammat valmiudet auttaa hätä- ja sairauskohtaustilanteissa työpaikalla ja arjessa.",
     infoUrl: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-8-t/",
+    signupUrl: "https://www.lyyti.in/Ensiapukoulutuksetlanding_page_6944",
   },
   {
     name: "Hygieniapassi",
