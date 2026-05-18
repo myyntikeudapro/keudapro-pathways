@@ -279,6 +279,7 @@ const courses: Course[] = [
     category: "AI",
     description: "Sertifioitu osaamistodistus tekoälyn hyödyntämisestä työnhaun eri vaiheissa — hakemuksissa, CV:ssä ja piilotyöpaikkojen löytämisessä.",
     infoUrl: "https://www.keuda.fi/koulutus/3t-kortti/",
+    signupUrl: "https://www.lyyti.in/3Tkorttilanding_page_0746",
   },
   {
     name: "Toimialakohtainen pätevyys",
