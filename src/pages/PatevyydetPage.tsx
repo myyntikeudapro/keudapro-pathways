@@ -454,6 +454,23 @@ const accordionCategories: AccordionCategory[] = [
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const handleCategoryToggle = (id: string) => {
+    setOpenCategory((prev) => {
+      const next = prev === id ? null : id;
+      if (next) {
+        requestAnimationFrame(() => {
+          const el = categoryRefs.current[id];
+          if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        });
+      }
+      return next;
+    });
+  };
   const [who, setWho] = useState<string | null>(null);
   const [goals, setGoals] = useState<string[]>([]);
   const [formats, setFormats] = useState<string[]>([]);
