@@ -54,20 +54,69 @@ const providerCriteria = [
 ];
 
 const hubThemes = [
-  { icon: Heart, text: "Inhimillisesti älykäs ja turvallinen työelämä" },
-  { icon: Brain, text: "Tekoäly, data ja uudistuminen" },
-  { icon: Leaf, text: "Kestävä ja vihreä osaaminen" },
-  { icon: Handshake, text: "Kumppanuudet ja yhteiskehittäminen" },
-  { icon: Globe, text: "Kansainvälinen ja monikielinen koulutus" },
-  { icon: Briefcase, text: "Työllisyys ja jatkuva oppiminen" },
-  { icon: Sparkles, text: "Johtaminen ja Human Future – inhimillinen kilpailuetu" },
+  {
+    id: "inhimillisesti-alykas",
+    icon: Heart,
+    title: "Inhimillisesti älykäs ja turvallinen työelämä",
+    desc: "Ihminen keskiössä – teknologia tukena.",
+    image: imgThemeHuman,
+    body: "Rakennamme työelämää, jossa turvallisuus, hyvinvointi ja inhimillisyys yhdistyvät tekoälyn ja datan tuomiin mahdollisuuksiin. Etsimme ideoita, jotka vahvistavat työyhteisöjen psykologista turvallisuutta, johtamiskulttuuria ja arjen jaksamista.",
+  },
+  {
+    id: "tekoaly-data",
+    icon: Brain,
+    title: "Tekoäly, data ja uudistuminen",
+    desc: "AI käyttöön koulutuksessa, johtamisessa ja palveluissa.",
+    image: imgThemeAi,
+    body: "Kehitämme tekoälyn ja datan käytäntöjä koulutuksen, asiakkuuksien ja palvelumuotoilun rajapinnoilla. Sopii opinnäytetöihin, piloteille ja yhteiskehittämiseen, jotka tuottavat mitattavaa hyötyä.",
+  },
+  {
+    id: "kestava-osaaminen",
+    icon: Leaf,
+    title: "Kestävä ja vihreä osaaminen",
+    desc: "Vihreä siirtymä ja kestävät käytännöt.",
+    image: imgThemeKestava,
+    body: "Vihreän siirtymän ja kestävän liiketoiminnan osaamistarpeet kasvavat. Etsimme malleja, koulutuksia ja työkaluja, joilla organisaatiot pääsevät kiinni kestävyysmuutokseen konkreettisesti.",
+  },
+  {
+    id: "kumppanuudet",
+    icon: Handshake,
+    title: "Kumppanuudet ja yhteiskehittäminen",
+    desc: "Yhdessä enemmän kuin yksin.",
+    image: imgThemeKumppanit,
+    body: "Hub yhdistää oppilaitokset, yritykset, julkiset toimijat ja asiantuntijat saman pöydän ääreen. Etsimme yhteiskehittämisen malleja, jotka tuottavat aitoja tuloksia – eivät vain tilaisuuksia.",
+  },
+  {
+    id: "kansainvalisyys",
+    icon: Globe,
+    title: "Kansainvälinen ja monikielinen koulutus",
+    desc: "Globaali osaaminen ja kielet.",
+    image: imgThemeKv,
+    body: "Suomalainen työelämä on yhä monikielisempi. Etsimme malleja, joilla työpaikkasuomi, kielelliset valmiudet ja kansainvälinen yhteistyö viedään käytäntöön.",
+  },
+  {
+    id: "tyollisyys",
+    icon: Briefcase,
+    title: "Työllisyys ja jatkuva oppiminen",
+    desc: "Polkuja työhön ja uuteen osaamiseen.",
+    image: imgThemeTyollisyys,
+    body: "Työn murros vaatii joustavia oppimispolkuja ja vahvaa yhteistyötä työllisyystoimijoiden kanssa. Etsimme käytännön ratkaisuja, jotka helpottavat siirtymiä työelämään ja uudelleenkouluttautumista.",
+  },
+  {
+    id: "johtaminen",
+    icon: Sparkles,
+    title: "Johtaminen ja Human Future – inhimillinen kilpailuetu",
+    desc: "Johtaminen on tulevaisuuden kilpailutekijä.",
+    image: imgThemeJohtaminen,
+    body: "Tulevaisuuden johtaminen rakentuu inhimillisyydelle, oppimiselle ja kyvylle uudistua. Hub kehittää johtamiskäytäntöjä, jotka tekevät ihmisestä organisaation suurimman vahvuuden.",
+  },
 ];
 
 const hubFormats = [
-  { icon: Calendar, title: "Aamukahvit ja Hub Live", text: "Lyhyet verkkokeskustelut ajankohtaisista teemoista." },
-  { icon: Users, title: "Työpajat ja Grab!-tapaamiset", text: "Osallistavat yhteiskehittämiset ja sparraukset." },
-  { icon: MessageSquare, title: "Webinaarit ja asiantuntijakeskustelut", text: "Syventävät teemoihin liittyvät tilaisuudet." },
-  { icon: Network, title: "Verkostot ja uutiskirjeet", text: "Pysy mukana, jaa ja opi yhdessä muiden kanssa." },
+  { title: "Aamukahvit ja Hub Live", text: "Lyhyet verkkokeskustelut ajankohtaisista teemoista – kahvi kädessä, ideat liikkeellä.", image: imgFormatAamukahvit },
+  { title: "Työpajat ja Grab!-tapaamiset", text: "Osallistavat yhteiskehittämiset ja sparraukset, joissa ratkotaan oikeita haasteita yhdessä.", image: imgFormatTyopajat },
+  { title: "Webinaarit ja asiantuntijakeskustelut", text: "Syventävät teemoihin liittyvät tilaisuudet – kuule ja kysy alan kärkinimiltä.", image: imgFormatWebinaarit },
+  { title: "Verkostot ja uutiskirjeet", text: "Pysy mukana virrassa: kuukausittain koostettua tietoa, uusia avauksia ja kutsuja.", image: imgFormatVerkostot },
 ];
 
 const hubProcess = [
