@@ -172,7 +172,7 @@ const YhteystiedotPage = () => {
       </section>
 
       {/* ════════ ÄLYKÄS HAKU ════════ */}
-      <section className="py-16 md:py-20 bg-muted/30">
+      <section className="py-16 md:py-20 bg-[#E4F0EE]">
         <div className="keuda-container">
           <SmartSearch />
         </div>

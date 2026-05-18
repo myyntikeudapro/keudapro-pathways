@@ -62,87 +62,70 @@ export function SmartSearch() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      {/* Hakulaatikko – tumma teal-gradientti samaan tyyliin kuin NOSTE/yhteystiedot */}
-      <div className="relative overflow-hidden rounded-3xl shadow-xl">
-        {/* Tausta */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(135deg, hsl(var(--keuda-blue)) 0%, hsl(var(--keuda-teal)) 100%)",
-          }}
-        />
-        <div className="absolute inset-0 opacity-20 mix-blend-overlay"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 20%, rgba(255,255,255,.35), transparent 40%), radial-gradient(circle at 80% 80%, rgba(255,255,255,.2), transparent 45%)",
-          }}
-        />
+      {/* Hakulaatikko – vaalea valkoinen kortti Pätevyydet-sivun tyyliin */}
+      <div className="relative rounded-3xl bg-white shadow-sm border border-teal-100 p-6 md:p-10">
+        <div className="flex items-center gap-2 mb-3 text-teal-700">
+          <Sparkles className="w-5 h-5" />
+          <span className="text-xs font-semibold uppercase tracking-[0.18em]">Älykäs haku</span>
+        </div>
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Mitä etsit?</h2>
+        <p className="text-muted-foreground mb-6 md:text-lg">
+          Kirjoita aihe tai tilanne omin sanoin – ohjaamme sinut oikeaan paikkaan.
+        </p>
 
-        <div className="relative p-6 md:p-10 text-white">
-          <div className="flex items-center gap-2 mb-3 text-white/90">
-            <Sparkles className="w-5 h-5" />
-            <span className="text-xs font-semibold uppercase tracking-[0.18em]">Älykäs haku</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">Mitä etsit?</h2>
-          <p className="text-white/85 mb-6 md:text-lg">
-            Kirjoita aihe tai tilanne omin sanoin – ohjaamme sinut oikeaan paikkaan.
-          </p>
+        <form onSubmit={onSubmit} className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder='esim. "tulityökortti" tai "AI johdolle"'
+            className="w-full h-14 pl-12 pr-28 rounded-2xl bg-[#F5FBFA] text-foreground placeholder:text-muted-foreground border border-teal-100 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
+            aria-label="Älykäs haku"
+          />
+          <Button
+            type="submit"
+            variant="cta"
+            size="default"
+            className="absolute right-2 top-1/2 -translate-y-1/2 shadow-md"
+            disabled={loading || query.trim().length < 2}
+          >
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Hae"}
+          </Button>
+        </form>
 
-          <form onSubmit={onSubmit} className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder='esim. "tulityökortti" tai "AI johdolle"'
-              className="w-full h-14 pl-12 pr-28 rounded-2xl bg-white text-foreground placeholder:text-muted-foreground border-0 shadow-lg focus:outline-none focus:ring-4 focus:ring-white/40"
-              aria-label="Älykäs haku"
-            />
-            <Button
-              type="submit"
-              variant="cta"
-              size="default"
-              className="absolute right-2 top-1/2 -translate-y-1/2 shadow-md"
-              disabled={loading || query.trim().length < 2}
-            >
-              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Hae"}
-            </Button>
-          </form>
-
-          {/* Esimerkkihakuehdot */}
-          <div className="mt-4 flex flex-wrap gap-2">
-            {exampleQueries.map((q) => (
-              <button
-                key={q}
-                type="button"
-                onClick={() => onExample(q)}
-                className="text-xs px-3 py-1.5 rounded-full bg-white/15 text-white border border-white/25 hover:bg-white/25 backdrop-blur-sm transition-colors"
-              >
-                {q}
-              </button>
-            ))}
-          </div>
-
-          {/* Pikareitit */}
-          <div className="mt-6 pt-6 border-t border-white/20 flex flex-col sm:flex-row gap-3">
+        {/* Esimerkkihakuehdot */}
+        <div className="mt-4 flex flex-wrap gap-2">
+          {exampleQueries.map((q) => (
             <button
+              key={q}
               type="button"
-              onClick={() => openWizard()}
-              className="flex-1 flex items-center gap-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 px-4 py-3 transition-colors text-left backdrop-blur-sm"
+              onClick={() => onExample(q)}
+              className="text-xs px-3 py-1.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 hover:bg-teal-100 transition-colors"
             >
-              <Compass className="w-5 h-5 text-white shrink-0" />
-              <span className="text-sm font-medium text-white">Tee 15 min reittikartoitus</span>
+              {q}
             </button>
-            <button
-              type="button"
-              onClick={() => openChat("ana")}
-              className="flex-1 flex items-center gap-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 px-4 py-3 transition-colors text-left backdrop-blur-sm"
-            >
-              <MessageCircle className="w-5 h-5 text-white shrink-0" />
-              <span className="text-sm font-medium text-white">Kysy AI-valmentajalta</span>
-            </button>
-          </div>
+          ))}
+        </div>
+
+        {/* Pikareitit */}
+        <div className="mt-6 pt-6 border-t border-border flex flex-col sm:flex-row gap-3">
+          <button
+            type="button"
+            onClick={() => openWizard()}
+            className="flex-1 flex items-center gap-3 rounded-xl bg-[#F5FBFA] hover:bg-teal-50 border border-teal-100 px-4 py-3 transition-colors text-left"
+          >
+            <Compass className="w-5 h-5 text-teal-700 shrink-0" />
+            <span className="text-sm font-medium text-foreground">Tee 15 min reittikartoitus</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => openChat("ana")}
+            className="flex-1 flex items-center gap-3 rounded-xl bg-[#F5FBFA] hover:bg-teal-50 border border-teal-100 px-4 py-3 transition-colors text-left"
+          >
+            <MessageCircle className="w-5 h-5 text-teal-700 shrink-0" />
+            <span className="text-sm font-medium text-foreground">Kysy AI-valmentajalta</span>
+          </button>
         </div>
       </div>
 
