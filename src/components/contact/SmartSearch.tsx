@@ -62,133 +62,166 @@ export function SmartSearch() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="rounded-2xl bg-background border border-border shadow-sm p-5 md:p-7">
-        <div className="flex items-center gap-2 mb-3 text-primary">
-          <Sparkles className="w-5 h-5" />
-          <span className="text-sm font-semibold uppercase tracking-wide">Älykäs haku</span>
-        </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-          Mitä etsit?
-        </h2>
-        <p className="text-muted-foreground mb-5">
-          Kirjoita aihe tai tilanne omin sanoin – ohjaamme sinut oikeaan paikkaan.
-        </p>
+      {/* Hakulaatikko – tumma teal-gradientti samaan tyyliin kuin NOSTE/yhteystiedot */}
+      <div className="relative overflow-hidden rounded-3xl shadow-xl">
+        {/* Tausta */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, hsl(var(--keuda-blue)) 0%, hsl(var(--keuda-teal)) 100%)",
+          }}
+        />
+        <div className="absolute inset-0 opacity-20 mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 20%, rgba(255,255,255,.35), transparent 40%), radial-gradient(circle at 80% 80%, rgba(255,255,255,.2), transparent 45%)",
+          }}
+        />
 
-        <form onSubmit={onSubmit} className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder='esim. "tulityökortti" tai "AI johdolle"'
-            className="w-full h-14 pl-12 pr-32 rounded-xl border border-input bg-background text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            aria-label="Älykäs haku"
-          />
-          <Button
-            type="submit"
-            variant="cta"
-            size="default"
-            className="absolute right-2 top-1/2 -translate-y-1/2"
-            disabled={loading || query.trim().length < 2}
-          >
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Hae"}
-          </Button>
-        </form>
+        <div className="relative p-6 md:p-10 text-white">
+          <div className="flex items-center gap-2 mb-3 text-white/90">
+            <Sparkles className="w-5 h-5" />
+            <span className="text-xs font-semibold uppercase tracking-[0.18em]">Älykäs haku</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-2">Mitä etsit?</h2>
+          <p className="text-white/85 mb-6 md:text-lg">
+            Kirjoita aihe tai tilanne omin sanoin – ohjaamme sinut oikeaan paikkaan.
+          </p>
 
-        {/* Esimerkkihakuehdot */}
-        <div className="mt-3 flex flex-wrap gap-2">
-          {exampleQueries.map((q) => (
-            <button
-              key={q}
-              type="button"
-              onClick={() => onExample(q)}
-              className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+          <form onSubmit={onSubmit} className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder='esim. "tulityökortti" tai "AI johdolle"'
+              className="w-full h-14 pl-12 pr-28 rounded-2xl bg-white text-foreground placeholder:text-muted-foreground border-0 shadow-lg focus:outline-none focus:ring-4 focus:ring-white/40"
+              aria-label="Älykäs haku"
+            />
+            <Button
+              type="submit"
+              variant="cta"
+              size="default"
+              className="absolute right-2 top-1/2 -translate-y-1/2 shadow-md"
+              disabled={loading || query.trim().length < 2}
             >
-              {q}
-            </button>
-          ))}
-        </div>
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Hae"}
+            </Button>
+          </form>
 
-        {/* Pikareitit */}
-        <div className="mt-5 pt-5 border-t border-border flex flex-col sm:flex-row gap-3">
-          <Button
-            type="button"
-            variant="outline"
-            size="default"
-            className="flex-1 justify-start"
-            onClick={() => openWizard()}
-          >
-            <Compass className="w-4 h-4 mr-2" />
-            Tee 15 min reittikartoitus
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="default"
-            className="flex-1 justify-start"
-            onClick={() => openChat("ana")}
-          >
-            <MessageCircle className="w-4 h-4 mr-2" />
-            Kysy AI-valmentajalta
-          </Button>
+          {/* Esimerkkihakuehdot */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {exampleQueries.map((q) => (
+              <button
+                key={q}
+                type="button"
+                onClick={() => onExample(q)}
+                className="text-xs px-3 py-1.5 rounded-full bg-white/15 text-white border border-white/25 hover:bg-white/25 backdrop-blur-sm transition-colors"
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+
+          {/* Pikareitit */}
+          <div className="mt-6 pt-6 border-t border-white/20 flex flex-col sm:flex-row gap-3">
+            <button
+              type="button"
+              onClick={() => openWizard()}
+              className="flex-1 flex items-center gap-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 px-4 py-3 transition-colors text-left backdrop-blur-sm"
+            >
+              <Compass className="w-5 h-5 text-white shrink-0" />
+              <span className="text-sm font-medium text-white">Tee 15 min reittikartoitus</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => openChat("ana")}
+              className="flex-1 flex items-center gap-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 px-4 py-3 transition-colors text-left backdrop-blur-sm"
+            >
+              <MessageCircle className="w-5 h-5 text-white shrink-0" />
+              <span className="text-sm font-medium text-white">Kysy AI-valmentajalta</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Tulokset */}
       {(matches !== null || error) && (
-        <div className="mt-6">
+        <div className="mt-8">
           {error && (
-            <div className="rounded-xl border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
+            <div className="rounded-xl border border-border bg-background p-4 text-sm text-muted-foreground shadow-sm">
               {error}
             </div>
           )}
 
           {matches && matches.length > 0 && (
-            <ul className="space-y-3">
-              {matches.map((m) => {
-                const content = (
-                  <div className="group flex items-start gap-4 rounded-xl border border-border bg-background p-4 hover:border-primary hover:shadow-sm transition-all">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-primary">
-                          {m.category}
-                        </span>
+            <>
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+                Parhaat osumat
+              </p>
+              <ul className="space-y-3">
+                {matches.map((m) => {
+                  const content = (
+                    <div className="group flex items-stretch gap-0 rounded-2xl overflow-hidden border border-border bg-background hover:border-primary hover:shadow-lg transition-all">
+                      {/* Pieni kuva */}
+                      <div className="relative w-24 sm:w-32 shrink-0 overflow-hidden">
+                        <img
+                          src={m.image}
+                          alt=""
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/10" />
                       </div>
-                      <h3 className="text-base font-semibold text-foreground mb-1">
-                        {m.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-1">{m.description}</p>
-                      {m.reason && (
-                        <p className="text-xs italic text-primary/80">{m.reason}</p>
-                      )}
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0 mt-1" />
-                  </div>
-                );
 
-                if (isExternal(m.href)) {
+                      {/* Sisältö */}
+                      <div className="flex-1 min-w-0 p-4 flex items-center gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                              {m.category}
+                            </span>
+                          </div>
+                          <h3 className="text-base font-semibold text-foreground mb-1 truncate">
+                            {m.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground line-clamp-2">
+                            {m.description}
+                          </p>
+                          {m.reason && (
+                            <p className="text-xs italic text-secondary mt-1">{m.reason}</p>
+                          )}
+                        </div>
+                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
+                      </div>
+                    </div>
+                  );
+
+                  if (isExternal(m.href)) {
+                    return (
+                      <li key={m.id}>
+                        <a href={m.href} target="_blank" rel="noopener noreferrer">
+                          {content}
+                        </a>
+                      </li>
+                    );
+                  }
+                  if (m.href.includes("#")) {
+                    return (
+                      <li key={m.id}>
+                        <a href={m.href}>{content}</a>
+                      </li>
+                    );
+                  }
                   return (
                     <li key={m.id}>
-                      <a href={m.href} target="_blank" rel="noopener noreferrer">
-                        {content}
-                      </a>
+                      <Link to={m.href}>{content}</Link>
                     </li>
                   );
-                }
-                if (m.href.includes("#")) {
-                  return (
-                    <li key={m.id}>
-                      <a href={m.href}>{content}</a>
-                    </li>
-                  );
-                }
-                return (
-                  <li key={m.id}>
-                    <Link to={m.href}>{content}</Link>
-                  </li>
-                );
-              })}
-            </ul>
+                })}
+              </ul>
+            </>
           )}
         </div>
       )}

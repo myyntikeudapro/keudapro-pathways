@@ -3,11 +3,39 @@
  * Each entry is sent to the smart-search edge function for semantic ranking.
  * Keep titles + keywords in Finnish. Add new entries when new pages/programs ship.
  */
+import routeAly from "@/assets/route-aly.jpg";
+import routeNoste from "@/assets/route-noste.jpg";
+import routeKasvu from "@/assets/route-kasvu.jpg";
+import progAiDirector from "@/assets/prog-ai-director.jpg";
+import progAiManager from "@/assets/prog-ai-manager.jpg";
+import progAiCoordinator from "@/assets/prog-ai-coordinator.jpg";
+import progJohtaminen from "@/assets/prog-johtaminen.jpg";
+import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
+import courseTyoturvallisuus from "@/assets/course-tyoturvallisuus.jpg";
+import courseTulityo from "@/assets/course-tulityo.jpg";
+import courseEa1 from "@/assets/course-ea1.jpg";
+import courseHygienia from "@/assets/course-hygienia.jpg";
+import courseAnniskelu from "@/assets/course-anniskelu.jpg";
+import courseTyohyvinvointi from "@/assets/course-tyohyvinvointi.jpg";
+import course3t from "@/assets/course-3t.jpg";
+import courseKieli from "@/assets/course-kieli.jpg";
+import kasvuKirkastus from "@/assets/kasvu-kirkastus.jpg";
+import kasvuSprintit from "@/assets/kasvu-sprintit.jpg";
+import kasvuDigi from "@/assets/kasvu-digi.jpg";
+import nosteTransition from "@/assets/noste-transition.jpg";
+import nosteEntrepreneur from "@/assets/noste-entrepreneur.jpg";
+import nosteKv from "@/assets/course-kv.jpg";
+import partnerNetwork from "@/assets/partner-network.jpg";
+import operatorNetwork from "@/assets/operator-network.jpg";
+import operatorKuuma from "@/assets/operator-kuuma.jpg";
+import contactHero from "@/assets/contact-hero-1.jpg";
+
 export type SearchEntry = {
   id: string;
   title: string;
   description: string;
   href: string;
+  image: string;
   category:
     | "Reitti"
     | "Ohjelma"
@@ -26,6 +54,7 @@ export const searchIndex: SearchEntry[] = [
     description:
       "Johtajille, esihenkilöille ja asiantuntijoille: johtamiskoulutukset, AI-ohjelmat ja muutosvalmennukset.",
     href: "/aly",
+    image: routeAly,
     category: "Reitti",
     keywords: ["johtaminen", "johtaja", "esihenkilö", "asiantuntija", "tekoäly", "ai", "muutos", "strategia"],
   },
@@ -35,6 +64,7 @@ export const searchIndex: SearchEntry[] = [
     description:
       "Työnhakuun, yrittäjyyteen, kotoutumiseen, muutosturvaan ja uudelleenkoulutukseen.",
     href: "/noste",
+    image: routeNoste,
     category: "Reitti",
     keywords: ["työnhaku", "työllistyminen", "muutosturva", "yrittäjyys", "kotoutuminen", "uudelleenkoulutus", "valmennus", "irtisanottu"],
   },
@@ -44,6 +74,7 @@ export const searchIndex: SearchEntry[] = [
     description:
       "Yrityksille: osaamisen kehittäminen, rekrytointi, digiloikka ja liiketoiminnan uudistuminen.",
     href: "/kasvu",
+    image: routeKasvu,
     category: "Reitti",
     keywords: ["kasvu", "yritys", "skaalaus", "myynti", "rekrytointi", "digiloikka", "uudistuminen", "kasvukartoitus"],
   },
@@ -54,6 +85,7 @@ export const searchIndex: SearchEntry[] = [
     title: "AI-Director",
     description: "Strateginen tekoälyjohtaminen ja organisaation uudistaminen.",
     href: "/aly#ai-ohjelmat",
+    image: progAiDirector,
     category: "Ohjelma",
     keywords: ["ai", "johtaja", "strategia", "director", "tekoäly", "johto"],
   },
@@ -62,6 +94,7 @@ export const searchIndex: SearchEntry[] = [
     title: "AI-Manager",
     description: "Tekoälyn käyttöönotto esihenkilötyössä ja tiiminvedossa.",
     href: "/aly#ai-ohjelmat",
+    image: progAiManager,
     category: "Ohjelma",
     keywords: ["ai", "esihenkilö", "manager", "tiimi", "tekoäly"],
   },
@@ -70,6 +103,7 @@ export const searchIndex: SearchEntry[] = [
     title: "AI-Coordinator",
     description: "Tekoälyn käytännön hyödyntäminen asiantuntijatyössä.",
     href: "/aly#ai-ohjelmat",
+    image: progAiCoordinator,
     category: "Ohjelma",
     keywords: ["ai", "asiantuntija", "coordinator", "tekoäly", "työkalut"],
   },
@@ -78,6 +112,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Johtamisen valmennusohjelmat",
     description: "Johtamisen ja esihenkilötyön valmennukset eri rooleille.",
     href: "/aly#valmennusohjelmat",
+    image: progJohtaminen,
     category: "Ohjelma",
     keywords: ["johtaminen", "valmennus", "esihenkilö", "leadership", "tiimi"],
   },
@@ -86,6 +121,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Turvallisuusjohtaminen",
     description: "Työturvallisuuden ja organisaation turvallisuuden kehittäminen.",
     href: "/aly#turvallisuus",
+    image: progTurvallisuus,
     category: "Ohjelma",
     keywords: ["turvallisuus", "johtaminen", "riskienhallinta", "työturvallisuus"],
   },
@@ -96,6 +132,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Työturvallisuuskortti",
     description: "Lakisääteinen kortti yhteisille työpaikoille.",
     href: "/osaaminen",
+    image: courseTyoturvallisuus,
     category: "Pätevyys",
     keywords: ["työturvallisuus", "kortti", "rakennus", "teollisuus"],
   },
@@ -104,6 +141,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Tulityökortti",
     description: "Tulitöiden tekemiseen vaadittava pätevyys.",
     href: "/osaaminen",
+    image: courseTulityo,
     category: "Pätevyys",
     keywords: ["tulityö", "kortti", "hitsaus"],
   },
@@ -112,6 +150,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Sähkötyöturvallisuus SFS 6002",
     description: "Sähkötöiden turvallisuuspätevyys.",
     href: "/osaaminen",
+    image: courseTyoturvallisuus,
     category: "Pätevyys",
     keywords: ["sähkö", "sfs 6002", "sähkötyö"],
   },
@@ -120,6 +159,7 @@ export const searchIndex: SearchEntry[] = [
     title: "EA1 & EA2 Ensiapukoulutukset",
     description: "Ensiavun perus- ja jatkokurssit.",
     href: "/osaaminen",
+    image: courseEa1,
     category: "Pätevyys",
     keywords: ["ensiapu", "ea1", "ea2", "first aid"],
   },
@@ -128,6 +168,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Hygieniapassi",
     description: "Elintarviketyössä vaadittava osaamistodistus.",
     href: "/osaaminen",
+    image: courseHygienia,
     category: "Pätevyys",
     keywords: ["hygienia", "passi", "ravintola", "elintarvike"],
   },
@@ -136,6 +177,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Anniskelupassi",
     description: "Anniskeluravintolan vastaavan hoitajan pätevyys.",
     href: "/osaaminen",
+    image: courseAnniskelu,
     category: "Pätevyys",
     keywords: ["anniskelu", "passi", "ravintola", "baari"],
   },
@@ -144,6 +186,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Lääkehoitopassi",
     description: "Lääkehoidon osaamisen todentaminen.",
     href: "/osaaminen",
+    image: courseEa1,
     category: "Pätevyys",
     keywords: ["lääkehoito", "passi", "hoiva", "sote"],
   },
@@ -152,6 +195,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Työhyvinvointikortti",
     description: "Työhyvinvoinnin perusteet työyhteisöille.",
     href: "/osaaminen",
+    image: courseTyohyvinvointi,
     category: "Pätevyys",
     keywords: ["työhyvinvointi", "kortti", "jaksaminen"],
   },
@@ -160,6 +204,7 @@ export const searchIndex: SearchEntry[] = [
     title: "3T-kortti & Tekoälyn ammattiosaaja",
     description: "AI- ja digitaitojen perusosaamiskortit työelämään.",
     href: "/osaaminen",
+    image: course3t,
     category: "Pätevyys",
     keywords: ["3t", "tekoäly", "ai", "digitaidot", "kortti"],
   },
@@ -168,6 +213,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Suomi työkielenä & Selkosuomi",
     description: "Suomen kielen koulutukset työelämään.",
     href: "/osaaminen",
+    image: courseKieli,
     category: "Pätevyys",
     keywords: ["suomi", "kieli", "selkosuomi", "kotoutuminen", "maahanmuuttaja"],
   },
@@ -178,6 +224,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Kasvukartoitus",
     description: "15 min itsearviointi yrityksen kasvun nykytilasta ja seuraavista askeleista.",
     href: "/kasvu#aloita",
+    image: kasvuKirkastus,
     category: "Palvelu",
     keywords: ["kasvukartoitus", "arviointi", "yritys", "kasvu", "kartoitus"],
   },
@@ -186,6 +233,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Kasvupolut",
     description: "Räätälöidyt kasvupolut myynnille, skaalaukselle ja uudistumiselle.",
     href: "/kasvu#tilanteet",
+    image: kasvuSprintit,
     category: "Palvelu",
     keywords: ["kasvupolut", "myynti", "skaalaus", "kasvu"],
   },
@@ -194,6 +242,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Ratkaisuperheet ja digiloikka",
     description: "Tekoälyn ja digitalisaation käyttöönotto yrityksessä.",
     href: "/kasvu#ratkaisuperheet",
+    image: kasvuDigi,
     category: "Palvelu",
     keywords: ["digiloikka", "ai", "tekoäly", "ratkaisut", "yritys"],
   },
@@ -204,6 +253,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Muutosturva",
     description: "Tuki ja palvelut irtisanotuille sekä muutostilanteissa.",
     href: "/noste",
+    image: nosteTransition,
     category: "Palvelu",
     keywords: ["muutosturva", "irtisanottu", "lomautus", "ely"],
   },
@@ -212,6 +262,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Yrittäjyysvalmennus",
     description: "Tuki yrittäjäksi ryhtyville ja kevytyrittäjille.",
     href: "/noste",
+    image: nosteEntrepreneur,
     category: "Palvelu",
     keywords: ["yrittäjyys", "yrittäjä", "starttiraha"],
   },
@@ -220,6 +271,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Kotoutuminen ja KV-osaajat",
     description: "Suomen kielen ja työelämävalmiuksien tuki maahanmuuttajille.",
     href: "/noste",
+    image: nosteKv,
     category: "Palvelu",
     keywords: ["kotoutuminen", "maahanmuuttaja", "kv", "kansainvälinen"],
   },
@@ -230,6 +282,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Kumppaniyritykset & UNIIKKI-verkosto",
     description: "Tarjoa koulutuksia tai liity KeudaPROn verkostoon.",
     href: "/kumppanit",
+    image: partnerNetwork,
     category: "Kumppanuus",
     keywords: ["kumppani", "uniikki", "yhteistyö", "verkosto", "kouluttaja"],
   },
@@ -238,6 +291,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Verkosto ja yhteistyö",
     description: "KUUMA-seudun ja Uudenmaan toimijaverkosto.",
     href: "/verkosto",
+    image: operatorKuuma,
     category: "Kumppanuus",
     keywords: ["verkosto", "kuuma", "yhteistyö", "alueellinen"],
   },
@@ -246,6 +300,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Operaattori-malli",
     description: "Miten KeudaPRO toimii osaamisen ja siirtymien operaattorina.",
     href: "/operaattori",
+    image: operatorNetwork,
     category: "Kumppanuus",
     keywords: ["operaattori", "malli", "rakenne", "toiminta"],
   },
@@ -256,6 +311,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Yhteydenottolomake",
     description: "Jätä viesti tiimille – vastaamme arkisin.",
     href: "/yhteystiedot#lomake",
+    image: contactHero,
     category: "Yhteys",
     keywords: ["yhteydenotto", "lomake", "viesti", "kysymys"],
   },
