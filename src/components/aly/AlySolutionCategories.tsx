@@ -219,6 +219,8 @@ export function AlySolutionCategories() {
               <div
                 key={prog.id}
                 id={prog.id}
+                ref={(el) => (cardRefs.current[prog.id] = el)}
+                style={{ scrollMarginTop: 80 }}
                 className="keuda-card-enhanced flex flex-col h-full"
               >
                 {/* Image */}
