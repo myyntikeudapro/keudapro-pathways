@@ -22,10 +22,10 @@ import imgFormatAamukahvit from "@/assets/banner-osaaminen-kortit.jpg";
 import imgFormatTyopajat from "@/assets/dev-step-tyokalut.jpg";
 import imgFormatWebinaarit from "@/assets/banner-osaaminen-ratkaisee.jpg";
 import imgFormatVerkostot from "@/assets/kasvu-verkosto.jpg";
-import imgBenefitHankkeet from "@/assets/cat-toimialakohtaiset.jpg";
-import imgBenefitNakyvyys from "@/assets/banner-osaaminen-ratkaisee.jpg";
-import imgBenefitAsiakkuudet from "@/assets/audience-supervisor.jpg";
-import imgBenefitEkosysteemi from "@/assets/kasvu-verkosto.jpg";
+import imgBenefitHankkeet from "@/assets/verkosto-benefit-projects.jpg";
+import imgBenefitNakyvyys from "@/assets/verkosto-benefit-visibility.jpg";
+import imgBenefitAsiakkuudet from "@/assets/verkosto-benefit-clients.jpg";
+import imgBenefitEkosysteemi from "@/assets/verkosto-benefit-ecosystem.jpg";
 
 const providerBenefits = [
   {
