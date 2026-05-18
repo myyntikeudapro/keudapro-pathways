@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import keudaproLogo from "@/assets/keudapro-logo.jpg";
+import keudaproLogo from "@/assets/keudapro-logo.png";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 
 const navItems = [
