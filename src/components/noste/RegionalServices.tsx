@@ -70,7 +70,7 @@ function ModalShell({
 }) {
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 sm:rounded-xl">
+      <DialogContent className="w-[calc(100%-1.5rem)] sm:w-full max-w-2xl max-h-[90vh] overflow-y-auto p-0 sm:rounded-xl rounded-xl">
         {children}
       </DialogContent>
     </Dialog>
