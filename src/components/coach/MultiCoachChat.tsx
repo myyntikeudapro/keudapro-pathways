@@ -179,7 +179,7 @@ export function MultiCoachChat() {
       <div className="flex flex-col h-full md:rounded-2xl overflow-hidden border border-border shadow-2xl bg-background">
 
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-foreground">
+        <div className="flex items-center justify-between px-4 py-3 bg-foreground" style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))" }}>
           <div className="flex items-center gap-2">
             <button onClick={() => { closeChat(); openPanel(); }} className="p-1 rounded hover:bg-background/10 transition-colors" aria-label="Takaisin">
               <ArrowLeft className="w-4 h-4 text-background" />
