@@ -135,6 +135,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Työturvallisuuskortti",
     description: "Lakisääteinen kortti yhteisille työpaikoille.",
     href: "/osaaminen",
+    externalHref: "https://www.keuda.fi/koulutus/tyoturvallisuuskortti-koulutus/",
     image: courseTyoturvallisuus,
     category: "Pätevyys",
     keywords: ["työturvallisuus", "kortti", "rakennus", "teollisuus"],
@@ -144,6 +145,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Tulityökortti",
     description: "Tulitöiden tekemiseen vaadittava pätevyys.",
     href: "/osaaminen",
+    externalHref: "https://www.keuda.fi/koulutus/tulityokortti-koulutus/",
     image: courseTulityo,
     category: "Pätevyys",
     keywords: ["tulityö", "kortti", "hitsaus"],
@@ -162,6 +164,7 @@ export const searchIndex: SearchEntry[] = [
     title: "EA1 & EA2 Ensiapukoulutukset",
     description: "Ensiavun perus- ja jatkokurssit.",
     href: "/osaaminen",
+    externalHref: "https://www.keuda.fi/koulutus/spr-ensiapukurssi-ea-1/",
     image: courseEa1,
     category: "Pätevyys",
     keywords: ["ensiapu", "ea1", "ea2", "first aid"],
@@ -171,6 +174,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Hygieniapassi",
     description: "Elintarviketyössä vaadittava osaamistodistus.",
     href: "/osaaminen",
+    externalHref: "https://www.keuda.fi/koulutus/hygieniapassitestit-ja-koulutukset/",
     image: courseHygienia,
     category: "Pätevyys",
     keywords: ["hygienia", "passi", "ravintola", "elintarvike"],
@@ -180,6 +184,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Anniskelupassi",
     description: "Anniskeluravintolan vastaavan hoitajan pätevyys.",
     href: "/osaaminen",
+    externalHref: "https://www.keuda.fi/koulutus/anniskelupassikoulutukset-ja-testit/",
     image: courseAnniskelu,
     category: "Pätevyys",
     keywords: ["anniskelu", "passi", "ravintola", "baari"],
@@ -198,6 +203,7 @@ export const searchIndex: SearchEntry[] = [
     title: "Työhyvinvointikortti",
     description: "Työhyvinvoinnin perusteet työyhteisöille.",
     href: "/osaaminen",
+    externalHref: "https://www.keuda.fi/koulutus/tyohyvinvointikortti-koulutus/",
     image: courseTyohyvinvointi,
     category: "Pätevyys",
     keywords: ["työhyvinvointi", "kortti", "jaksaminen"],
@@ -207,6 +213,7 @@ export const searchIndex: SearchEntry[] = [
     title: "3T-kortti & Tekoälyn ammattiosaaja",
     description: "AI- ja digitaitojen perusosaamiskortit työelämään.",
     href: "/osaaminen",
+    externalHref: "https://www.keuda.fi/koulutus/3t-kortti/",
     image: course3t,
     category: "Pätevyys",
     keywords: ["3t", "tekoäly", "ai", "digitaidot", "kortti"],
@@ -220,6 +227,7 @@ export const searchIndex: SearchEntry[] = [
     category: "Pätevyys",
     keywords: ["suomi", "kieli", "selkosuomi", "kotoutuminen", "maahanmuuttaja"],
   },
+
 
   // ─── KASVU-palvelut ───
   {
