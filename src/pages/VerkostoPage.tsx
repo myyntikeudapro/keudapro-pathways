@@ -293,15 +293,22 @@ const VerkostoPage = () => {
                     Opinnäytetyö- ja harjoittelulomake <ArrowRight className="w-4 h-4 ml-1" />
                   </a>
                 </Button>
+                </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-6 md:p-8 border border-border shadow-sm flex flex-col">
-                <div className="w-11 h-11 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-                  <Lightbulb className="w-5 h-5 text-teal-700" />
+              <div className="bg-white rounded-2xl border border-border shadow-sm flex flex-col overflow-hidden">
+                <div className="relative h-44 overflow-hidden">
+                  <img src={imgRouteIdea} alt="Idea- ja koulutuspalvelureitti" className="w-full h-full object-cover" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                  <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur">
+                    <Lightbulb className="w-4 h-4 text-teal-700" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-teal-700">Reitti 2</span>
+                  </div>
+                  <h4 className="absolute bottom-4 left-5 right-5 text-xl font-bold text-white leading-tight">
+                    Idea- ja koulutuspalvelureitti
+                  </h4>
                 </div>
-                <h4 className="text-xl font-semibold text-foreground mb-2">
-                  Idea- ja koulutuspalvelureitti
-                </h4>
+                <div className="flex flex-col flex-1 p-6 md:p-8">
                 <p className="text-sm text-muted-foreground mb-4">
                   Sinulle, jolla on idea, koulutusaihio tai kehitysehdotus, jonka haluaisit
                   toteuttaa yhdessä KeudaPRO:n kanssa.
