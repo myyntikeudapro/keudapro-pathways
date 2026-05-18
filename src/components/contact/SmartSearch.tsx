@@ -1,5 +1,6 @@
-import { useState, FormEvent } from "react";
-import { Search, Loader2, ArrowRight, Sparkles, MessageCircle, Compass } from "lucide-react";
+import { useState, FormEvent, MouseEvent } from "react";
+import { Search, Loader2, ArrowRight, Sparkles, MessageCircle, Compass, ExternalLink } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { searchIndex, type SearchEntry } from "@/data/searchIndex";
