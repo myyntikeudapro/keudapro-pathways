@@ -86,7 +86,7 @@ const team = [
     role: "Myynti, asiakkuudet ja kumppanuudet",
     email: "heikki.kallunki@keuda.fi",
     phone: "+358 40 190 6912",
-    linkedin: "https://www.linkedin.com/feed/",
+    linkedin: null,
     photo: teamHeikki,
   },
   {
