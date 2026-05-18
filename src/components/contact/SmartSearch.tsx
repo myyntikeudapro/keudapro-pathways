@@ -1,5 +1,6 @@
-import { useState, FormEvent } from "react";
-import { Search, Loader2, ArrowRight, Sparkles, MessageCircle, Compass } from "lucide-react";
+import { useState, FormEvent, MouseEvent } from "react";
+import { Search, Loader2, ArrowRight, Sparkles, MessageCircle, Compass, ExternalLink } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { searchIndex, type SearchEntry } from "@/data/searchIndex";
@@ -175,11 +176,24 @@ export function SmartSearch() {
                           {m.reason && (
                             <p className="text-xs italic text-secondary mt-1">{m.reason}</p>
                           )}
+                          {m.externalHref && (
+                            <a
+                              href={m.externalHref}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e: MouseEvent) => e.stopPropagation()}
+                              className="inline-flex items-center gap-1 mt-2 text-xs font-medium text-teal-700 hover:text-teal-900 hover:underline"
+                            >
+                              Lue Keudan sivulla
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
                         </div>
                         <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
                       </div>
                     </div>
                   );
+
 
                   if (isExternal(m.href)) {
                     return (
