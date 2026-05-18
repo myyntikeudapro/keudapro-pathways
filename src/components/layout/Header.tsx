@@ -1,14 +1,26 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import keudaproLogo from "@/assets/keudapro-logo.png";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 
-const navItems = [
+type NavChild = { label: string; href: string };
+type NavItem = { label: string; href: string; children?: NavChild[] };
+
+const navItems: NavItem[] = [
   { label: "Reitit", href: "/" },
   { label: "Osaaminen", href: "/osaaminen" },
-  { label: "Operaattori", href: "/operaattori" },
+  {
+    label: "Operaattori",
+    href: "/operaattori",
+    children: [
+      { label: "Operaattori", href: "/operaattori" },
+      { label: "HUB-verkosto", href: "/verkosto" },
+      { label: "Hae palveluntuottajaksi", href: "/verkosto#palveluntuottaja" },
+      { label: "Tutustu Hubiin", href: "/verkosto#hub" },
+    ],
+  },
   { label: "Ota yhteyttä", href: "/yhteystiedot" },
 ];
 
@@ -17,40 +29,70 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { openPanel } = useCoachPanel();
 
+  const isActive = (item: NavItem) =>
+    location.pathname === item.href ||
+    (item.children?.some((c) => location.pathname === c.href.split("#")[0]) ?? false);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="keuda-container">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
           <Link to="/" className="flex items-center">
             <img src={keudaproLogo} alt="KeudaPRO" className="h-8" />
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  location.pathname === item.href
-                    ? "text-primary bg-accent"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              item.children ? (
+                <div key={item.href} className="relative group">
+                  <Link
+                    to={item.href}
+                    className={`inline-flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      isActive(item)
+                        ? "text-primary bg-accent"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    }`}
+                  >
+                    {item.label}
+                    <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
+                  </Link>
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full pt-2 min-w-[240px]">
+                    <div className="rounded-lg border border-border bg-background shadow-lg py-2">
+                      {item.children.map((c) => (
+                        <Link
+                          key={c.href}
+                          to={c.href}
+                          className="block px-4 py-2 text-sm text-foreground hover:bg-accent transition-colors"
+                        >
+                          {c.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    location.pathname === item.href
+                      ? "text-primary bg-accent"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
           </nav>
 
-          {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="cta" size="default" onClick={() => openPanel()}>
               Apua? Kysy AI-valmentajalta
             </Button>
           </div>
 
-          {/* Mobile menu button */}
           <button
             className="md:hidden p-2 rounded-lg hover:bg-accent"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -67,20 +109,37 @@ export function Header() {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-border">
-            <nav className="flex flex-col space-y-2">
+            <nav className="flex flex-col space-y-1">
               {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                    location.pathname === item.href
-                      ? "text-primary bg-accent"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                  }`}
-                >
-                  {item.label}
-                </Link>
+                <div key={item.href}>
+                  <Link
+                    to={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                      location.pathname === item.href
+                        ? "text-primary bg-accent"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                  {item.children && (
+                    <div className="ml-3 pl-3 border-l border-border my-1 space-y-1">
+                      {item.children
+                        .filter((c) => c.href !== item.href)
+                        .map((c) => (
+                          <Link
+                            key={c.href}
+                            to={c.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                          >
+                            {c.label}
+                          </Link>
+                        ))}
+                    </div>
+                  )}
+                </div>
               ))}
               <div className="pt-2">
                 <Button variant="cta" className="w-full" onClick={() => { setMobileMenuOpen(false); openPanel(); }}>
