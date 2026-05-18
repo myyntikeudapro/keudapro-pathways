@@ -86,38 +86,46 @@ const OperaattoriPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-px bg-white/15 border border-white/15 rounded-2xl overflow-hidden">
             {[
               {
-                icon: ArrowRightLeft,
+                num: "01",
                 title: "Sujuvat siirtymät",
-                description: "Sujuvat siirtymät eri tilanteiden välillä",
+                description: "Sujuvat siirtymät eri tilanteiden välillä.",
               },
               {
-                icon: Search,
+                num: "02",
                 title: "Oikea palvelu nopeasti",
-                description: "Oikean palvelun löytäminen nopeasti",
+                description: "Oikean palvelun löytäminen nopeasti.",
               },
               {
-                icon: Users,
+                num: "03",
                 title: "Verkostot käyttöön",
-                description: "Kumppaniverkoston hyödyntäminen tehokkaasti",
+                description: "Kumppaniverkoston hyödyntäminen tehokkaasti.",
               },
               {
-                icon: ShieldCheck,
+                num: "04",
                 title: "Kokonaisvaltainen tuki",
-                description: "Kokonaisvaltainen tuki yksilöille ja organisaatioille",
+                description: "Kokonaisvaltainen tuki yksilöille ja organisaatioille.",
               },
             ].map((item) => (
-              <div key={item.title} className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-6 text-center flex flex-col items-center">
-                <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-4">
-                  <item.icon className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="font-semibold text-white mb-2 text-sm md:text-base">{item.title}</h3>
-                <p className="text-xs md:text-sm text-white/70">{item.description}</p>
+              <div
+                key={item.title}
+                className="bg-black/30 backdrop-blur-sm p-7 md:p-9 flex flex-col"
+              >
+                <span className="text-sm font-mono tracking-widest text-teal-300/90 mb-4">
+                  {item.num}
+                </span>
+                <h3 className="text-xl md:text-2xl font-semibold text-white mb-2 leading-tight">
+                  {item.title}
+                </h3>
+                <p className="text-sm md:text-base text-white/70 leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
