@@ -4,6 +4,11 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Check, Users, Lightbulb, Handshake, Rocket, Network, GraduationCap, Sparkles, Leaf, Globe, Brain, Heart, Briefcase, Send, ClipboardList, ArrowRight, ChevronDown } from "lucide-react";
 
