@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import ContactForm from "@/components/contact/ContactForm";
 import CtaVideoCarousel from "@/components/contact/CtaVideoCarousel";
+import { SmartSearch } from "@/components/contact/SmartSearch";
 import { cn } from "@/lib/utils";
 import { useWizard } from "@/contexts/WizardContext";
 
@@ -51,33 +52,7 @@ const heroSlides = [
   },
 ];
 
-/* ─── SELECTION CARDS ─── */
-const helpCards = [
-  {
-    title: "Haluan keskustella kasvusta",
-    text: "Kasvu, uudistuminen tai digiloikka yrityksessä.",
-    cta: "Varaa kasvukartoitus",
-    href: "/kasvu",
-  },
-  {
-    title: "Tarvitsen tukea työnhakuun",
-    text: "Valmennus, osaamisen kirkastus tai reittikartoitus.",
-    cta: "Siirry NOSTE-reitille",
-    href: "/noste",
-  },
-  {
-    title: "Haluamme valmennus- tai AI-ratkaisun",
-    text: "Johtaminen, tekoäly tai osaamisen kehittäminen.",
-    cta: "Tutustu ÄLY-ratkaisuihin",
-    href: "/aly",
-  },
-  {
-    title: "Haluamme kumppaniksi",
-    text: "Yhteistyö, verkostot tai pilotit.",
-    cta: "Ota yhteyttä tiimiin",
-    href: "#lomake",
-  },
-];
+/* helpCards korvattu SmartSearch-komponentilla */
 
 /* ─── TEAM / CONTACT PERSONS ─── */
 const team = [
@@ -196,36 +171,10 @@ const YhteystiedotPage = () => {
         </div>
       </section>
 
-      {/* ════════ VALINTAOSIO ════════ */}
+      {/* ════════ ÄLYKÄS HAKU ════════ */}
       <section className="py-16 md:py-20 bg-muted/30">
         <div className="keuda-container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Miten voimme auttaa?
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Valitse tilanne – ohjaamme sinut oikeaan paikkaan.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {helpCards.map((card) => (
-              <div
-                key={card.title}
-                className="keuda-card-enhanced flex flex-col h-full"
-              >
-                <h3 className="text-lg font-bold text-foreground mb-2">
-                  {card.title}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-6 flex-1">
-                  {card.text}
-                </p>
-                <Button variant="cta" size="default" asChild className="w-full">
-                  <a href={card.href}>{card.cta}</a>
-                </Button>
-              </div>
-            ))}
-          </div>
+          <SmartSearch />
         </div>
       </section>
 
