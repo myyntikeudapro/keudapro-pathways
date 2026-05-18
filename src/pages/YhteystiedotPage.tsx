@@ -39,7 +39,7 @@ const heroSlides = [
     title: "Etkö tiedä mistä aloittaa?",
     text: "Aloita lyhyellä kartoituksella – se ei sido mihinkään.",
     cta: "Tee nopea kartoitus",
-    href: "https://example.com/kartoitus",
+    href: "#lomake",
   },
   {
     image: heroImg3,
@@ -86,7 +86,7 @@ const team = [
     role: "Myynti, asiakkuudet ja kumppanuudet",
     email: "heikki.kallunki@keuda.fi",
     phone: "+358 40 190 6912",
-    linkedin: "https://www.linkedin.com/feed/",
+    linkedin: null,
     photo: teamHeikki,
   },
   {
