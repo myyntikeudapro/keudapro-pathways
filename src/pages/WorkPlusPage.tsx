@@ -441,39 +441,49 @@ const WorkPlusPage = () => {
           <div className="max-w-4xl mx-auto rounded-2xl border border-primary/20 p-6 md:p-8 mb-10"
             style={{ background: "rgba(255,255,255,0.04)", backdropFilter: "blur(8px)" }}
           >
-            <div className="flex items-start gap-4 mb-5">
-              <div className="w-11 h-11 rounded-xl bg-secondary/20 flex items-center justify-center flex-shrink-0">
-                <Sparkles className="w-5 h-5 text-secondary" />
-              </div>
-              <div>
-                <h3 className="text-lg md:text-xl font-bold text-background mb-1">Miksi aloittaa AI-valmentajan kanssa?</h3>
-                <p className="text-sm" style={{ color: "hsl(210 15% 70%)" }}>
-                  Ei kynnystä, ei kalenteria, ei tuomiota. Saat ensiviipaleen suunnitelmasta omassa tahdissasi.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid sm:grid-cols-3 gap-4 mb-5">
-              {[
-                { icon: Clock, title: "Käytettävissä 24/7", text: "Aloita silloin kun sinulle sopii – yöllä, työmatkalla, sohvalla." },
-                { icon: MessageSquare, title: "Auttaa sanoittamaan", text: "Saat selkeät kysymykset jotka jäsentävät tilanteen." },
-                { icon: UserCheck, title: "Saumaton siirto ihmiselle", text: "Kun olet valmis, jatkat Reittivalmentajan kanssa." },
-              ].map((b, i) => (
-                <div key={i} className="flex flex-col">
-                  <b.icon className="w-4 h-4 text-primary mb-2" />
-                  <h5 className="text-sm font-bold text-background mb-1">{b.title}</h5>
-                  <p className="text-xs leading-relaxed" style={{ color: "hsl(210 15% 65%)" }}>{b.text}</p>
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
+              <img
+                src={coachAna}
+                alt="Ana – AI-valmentaja"
+                className="w-24 h-24 md:w-40 md:h-40 rounded-2xl object-cover flex-shrink-0 border border-primary/20"
+              />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start gap-4 mb-5">
+                  <div className="w-11 h-11 rounded-xl bg-secondary/20 flex items-center justify-center flex-shrink-0">
+                    <Sparkles className="w-5 h-5 text-secondary" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg md:text-xl font-bold text-background mb-1">Miksi aloittaa AI-valmentajan kanssa?</h3>
+                    <p className="text-sm" style={{ color: "hsl(210 15% 70%)" }}>
+                      Ei kynnystä, ei kalenteria, ei tuomiota. Saat ensiviipaleen suunnitelmasta omassa tahdissasi.
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
 
-            <div className="flex items-start gap-2 p-3 rounded-lg bg-background/5 border border-primary/10">
-              <Lock className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-              <p className="text-xs leading-relaxed" style={{ color: "hsl(210 15% 75%)" }}>
-                <strong className="text-background">Tietosuoja:</strong> Voit keskustella ilman kirjautumista. Emme tallenna henkilötietoja keskustelusta, emmekä jaa sisältöä työnantajalle tai viranomaisille. Ihmiselle siirrytään vain sinun luvallasi.
-              </p>
+                <div className="grid sm:grid-cols-3 gap-4 mb-5">
+                  {[
+                    { icon: Clock, title: "Käytettävissä 24/7", text: "Aloita silloin kun sinulle sopii – yöllä, työmatkalla, sohvalla." },
+                    { icon: MessageSquare, title: "Auttaa sanoittamaan", text: "Saat selkeät kysymykset jotka jäsentävät tilanteen." },
+                    { icon: UserCheck, title: "Saumaton siirto ihmiselle", text: "Kun olet valmis, jatkat Reittivalmentajan kanssa." },
+                  ].map((b, i) => (
+                    <div key={i} className="flex flex-col">
+                      <b.icon className="w-4 h-4 text-primary mb-2" />
+                      <h5 className="text-sm font-bold text-background mb-1">{b.title}</h5>
+                      <p className="text-xs leading-relaxed" style={{ color: "hsl(210 15% 65%)" }}>{b.text}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex items-start gap-2 p-3 rounded-lg bg-background/5 border border-primary/10">
+                  <Lock className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <p className="text-xs leading-relaxed" style={{ color: "hsl(210 15% 75%)" }}>
+                    <strong className="text-background">Tietosuoja:</strong> Voit keskustella ilman kirjautumista. Emme tallenna henkilötietoja keskustelusta, emmekä jaa sisältöä työnantajalle tai viranomaisille. Ihmiselle siirrytään vain sinun luvallasi.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
+
 
           {/* CTAt */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-2xl mx-auto">
