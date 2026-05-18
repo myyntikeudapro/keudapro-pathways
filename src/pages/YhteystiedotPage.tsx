@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import ContactForm from "@/components/contact/ContactForm";
 import CtaVideoCarousel from "@/components/contact/CtaVideoCarousel";
+import { SmartSearch } from "@/components/contact/SmartSearch";
 import { cn } from "@/lib/utils";
 import { useWizard } from "@/contexts/WizardContext";
 
