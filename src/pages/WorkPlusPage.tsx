@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/tooltip";
 
 import nostePathDirection from "@/assets/noste-path-direction.jpg";
+import coachAna from "@/assets/coach-ana.png";
 import nostePathBranding from "@/assets/noste-path-branding.jpg";
 import nostePathEmployment from "@/assets/noste-path-employment.jpg";
 import nostePathTransition from "@/assets/noste-path-transition.jpg";
