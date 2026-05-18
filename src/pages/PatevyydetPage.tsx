@@ -81,6 +81,13 @@ const courseImageOverrides: Record<string, string> = {
   "KV-kortti": courseKv,
   "3T: Tehoa työnhakuun tekoälyllä": course3t,
   "Toimialakohtainen pätevyys": courseToimiala,
+  "Suomi työkielenä": courseKieliSuomi,
+  "Sote-suomi": courseKieliSote,
+  "Työpaikkasuomi": courseKieliTyopaikka,
+  "Selkosuomi työnjohdolle": courseKieliSelkoJohto,
+  "Selkosuomi työyhteisölle": courseKieliSelkoYhteiso,
+  "Englanti työkielenä": courseKieliEnglanti,
+  "Ruotsi työkielenä": courseKieliRuotsi,
 };
 
 const badgeImageFallback: Record<string, string> = {
