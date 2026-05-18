@@ -157,22 +157,26 @@ const VerkostoPage = () => {
 
       {/* KeudaPRO Hub */}
       <section id="hub" className="py-16 md:py-24 bg-[#E4F0EE] scroll-mt-24">
+      {/* KeudaPRO Hub */}
+      <section id="hub" className="py-16 md:py-24 bg-[#E4F0EE] scroll-mt-24">
         <div className="keuda-container">
-          <div className="grid md:grid-cols-2 gap-10 items-center max-w-6xl mx-auto mb-12">
+          {/* Intro */}
+          <div className="grid md:grid-cols-2 gap-10 items-center max-w-6xl mx-auto mb-14">
             <div>
               <div className="text-xs font-bold uppercase tracking-wider text-teal-700 mb-3">
                 KeudaPRO Hub
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Ideat, osaaminen ja toteutus kohtaavat
+                Yhteisö tulevaisuuden työelämän rakentajille
               </h2>
               <p className="text-lg text-muted-foreground mb-4">
-                Hub on avoin kehittämisalusta – tuo ideasi, osaamisesi tai projektisi mukaan ja
-                rakennetaan yhdessä. Osallistuminen on avointa ja maksutonta.
+                KeudaPRO Hub on yhteisö ja kehittämisen alusta, jossa rakennamme tämän päivän ja
+                huomisen työelämää yhdessä. Täällä opiskelijat, opettajat, yritykset ja
+                asiantuntijat jakavat ideoita, kokeilevat uutta ja kehittävät ratkaisuja, jotka
+                vahvistavat inhimillisesti älykästä ja turvallista työelämää.
               </p>
-              <p className="text-base text-muted-foreground">
-                Hub tunnistaa ilmiöt ja tarpeet, ja KeudaPRO vie kehittämisen käytäntöön yhdessä
-                verkoston kanssa.
+              <p className="text-base text-muted-foreground italic">
+                Hubiin osallistuminen on avointa ja maksutonta – tämä on yhteisö, jossa annetaan ja saadaan.
               </p>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-lg">
@@ -180,21 +184,172 @@ const VerkostoPage = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto mb-10">
-            {hubFeatures.map((f) => (
-              <div key={f.title} className="bg-white rounded-xl p-6 border border-border shadow-sm">
-                <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-3">
-                  <f.icon className="w-5 h-5 text-teal-700" />
+          {/* Two routes */}
+          <div className="max-w-6xl mx-auto mb-14">
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-3">
+              Miten voit osallistua?
+            </h3>
+            <p className="text-center text-muted-foreground mb-8">
+              KeudaPRO Hubiin voi tulla mukaan kahdella pääreitillä.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-2xl p-6 md:p-8 border border-border shadow-sm flex flex-col">
+                <div className="w-11 h-11 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
+                  <GraduationCap className="w-5 h-5 text-teal-700" />
                 </div>
-                <h3 className="font-semibold text-foreground mb-2">{f.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{f.text}</p>
+                <h4 className="text-xl font-semibold text-foreground mb-2">
+                  Opinnäytetyö- ja harjoittelureitti
+                </h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Korkeakouluopiskelijoille, jotka haluavat tehdä opinnäytetyön tai
+                  kehittämisprojektin KeudaPRO:n teemoista.
+                </p>
+                <div className="mb-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-teal-700 mb-2">Voit esimerkiksi</p>
+                  <ul className="space-y-1.5 text-sm text-foreground">
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Tutkia tekoälyn hyödyntämistä koulutuksessa tai asiakkuuksissa</li>
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Kehittää kestävän koulutuksen mallia tai uutta valmennuskonseptia</li>
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Analysoida asiakaskokemusta, oppimisen vaikuttavuutta tai markkinadataa</li>
+                  </ul>
+                </div>
+                <div className="mb-5">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-teal-700 mb-2">Hub tarjoaa</p>
+                  <ul className="space-y-1.5 text-sm text-foreground">
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Ohjaavan KeudaPRO-tiimin tuen</li>
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Todellisen työelämäkontekstin ja näkyvyyden tuloksille</li>
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Mahdollisuuden verkostoitua ja jatkaa yhteistyötä</li>
+                  </ul>
+                </div>
+                <Button asChild variant="cta" size="lg" className="mt-auto w-full sm:w-auto">
+                  <a href="https://www.lyyti.in/Opinnaytetyoyhteistyon_lomake_1382" target="_blank" rel="noopener noreferrer">
+                    Opinnäytetyö- ja harjoittelulomake <ArrowRight className="w-4 h-4 ml-1" />
+                  </a>
+                </Button>
               </div>
-            ))}
+
+              <div className="bg-white rounded-2xl p-6 md:p-8 border border-border shadow-sm flex flex-col">
+                <div className="w-11 h-11 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
+                  <Lightbulb className="w-5 h-5 text-teal-700" />
+                </div>
+                <h4 className="text-xl font-semibold text-foreground mb-2">
+                  Idea- ja koulutuspalvelureitti
+                </h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Sinulle, jolla on idea, koulutusaihio tai kehitysehdotus, jonka haluaisit
+                  toteuttaa yhdessä KeudaPRO:n kanssa.
+                </p>
+                <div className="mb-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-teal-700 mb-2">Voit esimerkiksi</p>
+                  <ul className="space-y-1.5 text-sm text-foreground">
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Ehdottaa uutta koulutustuotetta tai valmennusta</li>
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Tuoda esiin koulutusalan ongelman tai kehityskohteen</li>
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Tarjota yhteistyötä tai asiantuntijapanosta Hubin teemoihin</li>
+                  </ul>
+                </div>
+                <div className="mb-5">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-teal-700 mb-2">Hub tarjoaa</p>
+                  <ul className="space-y-1.5 text-sm text-foreground">
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Mahdollisuuden arvioida ideasi osana yhteistä kehityssykliä</li>
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Verkoston ja tuen idean pilotointiin</li>
+                    <li className="flex gap-2"><Check className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" /> Palautteen ja jatkokehityksen mahdollisuuden</li>
+                  </ul>
+                </div>
+                <Button asChild variant="cta" size="lg" className="mt-auto w-full sm:w-auto">
+                  <a href="https://www.lyyti.in/Idea_ja_koulutuspalvelulomake_7893" target="_blank" rel="noopener noreferrer">
+                    Idea- ja koulutuspalvelulomake <ArrowRight className="w-4 h-4 ml-1" />
+                  </a>
+                </Button>
+              </div>
+            </div>
           </div>
 
-          <div className="max-w-3xl mx-auto text-center">
+          {/* Process */}
+          <div className="max-w-5xl mx-auto mb-14">
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-8">
+              Näin prosessi etenee
+            </h3>
+            <ol className="grid md:grid-cols-5 gap-4">
+              {hubProcess.map((s, i) => (
+                <li key={s.title} className="bg-white rounded-xl p-5 border border-border shadow-sm">
+                  <div className="w-8 h-8 rounded-full bg-teal-700 text-white flex items-center justify-center font-semibold mb-3 text-sm">
+                    {i + 1}
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-1.5 text-sm">{s.title}</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{s.text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Themes */}
+          <div className="max-w-5xl mx-auto mb-14">
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-3">
+              Hubin teemat
+            </h3>
+            <p className="text-center text-muted-foreground mb-8">
+              Ideointi ja yhteistyö keskittyvät seuraaviin kehittämisen painopisteisiin.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {hubThemes.map((t) => (
+                <div key={t.text} className="bg-white rounded-lg p-4 border border-border flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-teal-100 flex items-center justify-center flex-shrink-0">
+                    <t.icon className="w-4 h-4 text-teal-700" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">{t.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Participation formats */}
+          <div className="max-w-6xl mx-auto mb-14">
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-3">
+              Osallistumisen muodot
+            </h3>
+            <p className="text-center text-muted-foreground mb-8">
+              KeudaPRO Hub tarjoaa yhteisölleen erilaisia maksuttomia osallistumismuotoja.
+            </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {hubFormats.map((f) => (
+                <div key={f.title} className="bg-white rounded-xl p-6 border border-border shadow-sm">
+                  <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-3">
+                    <f.icon className="w-5 h-5 text-teal-700" />
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-2">{f.title}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Values */}
+          <div className="max-w-3xl mx-auto bg-white rounded-2xl p-8 border border-border shadow-sm text-center mb-12">
+            <div className="text-xs font-bold uppercase tracking-wider text-teal-700 mb-3">
+              Hubin arvoperusta
+            </div>
+            <p className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              Välitämme – Arvostamme – Uudistumme
+            </p>
+            <p className="text-muted-foreground">
+              KeudaPRO Hub on yhteisö, jossa turvallisuus, inhimillisyys ja tekoäly kohtaavat.
+              Yhdessä luomme kestävää ja älykästä työelämää – työpaikka kerrallaan.
+            </p>
+          </div>
+
+          {/* CTA */}
+          <div className="max-w-3xl mx-auto text-center flex flex-wrap gap-3 justify-center">
             <Button asChild variant="cta" size="lg">
-              <Link to="/yhteystiedot?aihe=hub">Tule mukaan Hubiin →</Link>
+              <a href="https://www.lyyti.in/Opinnaytetyoyhteistyon_lomake_1382" target="_blank" rel="noopener noreferrer">
+                <ClipboardList className="w-4 h-4 mr-1" /> Opinnäytetyölomake
+              </a>
+            </Button>
+            <Button asChild variant="cta" size="lg">
+              <a href="https://www.lyyti.in/Idea_ja_koulutuspalvelulomake_7893" target="_blank" rel="noopener noreferrer">
+                <Send className="w-4 h-4 mr-1" /> Idealomake
+              </a>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/yhteystiedot?aihe=hub">Kysy lisää Hubista</Link>
             </Button>
           </div>
         </div>
