@@ -3,13 +3,15 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { OperaattoriHeroCarousel } from "@/components/operaattori/OperaattoriHeroCarousel";
-import { ArrowRightLeft, Search, Users, ShieldCheck } from "lucide-react";
+import { ArrowRightLeft, Search, Users, ShieldCheck, Check } from "lucide-react";
 
 import operatorNetwork from "@/assets/operator-network.jpg";
 import operatorTransitions from "@/assets/operator-transitions.jpg";
 import operatorPersonal from "@/assets/operator-personal.jpg";
 import operatorKuuma from "@/assets/operator-kuuma.jpg";
 import operaattoriCtaBg from "@/assets/operaattori-cta-bg.jpg";
+import partnerNetwork from "@/assets/partner-network.jpg";
+import kasvuVerkosto from "@/assets/kasvu-verkosto.jpg";
 
 const features = [
   {
@@ -135,6 +137,94 @@ const OperaattoriPage = () => {
             >
               Tutustu verkostoon ja Hub-toimintaan →
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Two split-layout CTA cards */}
+      <section className="py-12 md:py-16 bg-muted/30">
+        <div className="keuda-container">
+          <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            {[
+              {
+                image: partnerNetwork,
+                badge: "Palveluntuottajille ja asiantuntijoille",
+                kicker: "ASIANTUNTIJAVERKOSTO",
+                title: "Haluatko olla osa KeudaPRO:n palveluntuottajaverkostoa?",
+                body: "Verkostomme asiantuntijat ja organisaatiot toteuttavat koulutuksia, valmennuksia ja kehittämishankkeita yhdessä — näkyvyyttä, vaikuttavuutta ja uusia asiakkuuksia.",
+                bullets: [
+                  "Pääset mukaan oikeisiin hankkeisiin ja koulutuksiin",
+                  "Rakennat näkyvyyttäsi ja vaikuttavuuttasi",
+                  "Toimit verkostossa jossa ideat viedään käytäntöön",
+                ],
+                cta: "Hae palveluntuottajaksi",
+                href: "/verkosto",
+              },
+              {
+                image: kasvuVerkosto,
+                badge: "Opiskelijoille ja kehittäjille",
+                kicker: "KEUDAPRO HUB",
+                title: "Ideat, osaaminen ja toteutus kohtaavat",
+                body: "Hub on avoin kehittämisalusta — tuo ideasi, osaamisesi tai projektisi mukaan ja rakennetaan yhdessä.",
+                bullets: [
+                  "Osallistuminen on avointa ja maksutonta",
+                  "Opinnäytetyöt, harjoittelut ja kehittämisprojektit",
+                  "Yhteiskehittäminen ja pilotointi toiminnan ytimessä",
+                ],
+                cta: "Tutustu Hubiin",
+                href: "/verkosto#hub",
+              },
+            ].map((card) => (
+              <div
+                key={card.kicker}
+                className="rounded-2xl overflow-hidden shadow-lg border border-border grid md:grid-cols-2 bg-card"
+              >
+                {/* Left: image + overlay */}
+                <div className="relative min-h-[200px] md:min-h-[280px]">
+                  <img
+                    src={card.image}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-foreground/80 via-foreground/55 to-teal-700/40" />
+                  <div className="relative z-10 p-5 md:p-6">
+                    <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-teal-600 text-white text-xs font-semibold">
+                      {card.badge}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Right: white content */}
+                <div className="p-6 md:p-8 flex flex-col justify-center bg-white">
+                  <div className="text-xs font-bold uppercase tracking-wider text-teal-700 mb-2">
+                    {card.kicker}
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-muted-foreground mb-4 leading-relaxed">
+                    {card.body}
+                  </p>
+                  <ul className="space-y-2 mb-5">
+                    {card.bullets.map((b) => (
+                      <li key={b} className="flex items-start gap-2.5 text-sm text-foreground">
+                        <span className="w-5 h-5 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check className="w-3 h-3 text-teal-700" />
+                        </span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    to={card.href}
+                    className="inline-flex w-full items-center justify-center rounded-lg bg-teal-600 hover:bg-teal-700 text-white px-5 py-3 text-sm font-semibold transition-colors"
+                  >
+                    {card.cta} →
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
