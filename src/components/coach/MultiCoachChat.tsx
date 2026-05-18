@@ -49,6 +49,8 @@ export function MultiCoachChat() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showEndSession, setShowEndSession] = useState(false);
+  const [previewTarget, setPreviewTarget] = useState<"self" | "coach" | null>(null);
+  const [transcriptDraft, setTranscriptDraft] = useState("");
   const [currentCoach, setCurrentCoach] = useState<CoachType | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -160,16 +162,23 @@ export function MultiCoachChat() {
     [messages, isLoading, streamChat, config]
   );
 
-  const handleSaveSession = (target: "self" | "coach") => {
+  const openPreview = (target: "self" | "coach") => {
     if (!config) return;
     const transcript = messages
       .map((m) => `${m.role === "user" ? "Sinä" : config.name}: ${m.content}`)
       .join("\n\n");
-    const subject = encodeURIComponent(config.emailSubject);
-    const body = encodeURIComponent(transcript);
-    const to = target === "coach" ? "keudapro@keuda.fi" : "";
-    window.open(`mailto:${to}?subject=${subject}&body=${body}`, "_blank");
+    setTranscriptDraft(transcript);
+    setPreviewTarget(target);
     setShowEndSession(false);
+  };
+
+  const sendPreview = () => {
+    if (!config || !previewTarget) return;
+    const subject = encodeURIComponent(config.emailSubject);
+    const body = encodeURIComponent(transcriptDraft);
+    const to = previewTarget === "coach" ? "keudapro@keuda.fi" : "";
+    window.open(`mailto:${to}?subject=${subject}&body=${body}`, "_blank");
+    setPreviewTarget(null);
   };
 
   if (!activeChat || !config) return null;
@@ -256,14 +265,14 @@ export function MultiCoachChat() {
               <p className="text-sm font-medium text-foreground">Tallenna keskustelu tai lähetä valmentajalle</p>
               <div className="flex flex-col gap-2">
                 <button
-                  onClick={() => handleSaveSession("self")}
+                  onClick={() => openPreview("self")}
                   className="flex items-center gap-2 px-4 py-1.5 text-xs font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
                 >
                   <Mail className="w-3 h-3" />
                   Lähetä itsellesi sähköpostiin
                 </button>
                 <button
-                  onClick={() => handleSaveSession("coach")}
+                  onClick={() => openPreview("coach")}
                   className="flex items-center gap-2 px-4 py-1.5 text-xs font-medium rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors"
                 >
                   <UserCheck className="w-3 h-3" />
@@ -274,6 +283,41 @@ export function MultiCoachChat() {
                   className="px-4 py-1.5 text-xs font-medium rounded-lg border border-border text-muted-foreground hover:bg-muted transition-colors"
                 >
                   Ei kiitos
+                </button>
+              </div>
+            </div>
+          )}
+
+          {previewTarget && (
+            <div className="bg-card border border-border rounded-xl p-4 space-y-3">
+              <div>
+                <p className="text-sm font-medium text-foreground">Tarkista ja muokkaa muistiota</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">
+                  {previewTarget === "coach"
+                    ? "Lähetetään: keudapro@keuda.fi"
+                    : "Lähetetään: omaan sähköpostiisi"}
+                </p>
+              </div>
+              <textarea
+                value={transcriptDraft}
+                onChange={(e) => setTranscriptDraft(e.target.value)}
+                rows={10}
+                className="w-full px-3 py-2 text-xs rounded-lg bg-muted border border-border focus:outline-none focus:ring-2 focus:ring-primary/40 font-mono leading-relaxed resize-y"
+              />
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={sendPreview}
+                  disabled={!transcriptDraft.trim()}
+                  className="flex items-center justify-center gap-2 px-4 py-1.5 text-xs font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-40 transition-colors"
+                >
+                  <Mail className="w-3 h-3" />
+                  Lähetä nyt
+                </button>
+                <button
+                  onClick={() => setPreviewTarget(null)}
+                  className="px-4 py-1.5 text-xs font-medium rounded-lg border border-border text-muted-foreground hover:bg-muted transition-colors"
+                >
+                  Peruuta
                 </button>
               </div>
             </div>
