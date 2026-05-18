@@ -150,8 +150,33 @@ const hubProcess = [
 
 const VerkostoPage = () => {
   const location = useLocation();
+  const { toast } = useToast();
   const [openTheme, setOpenTheme] = useState<string | null>(hubThemes[0].id);
   const [openBenefit, setOpenBenefit] = useState<string | null>(providerBenefits[0].id);
+  const [applyOpen, setApplyOpen] = useState(false);
+  const [applyForm, setApplyForm] = useState({
+    name: "",
+    organization: "",
+    email: "",
+    phone: "",
+    website: "",
+    expertise: "",
+    themes: "",
+    message: "",
+  });
+  const handleApplyChange = (field: keyof typeof applyForm) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setApplyForm((p) => ({ ...p, [field]: e.target.value }));
+  const handleApplySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!applyForm.name.trim() || !applyForm.email.trim() || !applyForm.expertise.trim()) {
+      toast({ title: "Täytä pakolliset kentät", description: "Nimi, sähköposti ja osaamisalue ovat pakollisia.", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Hakemus lähetetty!", description: "Kiitos – olemme sinuun yhteydessä pian." });
+    setApplyForm({ name: "", organization: "", email: "", phone: "", website: "", expertise: "", themes: "", message: "" });
+    setApplyOpen(false);
+  };
   useEffect(() => {
     if (location.hash === "#hub") {
       const el = document.getElementById("hub");
