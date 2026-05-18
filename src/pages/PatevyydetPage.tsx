@@ -614,6 +614,8 @@ const PatevyydetPage = () => {
               return (
                 <div
                   key={cat.id}
+                  ref={(el) => (categoryRefs.current[cat.id] = el)}
+                  style={{ scrollMarginTop: 80 }}
                   className={cn(
                     "rounded-xl border overflow-hidden bg-card transition-all duration-300",
                     isActive
@@ -622,7 +624,7 @@ const PatevyydetPage = () => {
                   )}
                 >
                   <button
-                    onClick={() => setOpenCategory((prev) => (prev === cat.id ? null : cat.id))}
+                    onClick={() => handleCategoryToggle(cat.id)}
                     aria-expanded={isActive}
                     className={cn(
                       "w-full flex items-center justify-between gap-4 p-5 text-left transition-colors",
