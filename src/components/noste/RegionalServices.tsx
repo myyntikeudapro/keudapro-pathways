@@ -70,7 +70,7 @@ function ModalShell({
 }) {
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 sm:rounded-xl">
+      <DialogContent className="w-[calc(100%-1.5rem)] sm:w-full max-w-2xl max-h-[90vh] overflow-y-auto p-0 sm:rounded-xl rounded-xl">
         {children}
       </DialogContent>
     </Dialog>
@@ -129,9 +129,9 @@ function HowToApply({ children }: { children: React.ReactNode }) {
 function HelsinkiModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <ModalShell open={open} onClose={onClose}>
-      <div className="p-6 md:p-8">
+      <div className="pl-5 pr-7 py-5 sm:p-6 md:p-8">
         <DialogHeader className="mb-4">
-          <DialogTitle className="text-2xl font-bold">Työhönvalmennus – Helsinki</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl font-bold pr-8">Työhönvalmennus – Helsinki</DialogTitle>
           <DialogDescription className="italic text-muted-foreground">
             Yksilöllistä tukea työnhakuun ja urasuunnitteluun – valmentaja kulkee rinnallasi koko prosessin ajan.
           </DialogDescription>
@@ -184,9 +184,9 @@ function HelsinkiModal({ open, onClose }: { open: boolean; onClose: () => void }
 function KeskiUusimaaModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <ModalShell open={open} onClose={onClose}>
-      <div className="p-6 md:p-8">
+      <div className="pl-5 pr-7 py-5 sm:p-6 md:p-8">
         <DialogHeader className="mb-4">
-          <DialogTitle className="text-2xl font-bold">Työhönvalmennus – Keski-Uusimaa</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl font-bold pr-8">Työhönvalmennus – Keski-Uusimaa</DialogTitle>
           <DialogDescription className="italic text-muted-foreground">
             Yksilöllistä tukea työnhakuun ja urasuunnitteluun kolmella paikkakunnalla – Hyvinkäällä, Keravalla ja Järvenpäässä.
           </DialogDescription>
@@ -246,9 +246,9 @@ function VantaaModal({ open, onClose }: { open: boolean; onClose: () => void }) 
 
   return (
     <ModalShell open={open} onClose={onClose}>
-      <div className="p-6 md:p-8">
+      <div className="pl-5 pr-7 py-5 sm:p-6 md:p-8">
         <DialogHeader className="mb-4">
-          <DialogTitle className="text-2xl font-bold">Työhönvalmennus – Vantaa</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl font-bold pr-8">Työhönvalmennus – Vantaa</DialogTitle>
           <DialogDescription className="sr-only">Vantaan alueelliset palvelut</DialogDescription>
         </DialogHeader>
 
@@ -257,18 +257,19 @@ function VantaaModal({ open, onClose }: { open: boolean; onClose: () => void }) 
           {([
             { id: "aikuiset" as const, label: "Aikuiset" },
             { id: "nuoret" as const, label: "Alle 25-vuotiaat" },
-            { id: "kansainvaliset" as const, label: "Kansainväliset asiakkaat" },
-          ]).map((t) => (
+            { id: "kansainvaliset" as const, label: "Kansainväliset asiakkaat", shortLabel: "Kansainväliset" },
+          ] as { id: VantaaTab; label: string; shortLabel?: string }[]).map((t) => (
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors duration-150 ${
+              className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors duration-150 ${
                 tab === t.id
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-foreground hover:bg-accent"
               }`}
             >
-              {t.label}
+              <span className="sm:hidden">{t.shortLabel ?? t.label}</span>
+              <span className="hidden sm:inline">{t.label}</span>
             </button>
           ))}
         </div>
@@ -420,9 +421,9 @@ function VantaaKansainvaliset() {
 function KeravaSipooModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <ModalShell open={open} onClose={onClose}>
-      <div className="p-6 md:p-8">
+      <div className="pl-5 pr-7 py-5 sm:p-6 md:p-8">
         <DialogHeader className="mb-4">
-          <DialogTitle className="text-2xl font-bold">Työhönvalmennus – Kerava &amp; Sipoo</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl font-bold pr-8">Työhönvalmennus – Kerava &amp; Sipoo</DialogTitle>
           <DialogDescription className="italic text-muted-foreground">
             Yksilöllistä valmennusta työnhakuun ja työllistymiseen Keravan ja Sipoon työllisyysalueen asiakkaille.
           </DialogDescription>
