@@ -157,8 +157,6 @@ const VerkostoPage = () => {
 
       {/* KeudaPRO Hub */}
       <section id="hub" className="py-16 md:py-24 bg-[#E4F0EE] scroll-mt-24">
-      {/* KeudaPRO Hub */}
-      <section id="hub" className="py-16 md:py-24 bg-[#E4F0EE] scroll-mt-24">
         <div className="keuda-container">
           {/* Intro */}
           <div className="grid md:grid-cols-2 gap-10 items-center max-w-6xl mx-auto mb-14">
