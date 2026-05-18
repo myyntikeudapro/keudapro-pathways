@@ -116,7 +116,27 @@ const YhteystiedotPage = () => {
 
   return (
     <Layout>
-      <SEO title={"Yhteystiedot – Ota yhteyttä KeudaPRO:hon"} description={"Varaa keskusteluaika tai jätä yhteydenottopyyntö – löydetään yhdessä sopiva reitti ja ratkaisu. keudapro@keuda.fi."} path="/yhteystiedot" />
+      <SEO
+        title={"Yhteystiedot – Ota yhteyttä KeudaPRO:hon"}
+        description={"Varaa keskusteluaika tai jätä yhteydenottopyyntö – löydetään yhdessä sopiva reitti ja ratkaisu. keudapro@keuda.fi."}
+        path="/yhteystiedot"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "KeudaPRO",
+          email: "keudapro@keuda.fi",
+          telephone: "+358927381",
+          url: "https://keudapro.fi/yhteystiedot",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Sibeliuksenväylä 55",
+            postalCode: "04400",
+            addressLocality: "Järvenpää",
+            addressCountry: "FI",
+          },
+          areaServed: ["Hyvinkää", "Järvenpää", "Kerava", "Kirkkonummi", "Mäntsälä", "Nurmijärvi", "Pornainen", "Sipoo", "Tuusula", "Vihti"],
+        }}
+      />
       {/* ════════ HERO CAROUSEL ════════ */}
       <section className="relative w-full h-[70vh] min-h-[420px] max-h-[700px] overflow-hidden">
         {heroSlides.map((slide, i) => (
