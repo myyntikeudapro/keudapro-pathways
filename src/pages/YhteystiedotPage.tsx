@@ -39,7 +39,7 @@ const heroSlides = [
     title: "Etkö tiedä mistä aloittaa?",
     text: "Aloita lyhyellä kartoituksella – se ei sido mihinkään.",
     cta: "Tee nopea kartoitus",
-    href: "https://example.com/kartoitus",
+    href: "#lomake",
   },
   {
     image: heroImg3,
