@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -229,6 +229,17 @@ function ProgramCard({ program }: { program: Program }) {
 export function AlyCategoryAccordion() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const location = useLocation();
+  const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const scrollToCategory = (id: string) => {
+    requestAnimationFrame(() => {
+      const el = categoryRefs.current[id];
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    });
+  };
 
   useEffect(() => {
     const hash = location.hash.replace("#", "");
@@ -236,14 +247,17 @@ export function AlyCategoryAccordion() {
     const match = categories.find((c) => c.id === hash);
     if (match) {
       setOpenCategory(match.id);
-      setTimeout(() => {
-        document.getElementById("aly-kategoriat")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
+      setTimeout(() => scrollToCategory(match.id), 100);
     }
   }, [location.hash]);
 
 
-  const toggle = (id: string) => setOpenCategory((prev) => (prev === id ? null : id));
+  const toggle = (id: string) =>
+    setOpenCategory((prev) => {
+      const next = prev === id ? null : id;
+      if (next) scrollToCategory(next);
+      return next;
+    });
 
   return (
     <section id="aly-kategoriat" className="py-16 md:py-20 bg-[#E4F0EE]">
@@ -264,6 +278,8 @@ export function AlyCategoryAccordion() {
             return (
               <div
                 key={cat.id}
+                ref={(el) => (categoryRefs.current[cat.id] = el)}
+                style={{ scrollMarginTop: 80 }}
                 className={cn(
                   "rounded-xl border overflow-hidden bg-card transition-all duration-300",
                   isActive ? "border-primary shadow-lg" : "border-border",

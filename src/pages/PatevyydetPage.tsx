@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
@@ -454,6 +454,23 @@ const accordionCategories: AccordionCategory[] = [
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const handleCategoryToggle = (id: string) => {
+    setOpenCategory((prev) => {
+      const next = prev === id ? null : id;
+      if (next) {
+        requestAnimationFrame(() => {
+          const el = categoryRefs.current[id];
+          if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        });
+      }
+      return next;
+    });
+  };
   const [who, setWho] = useState<string | null>(null);
   const [goals, setGoals] = useState<string[]>([]);
   const [formats, setFormats] = useState<string[]>([]);
@@ -597,6 +614,8 @@ const PatevyydetPage = () => {
               return (
                 <div
                   key={cat.id}
+                  ref={(el) => (categoryRefs.current[cat.id] = el)}
+                  style={{ scrollMarginTop: 80 }}
                   className={cn(
                     "rounded-xl border overflow-hidden bg-card transition-all duration-300",
                     isActive
@@ -605,7 +624,7 @@ const PatevyydetPage = () => {
                   )}
                 >
                   <button
-                    onClick={() => setOpenCategory((prev) => (prev === cat.id ? null : cat.id))}
+                    onClick={() => handleCategoryToggle(cat.id)}
                     aria-expanded={isActive}
                     className={cn(
                       "w-full flex items-center justify-between gap-4 p-5 text-left transition-colors",
