@@ -278,6 +278,8 @@ export function AlyCategoryAccordion() {
             return (
               <div
                 key={cat.id}
+                ref={(el) => (categoryRefs.current[cat.id] = el)}
+                style={{ scrollMarginTop: 80 }}
                 className={cn(
                   "rounded-xl border overflow-hidden bg-card transition-all duration-300",
                   isActive ? "border-primary shadow-lg" : "border-border",
