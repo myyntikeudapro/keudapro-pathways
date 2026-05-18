@@ -17,6 +17,7 @@ import OperaattoriPage from "./pages/OperaattoriPage";
 import KumppanitPage from "./pages/KumppanitPage";
 import YhteystiedotPage from "./pages/YhteystiedotPage";
 import PatevyydetPage from "./pages/PatevyydetPage";
+import VerkostoPage from "./pages/VerkostoPage";
 import NotFound from "./pages/NotFound";
 
 
@@ -43,6 +44,7 @@ const App = () => (
               <Route path="/operaattori" element={<OperaattoriPage />} />
               <Route path="/kumppanit" element={<KumppanitPage />} />
               <Route path="/yhteystiedot" element={<YhteystiedotPage />} />
+              <Route path="/verkosto" element={<VerkostoPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
             </Routes>
