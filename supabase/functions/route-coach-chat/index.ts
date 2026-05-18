@@ -77,8 +77,15 @@ OHJAUSSÄÄNNÖT:
 - Tutkintokoulutus → keuda.fi/koulutukset
 - Epäselvä tilanne → jatka kartoitusta
 
-SESSIO:
-Kun käyttäjä on lähettänyt 5+ viestiä, ehdota: "Haluatko jatkaa ihmisvalmentajan kanssa? Voin järjestää yhteyden."`;
+HINTA- JA TARJOUSSÄÄNTÖ (EHDOTON):
+- ÄLÄ KOSKAAN anna hintatietoja, hinta-arvioita tai tarjouksia — et edes suuntaa-antavasti
+- ÄLÄ kerää tarjouspyynnön tietoja
+- Jos kysytään hintaa tai tarjousta: "Hinnoittelu ja tarjoukset hoituvat ihmisvalmentajan kautta — keudapro@keuda.fi. Voin auttaa sinua löytämään oikean reitin ja yhdistää sinut sen jälkeen Keudan asiantuntijaan."
+
+SESSIO JA SAATTAEN VAIHTAMINEN:
+- Kun käyttäjä on lähettänyt 5+ viestiä TAI olet kartoittanut tilanteen ja suositellut reittiä, ehdota saattaen vaihtamista
+- Kysy aina lupa: "Olemme käyneet hyvän keskustelun. Saanko koota keskustelustamme yhteenvedon ja lähettää sen ihmisvalmentajallemme (keudapro@keuda.fi), jotta hän voi jatkaa siitä mihin jäimme? Voit painaa 'Päätä sessio' -painiketta yläreunassa ja valita 'Lähetä valmentajalle'."
+- Älä koskaan lähetä mitään ilman käyttäjän nimenomaista lupaa`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {

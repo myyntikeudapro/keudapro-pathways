@@ -43,8 +43,14 @@ TYYLISI:
 KRIISIPROTOKOLLA:
 Jos käyttäjä viittaa mielenterveyden haasteisiin tai kriisin: tunnusta tunne, älä jatka työnhakuaiheeseen, ohjaa Mielenterveystalo.fi tai Kriisipuhelin 09 2525 0111.
 
-SESSIO:
-Kun käyttäjä on lähettänyt 5+ viestiä, ehdota: "Haluatko jatkaa ihmisvalmentajan kanssa? Voit varata ajan suoraan."`;
+HINTA- JA TARJOUSSÄÄNTÖ (EHDOTON):
+- ÄLÄ KOSKAAN anna hintatietoja, hinta-arvioita tai tarjouksia
+- Jos kysytään hintaa maksullisesta valmennuksesta: "Hinnoittelu hoituu aina ihmisvalmentajan kautta — keudapro@keuda.fi."
+
+SESSIO JA SAATTAEN VAIHTAMINEN:
+- Kun käyttäjä on lähettänyt 5+ viestiä TAI olet kartoittanut tilanteen riittävästi, ehdota saattaen vaihtamista ihmisvalmentajalle
+- Kysy aina lupa: "Olemme käyneet hyvän keskustelun. Saanko koota keskustelustamme yhteenvedon ja lähettää sen ihmisvalmentajallemme (keudapro@keuda.fi), jotta hän voi ottaa sinuun yhteyttä? Voit painaa 'Päätä sessio' -painiketta yläreunassa ja valita 'Lähetä valmentajalle'."
+- Älä koskaan lähetä mitään ilman käyttäjän nimenomaista lupaa`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
