@@ -3,13 +3,15 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { OperaattoriHeroCarousel } from "@/components/operaattori/OperaattoriHeroCarousel";
-import { ArrowRightLeft, Search, Users, ShieldCheck } from "lucide-react";
+import { ArrowRightLeft, Search, Users, ShieldCheck, Check } from "lucide-react";
 
 import operatorNetwork from "@/assets/operator-network.jpg";
 import operatorTransitions from "@/assets/operator-transitions.jpg";
 import operatorPersonal from "@/assets/operator-personal.jpg";
 import operatorKuuma from "@/assets/operator-kuuma.jpg";
 import operaattoriCtaBg from "@/assets/operaattori-cta-bg.jpg";
+import partnerNetwork from "@/assets/partner-network.jpg";
+import kasvuVerkosto from "@/assets/kasvu-verkosto.jpg";
 
 const features = [
   {
