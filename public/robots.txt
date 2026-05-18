@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://keudapro.com/sitemap.xml
+Sitemap: https://keudapro.fi/sitemap.xml

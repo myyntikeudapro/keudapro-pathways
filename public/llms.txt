@@ -1,0 +1,16 @@
+# KeudaPRO
+
+> Osaamisen ja siirtymien operaattori KUUMA-seudulla. Yhdistää johtamiskoulutukset (ÄLY), työhönvalmennuksen (NOSTE) ja yritysten kasvuohjelmat (KASVU).
+
+KeudaPRO toimii operaattorina, joka yhdistää osaajat, yritykset ja koulutusorganisaatiot toimivaksi ekosysteemiksi KUUMA-seudulla (Hyvinkää, Järvenpää, Kerava, Kirkkonummi, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula, Vihti).
+
+## Pages
+
+- [Etusivu](/): Osaamisen ja siirtymien operaattori — yksi reitti, kolme suuntaa.
+- [ÄLY](/aly): Johtamisen, asiantuntijuuden ja tekoälyn koulutukset (AI-Director, AI-Manager, AI-Coordinator).
+- [NOSTE](/noste): Työhönvalmennus, muutosturvakoulutukset ja uudelleenkouluttautumisen polut.
+- [KASVU](/kasvu): Yritysten kasvuohjelmat, ELY-rahoitteiset koulutukset, neljä kasvutasoa pk-yrityksille.
+- [Osaaminen](/osaaminen): Ammatilliset pätevyydet, kortit ja sertifikaatit työelämään.
+- [Operaattori](/operaattori): Operaattorimalli — yksi yhteyshenkilö, koko verkosto.
+- [Kumppanit](/kumppanit): KeudaPRO-verkosto: kunnat, oppilaitokset, yritykset ja kehittämisyhtiöt.
+- [Yhteystiedot](/yhteystiedot): Ota yhteyttä — sähköposti, puhelin, osoite ja laskutustiedot.
