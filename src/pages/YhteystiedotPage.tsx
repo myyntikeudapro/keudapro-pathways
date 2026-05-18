@@ -51,33 +51,7 @@ const heroSlides = [
   },
 ];
 
-/* ─── SELECTION CARDS ─── */
-const helpCards = [
-  {
-    title: "Haluan keskustella kasvusta",
-    text: "Kasvu, uudistuminen tai digiloikka yrityksessä.",
-    cta: "Varaa kasvukartoitus",
-    href: "/kasvu",
-  },
-  {
-    title: "Tarvitsen tukea työnhakuun",
-    text: "Valmennus, osaamisen kirkastus tai reittikartoitus.",
-    cta: "Siirry NOSTE-reitille",
-    href: "/noste",
-  },
-  {
-    title: "Haluamme valmennus- tai AI-ratkaisun",
-    text: "Johtaminen, tekoäly tai osaamisen kehittäminen.",
-    cta: "Tutustu ÄLY-ratkaisuihin",
-    href: "/aly",
-  },
-  {
-    title: "Haluamme kumppaniksi",
-    text: "Yhteistyö, verkostot tai pilotit.",
-    cta: "Ota yhteyttä tiimiin",
-    href: "#lomake",
-  },
-];
+/* helpCards korvattu SmartSearch-komponentilla */
 
 /* ─── TEAM / CONTACT PERSONS ─── */
 const team = [
