@@ -15,7 +15,6 @@ const coachConfig: Record<CoachType, {
   image: string;
   greeting: string;
   endpoint: string;
-  emailSubject: string;
 }> = {
   ana: {
     name: "Ana",
@@ -23,7 +22,6 @@ const coachConfig: Record<CoachType, {
     image: coachAna,
     greeting: "Hei! Olen Ana, työhönvalmentajasi. Kerro – missä tilanteessa olet juuri nyt?",
     endpoint: "coach-chat",
-    emailSubject: "Keskusteluhistoria – Ana Työhönvalmentaja",
   },
   veli: {
     name: "Veli",
@@ -31,7 +29,6 @@ const coachConfig: Record<CoachType, {
     image: coachVeli,
     greeting: "Hei! Olen Veli, osaamisen kehittämisen valmentajasi. Mikä osaamiseen liittyvä asia mietityttää sinua juuri nyt?",
     endpoint: "veli-coach-chat",
-    emailSubject: "Keskusteluhistoria – Veli Osaamisen valmentaja",
   },
   reitti: {
     name: "Reittivalmentaja",
@@ -39,8 +36,40 @@ const coachConfig: Record<CoachType, {
     image: coachReitti,
     greeting: "Hei! Olen reittivalmentajasi – autan sinua löytämään oikean koulutus- tai urapolun. Kerro, missä tilanteessa olet?",
     endpoint: "route-coach-chat",
-    emailSubject: "Keskusteluhistoria – Reittivalmentaja",
   },
+};
+
+const EMAIL_SUBJECT = "KeudaPRO – Muistio AI-valmentajakeskustelusta";
+
+const formatTranscript = (
+  coachName: string,
+  coachRole: string,
+  messages: Msg[],
+): string => {
+  const date = new Date().toLocaleString("fi-FI", {
+    dateStyle: "long",
+    timeStyle: "short",
+  });
+  const header = [
+    "KeudaPRO – Muistio AI-valmentajakeskustelusta",
+    "============================================",
+    `Valmentaja: ${coachName} (${coachRole})`,
+    `Päiväys: ${date}`,
+    "",
+    "--- Keskustelu ---",
+    "",
+  ].join("\n");
+  const body = messages
+    .map((m) => `${m.role === "user" ? "Asiakas" : coachName}:\n${m.content}`)
+    .join("\n\n");
+  const footer = [
+    "",
+    "",
+    "--- Huom ---",
+    "Tämä muistio on koottu AI-valmentajan kanssa käydystä keskustelusta.",
+    "Hinnoittelu ja tarjoukset hoituvat ihmisvalmentajan kautta: keudapro@keuda.fi",
+  ].join("\n");
+  return header + body + footer;
 };
 
 export function MultiCoachChat() {
