@@ -365,15 +365,48 @@ const VerkostoPage = () => {
             <p className="text-center text-muted-foreground mb-8">
               Ideointi ja yhteistyö keskittyvät seuraaviin kehittämisen painopisteisiin.
             </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {hubThemes.map((t) => (
-                <div key={t.text} className="bg-white rounded-lg p-4 border border-border flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-teal-100 flex items-center justify-center flex-shrink-0">
-                    <t.icon className="w-4 h-4 text-teal-700" />
+            <div className="flex flex-col gap-3">
+              {hubThemes.map((t) => {
+                const isOpen = openTheme === t.id;
+                return (
+                  <div
+                    key={t.id}
+                    className={cn(
+                      "rounded-xl border bg-white overflow-hidden transition-all duration-300",
+                      isOpen ? "border-teal-600 shadow-md" : "border-border"
+                    )}
+                  >
+                    <button
+                      onClick={() => setOpenTheme(isOpen ? null : t.id)}
+                      aria-expanded={isOpen}
+                      className="w-full flex items-center gap-4 p-4 text-left hover:bg-muted/40 transition-colors"
+                    >
+                      <div className={cn(
+                        "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors",
+                        isOpen ? "bg-teal-700 text-white" : "bg-teal-100 text-teal-700"
+                      )}>
+                        <t.icon className="w-5 h-5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-semibold text-foreground leading-snug">{t.title}</div>
+                        <div className="text-xs text-muted-foreground mt-0.5">{t.desc}</div>
+                      </div>
+                      <ChevronDown className={cn("w-5 h-5 text-muted-foreground transition-transform shrink-0", isOpen && "rotate-180")} />
+                    </button>
+                    {isOpen && (
+                      <div className="animate-accordion-down grid md:grid-cols-[220px_1fr]">
+                        <div className="relative h-40 md:h-full overflow-hidden">
+                          <img src={t.image} alt={t.title} loading="lazy" className="w-full h-full object-cover" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:bg-gradient-to-r" />
+                        </div>
+                        <div className="p-5 md:p-6">
+                          <p className="text-sm text-foreground leading-relaxed">{t.body}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <span className="text-sm font-medium text-foreground">{t.text}</span>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
