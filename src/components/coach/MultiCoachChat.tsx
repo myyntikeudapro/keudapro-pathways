@@ -275,7 +275,7 @@ export function MultiCoachChat() {
         </div>
 
         {/* Input */}
-        <div className="p-3 border-t border-border bg-background space-y-1.5">
+        <div className="p-3 border-t border-border bg-background space-y-1.5" style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}>
           <form onSubmit={(e) => { e.preventDefault(); send(input); }} className="flex gap-2">
             <input
               ref={inputRef}
