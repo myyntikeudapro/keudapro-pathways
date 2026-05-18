@@ -193,17 +193,14 @@ export function MultiCoachChat() {
 
   const openPreview = (target: "self" | "coach") => {
     if (!config) return;
-    const transcript = messages
-      .map((m) => `${m.role === "user" ? "Sinä" : config.name}: ${m.content}`)
-      .join("\n\n");
-    setTranscriptDraft(transcript);
+    setTranscriptDraft(formatTranscript(config.name, config.role, messages));
     setPreviewTarget(target);
     setShowEndSession(false);
   };
 
   const sendPreview = () => {
     if (!config || !previewTarget) return;
-    const subject = encodeURIComponent(config.emailSubject);
+    const subject = encodeURIComponent(EMAIL_SUBJECT);
     const body = encodeURIComponent(transcriptDraft);
     const to = previewTarget === "coach" ? "keudapro@keuda.fi" : "";
     window.open(`mailto:${to}?subject=${subject}&body=${body}`, "_blank");
