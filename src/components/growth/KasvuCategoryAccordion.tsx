@@ -156,8 +156,22 @@ const routeToLevel: Record<Category["id"], 1 | 2 | 3 | 4> = {
 export function KasvuCategoryAccordion() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [modalLevel, setModalLevel] = useState<1 | 2 | 3 | 4 | null>(null);
+  const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const toggle = (id: string) => setOpenCategory((prev) => (prev === id ? null : id));
+  const toggle = (id: string) =>
+    setOpenCategory((prev) => {
+      const next = prev === id ? null : id;
+      if (next) {
+        requestAnimationFrame(() => {
+          const el = categoryRefs.current[id];
+          if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        });
+      }
+      return next;
+    });
 
   return (
     <section id="kasvupolut" className="py-16 md:py-20 bg-[#E4F0EE]">
