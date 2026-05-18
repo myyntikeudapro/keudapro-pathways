@@ -35,6 +35,8 @@ export type SearchEntry = {
   title: string;
   description: string;
   href: string;
+  /** Optional external (e.g. keuda.fi) info page for the product/course. */
+  externalHref?: string;
   image: string;
   category:
     | "Reitti"
@@ -45,6 +47,7 @@ export type SearchEntry = {
     | "Yhteys";
   keywords: string[];
 };
+
 
 export const searchIndex: SearchEntry[] = [
   // ─── Reitit ───
