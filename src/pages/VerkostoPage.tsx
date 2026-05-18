@@ -334,6 +334,7 @@ const VerkostoPage = () => {
                     Idea- ja koulutuspalvelulomake <ArrowRight className="w-4 h-4 ml-1" />
                   </a>
                 </Button>
+                </div>
               </div>
             </div>
           </div>
