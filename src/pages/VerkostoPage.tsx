@@ -22,27 +22,43 @@ import imgFormatAamukahvit from "@/assets/banner-osaaminen-kortit.jpg";
 import imgFormatTyopajat from "@/assets/dev-step-tyokalut.jpg";
 import imgFormatWebinaarit from "@/assets/banner-osaaminen-ratkaisee.jpg";
 import imgFormatVerkostot from "@/assets/kasvu-verkosto.jpg";
+import imgBenefitHankkeet from "@/assets/cat-toimialakohtaiset.jpg";
+import imgBenefitNakyvyys from "@/assets/banner-osaaminen-ratkaisee.jpg";
+import imgBenefitAsiakkuudet from "@/assets/audience-supervisor.jpg";
+import imgBenefitEkosysteemi from "@/assets/kasvu-verkosto.jpg";
 
 const providerBenefits = [
   {
+    id: "hankkeet",
     icon: Network,
     title: "Pääset mukaan oikeisiin hankkeisiin",
-    text: "Tarjoamme reitin koulutuksiin, valmennuksiin ja kehittämishankkeisiin, joissa osaamisesi pääsee käyttöön.",
+    desc: "Konkreettiset toimeksiannot, joissa osaamisesi pääsee käyttöön.",
+    image: imgBenefitHankkeet,
+    body: "Tarjoamme reitin koulutuksiin, valmennuksiin ja kehittämishankkeisiin yhdessä yritysten, oppilaitosten ja julkisten toimijoiden kanssa. Saat säännöllisesti tietoa tulevista hankkeista, kilpailutuksista ja yhteiskehittämisen mahdollisuuksista.",
   },
   {
+    id: "nakyvyys",
     icon: Users,
     title: "Rakennat näkyvyyttä ja vaikuttavuutta",
-    text: "Toimit osana KUUMA-seudun tunnistettua osaamisen operaattoria ja saat näkyvyyttä luotettavassa verkostossa.",
+    desc: "Osana KUUMA-seudun tunnistettua osaamisen operaattoria.",
+    image: imgBenefitNakyvyys,
+    body: "Toimit osana KUUMA-seudun tunnistettua osaamisen operaattoria ja saat näkyvyyttä luotettavassa verkostossa. Tulet esiin KeudaPRO:n viestinnässä, tilaisuuksissa ja palveluvalikoimassa – niin yritysten kuin julkisten ostajien suuntaan.",
   },
   {
+    id: "asiakkuudet",
     icon: Handshake,
     title: "Saat uusia asiakkuuksia",
-    text: "Yhdistämme palveluntuottajat yritysten ja organisaatioiden tarpeisiin – jatkuvasti ja ohjatusti.",
+    desc: "Yhdistämme tarpeet ja osaajat ohjatusti.",
+    image: imgBenefitAsiakkuudet,
+    body: "Yhdistämme palveluntuottajat yritysten ja organisaatioiden tarpeisiin – jatkuvasti ja ohjatusti. Hub-tiimi tunnistaa kysyntää, käy keskustelut asiakkaiden kanssa ja kokoaa juuri sopivan toteuttajakokoonpanon.",
   },
   {
+    id: "ekosysteemi",
     icon: Rocket,
     title: "Olet osa toimivaa ekosysteemiä",
-    text: "Verkosto, jossa ideat viedään käytäntöön yhdessä – ei pelkkiä puheita vaan toteutusta.",
+    desc: "Verkosto, jossa ideat viedään käytäntöön yhdessä.",
+    image: imgBenefitEkosysteemi,
+    body: "KeudaPRO ei ole pelkkä tuottajalista – se on toimiva ekosysteemi, jossa yhteiskehittäminen on arkea. Saat tukea, sparrausta ja kumppanuuksia muiden asiantuntijoiden ja oppilaitosten kanssa.",
   },
 ];
 
