@@ -3,7 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
-import { Check, Users, Lightbulb, Handshake, Rocket, Network, GraduationCap } from "lucide-react";
+import { Check, Users, Lightbulb, Handshake, Rocket, Network, GraduationCap, Sparkles, Leaf, Globe, Brain, Heart, Briefcase, Calendar, MessageSquare, Send, ClipboardList, ArrowRight } from "lucide-react";
 
 import partnerNetwork from "@/assets/operator-partner-network.jpg";
 import kasvuVerkosto from "@/assets/kasvu-verkosto.jpg";
