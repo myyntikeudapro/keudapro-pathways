@@ -239,6 +239,7 @@ const courses: Course[] = [
     category: "Turvallisuus",
     description: "Laajempi 8 tunnin hätäensiapukurssi, joka antaa kattavammat valmiudet auttaa hätä- ja sairauskohtaustilanteissa työpaikalla ja arjessa.",
     infoUrl: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-8-t/",
+    signupUrl: "https://www.lyyti.in/Ensiapukoulutuksetlanding_page_6944",
   },
   {
     name: "Hygieniapassi",
@@ -257,6 +258,7 @@ const courses: Course[] = [
     category: "Työelämätaidot",
     description: "Innostaa ja ohjaa johtoa sekä henkilöstöä kehittämään työpaikan hyvinvointia yhteisvoimin. Toteutetaan tilauksesta yrityksille ja ryhmille.",
     infoUrl: "https://www.keuda.fi/koulutus/tyohyvinvointikortti-koulutus/",
+    signupUrl: "https://www.lyyti.in/Yritysasiakas__Yhteydenotto_tai_tarjouspyynto_0692",
   },
   {
     name: "LinkedIn-kortti",
@@ -277,6 +279,7 @@ const courses: Course[] = [
     category: "AI",
     description: "Sertifioitu osaamistodistus tekoälyn hyödyntämisestä työnhaun eri vaiheissa — hakemuksissa, CV:ssä ja piilotyöpaikkojen löytämisessä.",
     infoUrl: "https://www.keuda.fi/koulutus/3t-kortti/",
+    signupUrl: "https://www.lyyti.in/3Tkorttilanding_page_0746",
   },
   {
     name: "Toimialakohtainen pätevyys",
@@ -410,18 +413,18 @@ const accordionCategories: AccordionCategory[] = [
     cards: [
       { title: "Työturvallisuuskortti", badge: "Turvallisuus", description: "Yhteisten työpaikkojen turvallisuuden parantamiseen — voimassa 5 vuotta.", infoUrl: "https://www.keuda.fi/koulutus/tyoturvallisuuskortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "Tulityökortti", badge: "Turvallisuus", description: "Tulitöiden turvallinen tekeminen — teoria, käytännön harjoitukset ja koe — voimassa 5 vuotta.", infoUrl: "https://www.keuda.fi/koulutus/tulityokortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
-      { title: "Sähkötyöturvallisuuskortti", badge: "Turvallisuus", description: "Sähkötöitä tekevien pakollinen pätevyys — parantaa sähköturvallisuusosaamista.", infoUrl: "https://www.keuda.fi/koulutus/sfs6002-sahkotyoturvallisuuskortti/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Sähkötyöturvallisuuskortti", badge: "Turvallisuus", description: "Sähkötöitä tekevien pakollinen pätevyys — parantaa sähköturvallisuusosaamista.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "Akkuturvallisuuskoulutus", badge: "Turvallisuus", description: "Litiumioniakkujen turvallinen käsittely ja riskienhallinta — erityisesti ajoneuvoalalle.", infoUrl: "https://www.keuda.fi/koulutus/akkuturvallisuuskoulutus/", signupUrl: "https://www.lyyti.fi/reg/Akkuturvallisuuskoulutuslanding_page_6706", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "EA1 Ensiapu", badge: "Ensiapu", description: "Ensiavun peruskurssi 16 h — valmiudet auttaa onnettomuus- ja hätätilanteissa.", infoUrl: "https://www.keuda.fi/koulutus/spr-ensiapukurssi-ea-1/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "EA2 Ensiapu", badge: "Ensiapu", description: "Ensiavun jatkokurssi 16 h — syventää EA1:n osaamista. Edellyttää voimassa olevaa EA1-koulutusta.", infoUrl: "https://www.keuda.fi/koulutus/spr-ensiapukurssi-ea-2/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "Hätäensiapu 4 t", badge: "Ensiapu", description: "Lyhyt hätäensiapukurssi työpaikan ensiapuvalmiuden ylläpitoon.", infoUrl: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-4-t/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
-      { title: "Hätäensiapu 8 t", badge: "Ensiapu", description: "Laajempi hätäensiapukurssi kattavampiin valmiuksiin.", infoUrl: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-8-t/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
-      { title: "Hygieniapassi", badge: "Hygienia", description: "Virallinen toistaiseksi voimassa oleva passi elintarvikealalle.", infoUrl: "https://www.keuda.fi/koulutus/hygieniapassitestit-ja-koulutukset/", ctaText: "Ilmoittaudu", ctaHref: "/yhteystiedot#lomake" },
-      { title: "Anniskelupassi", badge: "Hygienia", description: "Osoittaa alkoholilainsäädännön hallinnan — oikeuttaa toimimaan vastaavana hoitajana.", infoUrl: "https://www.keuda.fi/koulutus/anniskelupassikoulutukset-ja-testit/", ctaText: "Ilmoittaudu", ctaHref: "/yhteystiedot#lomake" },
-      { title: "Työhyvinvointikortti", badge: "Työelämä", description: "Innostaa johtoa ja henkilöstöä kehittämään työpaikan hyvinvointia — tilauksesta.", infoUrl: "https://www.keuda.fi/koulutus/tyohyvinvointikortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Hätäensiapu 8 t", badge: "Ensiapu", description: "Laajempi hätäensiapukurssi kattavampiin valmiuksiin.", infoUrl: "https://www.keuda.fi/koulutus/spr-hataensiapukurssi-8-t/", signupUrl: "https://www.lyyti.in/Ensiapukoulutuksetlanding_page_6944", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Hygieniapassi", badge: "Hygienia", description: "Virallinen toistaiseksi voimassa oleva passi elintarvikealalle.", infoUrl: "https://www.keuda.fi/koulutus/hygieniapassitestit-ja-koulutukset/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Anniskelupassi", badge: "Hygienia", description: "Osoittaa alkoholilainsäädännön hallinnan — oikeuttaa toimimaan vastaavana hoitajana.", infoUrl: "https://www.keuda.fi/koulutus/anniskelupassikoulutukset-ja-testit/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Työhyvinvointikortti", badge: "Työelämä", description: "Innostaa johtoa ja henkilöstöä kehittämään työpaikan hyvinvointia — tilauksesta.", infoUrl: "https://www.keuda.fi/koulutus/tyohyvinvointikortti-koulutus/", signupUrl: "https://www.lyyti.in/Yritysasiakas__Yhteydenotto_tai_tarjouspyynto_0692", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "LinkedIn-kortti", badge: "Työelämä", description: "Rakenna ammattimainen LinkedIn-profiili ja hyödynnä palvelua työnhaussa.", infoUrl: "https://www.keuda.fi/koulutus/linkedin-tyonhakukortti/", signupUrl: "https://www.lyyti.fi/reg/LinkedIn_Tyonhakukorttilanding_page_5313", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "KV-kortti", badge: "Työelämä", description: "Käytännönläheinen koulutus kansainvälisten työntekijöiden kanssa toimimiseen.", infoUrl: "https://www.keuda.fi/koulutus/kv-korttikoulutus/", signupUrl: "https://www.lyyti.fi/reg/KVkorttikoulutus_2530", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
-      { title: "3T-kortti", badge: "AI", description: "Sertifioitu osaamistodistus tekoälyn hyödyntämisestä työnhaussa.", infoUrl: "https://www.keuda.fi/koulutus/3t-kortti/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "3T-kortti", badge: "AI", description: "Sertifioitu osaamistodistus tekoälyn hyödyntämisestä työnhaussa.", infoUrl: "https://www.keuda.fi/koulutus/3t-kortti/", signupUrl: "https://www.lyyti.in/3Tkorttilanding_page_0746", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "Toimialakohtainen pätevyys", badge: "Toimialakohtainen", description: "Räätälöity pätevyyskoulutus organisaation tarpeisiin — sovitaan yhdessä.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
     ],
     bottomBanner: {
@@ -435,16 +438,16 @@ const accordionCategories: AccordionCategory[] = [
     title: "Työpaikan kieli ja viestintä",
     intro: "Kielikoulutukset monikulttuurisille työpaikoille — suomi, englanti, ruotsi ja selkoviestintä.",
     cards: [
-      { title: "Suomi työkielenä", badge: "Kieli", description: "Työelämän suomen kielen koulutus maahanmuuttajataustaisille työntekijöille.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
-      { title: "Sote-suomi", badge: "Kieli", description: "Sosiaali- ja terveysalan työelämäsuomi — ammattisanaston ja viestinnän hallinta.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
-      { title: "Työpaikkasuomi", badge: "Kieli", description: "Suomen kielen koulutus suoraan omaan työympäristöön räätälöitynä.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
-      { title: "Selkosuomi työnjohdolle", badge: "Kieli", description: "Selkeä ja ymmärrettävä viestintä monikulttuurisessa työyhteisössä — työnjohtajille.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
-      { title: "Selkosuomi työyhteisölle", badge: "Kieli", description: "Selkoviestinnän perusteet koko työyhteisölle — parantaa arjen vuorovaikutusta.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
-      { title: "Englanti työkielenä", badge: "Kieli", description: "Työelämän englannin koulutus — viestintä kansainvälisessä työympäristössä.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
-      { title: "Ruotsi työkielenä", badge: "Kieli", description: "Ruotsin kielen koulutus työelämän tarpeisiin.", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
-      { title: "KV-kortti", badge: "Kieli & kulttuuri", description: "Käytännönläheinen koulutus kansainvälisten työntekijöiden kanssa toimimiseen.", infoUrl: "https://www.keuda.fi/koulutus/kv-korttikoulutus/", ctaText: "Kysy lisää", ctaHref: "#tarvelomake" },
+      { title: "Suomi työkielenä", badge: "Kieli", description: "Työelämän suomen kielen koulutus maahanmuuttajataustaisille työntekijöille.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Sote-suomi", badge: "Kieli", description: "Sosiaali- ja terveysalan työelämäsuomi — ammattisanaston ja viestinnän hallinta.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Työpaikkasuomi", badge: "Kieli", description: "Suomen kielen koulutus suoraan omaan työympäristöön räätälöitynä.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Selkosuomi työnjohdolle", badge: "Kieli", description: "Selkeä ja ymmärrettävä viestintä monikulttuurisessa työyhteisössä — työnjohtajille.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Selkosuomi työyhteisölle", badge: "Kieli", description: "Selkoviestinnän perusteet koko työyhteisölle — parantaa arjen vuorovaikutusta.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Englanti työkielenä", badge: "Kieli", description: "Työelämän englannin koulutus — viestintä kansainvälisessä työympäristössä.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "Ruotsi työkielenä", badge: "Kieli", description: "Ruotsin kielen koulutus työelämän tarpeisiin.", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
+      { title: "KV-kortti", badge: "Kieli & kulttuuri", description: "Käytännönläheinen koulutus kansainvälisten työntekijöiden kanssa toimimiseen.", infoUrl: "https://www.keuda.fi/koulutus/kv-korttikoulutus/", signupUrl: "https://www.lyyti.fi/reg/KVkorttikoulutus_2530", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
     ],
-    bottomCta: { text: "Kysy räätälöidystä kielikoulutuksesta", href: "#tarvelomake" },
+    bottomCta: { text: "Kysy räätälöidystä kielikoulutuksesta", href: "/yhteystiedot#lomake" },
   },
 ];
 
@@ -678,15 +681,17 @@ const PatevyydetPage = () => {
                                         </a>
                                       </Button>
                                     )}
-                                    <Button variant="outline-primary" size="sm" className="w-full" asChild>
-                                      {isExternal ? (
-                                        <a href={card.ctaHref} target="_blank" rel="noopener noreferrer">
-                                          {card.ctaText}
-                                        </a>
-                                      ) : (
-                                        <a href={card.ctaHref}>{card.ctaText}</a>
-                                      )}
-                                    </Button>
+                                    {!card.signupUrl && (
+                                      <Button variant="outline-primary" size="sm" className="w-full" asChild>
+                                        {isExternal ? (
+                                          <a href={card.ctaHref} target="_blank" rel="noopener noreferrer">
+                                            {card.ctaText}
+                                          </a>
+                                        ) : (
+                                          <a href={card.ctaHref}>{card.ctaText}</a>
+                                        )}
+                                      </Button>
+                                    )}
                                   </div>
                                   </div>
                                 </div>
