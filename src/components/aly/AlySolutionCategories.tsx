@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, ChevronDown, Mail } from "lucide-react";
@@ -176,9 +176,22 @@ function ComingSoonBox() {
 
 export function AlySolutionCategories() {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const toggleExpand = (id: string) => {
-    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+    setExpanded((prev) => {
+      const next = { ...prev, [id]: !prev[id] };
+      if (next[id]) {
+        requestAnimationFrame(() => {
+          const el = cardRefs.current[id];
+          if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        });
+      }
+      return next;
+    });
   };
 
   return (
@@ -206,6 +219,8 @@ export function AlySolutionCategories() {
               <div
                 key={prog.id}
                 id={prog.id}
+                ref={(el) => (cardRefs.current[prog.id] = el)}
+                style={{ scrollMarginTop: 80 }}
                 className="keuda-card-enhanced flex flex-col h-full"
               >
                 {/* Image */}
