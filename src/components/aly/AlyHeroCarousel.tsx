@@ -70,8 +70,20 @@ export function AlyHeroCarousel() {
           <p className="text-white/90 text-base md:text-lg max-w-[620px] mx-auto mb-8 leading-relaxed">
             Johtamista, asiantuntijuutta ja tekoälyä — yhdeksi kokonaisuudeksi johtajille ja asiantuntijoille.
           </p>
-          <Button variant="cta" size="xl" asChild>
-            <a href={slides[current].href}>{slides[current].cta}</a>
+          <Button
+            variant="cta"
+            size="xl"
+            onClick={(e) => {
+              e.preventDefault();
+              const id = slides[current].href.replace("#", "");
+              const el = document.getElementById(id);
+              if (el) {
+                const y = el.getBoundingClientRect().top + window.scrollY - 80;
+                window.scrollTo({ top: y, behavior: "smooth" });
+              }
+            }}
+          >
+            {slides[current].cta}
           </Button>
         </div>
       </div>
