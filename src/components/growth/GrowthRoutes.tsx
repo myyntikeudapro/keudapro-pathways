@@ -172,10 +172,13 @@ export function GrowthRoutes() {
 
   const handleLevelClick = (id: string) => {
     setSelectedLevel(id);
-    const el = document.getElementById(`route-${id}`);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`route-${id}`);
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    });
   };
 
   const handleCtaClick = (route: typeof routes[0]) => {
