@@ -39,6 +39,13 @@ import courseKv from "@/assets/course-kv.jpg";
 import course3t from "@/assets/course-3t.jpg";
 import courseToimiala from "@/assets/course-toimiala.jpg";
 import courseKieli from "@/assets/course-kieli.jpg";
+import courseKieliSuomi from "@/assets/course-kieli-suomi-tyokielena.jpg";
+import courseKieliSote from "@/assets/course-kieli-sote.jpg";
+import courseKieliTyopaikka from "@/assets/course-kieli-tyopaikkasuomi.jpg";
+import courseKieliSelkoJohto from "@/assets/course-kieli-selko-tyonjohto.jpg";
+import courseKieliSelkoYhteiso from "@/assets/course-kieli-selko-tyoyhteiso.jpg";
+import courseKieliEnglanti from "@/assets/course-kieli-englanti.jpg";
+import courseKieliRuotsi from "@/assets/course-kieli-ruotsi.jpg";
 import progJohtaminen from "@/assets/prog-johtaminen.jpg";
 import progAiManager from "@/assets/prog-ai-manager.jpg";
 import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
@@ -74,6 +81,13 @@ const courseImageOverrides: Record<string, string> = {
   "KV-kortti": courseKv,
   "3T: Tehoa työnhakuun tekoälyllä": course3t,
   "Toimialakohtainen pätevyys": courseToimiala,
+  "Suomi työkielenä": courseKieliSuomi,
+  "Sote-suomi": courseKieliSote,
+  "Työpaikkasuomi": courseKieliTyopaikka,
+  "Selkosuomi työnjohdolle": courseKieliSelkoJohto,
+  "Selkosuomi työyhteisölle": courseKieliSelkoYhteiso,
+  "Englanti työkielenä": courseKieliEnglanti,
+  "Ruotsi työkielenä": courseKieliRuotsi,
 };
 
 const badgeImageFallback: Record<string, string> = {
