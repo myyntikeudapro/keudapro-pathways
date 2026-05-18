@@ -10,7 +10,7 @@ import operatorTransitions from "@/assets/operator-transitions.jpg";
 import operatorPersonal from "@/assets/operator-personal.jpg";
 import operatorKuuma from "@/assets/operator-kuuma.jpg";
 import operaattoriCtaBg from "@/assets/operaattori-cta-bg.jpg";
-import partnerNetwork from "@/assets/partner-network.jpg";
+import partnerNetwork from "@/assets/operator-partner-network.jpg";
 import kasvuVerkosto from "@/assets/kasvu-verkosto.jpg";
 
 const features = [
