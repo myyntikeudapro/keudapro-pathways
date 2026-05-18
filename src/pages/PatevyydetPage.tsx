@@ -782,7 +782,7 @@ const PatevyydetPage = () => {
                 Et löydä sopivaa toteutusta?
               </h2>
               <p className="text-lg text-muted-foreground">
-                Kerro tarpeesi — räätälöimme toteutuksen tai etsimme sopivan ajankohdan.
+                Kerro tarpeesi — räätälöimme koulutuksen, valmennuksen, kortin tai muun toteutuksen sopivaan ajankohtaan.
               </p>
             </div>
             <form
