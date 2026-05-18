@@ -472,16 +472,29 @@ const VerkostoPage = () => {
 
           {/* Process */}
           <div className="max-w-5xl mx-auto mb-14">
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-8">
+            <h3 className="text-xl md:text-2xl font-bold text-foreground text-center mb-6">
               Näin prosessi etenee
             </h3>
-            <ol className="grid md:grid-cols-5 gap-4">
+            {/* Mobile: tiivis pystylista yhdysviivalla */}
+            <ol className="md:hidden relative border-l-2 border-teal-700/30 ml-3 space-y-4">
               {hubProcess.map((s, i) => (
-                <li key={s.title} className="bg-white rounded-xl p-5 border border-border shadow-sm">
-                  <div className="w-8 h-8 rounded-full bg-teal-700 text-white flex items-center justify-center font-semibold mb-3 text-sm">
+                <li key={s.title} className="pl-4 relative">
+                  <span className="absolute -left-[13px] top-0 w-6 h-6 rounded-full bg-teal-700 text-white flex items-center justify-center text-xs font-semibold">
+                    {i + 1}
+                  </span>
+                  <h4 className="font-semibold text-foreground text-sm leading-tight">{s.title}</h4>
+                  <p className="text-xs text-muted-foreground leading-snug mt-0.5">{s.text}</p>
+                </li>
+              ))}
+            </ol>
+            {/* Desktop: 5 kapeaa korttia */}
+            <ol className="hidden md:grid grid-cols-5 gap-3">
+              {hubProcess.map((s, i) => (
+                <li key={s.title} className="bg-white rounded-xl p-4 border border-border shadow-sm">
+                  <div className="w-7 h-7 rounded-full bg-teal-700 text-white flex items-center justify-center font-semibold mb-2 text-xs">
                     {i + 1}
                   </div>
-                  <h4 className="font-semibold text-foreground mb-1.5 text-sm">{s.title}</h4>
+                  <h4 className="font-semibold text-foreground mb-1 text-sm">{s.title}</h4>
                   <p className="text-xs text-muted-foreground leading-relaxed">{s.text}</p>
                 </li>
               ))}
