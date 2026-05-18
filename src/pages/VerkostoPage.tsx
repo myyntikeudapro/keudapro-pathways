@@ -1,12 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
-import { Check, Users, Lightbulb, Handshake, Rocket, Network, GraduationCap, Sparkles, Leaf, Globe, Brain, Heart, Briefcase, Calendar, MessageSquare, Send, ClipboardList, ArrowRight } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
+import { Check, Users, Lightbulb, Handshake, Rocket, Network, GraduationCap, Sparkles, Leaf, Globe, Brain, Heart, Briefcase, Send, ClipboardList, ArrowRight, ChevronDown } from "lucide-react";
 
 import partnerNetwork from "@/assets/operator-partner-network.jpg";
 import kasvuVerkosto from "@/assets/kasvu-verkosto.jpg";
+import imgRouteOpinnaytetyo from "@/assets/audience-expert.jpg";
+import imgRouteIdea from "@/assets/dev-step-ajattelu.jpg";
+import imgThemeHuman from "@/assets/audience-leader.jpg";
+import imgThemeAi from "@/assets/banner-osaaminen-ai.jpg";
+import imgThemeKestava from "@/assets/dev-step-kulttuuri.jpg";
+import imgThemeKumppanit from "@/assets/audience-renewal.jpg";
+import imgThemeKv from "@/assets/banner-osaaminen-suunta.jpg";
+import imgThemeTyollisyys from "@/assets/audience-supervisor.jpg";
+import imgThemeJohtaminen from "@/assets/dev-step-toiminta.jpg";
+import imgFormatAamukahvit from "@/assets/banner-osaaminen-kortit.jpg";
+import imgFormatTyopajat from "@/assets/dev-step-tyokalut.jpg";
+import imgFormatWebinaarit from "@/assets/banner-osaaminen-ratkaisee.jpg";
+import imgFormatVerkostot from "@/assets/kasvu-verkosto.jpg";
 
 const providerBenefits = [
   {
