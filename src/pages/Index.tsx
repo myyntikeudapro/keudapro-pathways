@@ -20,24 +20,25 @@ const routes = [
   {
     title: "ÄLY",
     subtitle: "Johtaminen, asiantuntijuus ja tekoäly päätöksenteon tukena",
-    clarification: "Sinulle, jos olet johtaja tai asiantuntija ja haluat kehittää osaamistasi, johtamista ja päätöksentekoa. Reitti tarjoaa valmennuksia johtamiseen, asiantuntijatyöhön, tekoälyn hyödyntämiseen sekä turvallisuuteen ja muutosjohtamiseen.",
+    clarification: "Johtajille ja asiantuntijoille: johtamis-, AI- ja muutosvalmennukset.",
     image: routeAly,
     href: "/aly",
   },
   {
     title: "NOSTE",
     subtitle: "Työelämään, yrittäjyyteen ja muutokseen siirtyminen",
-    clarification: "Sinulle, jos olet vaihtamassa suuntaa ja tarvitset uutta osaamista tai polkua. Reitti tukee uudelleenkouluttautumista, yrittäjyyttä, työllistymistä ja kotoutumista – joustavin koulutuksin ja henkilökohtaisin poluin.",
+    clarification: "Suunnanvaihtajille: uudelleenkoulutus, yrittäjyys, työllistyminen ja kotoutuminen.",
     image: routeNoste,
     href: "/noste",
   },
   {
     title: "KASVU",
     subtitle: "Yrityksen kasvu, uudistuminen ja osaaminen käytäntöön",
-    clarification: "Sinulle, jos johdat tai kehität organisaatiota ja haluat vauhdittaa kasvua. Reitti tarjoaa räätälöityjä ratkaisuja henkilöstön osaamisen kehittämiseen, rekrytointiin sekä liiketoiminnan uudistamiseen.",
+    clarification: "Yrityksille: osaamisen kehittäminen, rekrytointi ja liiketoiminnan uudistaminen.",
     image: routeKasvu,
     href: "/kasvu",
   },
+
 ];
 
 const Index = () => {
