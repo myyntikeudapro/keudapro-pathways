@@ -38,27 +38,29 @@ const providerCriteria = [
   "Sitoutuminen KeudaPRO:n yhteisiin pelisääntöihin ja laatukriteereihin",
 ];
 
-const hubFeatures = [
-  {
-    icon: Lightbulb,
-    title: "Ideoista pilotteihin",
-    text: "Tuo ideasi, opinnäytetyösi tai projektiajatuksesi mukaan – kehitämme niistä toimivia ratkaisuja.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Opinnäytetyöt ja harjoittelut",
-    text: "Tarjoamme oppilaitoksille ja opiskelijoille konkreettisia toimeksiantoja ja kehittämisaihioita.",
-  },
-  {
-    icon: Users,
-    title: "Yhteiskehittäminen",
-    text: "Yritykset, asiantuntijat, opiskelijat ja julkiset toimijat ratkomassa yhdessä konkreettisia haasteita.",
-  },
-  {
-    icon: Rocket,
-    title: "Pilotointi ja kokeilut",
-    text: "Tarjoamme alustan, jolla uudet konseptit testataan käytännössä – nopeasti ja matalalla kynnyksellä.",
-  },
+const hubThemes = [
+  { icon: Heart, text: "Inhimillisesti älykäs ja turvallinen työelämä" },
+  { icon: Brain, text: "Tekoäly, data ja uudistuminen" },
+  { icon: Leaf, text: "Kestävä ja vihreä osaaminen" },
+  { icon: Handshake, text: "Kumppanuudet ja yhteiskehittäminen" },
+  { icon: Globe, text: "Kansainvälinen ja monikielinen koulutus" },
+  { icon: Briefcase, text: "Työllisyys ja jatkuva oppiminen" },
+  { icon: Sparkles, text: "Johtaminen ja Human Future – inhimillinen kilpailuetu" },
+];
+
+const hubFormats = [
+  { icon: Calendar, title: "Aamukahvit ja Hub Live", text: "Lyhyet verkkokeskustelut ajankohtaisista teemoista." },
+  { icon: Users, title: "Työpajat ja Grab!-tapaamiset", text: "Osallistavat yhteiskehittämiset ja sparraukset." },
+  { icon: MessageSquare, title: "Webinaarit ja asiantuntijakeskustelut", text: "Syventävät teemoihin liittyvät tilaisuudet." },
+  { icon: Network, title: "Verkostot ja uutiskirjeet", text: "Pysy mukana, jaa ja opi yhdessä muiden kanssa." },
+];
+
+const hubProcess = [
+  { title: "Ehdotuksen jättäminen", text: "Jätä opinnäyte- tai ideaehdotus verkkolomakkeella." },
+  { title: "Arviointi", text: "Hub-tiimi arvioi ehdotukset kuukausittain ja luokittelee ne teemoittain." },
+  { title: "Valinta ja yhteydenotto", text: "Valituista ehdotuksista otetaan yhteyttä ja sovitaan yhteinen tapaaminen." },
+  { title: "Toteutus", text: "Yhteinen projekti, pilotti, opinnäytetyö tai koulutuskokeilu." },
+  { title: "Tulokset ja näkyvyys", text: "Tulokset julkaistaan KeudaPRO Hubin kanavissa ja yhteisötilaisuuksissa." },
 ];
 
 const VerkostoPage = () => {
