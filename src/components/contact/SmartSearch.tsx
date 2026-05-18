@@ -25,7 +25,7 @@ export function SmartSearch() {
   const [error, setError] = useState<string | null>(null);
 
   const { openWizard } = useWizard();
-  const { openChat } = useCoachPanel();
+  const { openPanel } = useCoachPanel();
 
   const runSearch = async (q: string) => {
     setLoading(true);
@@ -121,7 +121,7 @@ export function SmartSearch() {
           </button>
           <button
             type="button"
-            onClick={() => openChat("reitti")}
+            onClick={() => openPanel()}
             className="flex-1 flex items-center gap-3 rounded-xl bg-[#F5FBFA] hover:bg-teal-50 border border-teal-100 px-4 py-3 transition-colors text-left"
           >
             <MessageCircle className="w-5 h-5 text-teal-700 shrink-0" />
