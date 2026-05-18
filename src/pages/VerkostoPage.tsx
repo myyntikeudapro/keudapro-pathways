@@ -74,8 +74,8 @@ const VerkostoPage = () => {
   return (
     <Layout>
       <SEO
-        title={"Verkosto ja KeudaPRO Hub – Liity mukaan | KeudaPRO"}
-        description={"Hae KeudaPRO:n palveluntuottajaverkostoon tai osallistu KeudaPRO Hubiin – avoin kehittämisalusta opiskelijoille, asiantuntijoille ja yrityksille KUUMA-seudulla."}
+        title={"HUB-verkosto – Liity KeudaPRO:n verkostoon | KeudaPRO"}
+        description={"HUB-verkosto kokoaa KeudaPRO:n palveluntuottajat, asiantuntijat, opiskelijat ja kehittäjät yhteen KUUMA-seudulla. Hae palveluntuottajaksi tai tule mukaan Hubiin."}
         path="/verkosto"
       />
 
@@ -85,10 +85,10 @@ const VerkostoPage = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-teal-900/60" />
         <div className="relative z-10 keuda-container text-center">
           <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-teal-600 text-white text-xs font-semibold mb-5">
-            Verkosto ja Hub
+            HUB-verkosto
           </span>
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 max-w-3xl mx-auto leading-tight">
-            Liity osaksi KUUMA-seudun osaamisen verkostoa
+            HUB-verkosto – KUUMA-seudun osaamisen ekosysteemi
           </h1>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
             KeudaPRO yhdistää palveluntuottajat, asiantuntijat, opiskelijat ja kehittäjät yhdeksi toimivaksi ekosysteemiksi.
