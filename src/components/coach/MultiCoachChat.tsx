@@ -175,8 +175,9 @@ export function MultiCoachChat() {
   if (!activeChat || !config) return null;
 
   return (
-    <div className="fixed z-[62] bottom-0 right-0 md:bottom-6 md:right-6 w-full md:w-[380px] transition-all duration-200 ease-out opacity-100 translate-y-0 pointer-events-auto">
-      <div className="flex flex-col h-[100dvh] md:h-[540px] md:rounded-2xl overflow-hidden border border-border shadow-2xl bg-background">
+    <div className="fixed z-[62] inset-0 md:inset-auto md:bottom-6 md:right-6 md:w-[380px] md:h-[540px] transition-all duration-200 ease-out opacity-100 translate-y-0 pointer-events-auto">
+      <div className="flex flex-col h-full md:rounded-2xl overflow-hidden border border-border shadow-2xl bg-background">
+
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 bg-foreground">
           <div className="flex items-center gap-2">
