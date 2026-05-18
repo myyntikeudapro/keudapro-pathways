@@ -231,7 +231,14 @@ export function MultiCoachChat() {
           )}
 
           {showCoachCTA && !isLoading && (
-            <div className="flex justify-center pt-2">
+            <div className="flex flex-col items-center gap-2 pt-2">
+              <button
+                onClick={() => setShowEndSession(true)}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm"
+              >
+                <Mail className="w-4 h-4" />
+                Lähetä muistio ihmisvalmentajalle
+              </button>
               <a
                 href="https://calendar.app.google/KEf8whD71iKruG979"
                 target="_blank"
@@ -239,8 +246,7 @@ export function MultiCoachChat() {
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30 text-sm text-secondary hover:bg-secondary/20 transition-colors"
               >
                 <UserCheck className="w-4 h-4" />
-                Jutele oikean valmentajan kanssa
-                <span className="font-semibold">Varaa aika →</span>
+                Tai varaa aika valmentajalle →
               </a>
             </div>
           )}
