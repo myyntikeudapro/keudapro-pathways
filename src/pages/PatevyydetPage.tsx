@@ -790,8 +790,8 @@ const PatevyydetPage = () => {
               className="keuda-card-enhanced p-6 md:p-8 space-y-4"
             >
               <div>
-                <Label htmlFor="course">Koulutus tai kortti</Label>
-                <Input id="course" required />
+                <Label htmlFor="course">Koulutus, valmennus tai kortti</Label>
+                <Input id="course" placeholder="Esim. Hätäensiapu 8 t, työhyvinvointivalmennus, tulityökortti…" required />
               </div>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
