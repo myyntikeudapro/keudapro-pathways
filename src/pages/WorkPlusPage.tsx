@@ -158,6 +158,7 @@ function useScrollReveal() {
 
 const WorkPlusPage = () => {
   const { openWizard } = useWizard();
+  const { openChat, openBooking } = useCoachPanel();
   const [muutosturvaOpen, setMuutosturvaOpen] = useState(false);
   const [activeSituation, setActiveSituation] = useState<string | null>(null);
   const [openPanel, setOpenPanel] = useState<string | null>(null);
