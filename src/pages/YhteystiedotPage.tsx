@@ -291,7 +291,7 @@ const YhteystiedotPage = () => {
                 </div>
               </a>
               <a
-                href="tel:+358912345567"
+                href="tel:+358927381"
                 className="flex items-center gap-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 hover:bg-white/15 transition-all"
               >
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
@@ -299,7 +299,7 @@ const YhteystiedotPage = () => {
                 </div>
                 <div>
                   <p className="text-sm text-white/70">Puhelin</p>
-                  <p className="font-medium text-white">+358 (0)9 123 4567</p>
+                  <p className="font-medium text-white">09 27 381</p>
                 </div>
               </a>
               <a
