@@ -18,7 +18,6 @@ const navItems: NavItem[] = [
       { label: "Operaattori", href: "/operaattori" },
       { label: "HUB-verkosto", href: "/verkosto" },
       { label: "Hae palveluntuottajaksi", href: "/verkosto#palveluntuottaja" },
-      { label: "Tutustu Hubiin", href: "/verkosto#hub" },
     ],
   },
   { label: "Ota yhteyttä", href: "/yhteystiedot" },
