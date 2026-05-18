@@ -4,6 +4,11 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { Check, Users, Lightbulb, Handshake, Rocket, Network, GraduationCap, Sparkles, Leaf, Globe, Brain, Heart, Briefcase, Send, ClipboardList, ArrowRight, ChevronDown } from "lucide-react";
 
@@ -22,10 +27,10 @@ import imgFormatAamukahvit from "@/assets/banner-osaaminen-kortit.jpg";
 import imgFormatTyopajat from "@/assets/dev-step-tyokalut.jpg";
 import imgFormatWebinaarit from "@/assets/banner-osaaminen-ratkaisee.jpg";
 import imgFormatVerkostot from "@/assets/kasvu-verkosto.jpg";
-import imgBenefitHankkeet from "@/assets/cat-toimialakohtaiset.jpg";
-import imgBenefitNakyvyys from "@/assets/banner-osaaminen-ratkaisee.jpg";
-import imgBenefitAsiakkuudet from "@/assets/audience-supervisor.jpg";
-import imgBenefitEkosysteemi from "@/assets/kasvu-verkosto.jpg";
+import imgBenefitHankkeet from "@/assets/verkosto-benefit-projects.jpg";
+import imgBenefitNakyvyys from "@/assets/verkosto-benefit-visibility.jpg";
+import imgBenefitAsiakkuudet from "@/assets/verkosto-benefit-clients.jpg";
+import imgBenefitEkosysteemi from "@/assets/verkosto-benefit-ecosystem.jpg";
 
 const providerBenefits = [
   {
@@ -145,8 +150,33 @@ const hubProcess = [
 
 const VerkostoPage = () => {
   const location = useLocation();
+  const { toast } = useToast();
   const [openTheme, setOpenTheme] = useState<string | null>(hubThemes[0].id);
   const [openBenefit, setOpenBenefit] = useState<string | null>(providerBenefits[0].id);
+  const [applyOpen, setApplyOpen] = useState(false);
+  const [applyForm, setApplyForm] = useState({
+    name: "",
+    organization: "",
+    email: "",
+    phone: "",
+    website: "",
+    expertise: "",
+    themes: "",
+    message: "",
+  });
+  const handleApplyChange = (field: keyof typeof applyForm) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setApplyForm((p) => ({ ...p, [field]: e.target.value }));
+  const handleApplySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!applyForm.name.trim() || !applyForm.email.trim() || !applyForm.expertise.trim()) {
+      toast({ title: "Täytä pakolliset kentät", description: "Nimi, sähköposti ja osaamisalue ovat pakollisia.", variant: "destructive" });
+      return;
+    }
+    toast({ title: "Hakemus lähetetty!", description: "Kiitos – olemme sinuun yhteydessä pian." });
+    setApplyForm({ name: "", organization: "", email: "", phone: "", website: "", expertise: "", themes: "", message: "" });
+    setApplyOpen(false);
+  };
   useEffect(() => {
     if (location.hash === "#hub") {
       const el = document.getElementById("hub");
@@ -259,9 +289,63 @@ const VerkostoPage = () => {
                 </li>
               ))}
             </ul>
-            <Button asChild variant="cta" size="lg" className="w-full sm:w-auto">
-              <Link to="/yhteystiedot?aihe=palveluntuottaja">Jätä hakemus →</Link>
-            </Button>
+            <Dialog open={applyOpen} onOpenChange={setApplyOpen}>
+              <DialogTrigger asChild>
+                <Button variant="cta" size="lg" className="w-full sm:w-auto">
+                  Jätä hakemus →
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>Hakemus palveluntuottajaverkostoon</DialogTitle>
+                  <DialogDescription>
+                    Kerro lyhyesti itsestäsi ja osaamisestasi. Käsittelemme hakemuksen luottamuksellisesti ja olemme sinuun yhteydessä parin viikon sisällä. Tähdellä (*) merkityt kentät ovat pakollisia.
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleApplySubmit} className="space-y-4 mt-2">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="apply-name">Nimi *</Label>
+                      <Input id="apply-name" value={applyForm.name} onChange={handleApplyChange("name")} maxLength={100} required />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="apply-org">Yritys / organisaatio</Label>
+                      <Input id="apply-org" value={applyForm.organization} onChange={handleApplyChange("organization")} maxLength={150} />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="apply-email">Sähköposti *</Label>
+                      <Input id="apply-email" type="email" value={applyForm.email} onChange={handleApplyChange("email")} maxLength={255} required />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="apply-phone">Puhelin</Label>
+                      <Input id="apply-phone" type="tel" value={applyForm.phone} onChange={handleApplyChange("phone")} maxLength={30} />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="apply-web">Verkkosivu tai LinkedIn</Label>
+                    <Input id="apply-web" type="url" placeholder="https://" value={applyForm.website} onChange={handleApplyChange("website")} maxLength={255} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="apply-expertise">Osaamisalue *</Label>
+                    <Input id="apply-expertise" placeholder="Esim. johtamisen valmennus, tekoälykoulutus, työhyvinvointi…" value={applyForm.expertise} onChange={handleApplyChange("expertise")} maxLength={200} required />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="apply-themes">Mitkä Hubin teemat kiinnostavat?</Label>
+                    <Input id="apply-themes" placeholder="Esim. Tekoäly & data, Kestävä osaaminen…" value={applyForm.themes} onChange={handleApplyChange("themes")} maxLength={200} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="apply-msg">Kerro lyhyesti itsestäsi ja yhteistyöideastasi</Label>
+                    <Textarea id="apply-msg" rows={4} maxLength={1000} value={applyForm.message} onChange={handleApplyChange("message")} />
+                  </div>
+                  <DialogFooter>
+                    <Button type="button" variant="outline" onClick={() => setApplyOpen(false)}>Peruuta</Button>
+                    <Button type="submit" variant="cta">
+                      <Send className="w-4 h-4 mr-2" /> Lähetä hakemus
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </section>
