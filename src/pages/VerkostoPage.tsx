@@ -418,17 +418,28 @@ const VerkostoPage = () => {
             <p className="text-center text-muted-foreground mb-8">
               KeudaPRO Hub tarjoaa yhteisölleen erilaisia maksuttomia osallistumismuotoja.
             </p>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {hubFormats.map((f) => (
-                <div key={f.title} className="bg-white rounded-xl p-6 border border-border shadow-sm">
-                  <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-3">
-                    <f.icon className="w-5 h-5 text-teal-700" />
-                  </div>
-                  <h4 className="font-semibold text-foreground mb-2">{f.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{f.text}</p>
-                </div>
-              ))}
-            </div>
+            <Carousel opts={{ align: "start", loop: true }} className="max-w-6xl mx-auto px-2">
+              <CarouselContent className="-ml-4">
+                {hubFormats.map((f) => (
+                  <CarouselItem key={f.title} className="pl-4 sm:basis-1/2 lg:basis-1/3">
+                    <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden flex flex-col h-full">
+                      <div className="relative h-44 overflow-hidden">
+                        <img src={f.image} alt={f.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+                        <h4 className="absolute bottom-3 left-4 right-4 text-lg font-bold text-white leading-tight">
+                          {f.title}
+                        </h4>
+                      </div>
+                      <div className="p-5 flex-1">
+                        <p className="text-sm text-muted-foreground leading-relaxed">{f.text}</p>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden sm:flex -left-2" />
+              <CarouselNext className="hidden sm:flex -right-2" />
+            </Carousel>
           </div>
 
           {/* Values */}
