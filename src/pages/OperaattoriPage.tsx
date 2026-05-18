@@ -198,11 +198,11 @@ const OperaattoriPage = () => {
                 </div>
 
                 {/* Right: white content */}
-                <div className="p-6 md:p-8 flex flex-col justify-center bg-white">
+                <div className="p-6 md:p-8 flex flex-col justify-center bg-white min-w-0">
                   <div className="text-xs font-bold uppercase tracking-wider text-teal-700 mb-2">
                     {card.kicker}
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight">
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-3 leading-tight break-words hyphens-auto" lang="fi">
                     {card.title}
                   </h3>
                   <p className="text-sm md:text-base text-muted-foreground mb-4 leading-relaxed">
