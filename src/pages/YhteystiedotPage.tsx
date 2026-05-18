@@ -170,36 +170,10 @@ const YhteystiedotPage = () => {
         </div>
       </section>
 
-      {/* ════════ VALINTAOSIO ════════ */}
+      {/* ════════ ÄLYKÄS HAKU ════════ */}
       <section className="py-16 md:py-20 bg-muted/30">
         <div className="keuda-container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Miten voimme auttaa?
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Valitse tilanne – ohjaamme sinut oikeaan paikkaan.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {helpCards.map((card) => (
-              <div
-                key={card.title}
-                className="keuda-card-enhanced flex flex-col h-full"
-              >
-                <h3 className="text-lg font-bold text-foreground mb-2">
-                  {card.title}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-6 flex-1">
-                  {card.text}
-                </p>
-                <Button variant="cta" size="default" asChild className="w-full">
-                  <a href={card.href}>{card.cta}</a>
-                </Button>
-              </div>
-            ))}
-          </div>
+          <SmartSearch />
         </div>
       </section>
 
