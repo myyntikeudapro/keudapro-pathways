@@ -448,17 +448,13 @@ const WorkPlusPage = () => {
                 className="w-24 h-24 md:w-40 md:h-40 rounded-2xl object-cover flex-shrink-0 border border-primary/20"
               />
               <div className="flex-1 min-w-0">
-                <div className="flex items-start gap-4 mb-5">
-                  <div className="w-11 h-11 rounded-xl bg-secondary/20 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-5 h-5 text-secondary" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg md:text-xl font-bold text-background mb-1">Miksi aloittaa AI-valmentajan kanssa?</h3>
-                    <p className="text-sm" style={{ color: "hsl(210 15% 70%)" }}>
-                      Ei kynnystä, ei kalenteria, ei tuomiota. Saat ensiviipaleen suunnitelmasta omassa tahdissasi.
-                    </p>
-                  </div>
+                <div className="mb-5">
+                  <h3 className="text-lg md:text-xl font-bold text-background mb-1">Miksi aloittaa AI-valmentajan kanssa?</h3>
+                  <p className="text-sm" style={{ color: "hsl(210 15% 70%)" }}>
+                    Ei kynnystä, ei kalenteria, ei tuomiota. Saat ensiviipaleen suunnitelmasta omassa tahdissasi.
+                  </p>
                 </div>
+
 
                 <div className="grid sm:grid-cols-3 gap-4 mb-5">
                   {[
