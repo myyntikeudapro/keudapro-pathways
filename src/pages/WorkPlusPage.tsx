@@ -7,6 +7,7 @@ import { ArrowRight, Map, Handshake, Rocket, ChevronDown, Wallet, ShieldCheck, S
 
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
+import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 import { Panel1, Panel2, Panel3, Panel4, Panel5 } from "@/components/noste/PathPanels";
 import { cn } from "@/lib/utils";
