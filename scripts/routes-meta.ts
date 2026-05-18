@@ -14,7 +14,7 @@ export interface RouteMeta {
 export const routes: RouteMeta[] = [
   {
     path: "/",
-    title: "KeudaPRO – Osaamisen ja siirtymien operaattori KUUMA-seudulla",
+    title: "KeudaPRO – Osaamisen ja siirtymien operaattori",
     description:
       "Johtamiskoulutukset (ÄLY), työhönvalmennus (NOSTE) ja yritysten kasvuohjelmat (KASVU) KUUMA-seudulla – yksi reitti, kolme suuntaa.",
     changefreq: "weekly",
