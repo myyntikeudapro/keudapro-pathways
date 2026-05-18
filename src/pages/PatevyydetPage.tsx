@@ -751,10 +751,10 @@ const PatevyydetPage = () => {
       </section>
 
       {/* Tutkintopolku-banneri */}
-      <section className="py-6" style={{ backgroundColor: "#F5F5F5" }}>
+      <section className="py-6" style={{ backgroundColor: "#0B0B0B" }}>
         <div className="keuda-container">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <p className="text-base text-foreground">
+            <p className="text-base text-white">
               Etsitkö tutkintotavoitteista koulutusta tai pidempää ammatillista polkua?
             </p>
             <div className="flex flex-col md:items-end">
@@ -762,11 +762,11 @@ const PatevyydetPage = () => {
                 href="https://www.keuda.fi/koulutukset/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary font-semibold hover:underline"
+                className="text-white font-semibold hover:underline"
               >
                 Tutustu Keudan tutkintokoulutuksiin →
               </a>
-              <span className="text-xs text-muted-foreground mt-1">
+              <span className="text-xs text-white/70 mt-1">
                 Keuda tarjoaa ammatillisia tutkintoja KUUMA-seudulla.
               </span>
             </div>
