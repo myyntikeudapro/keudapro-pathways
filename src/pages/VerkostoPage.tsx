@@ -146,6 +146,7 @@ const hubProcess = [
 const VerkostoPage = () => {
   const location = useLocation();
   const [openTheme, setOpenTheme] = useState<string | null>(hubThemes[0].id);
+  const [openBenefit, setOpenBenefit] = useState<string | null>(providerBenefits[0].id);
   useEffect(() => {
     if (location.hash === "#hub") {
       const el = document.getElementById("hub");
