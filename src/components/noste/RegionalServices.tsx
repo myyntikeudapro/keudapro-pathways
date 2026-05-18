@@ -257,18 +257,19 @@ function VantaaModal({ open, onClose }: { open: boolean; onClose: () => void }) 
           {([
             { id: "aikuiset" as const, label: "Aikuiset" },
             { id: "nuoret" as const, label: "Alle 25-vuotiaat" },
-            { id: "kansainvaliset" as const, label: "Kansainväliset asiakkaat" },
-          ]).map((t) => (
+            { id: "kansainvaliset" as const, label: "Kansainväliset asiakkaat", shortLabel: "Kansainväliset" },
+          ] as { id: VantaaTab; label: string; shortLabel?: string }[]).map((t) => (
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors duration-150 ${
+              className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors duration-150 ${
                 tab === t.id
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-foreground hover:bg-accent"
               }`}
             >
-              {t.label}
+              <span className="sm:hidden">{t.shortLabel ?? t.label}</span>
+              <span className="hidden sm:inline">{t.label}</span>
             </button>
           ))}
         </div>
