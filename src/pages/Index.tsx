@@ -92,22 +92,22 @@ const Index = () => {
                 {
                   image: categoryTurvallisuus,
                   title: "Turvallisuus",
-                  items: "Työturvallisuus · Tulityö · Ensiapu",
+                  items: "Työturvallisuuskortti · Tulityökortti · Sähkötyöturvallisuus · Akkuturvallisuus · EA1 & EA2 Ensiapu",
                 },
                 {
                   image: categoryHygienia,
                   title: "Hygienia & ravintola",
-                  items: "Hygieniapassi · Anniskelupassi · Lääkehoito",
+                  items: "Hygieniapassi · Anniskelupassi · Lääkehoitopassi · Allergeenikoulutus",
                 },
                 {
                   image: categoryTyoelama,
-                  title: "Työelämä",
-                  items: "LinkedIn-kortti · Työkieli-Suomi · KV-kortti",
+                  title: "Työelämä & kieli",
+                  items: "Työhyvinvointikortti · LinkedIn-kortti · KV-kortti · Suomi työkielenä · Selkosuomi",
                 },
                 {
                   image: categoryAi,
                   title: "AI & digi",
-                  items: "Tekoälyn ammattiosaaja",
+                  items: "3T-kortti · Tekoälyn ammattiosaaja · AI työnhaussa · Digitaidot työelämässä",
                 },
               ].map((cat) => (
                 <a
