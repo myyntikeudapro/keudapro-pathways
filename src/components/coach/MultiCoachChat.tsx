@@ -175,10 +175,11 @@ export function MultiCoachChat() {
   if (!activeChat || !config) return null;
 
   return (
-    <div className="fixed z-[62] bottom-0 right-0 md:bottom-6 md:right-6 w-full md:w-[380px] transition-all duration-200 ease-out opacity-100 translate-y-0 pointer-events-auto">
-      <div className="flex flex-col h-[100dvh] md:h-[540px] md:rounded-2xl overflow-hidden border border-border shadow-2xl bg-background">
+    <div className="fixed z-[62] inset-0 md:inset-auto md:bottom-6 md:right-6 md:w-[380px] md:h-[540px] transition-all duration-200 ease-out opacity-100 translate-y-0 pointer-events-auto">
+      <div className="flex flex-col h-full md:rounded-2xl overflow-hidden border border-border shadow-2xl bg-background">
+
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-foreground">
+        <div className="flex items-center justify-between px-4 py-3 bg-foreground" style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))" }}>
           <div className="flex items-center gap-2">
             <button onClick={() => { closeChat(); openPanel(); }} className="p-1 rounded hover:bg-background/10 transition-colors" aria-label="Takaisin">
               <ArrowLeft className="w-4 h-4 text-background" />
@@ -205,7 +206,7 @@ export function MultiCoachChat() {
         </div>
 
         {/* Messages */}
-        <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3 bg-muted/30">
+        <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3 bg-muted/30">
           {messages.map((m, i) => (
             <div key={i} className={cn("flex", m.role === "user" ? "justify-end" : "justify-start")}>
               <div className={cn(
@@ -274,7 +275,7 @@ export function MultiCoachChat() {
         </div>
 
         {/* Input */}
-        <div className="p-3 border-t border-border bg-background space-y-1.5">
+        <div className="p-3 border-t border-border bg-background space-y-1.5" style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}>
           <form onSubmit={(e) => { e.preventDefault(); send(input); }} className="flex gap-2">
             <input
               ref={inputRef}
