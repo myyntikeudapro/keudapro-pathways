@@ -4,6 +4,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import { ArrowRight, ExternalLink, Zap, TrendingUp, Building2, GraduationCap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AssessmentModal } from "@/components/growth/AssessmentModal";
+import { GrowthCheckup } from "@/components/growth/GrowthCheckup";
 
 import imgKaynistys from "@/assets/growth-kaynistys.jpg";
 import imgSkaalaus from "@/assets/growth-skaalaus.jpg";
