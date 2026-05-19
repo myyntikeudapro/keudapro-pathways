@@ -154,6 +154,7 @@ const routeToLevel: Record<Category["id"], 1 | 2 | 3 | 4> = {
 export function KasvuCategoryAccordion() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [modalLevel, setModalLevel] = useState<1 | 2 | 3 | 4 | null>(null);
+  const [trainingNeedsOpen, setTrainingNeedsOpen] = useState(false);
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const toggle = (id: string) =>
