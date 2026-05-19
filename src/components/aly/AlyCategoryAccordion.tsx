@@ -46,6 +46,7 @@ const categories: Category[] = [
     image: progJohtaminen,
     programs: [
       {
+        slug: "johtamisen-valmennukset",
         label: "Johtamisen ja esihenkilötyön valmennukset",
         href: "#esihenkilotyo",
         description:
@@ -54,6 +55,7 @@ const categories: Category[] = [
         cta: "Katso sisältö →",
       },
       {
+        slug: "osaamisen-johtaminen",
         label: "Osaamisen johtamisen valmennusohjelma",
         href: "#osaamisen-johtaminen",
         description:
