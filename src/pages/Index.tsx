@@ -98,7 +98,7 @@ const Index = () => {
                 {
                   image: categoryHygienia,
                   title: "Hygienia & ravintola",
-                  items: "Hygieniapassi · Anniskelupassi · Allergeenikoulutus",
+                  items: "Hygieniapassi · Anniskelupassi",
                 },
                 {
                   image: categoryTyoelama,
