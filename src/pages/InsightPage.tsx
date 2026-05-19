@@ -87,22 +87,6 @@ const InsightPage = () => {
                 </div>
               </Link>
             ))}
-            <a
-              href="/noste"
-              className="keuda-card-enhanced overflow-hidden p-0 group block hover:border-primary/30 transition-all duration-200 md:col-span-2"
-            >
-              <div className="flex gap-4 p-4 md:p-5 items-center justify-center">
-                <div className="flex-1 min-w-0 text-center">
-                  <p className="text-sm md:text-base font-semibold text-foreground mb-1">
-                    Etsitkö töitä tai uutta suuntaa työelämässä?
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-primary group-hover:underline">
-                    Katso NOSTE-reitti
-                    <ArrowDown className="w-3 h-3" />
-                  </span>
-                </div>
-              </div>
-            </a>
           </div>
         </div>
       </section>
