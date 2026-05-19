@@ -174,6 +174,20 @@ const WorkPlusPage = () => {
     }, 100);
   }, []);
 
+  const handleToggleSituation = useCallback((id: string) => {
+    setActiveSituation((prev) => {
+      if (prev === id) {
+        setOpenPanel(null);
+        return null;
+      }
+      setOpenPanel(null);
+      setTimeout(() => {
+        pathRefs.current[id]?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+      return id;
+    });
+  }, []);
+
   const handleCtaClick = useCallback((id: string) => {
     setOpenPanel((prev) => (prev === id ? null : id));
   }, []);
