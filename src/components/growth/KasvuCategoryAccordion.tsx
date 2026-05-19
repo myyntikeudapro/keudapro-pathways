@@ -5,6 +5,7 @@ import { ChevronDown, ChevronRight, ArrowRight, ExternalLink, Zap, TrendingUp, B
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { AssessmentModal } from "@/components/growth/AssessmentModal";
+import { TrainingNeedsModal } from "@/components/growth/TrainingNeedsModal";
 import { BOOKING_URL } from "@/lib/booking";
 
 import imgKaynistys from "@/assets/growth-kaynistys.jpg";
@@ -153,6 +154,7 @@ const routeToLevel: Record<Category["id"], 1 | 2 | 3 | 4> = {
 export function KasvuCategoryAccordion() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [modalLevel, setModalLevel] = useState<1 | 2 | 3 | 4 | null>(null);
+  const [trainingNeedsOpen, setTrainingNeedsOpen] = useState(false);
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const toggle = (id: string) =>
@@ -314,7 +316,13 @@ export function KasvuCategoryAccordion() {
                           variant="cta"
                           size="lg"
                           className="w-full sm:flex-1"
-                          onClick={() => setModalLevel(routeToLevel[cat.id])}
+                          onClick={() => {
+                            if (cat.id === "osaaminen") {
+                              setTrainingNeedsOpen(true);
+                            } else {
+                              setModalLevel(routeToLevel[cat.id]);
+                            }
+                          }}
                         >
                           {cat.ctaText}
                         </Button>
@@ -344,6 +352,11 @@ export function KasvuCategoryAccordion() {
             onOpenChange={(open) => { if (!open) setModalLevel(null); }}
           />
         )}
+
+        <TrainingNeedsModal
+          open={trainingNeedsOpen}
+          onOpenChange={setTrainingNeedsOpen}
+        />
       </div>
     </section>
   );
