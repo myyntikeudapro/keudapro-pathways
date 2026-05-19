@@ -82,7 +82,15 @@ export function Footer() {
         <div className="keuda-container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-white">
-              <span className="font-bold">KeudaPRO</span> – osaamisen ja siirtymien operaattori.
+              <Link
+                to="/admin/login"
+                className="font-bold hover:text-[hsl(var(--cta))] transition-colors"
+                aria-label="Sisältöeditorin kirjautuminen"
+                title="Sisältöeditori"
+              >
+                KeudaPRO
+              </Link>
+              {" "}– osaamisen ja siirtymien operaattori.
             </p>
             <p className="text-xs text-gray-400">
               © {new Date().getFullYear()} KeudaPRO. Kaikki oikeudet pidätetään.
