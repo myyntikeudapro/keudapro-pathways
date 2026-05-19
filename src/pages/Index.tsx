@@ -93,12 +93,12 @@ const Index = () => {
                 {
                   image: categoryTurvallisuus,
                   title: "Turvallisuus",
-                  items: "Työturvallisuuskortti · Tulityökortti · Sähkötyöturvallisuus · Akkuturvallisuus · EA1 & EA2 Ensiapu",
+                  items: "Työturvallisuuskortti · Tulityökortti · Sähkötyöturvallisuus · Akkuturvallisuus · EA1 & EA2 Ensiapu · Lääkehoito",
                 },
                 {
                   image: categoryHygienia,
                   title: "Hygienia & ravintola",
-                  items: "Hygieniapassi · Anniskelupassi · Lääkehoitopassi · Allergeenikoulutus",
+                  items: "Hygieniapassi · Anniskelupassi · Allergeenikoulutus",
                 },
                 {
                   image: categoryTyoelama,
