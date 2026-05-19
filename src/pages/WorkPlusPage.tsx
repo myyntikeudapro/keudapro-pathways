@@ -10,6 +10,7 @@ import { useWizard } from "@/contexts/WizardContext";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 import { Panel1, Panel2, Panel3, Panel4, Panel5 } from "@/components/noste/PathPanels";
+import { OwnWorkProfileModal } from "@/components/noste/OwnWorkProfileModal";
 import { cn } from "@/lib/utils";
 import {
   Tooltip,
@@ -160,6 +161,7 @@ const WorkPlusPage = () => {
   const { openWizard } = useWizard();
   const { openChat, openBooking } = useCoachPanel();
   const [muutosturvaOpen, setMuutosturvaOpen] = useState(false);
+  const [ownWorkProfileOpen, setOwnWorkProfileOpen] = useState(false);
   const [activeSituation, setActiveSituation] = useState<string | null>(null);
   const [openPanel, setOpenPanel] = useState<string | null>(null);
   const stepsReveal = useScrollReveal();
@@ -298,7 +300,11 @@ const WorkPlusPage = () => {
                           variant="cta"
                           size="lg"
                           className="w-full"
-                          onClick={() => handleCtaClick(path.id)}
+                          onClick={() =>
+                            path.id === "polku5"
+                              ? setOwnWorkProfileOpen(true)
+                              : handleCtaClick(path.id)
+                          }
                         >
                           {path.ctaText}
                         </Button>
@@ -529,6 +535,7 @@ const WorkPlusPage = () => {
       </div>
 
       <MuutosturvaFormModal open={muutosturvaOpen} onOpenChange={setMuutosturvaOpen} />
+      <OwnWorkProfileModal open={ownWorkProfileOpen} onOpenChange={setOwnWorkProfileOpen} />
       
     </Layout>
   );
