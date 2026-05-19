@@ -38,10 +38,10 @@ const audiences = [
   },
   {
     image: audienceRenewal,
-    label: "Uudistumista pohtiville",
+    label: "Uudistumista pohtiville – etsitkö töitä tai uutta suuntaa työelämässä?",
     description: "Löydät suunnan ja työkalut seuraavaan askeleeseen.",
-    anchorLabel: "Katso muut asiantuntijakoulutukset",
-    href: "/aly#muut-asiantuntija",
+    anchorLabel: "Katso NOSTE-reitti",
+    href: "/noste",
   },
 ];
 
