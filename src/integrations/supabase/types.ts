@@ -51,6 +51,7 @@ export type Database = {
           cta_type: Database["public"]["Enums"]["cta_type"]
           cta_url: string | null
           id: string
+          image_url: string | null
           ingress: string
           published: boolean
           read_more_url: string | null
@@ -64,6 +65,7 @@ export type Database = {
           cta_type?: Database["public"]["Enums"]["cta_type"]
           cta_url?: string | null
           id?: string
+          image_url?: string | null
           ingress?: string
           published?: boolean
           read_more_url?: string | null
@@ -77,6 +79,7 @@ export type Database = {
           cta_type?: Database["public"]["Enums"]["cta_type"]
           cta_url?: string | null
           id?: string
+          image_url?: string | null
           ingress?: string
           published?: boolean
           read_more_url?: string | null
