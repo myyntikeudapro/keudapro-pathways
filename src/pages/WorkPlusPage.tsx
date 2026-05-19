@@ -300,7 +300,11 @@ const WorkPlusPage = () => {
                           variant="cta"
                           size="lg"
                           className="w-full"
-                          onClick={() => handleCtaClick(path.id)}
+                          onClick={() =>
+                            path.id === "polku5"
+                              ? setOwnWorkProfileOpen(true)
+                              : handleCtaClick(path.id)
+                          }
                         >
                           {path.ctaText}
                         </Button>
