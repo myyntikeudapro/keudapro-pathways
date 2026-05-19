@@ -134,6 +134,7 @@ export default function AdminPage() {
       read_more_url: "",
       cta_type: "ask",
       cta_url: "",
+      image_url: null,
       published: true,
     });
     setEditorOpen(true);
