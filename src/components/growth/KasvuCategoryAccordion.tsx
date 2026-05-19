@@ -180,7 +180,7 @@ export function KasvuCategoryAccordion() {
             Valitse kasvureitti
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Valitse polku — näet siihen kuuluvat ratkaisut ja etenemismallin.
+            Valitse polku — kartoita tilanteesi ja varaa aika valmentajalle.
           </p>
         </div>
 
