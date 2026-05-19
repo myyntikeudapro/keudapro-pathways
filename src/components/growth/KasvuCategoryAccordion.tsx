@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ChevronDown, ChevronRight, ArrowRight, ExternalLink, Zap, TrendingUp, Building2, GraduationCap } from "lucide-react";
@@ -157,6 +157,17 @@ export function KasvuCategoryAccordion() {
   const [trainingNeedsOpen, setTrainingNeedsOpen] = useState(false);
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
+  const openAndScroll = (id: string) => {
+    setOpenCategory(id);
+    requestAnimationFrame(() => {
+      const el = categoryRefs.current[id];
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    });
+  };
+
   const toggle = (id: string) =>
     setOpenCategory((prev) => {
       const next = prev === id ? null : id;
@@ -171,6 +182,17 @@ export function KasvuCategoryAccordion() {
       }
       return next;
     });
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const id = (e as CustomEvent<{ id: string }>).detail?.id;
+      if (id && categoryRefs.current[id] !== undefined) {
+        openAndScroll(id);
+      }
+    };
+    window.addEventListener("open-kasvu-category", handler);
+    return () => window.removeEventListener("open-kasvu-category", handler);
+  }, []);
 
   return (
     <section id="kasvupolut" className="py-16 md:py-20 bg-[#E4F0EE]">
