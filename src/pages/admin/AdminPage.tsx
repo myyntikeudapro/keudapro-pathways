@@ -354,6 +354,9 @@ export default function AdminPage() {
               {/* Preview */}
               <div className="rounded border bg-background p-4">
                 <p className="text-xs font-medium uppercase text-muted-foreground mb-2">Esikatselu</p>
+                {editing.image_url && (
+                  <img src={editing.image_url} alt="" className="w-full h-40 object-cover rounded mb-3" />
+                )}
                 <h4 className="font-semibold text-foreground">{editing.title || "Kortin nimi"}</h4>
                 {editing.ingress && <p className="text-sm text-muted-foreground mt-1">{editing.ingress}</p>}
                 <div className="mt-3 flex gap-2 text-xs">
