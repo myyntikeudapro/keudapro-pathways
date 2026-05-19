@@ -331,7 +331,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                   onClick={handleSubmit}
                 >
                   <Send className="w-4 h-4 mr-2" />
-                  Lähetä tiedot Heikille
+                  Lähetä tiedot Heikki Kallungille
                 </Button>
                 <Button
                   variant="outline"
@@ -341,7 +341,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                 >
                   <a href="tel:+358401906912">
                     <Phone className="w-4 h-4 mr-2" />
-                    Soita suoraan Heikille
+                    Soita Heikki Kallungille
                   </a>
                 </Button>
               </div>
