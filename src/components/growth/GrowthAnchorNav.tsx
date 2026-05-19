@@ -4,9 +4,7 @@ const anchors = [
   { label: "Kasvuvaiheesi", href: "#kasvureitit" },
   { label: "Kasvupolut", href: "#kasvupolut" },
   { label: "Toimialakartta", href: "#toimialakartta" },
-  { label: "Paketit ja hinnat", href: "#paketit" },
   { label: "FAQ", href: "#faq" },
-  { label: "Aloita", href: "#aloita" },
 ];
 
 export function GrowthAnchorNav() {
