@@ -174,9 +174,6 @@ export function GrowthRoutes() {
     });
   };
 
-  const handleCtaClick = (route: typeof routes[0]) => {
-    setModalLevel(routeToLevel[route.id] ?? 1);
-  };
 
   return (
     <section id="kasvureitit" className="py-16 md:py-20 bg-muted/30">
