@@ -535,6 +535,7 @@ const WorkPlusPage = () => {
       </div>
 
       <MuutosturvaFormModal open={muutosturvaOpen} onOpenChange={setMuutosturvaOpen} />
+      <OwnWorkProfileModal open={ownWorkProfileOpen} onOpenChange={setOwnWorkProfileOpen} />
       
     </Layout>
   );
