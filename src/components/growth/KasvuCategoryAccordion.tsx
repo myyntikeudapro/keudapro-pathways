@@ -352,6 +352,11 @@ export function KasvuCategoryAccordion() {
             onOpenChange={(open) => { if (!open) setModalLevel(null); }}
           />
         )}
+
+        <TrainingNeedsModal
+          open={trainingNeedsOpen}
+          onOpenChange={setTrainingNeedsOpen}
+        />
       </div>
     </section>
   );
