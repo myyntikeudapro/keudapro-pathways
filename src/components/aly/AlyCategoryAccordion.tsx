@@ -254,6 +254,7 @@ function ProgramCard({
 
 export function AlyCategoryAccordion() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [highlightedSlug, setHighlightedSlug] = useState<string | null>(null);
   const location = useLocation();
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -267,9 +268,33 @@ export function AlyCategoryAccordion() {
     });
   };
 
+  const scrollToProgram = (slug: string) => {
+    const el = document.getElementById(`prog-${slug}`);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
+
   useEffect(() => {
     const hash = location.hash.replace("#", "");
     if (!hash) return;
+
+    // Specific program: #prog-<slug>
+    if (hash.startsWith("prog-")) {
+      const slug = hash.slice("prog-".length);
+      const cat = categories.find((c) => c.programs.some((p) => p.slug === slug));
+      if (cat) {
+        setOpenCategory(cat.id);
+        setHighlightedSlug(slug);
+        // Wait for category to expand, then scroll to specific card
+        setTimeout(() => scrollToProgram(slug), 250);
+        const t = setTimeout(() => setHighlightedSlug(null), 2800);
+        return () => clearTimeout(t);
+      }
+    }
+
+    // Category-level hash
     const match = categories.find((c) => c.id === hash);
     if (match) {
       setOpenCategory(match.id);
