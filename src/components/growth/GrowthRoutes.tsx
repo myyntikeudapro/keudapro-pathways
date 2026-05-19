@@ -162,11 +162,9 @@ const routeToLevel: Record<string, 1 | 2 | 3 | 4> = {
 
 /* ─── Main component ─── */
 export function GrowthRoutes() {
-  const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
   const [modalLevel, setModalLevel] = useState<1 | 2 | 3 | 4 | null>(null);
 
   const handleLevelClick = (id: string) => {
-    setSelectedLevel(id);
     requestAnimationFrame(() => {
       const el = document.getElementById(`route-${id}`);
       if (el) {
