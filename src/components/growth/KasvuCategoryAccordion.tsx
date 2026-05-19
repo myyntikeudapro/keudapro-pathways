@@ -5,6 +5,7 @@ import { ChevronDown, ChevronRight, ArrowRight, ExternalLink, Zap, TrendingUp, B
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { AssessmentModal } from "@/components/growth/AssessmentModal";
+import { BOOKING_URL } from "@/lib/booking";
 
 import imgKaynistys from "@/assets/growth-kaynistys.jpg";
 import imgSkaalaus from "@/assets/growth-skaalaus.jpg";
@@ -31,15 +32,14 @@ const categories: Category[] = [
     icon: Zap,
     title: "Kasvu käyntiin",
     desc: "Käynnistys · 40 000 – 120 000 €/v",
-    intro:
-      "Myynti, asiakashankinta ja ensimmäinen skaalaus — rakenna kassavirta ja vakioasiakkuudet.",
+    intro: "Myyntiputki, vakioasiakkaat ja kassavirta kuntoon.",
     mindset: "Rohkeus myydä — asiakkaasta kassavirtaan",
     image: imgKaynistys,
     modules: [
-      "Rakennat ensimmäisen toimivan myyntiputken ja vakioasiakkuudet",
-      "Kirkkastat palvelusi ja hinnoittelet sen kannattavasti",
-      "Saat näkyvyyttä oikeille asiakkaille ilman isoa markkinointibudjettia",
-      "Kasvun sparraus 1:1 — et jää yksin päätösten kanssa",
+      "Toimiva myyntiputki",
+      "Palvelun kirkastus ja hinnoittelu",
+      "Näkyvyys oikeille asiakkaille",
+      "Sparraus 1:1 päätöksiin",
     ],
     ctaText: "Aloita kasvukartoitus",
     transition:
@@ -51,15 +51,14 @@ const categories: Category[] = [
     icon: TrendingUp,
     title: "Skaalaus ja systematisointi",
     desc: "Skaalaus · 120 000 – 600 000 €/v",
-    intro:
-      "Prosessit, tiimi ja myyntiputki kuntoon — rakenna johtamisrakenne ja vapaudu pullonkaulasta.",
+    intro: "Prosessit, tiimi ja myynti irti pullonkaulasta.",
     mindset: "Johtaja rakentaa — ei tee kaikkea itse",
     image: imgSkaalaus,
     modules: [
-      "Vapautat itsesi operatiivisesta työstä rakentamalla toimivat prosessit",
-      "Rakennat myyntiputken joka toimii ilman jatkuvaa huomiotasi",
-      "Otat tekoälyn ja digitalisaation käyttöön siellä missä ne tuottavat eniten",
-      "Rekrytoit ja sitoutat oikeat ihmiset kasvun vauhtiin",
+      "Toimivat prosessit",
+      "Itsenäinen myyntiputki",
+      "Tekoäly ja digi arjessa",
+      "Rekrytointi ja sitouttaminen",
     ],
     ctaText: "Aloita skaalauskartoitus",
     transition:
@@ -71,15 +70,14 @@ const categories: Category[] = [
     icon: Building2,
     title: "Teollistuminen ja uudistuminen",
     desc: "Kasvu ja uudistuminen · 600 000 – 1 200 000 €/v",
-    intro:
-      "Omistajan roolin muutos, hallitustyö ja kansainvälistyminen — yritys toimii ilman sinua.",
+    intro: "Omistajan rooli, hallitustyö ja kansainvälistyminen.",
     mindset: "Omistaja johtaa — yritys toimii ilman sinua",
     image: imgUudistuminen,
     modules: [
-      "Omistajanvaihdos tai sukupolvenvaihdos suunnitellaan ja toteutetaan hallitusti",
-      "Yrityksen tieto ja osaaminen dokumentoidaan — ei jää yhden ihmisen varaan",
-      "Liiketoiminta fokusoidaan uudelleen muuttuvan markkinan mukaan",
-      "Kansainvälistyminen ja verkostot avaavat uudet kasvumarkkinat",
+      "Omistajan- tai sukupolvenvaihdos",
+      "Tiedon dokumentointi",
+      "Liiketoiminnan uudelleenfokus",
+      "Kansainvälistyminen ja verkostot",
     ],
     ctaText: "Keskustele siirtymästä",
     transition:
@@ -91,15 +89,14 @@ const categories: Category[] = [
     icon: GraduationCap,
     title: "Osaaminen käytäntöön",
     desc: "Osaamisen kehittäminen · Kaikki kokoluokat",
-    intro:
-      "Osaamisen kehittäminen on investointi joka näkyy suoraan tuloksessa — ei irrallinen koulutuspäivä vaan osa kasvustrategiaa.",
+    intro: "Osaaminen osaksi kasvustrategiaa — ei irrallisia koulutuspäiviä.",
     mindset: "Osaaminen on kilpailuetu — ei kulu",
     image: imgOsaaminen,
     modules: [
-      "Henkilöstön pätevyydet ja kortit ajan tasalle — turvallisuus, hygienia, toimialakohtaiset",
-      "Kielikoulutukset monikulttuuriselle työpaikalle — suomi, englanti, ruotsi, selkoviestintä",
-      "Johtamis- ja esihenkilövalmennus kasvavan tiimin tarpeisiin",
-      "Tekoälyosaaminen käytäntöön — tiimi pysyy muutoksen vauhdissa",
+      "Pätevyydet ja kortit",
+      "Kielikoulutukset",
+      "Johtamis- ja esihenkilövalmennus",
+      "Tekoälyosaaminen käytäntöön",
     ],
     ctaText: "Kysy koulutuksista",
     transition: "Osaaminen on jatkuvaa — sopii kaikille vaiheille rinnakkaisesti.",
@@ -312,14 +309,26 @@ export function KasvuCategoryAccordion() {
                         </p>
                       )}
 
-                      <Button
-                        variant="cta"
-                        size="lg"
-                        className="w-full"
-                        onClick={() => setModalLevel(routeToLevel[cat.id])}
-                      >
-                        {cat.ctaText}
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <Button
+                          variant="cta"
+                          size="lg"
+                          className="w-full sm:flex-1"
+                          onClick={() => setModalLevel(routeToLevel[cat.id])}
+                        >
+                          {cat.ctaText}
+                        </Button>
+                        <Button
+                          variant="outline-primary"
+                          size="lg"
+                          className="w-full sm:flex-1"
+                          asChild
+                        >
+                          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+                            Varaa sparrausaika valmentajalta
+                          </a>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 )}
