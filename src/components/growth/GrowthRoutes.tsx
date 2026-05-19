@@ -190,42 +190,8 @@ export function GrowthRoutes() {
     <section id="kasvureitit" className="py-16 md:py-20 bg-muted/30">
       <div className="keuda-container">
 
-        {/* ── Revenue level filter ── */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Missä vaiheessa yrityksesi on nyt?
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Valitse taso — näet suoraan sopivat ratkaisut ja etenemismallin.
-          </p>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-4xl mx-auto">
-            {levels.map((level) => (
-              <button
-                key={level.id}
-                onClick={() => handleLevelClick(level.id)}
-                className={cn(
-                  "keuda-card p-4 text-center transition-all hover:shadow-md hover:border-primary/50 cursor-pointer",
-                  selectedLevel === level.id && "border-primary bg-primary/5 shadow-md"
-                )}
-              >
-                <level.icon className={cn(
-                  "w-8 h-8 mx-auto mb-2 transition-colors",
-                  selectedLevel === level.id ? "text-primary" : "text-muted-foreground"
-                )} />
-                <span className={cn(
-                  "text-sm font-semibold block mb-1",
-                  selectedLevel === level.id ? "text-primary" : "text-foreground"
-                )}>
-                  {level.label}
-                </span>
-                <span className="text-xs text-muted-foreground block">
-                  {level.revenue}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* ── Älykäs tilannetsekkaus ── */}
+        <GrowthCheckup onSelectRoute={handleLevelClick} />
 
         {/* Assessment Modal */}
         {modalLevel && (
