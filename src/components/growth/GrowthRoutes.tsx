@@ -165,13 +165,8 @@ export function GrowthRoutes() {
   const [modalLevel, setModalLevel] = useState<1 | 2 | 3 | 4 | null>(null);
 
   const handleLevelClick = (id: string) => {
-    requestAnimationFrame(() => {
-      const el = document.getElementById(`route-${id}`);
-      if (el) {
-        const y = el.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
-    });
+    // Avaa oikea kasvureitti-akkordion ja vierittää sen kohdalle
+    window.dispatchEvent(new CustomEvent("open-kasvu-category", { detail: { id } }));
   };
 
 
