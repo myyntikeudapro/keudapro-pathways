@@ -5,6 +5,7 @@ import { ChevronDown, ChevronRight, ArrowRight, ExternalLink, Zap, TrendingUp, B
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { AssessmentModal } from "@/components/growth/AssessmentModal";
+import { TrainingNeedsModal } from "@/components/growth/TrainingNeedsModal";
 import { BOOKING_URL } from "@/lib/booking";
 
 import imgKaynistys from "@/assets/growth-kaynistys.jpg";
