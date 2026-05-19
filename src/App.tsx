@@ -34,24 +34,27 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <RouteWizard />
-            <CoachSelectionPanel />
-            <BookingPanel />
-            <MultiCoachChat />
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/aly" element={<InsightPage />} />
-              <Route path="/osaaminen" element={<PatevyydetPage />} />
-              <Route path="/noste" element={<WorkPlusPage />} />
-              <Route path="/kasvu" element={<GrowthPage />} />
-              <Route path="/operaattori" element={<OperaattoriPage />} />
-              <Route path="/kumppanit" element={<KumppanitPage />} />
-              <Route path="/yhteystiedot" element={<YhteystiedotPage />} />
-              <Route path="/verkosto" element={<VerkostoPage />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-            </Routes>
-            
+            <AuthProvider>
+              <RouteWizard />
+              <CoachSelectionPanel />
+              <BookingPanel />
+              <MultiCoachChat />
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/aly" element={<InsightPage />} />
+                <Route path="/osaaminen" element={<PatevyydetPage />} />
+                <Route path="/noste" element={<WorkPlusPage />} />
+                <Route path="/kasvu" element={<GrowthPage />} />
+                <Route path="/operaattori" element={<OperaattoriPage />} />
+                <Route path="/kumppanit" element={<KumppanitPage />} />
+                <Route path="/yhteystiedot" element={<YhteystiedotPage />} />
+                <Route path="/verkosto" element={<VerkostoPage />} />
+                <Route path="/admin/login" element={<AdminLoginPage />} />
+                <Route path="/admin" element={<AdminPage />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AuthProvider>
           </BrowserRouter>
         </CoachPanelProvider>
       </WizardProvider>
