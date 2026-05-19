@@ -191,7 +191,13 @@ const categories: Category[] = [
   },
 ];
 
-function ProgramCard({ program }: { program: Program }) {
+function ProgramCard({
+  program,
+  highlighted,
+}: {
+  program: Program;
+  highlighted?: boolean;
+}) {
   const isExternal = program.href.startsWith("http");
   const ctaClass =
     "inline-flex items-center justify-center h-10 px-4 rounded-md text-sm font-semibold transition-colors mt-auto bg-foreground text-background hover:bg-foreground/85";
@@ -211,7 +217,14 @@ function ProgramCard({ program }: { program: Program }) {
   );
 
   return (
-    <div className="keuda-card-enhanced p-0 flex flex-col overflow-hidden">
+    <div
+      id={`prog-${program.slug}`}
+      style={{ scrollMarginTop: 100 }}
+      className={cn(
+        "keuda-card-enhanced p-0 flex flex-col overflow-hidden transition-shadow duration-500",
+        highlighted && "ring-2 ring-primary ring-offset-2 shadow-xl"
+      )}
+    >
       <div className="relative h-40 overflow-hidden">
         <img
           src={program.image}
