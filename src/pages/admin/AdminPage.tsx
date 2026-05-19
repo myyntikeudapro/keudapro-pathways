@@ -334,6 +334,7 @@ export default function AdminPage() {
                 <Label htmlFor="readmore">"Lue lisää" -linkki</Label>
                 <Input id="readmore" type="url" placeholder="https://..." value={editing.read_more_url ?? ""} onChange={(e) => setEditing({ ...editing, read_more_url: e.target.value })} />
               </div>
+              <ImageUploader value={editing.image_url} onChange={(url) => setEditing({ ...editing, image_url: url })} />
               <div className="space-y-2">
                 <Label>Toimintapainike</Label>
                 <RadioGroup value={editing.cta_type} onValueChange={(v) => setEditing({ ...editing, cta_type: v as "enroll" | "ask" })} className="flex gap-4">
