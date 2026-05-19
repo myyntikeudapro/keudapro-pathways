@@ -457,3 +457,67 @@ function NewCategoryDialog({ open, onOpenChange, onCreated }: { open: boolean; o
     </Dialog>
   );
 }
+
+function ImageUploader({ value, onChange }: { value: string | null; onChange: (url: string | null) => void }) {
+  const [uploading, setUploading] = useState(false);
+
+  const handleFile = async (file: File) => {
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { toast.error("Kuva max 5 MB"); return; }
+    if (!file.type.startsWith("image/")) { toast.error("Vain kuvatiedostot"); return; }
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop() ?? "jpg";
+      const path = `${crypto.randomUUID()}.${ext}`;
+      const { error } = await supabase.storage.from("card-images").upload(path, file, { cacheControl: "3600", upsert: false });
+      if (error) throw error;
+      const { data } = supabase.storage.from("card-images").getPublicUrl(path);
+      onChange(data.publicUrl);
+      toast.success("Kuva ladattu");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Kuvan lataus epäonnistui");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <Label>Kuva</Label>
+      {value ? (
+        <div className="relative rounded border overflow-hidden bg-muted">
+          <img src={value} alt="" className="w-full h-40 object-cover" />
+          <Button
+            type="button"
+            size="icon"
+            variant="destructive"
+            className="absolute top-2 right-2 h-7 w-7"
+            onClick={() => onChange(null)}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+      ) : (
+        <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded p-6 cursor-pointer hover:bg-muted/50 transition">
+          {uploading ? (
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          ) : (
+            <>
+              <ImageIcon className="h-6 w-6 text-muted-foreground" />
+              <span className="text-sm text-muted-foreground flex items-center gap-1">
+                <Upload className="h-3 w-3" /> Lataa kuva (max 5 MB)
+              </span>
+            </>
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            disabled={uploading}
+            onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); e.target.value = ""; }}
+          />
+        </label>
+      )}
+    </div>
+  );
+}
