@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 
@@ -10,6 +11,10 @@ import categoryHygienia from "@/assets/category-hygienia.jpg";
 import categoryTyoelama from "@/assets/category-tyoelama.jpg";
 import categoryAi from "@/assets/category-ai.jpg";
 import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
+
+import heroAly from "@/assets/hero-aly-1.jpg";
+import heroKasvu from "@/assets/hero-kasvu-1.jpg";
+import heroKumppanit from "@/assets/hero-kumppanit-1.jpg";
 
 import routeAly from "@/assets/route-aly.jpg";
 import routeNoste from "@/assets/route-noste.jpg";
