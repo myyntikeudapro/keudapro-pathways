@@ -58,9 +58,9 @@ const InsightPage = () => {
           <SectionHeading title="Kenelle tämä on?" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 max-w-4xl mx-auto">
             {audiences.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 className="keuda-card-enhanced overflow-hidden p-0 group block hover:border-primary/30 transition-all duration-200"
               >
                 <div className="flex gap-4 p-4 md:p-5">
@@ -85,7 +85,7 @@ const InsightPage = () => {
                     </span>
                   </div>
                 </div>
-              </a>
+              </Link>
             ))}
             <a
               href="/noste"
