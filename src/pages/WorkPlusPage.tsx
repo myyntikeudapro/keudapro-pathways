@@ -237,7 +237,8 @@ const WorkPlusPage = () => {
                 >
                   {/* Compact header (always visible) */}
                   <button
-                    onClick={() => handleSituationClick(path.id)}
+                    onClick={() => handleToggleSituation(path.id)}
+                    aria-expanded={isActive}
                     className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"
                   >
                     <div className="flex items-center gap-3">
