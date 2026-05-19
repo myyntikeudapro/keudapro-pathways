@@ -11,13 +11,7 @@ import imgSkaalaus from "@/assets/growth-skaalaus.jpg";
 import imgUudistuminen from "@/assets/growth-uudistuminen.jpg";
 import imgOsaaminen from "@/assets/growth-osaaminen.jpg";
 
-/* ─── Revenue filter options ─── */
-const levels = [
-  { id: "kaynistys", icon: Zap, label: "Käynnistys", revenue: "40 000 – 120 000 €/v" },
-  { id: "skaalaus", icon: TrendingUp, label: "Skaalaus", revenue: "120 000 – 600 000 €/v" },
-  { id: "kasvu-uudistuminen", icon: Building2, label: "Kasvu ja uudistuminen", revenue: "600 000 – 1 200 000 €/v" },
-  { id: "osaaminen", icon: GraduationCap, label: "Osaamisen kehittäminen", revenue: "Kaikki kokoluokat" },
-];
+/* ─── (poistettu) vanha taso-suodatin korvattu GrowthCheckup-komponentilla ─── */
 
 /* ─── Route cards data ─── */
 const routes = [
