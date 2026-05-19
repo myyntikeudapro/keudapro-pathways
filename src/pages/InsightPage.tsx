@@ -112,7 +112,7 @@ const InsightPage = () => {
             </Button>
           </div>
           <p className="text-sm text-muted-foreground mt-6">
-            Sopiiko paremmin yrityksen kehittäminen?{" "}
+            Sopisiko yrityksen kehittäminen tilanteeseesi paremmin?{" "}
             <Link to="/kasvu" className="text-primary hover:underline font-medium">
               Tutustu Kasvu-reittiin →
             </Link>
