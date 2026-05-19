@@ -309,14 +309,26 @@ export function KasvuCategoryAccordion() {
                         </p>
                       )}
 
-                      <Button
-                        variant="cta"
-                        size="lg"
-                        className="w-full"
-                        onClick={() => setModalLevel(routeToLevel[cat.id])}
-                      >
-                        {cat.ctaText}
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <Button
+                          variant="cta"
+                          size="lg"
+                          className="w-full sm:flex-1"
+                          onClick={() => setModalLevel(routeToLevel[cat.id])}
+                        >
+                          {cat.ctaText}
+                        </Button>
+                        <Button
+                          variant="outline-primary"
+                          size="lg"
+                          className="w-full sm:flex-1"
+                          asChild
+                        >
+                          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+                            Varaa sparrausaika valmentajalta
+                          </a>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 )}
