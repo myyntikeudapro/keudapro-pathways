@@ -171,11 +171,11 @@ export function PathPanel({ open, onClose, title, ingressi, children }: PanelPro
 
       <div className="border-t border-border/60 pt-4">
         <h4 className="text-sm font-bold text-foreground mb-3">Tai ota suora yhteys</h4>
-        <div className="grid md:grid-cols-2 gap-3">
-          <Button variant="outline-primary" asChild className="w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <Button variant="outline-primary" asChild className="w-full h-auto min-h-10 py-2 whitespace-normal text-center leading-snug">
             <a href="mailto:keudapro@keuda.fi">Lähetä viesti</a>
           </Button>
-          <Button variant="cta" asChild className="w-full">
+          <Button variant="cta" asChild className="w-full h-auto min-h-10 py-2 whitespace-normal text-center leading-snug">
             <a href="#aloita">Hahmottele suunnitelmaa AI-valmentajan kanssa</a>
           </Button>
         </div>
