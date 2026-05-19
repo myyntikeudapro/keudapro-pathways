@@ -20,28 +20,28 @@ const audiences = [
     label: "Asiantuntijalle",
     description: "Syvennät osaamistasi ja opit hyödyntämään tekoälyä omassa työssäsi.",
     anchorLabel: "Katso Tekoälypätevyys-ohjelmat",
-    href: "#ai-ohjelmat",
+    href: "/aly#tekoalypatevyys",
   },
   {
     image: audienceSupervisor,
     label: "Esihenkilölle ja työnjohdolle",
     description: "Vahvistat johtamisotettasi ja kehität tiimiäsi käytännön valmennuksilla.",
     anchorLabel: "Katso Johtamisen koulutukset",
-    href: "#valmennusohjelmat",
+    href: "/aly#esihenkilo-johtaminen",
   },
   {
     image: audienceLeader,
     label: "Johtajalle",
     description: "Rakennat strategisen tekoälyosaamisen ja johdat organisaatiosi uudistumista.",
     anchorLabel: "Katso AI-Director & Johtamisen ohjelmat",
-    href: "#ai-ohjelmat",
+    href: "/aly#tekoalypatevyys",
   },
   {
     image: audienceRenewal,
     label: "Uudistumista pohtiville",
     description: "Löydät suunnan ja työkalut seuraavaan askeleeseen.",
-    anchorLabel: "Tee reittikartoitus",
-    href: "/yhteystiedot",
+    anchorLabel: "Katso muut asiantuntijakoulutukset",
+    href: "/aly#muut-asiantuntija",
   },
 ];
 
