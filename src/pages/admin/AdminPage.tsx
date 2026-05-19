@@ -156,6 +156,7 @@ export default function AdminPage() {
       read_more_url: editing.read_more_url?.trim() || null,
       cta_type: editing.cta_type,
       cta_url: editing.cta_url?.trim() || null,
+      image_url: editing.image_url,
       published: editing.published,
     };
     try {
