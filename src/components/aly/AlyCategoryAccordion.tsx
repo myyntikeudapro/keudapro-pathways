@@ -17,6 +17,7 @@ import progTurvallisuusJohtaja from "@/assets/prog-turvallisuus-johtaja.jpg";
 import progLuotettavuusAi from "@/assets/prog-luotettavuus-ai.jpg";
 
 type Program = {
+  slug: string;
   label: string;
   href: string;
   description: string;
@@ -45,6 +46,7 @@ const categories: Category[] = [
     image: progJohtaminen,
     programs: [
       {
+        slug: "johtamisen-valmennukset",
         label: "Johtamisen ja esihenkilötyön valmennukset",
         href: "#esihenkilotyo",
         description:
@@ -53,6 +55,7 @@ const categories: Category[] = [
         cta: "Katso sisältö →",
       },
       {
+        slug: "osaamisen-johtaminen",
         label: "Osaamisen johtamisen valmennusohjelma",
         href: "#osaamisen-johtaminen",
         description:
@@ -71,6 +74,7 @@ const categories: Category[] = [
     image: progAiManager,
     programs: [
       {
+        slug: "ai-director",
         label: "AI-Director – Strateginen tekoälyjohtaminen",
         href: "https://www.keuda.fi/koulutus/ai-director-ceo-johtoryhmatason-valmennusohjelma/",
         description:
@@ -79,6 +83,7 @@ const categories: Category[] = [
         cta: "Tutustu ohjelmaan →",
       },
       {
+        slug: "ai-manager",
         label: "AI-Manager – Tekoäly johtamistyössä",
         href: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/",
         description:
@@ -87,6 +92,7 @@ const categories: Category[] = [
         cta: "Tutustu ohjelmaan →",
       },
       {
+        slug: "ai-coordinator",
         label: "AI-Coordinator – Käyttöönotto ja koordinointi",
         href: "https://www.keuda.fi/koulutus/ai-coordinator-tekoalykoordinaattori-koulutusohjelma/",
         description:
@@ -95,6 +101,7 @@ const categories: Category[] = [
         cta: "Tutustu ohjelmaan →",
       },
       {
+        slug: "hyper-engineering",
         label: "Hyper Engineering (FI / EN)",
         href: "https://www.keuda.fi/koulutus/hyper-engineering-program-fi/",
         description:
@@ -113,6 +120,7 @@ const categories: Category[] = [
     image: progTurvallisuus,
     programs: [
       {
+        slug: "turvallisuuspaallikko",
         label: "Turvallisuuspäällikön ja -asiantuntijan valmennusohjelma",
         href: "https://www.keuda.fi/koulutus/turvallisuuspaallikon-ja-asiantuntijan-valmennusohjelma/",
         description:
@@ -121,6 +129,7 @@ const categories: Category[] = [
         cta: "Tutustu ohjelmaan →",
       },
       {
+        slug: "turvallisuusjohtaja-26",
         label: "Turvallisuusjohtaja 2.6 -valmennusohjelma",
         href: "https://www.keuda.fi/koulutus/turvallisuusjohtaja-2-6/",
         description:
@@ -129,6 +138,7 @@ const categories: Category[] = [
         cta: "Tutustu ohjelmaan →",
       },
       {
+        slug: "luotettavuuspaallikko-ai",
         label: "Luotettavuuspäällikkö (AI)",
         href: "/yhteystiedot",
         description:
@@ -149,6 +159,7 @@ const categories: Category[] = [
     image: progTutkinnot,
     programs: [
       {
+        slug: "tutkinnot",
         label: "Tutkintotavoitteiset ratkaisut (EAT & AT)",
         href: "#tutkinnot",
         description:
@@ -157,6 +168,7 @@ const categories: Category[] = [
         cta: "Tutustu tutkintoihin →",
       },
       {
+        slug: "raataloity-valmennus",
         label: "Räätälöity valmennus organisaatiolle",
         href: "/yhteystiedot",
         description:
@@ -166,6 +178,7 @@ const categories: Category[] = [
         isInternal: true,
       },
       {
+        slug: "puitesopimus",
         label: "Puitesopimuskoulutukset",
         href: "/yhteystiedot",
         description:
@@ -178,7 +191,13 @@ const categories: Category[] = [
   },
 ];
 
-function ProgramCard({ program }: { program: Program }) {
+function ProgramCard({
+  program,
+  highlighted,
+}: {
+  program: Program;
+  highlighted?: boolean;
+}) {
   const isExternal = program.href.startsWith("http");
   const ctaClass =
     "inline-flex items-center justify-center h-10 px-4 rounded-md text-sm font-semibold transition-colors mt-auto bg-foreground text-background hover:bg-foreground/85";
@@ -198,7 +217,14 @@ function ProgramCard({ program }: { program: Program }) {
   );
 
   return (
-    <div className="keuda-card-enhanced p-0 flex flex-col overflow-hidden">
+    <div
+      id={`prog-${program.slug}`}
+      style={{ scrollMarginTop: 100 }}
+      className={cn(
+        "keuda-card-enhanced p-0 flex flex-col overflow-hidden transition-shadow duration-500",
+        highlighted && "ring-2 ring-primary ring-offset-2 shadow-xl"
+      )}
+    >
       <div className="relative h-40 overflow-hidden">
         <img
           src={program.image}
@@ -228,6 +254,7 @@ function ProgramCard({ program }: { program: Program }) {
 
 export function AlyCategoryAccordion() {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [highlightedSlug, setHighlightedSlug] = useState<string | null>(null);
   const location = useLocation();
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -241,9 +268,33 @@ export function AlyCategoryAccordion() {
     });
   };
 
+  const scrollToProgram = (slug: string) => {
+    const el = document.getElementById(`prog-${slug}`);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
+
   useEffect(() => {
     const hash = location.hash.replace("#", "");
     if (!hash) return;
+
+    // Specific program: #prog-<slug>
+    if (hash.startsWith("prog-")) {
+      const slug = hash.slice("prog-".length);
+      const cat = categories.find((c) => c.programs.some((p) => p.slug === slug));
+      if (cat) {
+        setOpenCategory(cat.id);
+        setHighlightedSlug(slug);
+        // Wait for category to expand, then scroll to specific card
+        setTimeout(() => scrollToProgram(slug), 250);
+        const t = setTimeout(() => setHighlightedSlug(null), 2800);
+        return () => clearTimeout(t);
+      }
+    }
+
+    // Category-level hash
     const match = categories.find((c) => c.id === hash);
     if (match) {
       setOpenCategory(match.id);
@@ -322,7 +373,11 @@ export function AlyCategoryAccordion() {
                       <p className="italic text-muted-foreground text-sm mb-5">{cat.intro}</p>
                       <div className="grid md:grid-cols-2 gap-6">
                         {cat.programs.map((p) => (
-                          <ProgramCard key={p.label} program={p} />
+                          <ProgramCard
+                            key={p.label}
+                            program={p}
+                            highlighted={highlightedSlug === p.slug}
+                          />
                         ))}
                       </div>
                     </div>
