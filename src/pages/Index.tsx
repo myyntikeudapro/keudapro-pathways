@@ -66,36 +66,28 @@ const Index = () => {
       {/* Photo Banner Carousel */}
       <section
         aria-label="KeudaPRO banneri"
-        className="relative w-full overflow-hidden mt-16"
-        style={{ height: "300px" }}
+        className="relative w-full overflow-hidden mt-16 h-[300px] md:h-[480px]"
       >
-        <div className="absolute inset-0 md:!h-[480px] h-[300px]">
-          {bannerImages.map((src, i) => (
-            <img
-              key={src}
-              src={src}
-              alt=""
-              aria-hidden="true"
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
-                i === bannerIdx ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          ))}
-          <div className="absolute inset-0 bg-black/55" />
-          <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 max-w-4xl">
-              Osaamisen ja siirtymien operaattori
-            </h1>
-            <p className="text-base md:text-xl text-gray-200 max-w-2xl leading-relaxed">
-              Suomessa ja kansainvälisesti — yhdessä kumppaneiden kanssa.
-            </p>
-          </div>
+        {bannerImages.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt=""
+            aria-hidden="true"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
+              i === bannerIdx ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 max-w-4xl">
+            Osaamisen ja siirtymien operaattori
+          </h1>
+          <p className="text-base md:text-xl text-gray-200 max-w-2xl leading-relaxed">
+            Suomessa ja kansainvälisesti — yhdessä kumppaneiden kanssa.
+          </p>
         </div>
-        <style>{`
-          @media (min-width: 768px) {
-            section[aria-label="KeudaPRO banneri"] { height: 480px !important; }
-          }
-        `}</style>
       </section>
 
       {/* Compact anchor intro */}
