@@ -18,6 +18,9 @@ import KumppanitPage from "./pages/KumppanitPage";
 import YhteystiedotPage from "./pages/YhteystiedotPage";
 import PatevyydetPage from "./pages/PatevyydetPage";
 import VerkostoPage from "./pages/VerkostoPage";
+import AdminLoginPage from "./pages/admin/AdminLoginPage";
+import AdminPage from "./pages/admin/AdminPage";
+import { AuthProvider } from "./hooks/useAuth";
 import NotFound from "./pages/NotFound";
 
 
