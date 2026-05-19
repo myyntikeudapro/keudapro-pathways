@@ -1,5 +1,6 @@
 import kuumaLogo from "@/assets/logo-kuuma.svg";
 import { Instagram, Linkedin, Youtube, Facebook } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // TikTok icon as custom SVG since it's not in Lucide
 const TikTokIcon = ({ className }: { className?: string }) => (
