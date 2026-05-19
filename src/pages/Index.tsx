@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 
@@ -10,6 +11,10 @@ import categoryHygienia from "@/assets/category-hygienia.jpg";
 import categoryTyoelama from "@/assets/category-tyoelama.jpg";
 import categoryAi from "@/assets/category-ai.jpg";
 import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
+
+import heroAly from "@/assets/hero-aly-1.jpg";
+import heroKasvu from "@/assets/hero-kasvu-1.jpg";
+import heroKumppanit from "@/assets/hero-kumppanit-1.jpg";
 
 import routeAly from "@/assets/route-aly.jpg";
 import routeNoste from "@/assets/route-noste.jpg";
@@ -41,24 +46,64 @@ const routes = [
 
 ];
 
+const bannerImages = [heroAly, heroKasvu, heroKumppanit, routeNoste];
+
 const Index = () => {
+  const [bannerIdx, setBannerIdx] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setBannerIdx((i) => (i + 1) % bannerImages.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <Layout>
       <SEO title={"KeudaPRO – Osaamisen ja siirtymien operaattori KUUMA-seudulla"} description={"Johtamiskoulutukset (ÄLY), työhönvalmennus (NOSTE) ja yritysten kasvuohjelmat (KASVU) KUUMA-seudulla – yksi reitti, kolme suuntaa."} path="/" />
       <BackgroundMusic />
-      {/* Hero Section */}
-      <section className="pt-20 pb-10 md:pt-28 md:pb-14 bg-gradient-to-b from-accent/50 to-background">
+
+      {/* Photo Banner Carousel */}
+      <section
+        aria-label="KeudaPRO banneri"
+        className="relative w-full overflow-hidden mt-16 h-[300px] md:h-[480px]"
+      >
+        {bannerImages.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt=""
+            aria-hidden="true"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
+              i === bannerIdx ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 max-w-4xl">
+            Osaamisen ja siirtymien operaattori
+          </h1>
+          <p className="text-base md:text-xl text-gray-200 max-w-2xl leading-relaxed">
+            Suomessa ja kansainvälisesti — yhdessä kumppaneiden kanssa.
+          </p>
+        </div>
+      </section>
+
+      {/* Compact anchor intro */}
+      <section className="pt-10 pb-6 md:pt-14 md:pb-8 bg-background">
         <div className="keuda-container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
               Valitse reitti muutoksessa
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
-              Kolme reittiä – yksi operaattori. Löydä omaan tai yrityksesi tilanteeseen sopiva tapa vahvistaa osaamista, markkina-arvoa ja suuntaa.
+            </h2>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+              Kolme reittiä — yksi operaattori. Löydä omaan tai yrityksesi tilanteeseen sopiva tapa vahvistaa osaamista, markkina-arvoa ja suuntaa.
             </p>
           </div>
         </div>
       </section>
+
 
       {/* Route Cards Section */}
       <section className="py-10 md:py-16 bg-muted/30">
