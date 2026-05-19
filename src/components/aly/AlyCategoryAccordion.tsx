@@ -373,7 +373,11 @@ export function AlyCategoryAccordion() {
                       <p className="italic text-muted-foreground text-sm mb-5">{cat.intro}</p>
                       <div className="grid md:grid-cols-2 gap-6">
                         {cat.programs.map((p) => (
-                          <ProgramCard key={p.label} program={p} />
+                          <ProgramCard
+                            key={p.label}
+                            program={p}
+                            highlighted={highlightedSlug === p.slug}
+                          />
                         ))}
                       </div>
                     </div>
