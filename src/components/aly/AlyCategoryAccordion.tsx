@@ -17,6 +17,7 @@ import progTurvallisuusJohtaja from "@/assets/prog-turvallisuus-johtaja.jpg";
 import progLuotettavuusAi from "@/assets/prog-luotettavuus-ai.jpg";
 
 type Program = {
+  slug: string;
   label: string;
   href: string;
   description: string;
