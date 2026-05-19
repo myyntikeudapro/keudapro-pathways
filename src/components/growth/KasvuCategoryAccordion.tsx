@@ -316,7 +316,13 @@ export function KasvuCategoryAccordion() {
                           variant="cta"
                           size="lg"
                           className="w-full sm:flex-1"
-                          onClick={() => setModalLevel(routeToLevel[cat.id])}
+                          onClick={() => {
+                            if (cat.id === "osaaminen") {
+                              setTrainingNeedsOpen(true);
+                            } else {
+                              setModalLevel(routeToLevel[cat.id]);
+                            }
+                          }}
                         >
                           {cat.ctaText}
                         </Button>
