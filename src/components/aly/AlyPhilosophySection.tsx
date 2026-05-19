@@ -8,7 +8,7 @@ import stepCulture from "@/assets/step-culture.jpg";
 
 const steps = [
   { image: stepThinking, title: "Ajattelu", text: "Ajattelumallisi on joko kilpailuetusi tai heikkoutesi – riippuu siitä, mitä näet" },
-  { image: stepAction, title: "Taidot", text: "Opit jäsentämään taitosi: mikä on ehdottomasti sinun, mikä kasvaa, mikä voidaan jo siirtää" },
+  { image: stepAction, title: "Taidot", text: "Opit jäsentämään taitosi – mikä on ehdottomasti sinun, mikä kasvaa ja mikä voidaan jo siirtää" },
   { image: stepTools, title: "Työkalut", text: "Otat tekoälyn käyttöön siellä, missä se tuottaa – ei kaikkialle" },
   { image: stepCulture, title: "Kulttuuri", text: "Kulttuuri ratkaisee enemmän kuin yksilön osaaminen – muutos ei kestä yksin" },
 ];
