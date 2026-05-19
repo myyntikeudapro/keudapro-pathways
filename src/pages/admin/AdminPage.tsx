@@ -15,7 +15,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, LogOut, EyeOff, Eye, ArrowUp, ArrowDown, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, EyeOff, Eye, ArrowUp, ArrowDown, Loader2, ImageIcon, Upload, X } from "lucide-react";
 import { SEO } from "@/components/seo/SEO";
 
 type Category = { id: string; page_slug: string; category_slug: string; label: string; sort_order: number };
