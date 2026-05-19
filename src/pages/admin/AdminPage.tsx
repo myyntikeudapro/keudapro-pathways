@@ -291,6 +291,9 @@ export default function AdminPage() {
                     <Button size="icon" variant="ghost" disabled={idx === 0} onClick={() => moveCard(c, -1)}><ArrowUp className="h-4 w-4" /></Button>
                     <Button size="icon" variant="ghost" disabled={idx === cards.length - 1} onClick={() => moveCard(c, 1)}><ArrowDown className="h-4 w-4" /></Button>
                   </div>
+                  {c.image_url && (
+                    <img src={c.image_url} alt="" className="w-16 h-16 object-cover rounded shrink-0" />
+                  )}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <h3 className="font-medium">{c.title}</h3>
