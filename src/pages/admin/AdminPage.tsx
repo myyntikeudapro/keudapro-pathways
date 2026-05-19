@@ -15,7 +15,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, LogOut, EyeOff, Eye, ArrowUp, ArrowDown, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, EyeOff, Eye, ArrowUp, ArrowDown, Loader2, ImageIcon, Upload, X } from "lucide-react";
 import { SEO } from "@/components/seo/SEO";
 
 type Category = { id: string; page_slug: string; category_slug: string; label: string; sort_order: number };
@@ -27,6 +27,7 @@ type Card = {
   read_more_url: string | null;
   cta_type: "enroll" | "ask";
   cta_url: string | null;
+  image_url: string | null;
   published: boolean;
   sort_order: number;
 };
@@ -133,6 +134,7 @@ export default function AdminPage() {
       read_more_url: "",
       cta_type: "ask",
       cta_url: "",
+      image_url: null,
       published: true,
     });
     setEditorOpen(true);
@@ -154,6 +156,7 @@ export default function AdminPage() {
       read_more_url: editing.read_more_url?.trim() || null,
       cta_type: editing.cta_type,
       cta_url: editing.cta_url?.trim() || null,
+      image_url: editing.image_url,
       published: editing.published,
     };
     try {
@@ -288,6 +291,9 @@ export default function AdminPage() {
                     <Button size="icon" variant="ghost" disabled={idx === 0} onClick={() => moveCard(c, -1)}><ArrowUp className="h-4 w-4" /></Button>
                     <Button size="icon" variant="ghost" disabled={idx === cards.length - 1} onClick={() => moveCard(c, 1)}><ArrowDown className="h-4 w-4" /></Button>
                   </div>
+                  {c.image_url && (
+                    <img src={c.image_url} alt="" className="w-16 h-16 object-cover rounded shrink-0" />
+                  )}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <h3 className="font-medium">{c.title}</h3>
@@ -331,6 +337,7 @@ export default function AdminPage() {
                 <Label htmlFor="readmore">"Lue lisää" -linkki</Label>
                 <Input id="readmore" type="url" placeholder="https://..." value={editing.read_more_url ?? ""} onChange={(e) => setEditing({ ...editing, read_more_url: e.target.value })} />
               </div>
+              <ImageUploader value={editing.image_url} onChange={(url) => setEditing({ ...editing, image_url: url })} />
               <div className="space-y-2">
                 <Label>Toimintapainike</Label>
                 <RadioGroup value={editing.cta_type} onValueChange={(v) => setEditing({ ...editing, cta_type: v as "enroll" | "ask" })} className="flex gap-4">
@@ -350,6 +357,9 @@ export default function AdminPage() {
               {/* Preview */}
               <div className="rounded border bg-background p-4">
                 <p className="text-xs font-medium uppercase text-muted-foreground mb-2">Esikatselu</p>
+                {editing.image_url && (
+                  <img src={editing.image_url} alt="" className="w-full h-40 object-cover rounded mb-3" />
+                )}
                 <h4 className="font-semibold text-foreground">{editing.title || "Kortin nimi"}</h4>
                 {editing.ingress && <p className="text-sm text-muted-foreground mt-1">{editing.ingress}</p>}
                 <div className="mt-3 flex gap-2 text-xs">
@@ -445,5 +455,69 @@ function NewCategoryDialog({ open, onOpenChange, onCreated }: { open: boolean; o
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function ImageUploader({ value, onChange }: { value: string | null; onChange: (url: string | null) => void }) {
+  const [uploading, setUploading] = useState(false);
+
+  const handleFile = async (file: File) => {
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { toast.error("Kuva max 5 MB"); return; }
+    if (!file.type.startsWith("image/")) { toast.error("Vain kuvatiedostot"); return; }
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop() ?? "jpg";
+      const path = `${crypto.randomUUID()}.${ext}`;
+      const { error } = await supabase.storage.from("card-images").upload(path, file, { cacheControl: "3600", upsert: false });
+      if (error) throw error;
+      const { data } = supabase.storage.from("card-images").getPublicUrl(path);
+      onChange(data.publicUrl);
+      toast.success("Kuva ladattu");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Kuvan lataus epäonnistui");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <Label>Kuva</Label>
+      {value ? (
+        <div className="relative rounded border overflow-hidden bg-muted">
+          <img src={value} alt="" className="w-full h-40 object-cover" />
+          <Button
+            type="button"
+            size="icon"
+            variant="destructive"
+            className="absolute top-2 right-2 h-7 w-7"
+            onClick={() => onChange(null)}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+      ) : (
+        <label className="flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded p-6 cursor-pointer hover:bg-muted/50 transition">
+          {uploading ? (
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          ) : (
+            <>
+              <ImageIcon className="h-6 w-6 text-muted-foreground" />
+              <span className="text-sm text-muted-foreground flex items-center gap-1">
+                <Upload className="h-3 w-3" /> Lataa kuva (max 5 MB)
+              </span>
+            </>
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            disabled={uploading}
+            onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); e.target.value = ""; }}
+          />
+        </label>
+      )}
+    </div>
   );
 }
