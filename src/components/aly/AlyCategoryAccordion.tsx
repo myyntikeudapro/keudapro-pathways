@@ -74,6 +74,7 @@ const categories: Category[] = [
     image: progAiManager,
     programs: [
       {
+        slug: "ai-director",
         label: "AI-Director – Strateginen tekoälyjohtaminen",
         href: "https://www.keuda.fi/koulutus/ai-director-ceo-johtoryhmatason-valmennusohjelma/",
         description:
@@ -82,6 +83,7 @@ const categories: Category[] = [
         cta: "Tutustu ohjelmaan →",
       },
       {
+        slug: "ai-manager",
         label: "AI-Manager – Tekoäly johtamistyössä",
         href: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/",
         description:
@@ -90,6 +92,7 @@ const categories: Category[] = [
         cta: "Tutustu ohjelmaan →",
       },
       {
+        slug: "ai-coordinator",
         label: "AI-Coordinator – Käyttöönotto ja koordinointi",
         href: "https://www.keuda.fi/koulutus/ai-coordinator-tekoalykoordinaattori-koulutusohjelma/",
         description:
@@ -98,6 +101,7 @@ const categories: Category[] = [
         cta: "Tutustu ohjelmaan →",
       },
       {
+        slug: "hyper-engineering",
         label: "Hyper Engineering (FI / EN)",
         href: "https://www.keuda.fi/koulutus/hyper-engineering-program-fi/",
         description:
@@ -116,6 +120,7 @@ const categories: Category[] = [
     image: progTurvallisuus,
     programs: [
       {
+        slug: "turvallisuuspaallikko",
         label: "Turvallisuuspäällikön ja -asiantuntijan valmennusohjelma",
         href: "https://www.keuda.fi/koulutus/turvallisuuspaallikon-ja-asiantuntijan-valmennusohjelma/",
         description:
@@ -124,6 +129,7 @@ const categories: Category[] = [
         cta: "Tutustu ohjelmaan →",
       },
       {
+        slug: "turvallisuusjohtaja-26",
         label: "Turvallisuusjohtaja 2.6 -valmennusohjelma",
         href: "https://www.keuda.fi/koulutus/turvallisuusjohtaja-2-6/",
         description:
@@ -132,6 +138,7 @@ const categories: Category[] = [
         cta: "Tutustu ohjelmaan →",
       },
       {
+        slug: "luotettavuuspaallikko-ai",
         label: "Luotettavuuspäällikkö (AI)",
         href: "/yhteystiedot",
         description:
@@ -152,6 +159,7 @@ const categories: Category[] = [
     image: progTutkinnot,
     programs: [
       {
+        slug: "tutkinnot",
         label: "Tutkintotavoitteiset ratkaisut (EAT & AT)",
         href: "#tutkinnot",
         description:
@@ -160,6 +168,7 @@ const categories: Category[] = [
         cta: "Tutustu tutkintoihin →",
       },
       {
+        slug: "raataloity-valmennus",
         label: "Räätälöity valmennus organisaatiolle",
         href: "/yhteystiedot",
         description:
@@ -169,6 +178,7 @@ const categories: Category[] = [
         isInternal: true,
       },
       {
+        slug: "puitesopimus",
         label: "Puitesopimuskoulutukset",
         href: "/yhteystiedot",
         description:
