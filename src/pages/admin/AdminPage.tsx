@@ -27,6 +27,7 @@ type Card = {
   read_more_url: string | null;
   cta_type: "enroll" | "ask";
   cta_url: string | null;
+  image_url: string | null;
   published: boolean;
   sort_order: number;
 };
