@@ -9,6 +9,38 @@ const counters = [
   { target: 70, suffix: "+", label: "Asiantuntijaa verkostossamme" },
 ];
 
+const testimonials = [
+  {
+    quote: "Hyvää käytännönläheisyyttä alusta alkaen! Loistava kouluttaja, joka jaksaa innostaa ja jota on mukava kuunnella.",
+    program: "AI-Manageri",
+  },
+  {
+    quote: "Hyvä ja selkeä materiaali. Johdonmukainen eteneminen. Oli helppo seurata verkonvälitykselläkin opetusta. Ei tullut 'kuolleita' kohtia eikä hetkiä, milloin olisi kadonnut punainen lanka.",
+    program: "Akkuturvallisuuskoulutus",
+  },
+  {
+    quote: "Hyvä koulutus, hidas tahti ja kertausta, case-esimerkkejä — kaikin puolin loistava kokonaisuus!",
+    program: "Ensiapukoulutus",
+  },
+  {
+    quote: "Mahtava porukka ja hyvät kouluttajat. Paljon hyötyä omassa työssäni. Suosittelen koulutusta, kokonaisuus erinomainen!",
+    program: "Turvallisuuspäällikköohjelma",
+  },
+  {
+    quote: "Kattava tietopaketti ja asiantuntemus turvallisuudesta!",
+    program: "Turvallisuuspäällikköohjelma",
+  },
+];
+
+function shuffleArray<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function formatNumber(n: number): string {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "\u00A0");
 }
