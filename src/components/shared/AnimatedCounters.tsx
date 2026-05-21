@@ -135,11 +135,19 @@ function TestimonialCarousel() {
   }, []);
 
   const next = useCallback(() => {
-    goTo((prev) => (prev + 1) % shuffled.length);
+    setCurrent((prev) => {
+      const nextIdx = (prev + 1) % shuffled.length;
+      goTo(nextIdx);
+      return nextIdx;
+    });
   }, [goTo, shuffled.length]);
 
   const prev = useCallback(() => {
-    goTo((prev) => (prev - 1 + shuffled.length) % shuffled.length);
+    setCurrent((prev) => {
+      const nextIdx = (prev - 1 + shuffled.length) % shuffled.length;
+      goTo(nextIdx);
+      return nextIdx;
+    });
   }, [goTo, shuffled.length]);
 
   // Auto-rotate every 7 seconds
