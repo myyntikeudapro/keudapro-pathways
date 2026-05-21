@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { Quote } from "lucide-react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const counters = [
   { target: 1700, suffix: "+", label: "Osallistujaa eri koulutuksissa vuosittain" },
@@ -7,6 +8,38 @@ const counters = [
   { target: 150, suffix: "+", label: "Koulutus- ja valmennustoteutusta vuosittain" },
   { target: 70, suffix: "+", label: "Asiantuntijaa verkostossamme" },
 ];
+
+const testimonials = [
+  {
+    quote: "Hyvää käytännönläheisyyttä alusta alkaen! Loistava kouluttaja, joka jaksaa innostaa ja jota on mukava kuunnella.",
+    program: "AI-Manageri",
+  },
+  {
+    quote: "Hyvä ja selkeä materiaali. Johdonmukainen eteneminen. Oli helppo seurata verkonvälitykselläkin opetusta. Ei tullut 'kuolleita' kohtia eikä hetkiä, milloin olisi kadonnut punainen lanka.",
+    program: "Akkuturvallisuuskoulutus",
+  },
+  {
+    quote: "Hyvä koulutus, hidas tahti ja kertausta, case-esimerkkejä — kaikin puolin loistava kokonaisuus!",
+    program: "Ensiapukoulutus",
+  },
+  {
+    quote: "Mahtava porukka ja hyvät kouluttajat. Paljon hyötyä omassa työssäni. Suosittelen koulutusta, kokonaisuus erinomainen!",
+    program: "Turvallisuuspäällikköohjelma",
+  },
+  {
+    quote: "Kattava tietopaketti ja asiantuntemus turvallisuudesta!",
+    program: "Turvallisuuspäällikköohjelma",
+  },
+];
+
+function shuffleArray<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 function formatNumber(n: number): string {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "\u00A0");
@@ -82,32 +115,118 @@ export function AnimatedCounters() {
         </div>
 
 
-        {/* Testimonial */}
-        <figure className="relative max-w-3xl mx-auto mt-4 px-6 md:px-10">
-          {/* Large decorative opening quote */}
-          <Quote
-            className="absolute -top-4 -left-2 md:-top-6 md:-left-4 w-16 h-16 md:w-24 md:h-24 text-primary/30"
-            strokeWidth={1}
-            aria-hidden="true"
-          />
-          {/* Accent line */}
-          <span className="absolute left-1/2 -translate-x-1/2 -top-2 w-16 h-px bg-gradient-to-r from-transparent via-primary to-transparent" aria-hidden="true" />
-
-          <blockquote className="relative z-10 text-center">
-            <p className="text-xl md:text-3xl font-light leading-snug text-background tracking-tight">
-              Koulutus toi heti käytännön hyötyjä — pystyimme ottamaan opit käyttöön{" "}
-              <span className="font-semibold text-primary">saman tien</span>.
-            </p>
-          </blockquote>
-
-          <figcaption className="mt-6 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.2em] text-background/50">
-            <span className="h-px w-8 bg-background/30" aria-hidden="true" />
-            Asiakaspalaute
-            <span className="h-px w-8 bg-background/30" aria-hidden="true" />
-          </figcaption>
-        </figure>
+        {/* Testimonial Carousel */}
+        <TestimonialCarousel />
       </div>
     </section>
+  );
+}
+
+function TestimonialCarousel() {
+  const [shuffled] = useState(() => shuffleArray(testimonials));
+  const [current, setCurrent] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const currentRef = useRef(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const goTo = useCallback((index: number) => {
+    if (index === currentRef.current) return;
+    setIsTransitioning(true);
+    currentRef.current = index;
+    setCurrent(index);
+    setTimeout(() => setIsTransitioning(false), 500);
+  }, []);
+
+  const next = useCallback(() => {
+    goTo((currentRef.current + 1) % shuffled.length);
+  }, [goTo, shuffled.length]);
+
+  const prev = useCallback(() => {
+    goTo((currentRef.current - 1 + shuffled.length) % shuffled.length);
+  }, [goTo, shuffled.length]);
+
+  // Auto-rotate every 7 seconds
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      const nextIdx = (currentRef.current + 1) % shuffled.length;
+      goTo(nextIdx);
+    }, 7000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [goTo, shuffled.length]);
+
+  const active = shuffled[current];
+
+  return (
+    <div className="relative max-w-3xl mx-auto mt-4 px-6 md:px-10 w-full">
+      {/* Large decorative opening quote */}
+      <Quote
+        className="absolute -top-4 -left-2 md:-top-6 md:-left-4 w-16 h-16 md:w-24 md:h-24 text-primary/30"
+        strokeWidth={1}
+        aria-hidden="true"
+      />
+      {/* Accent line */}
+      <span className="absolute left-1/2 -translate-x-1/2 -top-2 w-16 h-px bg-gradient-to-r from-transparent via-primary to-transparent" aria-hidden="true" />
+
+      {/* Quote + source */}
+      <div className="relative z-10 min-h-[140px] md:min-h-[120px] flex flex-col items-center justify-center">
+        <blockquote className="text-center w-full">
+          <p
+            className={cn(
+              "text-xl md:text-2xl lg:text-3xl font-light leading-snug text-background tracking-tight transition-all duration-500",
+              isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+            )}
+          >
+            {active.quote}
+          </p>
+        </blockquote>
+
+        <figcaption
+          className={cn(
+            "mt-4 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.2em] text-primary/80 transition-all duration-500",
+            isTransitioning ? "opacity-0 translate-y-1" : "opacity-100 translate-y-0"
+          )}
+        >
+          <span className="h-px w-8 bg-primary/40" aria-hidden="true" />
+          {active.program}
+          <span className="h-px w-8 bg-primary/40" aria-hidden="true" />
+        </figcaption>
+      </div>
+
+      {/* Navigation: arrows + dots */}
+      <div className="flex items-center justify-center gap-4 mt-6">
+        <button
+          onClick={prev}
+          aria-label="Edellinen palaute"
+          className="p-2 rounded-full text-background/40 hover:text-background hover:bg-white/10 transition-colors"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+
+        <div className="flex items-center gap-2">
+          {shuffled.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Palaute ${i + 1}`}
+              className={cn(
+                "w-2 h-2 rounded-full transition-all duration-300",
+                i === current ? "bg-primary w-6" : "bg-background/30 hover:bg-background/50"
+              )}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={next}
+          aria-label="Seuraava palaute"
+          className="p-2 rounded-full text-background/40 hover:text-background hover:bg-white/10 transition-colors"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+    </div>
   );
 }
 
