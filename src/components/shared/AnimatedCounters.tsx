@@ -3,7 +3,7 @@ import { Quote } from "lucide-react";
 
 const counters = [
   { target: 1700, suffix: "+", label: "Osallistujaa eri koulutuksissa vuosittain" },
-  { target: 72, suffix: "", label: "NPS (asiakastyytyväisyys)" },
+  { target: 78, suffix: "", label: "NPS (asiakastyytyväisyys)" },
   { target: 150, suffix: "+", label: "Koulutus- ja valmennustoteutusta vuosittain" },
   { target: 70, suffix: "+", label: "Asiantuntijaa verkostossamme" },
 ];
