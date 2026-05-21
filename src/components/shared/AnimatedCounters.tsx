@@ -126,41 +126,35 @@ function TestimonialCarousel() {
   const [shuffled] = useState(() => shuffleArray(testimonials));
   const [current, setCurrent] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const currentRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const goTo = useCallback((index: number) => {
+    if (index === currentRef.current) return;
     setIsTransitioning(true);
+    currentRef.current = index;
     setCurrent(index);
     setTimeout(() => setIsTransitioning(false), 500);
   }, []);
 
   const next = useCallback(() => {
-    setCurrent((prev) => {
-      const nextIdx = (prev + 1) % shuffled.length;
-      goTo(nextIdx);
-      return nextIdx;
-    });
+    goTo((currentRef.current + 1) % shuffled.length);
   }, [goTo, shuffled.length]);
 
   const prev = useCallback(() => {
-    setCurrent((prev) => {
-      const nextIdx = (prev - 1 + shuffled.length) % shuffled.length;
-      goTo(nextIdx);
-      return nextIdx;
-    });
+    goTo((currentRef.current - 1 + shuffled.length) % shuffled.length);
   }, [goTo, shuffled.length]);
 
   // Auto-rotate every 7 seconds
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      setIsTransitioning(true);
-      setCurrent((prev) => (prev + 1) % shuffled.length);
-      setTimeout(() => setIsTransitioning(false), 500);
+      const nextIdx = (currentRef.current + 1) % shuffled.length;
+      goTo(nextIdx);
     }, 7000);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [shuffled.length]);
+  }, [goTo, shuffled.length]);
 
   const active = shuffled[current];
 
