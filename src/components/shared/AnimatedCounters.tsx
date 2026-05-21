@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { Quote } from "lucide-react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const counters = [
   { target: 1700, suffix: "+", label: "Osallistujaa eri koulutuksissa vuosittain" },
