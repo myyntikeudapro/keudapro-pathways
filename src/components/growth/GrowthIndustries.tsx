@@ -13,7 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useWizard } from "@/contexts/WizardContext";
+
 import { Info, Sparkles, Briefcase, Rocket, Home, GraduationCap, Landmark } from "lucide-react";
 import industriesBg from "@/assets/growth-industries-bg.jpg";
 
@@ -219,8 +219,8 @@ const personas: Persona[] = [
 ];
 
 export function GrowthIndustries() {
-  const { openWizard } = useWizard();
   const [selected, setSelected] = useState<Industry | null>(null);
+
   const [persona, setPersona] = useState<string>("yrittaja");
   const activePersona = personas.find((p) => p.id === persona) ?? personas[0];
 
@@ -374,9 +374,22 @@ export function GrowthIndustries() {
               <p className="text-white/80 text-sm md:text-base max-w-2xl mx-auto mb-5 leading-relaxed">
                 {activePersona.body}
               </p>
-              <Button variant="cta" size="lg" onClick={openWizard}>
-                {activePersona.cta} →
+              <Button variant="cta" size="lg" asChild>
+                <a
+                  href="#alykas-tilannekatsaus"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById("alykas-tilannekatsaus");
+                    if (el) {
+                      el.scrollIntoView({ behavior: "smooth", block: "start" });
+                      history.replaceState(null, "", "#alykas-tilannekatsaus");
+                    }
+                  }}
+                >
+                  Avaa Älykäs tilannekatsaus →
+                </a>
               </Button>
+
             </div>
           </div>
         </div>

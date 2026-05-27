@@ -64,7 +64,7 @@ export function GrowthCheckup({ onSelectRoute }: Props) {
   };
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div id="alykas-tilannekatsaus" className="max-w-3xl mx-auto scroll-mt-24">
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2 mb-3 text-primary">
           <Sparkles className="w-5 h-5" />
