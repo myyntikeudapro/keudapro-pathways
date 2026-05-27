@@ -104,9 +104,10 @@ export function GrowthCheckup({ onSelectRoute }: Props) {
             />
             <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
               <span>alku</span>
-              <span>3M+</span>
+              <span>30M€+</span>
             </div>
           </div>
+
 
           {/* Tiimi */}
           <div>
