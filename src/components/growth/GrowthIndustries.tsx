@@ -197,8 +197,8 @@ const personas: Persona[] = [
     label: "Perhe / muuttamista harkitseva",
     icon: Home,
     headline: "Hyvä elämä KUUMA-alueella",
-    body: "Lapsipalvelut, koulut, harrastukset ja työmahdollisuudet yhdellä alueella. Ohjaamme oikean kunnan elinkeino- ja perhepalveluihin sekä mahdollisiin työnantajiin.",
-    cta: "Ota yhteyttä",
+    body: "KUUMA-alue on kymmenen kunnan kokonaisuus pääkaupunkiseudun kupeessa: monipuoliset lapsipalvelut, koulut, harrastusmahdollisuudet, luonto ja sujuvat työmatkat. Täällä yhdistyvät kaupungin palvelut ja väljemmän asumisen rauha.",
+    cta: "Tutustu KUUMA-alueeseen",
   },
   {
     id: "osaaja",
