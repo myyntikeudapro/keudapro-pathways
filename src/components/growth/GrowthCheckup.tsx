@@ -135,7 +135,7 @@ export function GrowthCheckup({ onSelectRoute }: Props) {
           <div>
             <div className="flex items-baseline justify-between mb-3">
               <label className="text-sm font-semibold text-foreground">Kasvuvauhti</label>
-              <span className="text-sm font-bold text-primary">{growth} / 100</span>
+              <span className="text-sm font-bold text-primary">{growth}&nbsp;%</span>
             </div>
             <Slider
               value={[growth]}
@@ -145,8 +145,8 @@ export function GrowthCheckup({ onSelectRoute }: Props) {
               onValueChange={(v) => setGrowth(v[0])}
             />
             <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
-              <span>vakaa</span>
-              <span>nopea kasvu</span>
+              <span>vakaa (+0&nbsp;%)</span>
+              <span>nopea kasvu (+100&nbsp;%)</span>
             </div>
           </div>
 
@@ -156,7 +156,7 @@ export function GrowthCheckup({ onSelectRoute }: Props) {
               <label className="text-sm font-semibold text-foreground">
                 Olen itse pullonkaula
               </label>
-              <span className="text-sm font-bold text-primary">{bottleneck} / 100</span>
+              <span className="text-sm font-bold text-primary">{bottleneck}&nbsp;%</span>
             </div>
             <Slider
               value={[bottleneck]}
@@ -166,8 +166,8 @@ export function GrowthCheckup({ onSelectRoute }: Props) {
               onValueChange={(v) => setBottleneck(v[0])}
             />
             <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
-              <span>tiimi vetää</span>
-              <span>teen kaiken itse</span>
+              <span>tiimi vetää (0&nbsp;%)</span>
+              <span>teen kaiken itse (100&nbsp;%)</span>
             </div>
           </div>
         </div>
