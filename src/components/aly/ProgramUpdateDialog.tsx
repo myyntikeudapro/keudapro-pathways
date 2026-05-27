@@ -16,7 +16,7 @@ type Props = {
 
 /**
  * Avaa pop-upin, joka kertoo että valmennustarjotinta päivitetään
- * ja ohjaa olemaan yhteydessä Keudaan (Ulla Liukkonen).
+ * ja ohjaa olemaan yhteydessä Keudaan (Heikki Kallunki).
  */
 export function ProgramUpdateDialog({ programLabel, trigger }: Props) {
   const [open, setOpen] = useState(false);
