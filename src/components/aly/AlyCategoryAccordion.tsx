@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
+import { ProgramUpdateDialog } from "./ProgramUpdateDialog";
 
 import progOsaaminen from "@/assets/prog-osaaminen.jpg";
 import progJohtaminen from "@/assets/prog-johtaminen.jpg";
@@ -25,6 +26,7 @@ type Program = {
   cta: string;
   isInternal?: boolean;
   comingSoon?: boolean;
+  updateModal?: boolean;
 };
 
 type Category = {
