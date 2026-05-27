@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Mail, ExternalLink } from "lucide-react";
+import { Mail, Phone, ExternalLink } from "lucide-react";
 
 type Props = {
   programLabel: string;
