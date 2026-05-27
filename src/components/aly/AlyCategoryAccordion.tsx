@@ -55,6 +55,7 @@ const categories: Category[] = [
           "Käytännön työkalut esihenkilötyöhön – kehityt johtajana ja tiimisi kehittyy kanssasi.",
         image: progJohtaminen,
         cta: "Katso sisältö →",
+        updateModal: true,
       },
       {
         slug: "osaamisen-johtaminen",
@@ -64,6 +65,7 @@ const categories: Category[] = [
           "Rakenna oppimiskulttuuri ja johda osaamista strategisesti – tulokset näkyvät tiimin suorituskyvyssä.",
         image: progOsaaminen,
         cta: "Tutustu ohjelmaan →",
+        updateModal: true,
       },
     ],
   },
