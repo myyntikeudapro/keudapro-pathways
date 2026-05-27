@@ -29,6 +29,7 @@ type Program = {
   leadershipTags?: LeadershipTag[];
   alsoAvailable?: string;
   comingSoon?: boolean;
+  updateModal?: boolean;
 };
 
 type Category = {
