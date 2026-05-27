@@ -29,8 +29,15 @@ Deno.serve(async (req) => {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+    const safeQuery = query.trim().slice(0, 200);
     if (!Array.isArray(index) || index.length === 0) {
       return new Response(JSON.stringify({ error: "index required" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (index.length > 100) {
+      return new Response(JSON.stringify({ error: "index too large" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -44,12 +51,17 @@ Deno.serve(async (req) => {
       });
     }
 
+    const cap = (s: unknown, n: number) =>
+      typeof s === "string" ? s.slice(0, n) : "";
+
     const compactIndex = index.map((e) => ({
-      id: e.id,
-      title: e.title,
-      desc: e.description,
-      cat: e.category,
-      kw: e.keywords,
+      id: cap(e.id, 80),
+      title: cap(e.title, 200),
+      desc: cap(e.description, 300),
+      cat: cap(e.category, 80),
+      kw: Array.isArray(e.keywords)
+        ? e.keywords.slice(0, 20).map((k) => cap(k, 60))
+        : [],
     }));
 
     const systemPrompt = `Olet KeudaPRO-sivuston älykäs reittiopas. Saat käyttäjän hakukyselyn suomeksi ja JSON-listan sivuston kohteista. Palauta 1–5 osuvinta kohdetta järjestyksessä parhaasta heikoimpaan, mukaan lukien lyhyt suomenkielinen perustelu (max 80 merkkiä). Jos mikään ei sovi, palauta tyhjä lista.
