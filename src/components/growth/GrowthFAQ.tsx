@@ -1,27 +1,27 @@
 const faqs = [
   {
-    question: "Miten tiedän, mille tasolle kuulun?",
-    answer: "Helpoin tapa on tehdä 15 minuutin reittikartoitus – käymme yhdessä läpi yrityksesi liikevaihdon, tilanteen ja tavoitteet. Tason valinta ei ole pysyvä: voit siirtyä tasolta toiselle joustavasti sopimusvuoden aikana.",
+    question: "Mille tasolle yritykseni kuuluu?",
+    answer: "Avaa Älykäs tilannekatsaus sivun alusta – syötä liikevaihto, tiimin koko, kasvuvauhti ja painopisteet. Saat suosituksen sopivasta kasvuvaiheesta (Käynnistys, Vakiintunut, Skaalaus tai Skaalattava). Taso ei ole pysyvä, vaan voit liikkua niiden välillä tilanteen mukaan.",
   },
   {
-    question: "Mitä kasvukartoitus sisältää?",
-    answer: "Kasvukartoitus on maksuton 15 minuutin keskustelu jossa tunnistetaan yrityksesi nykytaso, pullonkaulat ja sopivin reitti eteenpäin. Saat selkeän suosituksen – ei yleistä, vaan juuri sinulle.",
+    question: "Mitä Älykäs tilannekatsaus sisältää?",
+    answer: "Tilannekatsaus on muutaman minuutin sähköinen kartoitus, joka tunnistaa nykytasosi, mahdolliset pullonkaulat ja sopivimman kasvupolun. Saat heti suosituksen ja voit halutessasi varata jatkokeskustelun.",
   },
   {
-    question: "Onko tämä koulutusta vai käytännön tekemistä?",
-    answer: "Molempia – mutta paino on käytännössä. Valmennukset, sparraussessiot ja tekoälytyökalut on suunniteltu niin että opit soveltamaan heti omassa arjessasi. Ei luentoja vaan tekemistä.",
+    question: "Onko KeudaPRO koulutusta vai käytännön tekemistä?",
+    answer: "Molempia – mutta paino on käytännössä. Valmennukset, sparraukset ja tekoälytyökalut on rakennettu niin, että opit soveltamaan heti omassa arjessasi. Ei luentoja vaan tekemistä yrityksesi kanssa.",
   },
   {
-    question: "Miten tekoälypolku toimii?",
-    answer: "Tekoälypolku alkaa yrityksesi nykytason kartoituksesta. Sen jälkeen rakennetaan vaiheittainen suunnitelma – asiakasviestinnästä automaatioon ja BI-integraatioihin. Vauhti ja syvyys määräytyvät tason mukaan.",
+    question: "Miten tekoäly (Äly-polku) toimii kasvun tukena?",
+    answer: "Äly-polku alkaa nykytason kartoituksesta ja etenee vaiheittain: asiakasviestinnän automaatiosta prosesseihin ja BI-integraatioihin. Syvyys ja vauhti määräytyvät kasvuvaiheesi ja tavoitteidesi mukaan.",
   },
   {
-    question: "Voiko pienyritys osallistua ilman suurta budjettia?",
-    answer: "Kyllä. Paketteihin voi hakea ELY-tukea tai yritysrahoitusta josta kysytään reittikartoituksessa.",
+    question: "Sopiiko KeudaPRO myös isommalle yritykselle?",
+    answer: "Kyllä. Skaalattava-taso on suunnattu yli 7 M€ liikevaihdon organisaatioille, joissa painopiste on osaamisen johtamisessa, johdon kehittämisessä ja osaajien lisäämisessä. Tilannekatsaus tunnistaa tämän automaattisesti.",
   },
   {
-    question: "Miten osaamiskoulutukset liittyvät kasvuun?",
-    answer: "Osaaminen on kasvun perusta – ilman sitä prosessit ja työkalut jäävät hyödyntämättä. Osaaminen käytäntöön -polku varmistaa että tiimisi pysyy kasvun vauhdissa mukana.",
+    question: "Entä jos olen muuttamassa alueelle tai etsin työtä?",
+    answer: "KeudaPRO palvelee myös perheitä, osaajia ja työnhakijoita sekä alueen päättäjiä. Valitse 'Kuka olet?' -kohdasta sopiva polku – saat tietoa KUUMA-alueen elämästä, koulutuksista ja työmahdollisuuksista.",
   },
 ];
 
