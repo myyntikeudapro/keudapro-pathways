@@ -15,15 +15,19 @@ type Result = {
   recommendedLabel: string;
 };
 
-const revenueSteps = [0, 40_000, 120_000, 300_000, 600_000, 1_200_000, 3_000_000];
-const teamSteps = [1, 2, 4, 8, 15, 30, 60];
+const revenueSteps = [
+  0, 40_000, 120_000, 300_000, 600_000, 1_200_000, 3_000_000, 7_000_000, 15_000_000, 30_000_000,
+];
+const teamSteps = [1, 2, 4, 8, 15, 30, 60, 100, 200, 500];
 
 const focusOptions = [
   { id: "myynti", label: "Myynti & asiakkaat" },
   { id: "skaalaus", label: "Skaalaus & prosessit" },
   { id: "uudistuminen", label: "Uudistuminen & omistajuus" },
   { id: "osaaminen", label: "Osaaminen & pätevyydet" },
+  { id: "osaamisen-johtaminen", label: "Osaamisen johtaminen & kasvattaminen" },
 ];
+
 
 const fmt = (n: number) =>
   n >= 1000 ? n.toLocaleString("fi-FI").replace(/\s/g, "\u00A0") : String(n);
@@ -100,9 +104,10 @@ export function GrowthCheckup({ onSelectRoute }: Props) {
             />
             <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
               <span>alku</span>
-              <span>3M+</span>
+              <span>30M€+</span>
             </div>
           </div>
+
 
           {/* Tiimi */}
           <div>
@@ -121,8 +126,9 @@ export function GrowthCheckup({ onSelectRoute }: Props) {
             />
             <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
               <span>yksin</span>
-              <span>60+</span>
+              <span>500+</span>
             </div>
+
           </div>
 
           {/* Kasvuvauhti */}
