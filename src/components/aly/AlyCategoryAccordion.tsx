@@ -254,6 +254,11 @@ function ProgramCard({
             Tulossa 2026
           </span>
         )}
+        {program.updateModal && (
+          <span className="absolute top-3 left-3 px-2 py-1 text-[11px] font-bold rounded bg-secondary text-secondary-foreground">
+            Päivittyy
+          </span>
+        )}
       </div>
       <div className="flex flex-col flex-1 p-5">
         <h4 className="text-base font-bold text-foreground mb-2 leading-snug">{program.label}</h4>
