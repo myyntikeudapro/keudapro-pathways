@@ -51,7 +51,7 @@ Johtamisen ohjelmat:
 
 Tekoälypätevyys-ohjelmat (kenelle mikäkin):
 - AI-Director: johtajille jotka rakentavat organisaation tekoälystrategian ja kilpailukyvyn
-- AI-Manager: esihenkilöille jotka ottavat tekoälyn osaksi päivittäistä johtamistyötä
+- AI-Manager (Tekoälypäällikkö): avoin kaikille, joilla on asiantuntijuutta tai rooli, jossa tekoälypäällikön pätevyys tuo henkilökohtaista tai organisaation kilpailuetua — esihenkilöille, asiantuntijoille, kehittäjille, tiiminvetäjille, projektipäälliköille, HR:lle, viestinnälle, myynnille ym. Ei rajattu vain esihenkilöille.
 - AI-Coordinator: asiantuntijoille jotka vievät tekoälyn käytännön tasolle tiimissä
 - Hyper Engineering (FI/EN): syvä tekninen tekoälyosaaminen vaativiin asiantuntijatehtäviin
 - Uusi AI-ohjelma tulossa 2026: voi ohjata ilmoittautumaan kiinnostuneeksi
