@@ -198,7 +198,7 @@ export function GrowthPricing() {
                       {has ? (
                         <Check className="w-4 h-4 text-primary mx-auto" />
                       ) : (
-                        <span className="text-muted-foreground/40">—</span>
+                        <span className="text-muted-foreground" aria-label="ei sisälly">—</span>
                       )}
                     </td>
                   ))}
