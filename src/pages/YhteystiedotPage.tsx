@@ -58,7 +58,7 @@ const heroSlides = [
 const team = [
   {
     name: "Heikki Kallunki",
-    role: "Myynti, asiakkuudet ja kumppanuudet",
+    role: "Myynti, asiakkuudet, kumppanuudet, räätälöidyt ratkaisut ja tutkintotavoitteiset koulutukset",
     email: "heikki.kallunki@keuda.fi",
     phone: "+358 40 190 6912",
     linkedin: null,
