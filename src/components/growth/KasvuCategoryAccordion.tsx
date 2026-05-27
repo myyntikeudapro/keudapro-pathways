@@ -276,7 +276,7 @@ export function KasvuCategoryAccordion() {
 
                       {cat.id === "osaaminen" && (
                         <Link
-                          to="/osaaminen"
+                          to="/osaaminen#kortit"
                           className="flex items-center justify-center gap-2 w-full px-4 py-3 mb-5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold transition-colors"
                         >
                           Katso kaikki koulutukset ja pätevyydet

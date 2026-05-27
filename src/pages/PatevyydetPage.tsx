@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
@@ -454,6 +454,23 @@ const accordionCategories: AccordionCategory[] = [
 const PatevyydetPage = () => {
   const [active, setActive] = useState<string>("Kaikki");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      const valid = accordionCategories.find((c) => c.id === hash);
+      if (valid) {
+        setOpenCategory(hash);
+        requestAnimationFrame(() => {
+          const el = categoryRefs.current[hash];
+          if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        });
+      }
+    }
+  }, []);
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const handleCategoryToggle = (id: string) => {
@@ -614,6 +631,7 @@ const PatevyydetPage = () => {
               return (
                 <div
                   key={cat.id}
+                  id={cat.id}
                   ref={(el) => (categoryRefs.current[cat.id] = el)}
                   style={{ scrollMarginTop: 80 }}
                   className={cn(
