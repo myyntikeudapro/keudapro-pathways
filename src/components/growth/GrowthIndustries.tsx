@@ -219,7 +219,7 @@ const personas: Persona[] = [
 ];
 
 export function GrowthIndustries() {
-  const { openWizard } = useWizard();
+  const [selected, setSelected] = useState<Industry | null>(null);
   const [selected, setSelected] = useState<Industry | null>(null);
   const [persona, setPersona] = useState<string>("yrittaja");
   const activePersona = personas.find((p) => p.id === persona) ?? personas[0];
