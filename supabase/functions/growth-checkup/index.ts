@@ -37,19 +37,33 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const ALLOWED_FOCUS = ["myynti", "skaalaus", "uudistuminen", "osaaminen"] as const;
+
   try {
-    const input = (await req.json()) as Input;
+    const raw = (await req.json()) as Input;
     if (
-      typeof input?.revenue !== "number" ||
-      typeof input?.team !== "number" ||
-      typeof input?.growth !== "number" ||
-      typeof input?.bottleneck !== "number"
+      typeof raw?.revenue !== "number" ||
+      typeof raw?.team !== "number" ||
+      typeof raw?.growth !== "number" ||
+      typeof raw?.bottleneck !== "number"
     ) {
       return new Response(JSON.stringify({ error: "Invalid input" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+    // Server-side allowlist for `focus` to prevent prompt injection.
+    const safeFocus =
+      typeof raw.focus === "string" && (ALLOWED_FOCUS as readonly string[]).includes(raw.focus)
+        ? raw.focus
+        : undefined;
+    const input: Input = {
+      revenue: Math.max(0, Math.min(1e10, raw.revenue)),
+      team: Math.max(0, Math.min(100000, raw.team)),
+      growth: Math.max(0, Math.min(100, raw.growth)),
+      bottleneck: Math.max(0, Math.min(100, raw.bottleneck)),
+      focus: safeFocus,
+    };
 
     const recommended = ruleBasedRoute(input);
 
@@ -101,6 +115,7 @@ Suositeltu kasvureitti: ${labels[recommended]}.`;
           { role: "user", content: userPrompt },
         ],
         response_format: { type: "json_object" },
+        max_tokens: 400,
       }),
     });
 
