@@ -170,6 +170,7 @@ const categories: Category[] = [
           "Yhdistä käytännön osaaminen ja tunnustettu tutkinto – eteneminen mahdollista työn ohessa.",
         image: progTutkinnot,
         cta: "Tutustu tutkintoihin →",
+        updateModal: true,
       },
       {
         slug: "raataloity-valmennus",
