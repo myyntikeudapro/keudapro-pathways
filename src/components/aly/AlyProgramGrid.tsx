@@ -73,6 +73,7 @@ const categories: Category[] = [
         cta: "Katso sisältö →",
         leadershipTags: ["Ihmisten johtaminen", "Itsensä johtaminen"],
         alsoAvailable: "Räätälöity valmennus · Puitesopimus",
+        updateModal: true,
       },
       {
         label: "Osaamisen johtamisen valmennusohjelma",
@@ -83,6 +84,7 @@ const categories: Category[] = [
         roles: ["esihenkilö", "johtaja"],
         cta: "Tutustu ohjelmaan →",
         leadershipTags: ["Organisaation johtaminen", "Ihmisten johtaminen"],
+        updateModal: true,
       },
       {
         label: "Tutkintotavoitteiset ratkaisut (EAT & AT)",
@@ -93,6 +95,7 @@ const categories: Category[] = [
         roles: ["asiantuntija", "uudistuja"],
         cta: "Tutustu tutkintoihin →",
         leadershipTags: ["Itsensä johtaminen", "Organisaation johtaminen"],
+        updateModal: true,
       },
     ],
   },
