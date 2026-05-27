@@ -85,7 +85,7 @@ export function GrowthIndustries() {
                   <span className="text-xs font-semibold tracking-[0.15em] uppercase text-white/70">
                     {tier.label}
                   </span>
-                  <span className="text-xs text-white/40 ml-1">— {tier.subtitle}</span>
+                  <span className="text-xs text-white/80 ml-1">— {tier.subtitle}</span>
                 </div>
 
                 {/* Tags */}
