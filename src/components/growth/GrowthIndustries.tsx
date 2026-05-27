@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useWizard } from "@/contexts/WizardContext";
-import industriesBg from "@/assets/growth-industries-bg.jpg";
+import { Info, Sparkles } from "lucide-react";
 
 type Industry = {
   id: string;
@@ -28,16 +28,16 @@ type Tier = {
   id: string;
   label: string;
   subtitle: string;
-  dotStyle: { backgroundColor: string };
+  accent: string; // hsl token-ish hex used sparingly as accent
   items: Industry[];
 };
 
 const tiers: Tier[] = [
   {
     id: "ydinmoottorit",
-    label: "YDINMOOTTORIT",
+    label: "Ydinmoottorit",
     subtitle: "Kasvun kärki",
-    dotStyle: { backgroundColor: "#1A5F9E" },
+    accent: "#1A5F9E",
     items: [
       {
         id: "logistiikka",
@@ -72,8 +72,7 @@ const tiers: Tier[] = [
       {
         id: "koulutus",
         label: "Koulutus & osaaminen",
-        tooltip:
-          "Keudan ydintehtävä — alueen kriittisin kilpailutekijä 2030",
+        tooltip: "Keudan ydintehtävä — alueen kriittisin kilpailutekijä 2030",
         description:
           "Osaaminen on KUUMA-alueen kriittisin kilpailutekijä 2030. Keuda toimii alueen osaamisveturina ja yhdistää oppilaitokset, yritykset ja kunnat saman pöydän ääreen.",
         stats: [
@@ -85,9 +84,9 @@ const tiers: Tier[] = [
   },
   {
     id: "mahdollistajat",
-    label: "KASVUN MAHDOLLISTAJAT",
+    label: "Kasvun mahdollistajat",
     subtitle: "Rakenteellinen voima",
-    dotStyle: { backgroundColor: "#1A7A4E" },
+    accent: "#1A7A4E",
     items: [
       {
         id: "rakentaminen",
@@ -138,9 +137,9 @@ const tiers: Tier[] = [
   },
   {
     id: "perusrakenne",
-    label: "PERUSRAKENNE",
+    label: "Perusrakenne",
     subtitle: "Vakaa pohja",
-    dotStyle: { backgroundColor: "#B85C00" },
+    accent: "#B85C00",
     items: [
       {
         id: "kauppa",
@@ -172,98 +171,99 @@ export function GrowthIndustries() {
 
   return (
     <TooltipProvider delayDuration={150}>
-      <section id="toimialakartta" className="relative w-full">
-        {/* Background image + dark overlay */}
-        <div className="absolute inset-0">
-          <img
-            src={industriesBg}
-            alt="KUUMA-alueen yritysympäristö"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
-
-        <div className="relative z-10 py-20 md:py-32">
-          <div className="keuda-container text-center">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-3">
+      <section id="toimialakartta" className="keuda-section bg-muted/30">
+        <div className="keuda-container">
+          {/* Section header — same pattern as other growth sections */}
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-xs font-semibold tracking-[0.18em] uppercase text-primary mb-3">
               Kasvun kartta
             </p>
-
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+            <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4 leading-tight">
               KUUMA-alueen kasvualat
             </h2>
-
-            <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-2">
-              Kasvu ei jakaudu tasaisesti – siksi kohdistamme kehittämisen
-              toimialoihin, joissa murros ja potentiaali ovat suurimmat.
+            <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
+              Kasvu ei jakaudu tasaisesti – kohdistamme kehittämisen toimialoihin,
+              joissa murros ja potentiaali ovat suurimmat.
             </p>
 
-            <p className="text-white font-semibold text-sm tracking-wide mb-4">
-              Dataan perustuva suunta.
-            </p>
-
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-white/90 text-xs font-medium backdrop-blur-sm mb-12">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 rounded-full bg-background border border-border px-3.5 py-1.5 text-xs font-medium text-muted-foreground shadow-sm mt-5">
+              <Sparkles className="w-3.5 h-3.5 text-primary" />
               Tulossa syksyllä 2026: KUUMA-alueen Dashboard 1.0
             </div>
+          </div>
 
-            <div className="space-y-8">
-              {tiers.map((tier) => (
-                <div key={tier.id}>
-                  <div className="flex items-center justify-center gap-2 mb-3">
-                    <span
-                      className="w-2.5 h-2.5 rounded-full shrink-0"
-                      style={tier.dotStyle}
-                    />
-                    <span className="text-xs font-semibold tracking-[0.15em] uppercase text-white/70">
+          {/* Three tier cards */}
+          <div className="grid gap-5 md:gap-6 lg:grid-cols-3 max-w-6xl mx-auto">
+            {tiers.map((tier) => (
+              <div
+                key={tier.id}
+                className="keuda-card-enhanced p-6 md:p-7 flex flex-col"
+              >
+                {/* Tier header */}
+                <div className="flex items-start gap-3 mb-5 pb-5 border-b border-border">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full shrink-0 mt-2"
+                    style={{ backgroundColor: tier.accent }}
+                    aria-hidden="true"
+                  />
+                  <div className="text-left">
+                    <h3 className="text-base md:text-lg font-bold text-foreground leading-tight">
                       {tier.label}
-                    </span>
-                    <span className="text-xs text-white/80 ml-1">
-                      — {tier.subtitle}
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2 max-w-3xl mx-auto">
-                    {tier.items.map((item) => {
-                      const chip = (
-                        <button
-                          type="button"
-                          onClick={() => setSelected(item)}
-                          className="w-full sm:w-auto inline-flex items-center justify-center rounded-full bg-white/90 hover:bg-white text-foreground px-4 py-2 text-sm font-medium shadow-sm border border-white/20 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
-                        >
-                          {item.label}
-                        </button>
-                      );
-                      return item.tooltip ? (
-                        <Tooltip key={item.id}>
-                          <TooltipTrigger asChild>{chip}</TooltipTrigger>
-                          <TooltipContent
-                            side="top"
-                            className="max-w-xs text-center"
-                          >
-                            {item.tooltip}
-                          </TooltipContent>
-                        </Tooltip>
-                      ) : (
-                        <span key={item.id} className="contents">
-                          {chip}
-                        </span>
-                      );
-                    })}
+                    </h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {tier.subtitle}
+                    </p>
                   </div>
                 </div>
-              ))}
-            </div>
 
-            <div className="mt-12">
-              <p className="text-white/70 italic text-sm max-w-lg mx-auto mb-5">
-                Toimialasi on listattu kasvun kärkeen? Katso miten KASVU-reitti
-                tukee juuri teidän toimialanne kehitystä.
-              </p>
-              <Button variant="cta" size="lg" onClick={openWizard}>
-                Aloita kasvukartoitus →
-              </Button>
-            </div>
+                {/* Chips */}
+                <div className="flex flex-col gap-2">
+                  {tier.items.map((item) => {
+                    const chip = (
+                      <button
+                        type="button"
+                        onClick={() => setSelected(item)}
+                        className="group w-full inline-flex items-center justify-between gap-2 rounded-lg bg-background hover:bg-accent text-foreground px-4 py-3 text-sm font-medium border border-border transition-all duration-200 hover:border-primary/40 hover:shadow-sm text-left"
+                      >
+                        <span className="flex items-center gap-2 min-w-0">
+                          <span className="truncate">{item.label}</span>
+                          {item.tooltip && (
+                            <Info className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                          )}
+                        </span>
+                        <span
+                          className="text-muted-foreground group-hover:text-primary transition-colors shrink-0"
+                          aria-hidden="true"
+                        >
+                          →
+                        </span>
+                      </button>
+                    );
+                    return item.tooltip ? (
+                      <Tooltip key={item.id}>
+                        <TooltipTrigger asChild>{chip}</TooltipTrigger>
+                        <TooltipContent side="top" className="max-w-xs text-center">
+                          {item.tooltip}
+                        </TooltipContent>
+                      </Tooltip>
+                    ) : (
+                      <div key={item.id}>{chip}</div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="text-center mt-10 md:mt-14">
+            <p className="text-muted-foreground max-w-xl mx-auto mb-5">
+              Toimialasi on listattu kasvun kärkeen? Katso miten KASVU-reitti
+              tukee juuri teidän toimialanne kehitystä.
+            </p>
+            <Button variant="cta" size="lg" onClick={openWizard}>
+              Aloita kasvukartoitus →
+            </Button>
           </div>
         </div>
 
