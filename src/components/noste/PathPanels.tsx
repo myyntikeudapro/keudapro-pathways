@@ -325,6 +325,13 @@ export function Panel4({ open, onClose, onOpenMuutosturva }: { open: boolean; on
       <AlueellinenValmennusStep />
       <MaksullinenValmennusStep />
 
+      <StepCard image={imgArpro} title="ARPRO AI-työnhaku" tooltip="Tekoälyavusteinen työnhakuvalmennus muutostilanteessa.">
+        <p className="text-sm text-muted-foreground mb-3">
+          Moderni tapa löytää töitä ja rakentaa hakijaprofiili tekoälyn avulla.
+        </p>
+        <CtaLink href="https://www.lyyti.in/ARPRO_20_pilotti_1172">Ilmoittaudu →</CtaLink>
+      </StepCard>
+
       <StepCard image={imgMuutosturva} title="Muutosturva" tooltip="Oletko muutosturvatilanteessa? Katso oikeutesi.">
         <p className="text-sm text-muted-foreground mb-3">
           Muutosturva on oikeutesi – autamme sinua hyödyntämään sen täysimääräisesti. KeudaPRO:n kautta pääset muutosturvakoulutuksiin.
