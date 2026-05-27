@@ -47,17 +47,24 @@ export function ProgramUpdateDialog({ programLabel, trigger }: Props) {
         </DialogHeader>
 
 
-        <div className="mt-2 rounded-lg border border-border bg-muted/40 p-4">
-          <p className="text-sm font-semibold text-foreground">Ulla Liukkonen</p>
-          <p className="text-xs text-muted-foreground mb-3">
-            Johtamisen koulutukset, Keuda
+        <div className="mt-2 rounded-lg border border-border bg-muted/40 p-4 space-y-2">
+          <p className="text-sm font-semibold text-foreground">Heikki Kallunki</p>
+          <p className="text-xs text-muted-foreground">
+            Myynti, asiakkuudet, kumppanuudet, räätälöidyt ratkaisut ja tutkintotavoitteiset koulutukset
           </p>
           <a
-            href="mailto:ulla.liukkonen@keuda.fi"
+            href="mailto:heikki.kallunki@keuda.fi"
             className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
           >
             <Mail className="w-4 h-4" />
-            ulla.liukkonen@keuda.fi
+            heikki.kallunki@keuda.fi
+          </a>
+          <a
+            href="tel:+358401906912"
+            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+          >
+            <Phone className="w-4 h-4" />
+            +358 40 190 6912
           </a>
         </div>
 
