@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
+import { ProgramUpdateDialog } from "./ProgramUpdateDialog";
 
 import progOsaaminen from "@/assets/prog-osaaminen.jpg";
 import progJohtaminen from "@/assets/prog-johtaminen.jpg";
@@ -25,6 +26,7 @@ type Program = {
   cta: string;
   isInternal?: boolean;
   comingSoon?: boolean;
+  updateModal?: boolean;
 };
 
 type Category = {
@@ -53,6 +55,7 @@ const categories: Category[] = [
           "Käytännön työkalut esihenkilötyöhön – kehityt johtajana ja tiimisi kehittyy kanssasi.",
         image: progJohtaminen,
         cta: "Katso sisältö →",
+        updateModal: true,
       },
       {
         slug: "osaamisen-johtaminen",
@@ -62,6 +65,7 @@ const categories: Category[] = [
           "Rakenna oppimiskulttuuri ja johda osaamista strategisesti – tulokset näkyvät tiimin suorituskyvyssä.",
         image: progOsaaminen,
         cta: "Tutustu ohjelmaan →",
+        updateModal: true,
       },
     ],
   },
@@ -166,6 +170,7 @@ const categories: Category[] = [
           "Yhdistä käytännön osaaminen ja tunnustettu tutkinto – eteneminen mahdollista työn ohessa.",
         image: progTutkinnot,
         cta: "Tutustu tutkintoihin →",
+        updateModal: true,
       },
       {
         slug: "raataloity-valmennus",
@@ -202,7 +207,16 @@ function ProgramCard({
   const ctaClass =
     "inline-flex items-center justify-center h-10 px-4 rounded-md text-sm font-semibold transition-colors mt-auto bg-foreground text-background hover:bg-foreground/85";
 
-  const cta = program.isInternal ? (
+  const cta = program.updateModal ? (
+    <ProgramUpdateDialog
+      programLabel={program.label}
+      trigger={
+        <button type="button" className={ctaClass}>
+          {program.cta}
+        </button>
+      }
+    />
+  ) : program.isInternal ? (
     <Link to={program.href} className={ctaClass}>
       {program.cta}
     </Link>
@@ -238,6 +252,11 @@ function ProgramCard({
         {program.comingSoon && (
           <span className="absolute top-3 left-3 px-2 py-1 text-[11px] font-bold rounded bg-secondary text-secondary-foreground">
             Tulossa 2026
+          </span>
+        )}
+        {program.updateModal && (
+          <span className="absolute top-3 left-3 px-2 py-1 text-[11px] font-bold rounded bg-secondary text-secondary-foreground">
+            Päivittyy
           </span>
         )}
       </div>

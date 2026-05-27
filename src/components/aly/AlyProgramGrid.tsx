@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Mail } from "lucide-react";
+import { ProgramUpdateDialog } from "./ProgramUpdateDialog";
 
 import progOsaaminen from "@/assets/prog-osaaminen.jpg";
 import progJohtaminen from "@/assets/prog-johtaminen.jpg";
@@ -28,6 +29,7 @@ type Program = {
   leadershipTags?: LeadershipTag[];
   alsoAvailable?: string;
   comingSoon?: boolean;
+  updateModal?: boolean;
 };
 
 type Category = {
@@ -71,6 +73,7 @@ const categories: Category[] = [
         cta: "Katso sisältö →",
         leadershipTags: ["Ihmisten johtaminen", "Itsensä johtaminen"],
         alsoAvailable: "Räätälöity valmennus · Puitesopimus",
+        updateModal: true,
       },
       {
         label: "Osaamisen johtamisen valmennusohjelma",
@@ -81,6 +84,7 @@ const categories: Category[] = [
         roles: ["esihenkilö", "johtaja"],
         cta: "Tutustu ohjelmaan →",
         leadershipTags: ["Organisaation johtaminen", "Ihmisten johtaminen"],
+        updateModal: true,
       },
       {
         label: "Tutkintotavoitteiset ratkaisut (EAT & AT)",
@@ -91,6 +95,7 @@ const categories: Category[] = [
         roles: ["asiantuntija", "uudistuja"],
         cta: "Tutustu tutkintoihin →",
         leadershipTags: ["Itsensä johtaminen", "Organisaation johtaminen"],
+        updateModal: true,
       },
     ],
   },
@@ -289,7 +294,20 @@ function ProgramCard({ program }: { program: Program }) {
   const ctaClass =
     "inline-flex items-center justify-center h-10 px-4 rounded-md text-sm font-semibold transition-colors mt-auto aly-cta";
 
-  const ctaInner = program.isInternal ? (
+  const ctaInner = program.updateModal ? (
+    <ProgramUpdateDialog
+      programLabel={program.label}
+      trigger={
+        <button
+          type="button"
+          className={ctaClass}
+          style={{ background: C.ink, color: C.paper }}
+        >
+          {program.cta}
+        </button>
+      }
+    />
+  ) : program.isInternal ? (
     <Link
       to={program.href}
       className={ctaClass}
@@ -325,6 +343,14 @@ function ProgramCard({ program }: { program: Program }) {
             style={{ background: C.accent, color: C.ink }}
           >
             Tulossa 2026
+          </span>
+        )}
+        {program.updateModal && (
+          <span
+            className="absolute top-3 left-3 px-2 py-1 text-[11px] font-bold rounded"
+            style={{ background: C.accent, color: C.ink }}
+          >
+            Päivittyy
           </span>
         )}
       </div>
