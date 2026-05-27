@@ -207,7 +207,16 @@ function ProgramCard({
   const ctaClass =
     "inline-flex items-center justify-center h-10 px-4 rounded-md text-sm font-semibold transition-colors mt-auto bg-foreground text-background hover:bg-foreground/85";
 
-  const cta = program.isInternal ? (
+  const cta = program.updateModal ? (
+    <ProgramUpdateDialog
+      programLabel={program.label}
+      trigger={
+        <button type="button" className={ctaClass}>
+          {program.cta}
+        </button>
+      }
+    />
+  ) : program.isInternal ? (
     <Link to={program.href} className={ctaClass}>
       {program.cta}
     </Link>
