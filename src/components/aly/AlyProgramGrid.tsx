@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Mail } from "lucide-react";
+import { ProgramUpdateDialog } from "./ProgramUpdateDialog";
 
 import progOsaaminen from "@/assets/prog-osaaminen.jpg";
 import progJohtaminen from "@/assets/prog-johtaminen.jpg";
