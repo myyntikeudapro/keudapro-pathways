@@ -13,7 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useWizard } from "@/contexts/WizardContext";
+
 import { Info, Sparkles, Briefcase, Rocket, Home, GraduationCap, Landmark } from "lucide-react";
 import industriesBg from "@/assets/growth-industries-bg.jpg";
 
