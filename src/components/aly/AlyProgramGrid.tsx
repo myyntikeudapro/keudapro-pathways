@@ -345,6 +345,14 @@ function ProgramCard({ program }: { program: Program }) {
             Tulossa 2026
           </span>
         )}
+        {program.updateModal && (
+          <span
+            className="absolute top-3 left-3 px-2 py-1 text-[11px] font-bold rounded"
+            style={{ background: C.accent, color: C.ink }}
+          >
+            Päivittyy
+          </span>
+        )}
       </div>
 
       <div className="flex flex-col flex-1" style={{ padding: 24 }}>
