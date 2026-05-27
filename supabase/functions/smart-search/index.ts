@@ -71,7 +71,7 @@ Vastaa AINA pelkkänä JSONina muodossa:
 
 Älä lisää selityksiä ennen tai jälkeen.`;
 
-    const userPrompt = `Käyttäjän kysely: "${query}"\n\nKohteet:\n${JSON.stringify(compactIndex)}`;
+    const userPrompt = `Käyttäjän kysely: "${safeQuery}"\n\nKohteet:\n${JSON.stringify(compactIndex)}`;
 
     const aiRes = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -86,6 +86,7 @@ Vastaa AINA pelkkänä JSONina muodossa:
           { role: "user", content: userPrompt },
         ],
         response_format: { type: "json_object" },
+        max_tokens: 512,
       }),
     });
 
