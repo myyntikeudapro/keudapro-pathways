@@ -26,36 +26,26 @@ export function ProgramUpdateDialog({ programLabel, trigger }: Props) {
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="max-w-xl">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-foreground">
-            Räätälöimme ratkaisun organisaation ja yksilön tarpeesta
+          <DialogTitle className="text-lg font-bold text-foreground">
+            Räätälöimme ratkaisun tarpeen mukaan
           </DialogTitle>
-          <DialogDescription className="text-sm text-muted-foreground pt-2 leading-relaxed space-y-3">
+          <DialogDescription className="text-sm text-muted-foreground pt-2 leading-relaxed space-y-2">
             <span className="block">
               <strong className="text-foreground">{programLabel}</strong> on osa
-              uudistuvaa KeudaPRO:n johtamisen ja esihenkilötyön
-              valmennustarjotinta, jota päivitämme parhaillaan.
+              KeudaPRO:n johtamisen valmennustarjotinta, jota päivitämme parhaillaan.
             </span>
             <span className="block">
-              Lähtökohtana ovat aina <strong className="text-foreground">organisaation
-              tai yksilön omasta tarpeesta nousevat johtamisen ja esihenkilötyön
-              ratkaisut</strong>. Olemme toteuttaneet näitä laajasti julkisella
-              puolella – mm. Helsingin kaupungille, KUUMA-alueen kunnille sekä eri
-              sote-alueille – ja yksityisille organisaatioille.
+              Lähtökohtana ovat aina <strong className="text-foreground">organisaation tai yksilön tarpeet</strong>.
+              Toteutamme ratkaisuja mm. Helsingin kaupungille, KUUMA-kunnille, sote-alueille ja yksityisille.
             </span>
             <span className="block">
-              Yhdistämme luontevasti työyhteisön ja yksilön tarpeet samaan
-              kokonaisuuteen: osalle osallistujista <strong className="text-foreground">osa-
-              tai kokotutkintoja</strong>, osalle <strong className="text-foreground">tiimi-
-              ja työyhteisövalmennuksia</strong> useista eri johtamisen teemoista.
-              Rakennamme paketin, joka palvelee sekä yksilön kasvua että yhteisön
-              kehittymistä.
+              Yhdistämme <strong className="text-foreground">osa- ja kokotutkintoja</strong> sekä
+              <strong className="text-foreground"> tiimi- ja työyhteisövalmennuksia</strong> yhdeksi paketiksi.
             </span>
-            <span className="block">
-              Jos haluat kuulla lisää tai keskustella oman organisaationne
-              tarpeista ja tutkintokoulutuksista, ole yhteydessä:
-            </span>
+            <span className="block">Kiinnostuitko? Ole yhteydessä:</span>
           </DialogDescription>
         </DialogHeader>
+
 
         <div className="mt-2 rounded-lg border border-border bg-muted/40 p-4">
           <p className="text-sm font-semibold text-foreground">Ulla Liukkonen</p>
