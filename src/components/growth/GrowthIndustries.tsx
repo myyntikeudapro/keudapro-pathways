@@ -198,9 +198,14 @@ export function GrowthIndustries() {
               toimialoihin, joissa murros ja potentiaali ovat suurimmat.
             </p>
 
-            <p className="text-white font-semibold text-sm tracking-wide mb-12">
+            <p className="text-white font-semibold text-sm tracking-wide mb-4">
               Dataan perustuva suunta.
             </p>
+
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-white/90 text-xs font-medium backdrop-blur-sm mb-12">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Tulossa syksyllä 2026: KUUMA-alueen Dashboard 1.0
+            </div>
 
             <div className="space-y-8">
               {tiers.map((tier) => (
