@@ -5,11 +5,10 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HubLoginModal } from "@/components/hub/HubLoginModal";
 import imgAiTransform from "@/assets/hub-ai-transform.jpg";
-import imgAiManager from "@/assets/hub-ai-manager.jpg";
-import imgAiDirector from "@/assets/hub-ai-director.jpg";
 import imgArpro from "@/assets/hub-arpro.jpg";
 import imgAukee from "@/assets/hub-aukee.jpg";
 import imgKuuma from "@/assets/hub-kuuma.jpg";
+import imgAiDirector from "@/assets/hub-ai-director.jpg";
 
 type ProjectStatus = "live" | "pilot" | "prep" | "coming";
 
