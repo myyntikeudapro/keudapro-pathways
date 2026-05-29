@@ -19,6 +19,7 @@ import YhteystiedotPage from "./pages/YhteystiedotPage";
 import PatevyydetPage from "./pages/PatevyydetPage";
 import VerkostoPage from "./pages/VerkostoPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
+import HubPage from "./pages/HubPage";
 import AdminPage from "./pages/admin/AdminPage";
 import { AuthProvider } from "./hooks/useAuth";
 import NotFound from "./pages/NotFound";
@@ -49,6 +50,7 @@ const App = () => (
                 <Route path="/kumppanit" element={<KumppanitPage />} />
                 <Route path="/yhteystiedot" element={<YhteystiedotPage />} />
                 <Route path="/verkosto" element={<VerkostoPage />} />
+                <Route path="/hub" element={<HubPage />} />
                 <Route path="/admin/login" element={<AdminLoginPage />} />
                 <Route path="/admin" element={<AdminPage />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

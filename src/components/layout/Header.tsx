@@ -20,6 +20,7 @@ const navItems: NavItem[] = [
     ],
   },
   { label: "Ota yhteyttä", href: "/yhteystiedot" },
+  { label: "HUB", href: "/hub" },
 ];
 
 export function Header() {
