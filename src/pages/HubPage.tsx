@@ -300,7 +300,6 @@ const HubPage = () => {
 
               <div className="p-6 md:p-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="text-3xl" aria-hidden>🧭</div>
                   <span className={cn("px-2.5 py-1 rounded-full text-xs font-semibold", statusClasses("live"))}>
                     Live — pilotti
                   </span>
