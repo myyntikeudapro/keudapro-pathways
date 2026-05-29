@@ -8,9 +8,11 @@ import { HubDemoModal } from "@/components/hub/HubDemoModal";
 import imgAiTransform from "@/assets/hub-ai-transform.png";
 import keudaLogo from "@/assets/keuda-logo.png";
 import imgArpro from "@/assets/hub-arpro.jpg";
+import imgArpro2 from "@/assets/hub-arpro-2.jpg";
 import imgAukee from "@/assets/hub-aukee.jpg";
 import imgKuuma from "@/assets/hub-kuuma.jpg";
 import imgAiDirector from "@/assets/hub-ai-director.jpg";
+import imgKoulutussivut from "@/assets/hub-koulutussivut.jpg";
 
 type ProjectStatus = "live" | "pilot" | "prep" | "coming";
 
@@ -67,7 +69,7 @@ const standardProjects: Project[] = [
     customers: [{ initials: "K", name: "Kunta (tarkentuu)", tone: "teal" }],
     meta: "Sopimusneuvottelu",
     ctaLabel: "Ilmoittaudu jonoon",
-    image: imgArpro,
+    image: imgArpro2,
   },
   {
     id: "aukee",
@@ -119,7 +121,7 @@ const standardProjects: Project[] = [
     customers: [{ initials: "—", name: "Avautuu 2026", tone: "lime" }],
     meta: "Q4 2026",
     ctaLabel: "Ilmoittaudu jonoon",
-    image: imgArpro,
+    image: imgKoulutussivut,
   },
 ];
 
