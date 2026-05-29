@@ -443,23 +443,23 @@ const HubPage = () => {
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium" htmlFor="hub-fn">Etunimi</label>
                   <input id="hub-fn" required value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                    className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]" />
+                    className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange" />
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium" htmlFor="hub-ln">Sukunimi</label>
                   <input id="hub-ln" required value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                    className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]" />
+                    className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange" />
                 </div>
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium" htmlFor="hub-org">Organisaatio</label>
                 <input id="hub-org" required value={form.organization} onChange={(e) => setForm({ ...form, organization: e.target.value })}
-                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]" />
+                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange" />
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium" htmlFor="hub-em">Sähköposti</label>
                 <input id="hub-em" type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]" />
+                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange" />
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium" htmlFor="hub-int">Mistä haluaisit kuulla enemmän?</label>
