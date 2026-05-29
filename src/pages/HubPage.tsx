@@ -43,20 +43,33 @@ const toneClasses: Record<NonNullable<Customer["tone"]>, string> = {
 const standardProjects: Project[] = [
   {
     id: "arpro",
-    icon: "🧩",
+    icon: "",
     status: "pilot",
     statusLabel: "Pilotti käynnissä",
     name: "ARPRO 2.0 -pilotti",
     description:
-      "Ammatillisen koulutuksen uudistamisen rakennuspalikat — toinen kehityskierros käynnissä Keski-Uudenmaan koulutuskuntayhtymässä.",
-    customers: [{ initials: "KE", name: "Keski-Uudenmaan koulutuskuntayhtymä", tone: "blue" }],
+      "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu kunnalle (tarkentuu kun sopimus valmis). ARPRO tunnistaa työnhakijan vahvuudet, osaamisvajeet ja optimaalisen työllistymisreitin sekä aktivoi piilotyöpaikkamarkkinaa — oikea tuki, oikealle ihmiselle, oikeaan aikaan.",
+    customers: [{ initials: "K", name: "Kunta (tarkentuu)", tone: "blue" }],
     meta: "Päättyy 5/2026",
     ctaLabel: "Kirjaudu →",
     image: imgArpro,
   },
   {
+    id: "arpro-2",
+    icon: "",
+    status: "prep",
+    statusLabel: "Neuvottelussa",
+    name: "ARPRO 2.0 -pilotti",
+    description:
+      "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu toiselle kunnalle (tarkentuu kun sopimus valmis). Sama dataperusteinen arviointi- ja ohjausmalli, joka yhdistää työnhakijoiden osaamisprofiilit avoimiin ja piilotyöpaikkoihin alueellisen työllisyysstrategian tueksi.",
+    customers: [{ initials: "K", name: "Kunta (tarkentuu)", tone: "teal" }],
+    meta: "Sopimusneuvottelu",
+    ctaLabel: "Ilmoittaudu jonoon",
+    image: imgArpro,
+  },
+  {
     id: "aukee",
-    icon: "🌉",
+    icon: "",
     status: "prep",
     statusLabel: "Valmisteilla",
     name: "Aukee – Mahis -pilotti",
@@ -69,7 +82,7 @@ const standardProjects: Project[] = [
   },
   {
     id: "kuuma",
-    icon: "🗺",
+    icon: "",
     status: "prep",
     statusLabel: "Pilotti rakentuu",
     name: "KUUMA-tilannekuva",
@@ -82,7 +95,7 @@ const standardProjects: Project[] = [
   },
   {
     id: "hallitusraportointi",
-    icon: "📊",
+    icon: "",
     status: "coming",
     statusLabel: "Tulossa",
     name: "Hallitusraportointi",
@@ -95,7 +108,7 @@ const standardProjects: Project[] = [
   },
   {
     id: "koulutussivut",
-    icon: "🌐",
+    icon: "",
     status: "coming",
     statusLabel: "Tulossa",
     name: "Koulutussivujen rakentaja",
