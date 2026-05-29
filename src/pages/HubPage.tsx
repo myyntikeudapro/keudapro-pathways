@@ -271,7 +271,7 @@ const HubPage = () => {
         <div className="keuda-container">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
             <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-[hsl(var(--keuda-teal))] mb-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-keuda-orange mb-3">
                 Projektit
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
@@ -320,7 +320,7 @@ const HubPage = () => {
                   />
                   <span className="text-xs text-muted-foreground">Keuda-konserni</span>
                 </div>
-                <Button variant="cta" size="lg" onClick={() => openLogin({ id: "ai-transform", name: "AI-transformaationäkymä" })}>
+                <Button variant="cta" size="lg" onClick={() => openLogin({ id: "ai-transform", name: "AI-transformaationäkymä" })} className="bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90">
                   Kirjaudu →
                 </Button>
                 <p className="text-xs text-muted-foreground mt-3">Keuda · pilotti käynnissä</p>
@@ -344,7 +344,7 @@ const HubPage = () => {
                     <div className="text-xs text-muted-foreground mt-1">starttia 2026</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-[hsl(var(--keuda-teal))]">↑ live</div>
+                    <div className="text-2xl font-bold text-keuda-orange">↑ live</div>
                     <div className="text-xs text-muted-foreground mt-1">pilotti aktiivisena</div>
                   </div>
                 </div>
@@ -396,7 +396,7 @@ const HubPage = () => {
                         variant={p.status === "coming" || p.status === "prep" ? "outline" : "cta"}
                         size="default"
                         onClick={() => handleCardCta(p)}
-                        className="min-h-[44px]"
+                        className={cn("min-h-[44px]", p.status !== "coming" && p.status !== "prep" && "bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90")}
                       >
                         {p.ctaLabel}
                       </Button>
