@@ -43,20 +43,33 @@ const toneClasses: Record<NonNullable<Customer["tone"]>, string> = {
 const standardProjects: Project[] = [
   {
     id: "arpro",
-    icon: "🧩",
+    icon: "",
     status: "pilot",
     statusLabel: "Pilotti käynnissä",
     name: "ARPRO 2.0 -pilotti",
     description:
-      "Ammatillisen koulutuksen uudistamisen rakennuspalikat — toinen kehityskierros käynnissä Keski-Uudenmaan koulutuskuntayhtymässä.",
-    customers: [{ initials: "KE", name: "Keski-Uudenmaan koulutuskuntayhtymä", tone: "blue" }],
+      "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu kunnalle (tarkentuu kun sopimus valmis). ARPRO tunnistaa työnhakijan vahvuudet, osaamisvajeet ja optimaalisen työllistymisreitin sekä aktivoi piilotyöpaikkamarkkinaa — oikea tuki, oikealle ihmiselle, oikeaan aikaan.",
+    customers: [{ initials: "K", name: "Kunta (tarkentuu)", tone: "blue" }],
     meta: "Päättyy 5/2026",
     ctaLabel: "Kirjaudu →",
     image: imgArpro,
   },
   {
+    id: "arpro-2",
+    icon: "",
+    status: "prep",
+    statusLabel: "Neuvottelussa",
+    name: "ARPRO 2.0 -pilotti",
+    description:
+      "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu toiselle kunnalle (tarkentuu kun sopimus valmis). Sama dataperusteinen arviointi- ja ohjausmalli, joka yhdistää työnhakijoiden osaamisprofiilit avoimiin ja piilotyöpaikkoihin alueellisen työllisyysstrategian tueksi.",
+    customers: [{ initials: "K", name: "Kunta (tarkentuu)", tone: "teal" }],
+    meta: "Sopimusneuvottelu",
+    ctaLabel: "Ilmoittaudu jonoon",
+    image: imgArpro,
+  },
+  {
     id: "aukee",
-    icon: "🌉",
+    icon: "",
     status: "prep",
     statusLabel: "Valmisteilla",
     name: "Aukee – Mahis -pilotti",
@@ -69,7 +82,7 @@ const standardProjects: Project[] = [
   },
   {
     id: "kuuma",
-    icon: "🗺",
+    icon: "",
     status: "prep",
     statusLabel: "Pilotti rakentuu",
     name: "KUUMA-tilannekuva",
@@ -82,7 +95,7 @@ const standardProjects: Project[] = [
   },
   {
     id: "hallitusraportointi",
-    icon: "📊",
+    icon: "",
     status: "coming",
     statusLabel: "Tulossa",
     name: "Hallitusraportointi",
@@ -95,7 +108,7 @@ const standardProjects: Project[] = [
   },
   {
     id: "koulutussivut",
-    icon: "🌐",
+    icon: "",
     status: "coming",
     statusLabel: "Tulossa",
     name: "Koulutussivujen rakentaja",
@@ -239,7 +252,7 @@ const HubPage = () => {
                   <div className="text-xs text-muted-foreground mt-1">Pilotti käynnissä</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">2</div>
+                  <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">3</div>
                   <div className="text-xs text-muted-foreground mt-1">Pilottia valmisteilla</div>
                 </div>
                 <div>
@@ -287,7 +300,6 @@ const HubPage = () => {
 
               <div className="p-6 md:p-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="text-3xl" aria-hidden>🧭</div>
                   <span className={cn("px-2.5 py-1 rounded-full text-xs font-semibold", statusClasses("live"))}>
                     Live — pilotti
                   </span>
@@ -359,7 +371,6 @@ const HubPage = () => {
 
                   <div className="p-5 sm:p-6 flex flex-col">
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="text-xl" aria-hidden>{p.icon}</div>
                       <span className={cn("px-2.5 py-1 rounded-full text-xs font-semibold", statusClasses(p.status))}>
                         {p.statusLabel}
                       </span>
