@@ -234,7 +234,7 @@ const HubPage = () => {
               Digitaaliset kehitysprojektit organisaatioille — yksi portti, omat projektit. Olemassa olevat asiakkaat kirjautuvat suoraan omaan projektiinsa.
             </p>
             <div className="flex flex-wrap gap-3 justify-center mb-12">
-              <Button variant="cta" size="lg" onClick={() => openLogin({ id: null, name: "Kirjaudu sisään" })}>
+              <Button variant="cta" size="lg" onClick={() => openLogin({ id: null, name: "Kirjaudu sisään" })} className="bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90">
                 Kirjaudu sisään
               </Button>
               <Button variant="outline" size="lg" onClick={scrollToContact}>
