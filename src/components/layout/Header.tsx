@@ -74,7 +74,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`px-4 py-2 rounded-lg text-sm font-bold tracking-wide transition-all ${
+                  className={`px-3 py-1 rounded-md text-sm font-bold tracking-wide leading-none transition-all ${
                     location.pathname === item.href
                       ? "bg-[#0B0B0B] text-[hsl(var(--keuda-orange))] ring-2 ring-[hsl(var(--keuda-orange))]/60"
                       : "bg-[#0B0B0B] text-[hsl(var(--keuda-orange))] hover:ring-2 hover:ring-[hsl(var(--keuda-orange))]/40"
