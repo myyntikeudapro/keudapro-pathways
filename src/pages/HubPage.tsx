@@ -413,7 +413,7 @@ const HubPage = () => {
       {/* Contact */}
       <section ref={contactRef} className="py-16 md:py-24 bg-[#0B0B0B] text-white scroll-mt-20">
         <div className="keuda-container">
-          <div className="text-xs font-bold uppercase tracking-wider text-[hsl(var(--keuda-teal))] mb-10">
+          <div className="text-xs font-bold uppercase tracking-wider text-keuda-orange mb-10">
             Ota yhteyttä
           </div>
           <div className="grid md:grid-cols-2 gap-10 md:gap-16">
@@ -425,13 +425,13 @@ const HubPage = () => {
                 Varaa 30 minuutin demo tai ota yhteyttä suoraan. Kerromme miten KeudaPRO HUB sopii teidän organisaatiollenne.
               </p>
               <div className="rounded-xl bg-white/5 border border-white/10 p-5 flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-[hsl(var(--keuda-teal))] flex items-center justify-center font-bold text-white text-lg shrink-0">
+                <div className="w-14 h-14 rounded-full bg-keuda-orange flex items-center justify-center font-bold text-[#0B0B0B] text-lg shrink-0">
                   HK
                 </div>
                 <div>
                   <div className="font-semibold">Heikki Kallunki</div>
                   <div className="text-sm text-white/60">Toimitusjohtaja, KeudaPRO</div>
-                  <a href="tel:+358401906912" className="text-sm text-[hsl(var(--keuda-teal))] hover:underline">
+                  <a href="tel:+358401906912" className="text-sm text-keuda-orange hover:underline">
                     040 190 6912
                   </a>
                 </div>
