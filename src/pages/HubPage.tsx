@@ -158,6 +158,7 @@ function CustomerLogo({ customer, size = "md" }: { customer: Customer; size?: "s
 
 const HubPage = () => {
   const [loginOpen, setLoginOpen] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<{ id: string | null; name: string }>({ id: null, name: "" });
   const contactRef = useRef<HTMLDivElement>(null);
 
