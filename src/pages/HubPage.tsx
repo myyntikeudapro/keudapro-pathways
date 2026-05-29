@@ -210,57 +210,66 @@ const HubPage = () => {
       />
 
       {/* Hero */}
-      <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-[hsl(var(--keuda-blue-light))] via-background to-[hsl(var(--keuda-orange-light))]">
-        {/* Decorative grid + glow */}
+      <section className="relative py-20 md:py-32 overflow-hidden bg-[#0B0B0B] text-white">
+        {/* Decorative grid */}
         <div
-          className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          className="absolute inset-0 opacity-[0.12] pointer-events-none"
           style={{
             backgroundImage:
-              "linear-gradient(hsl(var(--keuda-blue)/0.35) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--keuda-blue)/0.35) 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-            maskImage: "radial-gradient(ellipse at center, black 40%, transparent 75%)",
+              "linear-gradient(hsl(var(--keuda-orange)/0.6) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--keuda-orange)/0.6) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+            maskImage: "radial-gradient(ellipse at center, black 35%, transparent 75%)",
           }}
           aria-hidden
         />
-        <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-keuda-orange/15 blur-3xl pointer-events-none" aria-hidden />
-        <div className="absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-[hsl(var(--keuda-blue))]/15 blur-3xl pointer-events-none" aria-hidden />
+        {/* Glow orbs */}
+        <div className="absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full bg-keuda-orange/25 blur-3xl pointer-events-none animate-pulse" aria-hidden />
+        <div className="absolute -bottom-40 -left-40 w-[480px] h-[480px] rounded-full bg-[hsl(var(--keuda-blue))]/30 blur-3xl pointer-events-none" aria-hidden />
+        {/* Diagonal accent line */}
+        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-keuda-orange/40 to-transparent pointer-events-none" aria-hidden />
 
         <div className="keuda-container relative">
           <div className="max-w-3xl mx-auto text-center animate-fade-in">
-            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[hsl(var(--keuda-blue))] mb-4">
+            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.25em] text-keuda-orange mb-6 px-4 py-1.5 rounded-full border border-keuda-orange/30 bg-keuda-orange/5">
               <span className="w-1.5 h-1.5 rounded-full bg-keuda-orange animate-pulse" />
               Kehitysalusta
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-5 leading-tight">
-              KeudaPRO <span className="bg-gradient-to-r from-[hsl(var(--keuda-blue))] to-keuda-orange bg-clip-text text-transparent">HUB</span>
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-[1.05] tracking-tight">
+              KeudaPRO{" "}
+              <span className="relative inline-block">
+                <span className="bg-gradient-to-r from-keuda-orange via-amber-300 to-keuda-orange bg-clip-text text-transparent">
+                  HUB
+                </span>
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-keuda-orange to-transparent" aria-hidden />
+              </span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-              Digitaaliset kehitysprojektit organisaatioille — yksi portti, omat projektit. Olemassa olevat asiakkaat kirjautuvat suoraan omaan projektiinsa.
+            <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+              Digitaaliset kehitysprojektit organisaatioille — <span className="text-white">yksi portti, omat projektit</span>. Olemassa olevat asiakkaat kirjautuvat suoraan omaan projektiinsa.
             </p>
-            <div className="flex flex-wrap gap-3 justify-center mb-12">
-              <Button variant="cta" size="lg" onClick={() => setDemoOpen(true)} className="bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90">
-                Varaa demo
+            <div className="flex flex-wrap gap-3 justify-center mb-14">
+              <Button
+                variant="cta"
+                size="lg"
+                onClick={() => setDemoOpen(true)}
+                className="bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90 shadow-[0_0_40px_-8px_hsl(var(--keuda-orange)/0.7)] hover:shadow-[0_0_60px_-4px_hsl(var(--keuda-orange)/0.9)] transition-shadow"
+              >
+                Varaa demo →
               </Button>
             </div>
 
-            <div className="pt-8 border-t border-border">
+            <div className="pt-10 border-t border-white/10">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-left sm:text-center">
-                <div>
-                  <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">1</div>
-                  <div className="text-xs text-muted-foreground mt-1">Live-projekti</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">1</div>
-                  <div className="text-xs text-muted-foreground mt-1">Pilotti käynnissä</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">3</div>
-                  <div className="text-xs text-muted-foreground mt-1">Pilottia valmisteilla</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">53</div>
-                  <div className="text-xs text-muted-foreground mt-1">Osallistujaa</div>
-                </div>
+                {[
+                  { n: "1", l: "Live-projekti" },
+                  { n: "1", l: "Pilotti käynnissä" },
+                  { n: "3", l: "Pilottia valmisteilla" },
+                  { n: "53", l: "Osallistujaa" },
+                ].map((s) => (
+                  <div key={s.l}>
+                    <div className="text-3xl md:text-4xl font-bold text-keuda-orange">{s.n}</div>
+                    <div className="text-xs text-white/60 mt-1 uppercase tracking-wider">{s.l}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
