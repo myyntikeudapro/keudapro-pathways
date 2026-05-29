@@ -65,6 +65,8 @@ export default {
           "blue-light": "hsl(var(--keuda-blue-light))",
           teal: "hsl(var(--keuda-teal))",
           "teal-light": "hsl(var(--keuda-teal-light))",
+          orange: "hsl(var(--keuda-orange))",
+          "orange-light": "hsl(var(--keuda-orange-light))",
         },
       },
       borderRadius: {

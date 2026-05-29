@@ -125,7 +125,7 @@ const standardProjects: Project[] = [
 function statusClasses(status: ProjectStatus) {
   switch (status) {
     case "live":
-      return "bg-[hsl(var(--keuda-teal))]/15 text-[hsl(var(--keuda-teal))] border border-[hsl(var(--keuda-teal))]/30";
+      return "bg-keuda-orange/15 text-keuda-orange border border-keuda-orange/30";
     case "pilot":
       return "bg-amber-100 text-amber-800 border border-amber-200";
     case "prep":
@@ -206,7 +206,7 @@ const HubPage = () => {
       />
 
       {/* Hero */}
-      <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-[hsl(var(--keuda-blue-light))] via-background to-[hsl(var(--keuda-teal-light))]">
+      <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-[hsl(var(--keuda-blue-light))] via-background to-[hsl(var(--keuda-orange-light))]">
         {/* Decorative grid + glow */}
         <div
           className="absolute inset-0 opacity-[0.18] pointer-events-none"
@@ -218,23 +218,23 @@ const HubPage = () => {
           }}
           aria-hidden
         />
-        <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-[hsl(var(--keuda-teal))]/15 blur-3xl pointer-events-none" aria-hidden />
+        <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-keuda-orange/15 blur-3xl pointer-events-none" aria-hidden />
         <div className="absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-[hsl(var(--keuda-blue))]/15 blur-3xl pointer-events-none" aria-hidden />
 
         <div className="keuda-container relative">
           <div className="max-w-3xl mx-auto text-center animate-fade-in">
             <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[hsl(var(--keuda-blue))] mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[hsl(var(--keuda-teal))] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-keuda-orange animate-pulse" />
               Kehitysalusta
             </span>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-5 leading-tight">
-              KeudaPRO <span className="bg-gradient-to-r from-[hsl(var(--keuda-blue))] to-[hsl(var(--keuda-teal))] bg-clip-text text-transparent">HUB</span>
+              KeudaPRO <span className="bg-gradient-to-r from-[hsl(var(--keuda-blue))] to-keuda-orange bg-clip-text text-transparent">HUB</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
               Digitaaliset kehitysprojektit organisaatioille — yksi portti, omat projektit. Olemassa olevat asiakkaat kirjautuvat suoraan omaan projektiinsa.
             </p>
             <div className="flex flex-wrap gap-3 justify-center mb-12">
-              <Button variant="cta" size="lg" onClick={() => openLogin({ id: null, name: "Kirjaudu sisään" })}>
+              <Button variant="cta" size="lg" onClick={() => openLogin({ id: null, name: "Kirjaudu sisään" })} className="bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90">
                 Kirjaudu sisään
               </Button>
               <Button variant="outline" size="lg" onClick={scrollToContact}>
@@ -271,7 +271,7 @@ const HubPage = () => {
         <div className="keuda-container">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
             <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-[hsl(var(--keuda-teal))] mb-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-keuda-orange mb-3">
                 Projektit
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
@@ -320,7 +320,7 @@ const HubPage = () => {
                   />
                   <span className="text-xs text-muted-foreground">Keuda-konserni</span>
                 </div>
-                <Button variant="cta" size="lg" onClick={() => openLogin({ id: "ai-transform", name: "AI-transformaationäkymä" })}>
+                <Button variant="cta" size="lg" onClick={() => openLogin({ id: "ai-transform", name: "AI-transformaationäkymä" })} className="bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90">
                   Kirjaudu →
                 </Button>
                 <p className="text-xs text-muted-foreground mt-3">Keuda · pilotti käynnissä</p>
@@ -344,7 +344,7 @@ const HubPage = () => {
                     <div className="text-xs text-muted-foreground mt-1">starttia 2026</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-[hsl(var(--keuda-teal))]">↑ live</div>
+                    <div className="text-2xl font-bold text-keuda-orange">↑ live</div>
                     <div className="text-xs text-muted-foreground mt-1">pilotti aktiivisena</div>
                   </div>
                 </div>
@@ -396,7 +396,7 @@ const HubPage = () => {
                         variant={p.status === "coming" || p.status === "prep" ? "outline" : "cta"}
                         size="default"
                         onClick={() => handleCardCta(p)}
-                        className="min-h-[44px]"
+                        className={cn("min-h-[44px]", p.status !== "coming" && p.status !== "prep" && "bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90")}
                       >
                         {p.ctaLabel}
                       </Button>
@@ -413,7 +413,7 @@ const HubPage = () => {
       {/* Contact */}
       <section ref={contactRef} className="py-16 md:py-24 bg-[#0B0B0B] text-white scroll-mt-20">
         <div className="keuda-container">
-          <div className="text-xs font-bold uppercase tracking-wider text-[hsl(var(--keuda-teal))] mb-10">
+          <div className="text-xs font-bold uppercase tracking-wider text-keuda-orange mb-10">
             Ota yhteyttä
           </div>
           <div className="grid md:grid-cols-2 gap-10 md:gap-16">
@@ -425,13 +425,13 @@ const HubPage = () => {
                 Varaa 30 minuutin demo tai ota yhteyttä suoraan. Kerromme miten KeudaPRO HUB sopii teidän organisaatiollenne.
               </p>
               <div className="rounded-xl bg-white/5 border border-white/10 p-5 flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-[hsl(var(--keuda-teal))] flex items-center justify-center font-bold text-white text-lg shrink-0">
+                <div className="w-14 h-14 rounded-full bg-keuda-orange flex items-center justify-center font-bold text-[#0B0B0B] text-lg shrink-0">
                   HK
                 </div>
                 <div>
                   <div className="font-semibold">Heikki Kallunki</div>
                   <div className="text-sm text-white/60">Toimitusjohtaja, KeudaPRO</div>
-                  <a href="tel:+358401906912" className="text-sm text-[hsl(var(--keuda-teal))] hover:underline">
+                  <a href="tel:+358401906912" className="text-sm text-keuda-orange hover:underline">
                     040 190 6912
                   </a>
                 </div>
@@ -443,28 +443,28 @@ const HubPage = () => {
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium" htmlFor="hub-fn">Etunimi</label>
                   <input id="hub-fn" required value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                    className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]" />
+                    className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange" />
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium" htmlFor="hub-ln">Sukunimi</label>
                   <input id="hub-ln" required value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                    className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]" />
+                    className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange" />
                 </div>
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium" htmlFor="hub-org">Organisaatio</label>
                 <input id="hub-org" required value={form.organization} onChange={(e) => setForm({ ...form, organization: e.target.value })}
-                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]" />
+                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange" />
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium" htmlFor="hub-em">Sähköposti</label>
                 <input id="hub-em" type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]" />
+                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange" />
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium" htmlFor="hub-int">Mistä haluaisit kuulla enemmän?</label>
                 <select id="hub-int" value={form.interest} onChange={(e) => setForm({ ...form, interest: e.target.value })}
-                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]">
+                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white focus:outline-none focus:ring-2 focus:ring-keuda-orange">
                   <option value="" className="bg-[#0B0B0B]">Valitse...</option>
                   <option className="bg-[#0B0B0B]">AI-transformaationäkymä</option>
                   <option className="bg-[#0B0B0B]">AI-Manager-ohjelma</option>
@@ -478,9 +478,9 @@ const HubPage = () => {
               <div className="space-y-1.5">
                 <label className="text-sm font-medium" htmlFor="hub-msg">Lisätietoja tai kysymyksiä...</label>
                 <textarea id="hub-msg" rows={3} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="w-full rounded-md bg-white/5 border border-white/15 px-3 py-2 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]" />
+                  className="w-full rounded-md bg-white/5 border border-white/15 px-3 py-2 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange" />
               </div>
-              <Button type="submit" variant="cta" size="lg" className="w-full sm:w-auto">
+              <Button type="submit" variant="cta" size="lg" className="w-full sm:w-auto bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90">
                 {sent ? "Kiitos!" : "Lähetä viesti →"}
               </Button>
             </form>
