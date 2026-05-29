@@ -312,7 +312,13 @@ const HubPage = () => {
                   Strateginen kojelauta organisaation tekoälytransformaatiolle. Käyttötapausten hallinta, prosessikartta, AI-analyysi ja johdon ROI-näkymä.
                 </p>
                 <div className="flex items-center gap-3 mb-6">
-                  <CustomerLogo customer={{ initials: "KE", name: "Keuda-konserni", tone: "blue" }} />
+                  <img
+                    src={keudaLogo}
+                    alt="Keuda"
+                    className="h-7 w-auto object-contain"
+                    loading="lazy"
+                  />
+                  <span className="text-xs text-muted-foreground">Keuda-konserni</span>
                 </div>
                 <Button variant="cta" size="lg" onClick={() => openLogin({ id: "ai-transform", name: "AI-transformaationäkymä" })}>
                   Kirjaudu →
