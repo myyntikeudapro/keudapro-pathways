@@ -206,7 +206,7 @@ const HubPage = () => {
       />
 
       {/* Hero */}
-      <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-[hsl(var(--keuda-blue-light))] via-background to-[hsl(var(--keuda-teal-light))]">
+      <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-[hsl(var(--keuda-blue-light))] via-background to-[hsl(var(--keuda-orange-light))]">
         {/* Decorative grid + glow */}
         <div
           className="absolute inset-0 opacity-[0.18] pointer-events-none"
@@ -218,17 +218,17 @@ const HubPage = () => {
           }}
           aria-hidden
         />
-        <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-[hsl(var(--keuda-teal))]/15 blur-3xl pointer-events-none" aria-hidden />
+        <div className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-keuda-orange/15 blur-3xl pointer-events-none" aria-hidden />
         <div className="absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-[hsl(var(--keuda-blue))]/15 blur-3xl pointer-events-none" aria-hidden />
 
         <div className="keuda-container relative">
           <div className="max-w-3xl mx-auto text-center animate-fade-in">
             <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[hsl(var(--keuda-blue))] mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[hsl(var(--keuda-teal))] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-keuda-orange animate-pulse" />
               Kehitysalusta
             </span>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-5 leading-tight">
-              KeudaPRO <span className="bg-gradient-to-r from-[hsl(var(--keuda-blue))] to-[hsl(var(--keuda-teal))] bg-clip-text text-transparent">HUB</span>
+              KeudaPRO <span className="bg-gradient-to-r from-[hsl(var(--keuda-blue))] to-keuda-orange bg-clip-text text-transparent">HUB</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
               Digitaaliset kehitysprojektit organisaatioille — yksi portti, omat projektit. Olemassa olevat asiakkaat kirjautuvat suoraan omaan projektiinsa.
