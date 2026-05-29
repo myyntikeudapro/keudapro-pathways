@@ -419,8 +419,8 @@ const HubPage = () => {
           </div>
           <div className="grid md:grid-cols-2 gap-10 md:gap-16">
             <div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-5 leading-tight">
-                Kiinnostuitko?<br />Jutellaan.
+              <h2 className="text-3xl md:text-5xl font-bold mb-5 leading-tight text-white">
+                Kiinnostuitko?<br /><span className="text-keuda-orange">Jutellaan.</span>
               </h2>
               <p className="text-white/70 mb-8 leading-relaxed">
                 Varaa 30 minuutin demo tai ota yhteyttä suoraan. Kerromme miten KeudaPRO HUB sopii teidän organisaatiollenne.
