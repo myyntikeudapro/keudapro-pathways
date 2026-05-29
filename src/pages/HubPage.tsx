@@ -235,8 +235,8 @@ const HubPage = () => {
                   <div className="text-xs text-muted-foreground mt-1">Live-projekti</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">3</div>
-                  <div className="text-xs text-muted-foreground mt-1">Pilottia käynnissä</div>
+                  <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">1</div>
+                  <div className="text-xs text-muted-foreground mt-1">Pilotti käynnissä</div>
                 </div>
                 <div>
                   <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">2</div>
