@@ -70,6 +70,18 @@ export function Header() {
                     </div>
                   </div>
                 </div>
+              ) : item.label === "HUB" ? (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={`px-4 py-2 rounded-lg text-sm font-bold tracking-wide transition-all ${
+                    location.pathname === item.href
+                      ? "bg-[#0B0B0B] text-[hsl(var(--keuda-orange))] ring-2 ring-[hsl(var(--keuda-orange))]/60"
+                      : "bg-[#0B0B0B] text-[hsl(var(--keuda-orange))] hover:ring-2 hover:ring-[hsl(var(--keuda-orange))]/40"
+                  }`}
+                >
+                  HUB
+                </Link>
               ) : (
                 <Link
                   key={item.href}
@@ -105,49 +117,53 @@ export function Header() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <nav className="flex flex-col space-y-1">
-              {navItems.map((item) => (
-                <div key={item.href}>
-                  <Link
-                    to={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                      location.pathname === item.href
-                        ? "text-primary bg-accent"
-                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                  {item.children && (
-                    <div className="ml-3 pl-3 border-l border-border my-1 space-y-1">
-                      {item.children
-                        .filter((c) => c.href !== item.href)
-                        .map((c) => (
-                          <Link
-                            key={c.href}
-                            to={c.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="block px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                          >
-                            {c.label}
-                          </Link>
-                        ))}
-                    </div>
-                  )}
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="md:hidden py-4 border-t border-border">
+              <nav className="flex flex-col space-y-1">
+                {navItems.map((item) => (
+                  <div key={item.href}>
+                    <Link
+                      to={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                        location.pathname === item.href
+                          ? item.label === "HUB"
+                            ? "bg-[#0B0B0B] text-[hsl(var(--keuda-orange))] ring-2 ring-[hsl(var(--keuda-orange))]/60"
+                            : "text-primary bg-accent"
+                          : item.label === "HUB"
+                            ? "bg-[#0B0B0B] text-[hsl(var(--keuda-orange))]"
+                            : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                    {item.children && (
+                      <div className="ml-3 pl-3 border-l border-border my-1 space-y-1">
+                        {item.children
+                          .filter((c) => c.href !== item.href)
+                          .map((c) => (
+                            <Link
+                              key={c.href}
+                              to={c.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="block px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                            >
+                              {c.label}
+                            </Link>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <div className="pt-2">
+                  <Button variant="cta" className="w-full" onClick={() => { setMobileMenuOpen(false); openPanel(); }}>
+                    Apua? Kysy AI-valmentajalta
+                  </Button>
                 </div>
-              ))}
-              <div className="pt-2">
-                <Button variant="cta" className="w-full" onClick={() => { setMobileMenuOpen(false); openPanel(); }}>
-                  Apua? Kysy AI-valmentajalta
-                </Button>
-              </div>
-            </nav>
-          </div>
-        )}
+              </nav>
+            </div>
+          )}
       </div>
     </header>
   );
