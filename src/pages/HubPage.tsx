@@ -4,6 +4,7 @@ import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HubLoginModal } from "@/components/hub/HubLoginModal";
+import { HubDemoModal } from "@/components/hub/HubDemoModal";
 import imgAiTransform from "@/assets/hub-ai-transform.png";
 import keudaLogo from "@/assets/keuda-logo.png";
 import imgArpro from "@/assets/hub-arpro.jpg";
@@ -157,6 +158,7 @@ function CustomerLogo({ customer, size = "md" }: { customer: Customer; size?: "s
 
 const HubPage = () => {
   const [loginOpen, setLoginOpen] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<{ id: string | null; name: string }>({ id: null, name: "" });
   const contactRef = useRef<HTMLDivElement>(null);
 
@@ -234,10 +236,7 @@ const HubPage = () => {
               Digitaaliset kehitysprojektit organisaatioille — yksi portti, omat projektit. Olemassa olevat asiakkaat kirjautuvat suoraan omaan projektiinsa.
             </p>
             <div className="flex flex-wrap gap-3 justify-center mb-12">
-              <Button variant="cta" size="lg" onClick={() => openLogin({ id: null, name: "Kirjaudu sisään" })} className="bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90">
-                Kirjaudu sisään
-              </Button>
-              <Button variant="outline" size="lg" onClick={scrollToContact}>
+              <Button variant="cta" size="lg" onClick={() => setDemoOpen(true)} className="bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90">
                 Varaa demo
               </Button>
             </div>
@@ -500,6 +499,7 @@ const HubPage = () => {
         projectName={activeProject.name}
         onContactClick={scrollToContact}
       />
+      <HubDemoModal open={demoOpen} onOpenChange={setDemoOpen} />
     </Layout>
   );
 };
