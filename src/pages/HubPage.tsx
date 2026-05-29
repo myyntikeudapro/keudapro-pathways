@@ -42,32 +42,6 @@ const toneClasses: Record<NonNullable<Customer["tone"]>, string> = {
 
 const standardProjects: Project[] = [
   {
-    id: "ai-manager",
-    icon: "🎓",
-    status: "pilot",
-    statusLabel: "Pilotti",
-    name: "AI-Manager-ohjelma",
-    description:
-      "Esihenkilöiden ja päälliköiden tekoälyvalmennusohjelma. 8 ohjattua päivää, 3 workshopia, henkilökohtainen sparraus.",
-    customers: [{ initials: "KE", name: "Keuda-konserni", tone: "blue" }],
-    meta: "4 starttia 2026",
-    ctaLabel: "Kirjaudu →",
-    image: imgAiManager,
-  },
-  {
-    id: "ai-director",
-    icon: "🏛",
-    status: "pilot",
-    statusLabel: "Pilotti",
-    name: "AI-Director-ohjelma",
-    description:
-      "Johtoryhmätason valmennus tekoälyn strategiseen hyödyntämiseen. Konkretiaa johtajille — ei teknisiä osuuksia.",
-    customers: [{ initials: "KE", name: "Keuda-konserni", tone: "blue" }],
-    meta: "Syksy 2026",
-    ctaLabel: "Kirjaudu →",
-    image: imgAiDirector,
-  },
-  {
     id: "arpro",
     icon: "🧩",
     status: "pilot",
