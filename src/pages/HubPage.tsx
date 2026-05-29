@@ -478,9 +478,9 @@ const HubPage = () => {
               <div className="space-y-1.5">
                 <label className="text-sm font-medium" htmlFor="hub-msg">Lisätietoja tai kysymyksiä...</label>
                 <textarea id="hub-msg" rows={3} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="w-full rounded-md bg-white/5 border border-white/15 px-3 py-2 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]" />
+                  className="w-full rounded-md bg-white/5 border border-white/15 px-3 py-2 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange" />
               </div>
-              <Button type="submit" variant="cta" size="lg" className="w-full sm:w-auto">
+              <Button type="submit" variant="cta" size="lg" className="w-full sm:w-auto bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90">
                 {sent ? "Kiitos!" : "Lähetä viesti →"}
               </Button>
             </form>
