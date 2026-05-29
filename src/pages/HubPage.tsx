@@ -320,9 +320,14 @@ const HubPage = () => {
                   />
                   <span className="text-xs text-muted-foreground">Keuda-konserni</span>
                 </div>
-                <Button variant="cta" size="lg" onClick={() => openLogin({ id: "ai-transform", name: "AI-transformaationäkymä" })} className="bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90">
+                <a
+                  href="https://keuda-ai-compass.lovable.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-12 px-8 text-base bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90 shadow-sm hover:shadow-md font-semibold"
+                >
                   Kirjaudu →
-                </Button>
+                </a>
                 <p className="text-xs text-muted-foreground mt-3">Keuda · pilotti käynnissä</p>
               </div>
 
