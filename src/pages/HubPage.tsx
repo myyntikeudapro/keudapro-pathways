@@ -187,7 +187,7 @@ const HubPage = () => {
     <Layout>
       <SEO
         title="KeudaPRO HUB — Kehitysalusta"
-        description="KeudaPRO HUB on kehitysalusta organisaatioille, jotka rakentavat tekoälymuutostaan ohjatusti. AI-transformaationäkymä, AI-Manager, AI-Director, ARPRO 2.0, Aukee ja KUUMA-tilannekuva."
+        description="KeudaPRO HUB on kehitysalusta organisaatioille, jotka rakentavat tekoälymuutostaan ohjatusti. AI-transformaationäkymä, ARPRO 2.0, Aukee ja KUUMA-tilannekuva."
         path="/hub"
       />
 
