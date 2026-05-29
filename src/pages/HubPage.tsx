@@ -464,7 +464,7 @@ const HubPage = () => {
               <div className="space-y-1.5">
                 <label className="text-sm font-medium" htmlFor="hub-int">Mistä haluaisit kuulla enemmän?</label>
                 <select id="hub-int" value={form.interest} onChange={(e) => setForm({ ...form, interest: e.target.value })}
-                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white focus:outline-none focus:ring-2 focus:ring-[hsl(var(--keuda-teal))]">
+                  className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white focus:outline-none focus:ring-2 focus:ring-keuda-orange">
                   <option value="" className="bg-[#0B0B0B]">Valitse...</option>
                   <option className="bg-[#0B0B0B]">AI-transformaationäkymä</option>
                   <option className="bg-[#0B0B0B]">AI-Manager-ohjelma</option>
