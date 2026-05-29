@@ -4,7 +4,8 @@ import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HubLoginModal } from "@/components/hub/HubLoginModal";
-import imgAiTransform from "@/assets/hub-ai-transform.jpg";
+import imgAiTransform from "@/assets/hub-ai-transform.png";
+import keudaLogo from "@/assets/keuda-logo.png";
 import imgArpro from "@/assets/hub-arpro.jpg";
 import imgAukee from "@/assets/hub-aukee.jpg";
 import imgKuuma from "@/assets/hub-kuuma.jpg";
@@ -311,7 +312,13 @@ const HubPage = () => {
                   Strateginen kojelauta organisaation tekoälytransformaatiolle. Käyttötapausten hallinta, prosessikartta, AI-analyysi ja johdon ROI-näkymä.
                 </p>
                 <div className="flex items-center gap-3 mb-6">
-                  <CustomerLogo customer={{ initials: "KE", name: "Keuda-konserni", tone: "blue" }} />
+                  <img
+                    src={keudaLogo}
+                    alt="Keuda"
+                    className="h-7 w-auto object-contain"
+                    loading="lazy"
+                  />
+                  <span className="text-xs text-muted-foreground">Keuda-konserni</span>
                 </div>
                 <Button variant="cta" size="lg" onClick={() => openLogin({ id: "ai-transform", name: "AI-transformaationäkymä" })}>
                   Kirjaudu →
