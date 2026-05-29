@@ -125,7 +125,7 @@ const standardProjects: Project[] = [
 function statusClasses(status: ProjectStatus) {
   switch (status) {
     case "live":
-      return "bg-[hsl(var(--keuda-teal))]/15 text-[hsl(var(--keuda-teal))] border border-[hsl(var(--keuda-teal))]/30";
+      return "bg-keuda-orange/15 text-keuda-orange border border-keuda-orange/30";
     case "pilot":
       return "bg-amber-100 text-amber-800 border border-amber-200";
     case "prep":
