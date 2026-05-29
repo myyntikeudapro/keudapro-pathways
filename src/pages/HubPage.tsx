@@ -284,18 +284,15 @@ const HubPage = () => {
 
           {/* Featured */}
           <div className="group relative rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] overflow-hidden mb-8 hover:shadow-[var(--shadow-card-hover)] transition-all">
-            <div className="grid md:grid-cols-[180px_1.4fr_1fr]">
+            <div className="grid md:grid-cols-[220px_1.4fr_1fr]">
               {/* Edge image */}
-              <div className="relative h-40 md:h-auto overflow-hidden">
+              <div className="relative h-44 md:h-auto overflow-hidden bg-[#1ea83a] flex items-center justify-center">
                 <img
                   src={imgAiTransform}
-                  alt=""
+                  alt="TAITAVASTI AMIS"
                   loading="lazy"
-                  width={512}
-                  height={1024}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/60 md:to-card" aria-hidden />
               </div>
 
               <div className="p-6 md:p-8">
@@ -422,8 +419,8 @@ const HubPage = () => {
           </div>
           <div className="grid md:grid-cols-2 gap-10 md:gap-16">
             <div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-5 leading-tight">
-                Kiinnostuitko?<br />Jutellaan.
+              <h2 className="text-3xl md:text-5xl font-bold mb-5 leading-tight text-white">
+                Kiinnostuitko?<br /><span className="text-keuda-orange">Jutellaan.</span>
               </h2>
               <p className="text-white/70 mb-8 leading-relaxed">
                 Varaa 30 minuutin demo tai ota yhteyttä suoraan. Kerromme miten KeudaPRO HUB sopii teidän organisaatiollenne.
