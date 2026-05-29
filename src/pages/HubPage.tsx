@@ -4,6 +4,7 @@ import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HubLoginModal } from "@/components/hub/HubLoginModal";
+import { HubDemoModal } from "@/components/hub/HubDemoModal";
 import imgAiTransform from "@/assets/hub-ai-transform.png";
 import keudaLogo from "@/assets/keuda-logo.png";
 import imgArpro from "@/assets/hub-arpro.jpg";
