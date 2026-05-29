@@ -5,11 +5,10 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HubLoginModal } from "@/components/hub/HubLoginModal";
 import imgAiTransform from "@/assets/hub-ai-transform.jpg";
-import imgAiManager from "@/assets/hub-ai-manager.jpg";
-import imgAiDirector from "@/assets/hub-ai-director.jpg";
 import imgArpro from "@/assets/hub-arpro.jpg";
 import imgAukee from "@/assets/hub-aukee.jpg";
 import imgKuuma from "@/assets/hub-kuuma.jpg";
+import imgAiDirector from "@/assets/hub-ai-director.jpg";
 
 type ProjectStatus = "live" | "pilot" | "prep" | "coming";
 
@@ -42,32 +41,6 @@ const toneClasses: Record<NonNullable<Customer["tone"]>, string> = {
 };
 
 const standardProjects: Project[] = [
-  {
-    id: "ai-manager",
-    icon: "🎓",
-    status: "pilot",
-    statusLabel: "Pilotti",
-    name: "AI-Manager-ohjelma",
-    description:
-      "Esihenkilöiden ja päälliköiden tekoälyvalmennusohjelma. 8 ohjattua päivää, 3 workshopia, henkilökohtainen sparraus.",
-    customers: [{ initials: "KE", name: "Keuda-konserni", tone: "blue" }],
-    meta: "4 starttia 2026",
-    ctaLabel: "Kirjaudu →",
-    image: imgAiManager,
-  },
-  {
-    id: "ai-director",
-    icon: "🏛",
-    status: "pilot",
-    statusLabel: "Pilotti",
-    name: "AI-Director-ohjelma",
-    description:
-      "Johtoryhmätason valmennus tekoälyn strategiseen hyödyntämiseen. Konkretiaa johtajille — ei teknisiä osuuksia.",
-    customers: [{ initials: "KE", name: "Keuda-konserni", tone: "blue" }],
-    meta: "Syksy 2026",
-    ctaLabel: "Kirjaudu →",
-    image: imgAiDirector,
-  },
   {
     id: "arpro",
     icon: "🧩",
@@ -214,7 +187,7 @@ const HubPage = () => {
     <Layout>
       <SEO
         title="KeudaPRO HUB — Kehitysalusta"
-        description="KeudaPRO HUB on kehitysalusta organisaatioille, jotka rakentavat tekoälymuutostaan ohjatusti. AI-transformaationäkymä, AI-Manager, AI-Director, ARPRO 2.0, Aukee ja KUUMA-tilannekuva."
+        description="KeudaPRO HUB on kehitysalusta organisaatioille, jotka rakentavat tekoälymuutostaan ohjatusti. AI-transformaationäkymä, ARPRO 2.0, Aukee ja KUUMA-tilannekuva."
         path="/hub"
       />
 
@@ -262,8 +235,8 @@ const HubPage = () => {
                   <div className="text-xs text-muted-foreground mt-1">Live-projekti</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">3</div>
-                  <div className="text-xs text-muted-foreground mt-1">Pilottia käynnissä</div>
+                  <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">1</div>
+                  <div className="text-xs text-muted-foreground mt-1">Pilotti käynnissä</div>
                 </div>
                 <div>
                   <div className="text-3xl font-bold text-[hsl(var(--keuda-blue))]">2</div>
