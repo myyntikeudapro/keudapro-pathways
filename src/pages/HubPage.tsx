@@ -499,6 +499,7 @@ const HubPage = () => {
         projectName={activeProject.name}
         onContactClick={scrollToContact}
       />
+      <HubDemoModal open={demoOpen} onOpenChange={setDemoOpen} />
     </Layout>
   );
 };
