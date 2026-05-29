@@ -371,7 +371,6 @@ const HubPage = () => {
 
                   <div className="p-5 sm:p-6 flex flex-col">
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="text-xl" aria-hidden>{p.icon}</div>
                       <span className={cn("px-2.5 py-1 rounded-full text-xs font-semibold", statusClasses(p.status))}>
                         {p.statusLabel}
                       </span>
