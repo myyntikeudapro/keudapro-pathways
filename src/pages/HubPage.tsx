@@ -67,15 +67,11 @@ const standardProjects: Project[] = [
     statusLabel: "",
     name: "ARPRO 3.0 Työllisyysalueet",
     description:
-      "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu työllisyysalueille. Sama dataperusteinen arviointi- ja ohjausmalli skaalattuna alueellisille toimijoille — yhdistää työnhakijoiden osaamisprofiilit avoimiin ja piilotyöpaikkoihin alueellisen työllisyysstrategian tueksi. Osan alueista kanssa ARPRO on pilotoinnissa osana työllistymisen ja uravalmennuksen palveluita, osan kanssa neuvottelemme uusista käyttömahdollisuuksista ja osalle on tarjous sisällä.",
+      "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu työllisyysalueille. Sama dataperusteinen arviointi- ja ohjausmalli skaalattuna alueellisille toimijoille — yhdistää työnhakijoiden osaamisprofiilit avoimiin ja piilotyöpaikkoihin alueellisen työllisyysstrategian tueksi.",
     customers: [{ initials: "TA", name: "Työllisyysalueet", tone: "teal" }],
     meta: "Uusia alueita mukaan sopimusneuvotteluiden kautta",
     ctaLabel: "Kirjaudu",
-    regionGroups: [
-      { label: "Pilotoinnissa osana palveluita", items: ["Keski-Uusimaa", "Kerava-Sipoo"] },
-      { label: "Neuvotteluissa uusista käyttömahdollisuuksista", items: ["Helsinki", "Vantaa", "Jyväskylä"] },
-      { label: "Tarjous sisällä", items: ["Varkaus", "Raahe", "Oulu"] },
-    ],
+    regions: ["Keski-Uusimaa", "Kerava-Sipoo", "Helsinki", "Vantaa", "Jyväskylä", "Varkaus", "Raahe", "Oulu"],
     image: imgArpro2,
   },
   {
