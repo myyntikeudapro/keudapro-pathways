@@ -83,7 +83,7 @@ const standardProjects: Project[] = [
     description:
       "Uudenlainen kohtaamispinta henkilöiden ja yritysten välille. Pilotti valmisteilla — henkilö- ja yritysrajapinta avautuu elokuussa 2026.",
     customers: [{ initials: "AU", name: "Aukee", tone: "violet" }],
-    meta: "Salasana: Mahis2026",
+    meta: "Suojattu salasanalla",
     ctaLabel: "Kirjaudu →",
     ctaUrl: "https://aukee-open-doors.lovable.app",
     image: imgAukee,
@@ -166,6 +166,9 @@ const HubPage = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [demoOpen, setDemoOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<{ id: string | null; name: string }>({ id: null, name: "" });
+  const [gate, setGate] = useState<{ open: boolean; url: string; name: string; password: string; value: string; error: string }>({
+    open: false, url: "", name: "", password: "", value: "", error: ""
+  });
   const contactRef = useRef<HTMLDivElement>(null);
 
   const [form, setForm] = useState({
@@ -429,20 +432,15 @@ const HubPage = () => {
                     ) : (
                       <div className="flex items-center justify-between gap-3 mt-auto">
                         {p.ctaUrl ? (
-                          <a
-                            href={p.ctaUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => {
-                              localStorage.setItem('password', 'Mahis2026');
-                              localStorage.setItem('lovable-password', 'Mahis2026');
-                            }}
+                          <button
+                            type="button"
+                            onClick={() => setGate({ open: true, url: p.ctaUrl!, name: p.name, password: "Mahis2026", value: "", error: "" })}
                             className={cn(
                               "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 min-h-[44px] bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90 shadow-sm hover:shadow-md"
                             )}
                           >
-                            {p.ctaLabel}
-                          </a>
+                            🔒 {p.ctaLabel}
+                          </button>
                         ) : (
                           <Button
                             variant={p.status === "coming" || p.status === "prep" ? "outline" : "cta"}
@@ -550,6 +548,67 @@ const HubPage = () => {
         onContactClick={scrollToContact}
       />
       <HubDemoModal open={demoOpen} onOpenChange={setDemoOpen} />
+
+      {gate.open && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-fade-in"
+          onClick={() => setGate({ ...gate, open: false })}
+        >
+          <div
+            className="w-full max-w-md rounded-2xl bg-[#0B0B0B] text-white border border-keuda-orange/30 shadow-2xl p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="text-xs font-bold uppercase tracking-wider text-keuda-orange mb-2">🔒 Suojattu pilotti</div>
+            <h3 className="text-xl font-bold mb-2">{gate.name}</h3>
+            <p className="text-sm text-white/70 mb-5">
+              Tämä pilotti on vielä keskeneräinen. Syötä salasana jatkaaksesi.
+            </p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (gate.value === gate.password) {
+                  const url = gate.url;
+                  try {
+                    localStorage.setItem('password', gate.password);
+                    localStorage.setItem('lovable-password', gate.password);
+                  } catch {}
+                  setGate({ open: false, url: "", name: "", password: "", value: "", error: "" });
+                  window.open(url, '_blank', 'noopener,noreferrer');
+                } else {
+                  setGate({ ...gate, error: "Väärä salasana", value: "" });
+                }
+              }}
+              className="space-y-3"
+            >
+              <input
+                autoFocus
+                type="password"
+                value={gate.value}
+                onChange={(e) => setGate({ ...gate, value: e.target.value, error: "" })}
+                placeholder="Salasana"
+                className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange"
+              />
+              {gate.error && <div className="text-xs text-rose-400">{gate.error}</div>}
+              <div className="flex gap-2 pt-1">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="flex-1 border-white/20 text-white hover:bg-white/10 hover:text-white"
+                  onClick={() => setGate({ ...gate, open: false })}
+                >
+                  Peruuta
+                </Button>
+                <Button
+                  type="submit"
+                  className="flex-1 bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90"
+                >
+                  Kirjaudu →
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 };
