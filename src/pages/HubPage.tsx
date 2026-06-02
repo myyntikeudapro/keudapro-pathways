@@ -407,34 +407,55 @@ const HubPage = () => {
                         <CustomerLogo key={c.name} customer={c} size="sm" />
                       ))}
                     </div>
-                    <div className="flex items-center justify-between gap-3 mt-auto">
-                      {p.ctaUrl ? (
-                        <a
-                          href={p.ctaUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => {
-                            localStorage.setItem('password', 'Mahis2026');
-                            localStorage.setItem('lovable-password', 'Mahis2026');
-                          }}
-                          className={cn(
-                            "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 min-h-[44px] bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90 shadow-sm hover:shadow-md"
-                          )}
-                        >
-                          {p.ctaLabel}
-                        </a>
-                      ) : (
-                        <Button
-                          variant={p.status === "coming" || p.status === "prep" ? "outline" : "cta"}
-                          size="default"
-                          onClick={() => handleCardCta(p)}
-                          className={cn("min-h-[44px]", p.status !== "coming" && p.status !== "prep" && "bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90")}
-                        >
-                          {p.ctaLabel}
-                        </Button>
-                      )}
-                      <span className="text-xs text-muted-foreground text-right">{p.meta}</span>
-                    </div>
+                    {p.regions ? (
+                      <div className="mt-auto">
+                        <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                          Kirjaudu työllisyysalueelle
+                        </div>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          {p.regions.map((r) => (
+                            <button
+                              key={r}
+                              type="button"
+                              onClick={() => openLogin({ id: `${p.id}-${r.toLowerCase()}`, name: `${p.name} — ${r}` })}
+                              className="inline-flex items-center gap-1.5 rounded-md bg-[#0B0B0B] text-keuda-orange px-3 py-1.5 text-xs font-semibold ring-1 ring-keuda-orange/40 hover:bg-keuda-orange hover:text-[#0B0B0B] transition-colors min-h-[36px]"
+                            >
+                              {r} →
+                            </button>
+                          ))}
+                        </div>
+                        <div className="text-xs text-muted-foreground text-right">{p.meta}</div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-between gap-3 mt-auto">
+                        {p.ctaUrl ? (
+                          <a
+                            href={p.ctaUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => {
+                              localStorage.setItem('password', 'Mahis2026');
+                              localStorage.setItem('lovable-password', 'Mahis2026');
+                            }}
+                            className={cn(
+                              "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 min-h-[44px] bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90 shadow-sm hover:shadow-md"
+                            )}
+                          >
+                            {p.ctaLabel}
+                          </a>
+                        ) : (
+                          <Button
+                            variant={p.status === "coming" || p.status === "prep" ? "outline" : "cta"}
+                            size="default"
+                            onClick={() => handleCardCta(p)}
+                            className={cn("min-h-[44px]", p.status !== "coming" && p.status !== "prep" && "bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90")}
+                          >
+                            {p.ctaLabel}
+                          </Button>
+                        )}
+                        <span className="text-xs text-muted-foreground text-right">{p.meta}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
