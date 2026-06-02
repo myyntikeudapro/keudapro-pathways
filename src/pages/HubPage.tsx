@@ -32,6 +32,7 @@ interface Project {
   customers: Customer[];
   meta: string;
   ctaLabel: string;
+  ctaUrl?: string;
   image: string;
 }
 
