@@ -34,6 +34,7 @@ interface Project {
   ctaLabel: string;
   ctaUrl?: string;
   regions?: string[];
+  participants?: number;
   image: string;
 }
 
@@ -58,6 +59,7 @@ const standardProjects: Project[] = [
     customers: [{ initials: "K", name: "Kunta (tarkentuu)", tone: "blue" }],
     meta: "Päättyy 5/2026",
     ctaLabel: "Kirjaudu →",
+    participants: 50,
     image: imgArpro,
   },
   {
@@ -270,7 +272,7 @@ const HubPage = () => {
                   { n: "1", l: "Live-projekti" },
                   { n: "1", l: "Pilotti käynnissä" },
                   { n: "3", l: "Pilottia valmisteilla" },
-                  { n: "53", l: "Osallistujaa" },
+                  { n: "103", l: "Osallistujaa" },
                 ].map((s) => (
                   <div key={s.l}>
                     <div className="text-3xl md:text-4xl font-bold text-keuda-orange">{s.n}</div>
@@ -412,6 +414,12 @@ const HubPage = () => {
                         <CustomerLogo key={c.name} customer={c} size="sm" />
                       ))}
                     </div>
+                    {typeof p.participants === "number" && (
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="text-xl font-bold text-foreground">{p.participants}</div>
+                        <div className="text-xs text-muted-foreground">osallistujaa</div>
+                      </div>
+                    )}
                     {p.regions ? (
                       <div className="mt-auto space-y-3">
                         <div className="flex flex-wrap gap-2">
