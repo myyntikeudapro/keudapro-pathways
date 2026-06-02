@@ -272,7 +272,7 @@ const HubPage = () => {
                   { n: "1", l: "Live-projekti" },
                   { n: "1", l: "Pilotti käynnissä" },
                   { n: "3", l: "Pilottia valmisteilla" },
-                  { n: "53", l: "Osallistujaa" },
+                  { n: "103", l: "Osallistujaa" },
                 ].map((s) => (
                   <div key={s.l}>
                     <div className="text-3xl md:text-4xl font-bold text-keuda-orange">{s.n}</div>
