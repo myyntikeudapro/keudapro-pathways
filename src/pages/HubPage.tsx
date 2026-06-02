@@ -64,12 +64,12 @@ const standardProjects: Project[] = [
     id: "arpro-3",
     icon: "",
     status: "prep",
-    statusLabel: "Neuvottelussa",
-    name: "ARPRO 3.0 Työllisyysalue -pilotit",
+    statusLabel: "",
+    name: "ARPRO 3.0 Työllisyysalueet",
     description:
       "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu työllisyysalueille. Sama dataperusteinen arviointi- ja ohjausmalli skaalattuna alueellisille toimijoille — yhdistää työnhakijoiden osaamisprofiilit avoimiin ja piilotyöpaikkoihin alueellisen työllisyysstrategian tueksi.",
     customers: [{ initials: "TA", name: "Työllisyysalueet", tone: "teal" }],
-    meta: "Sopimusneuvottelu",
+    meta: "Uusia alueita mukaan sopimusneuvotteluiden kautta",
     ctaLabel: "Kirjaudu",
     regions: ["Helsinki", "Vantaa", "Keski-Uusimaa", "Kerava-Sipoo", "Varkaus", "Jyväskylä", "Raahe", "Oulu"],
     image: imgArpro2,
@@ -396,11 +396,13 @@ const HubPage = () => {
                   </div>
 
                   <div className="p-5 sm:p-6 flex flex-col">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className={cn("px-2.5 py-1 rounded-full text-xs font-semibold", statusClasses(p.status))}>
-                        {p.statusLabel}
-                      </span>
-                    </div>
+                    {p.statusLabel && (
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className={cn("px-2.5 py-1 rounded-full text-xs font-semibold", statusClasses(p.status))}>
+                          {p.statusLabel}
+                        </span>
+                      </div>
+                    )}
                     <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 leading-snug">{p.name}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
                       {p.description}
@@ -558,10 +560,10 @@ const HubPage = () => {
             className="w-full max-w-md rounded-2xl bg-[#0B0B0B] text-white border border-keuda-orange/30 shadow-2xl p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="text-xs font-bold uppercase tracking-wider text-keuda-orange mb-2">🔒 Suojattu pilotti</div>
+            <div className="text-xs font-bold uppercase tracking-wider text-keuda-orange mb-2">🔒 Suojattu näkymä</div>
             <h3 className="text-xl font-bold mb-2">{gate.name}</h3>
             <p className="text-sm text-white/70 mb-5">
-              Tämä pilotti on vielä keskeneräinen. Syötä salasana jatkaaksesi.
+              Tämä näkymä on vielä keskeneräinen. Syötä salasana jatkaaksesi.
             </p>
             <form
               onSubmit={(e) => {
