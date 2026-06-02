@@ -33,6 +33,7 @@ interface Project {
   meta: string;
   ctaLabel: string;
   ctaUrl?: string;
+  regions?: string[];
   image: string;
 }
 
