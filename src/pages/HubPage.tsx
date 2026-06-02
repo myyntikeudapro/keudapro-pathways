@@ -301,7 +301,7 @@ const HubPage = () => {
           </div>
 
           {/* Featured */}
-          <div className="group relative rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] overflow-hidden mb-8 hover:shadow-[var(--shadow-card-hover)] transition-all">
+          <div className="group relative rounded-2xl border border-border bg-keuda-teal-light shadow-[var(--shadow-card)] overflow-hidden mb-8 hover:shadow-[var(--shadow-card-hover)] transition-all">
             <div className="grid md:grid-cols-[220px_1.4fr_1fr]">
               {/* Edge image */}
               <div className="relative h-44 md:h-auto overflow-hidden bg-[#1ea83a] flex items-center justify-center">
@@ -377,7 +377,7 @@ const HubPage = () => {
               <div
                 key={p.id}
                 className={cn(
-                  "group relative rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] overflow-hidden hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 transition-all",
+                  "group relative rounded-2xl border border-border bg-keuda-teal-light shadow-[var(--shadow-card)] overflow-hidden hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 transition-all",
                   p.status === "coming" && "opacity-90"
                 )}
               >
@@ -392,7 +392,7 @@ const HubPage = () => {
                       height={1024}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-card" aria-hidden />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-keuda-teal-light" aria-hidden />
                   </div>
 
                   <div className="p-5 sm:p-6 flex flex-col">
