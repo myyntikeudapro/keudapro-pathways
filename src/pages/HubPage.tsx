@@ -548,6 +548,67 @@ const HubPage = () => {
         onContactClick={scrollToContact}
       />
       <HubDemoModal open={demoOpen} onOpenChange={setDemoOpen} />
+
+      {gate.open && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-fade-in"
+          onClick={() => setGate({ ...gate, open: false })}
+        >
+          <div
+            className="w-full max-w-md rounded-2xl bg-[#0B0B0B] text-white border border-keuda-orange/30 shadow-2xl p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="text-xs font-bold uppercase tracking-wider text-keuda-orange mb-2">🔒 Suojattu pilotti</div>
+            <h3 className="text-xl font-bold mb-2">{gate.name}</h3>
+            <p className="text-sm text-white/70 mb-5">
+              Tämä pilotti on vielä keskeneräinen. Syötä salasana jatkaaksesi.
+            </p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (gate.value === gate.password) {
+                  const url = gate.url;
+                  try {
+                    localStorage.setItem('password', gate.password);
+                    localStorage.setItem('lovable-password', gate.password);
+                  } catch {}
+                  setGate({ open: false, url: "", name: "", password: "", value: "", error: "" });
+                  window.open(url, '_blank', 'noopener,noreferrer');
+                } else {
+                  setGate({ ...gate, error: "Väärä salasana", value: "" });
+                }
+              }}
+              className="space-y-3"
+            >
+              <input
+                autoFocus
+                type="password"
+                value={gate.value}
+                onChange={(e) => setGate({ ...gate, value: e.target.value, error: "" })}
+                placeholder="Salasana"
+                className="w-full h-11 rounded-md bg-white/5 border border-white/15 px-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-keuda-orange"
+              />
+              {gate.error && <div className="text-xs text-rose-400">{gate.error}</div>}
+              <div className="flex gap-2 pt-1">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="flex-1 border-white/20 text-white hover:bg-white/10 hover:text-white"
+                  onClick={() => setGate({ ...gate, open: false })}
+                >
+                  Peruuta
+                </Button>
+                <Button
+                  type="submit"
+                  className="flex-1 bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90"
+                >
+                  Kirjaudu →
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 };
