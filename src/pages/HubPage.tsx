@@ -32,6 +32,7 @@ interface Project {
   customers: Customer[];
   meta: string;
   ctaLabel: string;
+  ctaUrl?: string;
   image: string;
 }
 
@@ -80,8 +81,9 @@ const standardProjects: Project[] = [
     description:
       "Uudenlainen kohtaamispinta henkilöiden ja yritysten välille. Pilotti valmisteilla — henkilö- ja yritysrajapinta avautuu elokuussa 2026.",
     customers: [{ initials: "AU", name: "Aukee", tone: "violet" }],
-    meta: "Avautuu 8/2026",
-    ctaLabel: "Ilmoittaudu jonoon",
+    meta: "Salasana: Mahis2026",
+    ctaLabel: "Kirjaudu →",
+    ctaUrl: "https://aukee-open-doors.lovable.app",
     image: imgAukee,
   },
   {
@@ -404,14 +406,31 @@ const HubPage = () => {
                       ))}
                     </div>
                     <div className="flex items-center justify-between gap-3 mt-auto">
-                      <Button
-                        variant={p.status === "coming" || p.status === "prep" ? "outline" : "cta"}
-                        size="default"
-                        onClick={() => handleCardCta(p)}
-                        className={cn("min-h-[44px]", p.status !== "coming" && p.status !== "prep" && "bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90")}
-                      >
-                        {p.ctaLabel}
-                      </Button>
+                      {p.ctaUrl ? (
+                        <a
+                          href={p.ctaUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => {
+                            localStorage.setItem('password', 'Mahis2026');
+                            localStorage.setItem('lovable-password', 'Mahis2026');
+                          }}
+                          className={cn(
+                            "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 min-h-[44px] bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90 shadow-sm hover:shadow-md"
+                          )}
+                        >
+                          {p.ctaLabel}
+                        </a>
+                      ) : (
+                        <Button
+                          variant={p.status === "coming" || p.status === "prep" ? "outline" : "cta"}
+                          size="default"
+                          onClick={() => handleCardCta(p)}
+                          className={cn("min-h-[44px]", p.status !== "coming" && p.status !== "prep" && "bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90")}
+                        >
+                          {p.ctaLabel}
+                        </Button>
+                      )}
                       <span className="text-xs text-muted-foreground text-right">{p.meta}</span>
                     </div>
                   </div>
