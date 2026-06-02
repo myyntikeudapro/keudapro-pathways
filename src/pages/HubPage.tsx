@@ -414,6 +414,12 @@ const HubPage = () => {
                         <CustomerLogo key={c.name} customer={c} size="sm" />
                       ))}
                     </div>
+                    {typeof p.participants === "number" && (
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="text-xl font-bold text-foreground">{p.participants}</div>
+                        <div className="text-xs text-muted-foreground">osallistujaa</div>
+                      </div>
+                    )}
                     {p.regions ? (
                       <div className="mt-auto space-y-3">
                         <div className="flex flex-wrap gap-2">
