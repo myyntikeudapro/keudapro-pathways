@@ -34,6 +34,7 @@ interface Project {
   ctaLabel: string;
   ctaUrl?: string;
   regions?: string[];
+  regionGroups?: { label: string; items: string[] }[];
   image: string;
 }
 
@@ -67,11 +68,15 @@ const standardProjects: Project[] = [
     statusLabel: "",
     name: "ARPRO 3.0 Työllisyysalueet",
     description:
-      "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu työllisyysalueille. Sama dataperusteinen arviointi- ja ohjausmalli skaalattuna alueellisille toimijoille — yhdistää työnhakijoiden osaamisprofiilit avoimiin ja piilotyöpaikkoihin alueellisen työllisyysstrategian tueksi.",
+      "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu työllisyysalueille. Sama dataperusteinen arviointi- ja ohjausmalli skaalattuna alueellisille toimijoille — yhdistää työnhakijoiden osaamisprofiilit avoimiin ja piilotyöpaikkoihin alueellisen työllisyysstrategian tueksi. Osan alueista kanssa ARPRO on pilotoinnissa osana työllistymisen ja uravalmennuksen palveluita, osan kanssa neuvottelemme uusista käyttömahdollisuuksista ja osalle on tarjous sisällä.",
     customers: [{ initials: "TA", name: "Työllisyysalueet", tone: "teal" }],
     meta: "Uusia alueita mukaan sopimusneuvotteluiden kautta",
     ctaLabel: "Kirjaudu",
-    regions: ["Helsinki", "Vantaa", "Keski-Uusimaa", "Kerava-Sipoo", "Varkaus", "Jyväskylä", "Raahe", "Oulu"],
+    regionGroups: [
+      { label: "Pilotoinnissa osana palveluita", items: ["Keski-Uusimaa", "Kerava-Sipoo"] },
+      { label: "Neuvotteluissa uusista käyttömahdollisuuksista", items: ["Helsinki", "Vantaa", "Jyväskylä"] },
+      { label: "Tarjous sisällä", items: ["Varkaus", "Raahe", "Oulu"] },
+    ],
     image: imgArpro2,
   },
   {
@@ -412,23 +417,27 @@ const HubPage = () => {
                         <CustomerLogo key={c.name} customer={c} size="sm" />
                       ))}
                     </div>
-                    {p.regions ? (
-                      <div className="mt-auto">
-                        <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                          Kirjaudu työllisyysalueelle
-                        </div>
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          {p.regions.map((r) => (
-                            <button
-                              key={r}
-                              type="button"
-                              onClick={() => openLogin({ id: `${p.id}-${r.toLowerCase()}`, name: `${p.name} — ${r}` })}
-                              className="inline-flex items-center gap-1.5 rounded-md bg-[#0B0B0B] text-keuda-orange px-3 py-1.5 text-xs font-semibold ring-1 ring-keuda-orange/40 hover:bg-keuda-orange hover:text-[#0B0B0B] transition-colors min-h-[36px]"
-                            >
-                              {r} →
-                            </button>
-                          ))}
-                        </div>
+                    {p.regionGroups || p.regions ? (
+                      <div className="mt-auto space-y-3">
+                        {(p.regionGroups ?? [{ label: "Kirjaudu työllisyysalueelle", items: p.regions! }]).map((group) => (
+                          <div key={group.label}>
+                            <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                              {group.label}
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {group.items.map((r) => (
+                                <button
+                                  key={r}
+                                  type="button"
+                                  onClick={() => openLogin({ id: `${p.id}-${r.toLowerCase()}`, name: `${p.name} — ${r}` })}
+                                  className="inline-flex items-center gap-1.5 rounded-md bg-[#0B0B0B] text-keuda-orange px-3 py-1.5 text-xs font-semibold ring-1 ring-keuda-orange/40 hover:bg-keuda-orange hover:text-[#0B0B0B] transition-colors min-h-[36px]"
+                                >
+                                  {r} →
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
                         <div className="text-xs text-muted-foreground text-right">{p.meta}</div>
                       </div>
                     ) : (
