@@ -61,16 +61,17 @@ const standardProjects: Project[] = [
     image: imgArpro,
   },
   {
-    id: "arpro-2",
+    id: "arpro-3",
     icon: "",
     status: "prep",
     statusLabel: "Neuvottelussa",
-    name: "ARPRO 2.0 -pilotti",
+    name: "ARPRO 3.0 Työllisyysalue -pilotit",
     description:
-      "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu toiselle kunnalle (tarkentuu kun sopimus valmis). Sama dataperusteinen arviointi- ja ohjausmalli, joka yhdistää työnhakijoiden osaamisprofiilit avoimiin ja piilotyöpaikkoihin alueellisen työllisyysstrategian tueksi.",
-    customers: [{ initials: "K", name: "Kunta (tarkentuu)", tone: "teal" }],
+      "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu työllisyysalueille. Sama dataperusteinen arviointi- ja ohjausmalli skaalattuna alueellisille toimijoille — yhdistää työnhakijoiden osaamisprofiilit avoimiin ja piilotyöpaikkoihin alueellisen työllisyysstrategian tueksi.",
+    customers: [{ initials: "TA", name: "Työllisyysalueet", tone: "teal" }],
     meta: "Sopimusneuvottelu",
-    ctaLabel: "Ilmoittaudu jonoon",
+    ctaLabel: "Kirjaudu",
+    regions: ["Helsinki", "Vantaa", "Keski-Uusimaa", "Kerava-Sipoo", "Varkaus", "Jyväskylä", "Raahe", "Oulu"],
     image: imgArpro2,
   },
   {
