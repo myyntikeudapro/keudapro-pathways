@@ -52,7 +52,7 @@ const standardProjects: Project[] = [
     icon: "",
     status: "pilot",
     statusLabel: "Pilotti käynnissä",
-    name: "ARPRO 2.0 -pilotti",
+    name: "ARPRO 2.0 Oppilaitokset",
     description:
       "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu kunnalle (tarkentuu kun sopimus valmis). ARPRO tunnistaa työnhakijan vahvuudet, osaamisvajeet ja optimaalisen työllistymisreitin sekä aktivoi piilotyöpaikkamarkkinaa — oikea tuki, oikealle ihmiselle, oikeaan aikaan.",
     customers: [{ initials: "K", name: "Kunta (tarkentuu)", tone: "blue" }],
