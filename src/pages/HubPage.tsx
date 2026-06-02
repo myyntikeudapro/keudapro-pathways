@@ -560,10 +560,10 @@ const HubPage = () => {
             className="w-full max-w-md rounded-2xl bg-[#0B0B0B] text-white border border-keuda-orange/30 shadow-2xl p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="text-xs font-bold uppercase tracking-wider text-keuda-orange mb-2">🔒 Suojattu pilotti</div>
+            <div className="text-xs font-bold uppercase tracking-wider text-keuda-orange mb-2">🔒 Suojattu näkymä</div>
             <h3 className="text-xl font-bold mb-2">{gate.name}</h3>
             <p className="text-sm text-white/70 mb-5">
-              Tämä pilotti on vielä keskeneräinen. Syötä salasana jatkaaksesi.
+              Tämä näkymä on vielä keskeneräinen. Syötä salasana jatkaaksesi.
             </p>
             <form
               onSubmit={(e) => {
