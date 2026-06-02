@@ -59,6 +59,7 @@ const standardProjects: Project[] = [
     customers: [{ initials: "K", name: "Kunta (tarkentuu)", tone: "blue" }],
     meta: "Päättyy 5/2026",
     ctaLabel: "Kirjaudu →",
+    participants: 50,
     image: imgArpro,
   },
   {
