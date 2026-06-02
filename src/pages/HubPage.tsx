@@ -166,6 +166,9 @@ const HubPage = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [demoOpen, setDemoOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<{ id: string | null; name: string }>({ id: null, name: "" });
+  const [gate, setGate] = useState<{ open: boolean; url: string; name: string; password: string; value: string; error: string }>({
+    open: false, url: "", name: "", password: "", value: "", error: ""
+  });
   const contactRef = useRef<HTMLDivElement>(null);
 
   const [form, setForm] = useState({
