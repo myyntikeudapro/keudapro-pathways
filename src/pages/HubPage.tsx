@@ -83,7 +83,7 @@ const standardProjects: Project[] = [
     description:
       "Uudenlainen kohtaamispinta henkilöiden ja yritysten välille. Pilotti valmisteilla — henkilö- ja yritysrajapinta avautuu elokuussa 2026.",
     customers: [{ initials: "AU", name: "Aukee", tone: "violet" }],
-    meta: "Salasana: Mahis2026",
+    meta: "Suojattu salasanalla",
     ctaLabel: "Kirjaudu →",
     ctaUrl: "https://aukee-open-doors.lovable.app",
     image: imgAukee,
