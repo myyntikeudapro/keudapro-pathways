@@ -432,20 +432,15 @@ const HubPage = () => {
                     ) : (
                       <div className="flex items-center justify-between gap-3 mt-auto">
                         {p.ctaUrl ? (
-                          <a
-                            href={p.ctaUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => {
-                              localStorage.setItem('password', 'Mahis2026');
-                              localStorage.setItem('lovable-password', 'Mahis2026');
-                            }}
+                          <button
+                            type="button"
+                            onClick={() => setGate({ open: true, url: p.ctaUrl!, name: p.name, password: "Mahis2026", value: "", error: "" })}
                             className={cn(
                               "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 min-h-[44px] bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90 shadow-sm hover:shadow-md"
                             )}
                           >
-                            {p.ctaLabel}
-                          </a>
+                            🔒 {p.ctaLabel}
+                          </button>
                         ) : (
                           <Button
                             variant={p.status === "coming" || p.status === "prep" ? "outline" : "cta"}
