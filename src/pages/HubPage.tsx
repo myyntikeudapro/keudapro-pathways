@@ -396,11 +396,13 @@ const HubPage = () => {
                   </div>
 
                   <div className="p-5 sm:p-6 flex flex-col">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className={cn("px-2.5 py-1 rounded-full text-xs font-semibold", statusClasses(p.status))}>
-                        {p.statusLabel}
-                      </span>
-                    </div>
+                    {p.statusLabel && (
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className={cn("px-2.5 py-1 rounded-full text-xs font-semibold", statusClasses(p.status))}>
+                          {p.statusLabel}
+                        </span>
+                      </div>
+                    )}
                     <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 leading-snug">{p.name}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
                       {p.description}
