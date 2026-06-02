@@ -34,6 +34,7 @@ interface Project {
   ctaLabel: string;
   ctaUrl?: string;
   regions?: string[];
+  participants?: number;
   image: string;
 }
 
