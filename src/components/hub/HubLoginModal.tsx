@@ -8,6 +8,7 @@ export const projectUrls: Record<string, string> = {
   "ai-transform": "#",
   "ai-manager": "#",
   "ai-director": "#",
+  "arpro-3-raahe": "https://lovable.dev/projects/5cdbafbb-0b40-4382-9a1c-4dbac2202c36",
 };
 
 interface HubLoginModalProps {
