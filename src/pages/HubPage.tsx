@@ -286,7 +286,7 @@ const HubPage = () => {
       </section>
 
       {/* Projects */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-muted">
         <div className="keuda-container">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
             <div>
