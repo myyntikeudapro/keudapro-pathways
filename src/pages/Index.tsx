@@ -128,64 +128,28 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Pätevyydet – kevyt viittausosio */}
-      <section className="py-10 md:py-14 bg-[#E4F0EE]">
+      {/* Pätevyydet – kevyt oikopolku */}
+      <section className="py-8 md:py-10 bg-[#E4F0EE]/60 border-y border-border/40">
         <div className="keuda-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
-              Pätevyydet ja osaamiskortit
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
-              Nopeat, tunnustetut kortit ja osaamispätevyydet — yrityksille ja yksittäisille osallistujille.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-left">
-              {[
-                {
-                  image: categoryTurvallisuus,
-                  title: "Turvallisuus",
-                  items: "Työturvallisuuskortti · Tulityökortti · Sähkötyöturvallisuus · Akkuturvallisuus · EA1 & EA2 Ensiapu · Lääkehoito",
-                },
-                {
-                  image: categoryHygienia,
-                  title: "Hygienia & ravintola",
-                  items: "Hygieniapassi · Anniskelupassi",
-                },
-                {
-                  image: categoryTyoelama,
-                  title: "Työelämä & kieli",
-                  items: "Työhyvinvointikortti · LinkedIn-kortti · KV-kortti · Suomi työkielenä · Selkosuomi",
-                },
-                {
-                  image: categoryAi,
-                  title: "AI & digi",
-                  items: "3T-kortti · Tekoälyn ammattiosaaja · AI työnhaussa · Digitaidot työelämässä",
-                },
-              ].map((cat) => (
-                <a
-                  key={cat.title}
-                  href="/osaaminen"
-                  className="group flex flex-col h-full rounded-xl bg-background border border-border overflow-hidden hover:border-primary hover:shadow-md transition-all"
-                >
-                  <div className="aspect-[16/10] overflow-hidden bg-muted">
-                    <img
-                      src={cat.image}
-                      alt=""
-                      width={800}
-                      height={512}
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-base font-semibold text-foreground mb-1">{cat.title}</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{cat.items}</p>
-                  </div>
-                </a>
-              ))}
+          <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-5 md:gap-6">
+            <img
+              src={categoryTurvallisuus}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              className="w-24 h-24 md:w-28 md:h-28 rounded-lg object-cover flex-shrink-0"
+            />
+            <div className="flex-1 text-center md:text-left">
+              <h2 className="text-lg md:text-xl font-semibold text-foreground mb-1">
+                Etsitkö korttia tai pätevyyttä?
+              </h2>
+              <p className="text-sm md:text-base text-muted-foreground mb-3">
+                Työelämän kortit, pätevyydet ja lyhytkoulutukset löytyvät yhdestä paikasta.
+              </p>
+              <Button variant="outline-primary" size="sm" asChild>
+                <a href="/tyoelaman-kortit-ja-patevyydet">Katso kaikki kortti- ja pätevyyskoulutukset →</a>
+              </Button>
             </div>
-            <Button variant="outline-primary" size="lg" asChild>
-              <a href="/osaaminen">Katso kaikki koulutukset →</a>
-            </Button>
           </div>
         </div>
       </section>
