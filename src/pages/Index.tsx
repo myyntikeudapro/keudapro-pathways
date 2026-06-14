@@ -24,26 +24,25 @@ import routeKasvu from "@/assets/route-kasvu.jpg";
 const routes = [
   {
     title: "ÄLY",
-    subtitle: "Johtaminen, asiantuntijuus ja tekoäly päätöksenteon tukena",
-    clarification: "Johtajille ja asiantuntijoille: johtamis-, AI- ja muutosvalmennukset.",
+    subtitle: "Johtaminen, asiantuntijuus ja tekoäly työn tukena",
+    clarification: "Johtajille ja asiantuntijoille, jotka haluavat vahvistaa päätöksentekoa, muutoskyvykkyyttä ja tekoälyn käytännön hyödyntämistä.",
     image: routeAly,
     href: "/aly",
   },
   {
     title: "NOSTE",
-    subtitle: "Työelämään, yrittäjyyteen ja muutokseen siirtyminen",
-    clarification: "Suunnanvaihtajille: uudelleenkoulutus, yrittäjyys, työllistyminen ja kotoutuminen.",
+    subtitle: "Uusi suunta työelämään, yrittäjyyteen tai opintoihin",
+    clarification: "Suuntaa vaihtaville, työllistymistä hakeville ja kotoutujille, jotka tarvitsevat osaamista, rohkaisua ja käytännön reitin eteenpäin.",
     image: routeNoste,
     href: "/noste",
   },
   {
     title: "KASVU",
     subtitle: "Yrityksen kasvu, uudistuminen ja osaaminen käytäntöön",
-    clarification: "Yrityksille: osaamisen kehittäminen, rekrytointi ja liiketoiminnan uudistaminen.",
+    clarification: "Yrityksille, jotka tarvitsevat osaamisen kehittämistä, rekrytoinnin tukea ja uusia ratkaisuja liiketoiminnan uudistamiseen.",
     image: routeKasvu,
     href: "/kasvu",
   },
-
 ];
 
 const bannerImages = [heroAly, heroKasvu, heroKumppanit, routeNoste];
@@ -85,7 +84,10 @@ const Index = () => {
             Osaamisen ja siirtymien operaattori
           </h1>
           <p className="text-base md:text-xl text-gray-200 max-w-2xl leading-relaxed">
-            Suomessa ja kansainvälisesti — yhdessä kumppaneiden kanssa.
+            Autamme ihmisiä, yrityksiä ja organisaatioita vahvistamaan osaamista tilanteissa, joissa työ muuttuu, suunta vaihtuu tai kasvu vaatii uutta osaamista.
+          </p>
+          <p className="text-base md:text-xl text-gray-200 max-w-2xl leading-relaxed mt-2">
+            Toimimme Suomessa ja kansainvälisesti yhdessä kumppaneidemme kanssa.
           </p>
         </div>
       </section>
@@ -98,7 +100,10 @@ const Index = () => {
               Valitse reitti muutoksessa
             </h2>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              Kolme reittiä — yksi operaattori. Löydä omaan tai yrityksesi tilanteeseen sopiva tapa vahvistaa osaamista, markkina-arvoa ja suuntaa.
+              Kolme reittiä kokoaa KeudaPRO:n palvelut eri tilanteisiin. Valitse reitti sen mukaan, tarvitsetko tukea johtamiseen ja tekoälyyn, uuteen työelämäsuuntaan vai yrityksen kasvuun ja osaamisen kehittämiseen.
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mt-3">
+              Rakennamme koulutus- ja valmennusratkaisuja tilanteisiin, joissa osaamisen pitää muuttua nopeasti käytännön tekemiseksi.
             </p>
           </div>
         </div>
@@ -164,7 +169,7 @@ const Index = () => {
                   <div className="aspect-[16/10] overflow-hidden bg-muted">
                     <img
                       src={cat.image}
-                      alt={cat.title}
+                      alt=""
                       width={800}
                       height={512}
                       loading="lazy"
@@ -195,7 +200,7 @@ const Index = () => {
             KUUMA-seutu kasvun alustana osaajille ja yrityksille.
           </p>
           <p className="text-sm md:text-base text-muted-foreground max-w-3xl">
-            KeudaPRO toimii osaamisen ja siirtymien operaattorina KUUMA-seudulla, Uudellamaalla ja koko Suomessa — kansainvälisen rekrytoinnin osalta yhdessä kumppaneiden kanssa Euroopassa ja sen ulkopuolella.
+            KeudaPRO toimii osaamisen ja siirtymien operaattorina KUUMA-seudulla, Uudellamaalla ja koko Suomessa. Kansainvälisen rekrytoinnin osalta teemme yhteistyötä kumppaneidemme kanssa Euroopassa ja sen ulkopuolella.
           </p>
         </div>
       </section>

@@ -3,10 +3,10 @@ import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const counters = [
-  { target: 1700, suffix: "+", label: "Osallistujaa eri koulutuksissa vuosittain" },
-  { target: 78, suffix: "", label: "NPS (asiakastyytyväisyys)" },
-  { target: 150, suffix: "+", label: "Koulutus- ja valmennustoteutusta vuosittain" },
-  { target: 70, suffix: "+", label: "Asiantuntijaa verkostossamme" },
+  { target: 1700, suffix: "+", label: "osallistujaa" },
+  { target: 78, suffix: "", label: "NPS" },
+  { target: 150, suffix: "+", label: "toteutusta" },
+  { target: 70, suffix: "+", label: "asiantuntijaa" },
 ];
 
 const testimonials = [
