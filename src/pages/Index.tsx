@@ -128,27 +128,39 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Pätevyydet – kevyt oikopolku */}
-      <section className="py-8 md:py-10 bg-[#E4F0EE]/60 border-y border-border/40">
+      {/* Pätevyydet – kevyt oikopolku, hakemistomainen */}
+      <section className="py-8 md:py-10 bg-muted/30 border-y border-border/40">
         <div className="keuda-container">
-          <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-5 md:gap-6">
-            <img
-              src={categoryTurvallisuus}
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              className="w-24 h-24 md:w-28 md:h-28 rounded-lg object-cover flex-shrink-0"
-            />
-            <div className="flex-1 text-center md:text-left">
-              <h2 className="text-lg md:text-xl font-semibold text-foreground mb-1">
-                Etsitkö korttia tai pätevyyttä?
-              </h2>
-              <p className="text-sm md:text-base text-muted-foreground mb-3">
-                Työelämän kortit, pätevyydet ja lyhytkoulutukset löytyvät yhdestä paikasta.
-              </p>
-              <Button variant="outline-primary" size="sm" asChild>
-                <a href="/tyoelaman-kortit-ja-patevyydet">Katso kaikki kortti- ja pätevyyskoulutukset →</a>
-              </Button>
+          <div className="max-w-3xl mx-auto bg-background border border-border/60 rounded-xl p-5 md:p-7 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-7">
+              {/* Typografinen "30+" -lohko */}
+              <div className="flex sm:flex-col items-baseline sm:items-start gap-2 sm:gap-0 flex-shrink-0">
+                <span className="text-5xl md:text-6xl font-extrabold text-primary leading-none tracking-tight tabular-nums">
+                  30+
+                </span>
+                <span className="text-xs md:text-sm uppercase tracking-[0.15em] text-muted-foreground sm:mt-1">
+                  koulutusta
+                </span>
+              </div>
+
+              {/* Erotin */}
+              <div className="hidden sm:block w-px self-stretch bg-border" aria-hidden="true" />
+
+              {/* Sisältö */}
+              <div className="flex-1 text-left">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-primary/70 font-semibold mb-1">
+                  Koulutushakemisto
+                </p>
+                <h2 className="text-lg md:text-xl font-bold text-foreground mb-1.5 leading-snug">
+                  Kortit, pätevyydet ja lyhytkoulutukset
+                </h2>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Selaa työelämän kortteja ja pätevyyksiä yhdestä paikasta.
+                </p>
+                <Button variant="default" size="default" asChild className="w-full sm:w-auto">
+                  <a href="/tyoelaman-kortit-ja-patevyydet">Avaa koulutushakemisto →</a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
