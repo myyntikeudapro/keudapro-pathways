@@ -136,7 +136,7 @@ const Index = () => {
               {/* Typografinen "30+" -lohko */}
               <div className="flex sm:flex-col items-baseline sm:items-start gap-2 sm:gap-0 flex-shrink-0">
                 <span className="text-5xl md:text-6xl font-extrabold text-primary leading-none tracking-tight tabular-nums">
-                  30+
+                  60+
                 </span>
                 <span className="text-xs md:text-sm uppercase tracking-[0.15em] text-muted-foreground sm:mt-1">
                   koulutusta
