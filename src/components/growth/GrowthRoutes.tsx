@@ -70,7 +70,7 @@ const routes = [
     subtitle: "Koulutukset, kortit ja pätevyydet yrityksille ja henkilöstölle",
     mindset: "Osaaminen on kilpailuetu — ei kulu",
     modules: [
-      "Kortit ja pätevyydet (EA, hygieniapassi, työturvallisuus jne.)",
+      "Korttikoulutukset (EA, hygieniapassi, työturvallisuus jne.)",
       "Kieli ja viestintä (suomi, englanti, ruotsi)",
       "Toimialakohtaiset koulutukset",
       "Henkilöstön kehittämisohjelmat",
@@ -85,7 +85,7 @@ const routes = [
 const trainingCategories = [
   {
     id: "kortit",
-    label: "Kortit ja pätevyydet",
+    label: "Korttikoulutukset",
     items: [
       { label: "Työturvallisuuskorttikoulutus", href: "https://www.keuda.fi/koulutus/tyoturvallisuuskortti-koulutus/" },
       { label: "Tulityökorttikoulutus", href: "https://www.keuda.fi/koulutus/tulityokortti-koulutus/" },

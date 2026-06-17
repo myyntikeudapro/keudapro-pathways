@@ -408,8 +408,8 @@ const accordionCategories: AccordionCategory[] = [
   },
   {
     id: "kortit",
-    title: "Kortit ja pätevyydet",
-    intro: "Viralliset kortit ja pätevyydet nopeasti — yrityksille, tiimeille ja yksittäisille osallistujille.",
+    title: "Korttikoulutukset",
+    intro: "Viralliset korttikoulutukset nopeasti — yrityksille, tiimeille ja yksittäisille osallistujille.",
     cards: [
       { title: "Työturvallisuuskortti", badge: "Turvallisuus", description: "Yhteisten työpaikkojen turvallisuuden parantamiseen — voimassa 5 vuotta.", infoUrl: "https://www.keuda.fi/koulutus/tyoturvallisuuskortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
       { title: "Tulityökortti", badge: "Turvallisuus", description: "Tulitöiden turvallinen tekeminen — teoria, käytännön harjoitukset ja koe — voimassa 5 vuotta.", infoUrl: "https://www.keuda.fi/koulutus/tulityokortti-koulutus/", ctaText: "Kysy lisää", ctaHref: "/yhteystiedot#lomake" },
