@@ -158,7 +158,7 @@ const Index = () => {
                   Selaa työelämän kortteja ja pätevyyksiä yhdestä paikasta.
                 </p>
                 <Button variant="default" size="default" asChild className="w-full sm:w-auto">
-                  <a href="/tyoelaman-kortit-ja-patevyydet">Avaa koulutushakemisto →</a>
+                  <a href="/osaaminen">Avaa koulutushakemisto →</a>
                 </Button>
               </div>
             </div>
