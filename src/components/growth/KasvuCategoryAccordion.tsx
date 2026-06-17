@@ -108,7 +108,7 @@ const categories: Category[] = [
 const trainingCategories = [
   {
     id: "kortit",
-    label: "Kortit ja pätevyydet",
+    label: "Korttikoulutukset",
     items: [
       { label: "Työturvallisuuskorttikoulutus", href: "https://www.keuda.fi/koulutus/tyoturvallisuuskortti-koulutus/" },
       { label: "Tulityökorttikoulutus", href: "https://www.keuda.fi/koulutus/tulityokortti-koulutus/" },
