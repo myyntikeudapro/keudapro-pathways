@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Map, Handshake, Rocket, ChevronDown, Wallet, ShieldCheck, Sparkles, Lock, MessageSquare, Clock, UserCheck } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import { HeroCarousel } from "@/components/noste/HeroCarousel";
 import { useWizard } from "@/contexts/WizardContext";
