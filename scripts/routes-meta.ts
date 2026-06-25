@@ -45,6 +45,14 @@ export const routes: RouteMeta[] = [
     priority: "0.9",
   },
   {
+    path: "/muutosturva",
+    title: "Muutosturvakoulutus | KeudaPRO",
+    description:
+      "Muutosturvakoulutukset KUUMA-seudulla: alakohtaiset Tekoälyn ammattiosaaja / AI-Coordinator -koulutukset työntekijöille ja työnantajille. Avaimet käteen -toteutus.",
+    changefreq: "monthly",
+    priority: "0.8",
+  },
+  {
     path: "/osaaminen",
     title: "Osaaminen ja pätevyydet | KeudaPRO",
     description:
