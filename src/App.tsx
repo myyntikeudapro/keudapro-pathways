@@ -17,6 +17,7 @@ import OperaattoriPage from "./pages/OperaattoriPage";
 import KumppanitPage from "./pages/KumppanitPage";
 import YhteystiedotPage from "./pages/YhteystiedotPage";
 import PatevyydetPage from "./pages/PatevyydetPage";
+import MuutosturvaPage from "./pages/MuutosturvaPage";
 import VerkostoPage from "./pages/VerkostoPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import HubPage from "./pages/HubPage";
@@ -45,6 +46,7 @@ const App = () => (
                 <Route path="/aly" element={<InsightPage />} />
                 <Route path="/osaaminen" element={<PatevyydetPage />} />
                 <Route path="/noste" element={<WorkPlusPage />} />
+                <Route path="/muutosturva" element={<MuutosturvaPage />} />
                 <Route path="/kasvu" element={<GrowthPage />} />
                 <Route path="/operaattori" element={<OperaattoriPage />} />
                 <Route path="/kumppanit" element={<KumppanitPage />} />
