@@ -387,12 +387,15 @@ const WorkPlusPage = () => {
               </ul>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button variant="cta" size="lg" onClick={() => setMuutosturvaOpen(true)} className="flex-1">
-                  Selvitä oikeutesi ilmaiseksi →
+                <Button variant="cta" size="lg" asChild className="flex-1">
+                  <Link to="/muutosturva">Selvitä oikeutesi ilmaiseksi →</Link>
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground mt-3">
-                Vastaat muutamaan kysymykseen – saat henkilökohtaisen ehdotuksen 24 h sisällä.
+                Vastaat muutamaan kysymykseen – saat henkilökohtaisen ehdotuksen 24 h sisällä.{" "}
+                <Link to="/muutosturva" className="text-primary font-semibold hover:underline">
+                  Lue lisää muutosturvasta →
+                </Link>
               </p>
             </div>
           </div>
