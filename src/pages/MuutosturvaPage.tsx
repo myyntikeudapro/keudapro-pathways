@@ -315,16 +315,17 @@ export default function MuutosturvaPage() {
       </section>
 
       {/* SERVICE FAMILIES */}
-      <section className="keuda-section bg-primary text-primary-foreground border-y border-border">
+      <section className="keuda-section bg-foreground text-background border-y border-border">
         <div className="keuda-container">
           <div className="max-w-2xl mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
               Ratkaisut kaikkiin muutostilanteisiin
             </h2>
-            <p className="text-primary-foreground/80 text-lg">
+            <p className="text-background/75 text-lg">
               Muutosturva on vain yksi osa — rakennamme tarvittaessa kokonaisuuden, joka kattaa
               koko organisaatiomuutoksen.
             </p>
+
 
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
