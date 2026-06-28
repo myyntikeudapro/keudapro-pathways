@@ -16,14 +16,14 @@ const slides = [
   {
     image: heroImg2,
     title: "Osaamisen ja johtamisen valmennukset",
-    cta: "Näytä valmennusohjelmat",
-    href: "#valmennusohjelmat",
+    cta: "Katso AI-ohjelmat",
+    href: "#ai-ohjelmat",
   },
   {
     image: heroImg3,
     title: "Johtaminen, asiantuntijuus ja tekoäly",
-    cta: "Tutustu ohjelmiin",
-    href: "#turvallisuus",
+    cta: "Katso AI-ohjelmat",
+    href: "#ai-ohjelmat",
   },
 ];
 
