@@ -315,7 +315,7 @@ export default function MuutosturvaPage() {
       </section>
 
       {/* SERVICE FAMILIES */}
-      <section className="keuda-section bg-accent/40 border-y border-border">
+      <section className="keuda-section bg-keuda-blue-light border-y border-border">
         <div className="keuda-container">
           <div className="max-w-2xl mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
@@ -327,24 +327,25 @@ export default function MuutosturvaPage() {
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {SERVICE_FAMILIES.map((s) => {
-              const Icon = s.icon;
-              return (
-                <article key={s.title} className="keuda-card-static">
-                  <div className="w-11 h-11 rounded-lg bg-keuda-blue-light text-primary flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold mb-1">
-                    {s.badge}
-                  </div>
-                  <h3 className="font-bold text-foreground text-lg mb-2">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{s.body}</p>
-                </article>
-              );
-            })}
+            {SERVICE_FAMILIES.map((s, i) => (
+              <article
+                key={s.title}
+                className="bg-card border border-border rounded-2xl p-6 shadow-card flex flex-col"
+              >
+                <div className="text-5xl font-bold text-primary leading-none mb-5">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div className="text-[11px] uppercase tracking-wider text-secondary font-semibold mb-1.5">
+                  {s.badge}
+                </div>
+                <h3 className="font-bold text-foreground text-lg mb-2">{s.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{s.body}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
+
 
       {/* WHY KEUDAPRO */}
       <section className="keuda-section">
