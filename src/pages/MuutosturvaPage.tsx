@@ -188,100 +188,140 @@ export default function MuutosturvaPage() {
 
           <div className="grid lg:grid-cols-3 gap-6">
             {/* ALLE 55 */}
-            <article className="keuda-card flex flex-col">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 rounded-xl bg-keuda-blue-light text-primary flex items-center justify-center shrink-0">
-                  <Users className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
-                    Työntekijä
+            <article className="keuda-card flex flex-col overflow-hidden p-0">
+              <div className="relative h-44 w-full">
+                <img
+                  src={imgAlle55}
+                  alt="Työntekijä uuden suunnan äärellä"
+                  loading="lazy"
+                  width={1024}
+                  height={640}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 flex items-end gap-3">
+                  <div className="w-11 h-11 rounded-xl bg-white/95 text-primary flex items-center justify-center shrink-0 backdrop-blur">
+                    <Users className="w-5 h-5" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground">
-                    Muutosturva alle 55-vuotiaille
-                  </h3>
+                  <div className="text-white">
+                    <div className="text-[11px] uppercase tracking-wider font-semibold text-white/85">
+                      Työntekijä
+                    </div>
+                    <h3 className="text-lg font-bold leading-tight">
+                      Muutosturva alle 55-vuotiaille
+                    </h3>
+                  </div>
                 </div>
               </div>
-              <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
-                Irtisanotuille tuotannollisista tai taloudellisista syistä. Koulutus tukee uuden työn löytymistä ja osaamisen päivittämistä.
-              </p>
-              <ul className="space-y-2.5 mb-6 flex-1">
-                {TYONTEKIJA_ALLE55.map((b) => (
-                  <li key={b} className="flex items-start gap-2.5 text-sm text-foreground">
-                    <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button variant="cta" onClick={() => setFormOpen(true)} className="w-full sm:w-auto self-start">
-                Aloita kartoitus
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+              <div className="flex flex-col flex-1 p-6">
+                <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
+                  Irtisanotuille tuotannollisista tai taloudellisista syistä. Koulutus tukee uuden työn löytymistä ja osaamisen päivittämistä.
+                </p>
+                <ul className="space-y-2.5 mb-6 flex-1">
+                  {TYONTEKIJA_ALLE55.map((b) => (
+                    <li key={b} className="flex items-start gap-2.5 text-sm text-foreground">
+                      <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button variant="cta" onClick={() => setFormOpen(true)} className="w-full sm:w-auto self-start">
+                  Aloita kartoitus
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
             </article>
 
             {/* YLI 55 */}
-            <article className="keuda-card flex flex-col border-2 border-primary/30">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-                  <Sparkles className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-primary font-semibold">
-                    Laajennettu muutosturva
+            <article className="keuda-card flex flex-col overflow-hidden p-0 border-2 border-primary/30">
+              <div className="relative h-44 w-full">
+                <img
+                  src={imgYli55}
+                  alt="Kokenut työntekijä oppimassa uutta"
+                  loading="lazy"
+                  width={1024}
+                  height={640}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/40 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 flex items-end gap-3">
+                  <div className="w-11 h-11 rounded-xl bg-white/95 text-primary flex items-center justify-center shrink-0 backdrop-blur">
+                    <Sparkles className="w-5 h-5" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground">
-                    Muutosturva yli 55-vuotiaille
-                  </h3>
+                  <div className="text-white">
+                    <div className="text-[11px] uppercase tracking-wider font-semibold text-white/90">
+                      Laajennettu muutosturva
+                    </div>
+                    <h3 className="text-lg font-bold leading-tight">
+                      Muutosturva yli 55-vuotiaille
+                    </h3>
+                  </div>
                 </div>
               </div>
-              <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
-                Yli 55-vuotiailla on oikeus laajennettuun muutosturvaan, jonka koulutusbudjetti vastaa kahden kuukauden bruttopalkkaa. Sisältää henkilökohtaisen uravalmennuksen.
-              </p>
-              <ul className="space-y-2.5 mb-6 flex-1">
-                {TYONTEKIJA_YLI55.map((b) => (
-                  <li key={b} className="flex items-start gap-2.5 text-sm text-foreground">
-                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button variant="cta" onClick={() => setFormOpen(true)} className="w-full sm:w-auto self-start">
-                Selvitä oikeutesi
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+              <div className="flex flex-col flex-1 p-6">
+                <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
+                  Yli 55-vuotiailla on oikeus laajennettuun muutosturvaan, jonka koulutusbudjetti vastaa kahden kuukauden bruttopalkkaa. Sisältää henkilökohtaisen uravalmennuksen.
+                </p>
+                <ul className="space-y-2.5 mb-6 flex-1">
+                  {TYONTEKIJA_YLI55.map((b) => (
+                    <li key={b} className="flex items-start gap-2.5 text-sm text-foreground">
+                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button variant="cta" onClick={() => setFormOpen(true)} className="w-full sm:w-auto self-start">
+                  Selvitä oikeutesi
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
             </article>
 
             {/* TYÖNANTAJA */}
-            <article className="keuda-card flex flex-col">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 rounded-xl bg-keuda-teal-light text-secondary flex items-center justify-center shrink-0">
-                  <Building2 className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
-                    Työnantaja
+            <article className="keuda-card flex flex-col overflow-hidden p-0">
+              <div className="relative h-44 w-full">
+                <img
+                  src={imgTyonantaja}
+                  alt="HR-tiimi suunnittelee muutosturvaa"
+                  loading="lazy"
+                  width={1024}
+                  height={640}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 flex items-end gap-3">
+                  <div className="w-11 h-11 rounded-xl bg-white/95 text-secondary flex items-center justify-center shrink-0 backdrop-blur">
+                    <Building2 className="w-5 h-5" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground">
-                    Hoidamme muutosturvan puolestasi
-                  </h3>
+                  <div className="text-white">
+                    <div className="text-[11px] uppercase tracking-wider font-semibold text-white/85">
+                      Työnantaja
+                    </div>
+                    <h3 className="text-lg font-bold leading-tight">
+                      Hoidamme muutosturvan puolestasi
+                    </h3>
+                  </div>
                 </div>
               </div>
-              <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
-                Toteutamme lakisääteisen muutosturvakoulutuksen avaimet käteen — yhden yhteyshenkilön kautta, selkeällä dokumentaatiolla.
-              </p>
-              <ul className="space-y-2.5 mb-6 flex-1">
-                {TYONANTAJA_BENEFITS.map((b) => (
-                  <li key={b} className="flex items-start gap-2.5 text-sm text-foreground">
-                    <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button variant="cta" onClick={() => setFormOpen(true)} className="w-full sm:w-auto self-start">
-                Pyydä tarjous
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+              <div className="flex flex-col flex-1 p-6">
+                <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
+                  Toteutamme lakisääteisen muutosturvakoulutuksen avaimet käteen — yhden yhteyshenkilön kautta, selkeällä dokumentaatiolla.
+                </p>
+                <ul className="space-y-2.5 mb-6 flex-1">
+                  {TYONANTAJA_BENEFITS.map((b) => (
+                    <li key={b} className="flex items-start gap-2.5 text-sm text-foreground">
+                      <CheckCircle2 className="w-5 h-5 text-secondary shrink-0 mt-0.5" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button variant="cta" onClick={() => setFormOpen(true)} className="w-full sm:w-auto self-start">
+                  Pyydä tarjous
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
             </article>
+
           </div>
         </div>
       </section>
