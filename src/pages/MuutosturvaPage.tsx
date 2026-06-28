@@ -29,6 +29,9 @@ import {
   Compass,
 } from "lucide-react";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
+import imgAlle55 from "@/assets/muutosturva-alle55.jpg";
+import imgYli55 from "@/assets/muutosturva-yli55.jpg";
+import imgTyonantaja from "@/assets/muutosturva-tyonantaja.jpg";
 
 /* ============================================================
    /muutosturva — laajennettu muutosturvapalvelusivu
