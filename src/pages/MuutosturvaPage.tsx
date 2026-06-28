@@ -198,20 +198,16 @@ export default function MuutosturvaPage() {
                   height={640}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 flex items-end gap-3">
-                  <div className="w-11 h-11 rounded-xl bg-white/95 text-primary flex items-center justify-center shrink-0 backdrop-blur">
-                    <Users className="w-5 h-5" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/20" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <div className="text-[11px] uppercase tracking-wider font-semibold text-white/90 drop-shadow-md">
+                    Työntekijä
                   </div>
-                  <div className="text-white">
-                    <div className="text-[11px] uppercase tracking-wider font-semibold text-white/85">
-                      Työntekijä
-                    </div>
-                    <h3 className="text-lg font-bold leading-tight">
-                      Muutosturva alle 55-vuotiaille
-                    </h3>
-                  </div>
+                  <h3 className="text-xl font-bold leading-tight text-white drop-shadow-md">
+                    Muutosturva alle 55-vuotiaille
+                  </h3>
                 </div>
+
               </div>
               <div className="flex flex-col flex-1 p-6">
                 <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
@@ -243,20 +239,16 @@ export default function MuutosturvaPage() {
                   height={640}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/40 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 flex items-end gap-3">
-                  <div className="w-11 h-11 rounded-xl bg-white/95 text-primary flex items-center justify-center shrink-0 backdrop-blur">
-                    <Sparkles className="w-5 h-5" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/70 to-primary/20" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <div className="text-[11px] uppercase tracking-wider font-semibold text-white/90 drop-shadow-md">
+                    Laajennettu muutosturva
                   </div>
-                  <div className="text-white">
-                    <div className="text-[11px] uppercase tracking-wider font-semibold text-white/90">
-                      Laajennettu muutosturva
-                    </div>
-                    <h3 className="text-lg font-bold leading-tight">
-                      Muutosturva yli 55-vuotiaille
-                    </h3>
-                  </div>
+                  <h3 className="text-xl font-bold leading-tight text-white drop-shadow-md">
+                    Muutosturva yli 55-vuotiaille
+                  </h3>
                 </div>
+
               </div>
               <div className="flex flex-col flex-1 p-6">
                 <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
@@ -288,20 +280,16 @@ export default function MuutosturvaPage() {
                   height={640}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 flex items-end gap-3">
-                  <div className="w-11 h-11 rounded-xl bg-white/95 text-secondary flex items-center justify-center shrink-0 backdrop-blur">
-                    <Building2 className="w-5 h-5" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/20" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <div className="text-[11px] uppercase tracking-wider font-semibold text-white/90 drop-shadow-md">
+                    Työnantaja
                   </div>
-                  <div className="text-white">
-                    <div className="text-[11px] uppercase tracking-wider font-semibold text-white/85">
-                      Työnantaja
-                    </div>
-                    <h3 className="text-lg font-bold leading-tight">
-                      Hoidamme muutosturvan puolestasi
-                    </h3>
-                  </div>
+                  <h3 className="text-xl font-bold leading-tight text-white drop-shadow-md">
+                    Hoidamme muutosturvan puolestasi
+                  </h3>
                 </div>
+
               </div>
               <div className="flex flex-col flex-1 p-6">
                 <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
