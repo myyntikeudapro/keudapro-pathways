@@ -129,7 +129,7 @@ const FAQ = [
   },
   {
     q: "Voiko muutosturvakoulutuksen toteuttaa tekoälykoulutuksena?",
-    a: "Kyllä. KeudaPRO tarjoaa alakohtaisia Tekoälyn ammattiosaaja / Tekoälykoordinaattori (AI-Coordinator) -koulutuksia, jotka soveltuvat erinomaisesti muutosturvakoulutukseksi monilla aloilla.",
+    a: "Kyllä. KeudaPRO tarjoaa alakohtaisia Tekoälyn ammattiosaaja -koulutuksia, joista voi suorittaa Tekoälykoordinaattorin, Tekoälypäällikön tai Tekoälyjohtajan pätevyyden. Ne soveltuvat erinomaisesti muutosturvakoulutukseksi monilla aloilla.",
   },
   {
     q: "Onko muutosturva pakollinen työnantajalle?",
