@@ -155,7 +155,7 @@ export default function MuutosturvaPage() {
     provider: { "@type": "Organization", name: "KeudaPRO", url: "https://keudapro.fi" },
     areaServed: "KUUMA-seutu, Suomi",
     description:
-      "Muutosturvakoulutukset työntekijöille ja työnantajille — myös laajennettu muutosturva yli 55-vuotiaille. Tekoälyn ammattiosaaja / AI-Coordinator -koulutukset alakohtaisesti.",
+      "Muutosturvakoulutukset työntekijöille ja työnantajille — myös laajennettu muutosturva yli 55-vuotiaille. Tekoälyn ammattiosaaja -koulutukset alakohtaisesti (Tekoälykoordinaattori, Tekoälypäällikkö, Tekoälyjohtaja).",
   };
 
   return (
