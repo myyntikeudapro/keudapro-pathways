@@ -184,16 +184,17 @@ export default function MuutosturvaPage() {
       </section>
 
       {/* AUDIENCE SPLIT — alle 55 / yli 55 / työnantaja */}
-      <section id="kohderyhmat" className="keuda-section">
+      <section id="kohderyhmat" className="keuda-section bg-foreground text-background">
         <div className="keuda-container">
           <div className="max-w-2xl mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
               Kenelle muutosturva on tarkoitettu?
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-background/75 text-lg">
               Räätälöimme polun tilanteesi mukaan — niin yksilölle kuin organisaatiolle.
             </p>
           </div>
+
 
           <div className="grid lg:grid-cols-3 gap-6">
             {/* ALLE 55 */}
@@ -207,15 +208,16 @@ export default function MuutosturvaPage() {
                   height={640}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <div className="text-[11px] uppercase tracking-wider font-semibold text-white/90 drop-shadow-md">
+                  <div className="text-[11px] uppercase tracking-wider font-semibold text-secondary drop-shadow-md">
                     Työntekijä
                   </div>
                   <h3 className="text-xl font-bold leading-tight text-white drop-shadow-md">
                     Muutosturva alle 55-vuotiaille
                   </h3>
                 </div>
+
 
               </div>
               <div className="flex flex-col flex-1 p-6">
@@ -248,15 +250,16 @@ export default function MuutosturvaPage() {
                   height={640}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/70 to-primary/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <div className="text-[11px] uppercase tracking-wider font-semibold text-white/90 drop-shadow-md">
+                  <div className="text-[11px] uppercase tracking-wider font-semibold text-secondary drop-shadow-md">
                     Laajennettu muutosturva
                   </div>
                   <h3 className="text-xl font-bold leading-tight text-white drop-shadow-md">
                     Muutosturva yli 55-vuotiaille
                   </h3>
                 </div>
+
 
               </div>
               <div className="flex flex-col flex-1 p-6">
@@ -289,15 +292,16 @@ export default function MuutosturvaPage() {
                   height={640}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <div className="text-[11px] uppercase tracking-wider font-semibold text-white/90 drop-shadow-md">
+                  <div className="text-[11px] uppercase tracking-wider font-semibold text-secondary drop-shadow-md">
                     Työnantaja
                   </div>
                   <h3 className="text-xl font-bold leading-tight text-white drop-shadow-md">
                     Hoidamme muutosturvan puolestasi
                   </h3>
                 </div>
+
 
               </div>
               <div className="flex flex-col flex-1 p-6">
