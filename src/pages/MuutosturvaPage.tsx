@@ -169,10 +169,8 @@ export default function MuutosturvaPage() {
       <section className="py-16 md:py-20 bg-foreground text-background">
         <div className="keuda-container">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm font-medium text-primary uppercase tracking-wide mb-3">
-              KeudaPRO · Muutosturva
-            </p>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-6">
+
               Muutosturvakoulutus — uusi suunta, uusi osaaminen
             </h1>
             <p className="text-lg md:text-xl text-background/75 mb-8 leading-relaxed">
