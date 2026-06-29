@@ -178,6 +178,7 @@ const LEVELS: {
   short: string;
   tagline: string;
   icon: typeof Sparkles;
+  image: string;
   tint: string;
   tintActive: string;
   programUrl?: string;
@@ -191,6 +192,7 @@ const LEVELS: {
     short: "AI-Coordinator",
     tagline: "Asiantuntijalle — tekoälyn käytännön hyödyntäminen omassa työssä.",
     icon: Sparkles,
+    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=400&h=400&q=70",
     tint: "bg-keuda-blue-light text-primary",
     tintActive: "bg-primary text-primary-foreground",
     programName: "AI-Coordinator",
@@ -204,6 +206,7 @@ const LEVELS: {
     short: "AI-Manager",
     tagline: "Esihenkilölle — tekoälyn käyttöönotto tiimissä ja prosesseissa.",
     icon: Users,
+    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=400&h=400&q=70",
     tint: "bg-keuda-teal-light text-secondary",
     tintActive: "bg-secondary text-secondary-foreground",
     programUrl: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/",
@@ -218,6 +221,7 @@ const LEVELS: {
     short: "AI-Director",
     tagline: "Johdolle — strateginen tekoälyjohtaminen ja organisaation uudistus.",
     icon: Crown,
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&h=400&q=70",
     tint: "bg-amber-100 text-amber-700",
     tintActive: "bg-foreground text-background",
     programUrl: "https://www.keuda.fi/koulutus/ai-director-ceo-johtoryhmatason-valmennusohjelma/",
@@ -269,20 +273,31 @@ export function AiCourseFinder() {
                 type="button"
                 onClick={() => setLevel(l.id)}
                 className={cn(
-                  "text-left rounded-xl border p-4 transition-all",
+                  "group text-left rounded-xl border overflow-hidden transition-all",
                   active
                     ? "border-primary bg-card shadow-card ring-2 ring-primary/20"
                     : "border-border bg-card hover:border-primary/40 hover:shadow-sm"
                 )}
               >
-                <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center mb-3", l.tint)}>
-                  <Icon className="w-5 h-5" />
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted">
+                  <img
+                    src={l.image}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  <div className={cn("absolute top-2 left-2 w-9 h-9 rounded-lg flex items-center justify-center shadow-sm backdrop-blur-sm", l.tint)}>
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <div className="absolute bottom-2 left-3 text-[11px] uppercase tracking-wider text-white font-semibold drop-shadow">
+                    {l.short}
+                  </div>
                 </div>
-                <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold mb-0.5">
-                  {l.short}
+                <div className="p-4">
+                  <div className="font-bold text-foreground mb-1">{l.name}</div>
+                  <div className="text-xs text-muted-foreground leading-relaxed">{l.tagline}</div>
                 </div>
-                <div className="font-bold text-foreground mb-1">{l.name}</div>
-                <div className="text-xs text-muted-foreground leading-relaxed">{l.tagline}</div>
               </button>
             );
           })}
