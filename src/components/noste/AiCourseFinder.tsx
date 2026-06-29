@@ -206,7 +206,7 @@ const LEVELS: {
     short: "AI-Manager",
     tagline: "Esihenkilölle — tekoälyn käyttöönotto tiimissä ja prosesseissa.",
     icon: Users,
-    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=400&h=400&q=70",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=600&h=240&q=70",
     tint: "bg-keuda-teal-light text-secondary",
     tintActive: "bg-secondary text-secondary-foreground",
     programUrl: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/",
