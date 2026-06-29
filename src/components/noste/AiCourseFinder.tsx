@@ -279,7 +279,7 @@ export function AiCourseFinder() {
                     : "border-border bg-card hover:border-primary/40 hover:shadow-sm"
                 )}
               >
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted">
+                <div className="relative aspect-[16/5] w-full overflow-hidden bg-muted">
                   <img
                     src={l.image}
                     alt=""
