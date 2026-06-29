@@ -482,12 +482,12 @@ export default function MuutosturvaPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="keuda-section bg-primary text-primary-foreground">
+      <section className="keuda-section bg-keuda-orange text-foreground">
         <div className="keuda-container text-center max-w-2xl">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
             Aloitetaan yhdessä.
           </h2>
-          <p className="text-primary-foreground/85 text-lg mb-8">
+          <p className="text-foreground/80 text-lg mb-8">
             Yksi yhteyshenkilö hoitaa muutosturvakoulutuksesi alusta loppuun.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
@@ -499,7 +499,7 @@ export default function MuutosturvaPage() {
               variant="outline"
               size="lg"
               asChild
-              className="bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground"
+              className="bg-transparent text-foreground border-foreground/40 hover:bg-foreground/10 hover:text-foreground"
             >
               <a href="tel:+358401906912">
                 <Phone className="w-4 h-4 mr-2" />
@@ -510,7 +510,7 @@ export default function MuutosturvaPage() {
               variant="outline"
               size="lg"
               asChild
-              className="bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground"
+              className="bg-transparent text-foreground border-foreground/40 hover:bg-foreground/10 hover:text-foreground"
             >
               <a href="mailto:heikki.kallunki@keuda.fi">
                 <Mail className="w-4 h-4 mr-2" />
