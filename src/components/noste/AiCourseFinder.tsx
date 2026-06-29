@@ -1,7 +1,24 @@
 import { useMemo, useState } from "react";
-import { Search, ExternalLink, Sparkles, Users, Crown, GraduationCap, X } from "lucide-react";
+import {
+  Search, ExternalLink, Sparkles, Users, Crown, GraduationCap, X,
+  Briefcase, Lightbulb, Calculator, Megaphone, HeartPulse, Wrench,
+  ShoppingBag, Shield, Truck, BookOpen,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+
+const CATEGORY_VISUAL: Record<string, { icon: typeof Sparkles; gradient: string }> = {
+  "Johto":                  { icon: Briefcase,  gradient: "from-amber-400 to-orange-500" },
+  "Asiantuntijat":          { icon: Lightbulb,  gradient: "from-violet-400 to-fuchsia-500" },
+  "Hallinto & talous":      { icon: Calculator, gradient: "from-sky-400 to-blue-600" },
+  "Myynti & markkinointi":  { icon: Megaphone,  gradient: "from-pink-400 to-rose-500" },
+  "Sote & hyvinvointi":     { icon: HeartPulse, gradient: "from-rose-400 to-red-500" },
+  "Tekniikka & tuotanto":   { icon: Wrench,     gradient: "from-slate-500 to-slate-700" },
+  "Palvelu & kauppa":       { icon: ShoppingBag,gradient: "from-teal-400 to-emerald-500" },
+  "Turva & julkinen":       { icon: Shield,     gradient: "from-indigo-500 to-blue-700" },
+  "Logistiikka":            { icon: Truck,      gradient: "from-cyan-400 to-sky-600" },
+  "Kasvatus & koulutus":    { icon: BookOpen,   gradient: "from-lime-400 to-green-600" },
+};
 
 /* ============================================================
    AI Course Finder — älykäs koulutuksen suunnittelu
