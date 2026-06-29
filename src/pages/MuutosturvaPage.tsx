@@ -97,13 +97,14 @@ const AI_COORDINATOR_COURSES: { ala: string; href: string }[] = [
 ];
 
 const WHY_KEUDAPRO = [
-  { icon: Award, title: "Luotettava julkinen toimija", body: "Keuda on KUUMA-seudun johtava ammatillinen kouluttaja — vahva alueellinen verkosto ja kokemus." },
-  { icon: Sparkles, title: "Tekoälyosaaminen ytimessä", body: "Alakohtaiset AI-Coordinator-koulutukset antavat aitoa kilpailuetua seuraavaan työhön." },
-  { icon: HeartHandshake, title: "Yksi yhteyshenkilö", body: "Heikki Kallunki hoitaa muutosturvaprosessisi alusta loppuun — ei pompottelua luukulta toiselle." },
-  { icon: BookOpen, title: "Laaja koulutustarjonta", body: "Pääset käsiksi Keudan koko ammatilliseen tarjontaan — myös tutkintotavoitteiseen koulutukseen." },
-  { icon: Briefcase, title: "Työelämälähtöinen", body: "Sisällöt rakennetaan KUUMA-seudun työnantajien todellisten tarpeiden pohjalta." },
-  { icon: CheckCircle2, title: "Virallinen todistus", body: "Saat osaamisestasi virallisen todistuksen, jolla erotut työnhaussa." },
+  { icon: Shield, tint: "bg-keuda-blue-light text-primary", title: "Luotettava julkinen toimija", body: "Keuda on KUUMA-seudun johtava ammatillinen kouluttaja — vahva alueellinen verkosto ja kokemus." },
+  { icon: Sparkles, tint: "bg-keuda-teal-light text-secondary", title: "Tekoälyosaaminen ytimessä", body: "Alakohtaiset AI-Coordinator-koulutukset antavat aitoa kilpailuetua seuraavaan työhön." },
+  { icon: HeartHandshake, tint: "bg-orange-100 text-orange-700", title: "Yksi yhteyshenkilö", body: "Heikki Kallunki hoitaa muutosturvaprosessisi alusta loppuun — ei pompottelua luukulta toiselle." },
+  { icon: GraduationCap, tint: "bg-purple-100 text-purple-700", title: "Laaja koulutustarjonta", body: "Pääset käsiksi Keudan koko ammatilliseen tarjontaan — myös tutkintotavoitteiseen koulutukseen." },
+  { icon: Briefcase, tint: "bg-amber-100 text-amber-700", title: "Työelämälähtöinen", body: "Sisällöt rakennetaan KUUMA-seudun työnantajien todellisten tarpeiden pohjalta." },
+  { icon: Award, tint: "bg-rose-100 text-rose-700", title: "Virallinen todistus", body: "Saat osaamisestasi virallisen todistuksen, jolla erotut työnhaussa." },
 ];
+
 
 const STEPS = [
   { n: "01", title: "Yhteydenotto", body: "Täytä lyhyt kartoituslomake tai soita. Saat henkilökohtaisen yhteyshenkilön." },
