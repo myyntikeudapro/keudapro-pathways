@@ -58,7 +58,7 @@ const TYONTEKIJA_YLI55 = [
 const TYONANTAJA_BENEFITS = [
   "Yksi yhteyshenkilö koko muutosturvaprosessiin",
   "Räätälöity koulutuspaketti irtisanottaville työntekijöille",
-  "Tekoälykoordinaattori-koulutus alakohtaisena vaihtoehtona",
+  "Tekoälyn ammattiosaaja -koulutus alakohtaisesti — pätevyydet: Tekoälykoordinaattori, Tekoälypäällikkö tai Tekoälyjohtaja",
   "Lakisääteisen muutosturvakoulutuksen toteutus avaimet käteen",
   "Selkeä raportointi ja dokumentaatio työnantajan tarpeisiin",
 ];
