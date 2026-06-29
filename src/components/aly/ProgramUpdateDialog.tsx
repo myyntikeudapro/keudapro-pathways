@@ -36,7 +36,7 @@ export function ProgramUpdateDialog({ programLabel, trigger }: Props) {
             </span>
             <span className="block">
               Lähtökohtana ovat aina <strong className="text-foreground">organisaation tai yksilön tarpeet</strong>.
-              Toteutamme ratkaisuja mm. Helsingin kaupungille, KUUMA-kunnille, sote-alueille ja yksityisille.
+              Toteutamme ratkaisuja mm. Helsingin kaupungille, alueen kunnille, sote-alueille ja yksityisille.
             </span>
             <span className="block">
               Yhdistämme <strong className="text-foreground">osa- ja kokotutkintoja</strong> sekä

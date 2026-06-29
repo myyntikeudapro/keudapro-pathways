@@ -95,10 +95,10 @@ const standardProjects: Project[] = [
     icon: "",
     status: "prep",
     statusLabel: "Pilotti rakentuu",
-    name: "KUUMA-tilannekuva",
+    name: "Alueellinen tilannekuva",
     description:
-      "Alueellinen Dashboard KUUMA-seudulle — uudenlainen tilannekuva päätöksenteon tueksi. 1.0-julkaisu syksyllä 2026, erillinen julkinen Foorumi-tilaisuus valmisteilla.",
-    customers: [{ initials: "KU", name: "KUUMA-seutu", tone: "teal" }],
+      "Alueellinen Dashboard alueen seudulle — uudenlainen tilannekuva päätöksenteon tueksi. 1.0-julkaisu syksyllä 2026, erillinen julkinen Foorumi-tilaisuus valmisteilla.",
+    customers: [{ initials: "KU", name: "oma talousalue", tone: "teal" }],
     meta: "1.0 syksyllä 2026",
     ctaLabel: "Ilmoittaudu jonoon",
     image: imgKuuma,
@@ -214,7 +214,7 @@ const HubPage = () => {
     <Layout>
       <SEO
         title="KeudaPRO HUB — Kehitysalusta"
-        description="KeudaPRO HUB on kehitysalusta organisaatioille, jotka rakentavat tekoälymuutostaan ohjatusti. AI-transformaationäkymä, ARPRO 2.0, Aukee ja KUUMA-tilannekuva."
+        description="KeudaPRO HUB on kehitysalusta organisaatioille, jotka rakentavat tekoälymuutostaan ohjatusti. AI-transformaationäkymä, ARPRO 2.0, Aukee ja Alueellinen tilannekuva."
         path="/hub"
       />
 
@@ -530,7 +530,7 @@ const HubPage = () => {
                   <option className="bg-[#0B0B0B]">AI-Director-ohjelma</option>
                   <option className="bg-[#0B0B0B]">ARPRO 2.0 -pilotti</option>
                   <option className="bg-[#0B0B0B]">Aukee – Mahis -pilotti</option>
-                  <option className="bg-[#0B0B0B]">KUUMA-tilannekuva</option>
+                  <option className="bg-[#0B0B0B]">Alueellinen tilannekuva</option>
                   <option className="bg-[#0B0B0B]">Kaikki palvelut — yleinen demo</option>
                 </select>
               </div>
