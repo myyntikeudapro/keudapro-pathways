@@ -162,7 +162,7 @@ export default function MuutosturvaPage() {
     <Layout>
       <SEO
         title="Muutosturvakoulutus | KeudaPRO"
-        description="Muutosturvakoulutukset KUUMA-seudulla: alle 55- ja yli 55-vuotiaille, työntekijöille ja työnantajille. Alakohtaiset AI-Coordinator-koulutukset. Avaimet käteen -toteutus."
+        description="Muutosturvakoulutukset KUUMA-seudulla: alle 55- ja yli 55-vuotiaille, työntekijöille ja työnantajille. Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (koordinaattori, päällikkö, johtaja). Avaimet käteen -toteutus."
         path="/muutosturva"
         jsonLd={jsonLd}
       />
