@@ -428,9 +428,9 @@ export default function MuutosturvaPage() {
               Valitse oma alasi ja pätevyysohjelma
             </h2>
             <p className="text-muted-foreground text-lg">
-              Valitse ensin sopiva pätevyystaso (AI-Coordinator, -Manager tai -Director) ja hae oma
-              alasi — koulutus räätälöidään sen näkökulmasta. Lähes 50 alakohtaista
-              ammattiosaaja­koulutusta suoraan Keudan koulutussivuille.
+              Valitse ensin sopiva pätevyystaso — Tekoälykoordinaattori, Tekoälypäällikkö tai
+              Tekoälyjohtaja — ja hae oma alasi. Tekoälyn ammattiosaaja -koulutus räätälöidään sen
+              näkökulmasta. Lähes 50 alakohtaista koulutusta suoraan Keudan koulutussivuille.
             </p>
           </div>
 
