@@ -289,33 +289,49 @@ export function AiCourseFinder() {
         </div>
       </div>
 
-      {/* LEVEL CONTEXT BANNER (for Manager / Director — single national program) */}
-      {activeLevel.programUrl && (
-        <a
-          href={activeLevel.programUrl}
-          target="_blank"
-          rel="noopener"
-          className="group flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 hover:border-primary hover:shadow-card transition-all"
-        >
-          <div className="flex items-center gap-3">
-            <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center", activeLevel.tint)}>
-              <GraduationCap className="w-5 h-5" />
+      {/* LEVEL CONTEXT BANNER — kuvaus valitusta pätevyysohjelmasta */}
+      {(() => {
+        const inner = (
+          <>
+            <div className="flex items-center gap-3">
+              <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center shrink-0", activeLevel.tint)}>
+                <GraduationCap className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">
+                  {activeLevel.bannerLabel}
+                </div>
+                <div
+                  className={cn(
+                    "font-semibold text-foreground transition-colors",
+                    activeLevel.programUrl && "group-hover:text-primary"
+                  )}
+                >
+                  {activeLevel.programName} — {activeLevel.name}
+                </div>
+                <div className="text-xs text-muted-foreground">{activeLevel.bannerNote}</div>
+              </div>
             </div>
-            <div>
-              <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">
-                Valtakunnallinen ohjelma
-              </div>
-              <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                {activeLevel.programName} — {activeLevel.name}
-              </div>
-              <div className="text-xs text-muted-foreground">
-                Alla voit silti selata aloja inspiraationa — varsinainen ohjelma on yhteinen kaikille toimialoille.
-              </div>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
-        </a>
-      )}
+            {activeLevel.programUrl && (
+              <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
+            )}
+          </>
+        );
+        const className =
+          "group flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 transition-all";
+        return activeLevel.programUrl ? (
+          <a
+            href={activeLevel.programUrl}
+            target="_blank"
+            rel="noopener"
+            className={cn(className, "hover:border-primary hover:shadow-card")}
+          >
+            {inner}
+          </a>
+        ) : (
+          <div className={className}>{inner}</div>
+        );
+      })()}
 
       {/* SEARCH + FILTERS */}
       <div>
