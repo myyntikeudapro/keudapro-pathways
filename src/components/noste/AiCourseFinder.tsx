@@ -182,6 +182,8 @@ const LEVELS: {
   tintActive: string;
   programUrl?: string;
   programName: string;
+  bannerLabel: string;
+  bannerNote: string;
 }[] = [
   {
     id: "coordinator",
@@ -192,6 +194,9 @@ const LEVELS: {
     tint: "bg-keuda-blue-light text-primary",
     tintActive: "bg-primary text-primary-foreground",
     programName: "AI-Coordinator",
+    bannerLabel: "Alakohtainen koulutus",
+    bannerNote:
+      "Valitse oma alasi alta — pääset suoraan oman alasi Tekoälykoordinaattori-koulutuksen sivulle Keudan verkkosivuilla.",
   },
   {
     id: "manager",
@@ -203,6 +208,9 @@ const LEVELS: {
     tintActive: "bg-secondary text-secondary-foreground",
     programUrl: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/",
     programName: "AI-Manager",
+    bannerLabel: "Valtakunnallinen ohjelma",
+    bannerNote:
+      "Alla voit silti selata aloja inspiraationa — varsinainen ohjelma on yhteinen kaikille toimialoille.",
   },
   {
     id: "director",
@@ -214,6 +222,9 @@ const LEVELS: {
     tintActive: "bg-foreground text-background",
     programUrl: "https://www.keuda.fi/koulutus/ai-director-ceo-johtoryhmatason-valmennusohjelma/",
     programName: "AI-Director",
+    bannerLabel: "Valtakunnallinen ohjelma",
+    bannerNote:
+      "Alla voit silti selata aloja inspiraationa — varsinainen ohjelma on yhteinen kaikille toimialoille.",
   },
 ];
 
