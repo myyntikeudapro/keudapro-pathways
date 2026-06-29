@@ -20,6 +20,66 @@ const CATEGORY_VISUAL: Record<string, { icon: typeof Sparkles; gradient: string 
   "Kasvatus & koulutus":    { icon: BookOpen,   gradient: "from-lime-400 to-green-600" },
 };
 
+// Alakohtainen realistinen kuva (Unsplash) — jokaiseen ammattialaan oma aiheenmukainen valokuva.
+const FIELD_IMAGE: Record<string, string> = {
+  "ajoneuvoala": "photo-1486262715619-67b85e0b08d3",
+  "asiakaspalvelu": "photo-1556745753-b2904692b3cd",
+  "asiantuntijat": "photo-1542744173-8e7e53415bb0",
+  "elintarvikeala": "photo-1488459716781-31db52582fe9",
+  "finanssiala": "photo-1554224155-6726b3ff858f",
+  "hallitustyoskentely": "photo-1556761175-5973dc0f32e7",
+  "henkilostohallinto-hr": "photo-1573496359142-b8d87734a5a2",
+  "huolto-ja-kunnossapito": "photo-1581092918056-0c4c3acd3789",
+  "hyvinvointipalvelut": "photo-1544161515-4ab6ce6db874",
+  "it-tietoliikenne": "photo-1518770660439-4636190af475",
+  "johtaminen": "photo-1521737604893-d14cc237f11d",
+  "julkishallinto": "photo-1541872703-74c5e44368f4",
+  "juridiikka-laki": "photo-1589994965851-a8f479c573a9",
+  "kansainvalistyminen": "photo-1526778548025-fa2f459cd5c1",
+  "kasvatus-ohjaus": "photo-1503676260728-1c00da094a0b",
+  "kauneudenhoitoala": "photo-1560066984-138dadb4c035",
+  "kaupan-ala": "photo-1481437156560-3205f6a55735",
+  "kiinteisto-ja-isannointi": "photo-1560518883-ce09059eeffa",
+  "kirjanpito-ja-tilintarkastus": "photo-1454165804606-c3d57bc86b40",
+  "koulutus": "photo-1497486751825-1233686d5d80",
+  "kunnallishallinto": "photo-1591115765373-5207764f72e7",
+  "liikenne-ja-kuljetusala": "photo-1601584115197-04ecc0da31d7",
+  "logistiikka": "photo-1553413077-190dd305871c",
+  "maa-ja-metsatalous": "photo-1500382017468-9049fed747ef",
+  "maahanmuutto": "photo-1529390079861-591de354faf5",
+  "markkinointi": "photo-1533750349088-cd871a92f312",
+  "matkailu": "photo-1488646953014-85cb44e25828",
+  "myymalatyo": "photo-1573855619003-97b4799dcd8b",
+  "myynti": "photo-1556740738-b6a63e27c4df",
+  "ostotoiminta": "photo-1556761175-b413da4baf72",
+  "palvelualat": "photo-1552566626-52f8b828add9",
+  "pelastustoimi": "photo-1599689019288-67e652b6e2e9",
+  "rahoitus": "photo-1579621970795-87facc2f976d",
+  "rakentaminen": "photo-1503387762-592deb58ef4e",
+  "rekrytointi": "photo-1565688534245-05d6b5be184a",
+  "sahko-ja-energia-ala": "photo-1473341304170-971dccb5ac1e",
+  "siivousala": "photo-1581578731548-c64695cc6952",
+  "sosiaali-ja-terveysala": "photo-1576091160550-2173dba999ef",
+  "sosiaalinen-media": "photo-1611162617213-7d7a39e9b1d7",
+  "taloushallinto": "photo-1554224154-26032ffc0d07",
+  "teollisuusalat": "photo-1565939995-3b22d4a4c9a3",
+  "terveydenhuolto": "photo-1579684385127-1ef15d508118",
+  "toimitusjohtajat": "photo-1573497019940-1c28c88b4f3e",
+  "tuotannon-suunnittelu": "photo-1581091226825-a6a2a5aee158",
+  "tuotannonohjaus": "photo-1565374790065-aaf9aa39e055",
+  "tuote-ja-palvelukehitys": "photo-1559136555-9303baea8ebd",
+  "turvallisuusala": "photo-1582139329536-e7284fece509",
+  "tyoturvallisuus": "photo-1581094794329-c8112a89af12",
+  "yrittajat": "photo-1556761175-4b46a572b786",
+};
+
+const fieldImageUrl = (slug: string) => {
+  const id = FIELD_IMAGE[slug];
+  return id
+    ? `https://images.unsplash.com/${id}?auto=format&fit=crop&w=240&h=240&q=70`
+    : null;
+};
+
 /* ============================================================
    AI Course Finder — älykäs koulutuksen suunnittelu
    - Valitse pätevyystaso (Coordinator / Manager / Director)
