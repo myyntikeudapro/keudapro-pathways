@@ -292,15 +292,16 @@ export default function MuutosturvaPage() {
                   height={640}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <div className="text-[11px] uppercase tracking-wider font-semibold text-white/90 drop-shadow-md">
+                  <div className="text-[11px] uppercase tracking-wider font-semibold text-secondary drop-shadow-md">
                     Työnantaja
                   </div>
                   <h3 className="text-xl font-bold leading-tight text-white drop-shadow-md">
                     Hoidamme muutosturvan puolestasi
                   </h3>
                 </div>
+
 
               </div>
               <div className="flex flex-col flex-1 p-6">
