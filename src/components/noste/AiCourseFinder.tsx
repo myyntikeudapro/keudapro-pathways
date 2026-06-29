@@ -1,7 +1,24 @@
 import { useMemo, useState } from "react";
-import { Search, ExternalLink, Sparkles, Users, Crown, GraduationCap, X } from "lucide-react";
+import {
+  Search, ExternalLink, Sparkles, Users, Crown, GraduationCap, X,
+  Briefcase, Lightbulb, Calculator, Megaphone, HeartPulse, Wrench,
+  ShoppingBag, Shield, Truck, BookOpen,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+
+const CATEGORY_VISUAL: Record<string, { icon: typeof Sparkles; gradient: string }> = {
+  "Johto":                  { icon: Briefcase,  gradient: "from-amber-400 to-orange-500" },
+  "Asiantuntijat":          { icon: Lightbulb,  gradient: "from-violet-400 to-fuchsia-500" },
+  "Hallinto & talous":      { icon: Calculator, gradient: "from-sky-400 to-blue-600" },
+  "Myynti & markkinointi":  { icon: Megaphone,  gradient: "from-pink-400 to-rose-500" },
+  "Sote & hyvinvointi":     { icon: HeartPulse, gradient: "from-rose-400 to-red-500" },
+  "Tekniikka & tuotanto":   { icon: Wrench,     gradient: "from-slate-500 to-slate-700" },
+  "Palvelu & kauppa":       { icon: ShoppingBag,gradient: "from-teal-400 to-emerald-500" },
+  "Turva & julkinen":       { icon: Shield,     gradient: "from-indigo-500 to-blue-700" },
+  "Logistiikka":            { icon: Truck,      gradient: "from-cyan-400 to-sky-600" },
+  "Kasvatus & koulutus":    { icon: BookOpen,   gradient: "from-lime-400 to-green-600" },
+};
 
 /* ============================================================
    AI Course Finder — älykäs koulutuksen suunnittelu
@@ -304,24 +321,37 @@ export function AiCourseFinder() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filtered.map((f) => {
               const href = level === "coordinator" ? coordinatorUrl(f.slug) : activeLevel.programUrl!;
+              const visual = CATEGORY_VISUAL[f.category];
+              const Icon = visual.icon;
               return (
                 <a
                   key={f.slug}
                   href={href}
                   target="_blank"
                   rel="noopener"
-                  className="group flex items-start justify-between gap-3 bg-card border border-border rounded-xl px-4 py-3.5 hover:border-primary hover:shadow-card transition-all"
+                  className="group flex items-stretch gap-3 bg-card border border-border rounded-xl overflow-hidden hover:border-primary hover:shadow-card transition-all"
                 >
-                  <div className="min-w-0">
-                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mb-0.5">
-                      {f.category}
-                    </div>
-                    <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                      {f.label}
-                    </div>
-                    <div className="text-xs text-muted-foreground mt-0.5">{activeLevel.short}</div>
+                  <div
+                    className={cn(
+                      "relative w-16 shrink-0 bg-gradient-to-br flex items-center justify-center text-white",
+                      visual.gradient
+                    )}
+                  >
+                    <Icon className="w-6 h-6 opacity-90 group-hover:scale-110 transition-transform" strokeWidth={1.75} />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.25),transparent_60%)] pointer-events-none" />
                   </div>
-                  <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-0.5" />
+                  <div className="min-w-0 flex-1 flex items-start justify-between gap-2 py-3 pr-3">
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mb-0.5">
+                        {f.category}
+                      </div>
+                      <div className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                        {f.label}
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-0.5">{activeLevel.short}</div>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-0.5" />
+                  </div>
                 </a>
               );
             })}
