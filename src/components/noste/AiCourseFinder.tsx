@@ -221,7 +221,7 @@ const LEVELS: {
     short: "AI-Director",
     tagline: "Johdolle — strateginen tekoälyjohtaminen ja organisaation uudistus.",
     icon: Crown,
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&h=400&q=70",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&h=240&q=70",
     tint: "bg-amber-100 text-amber-700",
     tintActive: "bg-foreground text-background",
     programUrl: "https://www.keuda.fi/koulutus/ai-director-ceo-johtoryhmatason-valmennusohjelma/",
