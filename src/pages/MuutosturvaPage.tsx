@@ -184,13 +184,13 @@ export default function MuutosturvaPage() {
       </section>
 
       {/* AUDIENCE SPLIT — alle 55 / yli 55 / työnantaja */}
-      <section id="kohderyhmat" className="keuda-section bg-foreground text-background">
+      <section id="kohderyhmat" className="keuda-section bg-muted text-foreground">
         <div className="keuda-container">
           <div className="max-w-2xl mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
               Kenelle muutosturva on tarkoitettu?
             </h2>
-            <p className="text-background/75 text-lg">
+            <p className="text-muted-foreground text-lg">
               Räätälöimme polun tilanteesi mukaan — niin yksilölle kuin organisaatiolle.
             </p>
           </div>
