@@ -29,6 +29,7 @@ import {
   Compass,
 } from "lucide-react";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
+import { AiCourseFinder } from "@/components/noste/AiCourseFinder";
 import imgAlle55 from "@/assets/muutosturva-alle55.jpg";
 import imgYli55 from "@/assets/muutosturva-yli55.jpg";
 import imgTyonantaja from "@/assets/muutosturva-tyonantaja.jpg";
@@ -415,44 +416,25 @@ export default function MuutosturvaPage() {
         </div>
       </section>
 
-      {/* AI COORDINATOR COURSES */}
+      {/* AI COURSE FINDER — älykäs koulutuksen suunnittelu */}
       <section className="keuda-section">
         <div className="keuda-container">
-          <div className="max-w-2xl mb-10">
+          <div className="max-w-2xl mb-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-keuda-blue-light text-primary text-xs font-semibold uppercase tracking-wider mb-3">
-              <GraduationCap className="w-3.5 h-3.5" />
-              Alakohtaiset koulutukset
+              <Sparkles className="w-3.5 h-3.5" />
+              Älykäs koulutuksen suunnittelu
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Tekoälyn ammattiosaaja / AI-Coordinator
+              Valitse oma alasi ja pätevyysohjelma
             </h2>
             <p className="text-muted-foreground text-lg">
-              Valitse oma alasi — koulutus räätälöidään juuri sen näkökulmasta. Soveltuu
-              erinomaisesti muutosturvakoulutukseksi.
+              Valitse ensin sopiva pätevyystaso (AI-Coordinator, -Manager tai -Director) ja hae oma
+              alasi — koulutus räätälöidään sen näkökulmasta. Lähes 50 alakohtaista
+              ammattiosaaja­koulutusta suoraan Keudan koulutussivuille.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-3">
-            {AI_COORDINATOR_COURSES.map((c) => (
-              <a
-                key={c.href}
-                href={c.href}
-                target="_blank"
-                rel="noopener"
-                className="group flex items-center justify-between gap-3 bg-card border border-border rounded-xl px-5 py-4 hover:border-primary hover:shadow-card transition-all"
-              >
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-0.5">
-                    Ala
-                  </div>
-                  <div className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {c.ala}
-                  </div>
-                </div>
-                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
-              </a>
-            ))}
-          </div>
+          <AiCourseFinder />
         </div>
       </section>
 
