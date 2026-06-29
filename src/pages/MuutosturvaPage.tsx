@@ -487,7 +487,7 @@ export default function MuutosturvaPage() {
           <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
             Aloitetaan yhdessä.
           </h2>
-          <p className="text-primary-foreground/85 text-lg mb-8">
+          <p className="text-foreground/80 text-lg mb-8">
             Yksi yhteyshenkilö hoitaa muutosturvakoulutuksesi alusta loppuun.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
