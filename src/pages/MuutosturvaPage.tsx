@@ -166,13 +166,24 @@ export default function MuutosturvaPage() {
       />
 
       {/* HERO */}
-      <HeroSection
-        tagline="KeudaPRO · Muutosturva"
-        title="Muutosturvakoulutus — uusi suunta, uusi osaaminen"
-        description="Olitpa irtisanottu työntekijä tai muutostilanteessa oleva työnantaja — KeudaPRO toteuttaa muutosturvakoulutuksen, joka todella vie eteenpäin. Sisältää myös laajennetun muutosturvan yli 55-vuotiaille."
-        ctaText="Pyydä koulutussuunnitelma"
-        onCtaClick={() => setFormOpen(true)}
-      />
+      <section className="py-16 md:py-20 bg-foreground text-background">
+        <div className="keuda-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-sm font-medium text-primary uppercase tracking-wide mb-3">
+              KeudaPRO · Muutosturva
+            </p>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-6">
+              Muutosturvakoulutus — uusi suunta, uusi osaaminen
+            </h1>
+            <p className="text-lg md:text-xl text-background/75 mb-8 leading-relaxed">
+              Olitpa irtisanottu työntekijä tai muutostilanteessa oleva työnantaja — KeudaPRO toteuttaa muutosturvakoulutuksen, joka todella vie eteenpäin. Sisältää myös laajennetun muutosturvan yli 55-vuotiaille.
+            </p>
+            <Button variant="cta" size="lg" onClick={() => setFormOpen(true)}>
+              Pyydä koulutussuunnitelma
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* AUDIENCE SPLIT — alle 55 / yli 55 / työnantaja */}
       <section id="kohderyhmat" className="keuda-section">
