@@ -379,7 +379,7 @@ export default function MuutosturvaPage() {
               const Icon = w.icon;
               return (
                 <div key={w.title} className="keuda-card-static">
-                  <div className="w-10 h-10 rounded-lg bg-keuda-teal-light text-secondary flex items-center justify-center mb-3">
+                  <div className={`w-10 h-10 rounded-lg ${w.tint} flex items-center justify-center mb-3`}>
                     <Icon className="w-5 h-5" />
                   </div>
                   <h3 className="font-semibold text-foreground mb-1.5">{w.title}</h3>
