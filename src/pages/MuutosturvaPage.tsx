@@ -58,7 +58,7 @@ const TYONTEKIJA_YLI55 = [
 const TYONANTAJA_BENEFITS = [
   "Yksi yhteyshenkilö koko muutosturvaprosessiin",
   "Räätälöity koulutuspaketti irtisanottaville työntekijöille",
-  "Tekoälykoordinaattori-koulutus alakohtaisena vaihtoehtona",
+  "Tekoälyn ammattiosaaja -koulutus alakohtaisesti — pätevyydet: Tekoälykoordinaattori, Tekoälypäällikkö tai Tekoälyjohtaja",
   "Lakisääteisen muutosturvakoulutuksen toteutus avaimet käteen",
   "Selkeä raportointi ja dokumentaatio työnantajan tarpeisiin",
 ];
@@ -99,7 +99,7 @@ const AI_COORDINATOR_COURSES: { ala: string; href: string }[] = [
 
 const WHY_KEUDAPRO = [
   { icon: Shield, tint: "bg-keuda-blue-light text-primary", title: "Luotettava julkinen toimija", body: "Keuda on KUUMA-seudun johtava ammatillinen kouluttaja — vahva alueellinen verkosto ja kokemus." },
-  { icon: Sparkles, tint: "bg-keuda-teal-light text-secondary", title: "Tekoälyosaaminen ytimessä", body: "Alakohtaiset AI-Coordinator-koulutukset antavat aitoa kilpailuetua seuraavaan työhön." },
+  { icon: Sparkles, tint: "bg-keuda-teal-light text-secondary", title: "Tekoälyosaaminen ytimessä", body: "Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (Tekoälykoordinaattori, Tekoälypäällikkö, Tekoälyjohtaja) antavat aitoa kilpailuetua seuraavaan työhön." },
   { icon: HeartHandshake, tint: "bg-orange-100 text-orange-700", title: "Yksi yhteyshenkilö", body: "Heikki Kallunki hoitaa muutosturvaprosessisi alusta loppuun — ei pompottelua luukulta toiselle." },
   { icon: GraduationCap, tint: "bg-purple-100 text-purple-700", title: "Laaja koulutustarjonta", body: "Pääset käsiksi Keudan koko ammatilliseen tarjontaan — myös tutkintotavoitteiseen koulutukseen." },
   { icon: Briefcase, tint: "bg-amber-100 text-amber-700", title: "Työelämälähtöinen", body: "Sisällöt rakennetaan KUUMA-seudun työnantajien todellisten tarpeiden pohjalta." },
@@ -129,7 +129,7 @@ const FAQ = [
   },
   {
     q: "Voiko muutosturvakoulutuksen toteuttaa tekoälykoulutuksena?",
-    a: "Kyllä. KeudaPRO tarjoaa alakohtaisia Tekoälyn ammattiosaaja / Tekoälykoordinaattori (AI-Coordinator) -koulutuksia, jotka soveltuvat erinomaisesti muutosturvakoulutukseksi monilla aloilla.",
+    a: "Kyllä. KeudaPRO tarjoaa alakohtaisia Tekoälyn ammattiosaaja -koulutuksia, joista voi suorittaa Tekoälykoordinaattorin, Tekoälypäällikön tai Tekoälyjohtajan pätevyyden. Ne soveltuvat erinomaisesti muutosturvakoulutukseksi monilla aloilla.",
   },
   {
     q: "Onko muutosturva pakollinen työnantajalle?",
@@ -155,14 +155,14 @@ export default function MuutosturvaPage() {
     provider: { "@type": "Organization", name: "KeudaPRO", url: "https://keudapro.fi" },
     areaServed: "KUUMA-seutu, Suomi",
     description:
-      "Muutosturvakoulutukset työntekijöille ja työnantajille — myös laajennettu muutosturva yli 55-vuotiaille. Tekoälyn ammattiosaaja / AI-Coordinator -koulutukset alakohtaisesti.",
+      "Muutosturvakoulutukset työntekijöille ja työnantajille — myös laajennettu muutosturva yli 55-vuotiaille. Tekoälyn ammattiosaaja -koulutukset alakohtaisesti (Tekoälykoordinaattori, Tekoälypäällikkö, Tekoälyjohtaja).",
   };
 
   return (
     <Layout>
       <SEO
         title="Muutosturvakoulutus | KeudaPRO"
-        description="Muutosturvakoulutukset KUUMA-seudulla: alle 55- ja yli 55-vuotiaille, työntekijöille ja työnantajille. Alakohtaiset AI-Coordinator-koulutukset. Avaimet käteen -toteutus."
+        description="Muutosturvakoulutukset KUUMA-seudulla: alle 55- ja yli 55-vuotiaille, työntekijöille ja työnantajille. Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (koordinaattori, päällikkö, johtaja). Avaimet käteen -toteutus."
         path="/muutosturva"
         jsonLd={jsonLd}
       />
@@ -428,9 +428,9 @@ export default function MuutosturvaPage() {
               Valitse oma alasi ja pätevyysohjelma
             </h2>
             <p className="text-muted-foreground text-lg">
-              Valitse ensin sopiva pätevyystaso (AI-Coordinator, -Manager tai -Director) ja hae oma
-              alasi — koulutus räätälöidään sen näkökulmasta. Lähes 50 alakohtaista
-              ammattiosaaja­koulutusta suoraan Keudan koulutussivuille.
+              Valitse ensin sopiva pätevyystaso — Tekoälykoordinaattori, Tekoälypäällikkö tai
+              Tekoälyjohtaja — ja hae oma alasi. Tekoälyn ammattiosaaja -koulutus räätälöidään sen
+              näkökulmasta. Lähes 50 alakohtaista koulutusta suoraan Keudan koulutussivuille.
             </p>
           </div>
 
