@@ -482,7 +482,7 @@ export default function MuutosturvaPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="keuda-section bg-primary text-primary-foreground">
+      <section className="keuda-section bg-keuda-orange text-foreground">
         <div className="keuda-container text-center max-w-2xl">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
             Aloitetaan yhdessä.
