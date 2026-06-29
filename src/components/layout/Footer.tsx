@@ -1,4 +1,3 @@
-import kuumaLogo from "@/assets/logo-kuuma.svg";
 import { Instagram, Linkedin, Youtube, Facebook } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -26,29 +25,7 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="border-t border-[#333]">
-      {/* oma talousalue Section */}
-      <div className="bg-[#0B0B0B] py-6">
-        <div className="keuda-container">
-          <a 
-            href="https://www.kuuma.fi" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex flex-col items-center gap-3 hover:opacity-80 transition-opacity"
-          >
-            <img 
-              src={kuumaLogo} 
-              alt="oma talousalue" 
-              className="h-9 md:h-11 invert brightness-0 invert"
-            />
-            <p className="text-xs text-gray-400 text-center">
-              Hyvinkää, Järvenpää, Kerava, Kirkkonummi, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula ja Vihti
-            </p>
-          </a>
-        </div>
-      </div>
 
-      {/* Divider */}
-      <div className="h-px bg-[#444]" />
 
       {/* Social Media Section */}
       <div className="bg-[#0B0B0B] py-5">
