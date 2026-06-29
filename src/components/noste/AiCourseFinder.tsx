@@ -393,12 +393,23 @@ export function AiCourseFinder() {
                 >
                   <div
                     className={cn(
-                      "relative w-16 shrink-0 bg-gradient-to-br flex items-center justify-center text-white",
+                      "relative w-20 shrink-0 bg-gradient-to-br overflow-hidden",
                       visual.gradient
                     )}
                   >
-                    <Icon className="w-6 h-6 opacity-90 group-hover:scale-110 transition-transform" strokeWidth={1.75} />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.25),transparent_60%)] pointer-events-none" />
+                    {fieldImageUrl(f.slug) && (
+                      <img
+                        src={fieldImageUrl(f.slug)!}
+                        alt=""
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                      />
+                    )}
+                    <div className={cn("absolute inset-0 bg-gradient-to-br opacity-40 mix-blend-multiply", visual.gradient)} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                    <div className="absolute bottom-1.5 left-1.5 w-7 h-7 rounded-md bg-white/95 backdrop-blur-sm flex items-center justify-center shadow-sm">
+                      <Icon className="w-4 h-4 text-foreground" strokeWidth={2} />
+                    </div>
                   </div>
                   <div className="min-w-0 flex-1 flex items-start justify-between gap-2 py-3 pr-3">
                     <div className="min-w-0">
