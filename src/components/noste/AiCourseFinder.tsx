@@ -192,7 +192,7 @@ const LEVELS: {
     short: "AI-Coordinator",
     tagline: "Asiantuntijalle — tekoälyn käytännön hyödyntäminen omassa työssä.",
     icon: Sparkles,
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=400&h=400&q=70",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&h=240&q=70",
     tint: "bg-keuda-blue-light text-primary",
     tintActive: "bg-primary text-primary-foreground",
     programName: "AI-Coordinator",
