@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     question: "Entä jos olen muuttamassa alueelle tai etsin työtä?",
-    answer: "KeudaPRO palvelee myös perheitä, osaajia ja työnhakijoita sekä alueen päättäjiä. Valitse 'Kuka olet?' -kohdasta sopiva polku – saat tietoa oman talousalueen elämästä, koulutuksista ja työmahdollisuuksista.",
+    answer: "KeudaPRO palvelee myös perheitä, osaajia ja työnhakijoita sekä alueen päättäjiä. Valitse 'Kuka olet?' -kohdasta sopiva polku – saat tietoa KUUMA-alueen elämästä, koulutuksista ja työmahdollisuuksista.",
   },
 ];
 

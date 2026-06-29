@@ -45,9 +45,9 @@ const providerBenefits = [
     id: "nakyvyys",
     icon: Users,
     title: "Rakennat näkyvyyttä ja vaikuttavuutta",
-    desc: "Osana oman talousalueen tunnistettua osaamisen operaattoria.",
+    desc: "Osana KUUMA-seudun tunnistettua osaamisen operaattoria.",
     image: imgBenefitNakyvyys,
-    body: "Toimit osana oman talousalueen tunnistettua osaamisen operaattoria ja saat näkyvyyttä luotettavassa verkostossa. Tulet esiin KeudaPRO:n viestinnässä, tilaisuuksissa ja palveluvalikoimassa – niin yritysten kuin julkisten ostajien suuntaan.",
+    body: "Toimit osana KUUMA-seudun tunnistettua osaamisen operaattoria ja saat näkyvyyttä luotettavassa verkostossa. Tulet esiin KeudaPRO:n viestinnässä, tilaisuuksissa ja palveluvalikoimassa – niin yritysten kuin julkisten ostajien suuntaan.",
   },
   {
     id: "asiakkuudet",
@@ -188,7 +188,7 @@ const VerkostoPage = () => {
     <Layout>
       <SEO
         title={"HUB-verkosto – Liity KeudaPRO:n verkostoon | KeudaPRO"}
-        description={"HUB-verkosto kokoaa KeudaPRO:n palveluntuottajat, asiantuntijat, opiskelijat ja kehittäjät yhteen omalla talousalueella. Hae palveluntuottajaksi tai tule mukaan Hubiin."}
+        description={"HUB-verkosto kokoaa KeudaPRO:n palveluntuottajat, asiantuntijat, opiskelijat ja kehittäjät yhteen KUUMA-seudulla. Hae palveluntuottajaksi tai tule mukaan Hubiin."}
         path="/verkosto"
       />
 
@@ -201,7 +201,7 @@ const VerkostoPage = () => {
             HUB-verkosto
           </span>
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 max-w-3xl mx-auto leading-tight">
-            HUB-verkosto – oman talousalueen osaamisen ekosysteemi
+            HUB-verkosto – KUUMA-seudun osaamisen ekosysteemi
           </h1>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
             KeudaPRO yhdistää palveluntuottajat, asiantuntijat, opiskelijat ja kehittäjät yhdeksi toimivaksi ekosysteemiksi.

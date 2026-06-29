@@ -804,7 +804,7 @@ const PatevyydetPage = () => {
                 Tutustu Keudan tutkintokoulutuksiin →
               </a>
               <span className="text-xs text-white/70 mt-1">
-                Keuda tarjoaa ammatillisia tutkintoja omalla talousalueella.
+                Keuda tarjoaa ammatillisia tutkintoja KUUMA-seudulla.
               </span>
             </div>
           </div>

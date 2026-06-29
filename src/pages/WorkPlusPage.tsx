@@ -197,7 +197,7 @@ const WorkPlusPage = () => {
 
   return (
     <Layout>
-      <SEO title={"NOSTE – Työhönvalmennus ja uramuutos omalla talousalueella | KeudaPRO"} description={"Työnhakijoille ja siirtymävaiheessa oleville: viisi polkua, ARPRO AI-työnhaku, LinkedIn- ja 3T-kortti, alueellinen työhönvalmennus – maksuton työttömille."} path="/noste" />
+      <SEO title={"NOSTE – Työhönvalmennus ja uramuutos KUUMA-seudulla | KeudaPRO"} description={"Työnhakijoille ja siirtymävaiheessa oleville: viisi polkua, ARPRO AI-työnhaku, LinkedIn- ja 3T-kortti, alueellinen työhönvalmennus – maksuton työttömille."} path="/noste" />
       {/* HERO CAROUSEL */}
       <HeroCarousel onSituationActivate={handleSituationClick} />
 

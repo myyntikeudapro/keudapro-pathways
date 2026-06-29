@@ -19,7 +19,7 @@ export function TransitionsSection() {
               Siirtymät ratkaisevat elinvoiman
             </h2>
             <p className="text-muted-foreground">
-              omalla talousalueella eläköityminen, omistajanvaihdokset ja hiljaisen tiedon katoaminen ovat kasvun suurimpia riskejä.
+              KUUMA-alueella eläköityminen, omistajanvaihdokset ja hiljaisen tiedon katoaminen ovat kasvun suurimpia riskejä.
               Siksi jatkuvuus ei ole erillinen palvelu – vaan yksi tärkeimmistä kasvupoluista.
             </p>
           </div>

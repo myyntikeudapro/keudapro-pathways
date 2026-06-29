@@ -44,7 +44,7 @@ const TYONTEKIJA_ALLE55 = [
   "Tekoälyn (AI) ammattiosaajakoulutus oman alasi näkökulmasta",
   "Digiosaaminen: M365, Teams, tietoturva",
   "Työnhakuvalmennus, CV ja LinkedIn-profiilin päivitys",
-  "Mahdollisuus uudelleenkouluttautua oman talousalueen ammattialoille",
+  "Mahdollisuus uudelleenkouluttautua KUUMA-seudun ammattialoille",
 ];
 
 const TYONTEKIJA_YLI55 = [
@@ -98,11 +98,11 @@ const AI_COORDINATOR_COURSES: { ala: string; href: string }[] = [
 ];
 
 const WHY_KEUDAPRO = [
-  { icon: Shield, tint: "bg-keuda-blue-light text-primary", title: "Luotettava julkinen toimija", body: "Keuda on oman talousalueen johtava ammatillinen kouluttaja — vahva alueellinen verkosto ja kokemus." },
+  { icon: Shield, tint: "bg-keuda-blue-light text-primary", title: "Luotettava julkinen toimija", body: "Keuda on KUUMA-seudun johtava ammatillinen kouluttaja — vahva alueellinen verkosto ja kokemus." },
   { icon: Sparkles, tint: "bg-keuda-teal-light text-secondary", title: "Tekoälyosaaminen ytimessä", body: "Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (Tekoälykoordinaattori, Tekoälypäällikkö, Tekoälyjohtaja) antavat aitoa kilpailuetua seuraavaan työhön." },
   { icon: HeartHandshake, tint: "bg-orange-100 text-orange-700", title: "Yksi yhteyshenkilö", body: "Heikki Kallunki hoitaa muutosturvaprosessisi alusta loppuun — ei pompottelua luukulta toiselle." },
   { icon: GraduationCap, tint: "bg-purple-100 text-purple-700", title: "Laaja koulutustarjonta", body: "Pääset käsiksi Keudan koko ammatilliseen tarjontaan — myös tutkintotavoitteiseen koulutukseen." },
-  { icon: Briefcase, tint: "bg-amber-100 text-amber-700", title: "Työelämälähtöinen", body: "Sisällöt rakennetaan oman talousalueen työnantajien todellisten tarpeiden pohjalta." },
+  { icon: Briefcase, tint: "bg-amber-100 text-amber-700", title: "Työelämälähtöinen", body: "Sisällöt rakennetaan KUUMA-seudun työnantajien todellisten tarpeiden pohjalta." },
   { icon: Award, tint: "bg-rose-100 text-rose-700", title: "Virallinen todistus", body: "Saat osaamisestasi virallisen todistuksen, jolla erotut työnhaussa." },
 ];
 
@@ -153,7 +153,7 @@ export default function MuutosturvaPage() {
     "@type": "Service",
     name: "Muutosturvakoulutus – KeudaPRO",
     provider: { "@type": "Organization", name: "KeudaPRO", url: "https://keudapro.fi" },
-    areaServed: "oma talousalue, Suomi",
+    areaServed: "KUUMA-seutu, Suomi",
     description:
       "Muutosturvakoulutukset työntekijöille ja työnantajille — myös laajennettu muutosturva yli 55-vuotiaille. Tekoälyn ammattiosaaja -koulutukset alakohtaisesti (Tekoälykoordinaattori, Tekoälypäällikkö, Tekoälyjohtaja).",
   };
@@ -162,7 +162,7 @@ export default function MuutosturvaPage() {
     <Layout>
       <SEO
         title="Muutosturvakoulutus | KeudaPRO"
-        description="Muutosturvakoulutukset omalla talousalueella: alle 55- ja yli 55-vuotiaille, työntekijöille ja työnantajille. Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (koordinaattori, päällikkö, johtaja). Avaimet käteen -toteutus."
+        description="Muutosturvakoulutukset KUUMA-seudulla: alle 55- ja yli 55-vuotiaille, työntekijöille ja työnantajille. Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (koordinaattori, päällikkö, johtaja). Avaimet käteen -toteutus."
         path="/muutosturva"
         jsonLd={jsonLd}
       />

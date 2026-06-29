@@ -2,7 +2,7 @@ import { CheckCircle2 } from "lucide-react";
 
 const hubiPoints = [
   "tunnistaa ilmiöt ja tarpeet",
-  "analysoi oman talousalueen yrityskannan",
+  "analysoi KUUMA-alueen yrityskannan",
   "kokoaa kasvun ja osaamisen kartan",
   "ohjaa oikeaan polkuun"
 ];

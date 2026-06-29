@@ -314,7 +314,7 @@ export const searchIndex: SearchEntry[] = [
   {
     id: "verkosto",
     title: "Verkosto ja yhteistyö",
-    description: "oman talousalueen ja Uudenmaan toimijaverkosto.",
+    description: "KUUMA-seudun ja Uudenmaan toimijaverkosto.",
     href: "/verkosto",
     image: operatorKuuma,
     category: "Kumppanuus",

@@ -44,9 +44,9 @@ const tiers: Tier[] = [
         id: "logistiikka",
         label: "Logistiikka",
         description:
-          "oma talousalue on Suomen logistiikan ydin – E75-käytävä, Vuosaaren satama ja Helsinki-Vantaa luovat ainutlaatuisen sijainnin. Toimiala kasvaa automaation ja vihreän siirtymän vauhdissa.",
+          "KUUMA-alue on Suomen logistiikan ydin – E75-käytävä, Vuosaaren satama ja Helsinki-Vantaa luovat ainutlaatuisen sijainnin. Toimiala kasvaa automaation ja vihreän siirtymän vauhdissa.",
         stats: [
-          { label: "Yrityksiä omalla talousalueella", value: "1 700+" },
+          { label: "Yrityksiä KUUMA-alueella", value: "1 700+" },
           { label: "Avoimet työpaikat / kk", value: "350+" },
         ],
       },
@@ -54,7 +54,7 @@ const tiers: Tier[] = [
         id: "energia",
         label: "Energia & vihreä siirtymä",
         description:
-          "Vihreä siirtymä luo täysin uusia ammatteja ja liiketoimintamalleja. alueen kunnat investoivat puhtaaseen energiaan ja kiertotalouteen ennätystahtia.",
+          "Vihreä siirtymä luo täysin uusia ammatteja ja liiketoimintamalleja. KUUMA-kunnat investoivat puhtaaseen energiaan ja kiertotalouteen ennätystahtia.",
         stats: [
           { label: "Investointiputki 2025–2030", value: "1.2 mrd €" },
           { label: "Uusia työpaikkoja", value: "2 000+" },
@@ -64,7 +64,7 @@ const tiers: Tier[] = [
         id: "teollisuus",
         label: "Moderni teollisuus",
         description:
-          "Automaatio, robotiikka ja teollinen tekoäly muuttavat tuotannon. oman talousalueen teollisuus uudistuu ja tarvitsee uutta osaamista joka tasolla.",
+          "Automaatio, robotiikka ja teollinen tekoäly muuttavat tuotannon. KUUMA-alueen teollisuus uudistuu ja tarvitsee uutta osaamista joka tasolla.",
         stats: [
           { label: "Teollisuuden yrityksiä", value: "900+" },
           { label: "Osaajatarve 2030 mennessä", value: "+3 500" },
@@ -75,7 +75,7 @@ const tiers: Tier[] = [
         label: "Koulutus & osaaminen",
         tooltip: "Keudan ydintehtävä — alueen kriittisin kilpailutekijä 2030",
         description:
-          "Osaaminen on oman talousalueen kriittisin kilpailutekijä 2030. Keuda toimii alueen osaamisveturina ja yhdistää oppilaitokset, yritykset ja kunnat saman pöydän ääreen.",
+          "Osaaminen on KUUMA-alueen kriittisin kilpailutekijä 2030. Keuda toimii alueen osaamisveturina ja yhdistää oppilaitokset, yritykset ja kunnat saman pöydän ääreen.",
         stats: [
           { label: "Opiskelijoita Keudassa", value: "10 000+" },
           { label: "Yrityskumppaneita", value: "2 500+" },
@@ -92,9 +92,9 @@ const tiers: Tier[] = [
       {
         id: "rakentaminen",
         label: "Rakentaminen & MAL-investoinnit",
-        tooltip: "MAL-rahoitus prioriteetti 9.6/10 alueen kunnissa",
+        tooltip: "MAL-rahoitus prioriteetti 9.6/10 KUUMA-kunnissa",
         description:
-          "MAL-sopimukset ohjaavat oman talousalueen asunto-, maankäyttö- ja liikenneinvestoinnit. Rakentaminen on yksi alueen suurimmista työllistäjistä ja kasvun mahdollistajista.",
+          "MAL-sopimukset ohjaavat KUUMA-alueen asunto-, maankäyttö- ja liikenneinvestoinnit. Rakentaminen on yksi alueen suurimmista työllistäjistä ja kasvun mahdollistajista.",
         stats: [
           { label: "MAL-prioriteetti", value: "9.6 / 10" },
           { label: "Investoinnit 2025–2031", value: "2.4 mrd €" },
@@ -104,7 +104,7 @@ const tiers: Tier[] = [
         id: "ict",
         label: "ICT & digipalvelut",
         description:
-          "Digitalisaatio ja tekoäly ovat kaikkien toimialojen kasvun selkäranka. oman talousalueen ICT-yritykset palvelevat sekä paikallista että pääkaupunkiseudun markkinaa.",
+          "Digitalisaatio ja tekoäly ovat kaikkien toimialojen kasvun selkäranka. KUUMA-alueen ICT-yritykset palvelevat sekä paikallista että pääkaupunkiseudun markkinaa.",
         stats: [
           { label: "ICT-yrityksiä", value: "600+" },
           { label: "Osaajapulan koko", value: "+1 200" },
@@ -126,9 +126,9 @@ const tiers: Tier[] = [
         id: "hyvinvointi",
         label: "Hyvinvointi & lapsipalvelut",
         tooltip:
-          "alueen kuntien strategioissa lapset ja nuoret 7.9/10 — vetovoimatekijä, ei vain peruspalvelu",
+          "KUUMA-kuntien strategioissa lapset ja nuoret 7.9/10 — vetovoimatekijä, ei vain peruspalvelu",
         description:
-          "Lapset ja nuoret ovat alueen kuntien strategioiden ytimessä. Hyvinvointipalvelut ovat alueen vetovoimatekijä – eivät vain peruspalvelu vaan kasvun mahdollistaja.",
+          "Lapset ja nuoret ovat KUUMA-kuntien strategioiden ytimessä. Hyvinvointipalvelut ovat alueen vetovoimatekijä – eivät vain peruspalvelu vaan kasvun mahdollistaja.",
         stats: [
           { label: "Strateginen painoarvo", value: "7.9 / 10" },
           { label: "Hyvinvointialan työpaikat", value: "8 500+" },
@@ -148,7 +148,7 @@ const tiers: Tier[] = [
         description:
           "Kauppa ja palvelut työllistävät laajasti ja muodostavat alueen arjen perustan. Verkkokauppa ja palvelumuotoilu muuttavat kenttää nopeasti.",
         stats: [
-          { label: "Yrityksiä omalla talousalueella", value: "3 200+" },
+          { label: "Yrityksiä KUUMA-alueella", value: "3 200+" },
           { label: "Työllistää", value: "12 000+" },
         ],
       },
@@ -180,7 +180,7 @@ const personas: Persona[] = [
     id: "yrittaja",
     label: "Yrittäjä alueelle muuttamassa",
     icon: Briefcase,
-    headline: "Tervetuloa omalle talousalueellesi yrittäjänä",
+    headline: "Tervetuloa KUUMA-alueelle yrittäjänä",
     body: "Saat suoran kontaktin kuntien elinkeinopalveluihin, toimitilakumppaneihin ja Keudan kasvuvalmennukseen. Reittikartoituksessa tunnistamme tilanteesi ja sopivimmat ensiaskeleet.",
     cta: "Aloita kasvukartoitus",
   },
@@ -196,23 +196,23 @@ const personas: Persona[] = [
     id: "perhe",
     label: "Perhe / muuttamista harkitseva",
     icon: Home,
-    headline: "Hyvä elämä omalla talousalueellasi",
-    body: "oma talousalue on kymmenen kunnan kokonaisuus pääkaupunkiseudun kupeessa: monipuoliset lapsipalvelut, koulut, harrastusmahdollisuudet, luonto ja sujuvat työmatkat. Täällä yhdistyvät kaupungin palvelut ja väljemmän asumisen rauha.",
-    cta: "Tutustu omaan talousalueeseesi",
+    headline: "Hyvä elämä KUUMA-alueella",
+    body: "KUUMA-alue on kymmenen kunnan kokonaisuus pääkaupunkiseudun kupeessa: monipuoliset lapsipalvelut, koulut, harrastusmahdollisuudet, luonto ja sujuvat työmatkat. Täällä yhdistyvät kaupungin palvelut ja väljemmän asumisen rauha.",
+    cta: "Tutustu KUUMA-alueeseen",
   },
   {
     id: "osaaja",
     label: "Osaaja tai työnhakija",
     icon: GraduationCap,
     headline: "Löydä paikkasi alueen kasvualoilla",
-    body: "omalla talousalueella avautuu tuhansia paikkoja logistiikassa, teollisuudessa, hyvinvointialalla ja ICT:ssä. Keuda kouluttaa, täydentää osaamista ja yhdistää työnantajiin.",
+    body: "KUUMA-alueella avautuu tuhansia paikkoja logistiikassa, teollisuudessa, hyvinvointialalla ja ICT:ssä. Keuda kouluttaa, täydentää osaamista ja yhdistää työnantajiin.",
     cta: "Tutustu koulutuspolkuihin",
   },
   {
     id: "paattaja",
     label: "Kunnan tai alueen päättäjä",
     icon: Landmark,
-    headline: "Edistä oman talousalueesi sektoria päättäjänä",
+    headline: "Edistä KUUMA-alueen sektoria päättäjänä",
     body: "Saat alueen elinkeino-, MAL- ja osaamisdatan päätöksenteon tueksi sekä suoran yhteyden KeudaPRO:n strategiseen tiimiin. Yhdistämme kuntien tavoitteet alueen yrityksiin.",
     cta: "Varaa keskustelu",
   },
@@ -255,7 +255,7 @@ export function GrowthIndustries() {
               Kasvun kartta
             </p>
             <h2 className="text-2xl md:text-4xl font-bold text-white mb-4 leading-tight">
-              Oman talousalueesi kasvualat
+              KUUMA-alueen kasvualat
             </h2>
             <p className="text-white/75 text-base md:text-lg max-w-2xl mx-auto">
               Kasvu ei jakaudu tasaisesti – kohdistamme kehittämisen toimialoihin,
@@ -264,7 +264,7 @@ export function GrowthIndustries() {
 
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-3.5 py-1.5 text-xs font-medium text-white/85 mt-5">
               <Sparkles className="w-3.5 h-3.5 text-[#4FA3E8]" />
-              Tulossa syksyllä 2026: oman talousalueen Dashboard 1.0
+              Tulossa syksyllä 2026: KUUMA-alueen Dashboard 1.0
             </div>
           </div>
 

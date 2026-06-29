@@ -25,7 +25,7 @@ const faqJsonLd = {
 const GrowthPage = () => {
   return (
     <Layout>
-      <SEO title={"KASVU – Yrityksen kasvuohjelmat ja kehittäminen | KeudaPRO"} description={"Yrittäjille ja pk-yrityksille: myynnin, skaalauksen, tekoälyn käyttöönoton ja osaamisen kehittämisen ohjelmat omalla talousalueella."} path="/kasvu" jsonLd={faqJsonLd} />
+      <SEO title={"KASVU – Yrityksen kasvuohjelmat ja kehittäminen | KeudaPRO"} description={"Yrittäjille ja pk-yrityksille: myynnin, skaalauksen, tekoälyn käyttöönoton ja osaamisen kehittämisen ohjelmat KUUMA-seudulla."} path="/kasvu" jsonLd={faqJsonLd} />
       {/* 1) HERO CAROUSEL */}
       <GrowthHeroCarousel />
 
