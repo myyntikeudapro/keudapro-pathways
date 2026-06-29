@@ -499,7 +499,7 @@ export default function MuutosturvaPage() {
               variant="outline"
               size="lg"
               asChild
-              className="bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground"
+              className="bg-transparent text-foreground border-foreground/40 hover:bg-foreground/10 hover:text-foreground"
             >
               <a href="tel:+358401906912">
                 <Phone className="w-4 h-4 mr-2" />
