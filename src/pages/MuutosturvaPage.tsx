@@ -44,7 +44,7 @@ const TYONTEKIJA_ALLE55 = [
   "Tekoälyn (AI) ammattiosaajakoulutus oman alasi näkökulmasta",
   "Digiosaaminen: M365, Teams, tietoturva",
   "Työnhakuvalmennus, CV ja LinkedIn-profiilin päivitys",
-  "Mahdollisuus uudelleenkouluttautua KUUMA-seudun ammattialoille",
+  "Mahdollisuus uudelleenkouluttautua oman talousalueen ammattialoille",
 ];
 
 const TYONTEKIJA_YLI55 = [
