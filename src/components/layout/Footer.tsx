@@ -26,7 +26,7 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="border-t border-[#333]">
-      {/* KUUMA-seutu Section */}
+      {/* oma talousalue Section */}
       <div className="bg-[#0B0B0B] py-6">
         <div className="keuda-container">
           <a 
@@ -37,7 +37,7 @@ export function Footer() {
           >
             <img 
               src={kuumaLogo} 
-              alt="KUUMA-seutu" 
+              alt="oma talousalue" 
               className="h-9 md:h-11 invert brightness-0 invert"
             />
             <p className="text-xs text-gray-400 text-center">

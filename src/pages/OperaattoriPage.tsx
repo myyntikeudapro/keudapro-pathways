@@ -31,15 +31,15 @@ const features = [
   },
   {
     image: operatorKuuma,
-    title: "KUUMA-seudun vahvuus",
-    description: "Toimimme osana kasvavaa KUUMA-seutua, lähellä pääkaupunkiseutua.",
+    title: "oman talousalueen vahvuus",
+    description: "Toimimme osana kasvavaa omaa talousaluetta, lähellä pääkaupunkiseutua.",
   },
 ];
 
 const OperaattoriPage = () => {
   return (
     <Layout>
-      <SEO title={"Operaattori – Osaamisen verkosto KUUMA-seudulla | KeudaPRO"} description={"KeudaPRO yhdistää osaajat, yritykset ja koulutusorganisaatiot toimivaksi ekosysteemiksi KUUMA-seudulla."} path="/operaattori" />
+      <SEO title={"Operaattori – Osaamisen verkosto omalla talousalueella | KeudaPRO"} description={"KeudaPRO yhdistää osaajat, yritykset ja koulutusorganisaatiot toimivaksi ekosysteemiksi omalla talousalueella."} path="/operaattori" />
       <OperaattoriHeroCarousel />
 
       {/* Features */}
@@ -137,7 +137,7 @@ const OperaattoriPage = () => {
               Verkosto ja kumppanit
             </h2>
             <p className="text-lg text-muted-foreground">
-              KeudaPRO toimii osana laajaa asiantuntija- ja kumppaniverkostoa. Mukana on yli 25 organisaatiota koulutuksesta, yrityskehityksestä, työllistymisestä ja tekoälystä — yhdessä rakennamme toimivan osaamisen ekosysteemin KUUMA-seudulla.
+              KeudaPRO toimii osana laajaa asiantuntija- ja kumppaniverkostoa. Mukana on yli 25 organisaatiota koulutuksesta, yrityskehityksestä, työllistymisestä ja tekoälystä — yhdessä rakennamme toimivan osaamisen ekosysteemin omalla talousalueella.
             </p>
           </div>
         </div>

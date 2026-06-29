@@ -59,7 +59,7 @@ const Index = () => {
 
   return (
     <Layout>
-      <SEO title={"KeudaPRO – Osaamisen ja siirtymien operaattori KUUMA-seudulla"} description={"Johtamiskoulutukset (ÄLY), työhönvalmennus (NOSTE) ja yritysten kasvuohjelmat (KASVU) KUUMA-seudulla – yksi reitti, kolme suuntaa."} path="/" />
+      <SEO title={"KeudaPRO – Osaamisen ja siirtymien operaattori omalla talousalueella"} description={"Johtamiskoulutukset (ÄLY), työhönvalmennus (NOSTE) ja yritysten kasvuohjelmat (KASVU) omalla talousalueella – yksi reitti, kolme suuntaa."} path="/" />
       <BackgroundMusic />
 
       {/* Photo Banner Carousel */}
@@ -173,10 +173,10 @@ const Index = () => {
       <section className="py-10 md:py-12 bg-muted/20">
         <div className="keuda-container flex flex-col items-center gap-4 text-center">
           <p className="text-xl md:text-2xl font-semibold text-foreground">
-            KUUMA-seutu kasvun alustana osaajille ja yrityksille.
+            oma talousalue kasvun alustana osaajille ja yrityksille.
           </p>
           <p className="text-sm md:text-base text-muted-foreground max-w-3xl">
-            KeudaPRO toimii osaamisen ja siirtymien operaattorina KUUMA-seudulla, Uudellamaalla ja koko Suomessa. Kansainvälisen rekrytoinnin osalta teemme yhteistyötä kumppaneidemme kanssa Euroopassa ja sen ulkopuolella.
+            KeudaPRO toimii osaamisen ja siirtymien operaattorina omalla talousalueella, Uudellamaalla ja koko Suomessa. Kansainvälisen rekrytoinnin osalta teemme yhteistyötä kumppaneidemme kanssa Euroopassa ja sen ulkopuolella.
           </p>
         </div>
       </section>

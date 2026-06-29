@@ -25,10 +25,10 @@ interface Partner {
 const partners: Partner[] = [
   {
     name: "Keuda",
-    tagline: "Ammatillinen koulutus KUUMA-seudulla",
+    tagline: "Ammatillinen koulutus omalla talousalueella",
     hover: "Keski-Uudenmaan koulutuskuntayhtymä – ammatillista koulutusta ja osaamisen kehittämistä.",
     infoTitle: "Keuda – Keski-Uudenmaan koulutuskuntayhtymä",
-    infoText: "Keuda on KUUMA-seudun ammatillinen oppilaitos ja KeudaPRO:n emoorganisaatio. Tarjoaa laajasti eri aloille tutkintotavoitteista koulutusta, lyhytkoulutuksia ja osaamisen täsmäkehittämistä yrityksille ja yksilöille.",
+    infoText: "Keuda on oman talousalueen ammatillinen oppilaitos ja KeudaPRO:n emoorganisaatio. Tarjoaa laajasti eri aloille tutkintotavoitteista koulutusta, lyhytkoulutuksia ja osaamisen täsmäkehittämistä yrityksille ja yksilöille.",
     role: "Koulutus ja osaamisen kehittäminen siirtymän tueksi.",
     ctaText: "Tutustu Keudaan →",
     ctaLink: "https://www.keuda.fi",
