@@ -273,20 +273,31 @@ export function AiCourseFinder() {
                 type="button"
                 onClick={() => setLevel(l.id)}
                 className={cn(
-                  "text-left rounded-xl border p-4 transition-all",
+                  "group text-left rounded-xl border overflow-hidden transition-all",
                   active
                     ? "border-primary bg-card shadow-card ring-2 ring-primary/20"
                     : "border-border bg-card hover:border-primary/40 hover:shadow-sm"
                 )}
               >
-                <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center mb-3", l.tint)}>
-                  <Icon className="w-5 h-5" />
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted">
+                  <img
+                    src={l.image}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  <div className={cn("absolute top-2 left-2 w-9 h-9 rounded-lg flex items-center justify-center shadow-sm backdrop-blur-sm", l.tint)}>
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <div className="absolute bottom-2 left-3 text-[11px] uppercase tracking-wider text-white font-semibold drop-shadow">
+                    {l.short}
+                  </div>
                 </div>
-                <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold mb-0.5">
-                  {l.short}
+                <div className="p-4">
+                  <div className="font-bold text-foreground mb-1">{l.name}</div>
+                  <div className="text-xs text-muted-foreground leading-relaxed">{l.tagline}</div>
                 </div>
-                <div className="font-bold text-foreground mb-1">{l.name}</div>
-                <div className="text-xs text-muted-foreground leading-relaxed">{l.tagline}</div>
               </button>
             );
           })}
