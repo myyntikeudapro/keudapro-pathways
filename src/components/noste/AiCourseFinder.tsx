@@ -178,6 +178,7 @@ const LEVELS: {
   short: string;
   tagline: string;
   icon: typeof Sparkles;
+  image: string;
   tint: string;
   tintActive: string;
   programUrl?: string;
@@ -191,6 +192,7 @@ const LEVELS: {
     short: "AI-Coordinator",
     tagline: "Asiantuntijalle — tekoälyn käytännön hyödyntäminen omassa työssä.",
     icon: Sparkles,
+    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=400&h=400&q=70",
     tint: "bg-keuda-blue-light text-primary",
     tintActive: "bg-primary text-primary-foreground",
     programName: "AI-Coordinator",
@@ -204,6 +206,7 @@ const LEVELS: {
     short: "AI-Manager",
     tagline: "Esihenkilölle — tekoälyn käyttöönotto tiimissä ja prosesseissa.",
     icon: Users,
+    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=400&h=400&q=70",
     tint: "bg-keuda-teal-light text-secondary",
     tintActive: "bg-secondary text-secondary-foreground",
     programUrl: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/",
@@ -218,6 +221,7 @@ const LEVELS: {
     short: "AI-Director",
     tagline: "Johdolle — strateginen tekoälyjohtaminen ja organisaation uudistus.",
     icon: Crown,
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&h=400&q=70",
     tint: "bg-amber-100 text-amber-700",
     tintActive: "bg-foreground text-background",
     programUrl: "https://www.keuda.fi/koulutus/ai-director-ceo-johtoryhmatason-valmennusohjelma/",
