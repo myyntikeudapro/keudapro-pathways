@@ -407,7 +407,7 @@ export function AiCourseFinder() {
       {/* RESULTS */}
       <div>
         <div className="flex items-baseline justify-between mb-3">
-          <div className="text-sm text-muted-foreground">
+          <div className="text-sm text-background/75">
             {filtered.length} / {FIELDS.length} alaa
             {level === "coordinator"
               ? " — linkit suoraan Keudan alakohtaisille koulutussivuille"
