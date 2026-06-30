@@ -415,17 +415,17 @@ export default function MuutosturvaPage() {
       </section>
 
       {/* AI COURSE FINDER — älykäs koulutuksen suunnittelu */}
-      <section className="keuda-section bg-muted border-y border-border">
+      <section className="keuda-section bg-foreground text-background">
         <div className="keuda-container">
           <div className="max-w-2xl mb-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-keuda-blue-light text-primary text-xs font-semibold uppercase tracking-wider mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background/10 text-background text-xs font-semibold uppercase tracking-wider mb-3">
               <Sparkles className="w-3.5 h-3.5" />
               Älykäs koulutuksen suunnittelu
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
               Valitse oma alasi ja pätevyysohjelma
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-background/75 text-lg">
               Valitse ensin sopiva pätevyystaso — Tekoälykoordinaattori, Tekoälypäällikkö tai
               Tekoälyjohtaja — ja hae oma alasi. Tekoälyn ammattiosaaja -koulutus räätälöidään sen
               näkökulmasta. Lähes 50 alakohtaista koulutusta suoraan Keudan koulutussivuille.
