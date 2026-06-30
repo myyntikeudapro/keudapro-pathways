@@ -502,6 +502,7 @@ export default function MuutosturvaPage() {
       </section>
 
       <MuutosturvaFormModal open={formOpen} onOpenChange={setFormOpen} />
+      <EmployerMuutosturvaFormModal open={employerFormOpen} onOpenChange={setEmployerFormOpen} />
     </Layout>
   );
 }
