@@ -50,6 +50,7 @@ const TYONTEKIJA_ALLE55 = [
 
 const TYONTEKIJA_YLI55 = [
   "Laajennettu muutosturva — koulutusbudjetti vastaa 2 kk bruttopalkkaa",
+  "Tekoälyn (AI) ammattiosaajakoulutus oman alasi näkökulmasta",
   "Henkilökohtainen uravalmennus ja osaamiskartoitus",
   "Digitaidot kokeneille — rauhallisella tempolla",
   "Työnhakuvalmennus: CV, haastattelut, LinkedIn",
