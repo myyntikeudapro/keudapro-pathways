@@ -42,6 +42,26 @@ const OperaattoriPage = () => {
       <SEO title={"Operaattori – Osaamisen verkosto KUUMA-seudulla | KeudaPRO"} description={"KeudaPRO yhdistää osaajat, yritykset ja koulutusorganisaatiot toimivaksi ekosysteemiksi KUUMA-seudulla."} path="/operaattori" />
       <OperaattoriHeroCarousel />
 
+      {/* Esittely – osa Keuda-konsernia */}
+      <section className="py-12 md:py-16">
+        <div className="keuda-container">
+          <div className="max-w-3xl mx-auto text-center">
+            <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold tracking-wider uppercase mb-4">
+              Osa Keuda-konsernia
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              KeudaPRO – työelämän osaamisen kumppani
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              KeudaPRO on osa Keuda-konsernia. Täydennämme Keudan tutkintotavoitteista
+              koulutustarjontaa tarjoamalla ratkaisuja, jotka vastaavat yritysten ja
+              työelämän muuttuviin tarpeisiin – ketterästi, alueellisesti ja
+              kumppaniverkoston voimin.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
       <section className="py-12 md:py-16 bg-muted/30">
         <div className="keuda-container">
