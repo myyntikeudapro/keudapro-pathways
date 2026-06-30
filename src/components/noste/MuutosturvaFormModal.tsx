@@ -157,7 +157,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
           <>
             <DialogHeader>
               <DialogTitle className="text-base leading-snug line-clamp-2">
-                Haluatko muutosturvakoulutussuunnitelman?
+                Haluatko muutosturvasuunnitelman?
               </DialogTitle>
               <DialogDescription className="text-xs">
                 Täytä muutama tieto, niin laadimme sopivan ehdotuksen.
