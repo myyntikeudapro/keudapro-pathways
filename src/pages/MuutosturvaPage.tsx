@@ -29,6 +29,7 @@ import {
   Compass,
 } from "lucide-react";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
+import { EmployerMuutosturvaFormModal } from "@/components/noste/EmployerMuutosturvaFormModal";
 import { AiCourseFinder } from "@/components/noste/AiCourseFinder";
 import imgAlle55 from "@/assets/muutosturva-alle55.jpg";
 import imgYli55 from "@/assets/muutosturva-yli55.jpg";
