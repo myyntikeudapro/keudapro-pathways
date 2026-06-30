@@ -148,6 +148,7 @@ const FAQ = [
 
 export default function MuutosturvaPage() {
   const [formOpen, setFormOpen] = useState(false);
+  const [employerFormOpen, setEmployerFormOpen] = useState(false);
 
   const jsonLd = {
     "@context": "https://schema.org",
