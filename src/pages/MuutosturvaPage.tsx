@@ -98,7 +98,7 @@ const AI_COORDINATOR_COURSES: { ala: string; href: string }[] = [
 ];
 
 const WHY_KEUDAPRO = [
-  { icon: Shield, tint: "bg-keuda-blue-light text-primary", title: "Luotettava julkinen toimija", body: "Keuda on Suomen viidenneksi suurin ammatillisen koulutuksen toteuttaja — palvelemme asiakkaita ympäri Suomen, etänä ja paikan päällä. Vahva kokemus ja valtakunnallinen verkosto takaavat laadun, olitpa sitten Oulussa, Turussa tai pääkaupunkiseudulla." },
+  { icon: Shield, tint: "bg-keuda-blue-light text-primary", title: "Luotettava julkinen toimija", body: "Keuda on Keski-Uudenmaan johtava ammatillinen kouluttaja ja työelämän kehittäjä — ja yksi Suomen suurimmista ammatillisen koulutuksen toteuttajista. Tarjoamme monipuolisia ja laadukkaita koulutuksia ympäri Suomen, etänä ja paikan päällä." },
   { icon: Sparkles, tint: "bg-keuda-teal-light text-secondary", title: "Tekoälyosaaminen ytimessä", body: "Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (Tekoälykoordinaattori, Tekoälypäällikkö, Tekoälyjohtaja) antavat aitoa kilpailuetua seuraavaan työhön." },
   { icon: HeartHandshake, tint: "bg-orange-100 text-orange-700", title: "Yksi yhteyshenkilö", body: "Heikki Kallunki hoitaa muutosturvaprosessisi alusta loppuun — ei pompottelua luukulta toiselle." },
   { icon: GraduationCap, tint: "bg-purple-100 text-purple-700", title: "Laaja koulutustarjonta", body: "Pääset käsiksi Keudan koko ammatilliseen tarjontaan — myös tutkintotavoitteiseen koulutukseen." },
