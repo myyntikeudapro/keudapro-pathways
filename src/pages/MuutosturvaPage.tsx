@@ -320,7 +320,7 @@ export default function MuutosturvaPage() {
                     </li>
                   ))}
                 </ul>
-                <Button variant="cta" onClick={() => setFormOpen(true)} className="w-full sm:w-auto self-start">
+                <Button variant="cta" onClick={() => setEmployerFormOpen(true)} className="w-full sm:w-auto self-start">
                   Pyydä tarjous
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
