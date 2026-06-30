@@ -260,7 +260,7 @@ export function AiCourseFinder() {
     <div className="space-y-8">
       {/* LEVEL SELECTOR */}
       <div>
-        <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+        <div className="text-xs uppercase tracking-wider text-background font-semibold mb-3">
           1. Valitse pätevyysohjelma
         </div>
         <div className="grid sm:grid-cols-3 gap-3">
@@ -350,7 +350,7 @@ export function AiCourseFinder() {
 
       {/* SEARCH + FILTERS */}
       <div>
-        <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">
+        <div className="text-xs uppercase tracking-wider text-background font-semibold mb-3">
           2. Valitse oma alasi
         </div>
         <div className="relative mb-3">
