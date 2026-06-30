@@ -102,7 +102,7 @@ const WHY_KEUDAPRO = [
   { icon: Sparkles, tint: "bg-keuda-teal-light text-secondary", title: "Tekoälyosaaminen ytimessä", body: "Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (Tekoälykoordinaattori, Tekoälypäällikkö, Tekoälyjohtaja) antavat aitoa kilpailuetua seuraavaan työhön." },
   { icon: HeartHandshake, tint: "bg-orange-100 text-orange-700", title: "Yksi yhteyshenkilö", body: "Heikki Kallunki hoitaa muutosturvaprosessisi alusta loppuun — ei pompottelua luukulta toiselle." },
   { icon: GraduationCap, tint: "bg-purple-100 text-purple-700", title: "Laaja koulutustarjonta", body: "Muutosturvakoulutuksen jälkeen sinulle voi avautua luonteva jatkopolku Keudan tutkintotavoitteiseen koulutukseen — tutkintoa ei voi suorittaa muutosturvakoulutuksena, mutta autamme löytämään seuraavan askeleen." },
-  { icon: Briefcase, tint: "bg-amber-100 text-amber-700", title: "Työelämälähtöinen", body: "Sisällöt rakennetaan KUUMA-seudun työnantajien todellisten tarpeiden pohjalta." },
+  { icon: Briefcase, tint: "bg-amber-100 text-amber-700", title: "Työelämälähtöinen", body: "Sisällöt rakennetaan oman talousalueesi työnantajien todellisten tarpeiden pohjalta — olitpa Keski-Uudellamaalla, Oulussa, Tampereella tai muualla Suomessa." },
   { icon: Award, tint: "bg-rose-100 text-rose-700", title: "Virallinen todistus", body: "Saat osaamisestasi virallisen todistuksen, jolla erotut työnhaussa." },
 ];
 
