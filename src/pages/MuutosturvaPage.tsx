@@ -403,7 +403,7 @@ export default function MuutosturvaPage() {
           <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {STEPS.map((s) => (
               <li key={s.n} className="keuda-card-static">
-                <div className="text-3xl font-bold text-primary mb-2">{s.n}</div>
+                <div className="text-5xl md:text-6xl font-bold text-primary leading-none mb-4">{s.n}</div>
                 <h3 className="font-semibold text-foreground mb-1.5">{s.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{s.body}</p>
               </li>
