@@ -29,6 +29,7 @@ import {
   Compass,
 } from "lucide-react";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
+import { EmployerMuutosturvaFormModal } from "@/components/noste/EmployerMuutosturvaFormModal";
 import { AiCourseFinder } from "@/components/noste/AiCourseFinder";
 import imgAlle55 from "@/assets/muutosturva-alle55.jpg";
 import imgYli55 from "@/assets/muutosturva-yli55.jpg";
@@ -147,6 +148,7 @@ const FAQ = [
 
 export default function MuutosturvaPage() {
   const [formOpen, setFormOpen] = useState(false);
+  const [employerFormOpen, setEmployerFormOpen] = useState(false);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -318,7 +320,7 @@ export default function MuutosturvaPage() {
                     </li>
                   ))}
                 </ul>
-                <Button variant="cta" onClick={() => setFormOpen(true)} className="w-full sm:w-auto self-start">
+                <Button variant="cta" onClick={() => setEmployerFormOpen(true)} className="w-full sm:w-auto self-start">
                   Pyydä tarjous
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
@@ -500,6 +502,7 @@ export default function MuutosturvaPage() {
       </section>
 
       <MuutosturvaFormModal open={formOpen} onOpenChange={setFormOpen} />
+      <EmployerMuutosturvaFormModal open={employerFormOpen} onOpenChange={setEmployerFormOpen} />
     </Layout>
   );
 }
