@@ -10,7 +10,14 @@ type NavItem = { label: string; href: string; children?: NavChild[] };
 
 const navItems: NavItem[] = [
   { label: "Reitit", href: "/" },
-  { label: "Osaaminen", href: "/osaaminen" },
+  {
+    label: "Osaaminen",
+    href: "/osaaminen",
+    children: [
+      { label: "Osaaminen", href: "/osaaminen" },
+      { label: "Muutosturva", href: "/muutosturva" },
+    ],
+  },
   {
     label: "Operaattori",
     href: "/operaattori",
