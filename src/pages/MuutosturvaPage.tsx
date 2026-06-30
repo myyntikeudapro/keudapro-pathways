@@ -344,18 +344,15 @@ export default function MuutosturvaPage() {
 
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {SERVICE_FAMILIES.map((s, i) => (
+            {SERVICE_FAMILIES.map((s) => (
               <article
                 key={s.title}
                 className="bg-card border border-border rounded-2xl p-6 shadow-card flex flex-col"
               >
-                <div className="text-5xl font-bold text-primary leading-none mb-5">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <div className="text-[11px] uppercase tracking-wider text-secondary font-semibold mb-1.5">
+                <div className="text-[11px] uppercase tracking-wider text-secondary font-semibold mb-2">
                   {s.badge}
                 </div>
-                <h3 className="font-bold text-foreground text-lg mb-2">{s.title}</h3>
+                <h3 className="font-bold text-foreground text-2xl md:text-3xl mb-3 leading-tight">{s.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{s.body}</p>
               </article>
             ))}
