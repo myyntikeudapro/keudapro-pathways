@@ -374,14 +374,10 @@ export default function MuutosturvaPage() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {WHY_KEUDAPRO.map((w, i) => {
-              const Icon = w.icon;
               return (
-                <div key={w.title} className="keuda-card-static relative">
-                  <div className="absolute top-4 right-5 text-2xl font-bold text-primary/70">
+                <div key={w.title} className="keuda-card-static">
+                  <div className="text-5xl md:text-6xl font-bold text-primary leading-none mb-4">
                     {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <div className={`w-10 h-10 rounded-lg ${w.tint} flex items-center justify-center mb-3`}>
-                    <Icon className="w-5 h-5" />
                   </div>
                   <h3 className="font-semibold text-foreground mb-1.5">{w.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{w.body}</p>
