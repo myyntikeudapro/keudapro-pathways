@@ -92,27 +92,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* KeudaPRO – osa Keuda-konsernia */}
-      <section className="py-10 md:py-14 bg-background border-b border-border/40">
-        <div className="keuda-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-[11px] md:text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-3">
-              Osa Keuda-konsernia
-            </p>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
-              KeudaPRO täydentää Keudan koulutustarjontaa
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              KeudaPRO täydentää Keudan tutkintotavoitteista koulutustarjontaa tarjoamalla ratkaisuja,
-              jotka vastaavat yritysten ja työelämän muuttuviin tarpeisiin. Rakennamme räätälöityjä
-              koulutus-, valmennus- ja kehittämispalveluja, jotka tuovat uusinta osaamista nopeasti
-              käytäntöön — niin yksilöille, työyhteisöille kuin organisaatioillekin.
-            </p>
-          </div>
-        </div>
-      </section>
-
-
       {/* Compact anchor intro */}
       <section className="pt-10 pb-6 md:pt-14 md:pb-8 bg-background">
         <div className="keuda-container">
