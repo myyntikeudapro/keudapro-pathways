@@ -415,7 +415,7 @@ export default function MuutosturvaPage() {
       </section>
 
       {/* AI COURSE FINDER — älykäs koulutuksen suunnittelu */}
-      <section className="keuda-section bg-accent/40 border-y border-border">
+      <section className="keuda-section bg-muted border-y border-border">
         <div className="keuda-container">
           <div className="max-w-2xl mb-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-keuda-blue-light text-primary text-xs font-semibold uppercase tracking-wider mb-3">
