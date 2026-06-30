@@ -163,7 +163,7 @@ export default function MuutosturvaPage() {
   return (
     <Layout>
       <SEO
-        title="Muutosturvakoulutus | KeudaPRO"
+        title="Muutosturvapalvelu | KeudaPRO"
         description="Muutosturvakoulutukset KUUMA-seudulla: alle 55- ja yli 55-vuotiaille, työntekijöille ja työnantajille. Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (koordinaattori, päällikkö, johtaja). Avaimet käteen -toteutus."
         path="/muutosturva"
         jsonLd={jsonLd}
@@ -175,7 +175,7 @@ export default function MuutosturvaPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-6">
 
-              Muutosturvakoulutus — uusi suunta, uusi osaaminen
+              Muutosturvapalvelu — uusi suunta, uusi osaaminen
             </h1>
             <p className="text-lg md:text-xl text-background/75 mb-8 leading-relaxed">
               Olitpa irtisanottu työntekijä tai muutostilanteessa oleva työnantaja — KeudaPRO toteuttaa muutosturvakoulutuksen, joka todella vie eteenpäin. Sisältää myös laajennetun muutosturvan yli 55-vuotiaille.
