@@ -214,7 +214,12 @@ const WorkPlusPage = () => {
 
   return (
     <Layout>
-      <SEO title={"NOSTE – Työhönvalmennus ja uramuutos KUUMA-seudulla | KeudaPRO"} description={"Työnhakijoille ja siirtymävaiheessa oleville: viisi polkua, ARPRO AI-työnhaku, LinkedIn- ja 3T-kortti, alueellinen työhönvalmennus – maksuton työttömille."} path="/noste" />
+      <SEO title={"NOSTE – Työhönvalmennus ja uramuutos KUUMA-seudulla | KeudaPRO"} description={"Työnhakijoille ja siirtymävaiheessa oleville: viisi polkua, ARPRO AI-työnhaku, LinkedIn- ja 3T-kortti, alueellinen työhönvalmennus – maksuton työttömille."} path="/noste" jsonLd={[
+        { "@context": "https://schema.org", "@type": "Course", name: "NOSTE – Työhönvalmennus", description: "Työhönvalmennus työttömille ja työnhakijoille KUUMA-seudulla. Uramuutoksen, työllistymisen ja alanvaihdon polut yhdessä TE-palveluiden kanssa.", provider: { "@type": "EducationalOrganization", name: "KeudaPRO", url: "https://keudapro.fi" } },
+        { "@context": "https://schema.org", "@type": "Course", name: "ARPRO – AI-työnhaku", description: "Tekoälyavusteinen työnhakuvalmennus: CV, LinkedIn-profiili ja hakemukset uusiksi.", provider: { "@type": "EducationalOrganization", name: "KeudaPRO", url: "https://keudapro.fi" } },
+        { "@context": "https://schema.org", "@type": "Course", name: "Kotoutujien reitti työelämään", description: "Suomen kieli, työelämävalmiudet ja käytännön ammattikoulutus maahanmuuttajille ja kotoutujille Uudellamaalla.", provider: { "@type": "EducationalOrganization", name: "KeudaPRO", url: "https://keudapro.fi" } },
+      ]} />
+
       {/* HERO CAROUSEL */}
       <HeroCarousel onSituationActivate={handleSituationClick} />
 
