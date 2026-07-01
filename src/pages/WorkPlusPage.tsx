@@ -37,6 +37,7 @@ const situations = [
   { id: "polku3", label: "Haluan töihin nopeasti", tooltip: "Tarvitset konkreettisia väyliä ja tukea työllistymiseen." },
   { id: "polku4", label: "Tilanteeni muuttuu", tooltip: "Työtilanteesi muuttuu tai ala ei tunnu enää oikealta." },
   { id: "polku5", label: "Haluan luoda oman työn", tooltip: "Haluat projekteja, toimeksiantoja tai yrittäjyyttä." },
+  { id: "polku6", label: "Olen muutosturvan piirissä", tooltip: "Työsuhteesi on päättynyt tai päättymässä tuotannollisista syistä – sinulla on lakisääteinen oikeus muutosturvakoulutukseen." },
 ];
 
 const pathsData = [
