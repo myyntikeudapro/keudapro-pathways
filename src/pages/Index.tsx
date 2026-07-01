@@ -178,6 +178,9 @@ const Index = () => {
           <p className="text-sm md:text-base text-muted-foreground max-w-3xl">
             KeudaPRO toimii osaamisen ja siirtymien operaattorina KUUMA-seudulla, Uudellamaalla ja koko Suomessa. Kansainvälisen rekrytoinnin osalta teemme yhteistyötä kumppaneidemme kanssa Euroopassa ja sen ulkopuolella.
           </p>
+          <p className="text-sm md:text-base text-muted-foreground max-w-3xl">
+            KeudaPRO (Keuda Koulutuspalvelut Oy) on <strong>Keski-Uudenmaan koulutuskuntayhtymä Keudan</strong> kokonaan omistama tytäryhtiö. Keuda on Keski-Uudenmaan johtava ammatillinen kouluttaja ja työelämän kehittäjä – ja yksi Suomen suurimmista ammatillisen koulutuksen toteuttajista.
+          </p>
         </div>
       </section>
     </Layout>
