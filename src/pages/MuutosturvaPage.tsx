@@ -211,9 +211,14 @@ export default function MuutosturvaPage() {
             <p className="text-lg md:text-xl text-background/75 mb-8 leading-relaxed">
               Olitpa irtisanottu työntekijä tai muutostilanteessa oleva työnantaja — KeudaPRO toteuttaa muutosturvakoulutuksen, joka todella vie eteenpäin. Sisältää myös laajennetun muutosturvan yli 55-vuotiaille.
             </p>
-            <Button variant="cta" size="lg" onClick={() => setFormOpen(true)}>
-              Pyydä koulutussuunnitelma
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button variant="cta" size="lg" onClick={() => setFormOpen(true)}>
+                Pyydä koulutussuunnitelma
+              </Button>
+              <Button variant="outline" size="lg" asChild className="bg-transparent border-background/40 text-background hover:bg-background hover:text-foreground">
+                <a href="#ai-course-finder">Valitse oma alasi ja pätevyysohjelma →</a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
