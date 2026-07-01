@@ -58,11 +58,11 @@ const TYONTEKIJA_YLI55 = [
 ];
 
 const TYONANTAJA_BENEFITS = [
-  "Yksi yhteyshenkilö koko muutosturvaprosessiin",
-  "Räätälöity koulutuspaketti irtisanottaville työntekijöille",
-  "Tekoälyn ammattiosaaja -koulutus alakohtaisesti — pätevyydet: Tekoälykoordinaattori, Tekoälypäällikkö tai Tekoälyjohtaja",
-  "Lakisääteisen muutosturvakoulutuksen toteutus avaimet käteen",
-  "Selkeä raportointi ja dokumentaatio työnantajan tarpeisiin",
+  "Yksi yhteyshenkilö koko muutosturvaprosessin ajan",
+  "Lakisääteinen muutosvalmennus irtisanotuille (työnantajan velvoite ≥30 hlön yrityksissä)",
+  "Tekoälyn ammattiosaaja -koulutus muutosvalmennuksen sisältönä (Tekoälykoordinaattori / -päällikkö / -johtaja)",
+  "Tuki 55 vuotta täyttäneiden ohjaukseen työllisyysalueen muutosturvakoulutukseen",
+  "Selkeä raportointi ja dokumentaatio HR:n tarpeisiin",
 ];
 
 const SERVICE_FAMILIES = [
