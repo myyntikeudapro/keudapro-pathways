@@ -198,14 +198,6 @@ const Index = () => {
               Tarjoamme monipuolisia ja laadukkaita koulutuksia ympäri Suomen, etänä ja paikan päällä.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center mt-7">
-              <Button variant="default" size="lg" asChild>
-                <a href="/muutosturva#ai-course-finder">Valitse oma alasi ja pätevyysohjelma →</a>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <a href="/osaaminen">Avaa koulutushakemisto</a>
-              </Button>
-            </div>
 
           </div>
         </div>
