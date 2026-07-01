@@ -359,7 +359,7 @@ export function AiCourseFinder() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Hae alaa, ammattia tai avainsanaa — esim. HR, myynti, sote, IT…"
-            className="pl-10 pr-10 h-12 text-base"
+            className="pl-10 pr-10 h-12 text-base bg-background text-foreground placeholder:text-muted-foreground"
           />
           {query && (
             <button
