@@ -1,23 +1,28 @@
-// Prerender per-route <head> metadata into dist/<path>/index.html.
-// Exposed as runPrerenderMeta() so the Vite SSG plugin can call it inline
-// (no subprocess needed). Also runnable as a standalone script.
+// Prerender per-route <head> metadata AND a minimal SEO body block
+// (an <h1> + intro paragraph) into dist/<path>/index.html.
+//
+// The React app hydrates on top of this block and replaces it visually,
+// but crawlers (Googlebot, GPTBot, Bing, LinkedIn, Slack) see the
+// route-specific <h1> and description in the static HTML.
+//
+// No React SSR, no jsdom, no sub-build — safe for Lovable's deploy container.
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { BASE_URL, routes } from "./routes-meta.mjs";
 
-function escapeAttr(s) {
+function escapeHtml(s) {
   return s
     .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
     .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 function rewriteHead(html, route) {
   const url = `${BASE_URL}${route.path}`;
-  const title = escapeAttr(route.title);
-  const description = escapeAttr(route.description);
+  const title = escapeHtml(route.title);
+  const description = escapeHtml(route.description);
   let out = html;
   out = out.replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`);
   out = out.replace(
@@ -51,6 +56,21 @@ function rewriteHead(html, route) {
   return out;
 }
 
+// Inject an SEO block inside <div id="root">. React replaces it on hydration
+// (createRoot's render() clears the container's children before mounting).
+// Inline styles hide it from users while keeping it visible to crawlers.
+function injectSeoBlock(html, route) {
+  const h1 = escapeHtml(route.h1 ?? route.title);
+  const intro = escapeHtml(route.intro ?? route.description);
+  const seoBlock =
+    `<div data-ssg-seo style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">` +
+    `<h1>${h1}</h1><p>${intro}</p></div>`;
+  return html.replace(
+    /(<div\s+id="root"[^>]*>)/,
+    `$1${seoBlock}`,
+  );
+}
+
 export async function runPrerenderMeta() {
   const DIST = resolve(process.cwd(), "dist");
   const INDEX = join(DIST, "index.html");
@@ -61,7 +81,8 @@ export async function runPrerenderMeta() {
   const baseHtml = readFileSync(INDEX, "utf-8");
   let written = 0;
   for (const route of routes) {
-    const html = rewriteHead(baseHtml, route);
+    let html = rewriteHead(baseHtml, route);
+    html = injectSeoBlock(html, route);
     if (route.path === "/") {
       writeFileSync(INDEX, html);
     } else {
@@ -71,10 +92,9 @@ export async function runPrerenderMeta() {
     }
     written++;
   }
-  console.log(`[prerender-meta] wrote ${written} per-route index.html files`);
+  console.log(`[prerender-meta] wrote ${written} per-route index.html files with SEO block`);
 }
 
-// Allow standalone execution too.
 if (import.meta.url === `file://${process.argv[1]}`) {
   runPrerenderMeta();
 }
