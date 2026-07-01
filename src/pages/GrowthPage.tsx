@@ -22,10 +22,19 @@ const faqJsonLd = {
   ].map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
 };
 
+const KASVU_PROVIDER = { "@type": "EducationalOrganization", name: "KeudaPRO", url: "https://keudapro.fi" } as const;
+
+const kasvuCoursesJsonLd = [
+  { "@context": "https://schema.org", "@type": "Course", name: "KASVU – Yrityksen kasvuohjelma", description: "Pk-yritysten kasvuohjelma neljällä tasolla: myynti, skaalaus ja liiketoiminnan uudistaminen KUUMA-seudulla.", provider: KASVU_PROVIDER },
+  { "@context": "https://schema.org", "@type": "Course", name: "Tekoälypolku yrityksille", description: "Tekoälyn käyttöönotto pk-yrityksissä: asiakasviestintä, automaatiot ja BI-integraatiot vaiheittain.", provider: KASVU_PROVIDER },
+  { "@context": "https://schema.org", "@type": "Course", name: "Henkilöstön osaamisen kehittäminen ja ELY-rahoitteiset koulutukset", description: "Yhteishankintakoulutukset (RekryKoulutus, TäsmäKoulutus, MuutosKoulutus) ja räätälöity osaamisen kehittäminen yrityksille.", provider: KASVU_PROVIDER },
+];
+
 const GrowthPage = () => {
   return (
     <Layout>
-      <SEO title={"KASVU – Yrityksen kasvuohjelmat ja kehittäminen | KeudaPRO"} description={"Yrittäjille ja pk-yrityksille: myynnin, skaalauksen, tekoälyn käyttöönoton ja osaamisen kehittämisen ohjelmat KUUMA-seudulla."} path="/kasvu" jsonLd={faqJsonLd} />
+      <SEO title={"KASVU – Yrityksen kasvuohjelmat ja kehittäminen | KeudaPRO"} description={"Yrittäjille ja pk-yrityksille: myynnin, skaalauksen, tekoälyn käyttöönoton ja osaamisen kehittämisen ohjelmat KUUMA-seudulla."} path="/kasvu" jsonLd={[faqJsonLd, ...kasvuCoursesJsonLd]} />
+
       {/* 1) HERO CAROUSEL */}
       <GrowthHeroCarousel />
 
