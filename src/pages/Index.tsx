@@ -83,11 +83,11 @@ const Index = () => {
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 max-w-4xl">
             Osaamisen ja siirtymien operaattori
           </h1>
-          <p className="text-base md:text-xl text-gray-200 max-w-2xl leading-relaxed">
-            Autamme ihmisiä, yrityksiä ja organisaatioita vahvistamaan osaamista tilanteissa, joissa työ muuttuu, suunta vaihtuu tai kasvu vaatii uutta osaamista.
+          <p className="text-base md:text-xl text-gray-200 max-w-3xl leading-relaxed">
+            Koulutamme ja valmennamme johtajia, työntekijöitä ja yrityksiä silloin, kun työ muuttuu, suunta vaihtuu tai kasvu vaatii uutta osaamista.
           </p>
-          <p className="text-base md:text-xl text-gray-200 max-w-2xl leading-relaxed mt-2">
-            Toimimme Suomessa ja kansainvälisesti yhdessä kumppaneidemme kanssa.
+          <p className="mt-5 text-sm md:text-base text-white/90 font-medium tracking-wide max-w-3xl">
+            NPS 78 · 1&nbsp;700+ osallistujaa · 150+ toteutusta · 70+ asiantuntijaa
           </p>
         </div>
       </section>
