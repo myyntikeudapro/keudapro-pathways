@@ -37,6 +37,7 @@ const situations = [
   { id: "polku3", label: "Haluan töihin nopeasti", tooltip: "Tarvitset konkreettisia väyliä ja tukea työllistymiseen." },
   { id: "polku4", label: "Tilanteeni muuttuu", tooltip: "Työtilanteesi muuttuu tai ala ei tunnu enää oikealta." },
   { id: "polku5", label: "Haluan luoda oman työn", tooltip: "Haluat projekteja, toimeksiantoja tai yrittäjyyttä." },
+  { id: "polku6", label: "Olen muutosturvan piirissä", tooltip: "Työsuhteesi on päättynyt tai päättymässä tuotannollisista syistä – sinulla on lakisääteinen oikeus muutosturvakoulutukseen." },
 ];
 
 const pathsData = [
@@ -111,6 +112,21 @@ const pathsData = [
     result: "Voit luoda työtä omilla ehdoillasi – ei vain hakea sitä.",
     ctaText: "Luo oma profiilisi →",
     badge: "HAASTE",
+  },
+  {
+    id: "polku6",
+    image: nosteTransition,
+    title: "Hyödynnä muutosturvakoulutuksesi täysimääräisesti",
+    ingressi: "Jos työsuhteesi on päättynyt tai päättymässä tuotannollisista syistä, sinulla on lakisääteinen oikeus muutosturvakoulutukseen – jopa 2 kk palkkaa vastaavan arvosta. Autamme sinua käyttämään sen viisaasti.",
+    practice: [
+      "Selvitämme oikeutesi ja koulutusbudjettisi laajuuden",
+      "Kartoitamme sinulle sopivat koulutus- ja pätevyyspolut",
+      "Autamme hakemuksen ja työnantajayhteydenoton kanssa",
+      "Rakennamme henkilökohtaisen suunnitelman 24 h sisällä",
+    ],
+    result: "Saat sinulle maksuttoman koulutuskokonaisuuden, joka avaa uuden uran tai vahvistaa työllistymistäsi.",
+    ctaText: "Selvitä oikeutesi ilmaiseksi →",
+    badge: "MAKSUTON",
   },
 ];
 
@@ -301,11 +317,11 @@ const WorkPlusPage = () => {
                           variant="cta"
                           size="lg"
                           className="w-full"
-                          onClick={() =>
-                            path.id === "polku5"
-                              ? setOwnWorkProfileOpen(true)
-                              : handleCtaClick(path.id)
-                          }
+                          onClick={() => {
+                            if (path.id === "polku5") setOwnWorkProfileOpen(true);
+                            else if (path.id === "polku6") setMuutosturvaOpen(true);
+                            else handleCtaClick(path.id);
+                          }}
                         >
                           {path.ctaText}
                         </Button>
