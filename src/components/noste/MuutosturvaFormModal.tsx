@@ -34,10 +34,8 @@ const INDUSTRY_OPTIONS = [
 ];
 
 const BUDGET_OPTIONS = [
-  "alle 2 000 €",
-  "2 000–4 000 €",
-  "4 000–6 000 €",
-  "yli 6 000 €",
+  "Yleinen muutosturva – työnantajan muutosvalmennus (n. 1 kk palkka)",
+  "Laajennettu 55+ muutosturvakoulutus – työllisyysalueen kautta (n. 2 kk palkka)",
   "En tiedä",
 ];
 
