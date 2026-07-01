@@ -113,6 +113,21 @@ const pathsData = [
     ctaText: "Luo oma profiilisi →",
     badge: "HAASTE",
   },
+  {
+    id: "polku6",
+    image: nosteTransition,
+    title: "Hyödynnä muutosturvakoulutuksesi täysimääräisesti",
+    ingressi: "Jos työsuhteesi on päättynyt tai päättymässä tuotannollisista syistä, sinulla on lakisääteinen oikeus muutosturvakoulutukseen – jopa 2 kk palkkaa vastaavan arvosta. Autamme sinua käyttämään sen viisaasti.",
+    practice: [
+      "Selvitämme oikeutesi ja koulutusbudjettisi laajuuden",
+      "Kartoitamme sinulle sopivat koulutus- ja pätevyyspolut",
+      "Autamme hakemuksen ja työnantajayhteydenoton kanssa",
+      "Rakennamme henkilökohtaisen suunnitelman 24 h sisällä",
+    ],
+    result: "Saat sinulle maksuttoman koulutuskokonaisuuden, joka avaa uuden uran tai vahvistaa työllistymistäsi.",
+    ctaText: "Selvitä oikeutesi ilmaiseksi →",
+    badge: "MAKSUTON",
+  },
 ];
 
 const gettingStartedSteps = [
