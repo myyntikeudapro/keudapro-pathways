@@ -31,29 +31,15 @@ const ROUTES = [
 export async function runSSG() {
   const ROOT = process.cwd();
   const DIST = resolve(ROOT, "dist");
-  const SERVER_OUT = resolve(ROOT, "dist-server");
 
   if (!existsSync(DIST)) {
     console.warn("[ssg] dist/ not found; run `vite build` first. Skipping.");
     return;
   }
 
-  console.log("[ssg] Building SSR bundle...");
-  // Mark the nested build so the SSG plugin skips itself when vite.config.ts
-  // is re-loaded for this SSR sub-build.
+  // Mark the nested vite operation so the SSG plugin skips itself when
+  // vite.config.ts is re-loaded here.
   process.env.LOVABLE_SSG_RUNNING = "1";
-  await build({
-    logLevel: "warn",
-    build: {
-      ssr: "src/entry-server.tsx",
-      outDir: "dist-server",
-      emptyOutDir: true,
-      rollupOptions: {
-        output: { format: "esm", entryFileNames: "entry-server.mjs" },
-      },
-    },
-    ssr: { noExternal: true },
-  });
 
   // ---- Browser-like globals for React SSR ------------------------------
   console.log("[ssg] Setting up jsdom globals...");
@@ -102,18 +88,29 @@ export async function runSSG() {
   g.ResizeObserver = NoopObserver;
   g.MutationObserver = window.MutationObserver ?? NoopObserver;
 
-  // ---- Load the SSR bundle ---------------------------------------------
-  const entryPath = join(SERVER_OUT, "entry-server.mjs");
-  if (!existsSync(entryPath)) {
-    console.error("[ssg] SSR bundle not found at", entryPath);
+  // ---- Load entry-server via Vite dev SSR (no bundling) ----------------
+  console.log("[ssg] Starting Vite SSR loader...");
+  const vite = await createServer({
+    server: { middlewareMode: true, hmr: false },
+    appType: "custom",
+    logLevel: "warn",
+  });
+
+  let render;
+  try {
+    const mod = await vite.ssrLoadModule("/src/entry-server.tsx");
+    render = mod.render;
+    if (typeof render !== "function") {
+      console.error("[ssg] entry-server.tsx did not export render()");
+      await vite.close();
+      return;
+    }
+  } catch (err) {
+    console.error("[ssg] Failed to load entry-server:", err?.message ?? err);
+    await vite.close();
     return;
   }
-  const mod = await import(pathToFileURL(entryPath).href);
-  const render = mod.render;
-  if (typeof render !== "function") {
-    console.error("[ssg] entry-server.mjs did not export a render() function.");
-    return;
-  }
+
 
   function injectBody(shellHtml, appHtml) {
     const openTag = /<div\s+id="root"[^>]*>/;
