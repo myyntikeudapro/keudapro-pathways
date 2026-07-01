@@ -81,7 +81,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Meta Pixel Code -->
+    <!-- Meta Pixel Code (consent-gated) -->
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -91,8 +91,16 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
+      // Oletuksena evästesuostumus evätty – CookieConsent-komponentti myöntää sen käyttäjän hyväksyttyä.
+      fbq('consent', 'revoke');
       fbq('init', '1778894256202374');
       fbq('track', 'PageView');
+      // Jos suostumus on jo aiemmin annettu, myönnä heti.
+      try {
+        if (localStorage.getItem('keudapro-cookie-consent') === 'accepted') {
+          fbq('consent', 'grant');
+        }
+      } catch (e) {}
     </script>
     <!-- End Meta Pixel Code -->
   </head>
