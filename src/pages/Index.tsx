@@ -89,6 +89,14 @@ const Index = () => {
           <p className="mt-5 text-sm md:text-base text-white/90 font-medium tracking-wide max-w-3xl">
             NPS 78 · 1&nbsp;700+ osallistujaa · 150+ toteutusta · 70+ asiantuntijaa
           </p>
+          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+            <Button variant="default" size="lg" asChild>
+              <a href="/muutosturva#ai-course-finder">Valitse oma alasi ja pätevyysohjelma →</a>
+            </Button>
+            <Button variant="outline" size="lg" asChild className="bg-white/10 text-white border-white/40 hover:bg-white/20 hover:text-white">
+              <a href="/osaaminen">Avaa koulutushakemisto</a>
+            </Button>
+          </div>
         </div>
       </section>
 
