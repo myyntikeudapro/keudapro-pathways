@@ -2,12 +2,11 @@ import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import { spawnSync } from "node:child_process";
+import { pathToFileURL } from "node:url";
 
 // Runs prerender-meta + SSG automatically after `vite build` finishes the
-// client bundle. This makes SSG part of `vite build` itself, so production
-// deploys that call `vite build` directly (not `npm run build`) still get
-// fully rendered HTML for every route.
+// client bundle. Executed inline (dynamic import) — no subprocesses, so it
+// works reliably inside Lovable's deploy container.
 function ssgPlugin(): Plugin {
   return {
     name: "lovable-ssg",
@@ -16,31 +15,29 @@ function ssgPlugin(): Plugin {
       order: "post",
       sequential: true,
       async handler() {
-        // Skip when we're inside the nested SSR build that build-ssg.mjs itself triggers.
+        // Skip when we're inside the nested SSR sub-build that runSSG() triggers.
         if (process.env.LOVABLE_SSG_RUNNING === "1") return;
-        // Skip if this build IS an SSR build (client build only).
-        // @ts-ignore
-        if (this.environment?.config?.build?.ssr) return;
 
-        process.env.LOVABLE_SSG_RUNNING = "1";
         try {
+          const scriptsDir = path.resolve(__dirname, "scripts");
+          const metaUrl = pathToFileURL(
+            path.join(scriptsDir, "prerender-meta.mjs"),
+          ).href;
+          const ssgUrl = pathToFileURL(
+            path.join(scriptsDir, "build-ssg.mjs"),
+          ).href;
+
           console.log("\n[ssg-plugin] Running prerender-meta...");
-          const meta = spawnSync("bunx", ["tsx", "scripts/prerender-meta.ts"], {
-            stdio: "inherit",
-            shell: false,
-          });
-          if (meta.status !== 0) {
-            console.warn("[ssg-plugin] prerender-meta failed (continuing).");
-          }
+          const meta = await import(metaUrl);
+          await meta.runPrerenderMeta();
 
           console.log("[ssg-plugin] Running build-ssg...");
-          const ssg = spawnSync("node", ["scripts/build-ssg.mjs"], {
-            stdio: "inherit",
-            shell: false,
-          });
-          if (ssg.status !== 0) {
-            throw new Error("build-ssg.mjs exited with code " + ssg.status);
-          }
+          const ssg = await import(ssgUrl);
+          await ssg.runSSG();
+        } catch (err) {
+          console.error("[ssg-plugin] SSG failed:", err);
+          // Do NOT throw — keep the client build output so the site still deploys
+          // (falls back to SPA behavior for that build).
         } finally {
           delete process.env.LOVABLE_SSG_RUNNING;
         }
