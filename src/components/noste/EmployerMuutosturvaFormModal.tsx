@@ -318,15 +318,15 @@ export function EmployerMuutosturvaFormModal({ open, onOpenChange }: Props) {
                 </div>
               </div>
 
-              {/* YT stage */}
+              {/* Muutosneuvottelujen vaihe */}
               <div className="space-y-1">
-                <Label className="text-xs">YT-prosessin vaihe *</Label>
+                <Label className="text-xs">Muutosneuvottelujen vaihe *</Label>
                 <Select value={ytStage} onValueChange={setYtStage}>
                   <SelectTrigger className="h-8 text-sm">
                     <SelectValue placeholder="Valitse vaihe" />
                   </SelectTrigger>
                   <SelectContent>
-                    {YT_STAGE_OPTIONS.map((o) => (
+                    {MUUTOSNEUVOTTELU_STAGE_OPTIONS.map((o) => (
                       <SelectItem key={o} value={o}>{o}</SelectItem>
                     ))}
                   </SelectContent>
