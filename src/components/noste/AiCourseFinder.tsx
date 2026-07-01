@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import {
-  Search, ExternalLink, Sparkles, Users, Crown, GraduationCap, X,
+  Search, ExternalLink, Sparkles, Users, Crown, GraduationCap, X, Check,
   Briefcase, Lightbulb, Calculator, Megaphone, HeartPulse, Wrench,
   ShoppingBag, Shield, Truck, BookOpen,
 } from "lucide-react";
@@ -272,11 +272,12 @@ export function AiCourseFinder() {
                 key={l.id}
                 type="button"
                 onClick={() => setLevel(l.id)}
+                aria-pressed={active}
                 className={cn(
-                  "group text-left rounded-xl border overflow-hidden transition-all",
+                  "group text-left rounded-xl border overflow-hidden transition-all duration-300",
                   active
-                    ? "border-primary bg-card shadow-card ring-2 ring-primary/20"
-                    : "border-border bg-card hover:border-primary/40 hover:shadow-sm"
+                    ? "border-primary bg-card shadow-card ring-2 ring-primary scale-[1.02] opacity-100"
+                    : "border-border bg-card hover:border-primary/40 hover:shadow-sm opacity-40 grayscale hover:opacity-70 hover:grayscale-0 scale-[0.98]"
                 )}
               >
                 <div className="relative aspect-[16/5] w-full overflow-hidden bg-muted">
@@ -290,12 +291,24 @@ export function AiCourseFinder() {
                   <div className={cn("absolute top-2 left-2 w-9 h-9 rounded-lg flex items-center justify-center shadow-sm backdrop-blur-sm", l.tint)}>
                     <Icon className="w-5 h-5" />
                   </div>
+                  {active && (
+                    <div className="absolute top-2 right-2 w-7 h-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-md">
+                      <Check className="w-4 h-4" strokeWidth={3} />
+                    </div>
+                  )}
                   <div className="absolute bottom-2 left-3 text-[11px] uppercase tracking-wider text-white font-semibold drop-shadow">
                     {l.short}
                   </div>
                 </div>
                 <div className="p-4">
-                  <div className="font-bold text-foreground mb-1">{l.name}</div>
+                  <div className="font-bold text-foreground mb-1 flex items-center gap-2">
+                    {l.name}
+                    {active && (
+                      <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                        Valittu
+                      </span>
+                    )}
+                  </div>
                   <div className="text-xs text-muted-foreground leading-relaxed">{l.tagline}</div>
                 </div>
               </button>
