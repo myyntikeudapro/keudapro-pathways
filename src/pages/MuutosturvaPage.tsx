@@ -142,6 +142,10 @@ const FAQ = [
     a: "Sisältö räätälöidään yksilöllisesti ja se voi kattaa esimerkiksi tekoäly- ja digitaitoja, uraohjausta, ammatillista täydennys- tai tutkintotavoitteista koulutusta tai yrittäjyysvalmiuksia. KeudaPRO:n toteuttamissa koulutuksissa suosittu valinta on alakohtainen Tekoälyn ammattiosaaja -koulutus (Tekoälykoordinaattori, Tekoälypäällikkö tai Tekoälyjohtaja).",
   },
   {
+    q: "Mitä eroa on muutosvalmennuksella ja muutosturvakoulutuksella?",
+    a: "Muutosvalmennus on työnantajan lakisääteinen velvoite vähintään 30 henkilön yrityksissä: työnantaja rahoittaa ja hankkii sen kaikille tuotannollis-taloudellisin syin irtisanotuille (arvo n. 1 kk palkka). Muutosturvakoulutus taas on 55 vuotta täyttäneiden laajennettuun muutosturvaan kuuluva erillinen etu, jonka hankkii ja rahoittaa työllisyysalue (arvo enintään 2 kk palkka, kesto enintään 6 kk). Sama palveluntarjoaja, kuten KeudaPRO, voi toteuttaa molemmat.",
+  },
+  {
     q: "Mitä eroa on yleisellä muutosturvalla ja laajennetulla (55+) muutosturvalla?",
     a: "Yleinen muutosturva koskee kaikenikäisiä muutosneuvottelujen kautta tuotannollis-taloudellisin syin irtisanottuja; siihen kuuluva muutosvalmennus järjestetään työnantajan kustantamana. Laajennettu 55 vuotta täyttäneiden muutosturva puolestaan sisältää muutosturvarahan, työllisyysalueen kustantaman muutosturvakoulutuksen ja laajennetun työllistymisvapaan (5, 15 tai 25 päivää työsuhteen pituudesta riippuen).",
   },
