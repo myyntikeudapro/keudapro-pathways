@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import {
-  Search, ExternalLink, Sparkles, Users, Crown, GraduationCap, X,
+  Search, ExternalLink, Sparkles, Users, Crown, GraduationCap, X, Check,
   Briefcase, Lightbulb, Calculator, Megaphone, HeartPulse, Wrench,
   ShoppingBag, Shield, Truck, BookOpen,
 } from "lucide-react";
