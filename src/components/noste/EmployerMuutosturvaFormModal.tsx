@@ -52,16 +52,15 @@ const AFFECTED_COUNT_OPTIONS = [
   "yli 100",
 ];
 
-const YT_STAGE_OPTIONS = [
+const MUUTOSNEUVOTTELU_STAGE_OPTIONS = [
   "Suunnitteilla / harkitsemme",
-  "YT-neuvottelut käynnissä",
-  "YT-neuvottelut päättyneet",
+  "Muutosneuvottelut käynnissä",
+  "Muutosneuvottelut päättyneet",
   "Irtisanomiset toteutettu",
 ];
 
 const BUDGET_PER_PERSON_OPTIONS = [
-  "Lakisääteinen muutosturvabudjetti (n. 1 kk bruttopalkka)",
-  "Laajennettu muutosturva (yli 55-v., n. 2 kk bruttopalkka)",
+  "Työnantajan muutosvalmennus (n. 1 kk bruttopalkka, lakisääteinen ≥30 hlön yrityksissä)",
   "Räätälöity / sovittava erikseen",
   "En tiedä — kaipaan apua arvioon",
 ];
