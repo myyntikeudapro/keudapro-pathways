@@ -24,22 +24,22 @@ import routeKasvu from "@/assets/route-kasvu.jpg";
 const routes = [
   {
     title: "ÄLY",
-    subtitle: "Johtaminen, asiantuntijuus ja tekoäly työn tukena",
+    subtitle: "Vahvista päätöksentekoa ja ota tekoäly käytännön työkaluksi johtamiseen ja asiantuntijatyöhön.",
     clarification: "Johtajille ja asiantuntijoille, jotka haluavat vahvistaa päätöksentekoa, muutoskyvykkyyttä ja tekoälyn käytännön hyödyntämistä.",
     image: routeAly,
     href: "/aly",
   },
   {
     title: "NOSTE",
-    subtitle: "Uusi suunta työelämään, yrittäjyyteen tai opintoihin",
-    clarification: "Suuntaa vaihtaville, työllistymistä hakeville ja kotoutujille, jotka tarvitsevat osaamista, rohkaisua ja käytännön reitin eteenpäin.",
+    subtitle: "Löydä käytännön reitti työhön, yrittäjyyteen tai opintoihin – myös uudessa maassa.",
+    clarification: "Suuntaa vaihtaville, työllistymistä hakeville ja kotoutujille, jotka tarvitsevat rohkaisua ja käytännön reitin eteenpäin.",
     image: routeNoste,
     href: "/noste",
   },
   {
     title: "KASVU",
-    subtitle: "Yrityksen kasvu, uudistuminen ja osaaminen käytäntöön",
-    clarification: "Yrityksille, jotka tarvitsevat osaamisen kehittämistä, rekrytoinnin tukea ja uusia ratkaisuja liiketoiminnan uudistamiseen.",
+    subtitle: "Muuta osaamisen kehittäminen liiketoiminnan kasvuksi ja onnistuneiksi rekrytoinneiksi.",
+    clarification: "Yrityksille, jotka tarvitsevat henkilöstön kehittämistä, rekrytoinnin tukea ja uusia ratkaisuja liiketoiminnan uudistamiseen.",
     image: routeKasvu,
     href: "/kasvu",
   },
