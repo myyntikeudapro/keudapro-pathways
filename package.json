@@ -13,7 +13,7 @@
     "test:watch": "vitest",
     "predev": "bunx tsx scripts/generate-sitemap.ts",
     "prebuild": "bunx tsx scripts/generate-sitemap.ts",
-    "postbuild": "bunx tsx scripts/prerender-meta.ts"
+    "postbuild": "bunx tsx scripts/prerender-meta.ts && node scripts/build-ssg.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
