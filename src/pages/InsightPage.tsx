@@ -46,12 +46,46 @@ const audiences = [
   },
 ];
 
+const PROVIDER = { "@type": "EducationalOrganization", name: "KeudaPRO", url: "https://keudapro.fi" } as const;
+
+const COURSES_JSONLD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "AI-Director – Tekoälyjohtaja",
+    description: "Strateginen tekoälypätevyys johtajille ja johtoryhmien jäsenille. Rakentaa tekoälyn johtamis- ja hallintomallin organisaatiotasolle.",
+    provider: PROVIDER,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "AI-Manager – Tekoälypäällikkö",
+    description: "Tekoälypätevyys esihenkilöille ja päälliköille. Vie tekoälyn käyttöönoton tiimin ja prosessien tasolle.",
+    provider: PROVIDER,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "AI-Coordinator – Tekoälykoordinaattori",
+    description: "Käytännön tekoälypätevyys asiantuntijoille. Tekoälyn hyödyntäminen omassa työssä ja prosesseissa.",
+    provider: PROVIDER,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "Johtamisen ja turvallisuusjohtamisen koulutukset",
+    description: "Johtamisen valmennukset, esihenkilövalmennus ja turvallisuusjohtamisen kehityspolut KUUMA-seudulla.",
+    provider: PROVIDER,
+  },
+];
+
 const InsightPage = () => {
   const { openPanel } = useCoachPanel();
 
   return (
     <Layout>
-      <SEO title={"ÄLY – Johtamisen, asiantuntijuuden ja tekoälyn koulutukset | KeudaPRO"} description={"Johtajille, esihenkilöille ja asiantuntijoille: johtamisen koulutukset, tekoälypätevyys-ohjelmat (AI-Director, AI-Manager, AI-Coordinator) ja turvallisuusjohtaminen."} path="/aly" />
+      <SEO title={"ÄLY – Johtamisen, asiantuntijuuden ja tekoälyn koulutukset | KeudaPRO"} description={"Johtajille, esihenkilöille ja asiantuntijoille: johtamisen koulutukset, tekoälypätevyys-ohjelmat (AI-Director, AI-Manager, AI-Coordinator) ja turvallisuusjohtaminen."} path="/aly" jsonLd={COURSES_JSONLD} />
+
       <AlyHeroCarousel />
 
       <section className="pt-16 md:pt-24 pb-6 md:pb-8">
