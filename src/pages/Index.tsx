@@ -24,22 +24,22 @@ import routeKasvu from "@/assets/route-kasvu.jpg";
 const routes = [
   {
     title: "ÄLY",
-    subtitle: "Johtaminen, asiantuntijuus ja tekoäly työn tukena",
+    subtitle: "Vahvista päätöksentekoa ja ota tekoäly käytännön työkaluksi johtamiseen ja asiantuntijatyöhön.",
     clarification: "Johtajille ja asiantuntijoille, jotka haluavat vahvistaa päätöksentekoa, muutoskyvykkyyttä ja tekoälyn käytännön hyödyntämistä.",
     image: routeAly,
     href: "/aly",
   },
   {
     title: "NOSTE",
-    subtitle: "Uusi suunta työelämään, yrittäjyyteen tai opintoihin",
-    clarification: "Suuntaa vaihtaville, työllistymistä hakeville ja kotoutujille, jotka tarvitsevat osaamista, rohkaisua ja käytännön reitin eteenpäin.",
+    subtitle: "Löydä käytännön reitti työhön, yrittäjyyteen tai opintoihin – myös uudessa maassa.",
+    clarification: "Suuntaa vaihtaville, työllistymistä hakeville ja kotoutujille, jotka tarvitsevat rohkaisua ja käytännön reitin eteenpäin.",
     image: routeNoste,
     href: "/noste",
   },
   {
     title: "KASVU",
-    subtitle: "Yrityksen kasvu, uudistuminen ja osaaminen käytäntöön",
-    clarification: "Yrityksille, jotka tarvitsevat osaamisen kehittämistä, rekrytoinnin tukea ja uusia ratkaisuja liiketoiminnan uudistamiseen.",
+    subtitle: "Muuta osaamisen kehittäminen liiketoiminnan kasvuksi ja onnistuneiksi rekrytoinneiksi.",
+    clarification: "Yrityksille, jotka tarvitsevat henkilöstön kehittämistä, rekrytoinnin tukea ja uusia ratkaisuja liiketoiminnan uudistamiseen.",
     image: routeKasvu,
     href: "/kasvu",
   },
@@ -83,11 +83,11 @@ const Index = () => {
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 max-w-4xl">
             Osaamisen ja siirtymien operaattori
           </h1>
-          <p className="text-base md:text-xl text-gray-200 max-w-2xl leading-relaxed">
-            Autamme ihmisiä, yrityksiä ja organisaatioita vahvistamaan osaamista tilanteissa, joissa työ muuttuu, suunta vaihtuu tai kasvu vaatii uutta osaamista.
+          <p className="text-base md:text-xl text-gray-200 max-w-3xl leading-relaxed">
+            Koulutamme ja valmennamme johtajia, työntekijöitä ja yrityksiä silloin, kun työ muuttuu, suunta vaihtuu tai kasvu vaatii uutta osaamista.
           </p>
-          <p className="text-base md:text-xl text-gray-200 max-w-2xl leading-relaxed mt-2">
-            Toimimme Suomessa ja kansainvälisesti yhdessä kumppaneidemme kanssa.
+          <p className="mt-5 text-sm md:text-base text-white/90 font-medium tracking-wide max-w-3xl">
+            NPS 78 · 1&nbsp;700+ osallistujaa · 150+ toteutusta · 70+ asiantuntijaa
           </p>
         </div>
       </section>
@@ -100,10 +100,10 @@ const Index = () => {
               Valitse reitti muutoksessa
             </h2>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              Kolme reittiä kokoaa KeudaPRO:n palvelut eri tilanteisiin. Valitse reitti sen mukaan, tarvitsetko tukea johtamiseen ja tekoälyyn, uuteen työelämäsuuntaan vai yrityksen kasvuun ja osaamisen kehittämiseen.
+              Kolme reittiä kokoaa KeudaPRO:n palvelut eri tilanteisiin. Valitse reitti sen mukaan, tarvitsetko tukea johtamiseen ja tekoälyyn, uuteen työelämäsuuntaan vai yrityksen kasvuun ja rekrytointiin.
             </p>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed mt-3">
-              Rakennamme koulutus- ja valmennusratkaisuja tilanteisiin, joissa osaamisen pitää muuttua nopeasti käytännön tekemiseksi.
+              Rakennamme koulutus- ja valmennusratkaisuja tilanteisiin, joissa uusi taito pitää saada nopeasti käytännön tekemiseksi.
             </p>
           </div>
         </div>
