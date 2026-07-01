@@ -9,6 +9,20 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="robots" content="index, follow" />
+    <script>
+      // Estä esikatselualiverkkotunnusten (*.lovable.app / *.lovable.dev) indeksointi
+      // niin ettei duplikaattisisältö kilpaile keudapro.fi-domainin kanssa.
+      (function () {
+        try {
+          var h = location.hostname;
+          if (/\.lovable\.(app|dev)$/i.test(h)) {
+            var m = document.querySelector('meta[name="robots"]');
+            if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'robots'); document.head.appendChild(m); }
+            m.setAttribute('content', 'noindex, nofollow');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <title>KeudaPRO – Osaamisen ja siirtymien operaattori</title>
     <meta name="description" content="KeudaPRO yhdistää johtamisen, työllistymisen ja yrittäjyyden palvelut KUUMA-seudulla: ÄLY, NOSTE ja KASVU." />
     <meta name="author" content="KeudaPRO" />
