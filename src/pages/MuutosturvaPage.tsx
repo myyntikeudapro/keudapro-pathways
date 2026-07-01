@@ -355,6 +355,16 @@ export default function MuutosturvaPage() {
             </article>
 
           </div>
+
+          {/* Työnantajan velvoitteet – selventävä laatikko */}
+          <div className="mt-8 max-w-4xl mx-auto bg-card border border-border rounded-xl p-5 md:p-6">
+            <div className="text-[11px] uppercase tracking-wider text-primary font-semibold mb-2">
+              Työnantajan muutosturvavelvoitteet
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Työnantaja vastaa muutosneuvotteluista (yhteistoimintalaki 1333/2021), tiedottamisvelvollisuudesta, muutosvalmennuksesta (≥30 hlön yrityksissä), työllistymisvapaan mahdollistamisesta ja ilmoituksesta työllisyysalueelle. KeudaPRO toteuttaa muutosvalmennuksen ja tukee koko prosessia — muutosneuvottelut ja viranomaisilmoitukset ovat työnantajan omalla vastuulla. 55 vuotta täyttäneiden muutosturvakoulutuksen hankkii työllisyysalue, ei työnantaja.
+            </p>
+          </div>
         </div>
       </section>
 
