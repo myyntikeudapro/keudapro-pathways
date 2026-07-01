@@ -92,9 +92,18 @@ export function Footer() {
               </Link>
               {" "}– osaamisen ja siirtymien operaattori.
             </p>
-            <p className="text-xs text-gray-400">
-              © {new Date().getFullYear()} KeudaPRO. Kaikki oikeudet pidätetään.
-            </p>
+            <div className="flex items-center gap-4">
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new Event("keudapro:open-cookie-consent"))}
+                className="text-xs text-gray-400 hover:text-[hsl(var(--cta))] transition-colors underline underline-offset-2"
+              >
+                Evästeasetukset
+              </button>
+              <p className="text-xs text-gray-400">
+                © {new Date().getFullYear()} KeudaPRO. Kaikki oikeudet pidätetään.
+              </p>
+            </div>
           </div>
         </div>
       </div>
