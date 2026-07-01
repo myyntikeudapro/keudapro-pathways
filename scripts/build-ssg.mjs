@@ -150,8 +150,7 @@ export async function runSSG() {
     }
   }
 
-  try { rmSync(SERVER_OUT, { recursive: true, force: true }); } catch {}
-
+  await vite.close();
   console.log(`[ssg] Done. Rendered ${ok} routes, ${failed} failed.`);
 }
 
