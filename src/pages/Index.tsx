@@ -86,9 +86,6 @@ const Index = () => {
           <p className="text-base md:text-xl text-gray-200 max-w-3xl leading-relaxed">
             Koulutamme ja valmennamme johtajia, työntekijöitä, työnhakijoita ja yrityksiä silloin, kun työ muuttuu, suunta vaihtuu tai kasvu vaatii uutta osaamista.
           </p>
-          <p className="mt-5 text-sm md:text-base text-white/90 font-medium tracking-wide max-w-3xl">
-            NPS 78 · 1&nbsp;700+ osallistujaa · 150+ toteutusta · 70+ asiantuntijaa
-          </p>
         </div>
       </section>
 
