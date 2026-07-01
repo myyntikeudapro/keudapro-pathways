@@ -317,11 +317,11 @@ const WorkPlusPage = () => {
                           variant="cta"
                           size="lg"
                           className="w-full"
-                          onClick={() =>
-                            path.id === "polku5"
-                              ? setOwnWorkProfileOpen(true)
-                              : handleCtaClick(path.id)
-                          }
+                          onClick={() => {
+                            if (path.id === "polku5") setOwnWorkProfileOpen(true);
+                            else if (path.id === "polku6") setMuutosturvaOpen(true);
+                            else handleCtaClick(path.id);
+                          }}
                         >
                           {path.ctaText}
                         </Button>
