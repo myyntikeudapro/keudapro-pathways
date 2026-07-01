@@ -147,7 +147,7 @@ export function EmployerMuutosturvaFormModal({ open, onOpenChange }: Props) {
       `— Muutostilanne —`,
       `Irtisanottavien/koulutettavien määrä: ${affectedCount}`,
       `Mukana yli 55-vuotiaita: ${hasOver55 || "–"}`,
-      `YT-vaihe: ${ytStage}`,
+      `Muutosneuvottelujen vaihe: ${ytStage}`,
       `Koulutusbudjetti / henkilö: ${budgetPerPerson || "–"}`,
       `Koulutuksen toivottu aloitus: ${timing}`,
       ``,
