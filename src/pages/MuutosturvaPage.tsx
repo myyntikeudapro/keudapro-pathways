@@ -118,34 +118,48 @@ const STEPS = [
 
 const FAQ = [
   {
-    q: "Mitä muutosturva tarkoittaa?",
-    a: "Muutosturva on palvelukokonaisuus, joka auttaa tuotannollisista tai taloudellisista syistä irtisanottuja työntekijöitä työllistymään uudelleen mahdollisimman nopeasti. Se sisältää neuvontaa, ohjausta ja koulutusta.",
+    q: "Mikä on muutosturvakoulutus?",
+    a: "Muutosturvakoulutus on tuotannollis-taloudellisin syin irtisanotun työntekijän uudelleentyöllistymistä tukeva, yksilöllisesti räätälöity koulutus. Se kestää enintään 6 kuukautta ja on osallistujalle maksuton ja vapaaehtoinen. KeudaPRO toteuttaa muutosturvakoulutuksia KUUMA-seudulla, muualla Uudellamaalla ja koko Suomessa.",
   },
   {
-    q: "Mitä laajennettu muutosturva (yli 55-vuotiaat) sisältää?",
-    a: "Laajennettu muutosturva on suunnattu yli 55-vuotiaille, vähintään 5 vuotta saman työnantajan palveluksessa olleille työntekijöille. Se sisältää muutosturvarahan (keskimääräinen kuukausipalkka), muutosturvakoulutuksen, jonka budjetti vastaa kahden kuukauden bruttopalkkaa, sekä työllistymisvapaan (5, 15 tai 25 päivää).",
+    q: "Kuka on oikeutettu 55 vuotta täyttäneiden muutosturvakoulutukseen?",
+    a: "Oikeus on henkilöllä, joka on täyttänyt 55 vuotta viimeistään irtisanomispäivänä, on irtisanottu tuotannollis-taloudellisista syistä 1.1.2023 tai sen jälkeen, on ollut saman työnantajan palveluksessa vähintään 5 vuotta ja on ilmoittautunut työnhakijaksi 60 päivän kuluessa irtisanomisesta. Kaikkien neljän ehdon on täytyttävä.",
   },
   {
-    q: "Kenelle muutosturva (alle 55-vuotiaat) kuuluu?",
-    a: "Muutosturva kuuluu tuotannollisista ja taloudellisista syistä irtisanotuille työntekijöille. Koulutuksen järjestämisessä voidaan hyödyntää työllisyysalueiden tukea.",
+    q: "Kuka maksaa muutosturvakoulutuksen ja mikä on sen arvo?",
+    a: "Koulutuksen hankkii ja rahoittaa asuinpaikkasi työllisyysalue. Koulutuksen arvo on enintään irtisanotun kahden kuukauden palkkaa vastaava summa. Osallistujalle koulutus on maksuton – kustannuksia ei peritä työntekijältä eikä työnantajalta.",
   },
   {
-    q: "Voiko muutosturvakoulutuksen toteuttaa tekoälykoulutuksena?",
-    a: "Kyllä. KeudaPRO tarjoaa alakohtaisia Tekoälyn ammattiosaaja -koulutuksia, joista voi suorittaa Tekoälykoordinaattorin, Tekoälypäällikön tai Tekoälyjohtajan pätevyyden. Ne soveltuvat erinomaisesti muutosturvakoulutukseksi monilla aloilla.",
+    q: "Kauanko muutosturvakoulutus kestää ja milloin sen on alettava?",
+    a: "Koulutus kestää enintään 6 kuukautta. Sen tulee lähtökohtaisesti alkaa 3 kuukauden kuluessa työsuhteen päättymisestä. Aikataulusta sovitaan työllisyysalueen ja koulutuksen toteuttajan kanssa – KeudaPRO pystyy usein käynnistämään koulutuksen muutamassa viikossa yhteydenotosta.",
   },
   {
-    q: "Onko muutosturva pakollinen työnantajalle?",
-    a: "Yli 30 työntekijän työllistävillä yrityksillä on lakisääteisiä velvoitteita, kuten työllistymistä edistävän toimintasuunnitelman laatiminen ja koulutuksen tarjoaminen irtisanomisaikana.",
+    q: "Miten pääsen muutosturvakoulutukseen ja voinko valita toteuttajan?",
+    a: "Ilmoittaudu työnhakijaksi 60 päivän kuluessa irtisanomisesta ja sovi koulutuksesta oman asuinpaikkasi työllisyysalueen kanssa. Voit ehdottaa koulutuksen sisältöä ja toteuttajaa, esimerkiksi KeudaPRO:ta. Virallisen päätöksen koulutuksen hankinnasta tekee työllisyysalue.",
   },
   {
-    q: "Miten muutosturva liittyy yt-neuvotteluihin?",
-    a: "Muutosturva on osa prosessia, jossa työnantaja neuvottelee henkilöstön irtisanomisista. Muutosturvakoulutukset tarjoavat työntekijöille tukea siirtymisessä uuteen työhön yt-neuvotteluiden jälkeen.",
+    q: "Mitä muutosturvakoulutus voi sisältää?",
+    a: "Sisältö räätälöidään yksilöllisesti ja se voi kattaa esimerkiksi tekoäly- ja digitaitoja, uraohjausta, ammatillista täydennys- tai tutkintotavoitteista koulutusta tai yrittäjyysvalmiuksia. KeudaPRO:n toteuttamissa koulutuksissa suosittu valinta on alakohtainen Tekoälyn ammattiosaaja -koulutus (Tekoälykoordinaattori, Tekoälypäällikkö tai Tekoälyjohtaja).",
   },
   {
-    q: "Milloin koulutus voi alkaa?",
-    a: "Koulutus voidaan käynnistää joustavasti — usein jo muutaman viikon kuluessa yhteydenotosta.",
+    q: "Mitä eroa on yleisellä muutosturvalla ja laajennetulla (55+) muutosturvalla?",
+    a: "Yleinen muutosturva koskee kaikenikäisiä muutosneuvottelujen kautta tuotannollis-taloudellisin syin irtisanottuja; siihen kuuluva muutosvalmennus järjestetään työnantajan kustantamana. Laajennettu 55 vuotta täyttäneiden muutosturva puolestaan sisältää muutosturvarahan, työllisyysalueen kustantaman muutosturvakoulutuksen ja laajennetun työllistymisvapaan (5, 15 tai 25 päivää työsuhteen pituudesta riippuen).",
+  },
+  {
+    q: "Tarjoaako KeudaPRO muutosturvakoulutusta KUUMA-seudulla?",
+    a: "Kyllä. KeudaPRO toteuttaa muutosturvakoulutuksia KUUMA-seudulla (Hyvinkää, Järvenpää, Kerava, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula) sekä muualla Uudellamaalla ja Suomessa. Sinut kytketään yhteen yhteyshenkilöön, joka rakentaa henkilökohtaisen koulutussuunnitelman yhdessä työllisyysalueen kanssa.",
   },
 ];
+
+const FAQ_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 export default function MuutosturvaPage() {
   const [formOpen, setFormOpen] = useState(false);
@@ -437,8 +451,60 @@ export default function MuutosturvaPage() {
         </div>
       </section>
 
+      {/* MUUTOSTURVAN TASOT – yleinen vs. laajennettu (55+) vs. KeudaPRO:n rooli */}
+      <section className="keuda-section bg-background border-t border-border">
+        <div className="keuda-container max-w-4xl space-y-10">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              Yleinen muutosturva
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Yleinen muutosturva koskee kaikenikäisiä työntekijöitä, jotka on irtisanottu
+              muutosneuvottelujen kautta tuotannollis-taloudellisista syistä. Työnantaja vastaa
+              muutosturvaan liittyvästä tiedottamisesta, muutosneuvotteluista ja työnantajan
+              kustantamasta muutosvalmennuksesta. KeudaPRO toteuttaa työnantajan tilaamia
+              muutosvalmennuksia ja -koulutuksia KUUMA-seudulla, Uudellamaalla ja koko Suomessa.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              55 vuotta täyttäneiden laajennettu muutosturva
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Laajennettu muutosturva on 1.1.2023 alkaen voimassa oleva erillinen kokonaisuus, joka
+              on tarkoitettu 55 vuotta täyttäneille vähintään 5 vuotta saman työnantajan
+              palveluksessa olleille irtisanotuille. Se sisältää muutosturvarahan (noin kuukauden
+              palkka), työllisyysalueen hankkiman muutosturvakoulutuksen (enintään 2 kk palkkaa
+              vastaava arvo, kesto enintään 6 kk) ja laajennetun työllistymisvapaan (5, 15 tai
+              25 päivää). Osallistujalle koulutus on maksuton ja vapaaehtoinen.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              KeudaPRO:n rooli toteuttajana
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              KeudaPRO on julkinen ammatillinen kouluttaja, joka toteuttaa sekä yleistä
+              muutosvalmennusta (työnantajan tilaamana) että 55 vuotta täyttäneiden laajennettua
+              muutosturvakoulutusta (työllisyysalueen hankkimana) KUUMA-seudulla, Uudellamaalla ja
+              muualla Suomessa. Rakennamme koulutussuunnitelman yhden yhteyshenkilön kautta ja
+              hoidamme sekä sisällön (mm. alakohtaiset Tekoälyn ammattiosaaja -koulutukset) että
+              raportoinnin työllisyysalueelle tai työnantajalle. Osallistuja tai työnantaja voi
+              ehdottaa työllisyysalueelle KeudaPRO:ta koulutuksen toteuttajaksi; virallisen
+              hankintapäätöksen tekee työllisyysalue.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="keuda-section bg-accent/40 border-t border-border">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }}
+        />
         <div className="keuda-container max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
             Usein kysyttyä muutosturvasta
