@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AlyHeroCarousel } from "@/components/aly/AlyHeroCarousel";
 import { AlyPhilosophySection } from "@/components/aly/AlyPhilosophySection";
 import { AlyCategoryAccordion } from "@/components/aly/AlyCategoryAccordion";
+import { AlyFAQ } from "@/components/aly/AlyFAQ";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -94,6 +95,8 @@ const InsightPage = () => {
       <AlyCategoryAccordion />
 
       <AlyPhilosophySection />
+
+      <AlyFAQ />
 
       <section className="py-16 md:py-20 bg-primary/5">
         <div className="keuda-container text-center">
