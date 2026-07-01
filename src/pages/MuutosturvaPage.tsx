@@ -329,7 +329,7 @@ export default function MuutosturvaPage() {
                     Työnantaja
                   </div>
                   <h3 className="text-xl font-bold leading-tight text-white drop-shadow-md">
-                    Hoidamme muutosturvan puolestasi
+                    Tuemme muutosturvaprosessianne
                   </h3>
                 </div>
 
@@ -337,7 +337,7 @@ export default function MuutosturvaPage() {
               </div>
               <div className="flex flex-col flex-1 p-6">
                 <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
-                  Toteutamme lakisääteisen muutosturvakoulutuksen avaimet käteen — yhden yhteyshenkilön kautta, selkeällä dokumentaatiolla.
+                  Toteutamme lakisääteisen muutosvalmennuksen irtisanotuille ja tuemme HR:ää koko muutosturvaprosessin ajan — yhden yhteyshenkilön kautta, selkeällä dokumentaatiolla.
                 </p>
                 <ul className="space-y-2.5 mb-6 flex-1">
                   {TYONANTAJA_BENEFITS.map((b) => (
