@@ -4,9 +4,9 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { pathToFileURL } from "node:url";
 
-// Runs prerender-meta + SSG automatically after `vite build` finishes the
-// client bundle. Executed inline (dynamic import) — no subprocesses, so it
-// works reliably inside Lovable's deploy container.
+// Runs the lightweight prerender-meta step after `vite build` finishes.
+// No React SSR, no jsdom — just per-route index.html with baked <title>,
+// meta tags and a hidden <h1>+intro SEO block for crawlers.
 function ssgPlugin(): Plugin {
   return {
     name: "lovable-ssg",
@@ -15,31 +15,17 @@ function ssgPlugin(): Plugin {
       order: "post",
       sequential: true,
       async handler() {
-        // Skip when we're inside the nested SSR sub-build that runSSG() triggers.
-        if (process.env.LOVABLE_SSG_RUNNING === "1") return;
-
         try {
           const scriptsDir = path.resolve(__dirname, "scripts");
           const metaUrl = pathToFileURL(
             path.join(scriptsDir, "prerender-meta.mjs"),
           ).href;
-          const ssgUrl = pathToFileURL(
-            path.join(scriptsDir, "build-ssg.mjs"),
-          ).href;
-
           console.log("\n[ssg-plugin] Running prerender-meta...");
           const meta = await import(metaUrl);
           await meta.runPrerenderMeta();
-
-          console.log("[ssg-plugin] Running build-ssg...");
-          const ssg = await import(ssgUrl);
-          await ssg.runSSG();
         } catch (err) {
-          console.error("[ssg-plugin] SSG failed:", err);
-          // Do NOT throw — keep the client build output so the site still deploys
-          // (falls back to SPA behavior for that build).
-        } finally {
-          delete process.env.LOVABLE_SSG_RUNNING;
+          console.error("[ssg-plugin] prerender-meta failed:", err);
+          // Do not throw — keep the client build output.
         }
       },
     },
