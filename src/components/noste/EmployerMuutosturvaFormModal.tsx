@@ -216,10 +216,10 @@ export function EmployerMuutosturvaFormModal({ open, onOpenChange }: Props) {
           <>
             <DialogHeader>
               <DialogTitle className="text-base leading-snug">
-                Pyydä tarjous muutosturvasta
+                Pyydä tarjous muutosvalmennuksesta
               </DialogTitle>
               <DialogDescription className="text-xs">
-                Lomake on tarkoitettu työnantajan edustajalle (HR, johto, esihenkilö). Vastaamme yleensä saman päivän aikana.
+                Muutosvalmennus on työnantajan lakisääteinen velvoite ≥30 hlön yrityksissä. Lomake on tarkoitettu työnantajan edustajalle (HR, johto, esihenkilö). Vastaamme yleensä saman päivän aikana.
               </DialogDescription>
             </DialogHeader>
 
