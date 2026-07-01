@@ -95,7 +95,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
     const lines = [
       `Ala: ${effectiveIndustry}`,
       `Yli 55-vuotias: ${over55}`,
-      `Muutosturvabudjetti: ${budget}`,
+      `Muutosturvan tyyppi: ${budget}`,
       `Toiveet seuraavalta suunnalta: ${goals.join(", ")}`,
       `Tekoälyn käyttö: ${aiUsage.length > 0 ? aiUsage.join(", ") : "–"}`,
       `Koulutuksen aloitus: ${timing}`,
