@@ -451,8 +451,60 @@ export default function MuutosturvaPage() {
         </div>
       </section>
 
+      {/* MUUTOSTURVAN TASOT – yleinen vs. laajennettu (55+) vs. KeudaPRO:n rooli */}
+      <section className="keuda-section bg-background border-t border-border">
+        <div className="keuda-container max-w-4xl space-y-10">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              Yleinen muutosturva
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Yleinen muutosturva koskee kaikenikäisiä työntekijöitä, jotka on irtisanottu
+              muutosneuvottelujen kautta tuotannollis-taloudellisista syistä. Työnantaja vastaa
+              muutosturvaan liittyvästä tiedottamisesta, muutosneuvotteluista ja työnantajan
+              kustantamasta muutosvalmennuksesta. KeudaPRO toteuttaa työnantajan tilaamia
+              muutosvalmennuksia ja -koulutuksia KUUMA-seudulla, Uudellamaalla ja koko Suomessa.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              55 vuotta täyttäneiden laajennettu muutosturva
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Laajennettu muutosturva on 1.1.2023 alkaen voimassa oleva erillinen kokonaisuus, joka
+              on tarkoitettu 55 vuotta täyttäneille vähintään 5 vuotta saman työnantajan
+              palveluksessa olleille irtisanotuille. Se sisältää muutosturvarahan (noin kuukauden
+              palkka), työllisyysalueen hankkiman muutosturvakoulutuksen (enintään 2 kk palkkaa
+              vastaava arvo, kesto enintään 6 kk) ja laajennetun työllistymisvapaan (5, 15 tai
+              25 päivää). Osallistujalle koulutus on maksuton ja vapaaehtoinen.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              KeudaPRO:n rooli toteuttajana
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              KeudaPRO on julkinen ammatillinen kouluttaja, joka toteuttaa sekä yleistä
+              muutosvalmennusta (työnantajan tilaamana) että 55 vuotta täyttäneiden laajennettua
+              muutosturvakoulutusta (työllisyysalueen hankkimana) KUUMA-seudulla, Uudellamaalla ja
+              muualla Suomessa. Rakennamme koulutussuunnitelman yhden yhteyshenkilön kautta ja
+              hoidamme sekä sisällön (mm. alakohtaiset Tekoälyn ammattiosaaja -koulutukset) että
+              raportoinnin työllisyysalueelle tai työnantajalle. Osallistuja tai työnantaja voi
+              ehdottaa työllisyysalueelle KeudaPRO:ta koulutuksen toteuttajaksi; virallisen
+              hankintapäätöksen tekee työllisyysalue.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="keuda-section bg-accent/40 border-t border-border">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }}
+        />
         <div className="keuda-container max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
             Usein kysyttyä muutosturvasta
