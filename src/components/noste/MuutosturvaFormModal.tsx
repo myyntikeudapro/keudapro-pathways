@@ -34,10 +34,8 @@ const INDUSTRY_OPTIONS = [
 ];
 
 const BUDGET_OPTIONS = [
-  "alle 2 000 €",
-  "2 000–4 000 €",
-  "4 000–6 000 €",
-  "yli 6 000 €",
+  "Yleinen muutosturva – työnantajan muutosvalmennus (n. 1 kk palkka)",
+  "Laajennettu 55+ muutosturvakoulutus – työllisyysalueen kautta (n. 2 kk palkka)",
   "En tiedä",
 ];
 
@@ -97,7 +95,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
     const lines = [
       `Ala: ${effectiveIndustry}`,
       `Yli 55-vuotias: ${over55}`,
-      `Muutosturvabudjetti: ${budget}`,
+      `Muutosturvan tyyppi: ${budget}`,
       `Toiveet seuraavalta suunnalta: ${goals.join(", ")}`,
       `Tekoälyn käyttö: ${aiUsage.length > 0 ? aiUsage.join(", ") : "–"}`,
       `Koulutuksen aloitus: ${timing}`,
@@ -212,10 +210,10 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
 
               {/* 3. Budget */}
               <div className="space-y-1">
-                <Label className="text-xs">Muutosturvabudjetti (arvio)</Label>
+                <Label className="text-xs">Mihin muutosturvaan kuulut?</Label>
                 <Select value={budget} onValueChange={setBudget}>
                   <SelectTrigger className="h-8 text-sm">
-                    <SelectValue placeholder="Valitse budjetti" />
+                    <SelectValue placeholder="Valitse tilanteesi" />
                   </SelectTrigger>
                   <SelectContent>
                     {BUDGET_OPTIONS.map((opt) => (

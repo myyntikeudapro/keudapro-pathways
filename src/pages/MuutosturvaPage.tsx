@@ -58,11 +58,11 @@ const TYONTEKIJA_YLI55 = [
 ];
 
 const TYONANTAJA_BENEFITS = [
-  "Yksi yhteyshenkilö koko muutosturvaprosessiin",
-  "Räätälöity koulutuspaketti irtisanottaville työntekijöille",
-  "Tekoälyn ammattiosaaja -koulutus alakohtaisesti — pätevyydet: Tekoälykoordinaattori, Tekoälypäällikkö tai Tekoälyjohtaja",
-  "Lakisääteisen muutosturvakoulutuksen toteutus avaimet käteen",
-  "Selkeä raportointi ja dokumentaatio työnantajan tarpeisiin",
+  "Yksi yhteyshenkilö koko muutosturvaprosessin ajan",
+  "Lakisääteinen muutosvalmennus irtisanotuille (työnantajan velvoite ≥30 hlön yrityksissä)",
+  "Tekoälyn ammattiosaaja -koulutus muutosvalmennuksen sisältönä (Tekoälykoordinaattori / -päällikkö / -johtaja)",
+  "Tuki 55 vuotta täyttäneiden ohjaukseen työllisyysalueen muutosturvakoulutukseen",
+  "Selkeä raportointi ja dokumentaatio HR:n tarpeisiin",
 ];
 
 const SERVICE_FAMILIES = [
@@ -140,6 +140,10 @@ const FAQ = [
   {
     q: "Mitä muutosturvakoulutus voi sisältää?",
     a: "Sisältö räätälöidään yksilöllisesti ja se voi kattaa esimerkiksi tekoäly- ja digitaitoja, uraohjausta, ammatillista täydennys- tai tutkintotavoitteista koulutusta tai yrittäjyysvalmiuksia. KeudaPRO:n toteuttamissa koulutuksissa suosittu valinta on alakohtainen Tekoälyn ammattiosaaja -koulutus (Tekoälykoordinaattori, Tekoälypäällikkö tai Tekoälyjohtaja).",
+  },
+  {
+    q: "Mitä eroa on muutosvalmennuksella ja muutosturvakoulutuksella?",
+    a: "Muutosvalmennus on työnantajan lakisääteinen velvoite vähintään 30 henkilön yrityksissä: työnantaja rahoittaa ja hankkii sen kaikille tuotannollis-taloudellisin syin irtisanotuille (arvo n. 1 kk palkka). Muutosturvakoulutus taas on 55 vuotta täyttäneiden laajennettuun muutosturvaan kuuluva erillinen etu, jonka hankkii ja rahoittaa työllisyysalue (arvo enintään 2 kk palkka, kesto enintään 6 kk). Sama palveluntarjoaja, kuten KeudaPRO, voi toteuttaa molemmat.",
   },
   {
     q: "Mitä eroa on yleisellä muutosturvalla ja laajennetulla (55+) muutosturvalla?",
@@ -329,7 +333,7 @@ export default function MuutosturvaPage() {
                     Työnantaja
                   </div>
                   <h3 className="text-xl font-bold leading-tight text-white drop-shadow-md">
-                    Hoidamme muutosturvan puolestasi
+                    Tuemme muutosturvaprosessianne
                   </h3>
                 </div>
 
@@ -337,7 +341,7 @@ export default function MuutosturvaPage() {
               </div>
               <div className="flex flex-col flex-1 p-6">
                 <p className="text-muted-foreground mb-5 leading-relaxed text-sm">
-                  Toteutamme lakisääteisen muutosturvakoulutuksen avaimet käteen — yhden yhteyshenkilön kautta, selkeällä dokumentaatiolla.
+                  Toteutamme lakisääteisen muutosvalmennuksen irtisanotuille ja tuemme HR:ää koko muutosturvaprosessin ajan — yhden yhteyshenkilön kautta, selkeällä dokumentaatiolla.
                 </p>
                 <ul className="space-y-2.5 mb-6 flex-1">
                   {TYONANTAJA_BENEFITS.map((b) => (
@@ -354,6 +358,16 @@ export default function MuutosturvaPage() {
               </div>
             </article>
 
+          </div>
+
+          {/* Työnantajan velvoitteet – selventävä laatikko */}
+          <div className="mt-8 max-w-4xl mx-auto bg-card border border-border rounded-xl p-5 md:p-6">
+            <div className="text-[11px] uppercase tracking-wider text-primary font-semibold mb-2">
+              Työnantajan muutosturvavelvoitteet
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Työnantaja vastaa muutosneuvotteluista (yhteistoimintalaki 1333/2021), tiedottamisvelvollisuudesta, muutosvalmennuksesta (≥30 hlön yrityksissä), työllistymisvapaan mahdollistamisesta ja ilmoituksesta työllisyysalueelle. KeudaPRO toteuttaa muutosvalmennuksen ja tukee koko prosessia — muutosneuvottelut ja viranomaisilmoitukset ovat työnantajan omalla vastuulla. 55 vuotta täyttäneiden muutosturvakoulutuksen hankkii työllisyysalue, ei työnantaja.
+            </p>
           </div>
         </div>
       </section>

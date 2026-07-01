@@ -52,16 +52,15 @@ const AFFECTED_COUNT_OPTIONS = [
   "yli 100",
 ];
 
-const YT_STAGE_OPTIONS = [
+const MUUTOSNEUVOTTELU_STAGE_OPTIONS = [
   "Suunnitteilla / harkitsemme",
-  "YT-neuvottelut käynnissä",
-  "YT-neuvottelut päättyneet",
+  "Muutosneuvottelut käynnissä",
+  "Muutosneuvottelut päättyneet",
   "Irtisanomiset toteutettu",
 ];
 
 const BUDGET_PER_PERSON_OPTIONS = [
-  "Lakisääteinen muutosturvabudjetti (n. 1 kk bruttopalkka)",
-  "Laajennettu muutosturva (yli 55-v., n. 2 kk bruttopalkka)",
+  "Työnantajan muutosvalmennus (n. 1 kk bruttopalkka, lakisääteinen ≥30 hlön yrityksissä)",
   "Räätälöity / sovittava erikseen",
   "En tiedä — kaipaan apua arvioon",
 ];
@@ -148,7 +147,7 @@ export function EmployerMuutosturvaFormModal({ open, onOpenChange }: Props) {
       `— Muutostilanne —`,
       `Irtisanottavien/koulutettavien määrä: ${affectedCount}`,
       `Mukana yli 55-vuotiaita: ${hasOver55 || "–"}`,
-      `YT-vaihe: ${ytStage}`,
+      `Muutosneuvottelujen vaihe: ${ytStage}`,
       `Koulutusbudjetti / henkilö: ${budgetPerPerson || "–"}`,
       `Koulutuksen toivottu aloitus: ${timing}`,
       ``,
@@ -168,7 +167,7 @@ export function EmployerMuutosturvaFormModal({ open, onOpenChange }: Props) {
 
   const handleSubmit = () => {
     const subject = encodeURIComponent(
-      `Muutosturva – tarjouspyyntö (${company})`
+      `Muutosvalmennus – tarjouspyyntö (${company})`
     );
     const body = encodeURIComponent(buildEmailBody());
     window.location.href = `mailto:heikki.kallunki@keuda.fi?subject=${subject}&body=${body}`;
@@ -217,10 +216,10 @@ export function EmployerMuutosturvaFormModal({ open, onOpenChange }: Props) {
           <>
             <DialogHeader>
               <DialogTitle className="text-base leading-snug">
-                Pyydä tarjous muutosturvasta
+                Pyydä tarjous muutosvalmennuksesta
               </DialogTitle>
               <DialogDescription className="text-xs">
-                Lomake on tarkoitettu työnantajan edustajalle (HR, johto, esihenkilö). Vastaamme yleensä saman päivän aikana.
+                Muutosvalmennus on työnantajan lakisääteinen velvoite ≥30 hlön yrityksissä. Lomake on tarkoitettu työnantajan edustajalle (HR, johto, esihenkilö). Vastaamme yleensä saman päivän aikana.
               </DialogDescription>
             </DialogHeader>
 
@@ -319,15 +318,15 @@ export function EmployerMuutosturvaFormModal({ open, onOpenChange }: Props) {
                 </div>
               </div>
 
-              {/* YT stage */}
+              {/* Muutosneuvottelujen vaihe */}
               <div className="space-y-1">
-                <Label className="text-xs">YT-prosessin vaihe *</Label>
+                <Label className="text-xs">Muutosneuvottelujen vaihe *</Label>
                 <Select value={ytStage} onValueChange={setYtStage}>
                   <SelectTrigger className="h-8 text-sm">
                     <SelectValue placeholder="Valitse vaihe" />
                   </SelectTrigger>
                   <SelectContent>
-                    {YT_STAGE_OPTIONS.map((o) => (
+                    {MUUTOSNEUVOTTELU_STAGE_OPTIONS.map((o) => (
                       <SelectItem key={o} value={o}>{o}</SelectItem>
                     ))}
                   </SelectContent>
