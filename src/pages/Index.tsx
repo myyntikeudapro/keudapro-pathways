@@ -180,28 +180,6 @@ const Index = () => {
           </p>
         </div>
       </section>
-
-      {/* Luotettava julkinen toimija */}
-      <section className="py-10 md:py-14 bg-background border-t border-border/40">
-        <div className="keuda-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-primary/70 font-semibold mb-2">
-              Luotettava julkinen toimija
-            </p>
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
-              Keudan 100 % omistama tytäryhtiö
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              KeudaPRO (Keuda Koulutuspalvelut Oy) on <strong>Keski-Uudenmaan koulutuskuntayhtymä Keudan</strong> kokonaan omistama tytäryhtiö. Keuda on Keski-Uudenmaan johtava ammatillinen kouluttaja ja työelämän kehittäjä – ja yksi Suomen suurimmista ammatillisen koulutuksen toteuttajista.
-            </p>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mt-3">
-              Tarjoamme monipuolisia ja laadukkaita koulutuksia ympäri Suomen, etänä ja paikan päällä.
-            </p>
-
-
-          </div>
-        </div>
-      </section>
     </Layout>
   );
 };
