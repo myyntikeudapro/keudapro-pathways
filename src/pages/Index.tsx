@@ -100,10 +100,10 @@ const Index = () => {
               Valitse reitti muutoksessa
             </h2>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              Kolme reittiä kokoaa KeudaPRO:n palvelut eri tilanteisiin. Valitse reitti sen mukaan, tarvitsetko tukea johtamiseen ja tekoälyyn, uuteen työelämäsuuntaan vai yrityksen kasvuun ja osaamisen kehittämiseen.
+              Kolme reittiä kokoaa KeudaPRO:n palvelut eri tilanteisiin. Valitse reitti sen mukaan, tarvitsetko tukea johtamiseen ja tekoälyyn, uuteen työelämäsuuntaan vai yrityksen kasvuun ja rekrytointiin.
             </p>
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed mt-3">
-              Rakennamme koulutus- ja valmennusratkaisuja tilanteisiin, joissa osaamisen pitää muuttua nopeasti käytännön tekemiseksi.
+              Rakennamme koulutus- ja valmennusratkaisuja tilanteisiin, joissa uusi taito pitää saada nopeasti käytännön tekemiseksi.
             </p>
           </div>
         </div>
