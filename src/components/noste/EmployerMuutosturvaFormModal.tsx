@@ -167,7 +167,7 @@ export function EmployerMuutosturvaFormModal({ open, onOpenChange }: Props) {
 
   const handleSubmit = () => {
     const subject = encodeURIComponent(
-      `Muutosturva – tarjouspyyntö (${company})`
+      `Muutosvalmennus – tarjouspyyntö (${company})`
     );
     const body = encodeURIComponent(buildEmailBody());
     window.location.href = `mailto:heikki.kallunki@keuda.fi?subject=${subject}&body=${body}`;
