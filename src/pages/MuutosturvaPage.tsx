@@ -513,11 +513,8 @@ export default function MuutosturvaPage() {
 
       {/* FAQ */}
       <section className="keuda-section bg-accent/40 border-t border-border">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSONLD) }}
-        />
         <div className="keuda-container max-w-3xl">
+
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
             Usein kysyttyä muutosturvasta
           </h2>
