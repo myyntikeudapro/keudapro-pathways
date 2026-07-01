@@ -11,9 +11,10 @@
 // Exported as runSSG() so the Vite plugin can call it inline — no subprocess
 // spawning (which is unreliable inside Lovable's deploy container).
 
-import { createServer } from "vite";
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { build } from "vite";
+import { readFileSync, writeFileSync, existsSync, rmSync } from "node:fs";
 import { resolve, join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { JSDOM } from "jsdom";
 
 const ROUTES = [
