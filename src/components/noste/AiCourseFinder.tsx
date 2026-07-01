@@ -429,7 +429,7 @@ export function AiCourseFinder() {
         </div>
 
         {filtered.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-border bg-muted/40 p-8 text-center text-muted-foreground">
+          <div className="rounded-xl border border-dashed border-background/30 bg-background/5 p-8 text-center text-background/80">
             Ei osumia. Kokeile toista hakusanaa tai poista suotimet.
           </div>
         ) : (
