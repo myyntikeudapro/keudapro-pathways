@@ -165,14 +165,25 @@ export default function MuutosturvaPage() {
   const [formOpen, setFormOpen] = useState(false);
   const [employerFormOpen, setEmployerFormOpen] = useState(false);
 
-  const jsonLd = {
+  const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: "Muutosturva – KeudaPRO",
-    provider: { "@type": "Organization", name: "KeudaPRO", url: "https://keudapro.fi" },
+    provider: { "@type": "EducationalOrganization", name: "KeudaPRO", url: "https://keudapro.fi" },
     areaServed: "KUUMA-seutu, Suomi",
     description:
       "Muutosturvakoulutukset työntekijöille ja työnantajille — myös laajennettu muutosturva yli 55-vuotiaille. Tekoälyn ammattiosaaja -koulutukset alakohtaisesti (Tekoälykoordinaattori, Tekoälypäällikkö, Tekoälyjohtaja).",
+  };
+
+  const courseJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "Muutosturvakoulutus – Tekoälyn ammattiosaaja",
+    description:
+      "Alakohtainen muutosturvakoulutus muutosneuvottelujen kautta irtisanotuille ja 55 vuotta täyttäneille laajennetun muutosturvan piirissä oleville. Tekoälyn ammattiosaaja -koulutus tasoilla Tekoälykoordinaattori, Tekoälypäällikkö ja Tekoälyjohtaja.",
+    provider: { "@type": "EducationalOrganization", name: "KeudaPRO", url: "https://keudapro.fi" },
+    educationalCredentialAwarded: "Tekoälyn ammattiosaaja -osaamismerkki",
+    availableLanguage: "fi",
   };
 
   return (
@@ -181,8 +192,9 @@ export default function MuutosturvaPage() {
         title="Muutosturva | KeudaPRO"
         description="Muutosturvakoulutukset KUUMA-seudulla: alle 55- ja yli 55-vuotiaille, työntekijöille ja työnantajille. Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (koordinaattori, päällikkö, johtaja). Avaimet käteen -toteutus."
         path="/muutosturva"
-        jsonLd={jsonLd}
+        jsonLd={[serviceJsonLd, courseJsonLd, FAQ_JSONLD]}
       />
+
 
       {/* HERO */}
       <section className="py-16 md:py-20 bg-foreground text-background">
