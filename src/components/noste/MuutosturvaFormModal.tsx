@@ -210,10 +210,10 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
 
               {/* 3. Budget */}
               <div className="space-y-1">
-                <Label className="text-xs">Muutosturvabudjetti (arvio)</Label>
+                <Label className="text-xs">Mihin muutosturvaan kuulut?</Label>
                 <Select value={budget} onValueChange={setBudget}>
                   <SelectTrigger className="h-8 text-sm">
-                    <SelectValue placeholder="Valitse budjetti" />
+                    <SelectValue placeholder="Valitse tilanteesi" />
                   </SelectTrigger>
                   <SelectContent>
                     {BUDGET_OPTIONS.map((opt) => (
