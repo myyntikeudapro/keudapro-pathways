@@ -548,6 +548,9 @@ const WorkPlusPage = () => {
         </div>
       </section>
 
+      {/* Usein kysyttyä */}
+      <NosteFAQ />
+
 
       {/* Ristiin-nosto ÄLY */}
       <div className="py-6 text-center">
