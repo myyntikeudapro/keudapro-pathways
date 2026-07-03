@@ -101,8 +101,33 @@
           fbq('consent', 'grant');
         }
       } catch (e) {}
+
+      // Instagram/Facebook -laskeutumisen tunnistus: erillinen custom event,
+      // jotta Meta Ads Managerissa näkee tarkasti kuinka moni klikkaajista
+      // todella lataa sivun (klikki vs. landing page view -ero).
+      try {
+        var p = new URLSearchParams(window.location.search);
+        var ref = document.referrer || '';
+        var src = (p.get('utm_source') || '').toLowerCase();
+        var medium = (p.get('utm_medium') || '').toLowerCase();
+        var fromMeta =
+          p.has('fbclid') ||
+          src === 'instagram' || src === 'ig' ||
+          src === 'facebook' || src === 'fb' ||
+          medium === 'paid_social' ||
+          /instagram\.com|l\.instagram\.com|facebook\.com|l\.facebook\.com/.test(ref);
+        if (fromMeta) {
+          fbq('trackCustom', 'InstagramLanding', {
+            path: window.location.pathname,
+            utm_source: src || null,
+            utm_campaign: p.get('utm_campaign') || null,
+            referrer: ref || null
+          });
+        }
+      } catch (e) {}
     </script>
     <!-- End Meta Pixel Code -->
+
   </head>
 
   <body>
