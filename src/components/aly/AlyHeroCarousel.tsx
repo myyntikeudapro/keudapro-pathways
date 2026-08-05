@@ -73,17 +73,21 @@ export function AlyHeroCarousel() {
           <Button
             variant="cta"
             size="xl"
-            onClick={(e) => {
+            asChild
+          >
+            <a
+              href={slides[current].href}
+              onClick={(e) => {
               e.preventDefault();
               const id = slides[current].href.replace("#", "");
-              const el = document.getElementById(id);
-              if (el) {
-                const y = el.getBoundingClientRect().top + window.scrollY - 80;
-                window.scrollTo({ top: y, behavior: "smooth" });
-              }
-            }}
-          >
-            {slides[current].cta}
+                window.history.pushState(null, "", slides[current].href);
+                window.dispatchEvent(
+                  new CustomEvent("aly-category-open", { detail: { id } })
+                );
+              }}
+            >
+              {slides[current].cta}
+            </a>
           </Button>
         </div>
       </div>
