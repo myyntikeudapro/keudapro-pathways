@@ -11,19 +11,19 @@ const slides = [
     image: heroImg1,
     title: "Tekoäly johtamiseen ja uudistumiseen",
     cta: "Katso AI-ohjelmat",
-    href: "#ai-ohjelmat",
+    href: "#tekoalypatevyys",
   },
   {
     image: heroImg2,
     title: "Osaamisen ja johtamisen valmennukset",
     cta: "Katso AI-ohjelmat",
-    href: "#ai-ohjelmat",
+    href: "#tekoalypatevyys",
   },
   {
     image: heroImg3,
     title: "Johtaminen, asiantuntijuus ja tekoäly",
     cta: "Katso AI-ohjelmat",
-    href: "#ai-ohjelmat",
+    href: "#tekoalypatevyys",
   },
 ];
 
