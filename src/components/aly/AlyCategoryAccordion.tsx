@@ -321,6 +321,20 @@ export function AlyCategoryAccordion() {
     }
   }, [location.hash]);
 
+  useEffect(() => {
+    const openFromCta = (event: Event) => {
+      const detail = (event as CustomEvent<{ id?: string }>).detail;
+      const id = detail?.id;
+      if (!id || !categories.some((category) => category.id === id)) return;
+
+      setOpenCategory(id);
+      setTimeout(() => scrollToCategory(id), 100);
+    };
+
+    window.addEventListener("aly-category-open", openFromCta);
+    return () => window.removeEventListener("aly-category-open", openFromCta);
+  }, []);
+
 
   const toggle = (id: string) =>
     setOpenCategory((prev) => {
@@ -348,6 +362,7 @@ export function AlyCategoryAccordion() {
             return (
               <div
                 key={cat.id}
+                id={cat.id}
                 ref={(el) => (categoryRefs.current[cat.id] = el)}
                 style={{ scrollMarginTop: 80 }}
                 className={cn(
