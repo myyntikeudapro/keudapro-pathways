@@ -10,6 +10,7 @@ import progJohtaminen from "@/assets/prog-johtaminen.jpg";
 import progTutkinnot from "@/assets/prog-tutkinnot.jpg";
 import progAiDirector from "@/assets/prog-ai-director.jpg";
 import progAiManager from "@/assets/prog-ai-manager.jpg";
+import progAiManagerCard from "@/assets/prog-ai-manager-card.jpg";
 import progAiCoordinator from "@/assets/prog-ai-coordinator.jpg";
 import progHyperEngineering from "@/assets/prog-hyper-engineering.jpg";
 import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
