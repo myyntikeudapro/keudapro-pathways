@@ -10,6 +10,7 @@ import progJohtaminen from "@/assets/prog-johtaminen.jpg";
 import progTutkinnot from "@/assets/prog-tutkinnot.jpg";
 import progAiDirector from "@/assets/prog-ai-director.jpg";
 import progAiManager from "@/assets/prog-ai-manager.jpg";
+import progAiManagerCard from "@/assets/prog-ai-manager-card.jpg";
 import progAiCoordinator from "@/assets/prog-ai-coordinator.jpg";
 import progHyperEngineering from "@/assets/prog-hyper-engineering.jpg";
 import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
@@ -92,7 +93,7 @@ const categories: Category[] = [
         href: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/",
         description:
           "Ota tekoäly osaksi jokapäiväistä johtamistyötäsi – konkreettiset työkalut heti käyttöön.",
-        image: progAiManager,
+        image: progAiManagerCard,
         cta: "Tutustu ohjelmaan →",
       },
       {
