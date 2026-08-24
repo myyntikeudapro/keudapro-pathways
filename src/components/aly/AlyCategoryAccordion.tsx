@@ -93,7 +93,7 @@ const categories: Category[] = [
         href: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/",
         description:
           "Ota tekoäly osaksi jokapäiväistä johtamistyötäsi – konkreettiset työkalut heti käyttöön.",
-        image: progAiManager,
+        image: progAiManagerCard,
         cta: "Tutustu ohjelmaan →",
       },
       {
