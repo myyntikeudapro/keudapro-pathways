@@ -130,26 +130,32 @@ const rows = [
 
 export function AlyComparison() {
   return (
-    <section id="vertaa-tasoja" className="py-12 md:py-16" style={{ scrollMarginTop: 110 }}>
+    <section id="vertaa-tasoja" className="py-14 md:py-20" style={{ scrollMarginTop: 110 }}>
       <div className="keuda-container">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
-          Miten tasot eroavat toisistaan?
-        </h2>
+        <div className="max-w-3xl mb-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+            Vertailu
+          </p>
+          <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-tight">
+            Miten tasot eroavat toisistaan?
+          </h2>
+        </div>
 
         {/* Desktop: taulukko */}
-        <div className="hidden md:block overflow-hidden rounded-xl border border-border">
+        <div className="hidden md:block overflow-hidden rounded-2xl border border-border shadow-[var(--shadow-card)]">
           <table className="w-full text-sm">
             <caption className="sr-only">
               AI Coordinator-, AI Manager- ja AI Director -tasojen vertailu
             </caption>
-            <thead className="bg-muted">
+            <thead className="bg-primary text-primary-foreground">
               <tr>
-                <th scope="col" className="text-left p-3 font-bold text-foreground"> </th>
-                <th scope="col" className="text-left p-3 font-bold text-foreground">AI Coordinator</th>
-                <th scope="col" className="text-left p-3 font-bold text-foreground">AI Manager</th>
-                <th scope="col" className="text-left p-3 font-bold text-foreground">AI Director</th>
+                <th scope="col" className="text-left p-4 font-bold"> </th>
+                <th scope="col" className="text-left p-4 font-bold">AI Coordinator</th>
+                <th scope="col" className="text-left p-4 font-bold">AI Manager</th>
+                <th scope="col" className="text-left p-4 font-bold">AI Director</th>
               </tr>
             </thead>
+
             <tbody>
               {rows.map((r, i) => (
                 <tr key={r.label} className={i % 2 ? "bg-muted/40" : "bg-card"}>
