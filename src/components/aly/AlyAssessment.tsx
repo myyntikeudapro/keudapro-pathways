@@ -131,10 +131,13 @@ export function AlyAssessment() {
   return (
     <section id="loyda-oma-tasosi" style={{ scrollMarginTop: 110 }} className="py-16 md:py-24 bg-accent/60 border-y border-border/60">
       <div className="keuda-container max-w-3xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+          Tasotesti
+        </p>
         <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-3 tracking-tight">
           Mikä tekoälyrooli sinulle sopii?
         </h2>
-        <p className="text-muted-foreground mb-8">
+        <p className="text-muted-foreground mb-8 md:text-lg">
           Viisi kysymystä antaa suuntaa-antavan suosituksen lähtötasosta. Kyseessä ei ole
           sertifioiva osaamisen arviointi.
         </p>
