@@ -17,21 +17,29 @@ export function AlyAiHero() {
       <img
         src={heroImg}
         alt="Tiimi kehittää työtään yhdessä"
-        className="absolute inset-0 w-full h-full object-cover opacity-25"
+        className="absolute inset-0 w-full h-full object-cover"
         style={{ objectPosition: "center 35%" }}
       />
-      <div className="relative keuda-container py-14 md:py-20">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-r from-foreground/95 via-foreground/80 to-foreground/45"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-foreground/40"
+      />
+      <div className="relative keuda-container py-16 md:py-24">
         <div className="max-w-3xl">
-          <p className="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-background/70 mb-3">
+          <span className="inline-flex items-center rounded-full border border-background/30 bg-background/10 px-3 py-1 text-[11px] md:text-xs font-semibold tracking-[0.2em] uppercase text-background/85 backdrop-blur-sm mb-5">
             KeudaPRO ÄLY
-          </p>
-          <h1 className="text-3xl md:text-5xl font-bold text-background mb-4 leading-tight">
+          </span>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-background mb-5 leading-[1.05] tracking-tight">
             Tekoälypätevyydet työelämään
           </h1>
-          <p className="text-lg md:text-2xl font-semibold text-background/90 mb-4">
+          <p className="text-lg md:text-2xl font-semibold text-background/95 mb-4">
             Opi käyttämään, kehittämään ja johtamaan tekoälyä.
           </p>
-          <p className="text-sm md:text-base text-background/75 leading-relaxed max-w-2xl">
+          <p className="text-sm md:text-base text-background/80 leading-relaxed max-w-2xl">
             Tekoälyosaaminen ei tarkoita enää vain yksittäisten työkalujen käyttöä. Työelämä
             tarvitsee ihmisiä, jotka osaavat hyödyntää tekoälyä omassa työssään, rakentaa uusia
             toimintatapoja ja johtaa tekoälyn käyttöönottoa.
@@ -39,21 +47,25 @@ export function AlyAiHero() {
         </div>
 
         {/* Polku: Coordinator → Manager → Director */}
-        <ol className="mt-8 grid gap-3 sm:grid-cols-3 max-w-4xl">
+        <ol className="mt-10 grid gap-3 sm:grid-cols-3 max-w-4xl">
           {AI_LEVELS.map((level, i) => (
             <li key={level.id} className="relative">
               <button
                 type="button"
                 onClick={() => scrollToId(level.anchor)}
-                className="w-full h-full text-left rounded-xl border border-background/25 bg-background/10 hover:bg-background/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background p-4 transition-colors"
+                className="group w-full h-full text-left rounded-2xl border border-background/20 bg-background/10 backdrop-blur-md hover:bg-background/20 hover:border-background/40 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background p-5 transition-all duration-300 shadow-lg shadow-black/10"
               >
-                <span className="block text-[11px] font-semibold text-background/60 mb-1">
-                  Taso {i + 1}
+                <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-background/20 text-[11px] font-bold text-background mb-3">
+                  {i + 1}
                 </span>
                 <span className="block text-base md:text-lg font-bold text-background">
                   {level.name}
                 </span>
-                <span className="block text-sm text-background/75">{level.promise}</span>
+                <span className="block text-sm text-background/75 mt-0.5">{level.promise}</span>
+                <span
+                  aria-hidden="true"
+                  className="mt-3 block h-px w-8 bg-background/40 transition-all duration-300 group-hover:w-16"
+                />
               </button>
               {i < AI_LEVELS.length - 1 && (
                 <ArrowRight
@@ -65,10 +77,11 @@ export function AlyAiHero() {
           ))}
         </ol>
 
-        <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3">
+        <div className="mt-10 flex flex-col sm:flex-row flex-wrap gap-3">
           <Button
             variant="cta"
             size="lg"
+            className="shadow-lg shadow-black/20"
             onClick={() => {
               trackEvent("ai_assessment_start", { source: "hero" });
               scrollToId("loyda-oma-tasosi");
@@ -86,7 +99,7 @@ export function AlyAiHero() {
           <Button
             size="lg"
             variant="outline"
-            className="border-background/50 text-background hover:bg-background/15 hover:text-background bg-transparent h-auto whitespace-normal py-3 text-center"
+            className="border-background/40 text-background hover:bg-background/15 hover:text-background bg-background/5 backdrop-blur-sm h-auto whitespace-normal py-3 text-center"
             onClick={() => {
               trackEvent("organization_ai_cta", { source: "hero" });
               scrollToId("organisaatioille");
@@ -99,3 +112,4 @@ export function AlyAiHero() {
     </section>
   );
 }
+
