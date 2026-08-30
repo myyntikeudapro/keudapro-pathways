@@ -87,12 +87,15 @@ const InsightPage = () => {
 
 
       {/* Alkavat koulutukset – suorat, crawlattavat linkit ohjelmasivuille */}
-      <section id="alkavat-koulutukset" style={{ scrollMarginTop: 110 }} className="py-12 md:py-16 bg-muted/40">
+      <section id="alkavat-koulutukset" style={{ scrollMarginTop: 110 }} className="py-14 md:py-20">
         <div className="keuda-container max-w-3xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+            Ilmoittautuminen
+          </p>
+          <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-3 tracking-tight">
             Alkavat koulutukset
           </h2>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-muted-foreground mb-6 md:text-lg">
             Ajankohtaiset aikataulut, sisällöt ja ilmoittautuminen löytyvät kunkin ohjelman omalta
             sivulta.
           </p>
@@ -104,7 +107,7 @@ const InsightPage = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent("course_registration_click", { level: l.id })}
-                  className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 hover:border-primary transition-colors"
+                  className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-[var(--shadow-card)] hover:border-primary hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] transition-all duration-300"
                 >
                   <span>
                     <span className="block font-bold text-foreground">
@@ -123,7 +126,7 @@ const InsightPage = () => {
                 href="https://www.keuda.fi/koulutus/hyper-engineering-program-fi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 hover:border-primary transition-colors"
+                className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 shadow-[var(--shadow-card)] hover:border-primary hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] transition-all duration-300"
               >
                 <span>
                   <span className="block font-bold text-foreground">Hyper Engineering (FI / EN)</span>
@@ -147,9 +150,12 @@ const InsightPage = () => {
       <AlyCategoryAccordion />
 
       {/* Sivun loppu */}
-      <section className="py-14 md:py-20 bg-primary/5">
+      <section className="py-16 md:py-24 bg-primary/5 border-t border-border/60">
         <div className="keuda-container max-w-4xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+            Seuraava askel
+          </p>
+          <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4 tracking-tight">
             Millaista tekoälyosaamista sinä tai organisaatiosi tarvitsette?
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-8 max-w-3xl">
@@ -159,7 +165,7 @@ const InsightPage = () => {
 
           <div className="grid gap-4 sm:grid-cols-3 mb-8">
             {AI_LEVELS.map((l) => (
-              <div key={l.id} className="rounded-xl border border-border bg-card p-4">
+              <div key={l.id} className="rounded-xl border border-border bg-card p-4 shadow-[var(--shadow-card)]">
                 <h3 className="font-bold text-foreground">{l.name}</h3>
                 <p className="text-sm text-muted-foreground">{l.promise}.</p>
               </div>

@@ -63,12 +63,12 @@ export function AlyFAQ() {
           {faqs.map((faq) => (
             <div
               key={faq.question}
-              className="rounded-xl border border-border bg-card p-5 hover:border-primary/40 transition-all hover:shadow-lg"
+              className="rounded-xl border border-border bg-card p-5 shadow-[var(--shadow-card)] hover:border-primary/40 hover:-translate-y-1 transition-all hover:shadow-[var(--shadow-card-hover)]"
             >
-              <h3 className="font-semibold text-foreground text-sm leading-snug mb-2">
+              <h3 className="font-bold text-foreground text-base leading-snug mb-2">
                 {faq.question}
               </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">{faq.answer}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
             </div>
           ))}
         </div>
