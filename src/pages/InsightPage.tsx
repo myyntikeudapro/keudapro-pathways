@@ -15,6 +15,7 @@ import {
 import { AlyLeadershipBridge } from "@/components/aly/AlyLeadershipBridge";
 import { AlyCategoryAccordion } from "@/components/aly/AlyCategoryAccordion";
 import { AlyFAQ } from "@/components/aly/AlyFAQ";
+import { AlyTestimonials } from "@/components/aly/AlyTestimonials";
 import { AI_LEVELS } from "@/components/aly/aiLevels";
 import { trackEvent } from "@/lib/analytics";
 
