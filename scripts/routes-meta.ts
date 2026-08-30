@@ -22,9 +22,9 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/aly",
-    title: "ÄLY – Johtamisen, asiantuntijuuden ja tekoälyn koulutukset | KeudaPRO",
+    title: "Tekoälypätevyydet | AI Coordinator, Manager & Director | KeudaPRO",
     description:
-      "Johtajille, esihenkilöille ja asiantuntijoille: johtamisen koulutukset, tekoälypätevyys-ohjelmat (AI-Director, AI-Manager, AI-Coordinator) ja turvallisuusjohtaminen.",
+      "KeudaPROn AI Coordinator-, AI Manager- ja AI Director -koulutukset muodostavat työelämän tekoälyosaamisen polun käytännön hyödyntämisestä sen kehittämiseen ja johtamiseen.",
     changefreq: "weekly",
     priority: "0.9",
   },

@@ -18,14 +18,14 @@ export const routes = [
   },
   {
     path: "/aly",
-    title: "ÄLY – Johtamisen, asiantuntijuuden ja tekoälyn koulutukset | KeudaPRO",
+    title: "Tekoälypätevyydet | AI Coordinator, Manager & Director | KeudaPRO",
     description:
-      "Johtajille, esihenkilöille ja asiantuntijoille: johtamisen koulutukset, tekoälypätevyys-ohjelmat (AI-Director, AI-Manager, AI-Coordinator) ja turvallisuusjohtaminen.",
+      "KeudaPROn AI Coordinator-, AI Manager- ja AI Director -koulutukset muodostavat työelämän tekoälyosaamisen polun käytännön hyödyntämisestä sen kehittämiseen ja johtamiseen.",
     changefreq: "weekly",
     priority: "0.9",
-    h1: "ÄLY – Johtamisen, asiantuntijuuden ja tekoälyn koulutukset",
+    h1: "Tekoälypätevyydet työelämään",
     intro:
-      "ÄLY on KeudaPROn palvelukokonaisuus johtajille, esihenkilöille ja asiantuntijoille. Tarjoamme johtamisen koulutukset, tekoälypätevyys-ohjelmat AI-Director, AI-Manager ja AI-Coordinator sekä turvallisuusjohtamisen kehityspolut KUUMA-seudulla.",
+      "KeudaPROn tekoälypätevyydet muodostavat porrastetun polun: AI Coordinator (tekoälykoordinaattori) keskittyy tekoälyn käytännön hyödyntämiseen ja soveltamiseen omassa työssä, AI Manager (tekoälypäällikkö) käyttöönoton ja kehittämisen johtamiseen ja AI Director tekoälyn strategiseen johtamiseen. Mallia voidaan hyödyntää myös koko organisaation tekoälyosaamisen rakentamiseen.",
   },
   {
     path: "/noste",

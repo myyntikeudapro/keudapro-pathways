@@ -1,158 +1,220 @@
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
-import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Button } from "@/components/ui/button";
-import { AlyHeroCarousel } from "@/components/aly/AlyHeroCarousel";
-import { AlyPhilosophySection } from "@/components/aly/AlyPhilosophySection";
-import { AlyCategoryAccordion } from "@/components/aly/AlyCategoryAccordion";
-import { AlyFAQ } from "@/components/aly/AlyFAQ";
-import { useCoachPanel } from "@/contexts/CoachPanelContext";
-import { ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import audienceExpert from "@/assets/audience-expert.jpg";
-import audienceSupervisor from "@/assets/audience-supervisor.jpg";
-import audienceLeader from "@/assets/audience-leader.jpg";
-import audienceRenewal from "@/assets/audience-renewal.jpg";
+import { AlyAiHero } from "@/components/aly/AlyAiHero";
+import { AlyAnchorNav } from "@/components/aly/AlyAnchorNav";
+import { AlyDefinition, AlyLevels, AlyComparison } from "@/components/aly/AlyLevels";
+import { AlyAssessment } from "@/components/aly/AlyAssessment";
+import {
+  AlyOrgArchitecture,
+  AlyHowLearning,
+  AlyToolsVsQualification,
+} from "@/components/aly/AlyOrgArchitecture";
+import { AlyLeadershipBridge } from "@/components/aly/AlyLeadershipBridge";
+import { AlyCategoryAccordion } from "@/components/aly/AlyCategoryAccordion";
+import { AlyFAQ } from "@/components/aly/AlyFAQ";
+import { AI_LEVELS } from "@/components/aly/aiLevels";
+import { trackEvent } from "@/lib/analytics";
 
-const audiences = [
-  {
-    image: audienceExpert,
-    label: "Asiantuntijalle",
-    description: "Syvennät osaamistasi ja opit hyödyntämään tekoälyä omassa työssäsi.",
-    anchorLabel: "Katso Tekoälypätevyys-ohjelmat",
-    href: "/aly#tekoalypatevyys",
-  },
-  {
-    image: audienceSupervisor,
-    label: "Esihenkilölle ja työnjohdolle",
-    description: "Vahvistat johtamisotettasi ja kehität tiimiäsi käytännön valmennuksilla.",
-    anchorLabel: "Katso Johtamisen koulutukset",
-    href: "/aly#esihenkilo-johtaminen",
-  },
-  {
-    image: audienceLeader,
-    label: "Johtajalle",
-    description: "Rakennat strategisen tekoälyosaamisen ja johdat organisaatiosi uudistumista.",
-    anchorLabel: "Katso AI-Director & Johtamisen ohjelmat",
-    href: "/aly#tekoalypatevyys",
-  },
-  {
-    image: audienceRenewal,
-    label: "Uudistumista pohtiville – etsitkö töitä tai uutta suuntaa työelämässä?",
-    description: "Löydät suunnan ja työkalut seuraavaan askeleeseen.",
-    anchorLabel: "Katso NOSTE-reitti",
-    href: "/noste",
-  },
-];
+const PROVIDER = {
+  "@type": "EducationalOrganization",
+  name: "KeudaPRO",
+  legalName: "Keuda Koulutuspalvelut Oy",
+  url: "https://keudapro.fi",
+} as const;
 
-const PROVIDER = { "@type": "EducationalOrganization", name: "KeudaPRO", url: "https://keudapro.fi" } as const;
-
-const COURSES_JSONLD = [
+const JSONLD = [
   {
     "@context": "https://schema.org",
-    "@type": "Course",
-    name: "AI-Director – Tekoälyjohtaja",
-    description: "Strateginen tekoälypätevyys johtajille ja johtoryhmien jäsenille. Rakentaa tekoälyn johtamis- ja hallintomallin organisaatiotasolle.",
-    provider: PROVIDER,
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "KeudaPRO", item: "https://keudapro.fi/" },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tekoälypätevyydet",
+        item: "https://keudapro.fi/aly",
+      },
+    ],
   },
   {
     "@context": "https://schema.org",
-    "@type": "Course",
-    name: "AI-Manager – Tekoälypäällikkö",
-    description: "Tekoälypätevyys esihenkilöille ja päälliköille. Vie tekoälyn käyttöönoton tiimin ja prosessien tasolle.",
-    provider: PROVIDER,
+    "@type": "ItemList",
+    name: "KeudaPROn tekoälypätevyydet",
+    itemListElement: AI_LEVELS.map((l, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: `${l.name} – ${l.fi}`,
+      url: l.href,
+    })),
   },
-  {
+  ...AI_LEVELS.map((l) => ({
     "@context": "https://schema.org",
     "@type": "Course",
-    name: "AI-Coordinator – Tekoälykoordinaattori",
-    description: "Käytännön tekoälypätevyys asiantuntijoille. Tekoälyn hyödyntäminen omassa työssä ja prosesseissa.",
+    name: `${l.name} – ${l.fi}`,
+    description: l.intro,
+    url: l.href,
+    inLanguage: "fi",
     provider: PROVIDER,
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Course",
-    name: "Johtamisen ja turvallisuusjohtamisen koulutukset",
-    description: "Johtamisen valmennukset, esihenkilövalmennus ja turvallisuusjohtamisen kehityspolut KUUMA-seudulla.",
-    provider: PROVIDER,
-  },
+  })),
 ];
 
 const InsightPage = () => {
-  const { openPanel } = useCoachPanel();
-
   return (
     <Layout>
-      <SEO title={"ÄLY – Johtamisen, asiantuntijuuden ja tekoälyn koulutukset | KeudaPRO"} description={"Johtajille, esihenkilöille ja asiantuntijoille: johtamisen koulutukset, tekoälypätevyys-ohjelmat (AI-Director, AI-Manager, AI-Coordinator) ja turvallisuusjohtaminen."} path="/aly" jsonLd={COURSES_JSONLD} />
+      <SEO
+        title="Tekoälypätevyydet | AI Coordinator, Manager & Director | KeudaPRO"
+        description="KeudaPROn AI Coordinator-, AI Manager- ja AI Director -koulutukset muodostavat työelämän tekoälyosaamisen polun käytännön hyödyntämisestä sen kehittämiseen ja johtamiseen."
+        path="/aly"
+        jsonLd={JSONLD}
+      />
 
-      <AlyHeroCarousel />
+      <AlyAiHero />
+      <AlyAnchorNav />
 
-      <section className="pt-16 md:pt-24 pb-6 md:pb-8">
-        <div className="keuda-container">
-          <SectionHeading title="Kenelle tämä on?" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 max-w-4xl mx-auto">
-            {audiences.map((item) => (
-              <Link
-                key={item.label}
-                to={item.href}
-                className="keuda-card-enhanced overflow-hidden p-0 group block hover:border-primary/30 transition-all duration-200"
-              >
-                <div className="flex gap-4 p-4 md:p-5">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden flex-shrink-0">
-                    <img
-                      src={item.image}
-                      alt={item.label}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm md:text-base font-semibold text-foreground mb-1">
-                      {item.label}
-                    </p>
-                    <p className="text-xs md:text-sm text-muted-foreground mb-2 leading-relaxed">
-                      {item.description}
-                    </p>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-primary group-hover:underline">
-                      {item.anchorLabel}
-                      <ArrowDown className="w-3 h-3" />
+      <AlyDefinition />
+      <AlyLevels />
+      <AlyComparison />
+      <AlyAssessment />
+      <AlyOrgArchitecture />
+      <AlyHowLearning />
+      <AlyToolsVsQualification />
+
+      {/* Alkavat koulutukset – suorat, crawlattavat linkit ohjelmasivuille */}
+      <section id="alkavat-koulutukset" style={{ scrollMarginTop: 110 }} className="py-12 md:py-16 bg-muted/40">
+        <div className="keuda-container max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            Alkavat koulutukset
+          </h2>
+          <p className="text-muted-foreground mb-6">
+            Ajankohtaiset aikataulut, sisällöt ja ilmoittautuminen löytyvät kunkin ohjelman omalta
+            sivulta.
+          </p>
+          <ul className="flex flex-col gap-3">
+            {AI_LEVELS.map((l) => (
+              <li key={l.id}>
+                <a
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent("course_registration_click", { level: l.id })}
+                  className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 hover:border-primary transition-colors"
+                >
+                  <span>
+                    <span className="block font-bold text-foreground">
+                      {l.name} – {l.fi}
                     </span>
-                  </div>
-                </div>
-              </Link>
+                    <span className="block text-sm text-muted-foreground">{l.promise}</span>
+                  </span>
+                  <span aria-hidden="true" className="text-primary font-bold">
+                    →
+                  </span>
+                </a>
+              </li>
             ))}
-          </div>
+            <li>
+              <a
+                href="https://www.keuda.fi/koulutus/hyper-engineering-program-fi/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 hover:border-primary transition-colors"
+              >
+                <span>
+                  <span className="block font-bold text-foreground">Hyper Engineering (FI / EN)</span>
+                  <span className="block text-sm text-muted-foreground">
+                    Syvä tekninen tekoälyosaaminen asiantuntijatehtäviin
+                  </span>
+                </span>
+                <span aria-hidden="true" className="text-primary font-bold">
+                  →
+                </span>
+              </a>
+            </li>
+          </ul>
         </div>
       </section>
 
-      <AlyCategoryAccordion />
-
-      <AlyPhilosophySection />
-
       <AlyFAQ />
 
-      <section className="py-16 md:py-20 bg-primary/5">
-        <div className="keuda-container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            Valmis aloittamaan?
+      {/* Silta johtamisen tarjontaan – nykyinen tarjonta säilyy alla olevassa listauksessa */}
+      <AlyLeadershipBridge />
+      <AlyCategoryAccordion />
+
+      {/* Sivun loppu */}
+      <section className="py-14 md:py-20 bg-primary/5">
+        <div className="keuda-container max-w-4xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+            Millaista tekoälyosaamista sinä tai organisaatiosi tarvitsette?
           </h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            Valitse sinulle sopivin tapa edetä.
+          <p className="text-muted-foreground leading-relaxed mb-8 max-w-3xl">
+            Tekoälyn käytöstä on siirrytty vaiheeseen, jossa organisaatioiden pitää ratkaista, kuka
+            osaa käyttää tekoälyä, kuka kehittää sen käyttöä ja kuka johtaa kokonaisuutta.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <Button variant="cta" size="lg" onClick={() => openPanel("veli")}>
-              Kysy AI-valmentajalta
+
+          <div className="grid gap-4 sm:grid-cols-3 mb-8">
+            {AI_LEVELS.map((l) => (
+              <div key={l.id} className="rounded-xl border border-border bg-card p-4">
+                <h3 className="font-bold text-foreground">{l.name}</h3>
+                <p className="text-sm text-muted-foreground">{l.promise}.</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+            <Button
+              variant="cta"
+              size="lg"
+              onClick={() => {
+                trackEvent("ai_assessment_start", { source: "footer" });
+                const el = document.getElementById("loyda-oma-tasosi");
+                if (el)
+                  window.scrollTo({
+                    top: el.getBoundingClientRect().top + window.scrollY - 110,
+                    behavior: "smooth",
+                  });
+              }}
+            >
+              Löydä oma tasosi
             </Button>
             <Button variant="outline-primary" size="lg" asChild>
-              <Link to="/yhteystiedot">Ota yhteyttä</Link>
+              <Link
+                to="/yhteystiedot"
+                onClick={() => trackEvent("organization_ai_cta", { source: "footer" })}
+              >
+                Rakennetaan tekoälyosaaminen organisaatiollesi
+              </Link>
+            </Button>
+            <Button variant="secondary" size="lg" asChild>
+              <a href="#alkavat-koulutukset">Katso alkavat koulutukset</a>
             </Button>
           </div>
-          <p className="text-sm text-muted-foreground mt-6">
-            Sopisiko yrityksen kehittäminen tilanteeseesi paremmin?{" "}
-            <Link to="/kasvu" className="text-primary hover:underline font-medium">
-              Tutustu Kasvu-reittiin →
-            </Link>
+
+          <div className="mt-10 border-t border-border pt-6">
+            <h3 className="font-bold text-foreground mb-2">
+              Etsitkö laajemmin johtamisen kehittämistä?
+            </h3>
+            <p className="text-sm text-muted-foreground mb-4 max-w-2xl">
+              KeudaPRO tarjoaa tekoälyjohtamisen lisäksi myös muuta johtamisen, esihenkilötyön ja
+              organisaatioiden kehittämisen koulutus- ja valmennustarjontaa.
+            </p>
+            <Button
+              variant="outline"
+              onClick={() => {
+                trackEvent("leadership_crosslink_click", { source: "footer" });
+                window.dispatchEvent(
+                  new CustomEvent("aly-category-open", { detail: { id: "esihenkilo-johtaminen" } }),
+                );
+              }}
+            >
+              Tutustu johtamisen tarjontaan →
+            </Button>
+          </div>
+
+          <p className="mt-8 text-xs text-muted-foreground">
+            KeudaPRO (Keuda Koulutuspalvelut Oy) on Keski-Uudenmaan koulutuskuntayhtymä Keudan
+            omistama yhtiö, joka vastaa työelämän koulutus- ja valmennuspalveluista.
           </p>
         </div>
       </section>

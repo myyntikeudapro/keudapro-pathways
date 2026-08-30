@@ -1,55 +1,55 @@
 const faqs = [
   {
-    question: "Mistä esihenkilö saa tekoälykoulutusta KUUMA-seudulla?",
+    question: "Mikä tekoälypätevyys sopii minulle?",
     answer:
-      "KeudaPRO tarjoaa esihenkilöille ja johdolle tekoälypätevyys-ohjelmat AI-Director, AI-Manager ja AI-Coordinator KUUMA-seudulla (Hyvinkää, Järvenpää, Kerava, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula). Koulutukset yhdistävät johtamisen kehittämisen ja käytännön tekoälytyökalut. Voit aloittaa yksittäisellä esihenkilöllä tai kouluttaa koko johtoryhmän.",
+      "Oikea taso valitaan roolin, nykyisen tekoälyn käytön ja vastuun laajuuden perusteella. Jos työskentelet pääosin oman työsi ja tiimisi kanssa, AI Coordinator on tyypillinen lähtötaso. Jos vastaat useiden ihmisten tai prosessien kehittämisestä, AI Manager sopii paremmin, ja strategisista linjauksista vastaavalle AI Director. Sivun testi ”Mikä tekoälyrooli sinulle sopii?” antaa suuntaa-antavan suosituksen.",
   },
   {
-    question: "Miten tekoälyn saa osaksi johtamista ja päätöksentekoa?",
+    question: "Mikä on AI Coordinator eli tekoälykoordinaattori?",
     answer:
-      "Tekoäly tuodaan johtamiseen vaiheittain: ensin tunnistetaan päätöksenteon pullonkaulat ja tietolähteet, sitten rakennetaan käytännön työnkulut esimerkiksi raportointiin, viestintään ja resursointiin. AI-Manager-ohjelmassa harjoitellaan konkreettisia työkaluja omassa työssä – ei teoriaa. Kesto on tyypillisesti 3–6 kuukautta ja etenee omassa organisaatiossasi.",
+      "Tekoälykoordinaattori hyödyntää tekoälyä käytännössä omassa työssään: tunnistaa käyttökohteita, rakentaa AI-apureita ja agentteja, kehittää työnkulkuja ja tukee muita tekoälyn käytössä vastuullisesti. Rooli on käytännön soveltaja ja organisaation sisäinen edistäjä.",
   },
   {
-    question: "Sopiiko tekoälykoulutus asiantuntijalle ilman teknistä taustaa?",
+    question: "Tarvitseeko tekoälykoordinaattorin olla IT-asiantuntija?",
     answer:
-      "Kyllä. AI-Coordinator ja alakohtainen Tekoälyn ammattiosaaja on suunnattu asiantuntijoille, jotka käyttävät tekoälyä työssään ilman koodaustaustaa. Painopiste on työn arjen käyttötapauksissa: kirjoittaminen, analyysi, tiedonhaku, asiakasviestintä. Aiempaa teknistä osaamista ei vaadita.",
+      "Ei tarvitse. Ohjelma on suunnattu asiantuntijoille, esihenkilöille ja kehittäjille, jotka haluavat hyödyntää tekoälyä oman työnsä näkökulmasta. Teknistä taustaa ei edellytetä, vaan osaaminen rakennetaan omien työtehtävien kautta.",
   },
   {
-    question: "Kuinka pitkä ÄLY-koulutus on ja miten se etenee?",
+    question: "Mitä eroa on AI Coordinatorilla ja AI Managerilla?",
     answer:
-      "ÄLY-ohjelmat rakentuvat neljästä osasta: ajattelu, taidot, työkalut ja kulttuuri. Lyhyet valmennukset kestävät 1–2 päivää, laajemmat pätevyyspolut 3–9 kuukautta. Toteutus tapahtuu KUUMA-seudulla, hybridinä tai kokonaan verkossa, ja jokainen osallistuja soveltaa oppeja omaan työhönsä valmennusten välillä.",
+      "Ero on vastuun laajuudessa. AI Coordinator käyttää ja soveltaa tekoälyä omassa työssään ja tiimissään sekä rakentaa käytännön ratkaisuja. AI Manager vie tekoälyn käytön yksittäisistä kokeiluista osaksi toimintaa: kehittää prosesseja, johtaa käyttöönottoa ja rakentaa osaamista laajemmin organisaatiossa.",
   },
   {
-    question: "Voiko työnantaja tilata tekoälykoulutuksen koko tiimille?",
+    question: "Kenelle AI Director sopii?",
     answer:
-      "Kyllä. KeudaPRO räätälöi tekoäly- ja johtamiskoulutuksia yrityksille, kunnille ja julkishallinnon organisaatioille KUUMA-seudulla, Uudellamaalla ja koko Suomessa. Tyypillinen tilausvalmennus alkaa nykytilan kartoituksesta ja päättyy mitattaviin käyttötapauksiin. Ota yhteyttä yhden yhteyshenkilön kautta – teemme kokonaisehdotuksen.",
+      "AI Director on tarkoitettu ylimmälle johdolle: toimitusjohtajille, johtoryhmän jäsenille ja liiketoimintajohdolle. Näkökulma on strateginen – miten tekoäly muuttaa liiketoimintaa, mihin investoidaan, millaista osaamista tarvitaan sekä millaisia riskejä ja vastuita syntyy.",
   },
   {
-    question: "Mitä turvallisuusjohtaminen tarkoittaa ÄLY-kokonaisuudessa?",
+    question: "Opiskellaanko koulutuksissa ChatGPT:tä?",
     answer:
-      "Turvallisuusjohtamisen koulutukset kattavat tietoturvan, tekoälyn vastuullisen käytön sekä muutosjohtamisen turvallisuusnäkökulmat. Ne on suunnattu erityisesti julkisen sektorin ja kriittisten alojen johdolle Uudellamaalla. Sisältö täyttää suomalaisen ja EU-lainsäädännön (esim. AI Act) vaatimukset.",
+      "Työkaluja käytetään, mutta tavoite on laajempi kuin yksittäisen työkalun opettelu. Opit ymmärtämään, mitä tekoälyllä kannattaa tehdä, soveltamaan sitä omassa työssäsi ja toimimaan omalla vastuutasollasi myös silloin kun työkalut muuttuvat.",
+  },
+  {
+    question: "Rakennetaanko koulutuksissa AI-agentteja?",
+    answer:
+      "Kyllä. AI Coordinator -tasolla harjoitellaan AI-apureiden ja agenttien käyttöä ja rakentamista omaan työhön. AI Manager -tasolla painopiste siirtyy automaatioiden ja agenttien kehittämiseen osana prosesseja ja laajempia kokonaisuuksia.",
+  },
+  {
+    question: "Voiko tekoälypätevyyksistä rakentaa organisaation yhteisen osaamispolun?",
+    answer:
+      "Kyllä. Tasot muodostavat mallin, jossa koko henkilöstöllä on riittävä perusymmärrys, asiantuntijat toimivat soveltajina, päälliköt ja kehittäjät vastaavat käyttöönotosta ja johto tekee strategiset linjaukset. Suunnittelemme kokonaisuuden yhdessä organisaationne kanssa.",
   },
 ];
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({
-    "@type": "Question",
-    name: f.question,
-    acceptedAnswer: { "@type": "Answer", text: f.answer },
-  })),
-};
-
 export function AlyFAQ() {
   return (
-    <section id="faq" className="keuda-section">
+    <section id="faq" className="keuda-section" style={{ scrollMarginTop: 110 }}>
       <div className="keuda-container">
         <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-3">
-          Usein kysyttyä
+          Usein kysyttyä tekoälypätevyyksistä
         </h2>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-8">
-          Yleisimmät kysymykset johtamisen, asiantuntijuuden ja tekoälyn koulutuksista.
+          AI Coordinator, AI Manager ja AI Director – yleisimmät kysymykset ja vastaukset.
         </p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mt-8">
@@ -61,17 +61,10 @@ export function AlyFAQ() {
               <h3 className="font-semibold text-foreground text-sm leading-snug mb-2">
                 {faq.question}
               </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {faq.answer}
-              </p>
+              <p className="text-xs text-muted-foreground leading-relaxed">{faq.answer}</p>
             </div>
           ))}
         </div>
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-        />
       </div>
     </section>
   );
