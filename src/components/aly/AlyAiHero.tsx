@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AI_LEVELS } from "./aiLevels";
 import { trackEvent } from "@/lib/analytics";
-import heroImg from "@/assets/hero-aly-1.jpg";
+import heroImg from "@/assets/contact-team-bg.jpg";
 
 function scrollToId(id: string) {
   const el = document.getElementById(id);
@@ -16,7 +16,7 @@ export function AlyAiHero() {
     <section className="relative overflow-hidden bg-foreground">
       <img
         src={heroImg}
-        alt="Työyhteisö kehittää tekoälyn käyttöä yhdessä"
+        alt="Tiimi kehittää työtään yhdessä"
         className="absolute inset-0 w-full h-full object-cover opacity-25"
         style={{ objectPosition: "center 35%" }}
       />
@@ -86,7 +86,7 @@ export function AlyAiHero() {
           <Button
             size="lg"
             variant="outline"
-            className="border-background/50 text-background hover:bg-background/15 hover:text-background bg-transparent"
+            className="border-background/50 text-background hover:bg-background/15 hover:text-background bg-transparent h-auto whitespace-normal py-3 text-center"
             onClick={() => {
               trackEvent("organization_ai_cta", { source: "hero" });
               scrollToId("organisaatioille");
