@@ -81,6 +81,9 @@ const InsightPage = () => {
       <AlyOrgArchitecture />
       <AlyHowLearning />
       <AlyToolsVsQualification />
+      <AlyTestimonials />
+
+
 
       {/* Alkavat koulutukset – suorat, crawlattavat linkit ohjelmasivuille */}
       <section id="alkavat-koulutukset" style={{ scrollMarginTop: 110 }} className="py-12 md:py-16 bg-muted/40">
