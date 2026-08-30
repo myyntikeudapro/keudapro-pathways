@@ -43,12 +43,19 @@ const faqs = [
 
 export function AlyFAQ() {
   return (
-    <section id="faq" className="keuda-section" style={{ scrollMarginTop: 110 }}>
+    <section
+      id="faq"
+      className="py-16 md:py-24 bg-muted/40 border-y border-border/60"
+      style={{ scrollMarginTop: 110 }}
+    >
       <div className="keuda-container">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary text-center mb-3">
+          Usein kysyttyä
+        </p>
+        <h2 className="text-2xl md:text-4xl font-bold text-foreground text-center mb-3 tracking-tight">
           Usein kysyttyä tekoälypätevyyksistä
         </h2>
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-8">
+        <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-8 md:text-lg">
           AI Coordinator, AI Manager ja AI Director – yleisimmät kysymykset ja vastaukset.
         </p>
 
@@ -56,12 +63,12 @@ export function AlyFAQ() {
           {faqs.map((faq) => (
             <div
               key={faq.question}
-              className="rounded-xl border border-border bg-card p-5 hover:border-primary/40 transition-all hover:shadow-lg"
+              className="rounded-xl border border-border bg-card p-5 shadow-[var(--shadow-card)] hover:border-primary/40 hover:-translate-y-1 transition-all hover:shadow-[var(--shadow-card-hover)]"
             >
-              <h3 className="font-semibold text-foreground text-sm leading-snug mb-2">
+              <h3 className="font-bold text-foreground text-base leading-snug mb-2">
                 {faq.question}
               </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">{faq.answer}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
             </div>
           ))}
         </div>

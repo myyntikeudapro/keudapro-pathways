@@ -26,9 +26,12 @@ export function AlyLeadershipBridge() {
   };
 
   return (
-    <section id="johtaminen" style={{ scrollMarginTop: 110 }} className="py-12 md:py-16">
+    <section id="johtaminen" style={{ scrollMarginTop: 110 }} className="py-14 md:py-20">
       <div className="keuda-container max-w-4xl">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+          Johtaminen
+        </p>
+        <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4 tracking-tight">
           Tekoäly muuttaa myös johtamista
         </h2>
         <p className="text-muted-foreground leading-relaxed mb-6 max-w-3xl">
@@ -44,7 +47,7 @@ export function AlyLeadershipBridge() {
               key={h.id}
               type="button"
               onClick={() => open(h.id)}
-              className="text-left rounded-xl border border-border bg-card p-4 hover:border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="text-left rounded-xl border border-border bg-card p-4 shadow-[var(--shadow-card)] hover:border-primary hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <h3 className="font-bold text-foreground mb-1">{h.title}</h3>
               <p className="text-sm text-muted-foreground">{h.text}</p>
