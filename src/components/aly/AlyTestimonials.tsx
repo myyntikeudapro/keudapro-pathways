@@ -52,6 +52,13 @@ const TESTIMONIALS: Testimonial[] = [
     org: "Ammattikorkeakoulu",
     program: "Tekoälykoordinaattori-pätevyys",
   },
+  {
+    quote:
+      "Päätin osallistua omalla kustannuksellani. Se osoittautui erinomaiseksi sijoitukseksi: sain uusia näkökulmia, konkreettisia työkaluja ja varmuutta hyödyntää tekoälyä omassa työssäni.",
+    name: "Esihenkilö",
+    org: "Sote-ala",
+    program: "Tekoälykoordinaattori-pätevyys",
+  },
 ];
 
 export function AlyTestimonials() {
