@@ -4,20 +4,25 @@ import { trackEvent } from "@/lib/analytics";
 
 export function AlyDefinition() {
   return (
-    <section className="py-12 md:py-16">
-      <div className="keuda-container max-w-3xl">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-          Mitä tekoälypätevyys tarkoittaa?
-        </h2>
-        <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-          KeudaPROn tekoälypätevyydet ovat työelämälähtöisiä koulutusohjelmia, joissa osaamista
-          rakennetaan oman työn ja vastuun näkökulmasta. Tavoitteena ei ole opetella vain yhtä
-          työkalua, vaan kehittää kykyä käyttää, soveltaa, kehittää ja johtaa tekoälyä työelämässä.
-        </p>
-        <p className="mt-4 text-sm text-muted-foreground">
-          Tekoälypätevyydet ovat KeudaPROn omia koulutusohjelmia. Ne eivät ole viranomaisen
-          määrittelemiä tai lakisääteisiä pätevyyksiä.
-        </p>
+    <section className="py-14 md:py-20">
+      <div className="keuda-container">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+            Tekoälyosaaminen
+          </p>
+          <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-5 tracking-tight">
+            Mitä tekoälypätevyys tarkoittaa?
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+            KeudaPROn tekoälypätevyydet ovat työelämälähtöisiä koulutusohjelmia, joissa osaamista
+            rakennetaan oman työn ja vastuun näkökulmasta. Tavoitteena ei ole opetella vain yhtä
+            työkalua, vaan kehittää kykyä käyttää, soveltaa, kehittää ja johtaa tekoälyä työelämässä.
+          </p>
+          <p className="mt-5 text-sm text-muted-foreground">
+            Tekoälypätevyydet ovat KeudaPROn omia koulutusohjelmia. Ne eivät ole viranomaisen
+            määrittelemiä tai lakisääteisiä pätevyyksiä.
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -25,34 +30,47 @@ export function AlyDefinition() {
 
 export function AlyLevels() {
   return (
-    <section id="tekoalypatevyydet" className="py-12 md:py-16 bg-[#E4F0EE]" style={{ scrollMarginTop: 110 }}>
+    <section
+      id="tekoalypatevyydet"
+      className="py-14 md:py-20 bg-accent/60 border-y border-border/60"
+      style={{ scrollMarginTop: 110 }}
+    >
       <div className="keuda-container">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
-          Kolme tekoälypätevyyttä
-        </h2>
+        <div className="max-w-3xl mb-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+            Pätevyyspolku
+          </p>
+          <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-tight">
+            Kolme tekoälypätevyyttä
+          </h2>
+        </div>
 
-        <div className="flex flex-col gap-6">
-          {AI_LEVELS.map((level) => (
+        <div className="flex flex-col gap-6 md:gap-8">
+          {AI_LEVELS.map((level, i) => (
             <article
               key={level.id}
               id={level.anchor}
               style={{ scrollMarginTop: 110 }}
-              className="rounded-2xl border border-border bg-card overflow-hidden md:flex"
+              className="group rounded-2xl border border-border bg-card overflow-hidden md:flex shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1 hover:border-primary/30 transition-all duration-300"
             >
-              <div className="md:w-64 md:shrink-0">
+              <div className="md:w-72 md:shrink-0 relative overflow-hidden">
                 <img
                   src={level.image}
                   alt={`${level.name} – ${level.fi} -koulutus`}
                   loading="lazy"
-                  className="w-full h-40 md:h-full object-cover"
+                  className="w-full h-44 md:h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 />
+                <span className="absolute top-4 left-4 inline-flex items-center justify-center w-9 h-9 rounded-full bg-foreground/85 text-background text-sm font-bold backdrop-blur-sm">
+                  {i + 1}
+                </span>
               </div>
-              <div className="p-5 md:p-7 flex-1">
-                <h3 className="text-xl md:text-2xl font-bold text-foreground">
+              <div className="p-6 md:p-8 flex-1">
+                <h3 className="text-xl md:text-2xl font-bold text-foreground tracking-tight">
                   {level.name} – {level.fi}
                 </h3>
-                <p className="text-primary font-semibold mb-3">{level.promise}</p>
-                <p className="text-muted-foreground leading-relaxed mb-4">{level.intro}</p>
+                <p className="text-primary font-semibold mb-4">{level.promise}</p>
+                <p className="text-muted-foreground leading-relaxed mb-5">{level.intro}</p>
+
 
                 <div className="grid sm:grid-cols-2 gap-5 mb-5">
                   <div>
