@@ -109,7 +109,9 @@ export function AlyTestimonials() {
           <CarouselContent>
             {TESTIMONIALS.map((t) => (
               <CarouselItem key={t.quote} className="md:basis-1/2">
-                <figure className="h-full flex flex-col rounded-2xl border border-background/15 bg-background/5 p-6 md:p-8 backdrop-blur-sm">
+                <figure className="group relative h-full flex flex-col rounded-2xl border border-background/15 bg-background/5 p-6 md:p-8 backdrop-blur-sm overflow-hidden">
+                  <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-primary to-primary/40" aria-hidden="true" />
+                  <span className="absolute left-0 top-0 bottom-0 w-1 bg-primary/80 group-hover:bg-primary transition-colors" aria-hidden="true" />
                   <div className="flex items-center gap-1 mb-4" aria-label="5/5 tähteä">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star
@@ -129,7 +131,7 @@ export function AlyTestimonials() {
                       <span className="block font-bold text-background">{t.name}</span>
                       <span className="block text-sm text-background/60">{t.org}</span>
                     </figcaption>
-                    <span className="mt-3 inline-block text-xs font-semibold tracking-wide text-primary">
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-primary bg-primary/10 px-2 py-1 rounded-full">
                       {t.program}
                     </span>
                   </div>
