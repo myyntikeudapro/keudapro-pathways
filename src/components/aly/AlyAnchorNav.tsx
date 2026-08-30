@@ -3,6 +3,7 @@ const links = [
   { id: "vertaa-tasoja", label: "Vertaa tasoja" },
   { id: "loyda-oma-tasosi", label: "Löydä oma tasosi" },
   { id: "organisaatioille", label: "Organisaatioille" },
+  { id: "referenssit", label: "Asiakaspalaute" },
   { id: "alkavat-koulutukset", label: "Alkavat koulutukset" },
 ];
 
