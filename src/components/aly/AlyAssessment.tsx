@@ -129,9 +129,9 @@ export function AlyAssessment() {
   const next = result ? NEXT_STEP[result] : undefined;
 
   return (
-    <section id="loyda-oma-tasosi" style={{ scrollMarginTop: 110 }} className="py-14 md:py-20 bg-[#E4F0EE]">
+    <section id="loyda-oma-tasosi" style={{ scrollMarginTop: 110 }} className="py-16 md:py-24 bg-accent/60 border-y border-border/60">
       <div className="keuda-container max-w-3xl">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+        <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-3 tracking-tight">
           Mikä tekoälyrooli sinulle sopii?
         </h2>
         <p className="text-muted-foreground mb-8">
@@ -141,7 +141,7 @@ export function AlyAssessment() {
 
         <div className="flex flex-col gap-6">
           {QUESTIONS.map((q) => (
-            <fieldset key={q.id} className="rounded-xl border border-border bg-card p-4 md:p-5">
+            <fieldset key={q.id} className="rounded-2xl border border-border bg-card p-5 md:p-6 shadow-[var(--shadow-card)]">
               <legend className="font-semibold text-foreground px-1">{q.title}</legend>
               <div className="mt-3 grid gap-2 sm:grid-cols-2">
                 {q.options.map((opt, i) => {
@@ -189,7 +189,7 @@ export function AlyAssessment() {
             role="status"
             aria-live="polite"
             style={{ scrollMarginTop: 110 }}
-            className="mt-8 rounded-2xl border-2 border-primary bg-card p-5 md:p-7"
+            className="mt-8 rounded-2xl border-2 border-primary bg-card p-6 md:p-8 shadow-[var(--shadow-card-hover)]"
           >
             <p className="text-sm font-semibold text-primary mb-1">Suositeltu lähtötasosi</p>
             <h3 className="text-2xl font-bold text-foreground mb-3">

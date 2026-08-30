@@ -351,7 +351,7 @@ export function AlyCategoryAccordion() {
     });
 
   return (
-    <section id="aly-kategoriat" className="py-16 md:py-20 bg-[#E4F0EE]">
+    <section id="aly-kategoriat" className="py-16 md:py-20 bg-accent/60 border-y border-border/60">
       <div className="keuda-container">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">

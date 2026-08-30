@@ -10,7 +10,7 @@ export function AlyAnchorNav() {
   return (
     <nav
       aria-label="Sivun osiot"
-      className="border-b border-border bg-background/95 backdrop-blur sticky top-16 z-30"
+      className="border-b border-border bg-background/95 backdrop-blur sticky top-16 z-30 shadow-sm"
     >
       <div className="keuda-container">
         <ul className="flex gap-2 overflow-x-auto py-3 text-sm">
