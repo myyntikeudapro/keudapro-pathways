@@ -72,18 +72,18 @@ export function AlyLevels() {
                 <p className="text-muted-foreground leading-relaxed mb-5">{level.intro}</p>
 
 
-                <div className="grid sm:grid-cols-2 gap-5 mb-5">
+                <div className="grid sm:grid-cols-2 gap-5 mb-5 rounded-xl bg-muted/50 p-4 md:p-5">
                   <div>
-                    <h4 className="text-sm font-bold text-foreground mb-2">Kenelle</h4>
-                    <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-4">
+                    <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary mb-2">Kenelle</h4>
+                    <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-4 marker:text-primary/50">
                       {level.audience.map((a) => (
                         <li key={a}>{a}</li>
                       ))}
                     </ul>
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-foreground mb-2">Mitä osaaminen tarkoittaa</h4>
-                    <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-4">
+                    <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary mb-2">Mitä osaaminen tarkoittaa</h4>
+                    <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-4 marker:text-primary/50">
                       {level.content.map((c) => (
                         <li key={c}>{c}</li>
                       ))}
@@ -91,9 +91,10 @@ export function AlyLevels() {
                   </div>
                 </div>
 
-                <blockquote className="border-l-4 border-primary pl-4 text-sm text-foreground mb-5">
+                <blockquote className="border-l-2 border-primary pl-4 text-sm text-foreground/90 mb-6">
                   Tämä voi olla sinun tasosi, jos ajattelet: <em>”{level.quote}”</em>
                 </blockquote>
+
 
                 <Button variant="cta" asChild>
                   <a
