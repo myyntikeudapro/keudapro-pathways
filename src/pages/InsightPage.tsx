@@ -15,6 +15,7 @@ import {
 import { AlyLeadershipBridge } from "@/components/aly/AlyLeadershipBridge";
 import { AlyCategoryAccordion } from "@/components/aly/AlyCategoryAccordion";
 import { AlyFAQ } from "@/components/aly/AlyFAQ";
+import { AlyTestimonials } from "@/components/aly/AlyTestimonials";
 import { AI_LEVELS } from "@/components/aly/aiLevels";
 import { trackEvent } from "@/lib/analytics";
 
@@ -81,6 +82,9 @@ const InsightPage = () => {
       <AlyOrgArchitecture />
       <AlyHowLearning />
       <AlyToolsVsQualification />
+      <AlyTestimonials />
+
+
 
       {/* Alkavat koulutukset – suorat, crawlattavat linkit ohjelmasivuille */}
       <section id="alkavat-koulutukset" style={{ scrollMarginTop: 110 }} className="py-12 md:py-16 bg-muted/40">
