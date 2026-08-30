@@ -159,16 +159,17 @@ export function AlyComparison() {
             <tbody>
               {rows.map((r, i) => (
                 <tr key={r.label} className={i % 2 ? "bg-muted/40" : "bg-card"}>
-                  <th scope="row" className="text-left p-3 font-semibold text-foreground">
+                  <th scope="row" className="text-left p-4 font-semibold text-foreground">
                     {r.label}
                   </th>
-                  <td className="p-3 text-muted-foreground">{r.c}</td>
-                  <td className="p-3 text-muted-foreground">{r.m}</td>
-                  <td className="p-3 text-muted-foreground">{r.d}</td>
+                  <td className="p-4 text-muted-foreground">{r.c}</td>
+                  <td className="p-4 text-muted-foreground">{r.m}</td>
+                  <td className="p-4 text-muted-foreground">{r.d}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+
         </div>
 
         {/* Mobiili: kortit */}
