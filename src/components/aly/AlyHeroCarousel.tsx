@@ -74,6 +74,7 @@ export function AlyHeroCarousel() {
             variant="cta"
             size="xl"
             asChild
+            className="keuda-cta-wrap max-w-full"
           >
             <a
               href={slides[current].href}

@@ -314,7 +314,7 @@ export function AlySolutionCategories() {
                 {prog.hasComingSoon && <ComingSoonBox />}
 
                 {/* CTA */}
-                <Button variant="cta" size="lg" asChild className="w-full mt-4">
+                <Button variant="cta" size="lg" asChild className="w-full mt-4 keuda-cta-wrap">
                   <a href={prog.ctaHref}>{prog.ctaText}</a>
                 </Button>
               </div>

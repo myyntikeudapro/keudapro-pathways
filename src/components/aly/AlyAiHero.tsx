@@ -84,7 +84,7 @@ export function AlyAiHero() {
           <Button
             variant="cta"
             size="lg"
-            className="w-full md:w-auto shadow-lg shadow-black/20"
+            className="w-full md:w-auto shadow-lg shadow-black/20 keuda-cta-wrap"
             onClick={() => {
               trackEvent("ai_assessment_start", { source: "hero" });
               scrollToId("loyda-oma-tasosi");
@@ -95,7 +95,7 @@ export function AlyAiHero() {
           <Button
             size="lg"
             variant="outline"
-            className="w-full md:w-auto border border-background/25 bg-transparent text-background hover:bg-background/10 hover:text-background"
+            className="w-full md:w-auto border border-background/25 bg-transparent text-background hover:bg-background/10 hover:text-background keuda-cta-wrap"
             onClick={() => scrollToId("tekoalypatevyydet")}
           >
             Katso tekoälypätevyydet
