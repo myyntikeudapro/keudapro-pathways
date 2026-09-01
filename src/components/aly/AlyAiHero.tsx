@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AI_LEVELS } from "./aiLevels";
 import { trackEvent } from "@/lib/analytics";
-import heroImg from "@/assets/contact-team-bg.jpg";
+import heroImg from "@/assets/hero-ai-coaches.jpg";
 
 function scrollToId(id: string) {
   const el = document.getElementById(id);
@@ -16,9 +16,9 @@ export function AlyAiHero() {
     <section className="relative overflow-hidden bg-foreground">
       <img
         src={heroImg}
-        alt="Tiimi kehittää työtään yhdessä"
+        alt="Ana ja Veli, KeudaPROn tekoälyvalmentajat"
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ objectPosition: "center 35%" }}
+        style={{ objectPosition: "center 25%" }}
       />
       <div
         aria-hidden="true"
