@@ -93,7 +93,7 @@ export function AlyTestimonials() {
     >
       <div className="keuda-container">
         <div className="text-center mb-10 md:mb-12">
-          <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-keuda-orange-deep mb-3">
+          <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-keuda-blue-light mb-3">
             Asiakaspalaute
           </span>
           <h2
@@ -129,7 +129,7 @@ export function AlyTestimonials() {
                       />
                     ))}
                   </div>
-                  <Quote className="h-7 w-7 text-keuda-orange-deep mb-3" aria-hidden="true" />
+                  <Quote className="h-7 w-7 text-keuda-blue-light mb-3" aria-hidden="true" />
                   <blockquote className="text-base md:text-lg font-medium leading-relaxed text-background flex-1">
                     {t.quote}
                   </blockquote>

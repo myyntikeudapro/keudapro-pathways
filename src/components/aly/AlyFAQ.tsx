@@ -49,7 +49,7 @@ export function AlyFAQ() {
       style={{ scrollMarginTop: 110 }}
     >
       <div className="keuda-container">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-keuda-orange-deep text-center mb-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-keuda-blue text-center mb-3">
           Usein kysyttyä
         </p>
         <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-3">
