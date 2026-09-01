@@ -194,33 +194,6 @@ const InsightPage = () => {
             </Button>
           </div>
 
-
-          <div className="mt-10 border-t border-border pt-6">
-            <h3 className="font-bold text-foreground mb-2">
-              Etsitkö laajemmin johtamisen kehittämistä?
-            </h3>
-            <p className="text-sm text-muted-foreground mb-4 max-w-2xl">
-              KeudaPRO tarjoaa tekoälyjohtamisen lisäksi myös muuta johtamisen, esihenkilötyön ja
-              organisaatioiden kehittämisen koulutus- ja valmennustarjontaa.
-            </p>
-            <Button
-              variant="outline"
-              className="keuda-cta-wrap"
-              onClick={() => {
-                trackEvent("leadership_crosslink_click", { source: "footer" });
-                window.dispatchEvent(
-                  new CustomEvent("aly-category-open", { detail: { id: "esihenkilo-johtaminen" } }),
-                );
-              }}
-            >
-              Tutustu johtamisen tarjontaan →
-            </Button>
-          </div>
-
-          <p className="mt-8 text-xs text-muted-foreground">
-            KeudaPRO (Keuda Koulutuspalvelut Oy) on Keski-Uudenmaan koulutuskuntayhtymä Keudan
-            omistama yhtiö, joka vastaa työelämän koulutus- ja valmennuspalveluista.
-          </p>
         </div>
       </section>
     </Layout>
