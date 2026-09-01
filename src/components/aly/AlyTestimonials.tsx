@@ -93,7 +93,7 @@ export function AlyTestimonials() {
     >
       <div className="keuda-container">
         <div className="text-center mb-10 md:mb-12">
-          <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-3">
+          <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-keuda-orange mb-3">
             Asiakaspalaute
           </span>
           <h2

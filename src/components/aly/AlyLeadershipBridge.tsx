@@ -5,7 +5,7 @@ export function AlyLeadershipBridge() {
     <section id="johtaminen" style={{ scrollMarginTop: 110 }} className="py-14 md:py-20">
       <div className="keuda-container">
         <div className="max-w-4xl mx-auto">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-keuda-orange mb-3">
             Koulutukset
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
