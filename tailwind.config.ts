@@ -68,6 +68,7 @@ export default {
           orange: "hsl(var(--keuda-orange))",
           "orange-light": "hsl(var(--keuda-orange-light))",
           "orange-deep": "hsl(var(--keuda-orange-deep))",
+          "navy-section": "hsl(var(--keuda-navy-section))",
         },
       },
       borderRadius: {
