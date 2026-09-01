@@ -165,7 +165,7 @@ export function AlyComparison() {
     >
       <div className="keuda-container">
         <div className="max-w-3xl mb-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-keuda-orange mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-keuda-blue-light mb-3">
             Vertailu
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground">
