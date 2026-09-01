@@ -10,7 +10,7 @@ export function AlyDefinition() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
             Tekoälyosaaminen
           </p>
-          <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-5 tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
             Mitä tekoälypätevyys tarkoittaa?
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
@@ -40,7 +40,7 @@ export function AlyLevels() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
             Pätevyyspolku
           </p>
-          <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground">
             Kolme tekoälypätevyyttä
           </h2>
         </div>
@@ -51,7 +51,7 @@ export function AlyLevels() {
               key={level.id}
               id={level.anchor}
               style={{ scrollMarginTop: 110 }}
-              className="group rounded-2xl border-2 border-border bg-card overflow-hidden md:flex shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1 hover:border-primary/50 transition-all duration-300"
+              className="group rounded-xl border-2 border-border bg-card overflow-hidden md:flex shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1 hover:border-primary/50 transition-all duration-300"
             >
               <div className="md:w-72 md:shrink-0 relative overflow-hidden">
                 <img
@@ -75,7 +75,7 @@ export function AlyLevels() {
                     Taso {i + 1} / 3
                   </span>
                 </div>
-                <h3 className="text-xl md:text-3xl font-bold text-foreground tracking-tight">
+                <h3 className="text-xl md:text-2xl font-bold text-foreground">
                   {level.name} – {level.fi}
                 </h3>
                 <p className="text-primary font-semibold mb-4 mt-1">{level.promise}</p>
@@ -146,13 +146,13 @@ export function AlyComparison() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
             Vertailu
           </p>
-          <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground">
             Miten tasot eroavat toisistaan?
           </h2>
         </div>
 
         {/* Desktop: taulukko */}
-        <div className="hidden md:block overflow-hidden rounded-2xl border border-border shadow-[var(--shadow-card)]">
+        <div className="hidden md:block overflow-hidden rounded-xl border border-border shadow-[var(--shadow-card)]">
           <table className="w-full text-sm">
             <caption className="sr-only">
               AI Coordinator-, AI Manager- ja AI Director -tasojen vertailu

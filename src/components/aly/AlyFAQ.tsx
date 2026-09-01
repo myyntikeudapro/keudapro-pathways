@@ -52,7 +52,7 @@ export function AlyFAQ() {
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary text-center mb-3">
           Usein kysyttyä
         </p>
-        <h2 className="text-2xl md:text-4xl font-bold text-foreground text-center mb-3 tracking-tight">
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-3">
           Usein kysyttyä tekoälypätevyyksistä
         </h2>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-8 md:text-lg">

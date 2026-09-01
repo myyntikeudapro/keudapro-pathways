@@ -53,7 +53,7 @@ export function AlyAiHero() {
               <button
                 type="button"
                 onClick={() => scrollToId(level.anchor)}
-                className="group w-full h-full text-left rounded-2xl border-2 border-background/25 bg-foreground/50 hover:bg-foreground/70 hover:border-background/60 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background p-5 transition-all duration-300 shadow-lg shadow-black/20"
+                className="group w-full h-full text-left rounded-xl border-2 border-background/25 bg-foreground/50 hover:bg-foreground/70 hover:border-background/60 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background p-5 transition-all duration-300 shadow-lg shadow-black/20"
               >
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-background text-foreground text-base font-extrabold mb-3 shadow-md">
                   {i + 1}

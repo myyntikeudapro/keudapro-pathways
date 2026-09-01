@@ -354,7 +354,7 @@ export function AlyCategoryAccordion() {
     <section id="aly-kategoriat" className="py-16 md:py-20 bg-accent/60 border-y border-border/60">
       <div className="keuda-container">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Mitä koulutusta etsit?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

@@ -37,7 +37,7 @@ export function AlyOrgArchitecture() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-background/60 mb-3">
             Organisaatioille
           </p>
-          <h2 className="text-2xl md:text-4xl font-bold text-background mb-4 tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-background mb-4">
             Entä jos tekoälyosaamista pitää rakentaa koko organisaatioon?
           </h2>
           <p className="text-background/75 leading-relaxed md:text-lg">
@@ -51,7 +51,7 @@ export function AlyOrgArchitecture() {
           {tiers.map((t, i) => (
             <li
               key={t.name}
-              className="rounded-2xl border-2 border-background/20 bg-background/10 p-5 md:p-6 hover:bg-background/15 hover:border-background/40 transition-colors"
+              className="rounded-xl border-2 border-background/20 bg-background/10 p-5 md:p-6 hover:bg-background/15 hover:border-background/40 transition-colors"
             >
               <div className="flex flex-wrap items-center gap-x-3">
                 <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-background text-foreground text-sm font-extrabold">
@@ -88,7 +88,7 @@ export function AlyHowLearning() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
             Oppimistapa
           </p>
-          <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4 tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Tekoälyä opitaan tekemällä
           </h2>
           <p className="text-muted-foreground mb-8 leading-relaxed md:text-lg">
@@ -125,7 +125,7 @@ export function AlyToolsVsQualification() {
     <section className="py-12 md:py-16 bg-muted/40 border-y border-border/60">
       <div className="keuda-container">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-xl md:text-3xl font-bold text-foreground mb-4 tracking-tight">
+          <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">
             Tekoälykoulutus vai tekoälypätevyys?
           </h2>
           <p className="text-muted-foreground leading-relaxed md:text-lg">

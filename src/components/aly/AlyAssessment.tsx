@@ -134,7 +134,7 @@ export function AlyAssessment() {
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
           Tasotesti
         </p>
-        <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-3 tracking-tight">
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
           Mikä tekoälyrooli sinulle sopii?
         </h2>
         <p className="text-muted-foreground mb-8 md:text-lg">
@@ -144,7 +144,7 @@ export function AlyAssessment() {
 
         <div className="flex flex-col gap-6">
           {QUESTIONS.map((q) => (
-            <fieldset key={q.id} className="rounded-2xl border border-border bg-card p-5 md:p-6 shadow-[var(--shadow-card)]">
+            <fieldset key={q.id} className="rounded-xl border border-border bg-card p-5 md:p-6 shadow-[var(--shadow-card)]">
               <legend className="sr-only">{q.title}</legend>
               <div className="font-semibold text-foreground mb-3">{q.title}</div>
               <div className="grid gap-2 sm:grid-cols-2">
@@ -193,7 +193,7 @@ export function AlyAssessment() {
             role="status"
             aria-live="polite"
             style={{ scrollMarginTop: 110 }}
-            className="mt-8 rounded-2xl border-2 border-primary bg-card p-6 md:p-8 shadow-[var(--shadow-card-hover)]"
+            className="mt-8 rounded-xl border-2 border-primary bg-card p-6 md:p-8 shadow-[var(--shadow-card-hover)]"
           >
             <p className="text-sm font-semibold text-primary mb-1">Suositeltu lähtötasosi</p>
             <h3 className="text-2xl font-bold text-foreground mb-3">
