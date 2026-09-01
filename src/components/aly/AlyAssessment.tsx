@@ -131,7 +131,7 @@ export function AlyAssessment() {
   return (
     <section id="loyda-oma-tasosi" style={{ scrollMarginTop: 110 }} className="py-16 md:py-24 bg-accent/60 border-y border-border/60">
       <div className="keuda-container max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-keuda-orange mb-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-keuda-orange-deep mb-3">
           Tasotesti
         </p>
         <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
