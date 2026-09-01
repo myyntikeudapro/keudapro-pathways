@@ -98,7 +98,7 @@ export function AlyTestimonials() {
           </span>
           <h2
             id="referenssit-title"
-            className="text-2xl md:text-4xl font-bold text-background mb-3"
+            className="text-2xl md:text-3xl font-bold text-background mb-3"
           >
             Mitä osallistujat sanovat
           </h2>
@@ -116,7 +116,7 @@ export function AlyTestimonials() {
           <CarouselContent>
             {TESTIMONIALS.map((t) => (
               <CarouselItem key={t.quote} className="md:basis-1/2">
-                <figure className="group relative h-full flex flex-col rounded-2xl border border-background/20 bg-background/10 p-6 md:p-8 overflow-hidden">
+                <figure className="group relative h-full flex flex-col rounded-xl border border-background/20 bg-background/10 p-6 md:p-8 overflow-hidden">
                   <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-primary to-primary/40" aria-hidden="true" />
                   <span className="absolute left-0 top-0 bottom-0 w-1 bg-primary/80 group-hover:bg-primary transition-colors" aria-hidden="true" />
                   <div className="flex items-center gap-1 mb-4" aria-label="5/5 tähteä">

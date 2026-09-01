@@ -92,7 +92,7 @@ const InsightPage = () => {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
             Ilmoittautuminen
           </p>
-          <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-3 tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
             Alkavat koulutukset
           </h2>
           <p className="text-muted-foreground mb-6 md:text-lg">
@@ -155,7 +155,7 @@ const InsightPage = () => {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
             Seuraava askel
           </p>
-          <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-4 tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             Millaista tekoälyosaamista sinä tai organisaatiosi tarvitsette?
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-8 max-w-3xl">
