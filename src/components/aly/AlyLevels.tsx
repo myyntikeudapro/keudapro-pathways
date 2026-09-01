@@ -7,7 +7,7 @@ export function AlyDefinition() {
     <section className="py-14 md:py-20">
       <div className="keuda-container">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-keuda-orange mb-3">
             Tekoälyosaaminen
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-5">
@@ -37,7 +37,7 @@ export function AlyLevels() {
     >
       <div className="keuda-container">
         <div className="max-w-3xl mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-keuda-orange mb-3">
             Pätevyyspolku
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground">
@@ -62,16 +62,16 @@ export function AlyLevels() {
                 />
                 <div
                   aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-1.5 bg-primary"
+                  className="absolute inset-x-0 top-0 h-1.5 bg-keuda-orange"
                   style={{ opacity: 0.45 + i * 0.275 }}
                 />
-                <span className="absolute top-4 left-4 inline-flex items-center justify-center w-11 h-11 rounded-full bg-primary text-primary-foreground text-lg font-extrabold shadow-lg ring-4 ring-background/60">
+                <span className="absolute top-4 left-4 inline-flex items-center justify-center w-11 h-11 rounded-full bg-keuda-orange text-foreground text-lg font-extrabold shadow-lg ring-4 ring-background/60">
                   {i + 1}
                 </span>
               </div>
               <div className="p-6 md:p-8 flex-1 border-t-2 md:border-t-0 md:border-l-2 border-primary/20">
                 <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
-                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-keuda-orange">
                     Taso {i + 1} / 3
                   </span>
                 </div>
@@ -84,7 +84,7 @@ export function AlyLevels() {
 
                 <div className="grid sm:grid-cols-2 gap-5 mb-5 rounded-xl border border-border bg-muted/50 p-4 md:p-5">
                   <div>
-                    <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary mb-2">Kenelle</h4>
+                    <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-keuda-orange mb-2">Kenelle</h4>
                     <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-4 marker:text-primary/50">
                       {level.audience.map((a) => (
                         <li key={a}>{a}</li>
@@ -92,7 +92,7 @@ export function AlyLevels() {
                     </ul>
                   </div>
                   <div>
-                    <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary mb-2">Mitä osaaminen tarkoittaa</h4>
+                    <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-keuda-orange mb-2">Mitä osaaminen tarkoittaa</h4>
                     <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-4 marker:text-primary/50">
                       {level.content.map((c) => (
                         <li key={c}>{c}</li>
@@ -161,7 +161,7 @@ export function AlyComparison() {
     <section id="vertaa-tasoja" className="py-14 md:py-20" style={{ scrollMarginTop: 110 }}>
       <div className="keuda-container">
         <div className="max-w-3xl mb-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-keuda-orange mb-3">
             Vertailu
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground">
