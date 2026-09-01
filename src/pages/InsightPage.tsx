@@ -162,19 +162,11 @@ const InsightPage = () => {
             osaa käyttää tekoälyä, kuka kehittää sen käyttöä ja kuka johtaa kokonaisuutta.
           </p>
 
-          <div className="grid gap-4 sm:grid-cols-3 mb-8">
-            {AI_LEVELS.map((l) => (
-              <div key={l.id} className="rounded-xl border border-border bg-card p-4 shadow-[var(--shadow-card)]">
-                <h3 className="font-bold text-foreground">{l.name}</h3>
-                <p className="text-sm text-muted-foreground">{l.promise}.</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
             <Button
               variant="cta"
               size="lg"
+              className="w-full sm:w-auto"
               onClick={() => {
                 trackEvent("ai_assessment_start", { source: "footer" });
                 const el = document.getElementById("loyda-oma-tasosi");
@@ -187,18 +179,21 @@ const InsightPage = () => {
             >
               Löydä oma tasosi
             </Button>
-            <Button variant="outline-primary" size="lg" asChild>
+            <Button
+              variant="outline-primary"
+              size="lg"
+              asChild
+              className="w-full sm:w-auto h-auto min-h-11 whitespace-normal text-center leading-snug py-3"
+            >
               <Link
                 to="/yhteystiedot"
                 onClick={() => trackEvent("organization_ai_cta", { source: "footer" })}
               >
-                Rakennetaan tekoälyosaaminen organisaatiollesi
+                Organisaatiolle: rakennetaan tekoälyosaaminen
               </Link>
             </Button>
-            <Button variant="secondary" size="lg" asChild>
-              <a href="#alkavat-koulutukset">Katso alkavat koulutukset</a>
-            </Button>
           </div>
+
 
           <div className="mt-10 border-t border-border pt-6">
             <h3 className="font-bold text-foreground mb-2">
