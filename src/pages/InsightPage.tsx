@@ -145,9 +145,8 @@ const InsightPage = () => {
 
       <AlyFAQ />
 
-      {/* Silta johtamisen tarjontaan – nykyinen tarjonta säilyy alla olevassa listauksessa */}
+      {/* Koulutustarjonta: tekoälypätevyydet + johtamisen ohjelmat yhdessä osiossa */}
       <AlyLeadershipBridge />
-      <AlyCategoryAccordion />
 
       {/* Sivun loppu */}
       <section className="py-16 md:py-24 bg-primary/5 border-t border-border/60">
