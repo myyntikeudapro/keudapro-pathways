@@ -31,7 +31,7 @@ export function AlyAiHero() {
           </span>
           <h1 className="text-[34px] md:text-5xl lg:text-6xl font-extrabold text-background mb-3 md:mb-5 leading-[1.05] tracking-tight">
             Tekoälypätevyydet{" "}
-            <span className="text-primary">työelämään</span>
+            <span style={{ color: "hsl(var(--keuda-orange))" }}>työelämään</span>
           </h1>
           <p className="text-base md:text-2xl text-background/80 md:text-background/90 leading-relaxed max-w-[300px] md:max-w-2xl">
             Opi käyttämään, kehittämään ja johtamaan tekoälyä.
