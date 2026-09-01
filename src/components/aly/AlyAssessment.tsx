@@ -145,8 +145,9 @@ export function AlyAssessment() {
         <div className="flex flex-col gap-6">
           {QUESTIONS.map((q) => (
             <fieldset key={q.id} className="rounded-2xl border border-border bg-card p-5 md:p-6 shadow-[var(--shadow-card)]">
-              <legend className="font-semibold text-foreground px-1">{q.title}</legend>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              <legend className="sr-only">{q.title}</legend>
+              <div className="font-semibold text-foreground mb-3">{q.title}</div>
+              <div className="grid gap-2 sm:grid-cols-2">
                 {q.options.map((opt, i) => {
                   const selected = answers[q.id] === i;
                   return (
