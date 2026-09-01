@@ -272,7 +272,7 @@ function ProgramCard({
   );
 }
 
-export function AlyCategoryAccordion() {
+export function AlyCategoryAccordion({ embedded = false }: { embedded?: boolean }) {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [highlightedSlug, setHighlightedSlug] = useState<string | null>(null);
   const location = useLocation();
@@ -350,18 +350,7 @@ export function AlyCategoryAccordion() {
       return next;
     });
 
-  return (
-    <section id="aly-kategoriat" className="py-16 md:py-20 bg-accent/60 border-y border-border/60">
-      <div className="keuda-container">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Mitä koulutusta etsit?
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Valitse kategoria — näet siihen kuuluvat ohjelmat ja koulutukset.
-          </p>
-        </div>
-
+  const list = (
         <div className="flex flex-col gap-4 max-w-4xl mx-auto">
           {categories.map((cat) => {
             const isActive = openCategory === cat.id;
@@ -436,6 +425,24 @@ export function AlyCategoryAccordion() {
             );
           })}
         </div>
+  );
+
+  if (embedded) {
+    return <div id="aly-kategoriat">{list}</div>;
+  }
+
+  return (
+    <section id="aly-kategoriat" className="py-16 md:py-20 bg-accent/60 border-y border-border/60">
+      <div className="keuda-container">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+            Mitä koulutusta etsit?
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Valitse kategoria — näet siihen kuuluvat ohjelmat ja koulutukset.
+          </p>
+        </div>
+        {list}
       </div>
     </section>
   );
