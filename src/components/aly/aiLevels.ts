@@ -15,6 +15,7 @@ export type AiLevel = {
   audience: string[];
   content: string[];
   quote: string;
+  testimonial?: { quote: string; name: string; org: string };
   cta: string;
   href: string;
   event: string;
@@ -47,6 +48,12 @@ export const AI_LEVELS: AiLevel[] = [
     ],
     quote:
       "Haluan oppia käyttämään tekoälyä kunnolla omassa työssäni ja rakentamaan sen avulla käytännön ratkaisuja.",
+    testimonial: {
+      quote:
+        "Hyvä, monipuolinen koulutus, jossa tehtiin käytännön parissa ja päivitettiin agentteja. Näimme kattavasti eri tekoälyratkaisuja – emme olleet pelkästään Copilot-tuubissa.",
+      name: "Asiantuntijasuunnittelija",
+      org: "Lahden kaupunki",
+    },
     cta: "Tutustu AI Coordinatoriin",
     href: "https://www.keuda.fi/koulutus/ai-coordinator-tekoalykoordinaattori-koulutusohjelma/",
     event: "coordinator_cta",
