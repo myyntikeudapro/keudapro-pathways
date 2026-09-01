@@ -62,10 +62,10 @@ export function AlyLevels() {
                 />
                 <div
                   aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-1.5 bg-primary"
+                  className="absolute inset-x-0 top-0 h-1.5 bg-keuda-orange"
                   style={{ opacity: 0.45 + i * 0.275 }}
                 />
-                <span className="absolute top-4 left-4 inline-flex items-center justify-center w-11 h-11 rounded-full bg-primary text-primary-foreground text-lg font-extrabold shadow-lg ring-4 ring-background/60">
+                <span className="absolute top-4 left-4 inline-flex items-center justify-center w-11 h-11 rounded-full bg-keuda-orange text-foreground text-lg font-extrabold shadow-lg ring-4 ring-background/60">
                   {i + 1}
                 </span>
               </div>
