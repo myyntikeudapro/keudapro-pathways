@@ -89,7 +89,7 @@ export function AlyTestimonials() {
       id="referenssit"
       aria-labelledby="referenssit-title"
       style={{ scrollMarginTop: 110 }}
-      className="py-16 md:py-24 bg-foreground text-background"
+      className="py-16 md:py-24 bg-keuda-navy-section text-background"
     >
       <div className="keuda-container">
         <div className="text-center mb-10 md:mb-12">
