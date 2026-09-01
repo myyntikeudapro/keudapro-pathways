@@ -30,13 +30,9 @@ export function AlyOrgArchitecture() {
     <section
       id="organisaatioille"
       style={{ scrollMarginTop: 110 }}
-      className="relative py-16 md:py-24 bg-foreground overflow-hidden"
+      className="relative py-16 md:py-24 bg-foreground"
     >
-      <div
-        aria-hidden="true"
-        className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary/20 blur-3xl"
-      />
-      <div className="relative keuda-container">
+      <div className="keuda-container">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-background/60 mb-3">
             Organisaatioille
@@ -55,10 +51,10 @@ export function AlyOrgArchitecture() {
           {tiers.map((t, i) => (
             <li
               key={t.name}
-              className="rounded-2xl border border-background/15 bg-background/[0.07] backdrop-blur-sm p-5 md:p-6 hover:bg-background/[0.12] hover:border-background/30 transition-colors"
+              className="rounded-2xl border-2 border-background/20 bg-background/10 p-5 md:p-6 hover:bg-background/15 hover:border-background/40 transition-colors"
             >
-              <div className="flex flex-wrap items-baseline gap-x-3">
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-background/15 text-[11px] font-bold text-background">
+              <div className="flex flex-wrap items-center gap-x-3">
+                <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-background text-foreground text-sm font-extrabold">
                   {i + 1}
                 </span>
                 <span className="text-base md:text-lg font-bold text-background">{t.name}</span>
