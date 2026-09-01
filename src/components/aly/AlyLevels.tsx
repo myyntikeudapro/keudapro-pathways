@@ -106,8 +106,8 @@ export function AlyLevels() {
                 </blockquote>
 
                 {level.testimonial && (
-                  <figure className="rounded-xl border border-cta/30 bg-cta/5 p-4 md:p-5 mb-6">
-                    <span className="block text-[11px] font-bold uppercase tracking-[0.12em] text-cta mb-2">
+                  <figure className="rounded-xl border border-secondary/40 bg-secondary/10 p-4 md:p-5 mb-6">
+                    <span className="block text-[11px] font-bold uppercase tracking-[0.12em] text-secondary mb-2">
                       Osallistujan palaute
                     </span>
                     <blockquote className="text-sm text-foreground/90 italic leading-relaxed">
