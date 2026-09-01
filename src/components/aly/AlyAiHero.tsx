@@ -31,7 +31,7 @@ export function AlyAiHero() {
           </span>
           <h1 className="text-[34px] md:text-5xl lg:text-6xl font-extrabold text-background mb-3 md:mb-5 leading-[1.05] tracking-tight">
             Tekoälypätevyydet{" "}
-            <span className="text-primary">työelämään</span>
+            <span style={{ color: "hsl(var(--keuda-orange))" }}>työelämään</span>
           </h1>
           <p className="text-base md:text-2xl text-background/80 md:text-background/90 leading-relaxed max-w-[300px] md:max-w-2xl">
             Opi käyttämään, kehittämään ja johtamaan tekoälyä.
@@ -47,14 +47,14 @@ export function AlyAiHero() {
         <ol className="relative mt-8 md:mt-12 space-y-3 md:space-y-0 md:grid md:grid-cols-3 md:gap-4 max-w-4xl">
           <span
             aria-hidden="true"
-            className="md:hidden absolute left-[19px] top-6 bottom-6 w-px bg-gradient-to-b from-primary via-primary/40 to-background/10"
+            className="md:hidden absolute left-[19px] top-6 bottom-6 w-px bg-gradient-to-b from-[hsl(var(--keuda-orange))] via-[hsl(var(--keuda-orange)/0.4)] to-background/10"
           />
           {AI_LEVELS.map((level, i) => (
             <li key={level.id} className="relative flex items-center gap-4 md:block">
               <span
                 className={`relative z-10 shrink-0 inline-flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-full text-sm md:text-base font-extrabold md:mb-3 ${
                   i === 0
-                    ? "bg-primary text-primary-foreground shadow-[0_0_18px_hsl(var(--primary)/0.45)]"
+                    ? "bg-[hsl(var(--keuda-orange))] text-white shadow-[0_0_18px_hsl(var(--keuda-orange)/0.45)]"
                     : "bg-foreground border border-background/25 text-background/70"
                 }`}
               >
