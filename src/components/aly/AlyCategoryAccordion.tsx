@@ -66,52 +66,6 @@ const categories: Category[] = [
     ],
   },
   {
-    id: "tekoalypatevyys",
-    title: "Tekoälypätevyys-koulutukset",
-    desc: "AI-Director · AI-Manager · AI-Coordinator · Hyper Engineering",
-    intro:
-      "Tekoälyosaaminen rooliisi sopivalla tasolla — strategisesta johtamisesta käytännön käyttöönottoon ja syvälliseen tekniseen osaamiseen.",
-    image: progAiManager,
-    programs: [
-      {
-        slug: "ai-director",
-        label: "AI-Director – Strateginen tekoälyjohtaminen",
-        href: "https://www.keuda.fi/koulutus/ai-director-ceo-johtoryhmatason-valmennusohjelma/",
-        description:
-          "Johda organisaatiosi tekoälysiirtymää strategisesti – visio, päätöksenteko ja kilpailukyky tekoälyn varaan.",
-        image: progAiDirector,
-        cta: "Tutustu ohjelmaan →",
-      },
-      {
-        slug: "ai-manager",
-        label: "AI-Manager – Tekoäly johtamistyössä",
-        href: "https://www.keuda.fi/koulutus/ai-manager-tekoalypaallikko-koulutusohjelma/",
-        description:
-          "Ota tekoäly osaksi jokapäiväistä johtamistyötäsi – konkreettiset työkalut heti käyttöön.",
-        image: progAiManagerCard,
-        cta: "Tutustu ohjelmaan →",
-      },
-      {
-        slug: "ai-coordinator",
-        label: "AI-Coordinator – Käyttöönotto ja koordinointi",
-        href: "https://www.keuda.fi/koulutus/ai-coordinator-tekoalykoordinaattori-koulutusohjelma/",
-        description:
-          "Vie tekoäly käytännön tasolle tiimissäsi – opit koordinoimaan käyttöönoton sujuvasti.",
-        image: progAiCoordinator,
-        cta: "Tutustu ohjelmaan →",
-      },
-      {
-        slug: "hyper-engineering",
-        label: "Hyper Engineering (FI / EN)",
-        href: "https://www.keuda.fi/koulutus/hyper-engineering-program-fi/",
-        description:
-          "Rakennat syvän teknisen tekoälyosaamisen ja sovellat sitä vaativissa asiantuntijatehtävissä.",
-        image: progHyperEngineering,
-        cta: "Tutustu ohjelmaan →",
-      },
-    ],
-  },
-  {
     id: "turvallisuusjohtaminen",
     title: "Turvallisuusjohtamisen koulutukset",
     desc: "Turvallisuuspäällikkö · Turvallisuusjohtaja 2.6 · Luotettavuuspäällikkö (AI)",
