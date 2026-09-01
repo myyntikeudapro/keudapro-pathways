@@ -248,11 +248,7 @@ export function AlyCategoryAccordion({ embedded = false }: { embedded?: boolean 
   useEffect(() => {
     const rawHash = location.hash.replace("#", "");
     if (!rawHash) return;
-    const aliases: Record<string, string> = {
-      tekoalykoulutukset: "tekoalypatevyys",
-      "ai-ohjelmat": "tekoalypatevyys",
-    };
-    const hash = aliases[rawHash] ?? rawHash;
+    const hash = rawHash;
 
 
     // Specific program: #prog-<slug>
@@ -316,13 +312,6 @@ export function AlyCategoryAccordion({ embedded = false }: { embedded?: boolean 
                   !isExpanded && "opacity-60"
                 )}
               >
-                {cat.id === "tekoalypatevyys" && (
-                  <span
-                    id="tekoalykoulutukset"
-                    aria-hidden="true"
-                    style={{ display: "block", scrollMarginTop: 80 }}
-                  />
-                )}
                 <button
                   onClick={() => toggle(cat.id)}
 
