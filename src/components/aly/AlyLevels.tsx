@@ -207,6 +207,7 @@ export function AlyComparison() {
         <div className="mt-6">
           <Button
             variant="outline-primary"
+            size="lg"
             onClick={() => {
               trackEvent("ai_assessment_start", { source: "comparison" });
               const el = document.getElementById("loyda-oma-tasosi");
