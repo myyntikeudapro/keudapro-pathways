@@ -137,9 +137,18 @@
 
   /* Pitkät CTA-painikkeet: rivityvät siististi mobiilissa */
   .keuda-cta-wrap {
-    @apply h-auto min-h-11 whitespace-normal text-center leading-snug py-2.5 md:whitespace-nowrap;
+    height: auto;
+    min-height: 2.75rem;
+    white-space: normal !important;
+    text-align: center;
+    line-height: 1.35;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    max-width: 100%;
     text-wrap: balance;
+    overflow-wrap: anywhere;
   }
+
   .keuda-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
