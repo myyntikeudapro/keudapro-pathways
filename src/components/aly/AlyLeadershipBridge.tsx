@@ -13,8 +13,8 @@ export function AlyLeadershipBridge() {
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-8 max-w-3xl">
             Tekoäly vaikuttaa päätöksentekoon, työn organisointiin, osaamistarpeisiin ja johtajan
-            omaan työhön. Valitse alta kategoria — löydät tekoälypätevyys-ohjelmat sekä
-            KeudaPROn muun johtamisen, esihenkilötyön ja asiantuntijaosaamisen tarjonnan.
+            omaan työhön. Valitse alta kategoria — löydät KeudaPROn muun johtamisen, esihenkilötyön
+            ja asiantuntijaosaamisen tarjonnan, joka täydentää tekoälypätevyys-polun.
           </p>
         </div>
 
