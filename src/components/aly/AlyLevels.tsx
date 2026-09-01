@@ -18,10 +18,6 @@ export function AlyDefinition() {
             rakennetaan oman työn ja vastuun näkökulmasta. Tavoitteena ei ole opetella vain yhtä
             työkalua, vaan kehittää kykyä käyttää, soveltaa, kehittää ja johtaa tekoälyä työelämässä.
           </p>
-          <p className="mt-5 text-sm text-muted-foreground">
-            Tekoälypätevyydet ovat KeudaPROn omia koulutusohjelmia. Ne eivät ole viranomaisen
-            määrittelemiä tai lakisääteisiä pätevyyksiä.
-          </p>
         </div>
       </div>
     </section>
