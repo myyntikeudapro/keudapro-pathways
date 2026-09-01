@@ -124,7 +124,7 @@ export function AlyLevels() {
 
 
 
-                <Button variant="cta" size="lg" asChild>
+                <Button variant="cta" size="lg" asChild className="w-full sm:w-auto keuda-cta-wrap">
                   <a
                     href={level.href}
                     target="_blank"
@@ -230,6 +230,7 @@ export function AlyComparison() {
           <Button
             variant="outline-primary"
             size="lg"
+            className="keuda-cta-wrap"
             onClick={() => {
               trackEvent("ai_assessment_start", { source: "comparison" });
               const el = document.getElementById("loyda-oma-tasosi");

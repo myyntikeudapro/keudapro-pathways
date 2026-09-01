@@ -177,7 +177,7 @@ export function AlyAssessment() {
         </div>
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <Button variant="cta" size="lg" onClick={submit} disabled={!allAnswered}>
+          <Button variant="cta" size="lg" onClick={submit} disabled={!allAnswered} className="keuda-cta-wrap">
             Näytä suositus
           </Button>
           {!allAnswered && (
@@ -220,7 +220,7 @@ export function AlyAssessment() {
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <Button variant="cta" asChild>
+              <Button variant="cta" asChild className="w-full sm:w-auto keuda-cta-wrap">
                 <a
                   href={level.href}
                   target="_blank"
@@ -234,7 +234,7 @@ export function AlyAssessment() {
                 </a>
               </Button>
               {next && (
-                <Button variant="outline-primary" asChild>
+                <Button variant="outline-primary" asChild className="w-full sm:w-auto keuda-cta-wrap">
                   <a
                     href={LEVEL_BY_ID[next].href}
                     target="_blank"

@@ -134,6 +134,12 @@
 }
 
 @layer components {
+
+  /* Pitkät CTA-painikkeet: rivityvät siististi mobiilissa */
+  .keuda-cta-wrap {
+    @apply h-auto min-h-11 whitespace-normal text-center leading-snug py-2.5 md:whitespace-nowrap;
+    text-wrap: balance;
+  }
   .keuda-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }

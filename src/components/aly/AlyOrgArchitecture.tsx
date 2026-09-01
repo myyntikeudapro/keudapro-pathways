@@ -66,7 +66,7 @@ export function AlyOrgArchitecture() {
         </ol>
 
         <div className="mt-10">
-          <Button variant="cta" size="lg" className="shadow-lg shadow-black/25" asChild>
+          <Button variant="cta" size="lg" className="shadow-lg shadow-black/25 w-full sm:w-auto keuda-cta-wrap" asChild>
             <Link
               to="/yhteystiedot"
               onClick={() => trackEvent("organization_ai_cta", { source: "architecture" })}

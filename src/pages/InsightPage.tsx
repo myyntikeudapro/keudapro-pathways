@@ -166,7 +166,7 @@ const InsightPage = () => {
             <Button
               variant="cta"
               size="lg"
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto keuda-cta-wrap"
               onClick={() => {
                 trackEvent("ai_assessment_start", { source: "footer" });
                 const el = document.getElementById("loyda-oma-tasosi");
@@ -183,7 +183,7 @@ const InsightPage = () => {
               variant="outline-primary"
               size="lg"
               asChild
-              className="w-full sm:w-auto h-auto min-h-11 whitespace-normal text-center leading-snug py-3"
+              className="w-full sm:w-auto keuda-cta-wrap"
             >
               <Link
                 to="/yhteystiedot"
@@ -205,6 +205,7 @@ const InsightPage = () => {
             </p>
             <Button
               variant="outline"
+              className="keuda-cta-wrap"
               onClick={() => {
                 trackEvent("leadership_crosslink_click", { source: "footer" });
                 window.dispatchEvent(
