@@ -105,6 +105,24 @@ export function AlyLevels() {
                   Tämä voi olla sinun tasosi, jos ajattelet: <em>”{level.quote}”</em>
                 </blockquote>
 
+                {level.testimonial && (
+                  <figure className="rounded-xl border border-cta/30 bg-cta/5 p-4 md:p-5 mb-6">
+                    <span className="block text-[11px] font-bold uppercase tracking-[0.12em] text-cta mb-2">
+                      Osallistujan palaute
+                    </span>
+                    <blockquote className="text-sm text-foreground/90 italic leading-relaxed">
+                      ”{level.testimonial.quote}”
+                    </blockquote>
+                    <figcaption className="mt-3 text-xs text-muted-foreground">
+                      <span className="font-semibold text-foreground">{level.testimonial.name}</span>
+                      {" · "}
+                      {level.testimonial.org}
+                    </figcaption>
+                  </figure>
+                )}
+
+
+
 
                 <Button variant="cta" size="lg" asChild>
                   <a
