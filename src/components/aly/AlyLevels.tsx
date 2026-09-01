@@ -51,7 +51,7 @@ export function AlyLevels() {
               key={level.id}
               id={level.anchor}
               style={{ scrollMarginTop: 110 }}
-              className="group rounded-2xl border border-border bg-card overflow-hidden md:flex shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1 hover:border-primary/30 transition-all duration-300"
+              className="group rounded-2xl border-2 border-border bg-card overflow-hidden md:flex shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1 hover:border-primary/50 transition-all duration-300"
             >
               <div className="md:w-72 md:shrink-0 relative overflow-hidden">
                 <img
@@ -60,19 +60,29 @@ export function AlyLevels() {
                   loading="lazy"
                   className="w-full h-44 md:h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 />
-                <span className="absolute top-4 left-4 inline-flex items-center justify-center w-9 h-9 rounded-full bg-foreground/85 text-background text-sm font-bold backdrop-blur-sm">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-1.5 bg-primary"
+                  style={{ opacity: 0.45 + i * 0.275 }}
+                />
+                <span className="absolute top-4 left-4 inline-flex items-center justify-center w-11 h-11 rounded-full bg-primary text-primary-foreground text-lg font-extrabold shadow-lg ring-4 ring-background/60">
                   {i + 1}
                 </span>
               </div>
-              <div className="p-6 md:p-8 flex-1">
-                <h3 className="text-xl md:text-2xl font-bold text-foreground tracking-tight">
+              <div className="p-6 md:p-8 flex-1 border-t-2 md:border-t-0 md:border-l-2 border-primary/20">
+                <div className="flex flex-wrap items-baseline gap-x-3 mb-1">
+                  <span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                    Taso {i + 1} / 3
+                  </span>
+                </div>
+                <h3 className="text-xl md:text-3xl font-bold text-foreground tracking-tight">
                   {level.name} – {level.fi}
                 </h3>
-                <p className="text-primary font-semibold mb-4">{level.promise}</p>
+                <p className="text-primary font-semibold mb-4 mt-1">{level.promise}</p>
                 <p className="text-muted-foreground leading-relaxed mb-5">{level.intro}</p>
 
 
-                <div className="grid sm:grid-cols-2 gap-5 mb-5 rounded-xl bg-muted/50 p-4 md:p-5">
+                <div className="grid sm:grid-cols-2 gap-5 mb-5 rounded-xl border border-border bg-muted/50 p-4 md:p-5">
                   <div>
                     <h4 className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary mb-2">Kenelle</h4>
                     <ul className="text-sm text-muted-foreground space-y-1 list-disc pl-4 marker:text-primary/50">
@@ -91,12 +101,12 @@ export function AlyLevels() {
                   </div>
                 </div>
 
-                <blockquote className="border-l-2 border-primary pl-4 text-sm text-foreground/90 mb-6">
+                <blockquote className="border-l-4 border-primary pl-4 text-sm text-foreground/90 mb-6 italic">
                   Tämä voi olla sinun tasosi, jos ajattelet: <em>”{level.quote}”</em>
                 </blockquote>
 
 
-                <Button variant="cta" asChild>
+                <Button variant="cta" size="lg" asChild>
                   <a
                     href={level.href}
                     target="_blank"
