@@ -195,7 +195,8 @@ export function OwnWorkProfileModal({ open, onOpenChange }: Props) {
   };
 
   const handleBooking = () => {
-    window.open("https://calendar.app.google/KEf8whD71iKruG979", "_blank", "noopener,noreferrer");
+    handleOpenChange(false);
+    openBookingRequest({ source: "Oma profiili – varaa aika" });
   };
 
   const handleVeli = () => {
