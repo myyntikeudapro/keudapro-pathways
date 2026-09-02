@@ -37,6 +37,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <AuthProvider>
+            <ScrollToTop />
             <RouteWizard />
             <CoachSelectionPanel />
             <BookingPanel />
