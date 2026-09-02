@@ -10,6 +10,8 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { BASE_URL, routes } from "./routes-meta.mjs";
+import { alySeoBodyHtml, alyJsonLd } from "./aly-seo.mjs";
+
 
 function escapeHtml(s) {
   return s
