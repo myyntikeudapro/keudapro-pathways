@@ -86,10 +86,15 @@ export function alySeoBodyHtml() {
     alyFaqs.map(([q, a]) => `<div><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join("") +
     `</section>`;
 
+  const test =
+    `<section><h2>Mikä tekoälyrooli sinulle sopii?</h2>` +
+    `<p>Tasotesti: viisi kysymystä antaa suuntaa-antavan suosituksen lähtötasosta. Kyseessä ei ole sertifioiva osaamisen arviointi.</p></section>`;
+
   const about =
     `<p>KeudaPRO on Keski-Uudenmaan koulutuskuntayhtymä Keudan omistama yhtiö, joka rakentaa työelämän tekoälyosaamista yksilöille ja organisaatioille.</p>`;
 
-  return levels + org + faq + about;
+  return levels + org + test + faq + about;
+
 }
 
 export function alyJsonLd() {
