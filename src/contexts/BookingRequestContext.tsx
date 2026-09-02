@@ -27,6 +27,22 @@ export function BookingRequestProvider({ children }: { children: ReactNode }) {
 
   const closeBookingRequest = useCallback(() => setIsOpen(false), []);
 
+  // Kaikki Google Kalenteriin osoittavat "Varaa aika" -linkit avaavat lomakkeen.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey) return;
+      const target = e.target as HTMLElement | null;
+      const anchor = target?.closest?.("a") as HTMLAnchorElement | null;
+      if (!anchor) return;
+      if (!anchor.href.startsWith(BOOKING_URL)) return;
+      e.preventDefault();
+      setOptions({ source: anchor.textContent?.trim().slice(0, 120) || "Varaa aika" });
+      setIsOpen(true);
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
+
   return (
     <Ctx.Provider value={{ isOpen, options, openBookingRequest, closeBookingRequest }}>
       {children}
