@@ -56,19 +56,30 @@ function rewriteHead(html, route) {
   return out;
 }
 
-// Inject an SEO block inside <div id="root">. React replaces it on hydration
-// (createRoot's render() clears the container's children before mounting).
+// Inject an SEO block inside <div id="root">. React removes it on mount
+// (main.tsx drops [data-ssg-seo] and renders a fresh root).
 // Inline styles hide it from users while keeping it visible to crawlers.
-function injectSeoBlock(html, route) {
+function injectSeoBlock(html, route, extraBody = "") {
   const h1 = escapeHtml(route.h1 ?? route.title);
   const intro = escapeHtml(route.intro ?? route.description);
   const seoBlock =
     `<div data-ssg-seo style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">` +
-    `<h1>${h1}</h1><p>${intro}</p></div>`;
+    `<h1>${h1}</h1><p>${intro}</p>${extraBody}</div>`;
   return html.replace(
     /(<div\s+id="root"[^>]*>)/,
     `$1${seoBlock}`,
   );
+}
+
+function injectJsonLd(html, schemas) {
+  if (!schemas?.length) return html;
+  const tags = schemas
+    .map(
+      (s) =>
+        `<script type="application/ld+json">${JSON.stringify(s).replace(/</g, "\\u003c")}</script>`,
+    )
+    .join("\n    ");
+  return html.replace("</head>", `  ${tags}\n  </head>`);
 }
 
 export async function runPrerenderMeta() {
@@ -82,7 +93,9 @@ export async function runPrerenderMeta() {
   let written = 0;
   for (const route of routes) {
     let html = rewriteHead(baseHtml, route);
-    html = injectSeoBlock(html, route);
+    const isAly = route.path === "/aly";
+    html = injectSeoBlock(html, route, isAly ? alySeoBodyHtml() : "");
+    if (isAly) html = injectJsonLd(html, alyJsonLd());
     if (route.path === "/") {
       writeFileSync(INDEX, html);
     } else {
@@ -94,6 +107,7 @@ export async function runPrerenderMeta() {
   }
   console.log(`[prerender-meta] wrote ${written} per-route index.html files with SEO block`);
 }
+
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   runPrerenderMeta();
