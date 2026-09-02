@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      booking_requests: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          meeting_format: string
+          message: string
+          name: string
+          organization: string | null
+          phone: string | null
+          source: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          meeting_format: string
+          message: string
+          name: string
+          organization?: string | null
+          phone?: string | null
+          source?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          meeting_format?: string
+          message?: string
+          name?: string
+          organization?: string | null
+          phone?: string | null
+          source?: string | null
+        }
+        Relationships: []
+      }
       card_categories: {
         Row: {
           category_slug: string

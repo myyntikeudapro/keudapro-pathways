@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route } from "react-router-dom";
 import { WizardProvider } from "@/contexts/WizardContext";
 import { CoachPanelProvider } from "@/contexts/CoachPanelContext";
+import { BookingRequestProvider } from "@/contexts/BookingRequestContext";
+import { BookingRequestDialog } from "@/components/booking/BookingRequestDialog";
 import { RouteWizard } from "@/components/wizard/RouteWizard";
 import { CoachSelectionPanel } from "@/components/coach/CoachSelectionPanel";
 import { BookingPanel } from "@/components/coach/BookingPanel";
@@ -34,6 +36,7 @@ const App = () => (
     <TooltipProvider>
       <WizardProvider>
         <CoachPanelProvider>
+         <BookingRequestProvider>
           <Toaster />
           <Sonner />
           <AuthProvider>
@@ -41,6 +44,7 @@ const App = () => (
             <RouteWizard />
             <CoachSelectionPanel />
             <BookingPanel />
+            <BookingRequestDialog />
             <MultiCoachChat />
             <Routes>
               <Route path="/" element={<Index />} />
@@ -60,6 +64,7 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AuthProvider>
+         </BookingRequestProvider>
         </CoachPanelProvider>
       </WizardProvider>
     </TooltipProvider>
