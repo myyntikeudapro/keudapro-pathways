@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
+import { useBookingRequest } from "@/contexts/BookingRequestContext";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, Send, Calendar, Sparkles, X } from "lucide-react";
 
@@ -108,6 +109,7 @@ interface Props {
 export function OwnWorkProfileModal({ open, onOpenChange }: Props) {
   const isMobile = useIsMobile();
   const { openChat } = useCoachPanel();
+  const { openBookingRequest } = useBookingRequest();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [validationError, setValidationError] = useState(false);
