@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import { createContext, useContext, useState, ReactNode, useCallback, useEffect } from "react";
+import { BOOKING_URL } from "@/lib/booking";
 
 export interface BookingRequestOptions {
   /** Mistä painikkeesta pyyntö avattiin – näkyy sähköpostissa. */
