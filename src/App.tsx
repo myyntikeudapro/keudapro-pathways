@@ -9,6 +9,7 @@ import { RouteWizard } from "@/components/wizard/RouteWizard";
 import { CoachSelectionPanel } from "@/components/coach/CoachSelectionPanel";
 import { BookingPanel } from "@/components/coach/BookingPanel";
 import { MultiCoachChat } from "@/components/coach/MultiCoachChat";
+import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import Index from "./pages/Index";
 import InsightPage from "./pages/InsightPage";
 import WorkPlusPage from "./pages/WorkPlusPage";
