@@ -1,3 +1,4 @@
-- [ ] Kaksivaiheinen kartoitus ja lähetyksen tilat
-- [ ] Turvalliset koulutuslinkit ja istunnon valinnat
-- [ ] Selain- ja lähetysvarmistukset
+- [x] Kaksivaiheinen kartoitus ja lähetyksen tilat
+- [x] Turvalliset koulutuslinkit ja istunnon valinnat
+- [ ] Todellinen sähköpostilähetys: lähetyspalvelu palauttaa emailSent=false; lähettäjäverkkotunnuksen DNS-varmennus epäonnistunut
+- [ ] Mobiilin kattava tarkistus ja automaattisen buildin tulos

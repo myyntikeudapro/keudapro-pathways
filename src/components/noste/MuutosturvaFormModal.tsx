@@ -8,7 +8,7 @@ import { trackEvent } from "@/lib/analytics";
 
 export function MuutosturvaFormModal({open,onOpenChange,initialCourse=""}: {open:boolean;onOpenChange:(open:boolean)=>void;initialCourse?:string}) {
  const [step,setStep]=useState(1);
- const [values,setValues]=useState<Record<string,string>>({});
+ const [values,setValues]=useState<Record<string,string>>(() => Object.fromEntries(["course","industry","level","start"].map(k=>[k,sessionStorage.getItem(`assessment-choice-${k}`)||""])));
  const [errors,setErrors]=useState<Record<string,string>>({});
  const [busy,setBusy]=useState(false);
  const [sent,setSent]=useState(false);
@@ -16,7 +16,7 @@ export function MuutosturvaFormModal({open,onOpenChange,initialCourse=""}: {open
  const opener=useRef<HTMLElement|null>(null);
  useEffect(()=>{if(open){opener.current=document.activeElement as HTMLElement;trackEvent("assessment_opened");}},[open]);
  useEffect(()=>{if(initialCourse){const [course,detail=""]=initialCourse.split(" – ");setValues(v=>({...v,course,level:course,industry:detail.startsWith("aloitus")?v.industry||"":detail,start:detail.startsWith("aloitus")?detail.replace("aloitus ",""):v.start||""}));}},[initialCourse]);
- const change=(key:string,value:string)=>setValues(v=>({...v,[key]:value}));
+ const change=(key:string,value:string)=>{setValues(v=>({...v,[key]:value}));if(["course","industry","level","start"].includes(key)){sessionStorage.setItem(`assessment-choice-${key}`,value);}};
  const close=(next:boolean)=>{if(busy)return;if(!next){setValues(v=>({course:v.course||"",industry:v.industry||"",level:v.level||"",start:v.start||""}));setStep(1);setSent(false);setErrors({});setFailure("");}onOpenChange(next);};
  const labels:Record<string,string>={age:"Oletko vähintään 55-vuotias?",dismissed:"Onko sinut irtisanottu tuotannollisista tai taloudellisista syistä?",date:"Milloin työsuhteesi päättyi tai päättyy?",goal:"Mitä tavoittelet seuraavaksi?",name:"Nimi",email:"Sähköposti",phone:"Puhelinnumero",course:"Valittu koulutus",previous:"Aikaisempi tai nykyinen toimiala",industry:"Kiinnostava koulutusala",level:"Kiinnostava pätevyystaso",ai:"Tekoälyosaamisen nykyinen taso",start:"Toivottu aloitusajankohta / aloitusryhmä",extra:"Vapaa lisätieto"};
  const field=(key:string,options?:string[],type="text",required=false)=><div className="space-y-1" key={key}><Label htmlFor={`assessment-${key}`}>{labels[key]}{required?" *":" (vapaaehtoinen)"}</Label>{options?<select id={`assessment-${key}`} className="w-full min-h-11 rounded-md border border-input bg-background px-3 text-sm" value={values[key]||""} onChange={e=>change(key,e.target.value)} aria-invalid={!!errors[key]} aria-describedby={errors[key]?`${key}-error`:undefined}><option value="">Valitse</option>{options.map(o=><option key={o}>{o}</option>)}</select>:<Input id={`assessment-${key}`} className="min-h-11" type={type} maxLength={key==="extra"?700:150} value={values[key]||""} onChange={e=>change(key,e.target.value)} aria-invalid={!!errors[key]} aria-describedby={errors[key]?`${key}-error`:undefined} />}{errors[key]&&<p id={`${key}-error`} className="text-sm text-destructive">{errors[key]}</p>}</div>;
