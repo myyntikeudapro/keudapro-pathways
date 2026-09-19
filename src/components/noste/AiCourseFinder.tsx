@@ -4,6 +4,7 @@ import {
   Briefcase, Lightbulb, Calculator, Megaphone, HeartPulse, Wrench,
   ShoppingBag, Shield, Truck, BookOpen,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
@@ -236,7 +237,7 @@ function coordinatorUrl(slug: string) {
   return `https://www.keuda.fi/koulutus/${slug}-tekoalyn-ammattiosaaja-tekoalykoordinaattori-ai-coordinator/`;
 }
 
-export function AiCourseFinder() {
+export function AiCourseFinder({ onAssessment }: { onAssessment?: (course: string) => void }) {
   const [level, setLevel] = useState<Level>("coordinator");
   const [query, setQuery] = useState("");
   const [activeCats, setActiveCats] = useState<Category[]>([]);
@@ -251,7 +252,8 @@ export function AiCourseFinder() {
     }).sort((a, b) => a.label.localeCompare(b.label, "fi"));
   }, [query, activeCats]);
 
-  const activeLevel = LEVELS.find((l) => l.id === level)!;
+  const activeLevel = LEVELS.find((l) => l.id === level) ?? LEVELS[0];
+  if (!activeLevel) return null;
 
   const toggleCat = (c: Category) =>
     setActiveCats((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
@@ -268,13 +270,13 @@ export function AiCourseFinder() {
             const Icon = l.icon;
             const active = l.id === level;
             return (
-              <button
+              <Button variant="ghost"
                 key={l.id}
                 type="button"
                 onClick={() => setLevel(l.id)}
                 aria-pressed={active}
                 className={cn(
-                  "group text-left rounded-xl border overflow-hidden transition-all duration-300",
+                  "h-auto p-0 whitespace-normal block group text-left rounded-xl border overflow-hidden transition-all duration-300",
                   active
                     ? "border-primary bg-card shadow-card ring-2 ring-primary scale-[1.02] opacity-100"
                     : "border-border bg-card hover:border-primary/40 hover:shadow-sm opacity-40 grayscale hover:opacity-70 hover:grayscale-0 scale-[0.98]"
@@ -311,7 +313,7 @@ export function AiCourseFinder() {
                   </div>
                   <div className="text-xs text-muted-foreground leading-relaxed">{l.tagline}</div>
                 </div>
-              </button>
+              </Button>
             );
           })}
         </div>
@@ -337,7 +339,7 @@ export function AiCourseFinder() {
                 >
                   {activeLevel.programName} — {activeLevel.name}
                 </div>
-                <div className="text-xs text-muted-foreground">{activeLevel.bannerNote}</div>
+                <div className="text-xs text-muted-foreground">{onAssessment ? "Valitse ala alta ja kysy sopivaa koulutusta maksuttomassa kartoituksessa." : activeLevel.bannerNote}</div>
               </div>
             </div>
             {activeLevel.programUrl && (
@@ -347,7 +349,9 @@ export function AiCourseFinder() {
         );
         const className =
           "group flex items-center justify-between gap-4 rounded-xl border border-border bg-card p-4 transition-all";
-        return activeLevel.programUrl ? (
+        return onAssessment ? (
+          <Button variant="outline" className={cn(className, "h-auto whitespace-normal text-left")} onClick={() => onAssessment(activeLevel.name)}>{inner}</Button>
+        ) : activeLevel.programUrl ? (
           <a
             href={activeLevel.programUrl}
             target="_blank"
@@ -375,14 +379,14 @@ export function AiCourseFinder() {
             className="pl-10 pr-10 h-12 text-base bg-background text-foreground placeholder:text-muted-foreground"
           />
           {query && (
-            <button
+            <Button variant="ghost"
               type="button"
               onClick={() => setQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              className="w-11 h-11 absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
               aria-label="Tyhjennä haku"
             >
               <X className="w-4 h-4" />
-            </button>
+            </Button>
           )}
         </div>
 
@@ -390,29 +394,29 @@ export function AiCourseFinder() {
           {CATEGORIES.map((c) => {
             const active = activeCats.includes(c);
             return (
-              <button
+              <Button variant="ghost"
                 key={c}
                 type="button"
                 onClick={() => toggleCat(c)}
                 className={cn(
-                  "text-xs font-medium px-3 py-1.5 rounded-full border transition-colors",
+                  "min-h-11 text-xs font-medium px-3 py-1.5 rounded-full border transition-colors",
                   active
                     ? "bg-foreground text-background border-foreground"
                     : "bg-card text-muted-foreground border-border hover:border-foreground/40 hover:text-foreground"
                 )}
               >
                 {c}
-              </button>
+              </Button>
             );
           })}
           {activeCats.length > 0 && (
-            <button
+            <Button variant="ghost"
               type="button"
               onClick={() => setActiveCats([])}
-              className="text-xs font-medium px-3 py-1.5 rounded-full text-primary hover:underline"
+              className="min-h-11 text-xs font-medium px-3 py-1.5 rounded-full text-primary hover:underline"
             >
               Tyhjennä suotimet
-            </button>
+            </Button>
           )}
         </div>
       </div>
@@ -422,7 +426,7 @@ export function AiCourseFinder() {
         <div className="flex items-baseline justify-between mb-3">
           <div className="text-sm text-background/75">
             {filtered.length} / {FIELDS.length} alaa
-            {level === "coordinator"
+            {onAssessment ? " — valitse ala maksuttomaan kartoitukseen" : level === "coordinator"
               ? " — linkit suoraan Keudan alakohtaisille koulutussivuille"
               : ` — sovelletaan ohjelmassa ${activeLevel.programName}`}
           </div>
@@ -435,13 +439,14 @@ export function AiCourseFinder() {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filtered.map((f) => {
-              const href = level === "coordinator" ? coordinatorUrl(f.slug) : activeLevel.programUrl!;
+              const href = level === "coordinator" ? coordinatorUrl(f.slug) : activeLevel.programUrl;
               const visual = CATEGORY_VISUAL[f.category];
               const Icon = visual.icon;
               return (
                 <a
                   key={f.slug}
                   href={href}
+                  onClick={onAssessment ? (event) => { event.preventDefault(); onAssessment(`${activeLevel.name} – ${f.label}`); } : undefined}
                   target="_blank"
                   rel="noopener"
                   className="group flex items-stretch gap-3 bg-card border border-border rounded-xl overflow-hidden hover:border-primary hover:shadow-card transition-all"
@@ -454,7 +459,7 @@ export function AiCourseFinder() {
                   >
                     {fieldImageUrl(f.slug) && (
                       <img
-                        src={fieldImageUrl(f.slug)!}
+                        src={fieldImageUrl(f.slug)}
                         alt=""
                         loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
