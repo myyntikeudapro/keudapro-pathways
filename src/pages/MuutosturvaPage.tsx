@@ -1,3 +1,4 @@
+import { trackEvent } from "@/lib/analytics";
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
@@ -160,9 +161,10 @@ const FAQ_JSONLD = {
 
 export default function MuutosturvaPage() {
   const [formOpen, setFormOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState("");
-  const [paidPath, setPaidPath] = useState(false);
-  const openAssessment = (course = "") => { setSelectedCourse(course); setFormOpen(true); };
+  const [selectedCourse, setSelectedCourse] = useState(() => sessionStorage.getItem("muutosturva-course") || "");
+  const [paidPath, updatePaidPath] = useState(() => sessionStorage.getItem("muutosturva-paid") === "true");
+  const setPaidPath = (paid:boolean) => {updatePaidPath(paid);sessionStorage.setItem("muutosturva-paid",String(paid));trackEvent(paid?"paid_path_selected":"muutosturva_path_selected");};
+  const openAssessment = (course = "") => { if(course){setSelectedCourse(course);sessionStorage.setItem("muutosturva-course",course);trackEvent("course_selected");if(course.includes("aloitus"))trackEvent("start_selected");} setFormOpen(true); };
   const showCourses = (paid = false) => {
     setPaidPath(paid);
     document.getElementById("ai-course-finder")?.scrollIntoView({ behavior: "instant", block: "start" });
@@ -359,7 +361,7 @@ export default function MuutosturvaPage() {
             </div>
             <p className="text-sm text-background/80 mt-4">{paidPath ? "Maksullinen asiointipolku: koulutuksen valinta avaa Keudan koulutussivun, jossa voit tarkistaa alkavat ryhmät ja ilmoittautua." : "Muutosturvapolku: koulutuksen valinta avaa maksuttoman kartoituksen, ei maksullista ilmoittautumista. Työllisyysalue tekee virallisen hankintapäätöksen."}</p>
           </div>
-          <AiCourseFinder onAssessment={paidPath ? undefined : openAssessment} />
+          <AiCourseFinder onAssessment={openAssessment} paidPath={paidPath} />
         </div>
       </section>
 
@@ -539,7 +541,7 @@ export default function MuutosturvaPage() {
         </div>
       </section>
 
-      <MuutosturvaFormModal key={selectedCourse} open={formOpen} onOpenChange={setFormOpen} initialCourse={selectedCourse} />
+      <MuutosturvaFormModal open={formOpen} onOpenChange={setFormOpen} initialCourse={selectedCourse} />
       <EmployerMuutosturvaFormModal open={employerFormOpen} onOpenChange={setEmployerFormOpen} />
     </Layout>
   );

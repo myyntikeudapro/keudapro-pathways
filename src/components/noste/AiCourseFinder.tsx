@@ -1,3 +1,5 @@
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { trackEvent } from "@/lib/analytics";
 import { useMemo, useState } from "react";
 import {
   Search, ExternalLink, Sparkles, Users, Crown, GraduationCap, X, Check,
@@ -237,7 +239,9 @@ function coordinatorUrl(slug: string) {
   return `https://www.keuda.fi/koulutus/${slug}-tekoalyn-ammattiosaaja-tekoalykoordinaattori-ai-coordinator/`;
 }
 
-export function AiCourseFinder({ onAssessment }: { onAssessment?: (course: string) => void }) {
+export function AiCourseFinder({ onAssessment, paidPath = false }: { onAssessment?: (course: string) => void; paidPath?: boolean }) {
+  const [pending, setPending] = useState<{url:string;course:string}|null>(null);
+  const external = (url:string,course:string) => { if(!paidPath && onAssessment){setPending({url,course});return;} trackEvent("keuda_external_opened");window.open(url,"_blank","noopener,noreferrer"); };
   const [level, setLevel] = useState<Level>("coordinator");
   const [query, setQuery] = useState("");
   const [activeCats, setActiveCats] = useState<Category[]>([]);
@@ -443,12 +447,9 @@ export function AiCourseFinder({ onAssessment }: { onAssessment?: (course: strin
               const visual = CATEGORY_VISUAL[f.category];
               const Icon = visual.icon;
               return (
-                <a
+                <div
                   key={f.slug}
-                  href={href}
-                  onClick={onAssessment ? (event) => { event.preventDefault(); onAssessment(`${activeLevel.name} – ${f.label}`); } : undefined}
-                  target="_blank"
-                  rel="noopener"
+
                   className="group flex items-stretch gap-3 bg-card border border-border rounded-xl overflow-hidden hover:border-primary hover:shadow-card transition-all"
                 >
                   <div
@@ -480,15 +481,20 @@ export function AiCourseFinder({ onAssessment }: { onAssessment?: (course: strin
                         {f.label}
                       </div>
                       <div className="text-xs text-muted-foreground mt-0.5">{activeLevel.short}</div>
+                      <div className="flex flex-col gap-2 mt-3">
+                      {onAssessment && <Button variant="cta" className="keuda-cta-wrap min-h-11 text-xs" onClick={()=>onAssessment(`${activeLevel.name} – ${f.label}`)}>Hae muutosturvan kautta</Button>}
+                      {href && <Button variant="outline" className="keuda-cta-wrap min-h-11 text-xs" onClick={()=>external(href,`${activeLevel.name} – ${f.label}`)}>Tutustu maksulliseen koulutukseen</Button>}
+                      </div>
                     </div>
                     <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0 mt-0.5" />
                   </div>
-                </a>
+                </div>
               );
             })}
           </div>
         )}
       </div>
+      <Dialog open={!!pending} onOpenChange={v=>{if(!v)setPending(null);}}><DialogContent className="z-[110] max-h-[90dvh] overflow-y-auto"><DialogTitle>Millä tavalla haet koulutukseen?</DialogTitle><DialogDescription>Valitse tilanteeseesi sopiva etenemistapa.</DialogDescription><h3 className="font-semibold">Haen muutosturvan kautta</h3><p>Työllisyysalue tekee hankintapäätöksen. Aloita maksuttomasta kartoituksesta, älä maksullisesta ilmoittautumisesta.</p><Button variant="cta" onClick={()=>{const course=pending?.course;setPending(null);if(course)onAssessment?.(course);}}>Aloita kartoitus</Button><h3 className="font-semibold">Maksan itse tai työnantajani maksaa</h3><p>Voit jatkaa Keudan koulutussivulle ja maksulliseen ilmoittautumiseen.</p><Button variant="outline" className="keuda-cta-wrap" onClick={()=>{if(pending){trackEvent("keuda_external_opened");window.open(pending.url,"_blank","noopener,noreferrer");}setPending(null);}}>Jatka maksulliseen koulutukseen</Button></DialogContent></Dialog>
     </div>
   );
 }
