@@ -1,4 +1,8 @@
-- [x] Kaksivaiheinen kartoitus ja lähetyksen tilat
-- [x] Turvalliset koulutuslinkit ja istunnon valinnat
-- [ ] Todellinen sähköpostilähetys: lähetyspalvelu palauttaa emailSent=false; lähettäjäverkkotunnuksen DNS-varmennus epäonnistunut
-- [ ] Mobiilin kattava tarkistus ja automaattisen buildin tulos
+- [x] Tarkista 49 alakohtaista linkkiä ja kaksi yhteistä ohjelmaa: HTTP 200 ja oikeat kohdeotsikot
+- [x] Korjaa mobiililistan piilotus ennen hakua, evästebannerin kerrostus ja lomakkeen vieritys
+- [x] Testaa seitsemän näyttökokoa, fokuslukitus, epävarman asiakkaan tiedot ja yksi aktiivinen modaali
+- [x] Tarkista muutettujen ominaisuustiedostojen lint ja kahdeksan läpäisevää testiä
+- [x] Korjaa päättyneen määräpäivän teksti ja lisää aikavyöhykerajatesti
+- [ ] Todellinen lähetys ja onnistumisvahvistus: sähköpostipalvelun DNS-varmennus estää lähetyksen
+- [ ] Automaattisen tuotantobuildin ja tyyppitarkistuksen tuloksen vahvistus
+- [ ] Fyysisen mobiilinäppäimistön sekä kattavan WCAG-kontrastin tarkistus
