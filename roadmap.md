@@ -1,5 +1,4 @@
-# Muutosturvasivu
-- [x] Päivitä hero, aloitusnosto ja asiointipolut.
-- [x] Kytke koulutusvalinta ja kartoituksen esivalinta.
-- [x] Järjestä sisältö ja tiivistä taustat haitareihin.
-- [x] Testaa päivämäärät, asiointipolut ja kuusi näyttöleveyttä.
+- [x] Kaksivaiheinen kartoitus ja lähetyksen tilat
+- [x] Turvalliset koulutuslinkit ja istunnon valinnat
+- [ ] Todellinen sähköpostilähetys: lähetyspalvelu palauttaa emailSent=false; lähettäjäverkkotunnuksen DNS-varmennus epäonnistunut
+- [ ] Mobiilin kattava tarkistus ja automaattisen buildin tulos
