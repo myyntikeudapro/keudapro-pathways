@@ -36,7 +36,7 @@ export function MuutosturvaEntry({ onAssessment, onCourses }: Props) {
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold uppercase text-keuda-orange mb-2">Seuraava aloitus</p>
             <h2 className="text-lg md:text-xl font-semibold text-background">{next ? `Seuraava Tekoälykoordinaattori-koulutus alkaa ${formatCourseDate(next.start)}.` : "Seuraava aloitus sovitaan henkilökohtaisesti."}</h2>
-            {next && <p className="text-sm text-background/80 mt-2 leading-relaxed">Ilmoittautuminen maksulliseen toteutukseen päättyy {formatCourseDate(next.deadline)}. Muutosturva-asiakkaan aloitus vahvistetaan erikseen työllisyysalueen kanssa.</p>}
+            {next && <p className="text-sm text-background/80 mt-2 leading-relaxed">Ilmoittautuminen maksulliseen toteutukseen {new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Helsinki" }) > next.deadline ? "päättyi" : "päättyy"} {formatCourseDate(next.deadline)}. Muutosturva-asiakkaan aloitus vahvistetaan erikseen työllisyysalueen kanssa.</p>}
           </div>
           <Button variant="outline" className="keuda-cta-wrap bg-transparent border-background/40 text-background hover:bg-background hover:text-foreground shrink-0" onClick={() => onAssessment(next ? `${next.course} – aloitus ${formatCourseDate(next.start)}` : undefined)}>{next ? "Kysy tästä aloituksesta" : "Kysy seuraavaa aloitusta"}</Button>
         </div>

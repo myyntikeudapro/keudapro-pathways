@@ -57,10 +57,10 @@ export function CookieConsent() {
 
   return (
     <div
-      role="dialog"
+      role="region"
       aria-live="polite"
       aria-label="Evästeasetukset"
-      className="fixed bottom-0 left-0 right-0 z-[100] p-3 md:p-5"
+      className="fixed bottom-0 left-0 right-0 z-40 p-3 md:p-5"
     >
       <div className="relative mx-auto max-w-4xl bg-background border border-border shadow-2xl rounded-xl p-4 md:p-5 flex flex-col gap-4">
         <button
