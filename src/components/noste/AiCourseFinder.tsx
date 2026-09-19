@@ -147,7 +147,7 @@ const FIELDS: Field[] = [
   { slug: "rakentaminen", label: "Rakentaminen", category: "Tekniikka & tuotanto" },
   { slug: "rekrytointi", label: "Rekrytointi", category: "Hallinto & talous", keywords: ["hr"] },
   { slug: "sahko-ja-energia-ala", label: "Sähkö- ja energia-ala", category: "Tekniikka & tuotanto" },
-  { slug: "siivousala", label: "Siivousala", category: "Palvelu & kauppa" },
+  { slug: "siivousala", label: "Puhtausala (siivousala)", category: "Palvelu & kauppa" },
   { slug: "sosiaali-ja-terveysala", label: "Sosiaali- ja terveysala", category: "Sote & hyvinvointi", keywords: ["sote"] },
   { slug: "sosiaalinen-media", label: "Sosiaalinen media", category: "Myynti & markkinointi", keywords: ["some"] },
   { slug: "taloushallinto", label: "Taloushallinto", category: "Hallinto & talous" },
@@ -377,6 +377,7 @@ export function AiCourseFinder({ onAssessment, paidPath = false }: { onAssessmen
         <div className="relative mb-3">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
+            aria-label="Hae koulutusalaa"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Hae alaa, ammattia tai avainsanaa — esim. HR, myynti, sote, IT…"
@@ -401,6 +402,7 @@ export function AiCourseFinder({ onAssessment, paidPath = false }: { onAssessmen
               <Button variant="ghost"
                 key={c}
                 type="button"
+                aria-pressed={active}
                 onClick={() => toggleCat(c)}
                 className={cn(
                   "min-h-11 text-xs font-medium px-3 py-1.5 rounded-full border transition-colors",
@@ -441,7 +443,7 @@ export function AiCourseFinder({ onAssessment, paidPath = false }: { onAssessmen
             Ei osumia. Kokeile toista hakusanaa tai poista suotimet.
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <><p className={cn("text-background/80 text-sm py-4 md:hidden", (query.trim() || activeCats.length > 0) && "hidden")}>Hae omaa alaasi tai valitse kategoria nähdäksesi koulutukset.</p><div className={cn("grid sm:grid-cols-2 lg:grid-cols-3 gap-3", !query.trim() && activeCats.length === 0 && "hidden md:grid")}>
             {filtered.map((f) => {
               const href = level === "coordinator" ? coordinatorUrl(f.slug) : activeLevel.programUrl;
               const visual = CATEGORY_VISUAL[f.category];
@@ -491,7 +493,7 @@ export function AiCourseFinder({ onAssessment, paidPath = false }: { onAssessmen
                 </div>
               );
             })}
-          </div>
+          </div></>
         )}
       </div>
       <Dialog open={!!pending} onOpenChange={v=>{if(!v)setPending(null);}}><DialogContent className="z-[110] max-h-[90dvh] overflow-y-auto"><DialogTitle>Millä tavalla haet koulutukseen?</DialogTitle><DialogDescription>Valitse tilanteeseesi sopiva etenemistapa.</DialogDescription><h3 className="font-semibold">Haen muutosturvan kautta</h3><p>Työllisyysalue tekee hankintapäätöksen. Aloita maksuttomasta kartoituksesta, älä maksullisesta ilmoittautumisesta.</p><Button variant="cta" onClick={()=>{const course=pending?.course;setPending(null);if(course)window.setTimeout(()=>onAssessment?.(course),200);}}>Aloita kartoitus</Button><h3 className="font-semibold">Maksan itse tai työnantajani maksaa</h3><p>Voit jatkaa Keudan koulutussivulle ja maksulliseen ilmoittautumiseen.</p><Button variant="outline" className="keuda-cta-wrap" onClick={()=>{if(pending){trackEvent("keuda_external_opened");window.open(pending.url,"_blank","noopener,noreferrer");}setPending(null);}}>Jatka maksulliseen koulutukseen</Button></DialogContent></Dialog>

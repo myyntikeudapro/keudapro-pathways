@@ -20,3 +20,9 @@ export function nextCourseStart(now = new Date(), starts = muutosturvaStarts) {
 export function formatCourseDate(date: string) {
   return new Intl.DateTimeFormat("fi-FI", { timeZone: "UTC", day: "numeric", month: "numeric", year: "numeric" }).format(new Date(timestamp(date)));
 }
+
+export function deadlinePassed(deadline: string, now = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Helsinki", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(now);
+  const part = (type: string) => parts.find(p => p.type === type)?.value;
+  return timestamp(deadline) < timestamp(`${part("year")}-${part("month")}-${part("day")}`);
+}

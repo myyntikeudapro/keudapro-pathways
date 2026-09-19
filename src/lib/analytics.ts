@@ -7,6 +7,7 @@ type Fbq = (...args: unknown[]) => void;
  */
 export function trackEvent(name: string, params?: Record<string, unknown>) {
   try {
+    if (localStorage.getItem("keudapro-cookie-consent") !== "accepted") return;
     const fbq = (window as unknown as { fbq?: Fbq }).fbq;
     if (typeof fbq === "function") {
       fbq("trackCustom", name, params ?? {});
