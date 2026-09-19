@@ -58,11 +58,13 @@ const AI_OPTIONS = [
 const TIMING_OPTIONS = ["Heti", "1 kk sisällä", "2 kk sisällä", "Myöhemmin"];
 
 interface MuutosturvaFormModalProps {
+  initialCourse?: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModalProps) {
+export function MuutosturvaFormModal({ open, onOpenChange, initialCourse = "" }: MuutosturvaFormModalProps) {
+  const [course, setCourse] = useState(initialCourse);
   const [submitted, setSubmitted] = useState(false);
   const [industry, setIndustry] = useState("");
   const [customIndustry, setCustomIndustry] = useState("");
@@ -93,6 +95,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
 
   const buildEmailBody = () => {
     const lines = [
+      `Koulutus ja toivottu aloitus: ${course || "Valitaan yhdessä"}`,
       `Ala: ${effectiveIndustry}`,
       `Yli 55-vuotias: ${over55}`,
       `Muutosturvan tyyppi: ${budget}`,
@@ -122,6 +125,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
     if (!value) {
       // Reset on close
       setSubmitted(false);
+      setCourse(initialCourse);
       setIndustry("");
       setCustomIndustry("");
       setOver55("");
@@ -145,7 +149,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
             <CheckCircle className="w-12 h-12 text-primary" />
             <h3 className="text-lg font-bold text-foreground">Kiitos!</h3>
             <p className="text-sm text-muted-foreground">
-              Tietosi on lähetetty. Olemme sinuun yhteydessä pian.
+              Sähköpostiviesti on valmisteltu sähköpostiohjelmaasi. Lähetä se vielä siellä Heikki Kallungille.
             </p>
             <Button variant="cta" onClick={() => handleClose(false)}>
               Sulje
@@ -155,19 +159,23 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
           <>
             <DialogHeader>
               <DialogTitle className="text-base leading-snug line-clamp-2">
-                Haluatko muutosturvasuunnitelman?
+                Maksuton muutosturvakartoitus
               </DialogTitle>
               <DialogDescription className="text-xs">
-                Täytä muutama tieto, niin laadimme sopivan ehdotuksen.
+                Täytä muutama tieto, niin laadimme sopivan ehdotuksen. Tämä ei ole maksullinen ilmoittautuminen. Työllisyysalue tekee virallisen hankintapäätöksen.
               </DialogDescription>
             </DialogHeader>
 
             <div className="flex flex-col gap-3 mt-1">
+              <div className="space-y-1">
+                <Label htmlFor="assessment-course">Koulutus ja toivottu aloitus</Label>
+                <Input id="assessment-course" value={course} onChange={e => setCourse(e.target.value)} placeholder="Valitaan yhdessä" />
+              </div>
               {/* 1. Industry */}
               <div className="space-y-1">
                 <Label className="text-xs">Miltä alalta olet siirtymässä?</Label>
                 <Select value={industry} onValueChange={setIndustry}>
-                  <SelectTrigger className="h-8 text-sm">
+                  <SelectTrigger className="min-h-11 text-sm">
                     <SelectValue placeholder="Valitse ala" />
                   </SelectTrigger>
                   <SelectContent>
@@ -182,7 +190,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                 {industry === "Muu" && (
                   <Input
                     placeholder="Kirjoita ala"
-                    className="h-8 text-sm"
+                    className="min-h-11 text-sm"
                     value={customIndustry}
                     onChange={(e) => setCustomIndustry(e.target.value)}
                   />
@@ -191,7 +199,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
 
               {/* 2. Over 55 */}
               <div className="space-y-1">
-                <Label className="text-xs">Oletko yli 55-vuotias?</Label>
+                <Label className="text-xs">Oletko täyttänyt 55 vuotta?</Label>
                 <div className="flex gap-2">
                   {["Kyllä", "Ei"].map((opt) => (
                     <Button
@@ -199,7 +207,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                       type="button"
                       variant={over55 === opt ? "default" : "outline"}
                       size="sm"
-                      className="h-7 text-xs px-3"
+                      className="min-h-11 text-sm px-4"
                       onClick={() => setOver55(opt)}
                     >
                       {opt}
@@ -212,7 +220,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
               <div className="space-y-1">
                 <Label className="text-xs">Mihin muutosturvaan kuulut?</Label>
                 <Select value={budget} onValueChange={setBudget}>
-                  <SelectTrigger className="h-8 text-sm">
+                  <SelectTrigger className="min-h-11 text-sm">
                     <SelectValue placeholder="Valitse tilanteesi" />
                   </SelectTrigger>
                   <SelectContent>
@@ -232,7 +240,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                   {GOAL_OPTIONS.map((opt) => (
                     <label
                       key={opt}
-                      className="flex items-center gap-2 cursor-pointer"
+                      className="flex items-center gap-2 cursor-pointer min-h-11"
                     >
                       <Checkbox
                         className="h-3.5 w-3.5"
@@ -252,7 +260,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                   {AI_OPTIONS.map((opt) => (
                     <label
                       key={opt}
-                      className="flex items-center gap-2 cursor-pointer"
+                      className="flex items-center gap-2 cursor-pointer min-h-11"
                     >
                       <Checkbox
                         className="h-3.5 w-3.5"
@@ -269,7 +277,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
               <div className="space-y-1">
                 <Label className="text-xs">Milloin koulutuksen tulisi alkaa?</Label>
                 <Select value={timing} onValueChange={setTiming}>
-                  <SelectTrigger className="h-8 text-sm">
+                  <SelectTrigger className="min-h-11 text-sm">
                     <SelectValue placeholder="Valitse ajankohta" />
                   </SelectTrigger>
                   <SelectContent>
@@ -287,21 +295,21 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                 <Label className="text-xs">Yhteystiedot</Label>
                 <Input
                   placeholder="Nimi *"
-                  className="h-8 text-sm"
+                  className="min-h-11 text-sm"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
                 <Input
                   type="email"
                   placeholder="Sähköposti *"
-                  className="h-8 text-sm"
+                  className="min-h-11 text-sm"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                   type="tel"
                   placeholder="Puhelin"
-                  className="h-8 text-sm"
+                  className="min-h-11 text-sm"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
@@ -324,7 +332,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                 <Button
                   variant="cta"
                   size="lg"
-                  className="flex-1"
+                  className="keuda-cta-wrap flex-1"
                   disabled={!isValid}
                   onClick={handleSubmit}
                 >
@@ -334,7 +342,7 @@ export function MuutosturvaFormModal({ open, onOpenChange }: MuutosturvaFormModa
                 <Button
                   variant="outline"
                   size="lg"
-                  className="flex-1"
+                  className="keuda-cta-wrap flex-1"
                   asChild
                 >
                   <a href="tel:+358401906912">

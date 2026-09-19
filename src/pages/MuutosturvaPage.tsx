@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
-import { HeroSection } from "@/components/shared/HeroSection";
+import { MuutosturvaEntry } from "@/components/noste/MuutosturvaEntry";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -109,13 +109,6 @@ const WHY_KEUDAPRO = [
 ];
 
 
-const STEPS = [
-  { n: "01", title: "Yhteydenotto", body: "Täytä lyhyt kartoituslomake tai soita. Saat henkilökohtaisen yhteyshenkilön." },
-  { n: "02", title: "Kartoitus", body: "Käymme yhdessä läpi tilanteesi, tavoitteesi ja muutosturvabudjettisi." },
-  { n: "03", title: "Koulutussuunnitelma", body: "Laadimme sinulle/yrityksellesi konkreettisen, alakohtaisen koulutussuunnitelman." },
-  { n: "04", title: "Toteutus", body: "Aloitat koulutuksen joustavasti ja saat tukea koko polun ajan." },
-];
-
 const FAQ = [
   {
     q: "Mikä on muutosturvakoulutus?",
@@ -167,6 +160,13 @@ const FAQ_JSONLD = {
 
 export default function MuutosturvaPage() {
   const [formOpen, setFormOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [paidPath, setPaidPath] = useState(false);
+  const openAssessment = (course = "") => { setSelectedCourse(course); setFormOpen(true); };
+  const showCourses = (paid = false) => {
+    setPaidPath(paid);
+    document.getElementById("ai-course-finder")?.scrollIntoView({ behavior: "instant", block: "start" });
+  };
   const [employerFormOpen, setEmployerFormOpen] = useState(false);
 
   const serviceJsonLd = {
@@ -200,28 +200,7 @@ export default function MuutosturvaPage() {
       />
 
 
-      {/* HERO */}
-      <section className="py-16 md:py-20 bg-foreground text-background">
-        <div className="keuda-container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-background mb-6">
-
-              Muutosturva — uusi suunta, uusi osaaminen
-            </h1>
-            <p className="text-lg md:text-xl text-background/75 mb-8 leading-relaxed">
-              Olitpa irtisanottu työntekijä tai muutostilanteessa oleva työnantaja — KeudaPRO toteuttaa muutosturvakoulutuksen, joka todella vie eteenpäin. Sisältää myös laajennetun muutosturvan yli 55-vuotiaille.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button variant="cta" size="lg" onClick={() => setFormOpen(true)}>
-                Pyydä koulutussuunnitelma
-              </Button>
-              <Button variant="outline" size="lg" asChild className="bg-transparent border-background/40 text-background hover:bg-background hover:text-foreground">
-                <a href="#ai-course-finder">Valitse oma alasi ja pätevyysohjelma →</a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <MuutosturvaEntry onAssessment={openAssessment} onCourses={showCourses} />
 
       {/* AUDIENCE SPLIT — alle 55 / yli 55 / työnantaja */}
       <section id="kohderyhmat" className="keuda-section bg-muted text-foreground">
@@ -236,9 +215,9 @@ export default function MuutosturvaPage() {
           </div>
 
 
-          <div className="grid lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {/* ALLE 55 */}
-            <article className="keuda-card flex flex-col overflow-hidden p-0">
+            <article id="tyontekija" className="keuda-card flex flex-col overflow-hidden p-0 scroll-mt-28">
               <div className="relative h-44 w-full">
                 <img
                   src={imgAlle55}
@@ -272,7 +251,7 @@ export default function MuutosturvaPage() {
                     </li>
                   ))}
                 </ul>
-                <Button variant="cta" onClick={() => setFormOpen(true)} className="w-full sm:w-auto self-start">
+                <Button variant="cta" onClick={() => openAssessment()} className="keuda-cta-wrap w-full sm:w-auto self-start">
                   Aloita kartoitus
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
@@ -280,7 +259,7 @@ export default function MuutosturvaPage() {
             </article>
 
             {/* YLI 55 */}
-            <article className="keuda-card flex flex-col overflow-hidden p-0 border-2 border-primary/30">
+            <article id="yli55" className="keuda-card flex flex-col overflow-hidden p-0 border-2 border-primary/30 scroll-mt-28">
               <div className="relative h-44 w-full">
                 <img
                   src={imgYli55}
@@ -296,7 +275,7 @@ export default function MuutosturvaPage() {
                     Laajennettu muutosturva
                   </div>
                   <h3 className="text-xl font-bold leading-tight text-white drop-shadow-md">
-                    Muutosturva yli 55-vuotiaille
+                    Muutosturva 55 vuotta täyttäneille
                   </h3>
                 </div>
 
@@ -314,14 +293,101 @@ export default function MuutosturvaPage() {
                     </li>
                   ))}
                 </ul>
-                <Button variant="cta" onClick={() => setFormOpen(true)} className="w-full sm:w-auto self-start">
+                <Button variant="cta" onClick={() => openAssessment()} className="keuda-cta-wrap w-full sm:w-auto self-start">
                   Selvitä oikeutesi
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             </article>
 
-            {/* TYÖNANTAJA */}
+
+          </div>
+
+
+        </div>
+      </section>
+
+      {/* WHY KEUDAPRO */}
+      <section className="keuda-section">
+        <div className="keuda-container">
+          <div className="max-w-2xl mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-keuda-blue-light text-primary text-xs font-semibold uppercase tracking-wider mb-3">
+              Miksi KeudaPRO
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+              Kuusi syytä valita KeudaPRO:n muutosturvakoulutus
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {WHY_KEUDAPRO.map((w, i) => {
+              return (
+                <div key={w.title} className="keuda-card-static">
+                  <div className="text-5xl md:text-6xl font-bold text-primary leading-none mb-4">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-1.5">{w.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{w.body}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* AI COURSE FINDER — älykäs koulutuksen suunnittelu */}
+      <section id="ai-course-finder" className="keuda-section bg-foreground text-background scroll-mt-24">
+        <div className="keuda-container">
+          <div className="max-w-2xl mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background/10 text-background text-xs font-semibold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5" />
+              Älykäs koulutuksen suunnittelu
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
+              Valitse oma alasi ja pätevyysohjelma
+            </h2>
+            <p className="text-background/75 text-lg">
+              Valitse ensin sopiva pätevyystaso — Tekoälykoordinaattori, Tekoälypäällikkö tai
+              Tekoälyjohtaja — ja hae oma alasi. Tekoälyn ammattiosaaja -koulutus räätälöidään sen
+              näkökulmasta. Lähes 50 alakohtaista koulutusta suoraan Keudan koulutussivuille.
+            </p>
+          </div>
+
+          <div className="mb-6">
+            <div className="flex flex-col sm:flex-row gap-2" role="group" aria-label="Asiointipolku">
+              <Button variant={paidPath ? "outline" : "cta"} aria-pressed={!paidPath} className="keuda-cta-wrap" onClick={() => setPaidPath(false)}>Muutosturvan kautta</Button>
+              <Button variant={paidPath ? "cta" : "outline"} aria-pressed={paidPath} className="keuda-cta-wrap" onClick={() => setPaidPath(true)}>Maksan itse tai työnantajani maksaa</Button>
+            </div>
+            <p className="text-sm text-background/80 mt-4">{paidPath ? "Maksullinen asiointipolku: koulutuksen valinta avaa Keudan koulutussivun, jossa voit tarkistaa alkavat ryhmät ja ilmoittautua." : "Muutosturvapolku: koulutuksen valinta avaa maksuttoman kartoituksen, ei maksullista ilmoittautumista. Työllisyysalue tekee virallisen hankintapäätöksen."}</p>
+          </div>
+          <AiCourseFinder onAssessment={paidPath ? undefined : openAssessment} />
+        </div>
+      </section>
+
+      <section className="keuda-section bg-background border-t border-border">
+        <div className="keuda-container max-w-4xl">
+          <h2 className="text-2xl md:text-3xl text-primary mb-6">Muutosturvan tausta ja ehdot</h2>
+          <Accordion type="single" collapsible><AccordionItem value="background-0"><AccordionTrigger className="text-left min-h-11">Yleinen muutosturva</AccordionTrigger><AccordionContent className="text-muted-foreground leading-relaxed">Yleinen muutosturva koskee kaikenikäisiä työntekijöitä, jotka on irtisanottu
+              muutosneuvottelujen kautta tuotannollis-taloudellisista syistä. Työnantaja vastaa
+              muutosturvaan liittyvästä tiedottamisesta, muutosneuvotteluista ja työnantajan
+              kustantamasta muutosvalmennuksesta. KeudaPRO toteuttaa työnantajan tilaamia
+              muutosvalmennuksia ja -koulutuksia KUUMA-seudulla, Uudellamaalla ja koko Suomessa.</AccordionContent></AccordionItem><AccordionItem value="background-1"><AccordionTrigger className="text-left min-h-11">55 vuotta täyttäneiden laajennettu muutosturva</AccordionTrigger><AccordionContent className="text-muted-foreground leading-relaxed">Laajennettu muutosturva on 1.1.2023 alkaen voimassa oleva erillinen kokonaisuus, joka
+              on tarkoitettu 55 vuotta täyttäneille vähintään 5 vuotta saman työnantajan
+              palveluksessa olleille irtisanotuille. Se sisältää muutosturvarahan (noin kuukauden
+              palkka), työllisyysalueen hankkiman muutosturvakoulutuksen (enintään 2 kk palkkaa
+              vastaava arvo, kesto enintään 6 kk) ja laajennetun työllistymisvapaan (5, 15 tai
+              25 päivää). Osallistujalle koulutus on maksuton ja vapaaehtoinen.</AccordionContent></AccordionItem><AccordionItem value="background-2"><AccordionTrigger className="text-left min-h-11">KeudaPRO:n rooli toteuttajana</AccordionTrigger><AccordionContent className="text-muted-foreground leading-relaxed">KeudaPRO on julkinen ammatillinen kouluttaja, joka toteuttaa sekä yleistä
+              muutosvalmennusta (työnantajan tilaamana) että 55 vuotta täyttäneiden laajennettua
+              muutosturvakoulutusta (työllisyysalueen hankkimana) KUUMA-seudulla, Uudellamaalla ja
+              muualla Suomessa. Rakennamme koulutussuunnitelman yhden yhteyshenkilön kautta ja
+              hoidamme sekä sisällön (mm. alakohtaiset Tekoälyn ammattiosaaja -koulutukset) että
+              raportoinnin työllisyysalueelle tai työnantajalle. Osallistuja tai työnantaja voi
+              ehdottaa työllisyysalueelle KeudaPRO:ta koulutuksen toteuttajaksi; virallisen
+              hankintapäätöksen tekee työllisyysalue.</AccordionContent></AccordionItem></Accordion></div></section>
+
+      <section id="tyonantaja" className="keuda-section bg-muted scroll-mt-24">
+        <div className="keuda-container">
+          <h2 className="text-3xl md:text-4xl text-primary mb-8">Muutosturva työnantajalle</h2>
+          <div className="grid lg:grid-cols-2 gap-8 items-start">            {/* TYÖNANTAJA */}
             <article className="keuda-card flex flex-col overflow-hidden p-0">
               <div className="relative h-44 w-full">
                 <img
@@ -356,16 +422,14 @@ export default function MuutosturvaPage() {
                     </li>
                   ))}
                 </ul>
-                <Button variant="cta" onClick={() => setEmployerFormOpen(true)} className="w-full sm:w-auto self-start">
+                <Button variant="cta" onClick={() => setEmployerFormOpen(true)} className="keuda-cta-wrap w-full sm:w-auto self-start">
                   Pyydä tarjous
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             </article>
 
-          </div>
-
-          {/* Työnantajan velvoitteet – selventävä laatikko */}
+          <Accordion type="single" collapsible><AccordionItem value="employer-obligations"><AccordionTrigger className="text-left min-h-11">Työnantajan muutosturvavelvoitteet</AccordionTrigger><AccordionContent>          {/* Työnantajan velvoitteet – selventävä laatikko */}
           <div className="mt-8 max-w-4xl mx-auto bg-card border border-border rounded-xl p-5 md:p-6">
             <div className="text-[11px] uppercase tracking-wider text-primary font-semibold mb-2">
               Työnantajan muutosturvavelvoitteet
@@ -373,10 +437,10 @@ export default function MuutosturvaPage() {
             <p className="text-sm text-muted-foreground leading-relaxed">
               Työnantaja vastaa muutosneuvotteluista (yhteistoimintalaki 1333/2021), tiedottamisvelvollisuudesta, muutosvalmennuksesta (≥30 hlön yrityksissä), työllistymisvapaan mahdollistamisesta ja ilmoituksesta työllisyysalueelle. KeudaPRO toteuttaa muutosvalmennuksen ja tukee koko prosessia — muutosneuvottelut ja viranomaisilmoitukset ovat työnantajan omalla vastuulla. 55 vuotta täyttäneiden muutosturvakoulutuksen hankkii työllisyysalue, ei työnantaja.
             </p>
+          </div></AccordionContent></AccordionItem></Accordion>
           </div>
         </div>
       </section>
-
       {/* SERVICE FAMILIES */}
       <section className="keuda-section bg-foreground text-background border-y border-border">
         <div className="keuda-container">
@@ -408,127 +472,6 @@ export default function MuutosturvaPage() {
         </div>
       </section>
 
-
-      {/* WHY KEUDAPRO */}
-      <section className="keuda-section">
-        <div className="keuda-container">
-          <div className="max-w-2xl mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-keuda-blue-light text-primary text-xs font-semibold uppercase tracking-wider mb-3">
-              Miksi KeudaPRO
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Kuusi syytä valita KeudaPRO:n muutosturvakoulutus
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {WHY_KEUDAPRO.map((w, i) => {
-              return (
-                <div key={w.title} className="keuda-card-static">
-                  <div className="text-5xl md:text-6xl font-bold text-primary leading-none mb-4">
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-1.5">{w.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{w.body}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* STEPS */}
-      <section className="keuda-section bg-foreground text-background border-y border-border">
-        <div className="keuda-container">
-          <div className="max-w-2xl mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
-              Näin etenemme — neljä askelta
-            </h2>
-            <p className="text-background/75 text-lg">
-              Selkeä prosessi yhteydenotosta valmiiseen koulutukseen.
-            </p>
-          </div>
-
-          <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {STEPS.map((s) => (
-              <li key={s.n} className="keuda-card-static">
-                <div className="text-5xl md:text-6xl font-bold text-primary leading-none mb-4">{s.n}</div>
-                <h3 className="font-semibold text-foreground mb-1.5">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.body}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* AI COURSE FINDER — älykäs koulutuksen suunnittelu */}
-      <section id="ai-course-finder" className="keuda-section bg-foreground text-background scroll-mt-24">
-        <div className="keuda-container">
-          <div className="max-w-2xl mb-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background/10 text-background text-xs font-semibold uppercase tracking-wider mb-3">
-              <Sparkles className="w-3.5 h-3.5" />
-              Älykäs koulutuksen suunnittelu
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-background mb-3">
-              Valitse oma alasi ja pätevyysohjelma
-            </h2>
-            <p className="text-background/75 text-lg">
-              Valitse ensin sopiva pätevyystaso — Tekoälykoordinaattori, Tekoälypäällikkö tai
-              Tekoälyjohtaja — ja hae oma alasi. Tekoälyn ammattiosaaja -koulutus räätälöidään sen
-              näkökulmasta. Lähes 50 alakohtaista koulutusta suoraan Keudan koulutussivuille.
-            </p>
-          </div>
-
-          <AiCourseFinder />
-        </div>
-      </section>
-
-      {/* MUUTOSTURVAN TASOT – yleinen vs. laajennettu (55+) vs. KeudaPRO:n rooli */}
-      <section className="keuda-section bg-background border-t border-border">
-        <div className="keuda-container max-w-4xl space-y-10">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-              Yleinen muutosturva
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Yleinen muutosturva koskee kaikenikäisiä työntekijöitä, jotka on irtisanottu
-              muutosneuvottelujen kautta tuotannollis-taloudellisista syistä. Työnantaja vastaa
-              muutosturvaan liittyvästä tiedottamisesta, muutosneuvotteluista ja työnantajan
-              kustantamasta muutosvalmennuksesta. KeudaPRO toteuttaa työnantajan tilaamia
-              muutosvalmennuksia ja -koulutuksia KUUMA-seudulla, Uudellamaalla ja koko Suomessa.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-              55 vuotta täyttäneiden laajennettu muutosturva
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Laajennettu muutosturva on 1.1.2023 alkaen voimassa oleva erillinen kokonaisuus, joka
-              on tarkoitettu 55 vuotta täyttäneille vähintään 5 vuotta saman työnantajan
-              palveluksessa olleille irtisanotuille. Se sisältää muutosturvarahan (noin kuukauden
-              palkka), työllisyysalueen hankkiman muutosturvakoulutuksen (enintään 2 kk palkkaa
-              vastaava arvo, kesto enintään 6 kk) ja laajennetun työllistymisvapaan (5, 15 tai
-              25 päivää). Osallistujalle koulutus on maksuton ja vapaaehtoinen.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-              KeudaPRO:n rooli toteuttajana
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              KeudaPRO on julkinen ammatillinen kouluttaja, joka toteuttaa sekä yleistä
-              muutosvalmennusta (työnantajan tilaamana) että 55 vuotta täyttäneiden laajennettua
-              muutosturvakoulutusta (työllisyysalueen hankkimana) KUUMA-seudulla, Uudellamaalla ja
-              muualla Suomessa. Rakennamme koulutussuunnitelman yhden yhteyshenkilön kautta ja
-              hoidamme sekä sisällön (mm. alakohtaiset Tekoälyn ammattiosaaja -koulutukset) että
-              raportoinnin työllisyysalueelle tai työnantajalle. Osallistuja tai työnantaja voi
-              ehdottaa työllisyysalueelle KeudaPRO:ta koulutuksen toteuttajaksi; virallisen
-              hankintapäätöksen tekee työllisyysalue.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* FAQ */}
       <section className="keuda-section bg-accent/40 border-t border-border">
@@ -566,7 +509,7 @@ export default function MuutosturvaPage() {
             Yksi yhteyshenkilö hoitaa muutosturvakoulutuksesi alusta loppuun.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Button variant="cta" size="lg" onClick={() => setFormOpen(true)}>
+            <Button variant="cta" size="lg" onClick={() => openAssessment()}>
               Pyydä koulutussuunnitelma
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
@@ -596,7 +539,7 @@ export default function MuutosturvaPage() {
         </div>
       </section>
 
-      <MuutosturvaFormModal open={formOpen} onOpenChange={setFormOpen} />
+      <MuutosturvaFormModal key={selectedCourse} open={formOpen} onOpenChange={setFormOpen} initialCourse={selectedCourse} />
       <EmployerMuutosturvaFormModal open={employerFormOpen} onOpenChange={setEmployerFormOpen} />
     </Layout>
   );
