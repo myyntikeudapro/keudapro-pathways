@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { nextCourseStart, formatCourseDate } from "./muutosturvaStarts";
+import { nextCourseStart, formatCourseDate, deadlinePassed } from "./muutosturvaStarts";
 
 describe("Muutosturva starts", () => {
   it("selects nearest future date even when input is reversed", () => {
@@ -21,4 +21,9 @@ describe("Muutosturva starts", () => {
     ])?.course).toBe("A");
   });
   it("formats Finnish dates", () => expect(formatCourseDate("2026-10-13")).toBe("13.10.2026"));
+});
+
+it("deadline expires after Finnish calendar day", () => {
+ expect(deadlinePassed("2026-10-05", new Date("2026-10-05T20:59:00Z"))).toBe(false);
+ expect(deadlinePassed("2026-10-05", new Date("2026-10-05T21:00:00Z"))).toBe(true);
 });
