@@ -164,7 +164,7 @@ export default function MuutosturvaPage() {
   const [selectedCourse, setSelectedCourse] = useState(() => sessionStorage.getItem("muutosturva-course") || "");
   const [paidPath, updatePaidPath] = useState(() => sessionStorage.getItem("muutosturva-paid") === "true");
   const setPaidPath = (paid:boolean) => {updatePaidPath(paid);sessionStorage.setItem("muutosturva-paid",String(paid));trackEvent(paid?"paid_path_selected":"muutosturva_path_selected");};
-  const openAssessment = (course = "") => { if(course){setSelectedCourse(course);sessionStorage.setItem("muutosturva-course",course);trackEvent("course_selected");if(course.includes("aloitus"))trackEvent("start_selected");} setFormOpen(true); };
+  const openAssessment = (course = "") => { setPaidPath(false); if(course){setSelectedCourse(course);sessionStorage.setItem("muutosturva-course",course);trackEvent("course_selected");if(course.includes("aloitus"))trackEvent("start_selected");} setFormOpen(true); };
   const showCourses = (paid = false) => {
     setPaidPath(paid);
     document.getElementById("ai-course-finder")?.scrollIntoView({ behavior: "instant", block: "start" });
