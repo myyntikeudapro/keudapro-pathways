@@ -76,7 +76,7 @@ export default function AdminLeadsPage() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Saapuneet yhteydenotot – KeudaPRO" description="Kartoitusten ja ajanvarausten hallinta." path="/admin/yhteydenotot" noindex />
+      <SEO title="Saapuneet yhteydenotot – KeudaPRO" description="Kartoitusten ja ajanvarausten hallinta." path="/admin/yhteydenotot" />
       <header className="bg-background border-b">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between gap-3">
           <div>
