@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, CalendarDays, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { nextCourseStart, formatCourseDate, deadlinePassed } from "@/data/muutosturvaStarts";
 
@@ -20,26 +20,36 @@ export function MuutosturvaEntry({ onAssessment, onCourses }: Props) {
     return () => window.clearInterval(timer);
   }, []);
   return <>
-    <section className="bg-foreground text-background pt-8 pb-7 md:pt-16 md:pb-10">
-      <div className="keuda-container">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm font-semibold text-keuda-orange mb-3">Irtisanotulle työntekijälle · myös 55+ muutosturva</p>
-          <h1 className="text-3xl md:text-5xl font-bold text-background leading-tight mb-4">Muutosturvasta uusi suunta ja uutta osaamista</h1>
-          <p className="max-w-3xl mx-auto text-base md:text-lg text-background/80 leading-relaxed mb-5">Autamme sinua löytämään tilanteeseesi sopivan koulutuksen ja laatimaan suunnitelman työllisyysaluetta varten. Voit ehdottaa KeudaPRO koulutuksen toteuttajaksi – virallisen hankintapäätöksen tekee oma työllisyysalueesi.</p>
-          <Button variant="cta" size="lg" className="keuda-cta-wrap w-full sm:w-auto" onClick={() => onAssessment()}>Tarkista sopivuus ja seuraava aloitus<ArrowRight className="w-4 h-4 shrink-0 ml-2" /></Button>
-          <p className="text-xs sm:text-sm text-background/80 mt-3">Maksuton ja ei-sitova kartoitus – vastaaminen vie noin minuutin.</p>
-          <p className="text-sm text-background mt-2">Kartoitus ei ole ilmoittautuminen maksulliseen koulutukseen.</p>
-          <Button variant="link" className="keuda-cta-wrap text-background underline mt-2" onClick={() => onCourses(false)}>Tutustu koulutusvaihtoehtoihin</Button>
-        </div>
-        <div className="mt-6 md:mt-9 border-t border-background/25 pt-5 flex flex-col md:flex-row gap-4 md:items-center max-w-5xl mx-auto">
-          <CalendarDays className="hidden md:block w-9 h-9 text-keuda-orange shrink-0" />
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold uppercase text-keuda-orange mb-2">Seuraava aloitus</p>
-            <h2 className="text-lg md:text-xl font-semibold text-background">{next ? `Seuraava Tekoälykoordinaattori-koulutus alkaa ${formatCourseDate(next.start)}.` : "Seuraava aloitus sovitaan henkilökohtaisesti."}</h2>
-            {next && <p className="text-sm text-background/80 mt-2 leading-relaxed">Ilmoittautuminen maksulliseen toteutukseen {deadlinePassed(next.deadline) ? "päättyi" : "päättyy"} {formatCourseDate(next.deadline)}. Muutosturva-asiakkaan aloitus vahvistetaan erikseen työllisyysalueen kanssa.</p>}
+    <section className="relative overflow-hidden bg-keuda-hero-surface font-editorial text-background">
+      <div aria-hidden="true" className="absolute -right-28 top-16 size-72 rounded-full border border-keuda-amber/15 md:right-[8%] md:top-24 md:size-[28rem]" />
+      <div className="keuda-container relative grid gap-10 py-10 sm:py-12 md:grid-cols-[minmax(0,1.2fr)_minmax(19rem,0.8fr)] md:items-end md:gap-12 md:py-20 lg:gap-20 lg:py-24">
+        <div className="max-w-3xl">
+          <p className="mb-4 font-display text-xs font-semibold text-keuda-amber sm:text-sm">Irtisanotulle työntekijälle <span aria-hidden="true" className="mx-1.5 text-background/35">·</span> myös 55+ muutosturva</p>
+          <h1 className="mb-5 max-w-[18ch] font-display text-[2.35rem] font-bold leading-[1.12] text-background sm:text-5xl md:text-[3.4rem] lg:text-[4rem]">Muutosturvasta uusi suunta ja uutta osaamista</h1>
+          <p className="mb-7 max-w-[62ch] text-[1.0625rem] leading-7 text-keuda-hero-muted md:text-lg md:leading-8">Autamme sinua löytämään tilanteeseesi sopivan koulutuksen ja laatimaan suunnitelman työllisyysaluetta varten. Voit ehdottaa KeudaPRO koulutuksen toteuttajaksi – virallisen hankintapäätöksen tekee oma työllisyysalueesi.</p>
+
+          <div className="max-w-md">
+            <Button variant="cta" size="lg" className="group keuda-cta-wrap min-h-16 w-full justify-between rounded-xl px-5 text-left font-display text-base shadow-none hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-keuda-amber sm:px-6 sm:text-lg" onClick={() => onAssessment()}>
+              <span>Tarkista sopivuus ja seuraava aloitus</span>
+              <ArrowRight aria-hidden="true" className="ml-3 size-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+            </Button>
+            <div className="mt-4 space-y-2 text-sm leading-6 text-keuda-hero-muted">
+              <p className="flex gap-3"><span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-secondary" />Maksuton ja ei-sitova kartoitus – vastaaminen vie noin minuutin.</p>
+              <p className="flex gap-3"><span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-keuda-amber" /><strong className="font-medium text-background">Kartoitus ei ole ilmoittautuminen maksulliseen koulutukseen.</strong></p>
+            </div>
+            <Button variant="link" className="mt-5 h-auto justify-start px-0 py-1 font-semibold text-keuda-amber underline decoration-keuda-amber/40 decoration-2 underline-offset-8 hover:text-keuda-amber hover:decoration-keuda-amber" onClick={() => onCourses(false)}>Tutustu koulutusvaihtoehtoihin</Button>
           </div>
-          <Button variant="outline" className="keuda-cta-wrap bg-transparent border-background/40 text-background hover:bg-background hover:text-foreground shrink-0" onClick={() => onAssessment(next ? `${next.course} – aloitus ${formatCourseDate(next.start)}` : undefined)}>{next ? "Kysy tästä aloituksesta" : "Kysy seuraavaa aloitusta"}</Button>
         </div>
+
+        <aside className="relative border-t border-background/15 bg-background/[0.035] px-0 pb-1 pt-7 md:border-l md:border-t-0 md:px-8 md:py-8" aria-labelledby="next-start-heading">
+          <div className="mb-4 flex items-center gap-3">
+            <span aria-hidden="true" className="h-px w-8 bg-keuda-amber" />
+            <p className="font-display text-xs font-bold uppercase text-keuda-amber">Seuraava aloitus</p>
+          </div>
+          <h2 id="next-start-heading" className="text-xl font-semibold leading-snug text-background md:text-2xl">{next ? `Seuraava Tekoälykoordinaattori-koulutus alkaa ${formatCourseDate(next.start)}.` : "Seuraava aloitus sovitaan henkilökohtaisesti."}</h2>
+          {next && <p className="mt-4 text-sm leading-6 text-keuda-hero-muted">Ilmoittautuminen maksulliseen toteutukseen {deadlinePassed(next.deadline) ? "päättyi" : "päättyy"} {formatCourseDate(next.deadline)}. Muutosturva-asiakkaan aloitus vahvistetaan erikseen työllisyysalueen kanssa.</p>}
+          <Button variant="outline" className="keuda-cta-wrap mt-6 w-full border-background/30 bg-transparent text-background hover:border-background hover:bg-background hover:text-foreground" onClick={() => onAssessment(next ? `${next.course} – aloitus ${formatCourseDate(next.start)}` : undefined)}>{next ? "Kysy tästä aloituksesta" : "Kysy seuraavaa aloitusta"}</Button>
+        </aside>
       </div>
     </section>
     <nav aria-label="Muutosturvasivun osiot" className="border-b border-border bg-background">
