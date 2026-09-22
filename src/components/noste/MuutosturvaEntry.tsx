@@ -20,7 +20,7 @@ export function MuutosturvaEntry({ onAssessment, onCourses }: Props) {
     return () => window.clearInterval(timer);
   }, []);
   return <>
-    <section className="relative overflow-hidden bg-keuda-hero-surface text-background">
+    <section className="relative overflow-hidden bg-keuda-hero-surface font-editorial text-background">
       <div aria-hidden="true" className="absolute -right-28 top-16 size-72 rounded-full border border-keuda-amber/15 md:right-[8%] md:top-24 md:size-[28rem]" />
       <div className="keuda-container relative grid gap-10 py-10 sm:py-12 md:grid-cols-[minmax(0,1.2fr)_minmax(19rem,0.8fr)] md:items-end md:gap-12 md:py-20 lg:gap-20 lg:py-24">
         <div className="max-w-3xl">
