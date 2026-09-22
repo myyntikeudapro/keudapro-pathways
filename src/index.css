@@ -4,8 +4,6 @@
 
 /* KeudaPRO Design System - Clean, Institutional-Modern Style */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 @layer base {
   :root {
     /* Core backgrounds */
@@ -68,6 +66,9 @@
     --keuda-gray-100: 210 20% 96%;
     --keuda-gray-200: 210 20% 90%;
     --keuda-navy-section: 215 25% 12%;
+    --keuda-hero-surface: 215 30% 14%;
+    --keuda-hero-muted: 216 17% 75%;
+    --keuda-amber: 39 87% 61%;
     --keuda-gray-600: 215 15% 45%;
     --keuda-gray-800: 215 25% 20%;
 
@@ -119,7 +120,7 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Manrope', system-ui, sans-serif;
   }
 
   /* Prevent long unbreakable words from overflowing on mobile */
@@ -129,7 +130,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight text-foreground;
+    @apply font-display font-semibold text-foreground;
+    letter-spacing: 0;
   }
 }
 

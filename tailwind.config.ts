@@ -14,7 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Manrope', 'system-ui', 'sans-serif'],
+        display: ['Sora', 'Manrope', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -69,6 +70,9 @@ export default {
           "orange-light": "hsl(var(--keuda-orange-light))",
           "orange-deep": "hsl(var(--keuda-orange-deep))",
           "navy-section": "hsl(var(--keuda-navy-section))",
+          amber: "hsl(var(--keuda-amber))",
+          "hero-surface": "hsl(var(--keuda-hero-surface))",
+          "hero-muted": "hsl(var(--keuda-hero-muted))",
         },
       },
       borderRadius: {
