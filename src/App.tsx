@@ -25,6 +25,7 @@ import VerkostoPage from "./pages/VerkostoPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import HubPage from "./pages/HubPage";
 import AdminPage from "./pages/admin/AdminPage";
+import AdminLeadsPage from "./pages/admin/AdminLeadsPage";
 import { AuthProvider } from "./hooks/useAuth";
 import NotFound from "./pages/NotFound";
 
