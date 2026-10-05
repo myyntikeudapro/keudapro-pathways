@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
@@ -423,16 +424,26 @@ const HubPage = () => {
                     {p.regions ? (
                       <div className="mt-auto space-y-3">
                         <div className="flex flex-wrap gap-2">
-                          {p.regions.map((r) => (
-                            <button
-                              key={r}
-                              type="button"
-                              onClick={() => openLogin({ id: `${p.id}-${r.toLowerCase()}`, name: `${p.name} — ${r}` })}
-                              className="inline-flex items-center gap-1.5 rounded-md bg-[#0B0B0B] text-keuda-orange px-3 py-1.5 text-xs font-semibold ring-1 ring-keuda-orange/40 hover:bg-keuda-orange hover:text-[#0B0B0B] transition-colors min-h-[36px]"
-                            >
-                              {r} →
-                            </button>
-                          ))}
+                          {p.regions.map((r) =>
+                            p.id === "arpro-3" && r === "Jyväskylä" ? (
+                              <Link
+                                key={r}
+                                to="/hub/tyoelamaverkko"
+                                className="inline-flex items-center gap-1.5 rounded-md bg-[#0B0B0B] text-keuda-orange px-3 py-1.5 text-xs font-semibold ring-1 ring-keuda-orange/40 hover:bg-keuda-orange hover:text-[#0B0B0B] transition-colors min-h-[36px]"
+                              >
+                                {r} →
+                              </Link>
+                            ) : (
+                              <button
+                                key={r}
+                                type="button"
+                                onClick={() => openLogin({ id: `${p.id}-${r.toLowerCase()}`, name: `${p.name} — ${r}` })}
+                                className="inline-flex items-center gap-1.5 rounded-md bg-[#0B0B0B] text-keuda-orange px-3 py-1.5 text-xs font-semibold ring-1 ring-keuda-orange/40 hover:bg-keuda-orange hover:text-[#0B0B0B] transition-colors min-h-[36px]"
+                              >
+                                {r} →
+                              </button>
+                            )
+                          )}
                         </div>
                         <div className="text-xs text-muted-foreground text-right">{p.meta}</div>
                       </div>
