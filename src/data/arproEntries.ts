@@ -11,16 +11,16 @@ export interface ArproEntry {
   loginUrls: Record<ArproRole, string>;
 }
 
-const ARPRO_BASE = "https://arpro-northstar-vision.lovable.app";
+const ARPRO_BASE = "https://guide-to-awesome-86.lovable.app";
 
 export const arproEntries: Record<string, ArproEntry> = {
   tyoelamaverkko: {
     project: "tyoelamaverkko",
     displayName: "Työelämäverkko – ARPRO",
     loginUrls: {
-      // Päivitä, kun ARPRO:n roolikohtaiset kirjautumispolut on vahvistettu.
-      jobseeker: `${ARPRO_BASE}/demo/1`,
-      coach: `${ARPRO_BASE}/demo/1`,
+      // Työnhakija: ARPRO-arvioinnin aloitus. Valmentaja: omien arviointien näkymä (vaatii kirjautumisen).
+      jobseeker: `${ARPRO_BASE}/aloitus`,
+      coach: `${ARPRO_BASE}/auth?redirect=%2Farvioinnit`,
     },
   },
 };
