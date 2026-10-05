@@ -56,6 +56,7 @@ export default function TyoelamaverkkoPage() {
               <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-5xl lg:text-6xl">{P.heroTitle}</h1>
               <p className="mt-4 max-w-xl text-lg sm:text-xl text-muted-foreground leading-relaxed">{P.heroLead}</p>
               <p className="mt-4 text-base font-medium text-foreground">Valitse alta, kumpi kuvaa sinua.</p>
+              <p className="mt-2 text-sm text-muted-foreground">Palveluun tarvitaan tunnukset, jotka saat hankkeen henkilöstöltä.</p>
             </div>
             <img
               src={P.heroImage}
