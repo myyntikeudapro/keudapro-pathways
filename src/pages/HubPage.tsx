@@ -67,13 +67,13 @@ const standardProjects: Project[] = [
     icon: "",
     status: "prep",
     statusLabel: "",
-    name: "ARPRO 3.0 Työllisyysalueet",
+    name: "ARPRO – Urahuoltamo",
     description:
       "Tekoälyyn ja dataan perustuva työllisyyden edistämisen työkalu työllisyysalueille. Sama dataperusteinen arviointi- ja ohjausmalli skaalattuna alueellisille toimijoille — yhdistää työnhakijoiden osaamisprofiilit avoimiin ja piilotyöpaikkoihin alueellisen työllisyysstrategian tueksi.",
     customers: [{ initials: "TA", name: "Työllisyysalueet", tone: "teal" }],
     meta: "Osalla alueista työkalu on jo osana palveluita, osan kanssa neuvotellaan erillisestä pilotista ja uusia alueita otetaan mukaan sopimusneuvotteluiden kautta",
     ctaLabel: "Kirjaudu",
-    regions: ["Keski-Uusimaa", "Kerava-Sipoo", "Helsinki", "Vantaa", "Jyväskylä", "Varkaus", "Raahe", "Oulu"],
+    regions: ["Keski-Uusimaa", "Kerava-Sipoo", "Helsinki", "Jyväskylä", "Raahe", "Oulu"],
     image: imgArpro2,
   },
   {
