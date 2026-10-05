@@ -30,7 +30,7 @@ export const projectEntries: Record<string, ProjectEntry> = {
     heroTitle: "Osaaminen näkyväksi. Oikeat mahdollisuudet esiin.",
     heroLead:
       "Työelämäverkko auttaa tunnistamaan osaamisesi ja löytämään työmahdollisuuksia Jyväskylän ja Muuramen alueelta.",
-    audience: "Maksuton palvelu hankkeen työnhakijoille ja valmentajille",
+    audience: "Hankkeen palvelu työnhakijoille ja valmentajille",
     heroImage: heroTyoelamaverkko,
     heroImageAlt: "Ihmisiä keskustelemassa työstä ja osaamisesta",
     organizations: ["Jyväskylän kaupunki", "Gradia", "Jyväskylän yliopisto", "Muuramen kunta"],
