@@ -24,6 +24,7 @@ import MuutosturvaPage from "./pages/MuutosturvaPage";
 import VerkostoPage from "./pages/VerkostoPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import HubPage from "./pages/HubPage";
+import TyoelamaverkkoPage from "./pages/TyoelamaverkkoPage";
 import AdminPage from "./pages/admin/AdminPage";
 import AdminLeadsPage from "./pages/admin/AdminLeadsPage";
 import { AuthProvider } from "./hooks/useAuth";
@@ -59,6 +60,7 @@ const App = () => (
               <Route path="/yhteystiedot" element={<YhteystiedotPage />} />
               <Route path="/verkosto" element={<VerkostoPage />} />
               <Route path="/hub" element={<HubPage />} />
+              <Route path="/hub/tyoelamaverkko" element={<TyoelamaverkkoPage />} />
               <Route path="/admin/login" element={<AdminLoginPage />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/admin/yhteydenotot" element={<AdminLeadsPage />} />
