@@ -2,9 +2,10 @@ import { SEO } from "@/components/seo/SEO";
 import { ArrowRight } from "lucide-react";
 import heroImg from "@/assets/hub-arpro-2.jpg";
 
-// Kirjautumispolut nykyiseen ARPRO-palveluun. Päivitetään, kun roolikohtaiset polut ovat valmiit.
-const ARPRO_JOBSEEKER_URL = "https://arpro-northstar-vision.lovable.app/demo/1";
-const ARPRO_COACH_URL = "https://arpro-northstar-vision.lovable.app/demo/1";
+import { arproLoginUrl } from "@/data/arproEntries";
+
+const ARPRO_JOBSEEKER_URL = arproLoginUrl("tyoelamaverkko", "jobseeker");
+const ARPRO_COACH_URL = arproLoginUrl("tyoelamaverkko", "coach");
 // Tietosuojaselosteen osoite lisätään, kun se toimitetaan.
 const PRIVACY_URL: string | null = null;
 
