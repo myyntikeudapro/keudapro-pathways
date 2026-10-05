@@ -141,14 +141,19 @@ export default function TyoelamaverkkoPage() {
           <p className="mt-1 text-sm text-muted-foreground">
             {P.funding}-rahoitteinen hanke · {P.period}
           </p>
-          <h2 className="sr-only">Toteuttajat</h2>
-          <ul className="mt-5 grid gap-1 text-foreground sm:grid-cols-2 md:grid-cols-4">
-            {P.organizations.map((o) => <li key={o}>{o}</li>)}
+          <h2 className="mt-6 text-sm font-semibold text-foreground">Toteuttajat</h2>
+          <ul className="mt-4 flex flex-wrap items-center gap-x-10 gap-y-6">
+            {P.organizations.map((o) => (
+              <li key={o.name}>
+                <img src={o.src} alt={o.name} loading="lazy" className="h-9 w-auto max-w-[11rem] object-contain sm:h-10" />
+              </li>
+            ))}
           </ul>
-          <ul className="mt-6 flex flex-wrap gap-3" aria-label="Rahoittajien tunnukset">
-            {P.logoSlots.map((l) => (
-              <li key={l} className="flex h-14 min-w-[8rem] items-center justify-center rounded-lg border border-dashed border-border px-4 text-xs text-muted-foreground">
-                {l}
+          <h2 className="mt-8 text-sm font-semibold text-foreground">Rahoitus</h2>
+          <ul className="mt-4 flex flex-wrap items-center gap-6">
+            {P.funderLogos.map((l) => (
+              <li key={l.name}>
+                <img src={l.src} alt={l.name} loading="lazy" className={l.tall ? "h-20 w-auto" : "h-10 w-auto"} />
               </li>
             ))}
           </ul>

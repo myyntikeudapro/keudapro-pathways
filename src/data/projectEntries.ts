@@ -1,6 +1,13 @@
 // Hankekohtainen sisältö white-label-sisääntulosivuille (/hub/<project>).
 // Uusi asiakas = uusi objekti tähän + rivi arproEntries.ts:ään. ARPRO-ydin ei muutu.
 import heroTyoelamaverkko from "@/assets/hub-arpro-2.jpg";
+import logoEu from "@/assets/logos/eu.svg";
+import logoJyvaskyla from "@/assets/logos/jyvaskyla.svg";
+import logoGradia from "@/assets/logos/gradia.svg";
+import logoJyu from "@/assets/logos/jyu.svg";
+import logoMuurame from "@/assets/logos/muurame.png";
+
+export interface Logo { name: string; src: string; tall?: boolean }
 
 export interface ProjectEntry {
   project: string; // sama tunniste kuin arproEntries.ts
@@ -13,8 +20,8 @@ export interface ProjectEntry {
   audience: string;
   heroImage: string;
   heroImageAlt: string;
-  organizations: string[];
-  logoSlots: string[]; // virallisten tunnusten paikat, oikeat tiedostot lisätään myöhemmin
+  organizations: Logo[];
+  funderLogos: Logo[];
   privacyUrl: string | null;
   seoTitle: string;
   seoDescription: string;
@@ -33,8 +40,13 @@ export const projectEntries: Record<string, ProjectEntry> = {
     audience: "Hankkeen palvelu työnhakijoille ja valmentajille",
     heroImage: heroTyoelamaverkko,
     heroImageAlt: "Ihmisiä keskustelemassa työstä ja osaamisesta",
-    organizations: ["Jyväskylän kaupunki", "Gradia", "Jyväskylän yliopisto", "Muuramen kunta"],
-    logoSlots: ["ESR+ -tunnus", "EU-tunnus", "Rahoittajan tunnus"],
+    organizations: [
+      { name: "Jyväskylän kaupunki", src: logoJyvaskyla },
+      { name: "Gradia", src: logoGradia },
+      { name: "Jyväskylän yliopisto", src: logoJyu },
+      { name: "Muuramen kunta", src: logoMuurame },
+    ],
+    funderLogos: [{ name: "Euroopan unionin osarahoittama", src: logoEu, tall: true }],
     privacyUrl: null,
     seoTitle: "Työelämäverkko – Osaaminen näkyväksi | Jyväskylä ja Muurame",
     seoDescription:
