@@ -18,9 +18,9 @@ export const arproEntries: Record<string, ArproEntry> = {
     project: "tyoelamaverkko",
     displayName: "Työelämäverkko – ARPRO",
     loginUrls: {
-      // Työnhakija: ARPRO-arvioinnin aloitus. Valmentaja: omien arviointien näkymä (vaatii kirjautumisen).
-      jobseeker: `${ARPRO_BASE}/aloitus`,
-      coach: `${ARPRO_BASE}/auth?redirect=%2Farvioinnit`,
+      // Molemmat näkymät avaavat saman ARPRO-palvelun etusivun, jossa kirjautuminen tapahtuu.
+      jobseeker: ARPRO_BASE,
+      coach: ARPRO_BASE,
     },
   },
 };
