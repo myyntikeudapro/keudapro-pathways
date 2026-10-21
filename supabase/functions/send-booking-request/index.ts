@@ -60,45 +60,56 @@ Deno.serve(async (req) => {
       });
     }
 
-    const resendKey = Deno.env.get("RESEND_API_KEY");
+    const lovableKey = Deno.env.get("LOVABLE_API_KEY");
+    const gmailKey = Deno.env.get("GOOGLE_MAIL_API_KEY");
     let emailSent = false;
 
-    if (resendKey) {
-      const from = Deno.env.get("EMAIL_FROM") ?? "KeudaPRO <onboarding@resend.dev>";
+    if (lovableKey && gmailKey) {
+      const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       const html = `
-        <h2>Uusi ajanvarauspyyntö (${meetingFormat || "ei valittu"})</h2>
-        <p><strong>Nimi:</strong> ${name}</p>
-        <p><strong>Sähköposti:</strong> ${email}</p>
-        <p><strong>Puhelin:</strong> ${phone || "-"}</p>
-        <p><strong>Organisaatio:</strong> ${organization || "-"}</p>
-        <p><strong>Mistä lähetetty:</strong> ${source || "-"}</p>
+        <h2>Uusi yhteydenotto (${esc(meetingFormat || "ei valittu")})</h2>
+        <p><strong>Nimi:</strong> ${esc(name)}</p>
+        <p><strong>Sähköposti:</strong> ${esc(email)}</p>
+        <p><strong>Puhelin:</strong> ${esc(phone || "-")}</p>
+        <p><strong>Organisaatio:</strong> ${esc(organization || "-")}</p>
+        <p><strong>Mistä lähetetty:</strong> ${esc(source || "-")}</p>
         <hr />
-        <p style="white-space:pre-wrap">${message.replace(/</g, "&lt;")}</p>
+        <p style="white-space:pre-wrap">${esc(message)}</p>
       `;
+      const b64 = (s: string) =>
+        btoa(Array.from(new TextEncoder().encode(s), (b) => String.fromCharCode(b)).join(""));
+      const hdr = (v: string) => (/^[\x00-\x7F]*$/.test(v) ? v : `=?UTF-8?B?${b64(v)}?=`);
+      const subject = `Yhteydenotto – ${name}${meetingFormat ? ` (${meetingFormat})` : ""}`;
+      const raw = [
+        `From: ${hdr("KeudaPRO")} <myynti@keudapro.com>`,
+        `To: ${RECIPIENT}`,
+        `Reply-To: ${email}`,
+        `Subject: ${hdr(subject)}`,
+        "MIME-Version: 1.0",
+        'Content-Type: text/html; charset="UTF-8"',
+        "Content-Transfer-Encoding: base64",
+        "",
+        b64(html),
+      ].join("\r\n");
+      const encoded = b64(raw).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 
-      const res = await fetch("https://api.resend.com/emails", {
+      const res = await fetch("https://connector-gateway.lovable.dev/google_mail/gmail/v1/users/me/messages/send", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${resendKey}`,
+          Authorization: `Bearer ${lovableKey}`,
+          "X-Connection-Api-Key": gmailKey,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          from,
-          to: [RECIPIENT],
-          reply_to: email,
-          subject: `Ajanvarauspyyntö – ${name}${meetingFormat ? ` (${meetingFormat})` : ""}`,
-          html,
-        }),
+        body: JSON.stringify({ raw: encoded }),
       });
 
       if (!res.ok) {
-        const errBody = await res.text();
-        console.error(`Resend failed [${res.status}]: ${errBody}`);
+        console.error(`Gmail send failed [${res.status}]: ${await res.text()}`);
       } else {
         emailSent = true;
       }
     } else {
-      console.warn("RESEND_API_KEY missing — request stored but email not sent.");
+      console.warn("Gmail connection missing — request stored but email not sent.");
     }
 
     return new Response(JSON.stringify({ ok: true, emailSent }), {
