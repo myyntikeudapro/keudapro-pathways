@@ -49,7 +49,8 @@ Deno.serve(async (req) => {
         userId = existing.id;
         await admin.auth.admin.updateUserById(userId, { password });
       } else userId = created.user.id;
-      await admin.from("user_roles").upsert({ user_id: userId, role }, { onConflict: "user_id,role" });
+      const { data: has } = await admin.from("user_roles").select("id").eq("user_id", userId).eq("role", role).maybeSingle();
+      if (!has) await admin.from("user_roles").insert({ user_id: userId, role });
       return json({ ok: true, email, password });
     }
     return json({ error: "Tuntematon toiminto." }, 400);
