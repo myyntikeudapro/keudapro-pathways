@@ -210,34 +210,52 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-muted/40 overflow-x-hidden">
       <SEO title="Sisältöeditori – KeudaPRO" description="Korttien hallintapaneeli." path="/admin" />
-      <header className="bg-background border-b">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-semibold">Sisältöeditori</h1>
-            <p className="text-xs text-muted-foreground">{user.email}</p>
+      <header className="bg-keuda-hero-surface text-primary-foreground">
+        <div className="container mx-auto px-4 py-5 flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-keuda-amber">KeudaPRO · Työtila</p>
+            <h1 className="text-xl sm:text-2xl font-semibold mt-1 text-primary-foreground">Hallinta</h1>
+            <p className="text-xs text-keuda-hero-muted truncate">{user.email}</p>
           </div>
-          <div className="flex items-center gap-2">
-            <Button asChild variant="ghost" size="sm"><Link to="/">Sivustolle</Link></Button>
-            <Button variant="outline" size="sm" onClick={signOut} aria-label="Kirjaudu ulos">
+          <div className="flex items-center gap-1 shrink-0">
+            <Button asChild variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/">Sivustolle</Link></Button>
+            <Button variant="ghost" size="sm" onClick={signOut} aria-label="Kirjaudu ulos" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
               <LogOut className="h-4 w-4 sm:mr-2" /><span className="hidden sm:inline">Kirjaudu ulos</span>
             </Button>
           </div>
         </div>
       </header>
 
-      <nav aria-label="Hallinnan osiot" className="container mx-auto px-4 pt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {[
-          { to: "/admin/markkinointi", title: "Markkinointi", desc: "Ostopolku, kanavat ja kampanjat", icon: BarChart3 },
-          { to: "/admin/markkinointi?tab=leads", title: "Yhteydenotot", desc: "Kartoitukset ja ajanvaraukset", icon: Inbox },
-          { to: "/admin/markkinointi?tab=users", title: "Käyttäjät", desc: "Lisää myyjiä ja markkinoijia", icon: Users },
-        ].map(({ to, title, desc, icon: Icon }) => (
-          <Link key={to} to={to} className="group flex items-center gap-3 rounded-lg border bg-background p-4 min-h-16 hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground"><Icon className="h-5 w-5" /></span>
-            <span className="min-w-0"><span className="block font-semibold group-hover:text-primary">{title}</span><span className="block text-xs text-muted-foreground">{desc}</span></span>
-          </Link>
-        ))}
+      <nav aria-label="Hallinnan osiot" className="container mx-auto px-4 pt-6 space-y-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Markkinointi ja myynti palveluittain</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              { to: "/admin/markkinointi", title: "Kaikki palvelut", desc: "Koko sivuston ostopolku ja kanavat", icon: BarChart3, accent: "bg-keuda-blue" },
+              { to: "/admin/markkinointi?palvelu=muutosturva", title: "Muutosturva", desc: "Kartoitukset, koulutukset, kampanjat", icon: BarChart3, accent: "bg-keuda-amber" },
+              { to: "/admin/markkinointi?palvelu=aly", title: "Äly – tekoälypätevyydet", desc: "Tekoälytesti, tasot, ilmoittautumiset", icon: BarChart3, accent: "bg-primary" },
+            ].map(({ to, title, desc, icon: Icon, accent }) => (
+              <Link key={to} to={to} className="group relative overflow-hidden flex items-center gap-3 rounded-lg border bg-background p-4 min-h-16 shadow-sm hover:shadow-md hover:border-keuda-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-all">
+                <span className={`absolute inset-x-0 top-0 h-1 ${accent}`} />
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-keuda-blue text-primary-foreground"><Icon className="h-5 w-5" /></span>
+                <span className="min-w-0"><span className="block font-semibold group-hover:text-keuda-blue">{title}</span><span className="block text-xs text-muted-foreground">{desc}</span></span>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {[
+            { to: "/admin/markkinointi?tab=leads", title: "Yhteydenotot", desc: "Kartoitukset ja ajanvaraukset", icon: Inbox },
+            { to: "/admin/markkinointi?tab=users", title: "Käyttäjät", desc: "Lisää myyjiä ja markkinoijia", icon: Users },
+          ].map(({ to, title, desc, icon: Icon }) => (
+            <Link key={to} to={to} className="group flex items-center gap-3 rounded-lg border bg-background p-3 sm:p-4 min-h-16 shadow-sm hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground"><Icon className="h-4 w-4" /></span>
+              <span className="min-w-0"><span className="block font-semibold text-sm group-hover:text-primary">{title}</span><span className="block text-xs text-muted-foreground truncate">{desc}</span></span>
+            </Link>
+          ))}
+        </div>
       </nav>
 
       <main className="container mx-auto px-4 py-6 grid gap-6 lg:grid-cols-[280px_1fr]">

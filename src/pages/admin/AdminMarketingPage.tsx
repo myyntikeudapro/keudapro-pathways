@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { Navigate, Link, useSearchParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,12 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Loader2, LogOut, RefreshCw } from "lucide-react";
+import { Download, Loader2, LogOut, RefreshCw, Home, Layers, CalendarDays, BarChart3, Inbox, Users, Eye, Target, Clock, GraduationCap } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { SEO } from "@/components/seo/SEO";
 
 type Ev = { session_id: string; event: string; path: string | null; utm_source: string | null; utm_campaign: string | null; device: string | null; props: Record<string, unknown>; created_at: string };
-type Lead = { id: string; name: string; email: string; phone: string | null; organization: string | null; meeting_format: string; message: string; source: string | null; created_at: string; status: string; notes: string | null; utm_source: string | null; utm_medium: string | null; utm_campaign: string | null; handled_by: string | null };
+type Lead = { id: string; name: string; email: string; phone: string | null; organization: string | null; meeting_format: string; message: string; source: string | null; created_at: string; status: string; notes: string | null; utm_source: string | null; utm_medium: string | null; utm_campaign: string | null; handled_by: string | null; session_id?: string | null };
 
 const STATUSES = ["uusi", "yhteydessä", "kartoitus tehty", "koulutukseen", "ei jatkoon"] as const;
 const nf = new Intl.NumberFormat("fi-FI");
@@ -44,32 +45,61 @@ function countBy<T>(rows: T[], key: (r: T) => string | null | undefined, unique?
   return [...m.entries()].map(([k, v]) => [k, typeof v === "number" ? v : v.size] as [string, number]).sort((a, b) => b[1] - a[1]);
 }
 
-function Bar({ name, value, max, sub }: { name: string; value: number; max: number; sub?: string }) {
+const SERVICES: Record<string, { label: string; short: string; paths: string[] | null; leadSource?: string; steps: [string, string][] }> = {
+  all: { label: "Kaikki palvelut", short: "Koko sivusto", paths: null, steps: [["Kävi sivustolla", "page_view"], ["Avasi kartoituksen tai testin", "assessment_opened|ai_assessment_start"], ["Klikkasi ilmoittautumista tai CTA:ta", "course_registration_click|organization_ai_cta|keuda_external_opened|assessment_submitted"], ["Jätti yhteydenoton", "lead_submitted"]] },
+  muutosturva: { label: "Muutosturva", short: "/muutosturva", paths: ["/muutosturva"], leadSource: "muutosturva-kartoitus", steps: [["Kävi Muutosturva-sivulla", "page_view"], ["Avasi kartoituksen", "assessment_opened"], ["Täytti vaiheen 1", "assessment_step1_completed"], ["Lähetti kartoituksen", "assessment_submitted"]] },
+  aly: { label: "Äly – tekoälypätevyydet", short: "/aly", paths: ["/aly"], steps: [["Kävi Äly-sivulla", "page_view"], ["Aloitti tekoälytestin", "ai_assessment_start"], ["Suoritti testin", "ai_assessment_complete"], ["Klikkasi ilmoittautumista", "course_registration_click"]] },
+};
+const LEVELS: Record<string, string> = { coordinator: "AI Coordinator", manager: "AI Manager", director: "AI Director" };
+
+function Bar({ name, value, max, sub, tone = "primary" }: { name: string; value: number; max: number; sub?: string; tone?: "primary" | "blue" | "amber" }) {
+  const color = tone === "blue" ? "bg-keuda-blue" : tone === "amber" ? "bg-keuda-amber" : "bg-primary";
   return (
-    <div className="space-y-1">
-      <div className="flex justify-between text-sm gap-2"><span className="truncate">{name}</span><span className="tabular-nums font-medium">{nf.format(value)}{sub && <span className="text-muted-foreground font-normal"> · {sub}</span>}</span></div>
-      <div className="h-2 rounded-full bg-muted overflow-hidden"><div className="h-full bg-primary rounded-full" style={{ width: `${max ? (value / max) * 100 : 0}%` }} /></div>
+    <div className="space-y-1.5 min-w-0">
+      <div className="flex justify-between text-sm gap-3"><span className="truncate min-w-0">{name}</span><span className="tabular-nums font-semibold shrink-0">{nf.format(value)}{sub && <span className="text-muted-foreground font-normal"> · {sub}</span>}</span></div>
+      <div className="h-2 rounded-full bg-muted overflow-hidden"><div className={`h-full ${color} rounded-full transition-all`} style={{ width: `${max ? Math.max((value / max) * 100, value ? 2 : 0) : 0}%` }} /></div>
     </div>
   );
 }
 
-function Kpi({ title, value, hint }: { title: string; value: string; hint?: string }) {
-  return <Card><CardContent className="p-4"><p className="text-xs text-muted-foreground">{title}</p><p className="text-2xl font-semibold tabular-nums mt-1">{value}</p>{hint && <p className="text-xs text-muted-foreground mt-1">{hint}</p>}</CardContent></Card>;
+function Kpi({ title, value, hint, icon: Icon, accent }: { title: string; value: string; hint?: string; icon: typeof Users; accent: string }) {
+  return (
+    <Card className="relative overflow-hidden border-border/70 shadow-sm">
+      <span className={`absolute inset-x-0 top-0 h-1 ${accent}`} />
+      <CardContent className="p-4 sm:p-5">
+        <div className="flex items-start justify-between gap-2"><p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground leading-tight">{title}</p><Icon className="h-4 w-4 text-muted-foreground shrink-0" /></div>
+        <p className="text-2xl sm:text-3xl font-semibold tabular-nums mt-2 text-keuda-blue">{value}</p>
+        {hint && <p className="text-xs text-muted-foreground mt-1">{hint}</p>}
+      </CardContent>
+    </Card>
+  );
 }
 
-function List({ rows, empty = "Ei vielä tietoja tältä ajalta." }: { rows: [string, number, string?][]; empty?: string }) {
+function Panel({ title, desc, children, className = "" }: { title: string; desc?: string; children: ReactNode; className?: string }) {
+  return (
+    <Card className={`border-border/70 shadow-sm min-w-0 ${className}`}>
+      <CardHeader className="pb-3 border-b bg-muted/30"><CardTitle className="text-sm font-semibold uppercase tracking-wide text-keuda-blue">{title}</CardTitle>{desc && <CardDescription className="text-xs">{desc}</CardDescription>}</CardHeader>
+      <CardContent className="pt-4">{children}</CardContent>
+    </Card>
+  );
+}
+
+function List({ rows, empty = "Ei vielä tietoja tältä ajalta.", tone }: { rows: [string, number, string?][]; empty?: string; tone?: "primary" | "blue" | "amber" }) {
   if (!rows.length) return <p className="text-sm text-muted-foreground">{empty}</p>;
   const max = Math.max(...rows.map((r) => r[1]));
-  return <div className="space-y-3">{rows.slice(0, 10).map(([n, v, s]) => <Bar key={n} name={n} value={v} max={max} sub={s} />)}</div>;
+  return <div className="space-y-3">{rows.slice(0, 10).map(([n, v, s]) => <Bar key={n} name={n} value={v} max={max} sub={s} tone={tone} />)}</div>;
 }
 
 export default function AdminMarketingPage() {
   const { user, loading, isEditor, roleLoading, signOut } = useAuth();
-  const [days, setDays] = useState(30);
   const [params, setParams] = useSearchParams();
   const tab = ["overview", "leads", "users"].includes(params.get("tab") ?? "") ? params.get("tab")! : "overview";
+  const service = params.get("palvelu") && SERVICES[params.get("palvelu")!] ? params.get("palvelu")! : "all";
+  const days = [7, 30, 90, 365].includes(Number(params.get("pv"))) ? Number(params.get("pv")) : 30;
+  const setParam = (k: string, v: string | null) => { const n = new URLSearchParams(params); if (v) n.set(k, v); else n.delete(k); setParams(n, { replace: true }); };
   const since = useMemo(() => new Date(Date.now() - days * 864e5).toISOString(), [days]);
   const qc = useQueryClient();
+  const svc = SERVICES[service];
 
   const events = useQuery({
     queryKey: ["mkt_events", since],
@@ -91,39 +121,38 @@ export default function AdminMarketingPage() {
   });
 
   const s = useMemo(() => {
-    const ev = events.data ?? [];
-    const ld = leads.data ?? [];
+    const all = events.data ?? [];
+    const allLeads = leads.data ?? [];
+    const svcSessions = svc.paths ? new Set(all.filter((e) => e.event === "page_view" && e.path && svc.paths!.includes(e.path)).map((e) => e.session_id)) : null;
+    const ev = svcSessions ? all.filter((e) => svcSessions.has(e.session_id)) : all;
+    const ld = svcSessions ? allLeads.filter((l) => (l.session_id && svcSessions.has(l.session_id)) || (svc.leadSource && l.source === svc.leadSource)) : allLeads;
     const views = ev.filter((e) => e.event === "page_view");
     const sessions = new Set(views.map((e) => e.session_id));
-    const mtSessions = new Set(views.filter((e) => e.path === "/muutosturva").map((e) => e.session_id));
-    const sess = (name: string) => new Set(ev.filter((e) => e.event === name).map((e) => e.session_id)).size;
-    const mtLeads = ld.filter((l) => l.source === "muutosturva-kartoitus").length;
+    const sess = (names: string) => { const n = names.split("|"); return new Set(ev.filter((e) => n.includes(e.event) && (names !== "page_view" || !svc.paths || (e.path && svc.paths.includes(e.path)))).map((e) => e.session_id)).size; };
     const srcSessions = countBy(views, (e) => label(e.utm_source), (e) => e.session_id);
     const srcLeads = new Map(countBy(ld, (l) => label(l.utm_source)));
-    const channels = srcSessions.map(([k, v]) => [k, v, `${srcLeads.get(k) ?? 0} yhteydenottoa (${pct(srcLeads.get(k) ?? 0, v)})`] as [string, number, string]);
-    srcLeads.forEach((v, k) => { if (!srcSessions.find((c) => c[0] === k)) channels.push([k, 0, `${v} yhteydenottoa`]); });
-    const courseOf = (e: Ev) => (typeof e.props?.course === "string" ? (e.props.course as string) : null);
+    const channels = srcSessions.map(([k, v]) => [k, v, `${srcLeads.get(k) ?? 0} yht. (${pct(srcLeads.get(k) ?? 0, v)})`] as [string, number, string]);
+    srcLeads.forEach((v, k) => { if (!srcSessions.find((c) => c[0] === k)) channels.push([k, 0, `${v} yht.`]); });
+    const courseOf = (e: Ev) => { const p = e.props ?? {}; if (typeof p.course === "string") return p.course as string; const lv = (p.level ?? p.result) as string | undefined; return lv ? LEVELS[lv] ?? lv : null; };
+    const funnel = svc.steps.map(([n, k]) => [n, sess(k)] as [string, number]);
     return {
       sessions: sessions.size,
       views: views.length,
-      mtSessions: mtSessions.size,
-      opened: sess("assessment_opened"),
-      step1: sess("assessment_step1_completed"),
-      submitted: sess("assessment_submitted"),
+      funnel,
+      conversion: pct(funnel[funnel.length - 1][1], funnel[0][1]),
       leadsTotal: ld.length,
-      mtLeads,
       newLeads: ld.filter((l) => l.status === "uusi").length,
       won: ld.filter((l) => l.status === "koulutukseen").length,
+      leads: ld,
       channels,
       campaigns: countBy(views.filter((e) => e.utm_campaign), (e) => e.utm_campaign, (e) => e.session_id),
       pages: countBy(views, (e) => e.path),
       devices: countBy(views, (e) => e.device, (e) => e.session_id),
-      courses: countBy(ev.filter((e) => ["course_selected", "assessment_submitted", "keuda_external_opened", "course_registration_click"].includes(e.event)), courseOf),
-      actions: countBy(ev.filter((e) => e.event !== "page_view"), (e) => EVENT_NAMES[e.event] ?? e.event),
-      leadSources: countBy(ld, (l) => l.source ?? l.meeting_format),
+      courses: countBy(ev.filter((e) => ["course_selected", "assessment_submitted", "keuda_external_opened", "course_registration_click", "ai_assessment_complete"].includes(e.event)), courseOf),
+      actions: countBy(ev.filter((e) => e.event !== "page_view" && !e.event.startsWith("ai_result_")), (e) => EVENT_NAMES[e.event] ?? e.event),
       statuses: countBy(ld, (l) => l.status),
     };
-  }, [events.data, leads.data]);
+  }, [events.data, leads.data, svc]);
 
   if (loading || roleLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>;
   if (!user) return <Navigate to="/admin/login" replace />;
@@ -133,73 +162,99 @@ export default function AdminMarketingPage() {
   const busy = events.isFetching || leads.isFetching;
 
   const exportCsv = () => {
-    const rows = [["Saapui", "Nimi", "Sähköposti", "Puhelin", "Lähde", "Kanava", "Kampanja", "Tila", "Käsittelijä", "Muistiinpanot"], ...(leads.data ?? []).map((l) => [fmt(l.created_at), l.name, l.email, l.phone ?? "", l.source ?? l.meeting_format, l.utm_source ?? "", l.utm_campaign ?? "", l.status, l.handled_by ?? "", l.notes ?? ""])];
+    const rows = [["Saapui", "Nimi", "Sähköposti", "Puhelin", "Lähde", "Kanava", "Kampanja", "Tila", "Käsittelijä", "Muistiinpanot"], ...s.leads.map((l) => [fmt(l.created_at), l.name, l.email, l.phone ?? "", l.source ?? l.meeting_format, l.utm_source ?? "", l.utm_campaign ?? "", l.status, l.handled_by ?? "", l.notes ?? ""])];
     const csv = "\uFEFF" + rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(";")).join("\n");
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
-    a.download = `yhteydenotot-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `yhteydenotot-${service}-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <SEO title="Markkinointi ja ostopolku – KeudaPRO" description="Markkinoinnin ja ostopolun seuranta." path="/admin/markkinointi" />
-      <header className="bg-background border-b">
-        <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
-          <div><h1 className="text-xl font-semibold">Markkinointi ja ostopolku</h1><p className="text-xs text-muted-foreground">{user.email}</p></div>
-          <div className="flex flex-wrap items-center gap-2">
-            {[7, 30, 90].map((d) => <Button key={d} size="sm" variant={days === d ? "default" : "outline"} onClick={() => setDays(d)}>{d} pv</Button>)}
-            <Button variant="outline" size="sm" onClick={refresh} disabled={busy}><RefreshCw className={`mr-2 h-4 w-4 ${busy ? "animate-spin" : ""}`} />Päivitä</Button>
-            <Button asChild variant="ghost" size="sm"><Link to="/admin">Sisältöeditori</Link></Button>
-            <Button variant="outline" size="sm" onClick={signOut}><LogOut className="mr-2 h-4 w-4" />Ulos</Button>
+    <div className="min-h-screen bg-muted/40 overflow-x-hidden">
+      <SEO title="Markkinointi ja myynti – KeudaPRO" description="Markkinoinnin ja ostopolun seuranta." path="/admin/markkinointi" />
+      <header className="bg-keuda-hero-surface text-primary-foreground">
+        <div className="container mx-auto px-4 pt-5 pb-6 space-y-5">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-keuda-amber">KeudaPRO · Työtila</p>
+              <h1 className="text-xl sm:text-2xl font-semibold mt-1 text-primary-foreground">Markkinointi ja myynti</h1>
+              <p className="text-xs text-keuda-hero-muted truncate">{user.email}</p>
+            </div>
+            <div className="flex items-center gap-1 shrink-0">
+              <Button asChild variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/admin" aria-label="Hallinnan etusivu"><Home className="h-4 w-4 sm:mr-2" /><span className="hidden sm:inline">Hallinta</span></Link></Button>
+              <Button variant="ghost" size="sm" onClick={signOut} aria-label="Kirjaudu ulos" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><LogOut className="h-4 w-4 sm:mr-2" /><span className="hidden sm:inline">Ulos</span></Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_220px_auto] gap-2">
+            <label className="min-w-0"><span className="sr-only">Palvelu</span>
+              <Select value={service} onValueChange={(v) => setParam("palvelu", v === "all" ? null : v)}>
+                <SelectTrigger aria-label="Valitse palvelu" className="h-11 bg-background text-foreground"><Layers className="h-4 w-4 mr-2 text-muted-foreground shrink-0" /><SelectValue /></SelectTrigger>
+                <SelectContent>{Object.entries(SERVICES).map(([k, v]) => <SelectItem key={k} value={k}>{v.label}</SelectItem>)}</SelectContent>
+              </Select>
+            </label>
+            <label><span className="sr-only">Aikaväli</span>
+              <Select value={String(days)} onValueChange={(v) => setParam("pv", v === "30" ? null : v)}>
+                <SelectTrigger aria-label="Valitse aikaväli" className="h-11 bg-background text-foreground"><CalendarDays className="h-4 w-4 mr-2 text-muted-foreground shrink-0" /><SelectValue /></SelectTrigger>
+                <SelectContent>{[[7, "Viimeiset 7 päivää"], [30, "Viimeiset 30 päivää"], [90, "Viimeiset 90 päivää"], [365, "Viimeiset 12 kk"]].map(([d, t]) => <SelectItem key={d} value={String(d)}>{t}</SelectItem>)}</SelectContent>
+              </Select>
+            </label>
+            <Button variant="secondary" className="h-11" onClick={refresh} disabled={busy}><RefreshCw className={`mr-2 h-4 w-4 ${busy ? "animate-spin" : ""}`} />Päivitä</Button>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-6">
-        <Tabs value={tab} onValueChange={(v) => setParams(v === "overview" ? {} : { tab: v }, { replace: true })}>
-          <TabsList className="mb-4 flex-wrap h-auto">
-            <TabsTrigger value="overview">Yleiskuva</TabsTrigger>
-            <TabsTrigger value="leads">Yhteydenotot ({s.leadsTotal})</TabsTrigger>
-            <TabsTrigger value="users">Käyttäjät</TabsTrigger>
+      <main className="container mx-auto px-4 py-5 sm:py-6">
+        <Tabs value={tab} onValueChange={(v) => setParam("tab", v === "overview" ? null : v)}>
+          <TabsList className="mb-5 grid w-full grid-cols-3 h-auto p-1 bg-background border shadow-sm sm:w-auto sm:inline-grid">
+            <TabsTrigger value="overview" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><BarChart3 className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Yleiskuva</span></TabsTrigger>
+            <TabsTrigger value="leads" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><Inbox className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Yhteydenotot ({s.leadsTotal})</span></TabsTrigger>
+            <TabsTrigger value="users" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><Users className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Käyttäjät</span></TabsTrigger>
           </TabsList>
 
-          <TabsContent value="overview" className="space-y-4">
+          <TabsContent value="overview" className="space-y-4 mt-0">
+            <div className="flex flex-wrap items-center gap-2 text-sm"><Badge className="bg-keuda-blue text-primary-foreground hover:bg-keuda-blue">{svc.label}</Badge><span className="text-muted-foreground">{svc.short} · {days === 365 ? "12 kk" : `${days} pv`}</span></div>
             {events.isLoading ? <Loader2 className="h-6 w-6 animate-spin mx-auto my-10 text-muted-foreground" /> : <>
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
-                <Kpi title="Käynnit" value={nf.format(s.sessions)} hint={`${nf.format(s.views)} sivunäyttöä`} />
-                <Kpi title="Yhteydenotot" value={nf.format(s.leadsTotal)} hint={`Kävijöistä ${pct(s.leadsTotal, s.sessions)}`} />
-                <Kpi title="Muutosturvakartoitukset" value={nf.format(s.mtLeads)} />
-                <Kpi title="Käsittelemättä" value={nf.format(s.newLeads)} hint="Tila: uusi" />
-                <Kpi title="Koulutukseen" value={nf.format(s.won)} hint={`Yhteydenotoista ${pct(s.won, s.leadsTotal)}`} />
+                <Kpi icon={Eye} accent="bg-keuda-blue" title="Käynnit" value={nf.format(s.sessions)} hint={`${nf.format(s.views)} sivunäyttöä`} />
+                <Kpi icon={Inbox} accent="bg-primary" title="Yhteydenotot" value={nf.format(s.leadsTotal)} hint={`Kävijöistä ${pct(s.leadsTotal, s.sessions)}`} />
+                <Kpi icon={Target} accent="bg-keuda-amber" title="Polun konversio" value={s.conversion} hint="Ensimmäisestä viimeiseen vaiheeseen" />
+                <Kpi icon={Clock} accent="bg-destructive" title="Käsittelemättä" value={nf.format(s.newLeads)} hint="Tila: uusi" />
+                <Kpi icon={GraduationCap} accent="bg-primary" title="Koulutukseen" value={nf.format(s.won)} hint={`Yhteydenotoista ${pct(s.won, s.leadsTotal)}`} />
               </div>
 
-              <Card>
-                <CardHeader><CardTitle className="text-base">Muutosturvan ostopolku</CardTitle><CardDescription>Montako käyntiä eteni kuhunkin vaiheeseen. Prosentti kertoo osuuden edellisestä vaiheesta.</CardDescription></CardHeader>
-                <CardContent className="space-y-3">
-                  {([["Kävi Muutosturva-sivulla", s.mtSessions, 0], ["Avasi kartoituksen", s.opened, s.mtSessions], ["Täytti vaiheen 1", s.step1, s.opened], ["Lähetti kartoituksen", s.submitted, s.step1]] as [string, number, number][]).map(([n, v, prev], i) => <Bar key={n} name={n} value={v} max={Math.max(s.mtSessions, 1)} sub={i ? pct(v, prev) : undefined} />)}
-                </CardContent>
-              </Card>
+              <Panel title={`Ostopolku – ${svc.label}`} desc="Montako käyntiä eteni kuhunkin vaiheeseen. Prosentti on osuus edellisestä vaiheesta.">
+                <ol className="grid gap-3 sm:grid-cols-4">
+                  {s.funnel.map(([n, v], i) => (
+                    <li key={n} className="rounded-lg border bg-muted/30 p-3 min-w-0">
+                      <div className="flex items-center gap-2"><span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-keuda-blue text-xs font-semibold text-primary-foreground">{i + 1}</span><span className="text-xs text-muted-foreground leading-tight">{n}</span></div>
+                      <p className="text-2xl font-semibold tabular-nums mt-2">{nf.format(v)}</p>
+                      <div className="h-1.5 rounded-full bg-muted mt-2 overflow-hidden"><div className="h-full bg-keuda-blue rounded-full" style={{ width: `${s.funnel[0][1] ? (v / s.funnel[0][1]) * 100 : 0}%` }} /></div>
+                      <p className="text-xs text-muted-foreground mt-1">{i ? `${pct(v, s.funnel[i - 1][1])} edellisestä` : "Lähtötaso"}</p>
+                    </li>
+                  ))}
+                </ol>
+              </Panel>
 
               <div className="grid lg:grid-cols-2 gap-4">
-                <Card><CardHeader><CardTitle className="text-base">Kanavat</CardTitle><CardDescription>Käynnit ja yhteydenotot lähteittäin</CardDescription></CardHeader><CardContent><List rows={s.channels} /></CardContent></Card>
-                <Card><CardHeader><CardTitle className="text-base">Kampanjat</CardTitle><CardDescription>Linkit, joissa on utm_campaign-tunniste</CardDescription></CardHeader><CardContent><List rows={s.campaigns} empty="Ei kampanjalinkkejä tältä ajalta. Lisää mainoslinkkeihin utm_campaign." /></CardContent></Card>
-                <Card><CardHeader><CardTitle className="text-base">Kiinnostavimmat koulutukset</CardTitle><CardDescription>Valinnat, kartoitukset ja siirtymät maksulliseen</CardDescription></CardHeader><CardContent><List rows={s.courses} /></CardContent></Card>
-                <Card><CardHeader><CardTitle className="text-base">Suosituimmat sivut</CardTitle></CardHeader><CardContent><List rows={s.pages} /></CardContent></Card>
-                <Card><CardHeader><CardTitle className="text-base">Toiminnot</CardTitle><CardDescription>Klikkaukset ja lomakkeiden vaiheet</CardDescription></CardHeader><CardContent><List rows={s.actions} /></CardContent></Card>
-                <Card><CardHeader><CardTitle className="text-base">Laitteet ja yhteydenottojen tila</CardTitle></CardHeader><CardContent className="space-y-6"><List rows={s.devices} /><List rows={s.statuses} empty="Ei yhteydenottoja." /></CardContent></Card>
+                <Panel title="Kanavat" desc="Käynnit ja yhteydenotot lähteittäin"><List rows={s.channels} tone="blue" /></Panel>
+                <Panel title="Kampanjat" desc="Linkit, joissa on utm_campaign-tunniste"><List rows={s.campaigns} tone="amber" empty="Ei kampanjalinkkejä tältä ajalta. Lisää mainoslinkkeihin utm_campaign." /></Panel>
+                <Panel title={service === "aly" ? "Kiinnostavimmat tasot" : "Kiinnostavimmat koulutukset"} desc="Valinnat, testitulokset ja ilmoittautumisklikkaukset"><List rows={s.courses} /></Panel>
+                <Panel title="Suosituimmat sivut"><List rows={s.pages} tone="blue" /></Panel>
+                <Panel title="Toiminnot" desc="Klikkaukset ja lomakkeiden vaiheet"><List rows={s.actions} /></Panel>
+                <Panel title="Laitteet ja yhteydenottojen tila"><div className="space-y-6"><List rows={s.devices} tone="blue" /><List rows={s.statuses} tone="amber" empty="Ei yhteydenottoja." /></div></Panel>
               </div>
               <p className="text-xs text-muted-foreground">Seuranta on nimetöntä ja koskee vain kävijöitä, jotka hyväksyvät evästeet. Todellinen kävijämäärä on siksi suurempi. Tiedot kertyvät 21.10.2026 alkaen.</p>
             </>}
           </TabsContent>
 
-          <TabsContent value="leads" className="space-y-3">
-            <div className="flex justify-between items-center gap-2"><p className="text-sm text-muted-foreground">Merkitse tila ja muistiinpanot, niin näet mistä kanavista tulee oikeita aloittajia.</p><Button size="sm" variant="outline" onClick={exportCsv}><Download className="mr-2 h-4 w-4" />Lataa Excel (CSV)</Button></div>
-            {(leads.data ?? []).length === 0 ? <Card><CardContent className="py-10 text-center text-sm text-muted-foreground">Ei yhteydenottoja tältä ajalta.</CardContent></Card> :
-              (leads.data ?? []).map((l) => <LeadCard key={l.id} lead={l} me={user.email ?? ""} onSaved={() => qc.invalidateQueries({ queryKey: ["mkt_leads"] })} />)}
+          <TabsContent value="leads" className="space-y-3 mt-0">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2"><p className="text-sm text-muted-foreground">{svc.label}: merkitse tila ja muistiinpanot, niin näet mistä kanavista tulee oikeita aloittajia.</p><Button size="sm" variant="outline" className="self-start shrink-0" onClick={exportCsv}><Download className="mr-2 h-4 w-4" />Lataa Excel (CSV)</Button></div>
+            {s.leads.length === 0 ? <Card><CardContent className="py-10 text-center text-sm text-muted-foreground">Ei yhteydenottoja tältä ajalta.</CardContent></Card> :
+              s.leads.map((l) => <LeadCard key={l.id} lead={l} me={user.email ?? ""} onSaved={() => qc.invalidateQueries({ queryKey: ["mkt_leads"] })} />)}
           </TabsContent>
 
-          <TabsContent value="users"><UsersPanel /></TabsContent>
+          <TabsContent value="users" className="mt-0"><UsersPanel /></TabsContent>
         </Tabs>
       </main>
     </div>
@@ -219,9 +274,11 @@ function LeadCard({ lead, me, onSaved }: { lead: Lead; me: string; onSaved: () =
     toast.success("Tallennettu");
     onSaved();
   };
+  const tone = status === "uusi" ? "bg-destructive" : status === "koulutukseen" ? "bg-primary" : status === "ei jatkoon" ? "bg-muted-foreground" : "bg-keuda-amber";
   return (
-    <Card>
-      <CardHeader className="pb-2">
+    <Card className="relative overflow-hidden border-border/70 shadow-sm">
+      <span className={`absolute inset-y-0 left-0 w-1 ${tone}`} />
+      <CardHeader className="pb-2 pl-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <CardTitle className="text-base">{lead.name}</CardTitle>
           <div className="flex flex-wrap items-center gap-2">
@@ -231,8 +288,8 @@ function LeadCard({ lead, me, onSaved }: { lead: Lead; me: string; onSaved: () =
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-3 text-sm">
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-muted-foreground">
+      <CardContent className="space-y-3 text-sm pl-5">
+        <div className="flex flex-wrap gap-x-4 break-all gap-y-1 text-muted-foreground">
           <a className="underline" href={`mailto:${lead.email}`}>{lead.email}</a>
           {lead.phone && <a className="underline" href={`tel:${lead.phone}`}>{lead.phone}</a>}
           {lead.organization && <span>{lead.organization}</span>}
