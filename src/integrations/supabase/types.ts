@@ -157,6 +157,7 @@ export type Database = {
       crm_notifications: {
         Row: {
           created_at: string
+          emailed_at: string | null
           id: string
           kind: string
           lead_id: string
@@ -165,6 +166,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          emailed_at?: string | null
           id?: string
           kind: string
           lead_id: string
@@ -173,6 +175,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          emailed_at?: string | null
           id?: string
           kind?: string
           lead_id?: string

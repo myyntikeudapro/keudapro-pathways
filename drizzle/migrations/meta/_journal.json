@@ -43,6 +43,13 @@
       "when": 1792617794566,
       "tag": "0005_crm_daily_contacts_offers_notifications",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792617948917,
+      "tag": "0006_crm_notification_email_state",
+      "breakpoints": true
     }
   ]
 }
