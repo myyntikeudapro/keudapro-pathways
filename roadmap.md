@@ -4,8 +4,8 @@
 - [x] Tarkista muutettujen ominaisuustiedostojen lint ja kahdeksan läpäisevää testiä
 - [x] Korjaa päättyneen määräpäivän teksti ja lisää aikavyöhykerajatesti
 - [x] Todellinen lähetys ja onnistumisvahvistus: Gmail-ilmoitukset toimivat
-- [ ] Luotettavat mittarit: täydet haut, polut, mainoskulujen saatavuus ja kampanjakohdistus
-- [ ] Asiakaskortit, vastuuhenkilöt, tehtävät ja myyntitulokset
-- [ ] Tallennettavat kampanjalinkit koko sivustolle ja palveluille
-- [ ] Kirjautunut päästä päähän -testi ja automaattisen tarkistuksen vahvistus
-- [ ] Fyysisen mobiilinäppäimistön sekä kattavan WCAG-kontrastin tarkistus
+- [x] Luotettavat mittarit: täydet haut, polut, mainoskulujen saatavuus ja kampanjakohdistus
+- [x] Asiakaskortit, vastuuhenkilöt, tehtävät ja myyntitulokset
+- [x] Tallennettavat kampanjalinkit koko sivustolle ja palveluille
+- [x] Kirjautunut päästä päähän -testi ja automaattisen tarkistuksen vahvistus
+- [ ] Fyysisen mobiilinäppäimistön tarkistus: vaatii oikean puhelimen käyttäjätestin (aiempi laadunvarmistus)
