@@ -18,35 +18,56 @@ export type Database = {
         Row: {
           created_at: string
           email: string
+          handled_by: string | null
           id: string
           meeting_format: string
           message: string
           name: string
+          notes: string | null
           organization: string | null
           phone: string | null
+          session_id: string | null
           source: string | null
+          status: string
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
         }
         Insert: {
           created_at?: string
           email: string
+          handled_by?: string | null
           id?: string
           meeting_format: string
           message: string
           name: string
+          notes?: string | null
           organization?: string | null
           phone?: string | null
+          session_id?: string | null
           source?: string | null
+          status?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Update: {
           created_at?: string
           email?: string
+          handled_by?: string | null
           id?: string
           meeting_format?: string
           message?: string
           name?: string
+          notes?: string | null
           organization?: string | null
           phone?: string | null
+          session_id?: string | null
           source?: string | null
+          status?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Relationships: []
       }
@@ -164,6 +185,48 @@ export type Database = {
           id?: string
           token?: string
           used_at?: string | null
+        }
+        Relationships: []
+      }
+      marketing_events: {
+        Row: {
+          created_at: string
+          device: string | null
+          event: string
+          id: string
+          path: string | null
+          props: Json
+          referrer_host: string | null
+          session_id: string
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          created_at?: string
+          device?: string | null
+          event: string
+          id?: string
+          path?: string | null
+          props?: Json
+          referrer_host?: string | null
+          session_id: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          created_at?: string
+          device?: string | null
+          event?: string
+          id?: string
+          path?: string | null
+          props?: Json
+          referrer_host?: string | null
+          session_id?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Relationships: []
       }
