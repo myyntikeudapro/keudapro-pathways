@@ -3,6 +3,9 @@
 - [x] Testaa seitsemän näyttökokoa, fokuslukitus, epävarman asiakkaan tiedot ja yksi aktiivinen modaali
 - [x] Tarkista muutettujen ominaisuustiedostojen lint ja kahdeksan läpäisevää testiä
 - [x] Korjaa päättyneen määräpäivän teksti ja lisää aikavyöhykerajatesti
-- [ ] Todellinen lähetys ja onnistumisvahvistus: sähköpostipalvelun DNS-varmennus estää lähetyksen
-- [ ] Automaattisen tuotantobuildin ja tyyppitarkistuksen tuloksen vahvistus
-- [ ] Fyysisen mobiilinäppäimistön sekä kattavan WCAG-kontrastin tarkistus
+- [x] Todellinen lähetys ja onnistumisvahvistus: Gmail-ilmoitukset toimivat
+- [x] Luotettavat mittarit: täydet haut, polut, mainoskulujen saatavuus ja kampanjakohdistus
+- [x] Asiakaskortit, vastuuhenkilöt, tehtävät ja myyntitulokset
+- [x] Tallennettavat kampanjalinkit koko sivustolle ja palveluille
+- [x] Kirjautunut päästä päähän -testi ja automaattisen tarkistuksen vahvistus
+- [ ] Fyysisen mobiilinäppäimistön tarkistus: vaatii oikean puhelimen käyttäjätestin (aiempi laadunvarmistus)

@@ -62,7 +62,8 @@ export function BookingRequestDialog() {
 
   useEffect(() => {
     if (!isOpen) return;
-    const def = FORMATS.find((f) => f.id === "30")!;
+    const def = FORMATS.find((f) => f.id === "30");
+    if (!def) return;
     setFormat("30");
     setMessage(def.template(options.topic));
     setSent(false);
@@ -78,7 +79,8 @@ export function BookingRequestDialog() {
 
   const selectFormat = (id: FormatId) => {
     setFormat(id);
-    const f = FORMATS.find((x) => x.id === id)!;
+    const f = FORMATS.find((x) => x.id === id);
+    if (!f) return;
     setMessage(f.template(options.topic));
   };
 
@@ -94,8 +96,9 @@ export function BookingRequestDialog() {
       const { data, error } = await supabase.functions.invoke("send-booking-request", {
         body: {
           ...parsed.data,
-          meetingFormat: FORMATS.find((f) => f.id === format)!.label,
+          meetingFormat: FORMATS.find((f) => f.id === format)?.label ?? "Tapaaminen",
           source: options.source ?? "Varaa aika",
+          service_key: window.location.pathname.split("/")[1] || "muu",
           ...leadAttribution(),
         },
       });
