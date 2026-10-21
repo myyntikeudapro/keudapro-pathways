@@ -21,6 +21,13 @@ const nf = new Intl.NumberFormat("fi-FI");
 const pct = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)} %` : "–");
 const fmt = (iso: string) => new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
 const label = (s: string | null) => s || "suora / tuntematon";
+const EVENT_NAMES: Record<string, string> = {
+  assessment_opened: "Avasi kartoituksen", assessment_step1_completed: "Täytti kartoituksen vaiheen 1", assessment_submitted: "Lähetti kartoituksen",
+  assessment_failed: "Kartoituksen lähetys epäonnistui", assessment_phone_clicked: "Klikkasi puhelinnumeroa", assessment_email_clicked: "Klikkasi sähköpostia",
+  lead_submitted: "Jätti yhteydenoton", keuda_external_opened: "Siirtyi maksulliseen koulutukseen", course_selected: "Valitsi koulutuksen",
+  course_registration_click: "Klikkasi ilmoittautumista", start_selected: "Valitsi aloituksen", muutosturva_path_selected: "Valitsi asiointipolun",
+  ai_assessment_start: "Aloitti tekoälytestin", ai_assessment_complete: "Suoritti tekoälytestin", organization_ai_cta: "Organisaation tekoäly-CTA",
+};
 
 function countBy<T>(rows: T[], key: (r: T) => string | null | undefined, unique?: (r: T) => string) {
   const m = new Map<string, Set<string> | number>();
@@ -110,7 +117,7 @@ export default function AdminMarketingPage() {
       pages: countBy(views, (e) => e.path),
       devices: countBy(views, (e) => e.device, (e) => e.session_id),
       courses: countBy(ev.filter((e) => ["course_selected", "assessment_submitted", "keuda_external_opened", "course_registration_click"].includes(e.event)), courseOf),
-      actions: countBy(ev.filter((e) => e.event !== "page_view"), (e) => e.event),
+      actions: countBy(ev.filter((e) => e.event !== "page_view"), (e) => EVENT_NAMES[e.event] ?? e.event),
       leadSources: countBy(ld, (l) => l.source ?? l.meeting_format),
       statuses: countBy(ld, (l) => l.status),
     };
