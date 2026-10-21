@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
+import { leadAttribution, trackEvent } from "@/lib/analytics";
 import { useBookingRequest } from "@/contexts/BookingRequestContext";
 import { Button } from "@/components/ui/button";
 
