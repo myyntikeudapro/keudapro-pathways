@@ -7,17 +7,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Download, Loader2, LogOut, RefreshCw, Home, Layers, CalendarDays, BarChart3, Inbox, Users, Eye, Target, Clock, GraduationCap } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { SEO } from "@/components/seo/SEO";
+import { CrmLeads, TasksPanel, SalesPanel, CampaignPanel } from '@/components/admin/CrmWorkspace';
+import { readAll, orderedFunnel, paidPlatform, normalizeCampaign } from '@/lib/crm';
+import type { Lead, TeamMember } from '@/lib/crm';
 
-type Ev = { session_id: string; event: string; path: string | null; utm_source: string | null; utm_campaign: string | null; device: string | null; props: Record<string, unknown>; created_at: string };
-type Lead = { id: string; name: string; email: string; phone: string | null; organization: string | null; meeting_format: string; message: string; source: string | null; created_at: string; status: string; notes: string | null; utm_source: string | null; utm_medium: string | null; utm_campaign: string | null; handled_by: string | null; session_id?: string | null };
+type Ev = { session_id: string; event: string; path: string | null; utm_source: string | null; utm_campaign: string | null; utm_medium: string | null; device: string | null; props: Record<string, unknown>; created_at: string };
 
-const STATUSES = ["uusi", "yhteydessä", "kartoitus tehty", "koulutukseen", "ei jatkoon"] as const;
+
 const nf = new Intl.NumberFormat("fi-FI");
 const pct = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)} %` : "–");
 const fmt = (iso: string) => new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
@@ -48,12 +49,12 @@ function countBy<T>(rows: T[], key: (r: T) => string | null | undefined, unique?
 const SERVICES: Record<string, { label: string; short: string; paths: string[] | null; leadSource?: string; steps: [string, string][] }> = {
   all: { label: "Kaikki palvelut", short: "Koko sivusto", paths: null, steps: [["Kävi sivustolla", "page_view"], ["Avasi kartoituksen tai testin", "assessment_opened|ai_assessment_start"], ["Klikkasi ilmoittautumista tai CTA:ta", "course_registration_click|organization_ai_cta|keuda_external_opened|assessment_submitted"], ["Jätti yhteydenoton", "lead_submitted"]] },
   muutosturva: { label: "Muutosturva", short: "/muutosturva", paths: ["/muutosturva"], leadSource: "muutosturva-kartoitus", steps: [["Kävi Muutosturva-sivulla", "page_view"], ["Avasi kartoituksen", "assessment_opened"], ["Täytti vaiheen 1", "assessment_step1_completed"], ["Lähetti kartoituksen", "assessment_submitted"]] },
+  kasvu: { label: "Kasvu", short:"/kasvu", paths:["/kasvu"], steps:[["Kävi sivulla","page_view"],["Avasi kartoituksen","assessment_opened"],["Lähetti kartoituksen","assessment_submitted"],["Jätti yhteydenoton","lead_submitted"]] },
+  hub: {label:"Hub",short:"/hub",paths:["/hub","/hub/tyoelamaverkko"],steps:[["Kävi sivulla","page_view"],["Jätti yhteydenoton","lead_submitted"]]},
+  osaaminen: {label:"Osaaminen",short:"/osaaminen",paths:["/osaaminen"],steps:[["Kävi sivulla","page_view"],["Jätti yhteydenoton","lead_submitted"]]},
   aly: { label: "Äly – tekoälypätevyydet", short: "/aly", paths: ["/aly"], steps: [["Kävi Äly-sivulla", "page_view"], ["Aloitti tekoälytestin", "ai_assessment_start"], ["Suoritti testin", "ai_assessment_complete"], ["Klikkasi ilmoittautumista", "course_registration_click"]] },
 };
-type AdRow = { platform: "meta" | "google"; campaign: string; spend: number; impressions: number; clicks: number; currency: string };
-const slug = (x: string | null | undefined) => (x ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-const SERVICE_MATCH: Record<string, RegExp> = { muutosturva: /muutosturva/, aly: /(^|-)(aly|tekoaly|ai)(-|$)/ };
-const META_SOURCES = ["facebook", "instagram", "meta", "fb", "ig"];
+type AdRow = { campaign_id?: string; platform: "meta" | "google"; campaign: string; spend: number; impressions: number; clicks: number; currency: string };
 const eur = (n: number) => new Intl.NumberFormat("fi-FI", { style: "currency", currency: "EUR", maximumFractionDigits: n < 100 ? 2 : 0 }).format(n);
 const LEVELS: Record<string, string> = { coordinator: "AI Coordinator", manager: "AI Manager", director: "AI Director" };
 
@@ -98,11 +99,20 @@ function List({ rows, empty = "Ei vielä tietoja tältä ajalta.", tone }: { row
 export default function AdminMarketingPage() {
   const { user, loading, isEditor, roleLoading, signOut } = useAuth();
   const [params, setParams] = useSearchParams();
-  const tab = ["overview", "leads", "users"].includes(params.get("tab") ?? "") ? params.get("tab")! : "overview";
-  const service = params.get("palvelu") && SERVICES[params.get("palvelu")!] ? params.get("palvelu")! : "all";
+  const requestedTab = params.get('tab') ?? 'overview';
+  const tab = ['overview', 'leads', 'tasks', 'sales', 'campaigns', 'users'].includes(requestedTab) ? requestedTab : 'overview';
+  const requestedService = params.get('palvelu') ?? 'all';
+  const service = SERVICES[requestedService] ? requestedService : 'all';
   const days = [7, 30, 90, 365].includes(Number(params.get("pv"))) ? Number(params.get("pv")) : 30;
   const setParam = (k: string, v: string | null) => { const n = new URLSearchParams(params); if (v) n.set(k, v); else n.delete(k); setParams(n, { replace: true }); };
-  const since = useMemo(() => new Date(Date.now() - days * 864e5).toISOString(), [days]);
+  const since = useMemo(() => {
+    const now = new Date();
+    const day = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Helsinki' }).format(now);
+    const start = new Date(`${day}T12:00:00Z`); start.setUTCDate(start.getUTCDate() - days + 1);
+    const date = start.toISOString().slice(0,10);
+    const summer = new Intl.DateTimeFormat('en-US', { timeZone:'Europe/Helsinki', timeZoneName:'shortOffset' }).format(new Date(`${date}T00:00:00Z`)).includes('GMT+3');
+    return new Date(`${date}T00:00:00${summer?'+03:00':'+02:00'}`).toISOString();
+  }, [days]);
   const qc = useQueryClient();
   const svc = SERVICES[service];
 
@@ -110,25 +120,26 @@ export default function AdminMarketingPage() {
     queryKey: ["mkt_events", since],
     enabled: !!user && isEditor,
     queryFn: async () => {
-      const { data, error } = await supabase.from("marketing_events").select("session_id,event,path,utm_source,utm_campaign,device,props,created_at").gte("created_at", since).order("created_at", { ascending: false }).limit(20000);
-      if (error) throw error;
-      return data as Ev[];
+      return readAll<Ev>((from,to) => supabase.from('marketing_events').select('session_id,event,path,utm_source,utm_medium,utm_campaign,device,props,created_at').gte('created_at', since).order('created_at', {ascending:true}).order('id').range(from,to) as unknown as PromiseLike<{data:Ev[]|null;error:unknown}>);
     },
   });
   const leads = useQuery({
-    queryKey: ["mkt_leads", since],
+    queryKey: ["mkt_leads"],
     enabled: !!user && isEditor,
     queryFn: async () => {
-      const { data, error } = await supabase.from("booking_requests").select("*").gte("created_at", since).order("created_at", { ascending: false }).limit(1000);
-      if (error) throw error;
-      return data as Lead[];
+      return readAll<Lead>((from,to) => supabase.from('booking_requests').select('*').order('created_at', {ascending:false}).order('id').range(from,to));
     },
   });
+
+  const team = useQuery({queryKey:['crm_team'], enabled:!!user&&isEditor, queryFn:async()=>{const {data,error}=await supabase.functions.invoke('admin-users',{body:{action:'team'}});if(error)throw error;return data.users as TeamMember[];}});
+  const tasks = useQuery({queryKey:['crm_tasks'],enabled:!!user&&isEditor,queryFn:()=>readAll((from,to)=>supabase.from('crm_tasks').select('*').order('due_at').order('id').range(from,to))});
+  const campaigns = useQuery({queryKey:['crm_campaigns'],enabled:!!user&&isEditor,queryFn:()=>readAll((from,to)=>supabase.from('marketing_campaigns').select('*').order('created_at',{ascending:false}).order('id').range(from,to))});
 
   const ads = useQuery({
     queryKey: ["ad_spend", days],
     enabled: !!user && isEditor,
     retry: false,
+    staleTime: 15 * 60 * 1000,
     queryFn: async () => {
       const { data, error } = await supabase.functions.invoke("ad-spend", { body: { days } });
       if (error || !data?.ok) throw new Error("ad-spend");
@@ -138,19 +149,18 @@ export default function AdminMarketingPage() {
 
   const s = useMemo(() => {
     const all = events.data ?? [];
-    const allLeads = leads.data ?? [];
-    const svcSessions = svc.paths ? new Set(all.filter((e) => e.event === "page_view" && e.path && svc.paths!.includes(e.path)).map((e) => e.session_id)) : null;
-    const ev = svcSessions ? all.filter((e) => svcSessions.has(e.session_id)) : all;
-    const ld = svcSessions ? allLeads.filter((l) => (l.session_id && svcSessions.has(l.session_id)) || (svc.leadSource && l.source === svc.leadSource)) : allLeads;
+    const allLeads = (leads.data ?? []).filter(l=>l.created_at>=since);
+    const ev = svc.paths ? all.filter(e=>e.path && svc.paths?.includes(e.path)) : all;
+    const ld = service==='all' ? allLeads : allLeads.filter(l=>l.service_key===service || (!l.service_key && svc.leadSource && l.source===svc.leadSource));
     const views = ev.filter((e) => e.event === "page_view");
     const sessions = new Set(views.map((e) => e.session_id));
-    const sess = (names: string) => { const n = names.split("|"); return new Set(ev.filter((e) => n.includes(e.event) && (names !== "page_view" || !svc.paths || (e.path && svc.paths.includes(e.path)))).map((e) => e.session_id)).size; };
     const srcSessions = countBy(views, (e) => label(e.utm_source), (e) => e.session_id);
     const srcLeads = new Map(countBy(ld, (l) => label(l.utm_source)));
     const channels = srcSessions.map(([k, v]) => [k, v, `${srcLeads.get(k) ?? 0} yht. (${pct(srcLeads.get(k) ?? 0, v)})`] as [string, number, string]);
     srcLeads.forEach((v, k) => { if (!srcSessions.find((c) => c[0] === k)) channels.push([k, 0, `${v} yht.`]); });
     const courseOf = (e: Ev) => { const p = e.props ?? {}; if (typeof p.course === "string") return p.course as string; const lv = (p.level ?? p.result) as string | undefined; return lv ? LEVELS[lv] ?? lv : null; };
-    const funnel = svc.steps.map(([n, k]) => [n, sess(k)] as [string, number]);
+    const funnelCounts = orderedFunnel(ev, svc.steps.map(([,k])=>k), svc.paths);
+    const funnel = svc.steps.map(([n],i)=>[n,funnelCounts[i]] as [string,number]);
     return {
       sessions: sessions.size,
       views: views.length,
@@ -168,32 +178,42 @@ export default function AdminMarketingPage() {
       actions: countBy(ev.filter((e) => e.event !== "page_view" && !e.event.startsWith("ai_result_")), (e) => EVENT_NAMES[e.event] ?? e.event),
       statuses: countBy(ld, (l) => l.status),
     };
-  }, [events.data, leads.data, svc]);
+  }, [events.data, leads.data, svc, service, since]);
 
-  const adRows = (ads.data?.rows ?? []).filter((r) => service === "all" || SERVICE_MATCH[service]?.test(slug(r.campaign)));
-  const metaSpend = adRows.filter((r) => r.platform === "meta").reduce((a, r) => a + r.spend, 0);
-  const googleSpend = adRows.filter((r) => r.platform === "google").reduce((a, r) => a + r.spend, 0);
-  const totalSpend = metaSpend + googleSpend;
-  const metaLeads = s.leads.filter((l) => META_SOURCES.includes((l.utm_source ?? "").toLowerCase())).length;
-  const googleLeads = s.leads.filter((l) => (l.utm_source ?? "").toLowerCase() === "google").length;
-  const paidLeads = metaLeads + googleLeads;
-  const cpl = (sp: number, n: number) => (n ? eur(sp / n) : sp ? "ei liidejä" : "–");
-  const campaignRows = adRows.map((r) => ({ ...r, leads: s.leads.filter((l) => l.utm_campaign && slug(l.utm_campaign) === slug(r.campaign)).length })).sort((a, b) => b.spend - a.spend);
+  const allServiceLeads = (leads.data ?? []).filter(l=>service==='all'||l.service_key===service||(!l.service_key&&svc.leadSource===l.source));
+  const mapped = campaigns.data ?? [];
+  const matchesAd = (c:typeof mapped[number], r:AdRow) => c.platform===r.platform && (c.ad_campaign_id && r.campaign_id ? c.ad_campaign_id===r.campaign_id : c.ad_campaign_name===r.campaign);
+  const adRows = (ads.data?.rows ?? []).filter(r=>service==='all'||mapped.some(c=>c.service_key===service&&matchesAd(c,r)));
+  const metaSpend = adRows.filter(r=>r.platform==='meta').reduce((a,r)=>a+r.spend,0);
+  const googleSpend = adRows.filter(r=>r.platform==='google').reduce((a,r)=>a+r.spend,0);
+  const totalSpend = metaSpend+googleSpend;
+  const metaOk = !!ads.data?.status.meta.connected && !ads.data?.status.meta.error;
+  const googleOk = !!ads.data?.status.google.connected && !ads.data?.status.google.error;
+  const metaLeads = s.leads.filter(l=>paidPlatform(l.utm_source,l.utm_medium)==='meta').length;
+  const googleLeads = s.leads.filter(l=>paidPlatform(l.utm_source,l.utm_medium)==='google').length;
+  const paidLeads=metaLeads+googleLeads;
+  const cpl=(sp:number,n:number)=>(n?eur(sp/n):'–');
+  const campaignRows=adRows.map(r=>({...r,leads:s.leads.filter(l=>paidPlatform(l.utm_source,l.utm_medium)===r.platform && l.utm_campaign && (mapped.some(c=>matchesAd(c,r)&&c.utm_source===l.utm_source&&c.utm_campaign===l.utm_campaign) || normalizeCampaign(l.utm_campaign)===normalizeCampaign(r.campaign))).length})).sort((a,b)=>b.spend-a.spend);
+  const unknownCampaigns=(ads.data?.rows??[]).filter(r=>!mapped.some(c=>matchesAd(c,r))).length;
+  const consentSessions = new Set(s.leads.filter(l=>l.session_id).map(l=>l.session_id));
+  const knownConversion = pct(consentSessions.size,s.sessions);
+  const saved=()=>{qc.invalidateQueries({queryKey:['mkt_leads']});qc.invalidateQueries({queryKey:['crm_tasks']});qc.invalidateQueries({queryKey:['crm_campaigns']});qc.invalidateQueries({queryKey:['lead_activity']});};
 
   if (loading || roleLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>;
   if (!user) return <Navigate to="/admin/login" replace />;
   if (!isEditor) return <Navigate to="/admin/yhteydenotot" replace />;
 
-  const refresh = () => { events.refetch(); leads.refetch(); ads.refetch(); };
-  const busy = events.isFetching || leads.isFetching;
+  const refresh = () => { events.refetch(); leads.refetch(); ads.refetch(); tasks.refetch(); campaigns.refetch(); team.refetch(); };
+  const busy = events.isFetching || leads.isFetching || ads.isFetching;
 
   const exportCsv = () => {
-    const rows = [["Saapui", "Nimi", "Sähköposti", "Puhelin", "Lähde", "Kanava", "Kampanja", "Tila", "Käsittelijä", "Muistiinpanot"], ...s.leads.map((l) => [fmt(l.created_at), l.name, l.email, l.phone ?? "", l.source ?? l.meeting_format, l.utm_source ?? "", l.utm_campaign ?? "", l.status, l.handled_by ?? "", l.notes ?? ""])];
-    const csv = "\uFEFF" + rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(";")).join("\n");
+    const rows = [["Saapui", "Nimi", "Sähköposti", "Puhelin", "Lähde", "Kanava", "Kampanja", "Tila", "Käsittelijä", "Muistiinpanot"], ...allServiceLeads.map((l) => [fmt(l.created_at), l.name, l.email, l.phone ?? "", l.source ?? l.meeting_format, l.utm_source ?? "", l.utm_campaign ?? "", l.status, l.handled_by ?? "", l.notes ?? ""])];
+    const csv = "\uFEFF" + rows.map((r) => r.map((c) => `"${( /^[=+@-]/.test(String(c)) ? "\'" + String(c) : String(c)).replace(/"/g, '""')}"`).join(";")).join("\n");
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
     a.download = `yhteydenotot-${service}-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
+    URL.revokeObjectURL(a.href);
   };
 
   return (
@@ -232,18 +252,23 @@ export default function AdminMarketingPage() {
 
       <main className="container mx-auto px-4 py-5 sm:py-6">
         <Tabs value={tab} onValueChange={(v) => setParam("tab", v === "overview" ? null : v)}>
-          <TabsList className="mb-5 grid w-full grid-cols-3 h-auto p-1 bg-background border shadow-sm sm:w-auto sm:inline-grid">
+          <TabsList className="mb-5 grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 h-auto p-1 bg-background border shadow-sm sm:w-auto sm:inline-grid">
             <TabsTrigger value="overview" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><BarChart3 className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Yleiskuva</span></TabsTrigger>
-            <TabsTrigger value="leads" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><Inbox className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Yhteydenotot ({s.leadsTotal})</span></TabsTrigger>
+            <TabsTrigger value="leads" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><Inbox className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Asiakkaat</span></TabsTrigger>
             <TabsTrigger value="users" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><Users className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Käyttäjät</span></TabsTrigger>
+            <TabsTrigger value="tasks" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground">Tehtävät</TabsTrigger>
+            <TabsTrigger value="sales" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground">Myyntitulokset</TabsTrigger>
+            <TabsTrigger value="campaigns" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground">Kampanjalinkit</TabsTrigger>
           </TabsList>
+          {(events.isError||leads.isError||tasks.isError||team.isError||campaigns.isError)&&<p role="alert" className="border border-destructive bg-background text-destructive p-3 rounded-lg mb-4 text-sm">Kaikkia tietoja ei saatu haettua. Puuttuvia tietoja ei voi tulkita nollatulokseksi. Kokeile Päivitä.</p>}
+          <p className="text-xs text-muted-foreground mb-4">Käynnit päivitetty: {events.dataUpdatedAt?fmt(new Date(events.dataUpdatedAt).toISOString()):'–'} · Mainoskulut: {ads.dataUpdatedAt?fmt(new Date(ads.dataUpdatedAt).toISOString()):'–'} · Suomen aika</p>
 
           <TabsContent value="overview" className="space-y-4 mt-0">
             <div className="flex flex-wrap items-center gap-2 text-sm"><Badge className="bg-keuda-blue text-primary-foreground hover:bg-keuda-blue">{svc.label}</Badge><span className="text-muted-foreground">{svc.short} · {days === 365 ? "12 kk" : `${days} pv`}</span></div>
-            {events.isLoading ? <Loader2 className="h-6 w-6 animate-spin mx-auto my-10 text-muted-foreground" /> : <>
+            {events.isLoading || leads.isLoading ? <Loader2 className="h-6 w-6 animate-spin mx-auto my-10 text-muted-foreground" /> : events.isError || leads.isError ? <p className="text-muted-foreground">Mittarit eivät ole saatavilla.</p> : <>
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
                 <Kpi icon={Eye} accent="bg-keuda-blue" title="Käynnit" value={nf.format(s.sessions)} hint={`${nf.format(s.views)} sivunäyttöä`} />
-                <Kpi icon={Inbox} accent="bg-primary" title="Yhteydenotot" value={nf.format(s.leadsTotal)} hint={`Kävijöistä ${pct(s.leadsTotal, s.sessions)}`} />
+                <Kpi icon={Inbox} accent="bg-primary" title="Yhteydenotot" value={nf.format(s.leadsTotal)} hint={`Seuratuista käynneistä ${knownConversion}`} />
                 <Kpi icon={Target} accent="bg-keuda-amber" title="Polun konversio" value={s.conversion} hint="Ensimmäisestä viimeiseen vaiheeseen" />
                 <Kpi icon={Clock} accent="bg-destructive" title="Käsittelemättä" value={nf.format(s.newLeads)} hint="Tila: uusi" />
                 <Kpi icon={GraduationCap} accent="bg-primary" title="Koulutukseen" value={nf.format(s.won)} hint={`Yhteydenotoista ${pct(s.won, s.leadsTotal)}`} />
@@ -266,14 +291,14 @@ export default function AdminMarketingPage() {
               <Panel title="Mainoskulut ja hinta per yhteydenotto" desc="Meta (Facebook, Instagram) ja Google Ads. Yhteydenotot yhdistetään mainoksiin linkin utm_source- ja utm_campaign-tunnisteilla.">
                 {ads.isLoading ? <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /> : ads.isError ? <p className="text-sm text-muted-foreground">Mainoskulujen haku epäonnistui. Yritä Päivitä-painikkeella uudelleen.</p> : <div className="space-y-5">
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                    {([["Mainoskulut yhteensä", eur(totalSpend), `${nf.format(paidLeads)} yhteydenottoa mainoksista`], ["Hinta / yhteydenotto", cpl(totalSpend, paidLeads), "Kaikki maksetut kanavat"], ["Meta (FB + IG)", eur(metaSpend), `${cpl(metaSpend, metaLeads)} / yhteydenotto`], ["Google Ads", ads.data?.status.google.error ? "–" : eur(googleSpend), ads.data?.status.google.error ? "Tili ei vielä yhdistetty" : `${cpl(googleSpend, googleLeads)} / yhteydenotto`]] as [string, string, string][]).map(([t, v, h]) => (
+                    {([["Mainoskulut yhteensä", metaOk&&googleOk?eur(totalSpend):"Ei saatavilla", `${nf.format(paidLeads)} yhteydenottoa mainoksista`], ["Hinta / yhteydenotto", metaOk&&googleOk?cpl(totalSpend, paidLeads):"–", "Kaikki maksetut kanavat"], ["Meta (FB + IG)", metaOk?eur(metaSpend):"Ei saatavilla", metaOk?`${cpl(metaSpend, metaLeads)} / yhteydenotto`:(ads.data?.status.meta.error??"Ei yhdistetty")], ["Google Ads", !googleOk ? "Ei saatavilla" : eur(googleSpend), !googleOk ? (ads.data?.status.google.error??"Ei yhdistetty") : `${cpl(googleSpend, googleLeads)} / yhteydenotto`]] as [string, string, string][]).map(([t, v, h]) => (
                       <div key={t} className="rounded-lg border bg-muted/30 p-3 min-w-0"><p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">{t}</p><p className="text-xl font-semibold tabular-nums mt-1 text-keuda-blue">{v}</p><p className="text-xs text-muted-foreground mt-0.5">{h}</p></div>
                     ))}
                   </div>
-                  {campaignRows.length === 0 ? <p className="text-sm text-muted-foreground">Ei mainoskuluja tällä aikavälillä{service !== "all" ? ` kampanjoissa, joiden nimessä on "${service === "aly" ? "äly / tekoäly" : "muutosturva"}"` : ""}.</p> :
+                  {campaignRows.length === 0 ? <p className="text-sm text-muted-foreground">Ei mainoskuluja tällä aikavälillä{service !== "all" ? ` tähän palveluun yhdistetyissä kampanjoissa` : ""}.</p> :
                     <div className="overflow-x-auto -mx-1"><table className="w-full text-sm min-w-[560px]"><thead><tr className="text-left text-xs uppercase tracking-wide text-muted-foreground border-b"><th className="py-2 px-1 font-medium">Kampanja</th><th className="py-2 px-1 font-medium">Kanava</th><th className="py-2 px-1 font-medium text-right">Kulut</th><th className="py-2 px-1 font-medium text-right">Klikit</th><th className="py-2 px-1 font-medium text-right">Yhteydenotot</th><th className="py-2 px-1 font-medium text-right">€ / yht.</th></tr></thead>
                       <tbody>{campaignRows.map((r) => <tr key={r.platform + r.campaign} className="border-b last:border-0"><td className="py-2 px-1 max-w-[220px] truncate">{r.campaign}</td><td className="py-2 px-1">{r.platform === "meta" ? "Meta" : "Google"}</td><td className="py-2 px-1 text-right tabular-nums">{eur(r.spend)}</td><td className="py-2 px-1 text-right tabular-nums">{nf.format(r.clicks)}</td><td className="py-2 px-1 text-right tabular-nums">{r.leads}</td><td className="py-2 px-1 text-right tabular-nums font-semibold">{cpl(r.spend, r.leads)}</td></tr>)}</tbody></table></div>}
-                  <p className="text-xs text-muted-foreground">Vinkki: anna mainoslinkin utm_campaign-tunnisteeksi kampanjan nimi (esim. kampanja "Muutosturva lokakuu" → utm_campaign=muutosturva-lokakuu), niin yhteydenotot kohdistuvat oikeaan kampanjaan. Palvelukohtainen näkymä poimii kampanjat, joiden nimessä on palvelun nimi.</p>
+                  <p className="text-xs text-muted-foreground">{unknownCampaigns} mainosalustan kampanjaa ilman palvelukohdistusta. Kohdistus tehdään Kampanjalinkit-välilehdellä. Hinta per yhteydenotto perustuu vain maksetun liikenteen tunnistettuihin yhteydenottoihin, ei orgaaniseen Google-liikenteeseen. Ulkoisen koulutuksen klikkaus ei ole vahvistettu kauppa.</p>
                 </div>}
               </Panel>
               <div className="grid lg:grid-cols-2 gap-4">
@@ -290,61 +315,16 @@ export default function AdminMarketingPage() {
 
           <TabsContent value="leads" className="space-y-3 mt-0">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2"><p className="text-sm text-muted-foreground">{svc.label}: merkitse tila ja muistiinpanot, niin näet mistä kanavista tulee oikeita aloittajia.</p><Button size="sm" variant="outline" className="self-start shrink-0" onClick={exportCsv}><Download className="mr-2 h-4 w-4" />Lataa Excel (CSV)</Button></div>
-            {s.leads.length === 0 ? <Card><CardContent className="py-10 text-center text-sm text-muted-foreground">Ei yhteydenottoja tältä ajalta.</CardContent></Card> :
-              s.leads.map((l) => <LeadCard key={l.id} lead={l} me={user.email ?? ""} onSaved={() => qc.invalidateQueries({ queryKey: ["mkt_leads"] })} />)}
+            {leads.isLoading||tasks.isLoading||team.isLoading?<Loader2 className="h-5 w-5 animate-spin"/>:leads.isError||tasks.isError||team.isError?<p>Tiedot eivät ole saatavilla.</p>:<CrmLeads leads={allServiceLeads} tasks={tasks.data??[]} team={team.data??[]} me={{id:user.id,email:user.email??''}} onSaved={saved}/>}
           </TabsContent>
+          <TabsContent value="tasks"><TasksPanel tasks={tasks.data??[]} leads={allServiceLeads} team={team.data??[]} me={{id:user.id,email:user.email??''}} onSaved={saved}/></TabsContent>
+          <TabsContent value="sales"><SalesPanel leads={allServiceLeads} since={since}/></TabsContent>
+          <TabsContent value="campaigns"><CampaignPanel campaigns={mapped} ads={ads.data?.rows??[]} service={service} onSaved={saved}/></TabsContent>
 
           <TabsContent value="users" className="mt-0"><UsersPanel /></TabsContent>
         </Tabs>
       </main>
     </div>
-  );
-}
-
-function LeadCard({ lead, me, onSaved }: { lead: Lead; me: string; onSaved: () => void }) {
-  const [status, setStatus] = useState(lead.status);
-  const [notes, setNotes] = useState(lead.notes ?? "");
-  const [saving, setSaving] = useState(false);
-  const dirty = status !== lead.status || notes !== (lead.notes ?? "");
-  const save = async () => {
-    setSaving(true);
-    const { error } = await supabase.from("booking_requests").update({ status, notes: notes.slice(0, 2000) || null, handled_by: me }).eq("id", lead.id);
-    setSaving(false);
-    if (error) return toast.error("Tallennus epäonnistui.");
-    toast.success("Tallennettu");
-    onSaved();
-  };
-  const tone = status === "uusi" ? "bg-destructive" : status === "koulutukseen" ? "bg-primary" : status === "ei jatkoon" ? "bg-muted-foreground" : "bg-keuda-amber";
-  return (
-    <Card className="relative overflow-hidden border-border/70 shadow-sm">
-      <span className={`absolute inset-y-0 left-0 w-1 ${tone}`} />
-      <CardHeader className="pb-2 pl-5">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <CardTitle className="text-base">{lead.name}</CardTitle>
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge variant="secondary">{lead.source ?? lead.meeting_format}</Badge>
-            {lead.utm_source && <Badge variant="outline">{lead.utm_source}{lead.utm_campaign ? ` · ${lead.utm_campaign}` : ""}</Badge>}
-            <span className="text-xs text-muted-foreground">{fmt(lead.created_at)}</span>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-3 text-sm pl-5">
-        <div className="flex flex-wrap gap-x-4 break-all gap-y-1 text-muted-foreground">
-          <a className="underline" href={`mailto:${lead.email}`}>{lead.email}</a>
-          {lead.phone && <a className="underline" href={`tel:${lead.phone}`}>{lead.phone}</a>}
-          {lead.organization && <span>{lead.organization}</span>}
-        </div>
-        <details><summary className="cursor-pointer text-primary">Näytä viesti</summary><p className="whitespace-pre-wrap mt-2">{lead.message}</p></details>
-        <div className="grid sm:grid-cols-[200px_1fr_auto] gap-2 items-start">
-          <select aria-label="Tila" className="min-h-10 rounded-md border border-input bg-background px-3" value={status} onChange={(e) => setStatus(e.target.value)}>
-            {STATUSES.map((x) => <option key={x}>{x}</option>)}
-          </select>
-          <Textarea aria-label="Muistiinpanot" rows={1} placeholder="Muistiinpanot" value={notes} onChange={(e) => setNotes(e.target.value)} />
-          <Button size="sm" disabled={!dirty || saving} onClick={save}>{saving ? "Tallennetaan…" : "Tallenna"}</Button>
-        </div>
-        {lead.handled_by && <p className="text-xs text-muted-foreground">Viimeksi käsitellyt: {lead.handled_by}</p>}
-      </CardContent>
-    </Card>
   );
 }
 
