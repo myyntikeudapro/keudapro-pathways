@@ -245,7 +245,7 @@ export default function AdminPage() {
             ))}
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[
             { to: "/admin/markkinointi?tab=leads", title: "Yhteydenotot", desc: "Kartoitukset ja ajanvaraukset", icon: Inbox },
             { to: "/admin/markkinointi?tab=users", title: "Käyttäjät", desc: "Lisää myyjiä ja markkinoijia", icon: Users },
