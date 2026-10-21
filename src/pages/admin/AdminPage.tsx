@@ -220,8 +220,8 @@ export default function AdminPage() {
           </div>
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" size="sm"><Link to="/">Sivustolle</Link></Button>
-            <Button variant="outline" size="sm" onClick={signOut}>
-              <LogOut className="mr-2 h-4 w-4" /> Kirjaudu ulos
+            <Button variant="outline" size="sm" onClick={signOut} aria-label="Kirjaudu ulos">
+              <LogOut className="h-4 w-4 sm:mr-2" /><span className="hidden sm:inline">Kirjaudu ulos</span>
             </Button>
           </div>
         </div>
