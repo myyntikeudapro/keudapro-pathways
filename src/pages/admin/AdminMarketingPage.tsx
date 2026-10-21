@@ -50,6 +50,11 @@ const SERVICES: Record<string, { label: string; short: string; paths: string[] |
   muutosturva: { label: "Muutosturva", short: "/muutosturva", paths: ["/muutosturva"], leadSource: "muutosturva-kartoitus", steps: [["Kävi Muutosturva-sivulla", "page_view"], ["Avasi kartoituksen", "assessment_opened"], ["Täytti vaiheen 1", "assessment_step1_completed"], ["Lähetti kartoituksen", "assessment_submitted"]] },
   aly: { label: "Äly – tekoälypätevyydet", short: "/aly", paths: ["/aly"], steps: [["Kävi Äly-sivulla", "page_view"], ["Aloitti tekoälytestin", "ai_assessment_start"], ["Suoritti testin", "ai_assessment_complete"], ["Klikkasi ilmoittautumista", "course_registration_click"]] },
 };
+type AdRow = { platform: "meta" | "google"; campaign: string; spend: number; impressions: number; clicks: number; currency: string };
+const slug = (x: string | null | undefined) => (x ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const SERVICE_MATCH: Record<string, RegExp> = { muutosturva: /muutosturva/, aly: /(^|-)(aly|tekoaly|ai)(-|$)/ };
+const META_SOURCES = ["facebook", "instagram", "meta", "fb", "ig"];
+const eur = (n: number) => new Intl.NumberFormat("fi-FI", { style: "currency", currency: "EUR", maximumFractionDigits: n < 100 ? 2 : 0 }).format(n);
 const LEVELS: Record<string, string> = { coordinator: "AI Coordinator", manager: "AI Manager", director: "AI Director" };
 
 function Bar({ name, value, max, sub, tone = "primary" }: { name: string; value: number; max: number; sub?: string; tone?: "primary" | "blue" | "amber" }) {
@@ -120,6 +125,17 @@ export default function AdminMarketingPage() {
     },
   });
 
+  const ads = useQuery({
+    queryKey: ["ad_spend", days],
+    enabled: !!user && isEditor,
+    retry: false,
+    queryFn: async () => {
+      const { data, error } = await supabase.functions.invoke("ad-spend", { body: { days } });
+      if (error || !data?.ok) throw new Error("ad-spend");
+      return data as { rows: AdRow[]; status: Record<"meta" | "google", { connected: boolean; error?: string }> };
+    },
+  });
+
   const s = useMemo(() => {
     const all = events.data ?? [];
     const allLeads = leads.data ?? [];
@@ -154,11 +170,21 @@ export default function AdminMarketingPage() {
     };
   }, [events.data, leads.data, svc]);
 
+  const adRows = (ads.data?.rows ?? []).filter((r) => service === "all" || SERVICE_MATCH[service]?.test(slug(r.campaign)));
+  const metaSpend = adRows.filter((r) => r.platform === "meta").reduce((a, r) => a + r.spend, 0);
+  const googleSpend = adRows.filter((r) => r.platform === "google").reduce((a, r) => a + r.spend, 0);
+  const totalSpend = metaSpend + googleSpend;
+  const metaLeads = s.leads.filter((l) => META_SOURCES.includes((l.utm_source ?? "").toLowerCase())).length;
+  const googleLeads = s.leads.filter((l) => (l.utm_source ?? "").toLowerCase() === "google").length;
+  const paidLeads = metaLeads + googleLeads;
+  const cpl = (sp: number, n: number) => (n ? eur(sp / n) : sp ? "ei liidejä" : "–");
+  const campaignRows = adRows.map((r) => ({ ...r, leads: s.leads.filter((l) => l.utm_campaign && slug(l.utm_campaign) === slug(r.campaign)).length })).sort((a, b) => b.spend - a.spend);
+
   if (loading || roleLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>;
   if (!user) return <Navigate to="/admin/login" replace />;
   if (!isEditor) return <Navigate to="/admin/yhteydenotot" replace />;
 
-  const refresh = () => { events.refetch(); leads.refetch(); };
+  const refresh = () => { events.refetch(); leads.refetch(); ads.refetch(); };
   const busy = events.isFetching || leads.isFetching;
 
   const exportCsv = () => {
@@ -236,6 +262,20 @@ export default function AdminMarketingPage() {
                 </ol>
               </Panel>
 
+
+              <Panel title="Mainoskulut ja hinta per yhteydenotto" desc="Meta (Facebook, Instagram) ja Google Ads. Yhteydenotot yhdistetään mainoksiin linkin utm_source- ja utm_campaign-tunnisteilla.">
+                {ads.isLoading ? <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /> : ads.isError ? <p className="text-sm text-muted-foreground">Mainoskulujen haku epäonnistui. Yritä Päivitä-painikkeella uudelleen.</p> : <div className="space-y-5">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                    {([["Mainoskulut yhteensä", eur(totalSpend), `${nf.format(paidLeads)} yhteydenottoa mainoksista`], ["Hinta / yhteydenotto", cpl(totalSpend, paidLeads), "Kaikki maksetut kanavat"], ["Meta (FB + IG)", eur(metaSpend), `${cpl(metaSpend, metaLeads)} / yhteydenotto`], ["Google Ads", ads.data?.status.google.error ? "–" : eur(googleSpend), ads.data?.status.google.error ? "Tili ei vielä yhdistetty" : `${cpl(googleSpend, googleLeads)} / yhteydenotto`]] as [string, string, string][]).map(([t, v, h]) => (
+                      <div key={t} className="rounded-lg border bg-muted/30 p-3 min-w-0"><p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">{t}</p><p className="text-xl font-semibold tabular-nums mt-1 text-keuda-blue">{v}</p><p className="text-xs text-muted-foreground mt-0.5">{h}</p></div>
+                    ))}
+                  </div>
+                  {campaignRows.length === 0 ? <p className="text-sm text-muted-foreground">Ei mainoskuluja tällä aikavälillä{service !== "all" ? ` kampanjoissa, joiden nimessä on "${service === "aly" ? "äly / tekoäly" : "muutosturva"}"` : ""}.</p> :
+                    <div className="overflow-x-auto -mx-1"><table className="w-full text-sm min-w-[560px]"><thead><tr className="text-left text-xs uppercase tracking-wide text-muted-foreground border-b"><th className="py-2 px-1 font-medium">Kampanja</th><th className="py-2 px-1 font-medium">Kanava</th><th className="py-2 px-1 font-medium text-right">Kulut</th><th className="py-2 px-1 font-medium text-right">Klikit</th><th className="py-2 px-1 font-medium text-right">Yhteydenotot</th><th className="py-2 px-1 font-medium text-right">€ / yht.</th></tr></thead>
+                      <tbody>{campaignRows.map((r) => <tr key={r.platform + r.campaign} className="border-b last:border-0"><td className="py-2 px-1 max-w-[220px] truncate">{r.campaign}</td><td className="py-2 px-1">{r.platform === "meta" ? "Meta" : "Google"}</td><td className="py-2 px-1 text-right tabular-nums">{eur(r.spend)}</td><td className="py-2 px-1 text-right tabular-nums">{nf.format(r.clicks)}</td><td className="py-2 px-1 text-right tabular-nums">{r.leads}</td><td className="py-2 px-1 text-right tabular-nums font-semibold">{cpl(r.spend, r.leads)}</td></tr>)}</tbody></table></div>}
+                  <p className="text-xs text-muted-foreground">Vinkki: anna mainoslinkin utm_campaign-tunnisteeksi kampanjan nimi (esim. kampanja "Muutosturva lokakuu" → utm_campaign=muutosturva-lokakuu), niin yhteydenotot kohdistuvat oikeaan kampanjaan. Palvelukohtainen näkymä poimii kampanjat, joiden nimessä on palvelun nimi.</p>
+                </div>}
+              </Panel>
               <div className="grid lg:grid-cols-2 gap-4">
                 <Panel title="Kanavat" desc="Käynnit ja yhteydenotot lähteittäin"><List rows={s.channels} tone="blue" /></Panel>
                 <Panel title="Kampanjat" desc="Linkit, joissa on utm_campaign-tunniste"><List rows={s.campaigns} tone="amber" empty="Ei kampanjalinkkejä tältä ajalta. Lisää mainoslinkkeihin utm_campaign." /></Panel>
