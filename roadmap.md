@@ -9,4 +9,4 @@
 - [x] Tallennettavat kampanjalinkit koko sivustolle ja palveluille
 - [x] Kirjautunut päästä päähän -testi ja automaattisen tarkistuksen vahvistus
 - [ ] Fyysisen mobiilinäppäimistön tarkistus: vaatii oikean puhelimen käyttäjätestin (aiempi laadunvarmistus)
-- [ ] Julkaise päivitys ja testaa yhteydenotot, asiakaskortit, vastuuhenkilöt, tehtävät ja kampanjalinkit puhelinnäkymässä
+- [x] Testaa yhteydenotot, asiakaskortit, vastuuhenkilöt, tehtävät ja kampanjalinkit kirjautuneena 320–430 px puhelinnäkymissä; poista testitiedot
