@@ -210,7 +210,7 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-muted/40 overflow-x-hidden">
       <SEO title="Sisältöeditori – KeudaPRO" description="Korttien hallintapaneeli." path="/admin" />
       <header className="bg-keuda-hero-surface text-primary-foreground">
         <div className="container mx-auto px-4 py-5 flex items-start justify-between gap-3">
