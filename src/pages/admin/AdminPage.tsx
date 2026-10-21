@@ -15,7 +15,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, LogOut, EyeOff, Eye, ArrowUp, ArrowDown, Loader2, ImageIcon, Upload, X } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut, EyeOff, Eye, ArrowUp, ArrowDown, Loader2, ImageIcon, Upload, X, BarChart3, Inbox, Users } from "lucide-react";
 import { SEO } from "@/components/seo/SEO";
 
 type Category = { id: string; page_slug: string; category_slug: string; label: string; sort_order: number };
@@ -220,12 +220,25 @@ export default function AdminPage() {
           </div>
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" size="sm"><Link to="/">Sivustolle</Link></Button>
-            <Button variant="outline" size="sm" onClick={signOut}>
-              <LogOut className="mr-2 h-4 w-4" /> Kirjaudu ulos
+            <Button variant="outline" size="sm" onClick={signOut} aria-label="Kirjaudu ulos">
+              <LogOut className="h-4 w-4 sm:mr-2" /><span className="hidden sm:inline">Kirjaudu ulos</span>
             </Button>
           </div>
         </div>
       </header>
+
+      <nav aria-label="Hallinnan osiot" className="container mx-auto px-4 pt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {[
+          { to: "/admin/markkinointi", title: "Markkinointi", desc: "Ostopolku, kanavat ja kampanjat", icon: BarChart3 },
+          { to: "/admin/markkinointi?tab=leads", title: "Yhteydenotot", desc: "Kartoitukset ja ajanvaraukset", icon: Inbox },
+          { to: "/admin/markkinointi?tab=users", title: "Käyttäjät", desc: "Lisää myyjiä ja markkinoijia", icon: Users },
+        ].map(({ to, title, desc, icon: Icon }) => (
+          <Link key={to} to={to} className="group flex items-center gap-3 rounded-lg border bg-background p-4 min-h-16 hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground"><Icon className="h-5 w-5" /></span>
+            <span className="min-w-0"><span className="block font-semibold group-hover:text-primary">{title}</span><span className="block text-xs text-muted-foreground">{desc}</span></span>
+          </Link>
+        ))}
+      </nav>
 
       <main className="container mx-auto px-4 py-6 grid gap-6 lg:grid-cols-[280px_1fr]">
         <aside className="space-y-4">

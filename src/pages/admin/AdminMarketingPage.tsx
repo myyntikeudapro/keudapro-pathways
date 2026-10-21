@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useSearchParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -66,6 +66,8 @@ function List({ rows, empty = "Ei vielä tietoja tältä ajalta." }: { rows: [st
 export default function AdminMarketingPage() {
   const { user, loading, isEditor, roleLoading, signOut } = useAuth();
   const [days, setDays] = useState(30);
+  const [params, setParams] = useSearchParams();
+  const tab = ["overview", "leads", "users"].includes(params.get("tab") ?? "") ? params.get("tab")! : "overview";
   const since = useMemo(() => new Date(Date.now() - days * 864e5).toISOString(), [days]);
   const qc = useQueryClient();
 
@@ -155,7 +157,7 @@ export default function AdminMarketingPage() {
       </header>
 
       <main className="container mx-auto px-4 py-6">
-        <Tabs defaultValue="overview">
+        <Tabs value={tab} onValueChange={(v) => setParams(v === "overview" ? {} : { tab: v }, { replace: true })}>
           <TabsList className="mb-4 flex-wrap h-auto">
             <TabsTrigger value="overview">Yleiskuva</TabsTrigger>
             <TabsTrigger value="leads">Yhteydenotot ({s.leadsTotal})</TabsTrigger>
