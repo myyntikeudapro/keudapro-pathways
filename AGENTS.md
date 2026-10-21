@@ -3,3 +3,5 @@
 - CRM ownership uses protected role-validated user IDs; editors read only the team directory while account creation remains admin-only.
 - CRM tasks, campaign mappings and lead audit history are persisted separately from consent-gated marketing events; lead service attribution is explicit so rejected tracking consent never hides a customer from sales.
 - Reporting paginates database and advertising reads; funnels require ordered same-service events, paid attribution requires paid media, and sales use closing dates and explicit values rather than inferred clicks.
+- Sales operations keep interactions and offers separate from leads; duplicate emails reveal related history without destructive merging, and accepted offers never silently book revenue.
+- CRM assignment notifications are generated transactionally for role-validated recipients; upcoming and overdue reminders are derived in the daily workspace rather than persisted by polling jobs.

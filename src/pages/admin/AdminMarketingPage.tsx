@@ -15,6 +15,8 @@ import { SEO } from "@/components/seo/SEO";
 import { CrmLeads, TasksPanel, SalesPanel, CampaignPanel } from '@/components/admin/CrmWorkspace';
 import { readAll, orderedFunnel, paidPlatform, normalizeCampaign } from '@/lib/crm';
 import type { Lead, TeamMember } from '@/lib/crm';
+import { DailyPanel, OffersPanel } from '@/components/admin/SalesOperations';
+import { campaignReturn } from '@/lib/salesOperations';
 
 type Ev = { session_id: string; event: string; path: string | null; utm_source: string | null; utm_campaign: string | null; utm_medium: string | null; device: string | null; props: Record<string, unknown>; created_at: string };
 
@@ -99,8 +101,8 @@ function List({ rows, empty = "Ei vielä tietoja tältä ajalta.", tone }: { row
 export default function AdminMarketingPage() {
   const { user, loading, isEditor, roleLoading, signOut } = useAuth();
   const [params, setParams] = useSearchParams();
-  const requestedTab = params.get('tab') ?? 'overview';
-  const tab = ['overview', 'leads', 'tasks', 'sales', 'campaigns', 'users'].includes(requestedTab) ? requestedTab : 'overview';
+  const requestedTab = params.get('tab') ?? 'daily';
+  const tab = ['daily', 'offers', 'overview', 'leads', 'tasks', 'sales', 'campaigns', 'users'].includes(requestedTab) ? requestedTab : 'daily';
   const requestedService = params.get('palvelu') ?? 'all';
   const service = SERVICES[requestedService] ? requestedService : 'all';
   const days = [7, 30, 90, 365].includes(Number(params.get("pv"))) ? Number(params.get("pv")) : 30;
@@ -134,6 +136,7 @@ export default function AdminMarketingPage() {
   const team = useQuery({queryKey:['crm_team'], enabled:!!user&&isEditor, queryFn:async()=>{const {data,error}=await supabase.functions.invoke('admin-users',{body:{action:'team'}});if(error)throw error;return data.users as TeamMember[];}});
   const tasks = useQuery({queryKey:['crm_tasks'],enabled:!!user&&isEditor,queryFn:()=>readAll((from,to)=>supabase.from('crm_tasks').select('*').order('due_at').order('id').range(from,to))});
   const campaigns = useQuery({queryKey:['crm_campaigns'],enabled:!!user&&isEditor,queryFn:()=>readAll((from,to)=>supabase.from('marketing_campaigns').select('*').order('created_at',{ascending:false}).order('id').range(from,to))});
+  const offers = useQuery({queryKey:['crm_offers'],enabled:!!user&&isEditor,queryFn:()=>readAll((from,to)=>supabase.from('crm_offers').select('*').order('created_at',{ascending:false}).order('id').range(from,to))});
 
   const ads = useQuery({
     queryKey: ["ad_spend", days],
@@ -199,7 +202,7 @@ export default function AdminMarketingPage() {
   const viewSessions = new Set((events.data??[]).filter(e=>e.event==='page_view' && (!svc.paths || (e.path && svc.paths.includes(e.path)))).map(e=>e.session_id));
   const consentSessions = new Set(s.leads.filter(l=>l.session_id && viewSessions.has(l.session_id)).map(l=>l.session_id));
   const knownConversion = pct(consentSessions.size,s.sessions);
-  const saved=()=>{qc.invalidateQueries({queryKey:['mkt_leads']});qc.invalidateQueries({queryKey:['crm_tasks']});qc.invalidateQueries({queryKey:['crm_campaigns']});qc.invalidateQueries({queryKey:['lead_activity']});};
+  const saved=()=>{qc.invalidateQueries({queryKey:['mkt_leads']});qc.invalidateQueries({queryKey:['crm_tasks']});qc.invalidateQueries({queryKey:['crm_campaigns']});qc.invalidateQueries({queryKey:['lead_activity']});qc.invalidateQueries({queryKey:['crm_offers']});qc.invalidateQueries({queryKey:['crm_notifications']});};
 
   if (loading || roleLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>;
   if (!user) return <Navigate to="/admin/login" replace />;
@@ -253,8 +256,10 @@ export default function AdminMarketingPage() {
       </header>
 
       <main className="container mx-auto px-4 py-5 sm:py-6">
-        <Tabs value={tab} onValueChange={(v) => setParam("tab", v === "overview" ? null : v)}>
-          <TabsList className="mb-5 grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 h-auto p-1 bg-background border shadow-sm sm:w-auto sm:inline-grid">
+        <Tabs value={tab} onValueChange={(v) => setParam("tab", v)}>
+          <TabsList className="mb-5 grid w-full grid-cols-2 sm:grid-cols-4 h-auto p-1 bg-background border shadow-sm">
+            <TabsTrigger value="daily" className="py-2">Päivän työlista</TabsTrigger>
+            <TabsTrigger value="offers" className="py-2">Tarjoukset</TabsTrigger>
             <TabsTrigger value="overview" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><BarChart3 className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Yleiskuva</span></TabsTrigger>
             <TabsTrigger value="leads" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><Inbox className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Asiakkaat</span></TabsTrigger>
             <TabsTrigger value="users" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><Users className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Käyttäjät</span></TabsTrigger>
@@ -262,7 +267,9 @@ export default function AdminMarketingPage() {
             <TabsTrigger value="sales" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground">Myyntitulokset</TabsTrigger>
             <TabsTrigger value="campaigns" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground">Kampanjalinkit</TabsTrigger>
           </TabsList>
-          {(events.isError||leads.isError||tasks.isError||team.isError||campaigns.isError)&&<p role="alert" className="border border-destructive bg-background text-destructive p-3 rounded-lg mb-4 text-sm">Kaikkia tietoja ei saatu haettua. Puuttuvia tietoja ei voi tulkita nollatulokseksi. Kokeile Päivitä.</p>}
+          {(events.isError||leads.isError||tasks.isError||team.isError||campaigns.isError||offers.isError)&&<p role="alert" className="border border-destructive bg-background text-destructive p-3 rounded-lg mb-4 text-sm">Kaikkia tietoja ei saatu haettua. Puuttuvia tietoja ei voi tulkita nollatulokseksi. Kokeile Päivitä.</p>}
+          <TabsContent value="daily"><DailyPanel leads={allServiceLeads} tasks={tasks.data??[]} team={team.data??[]} me={user.id} onOpen={id=>{const n=new URLSearchParams(params);n.set('tab','leads');n.set('asiakas',id);setParams(n);}}/></TabsContent>
+          <TabsContent value="offers"><OffersPanel offers={(offers.data??[]).filter(o=>allServiceLeads.some(l=>l.id===o.lead_id))} leads={allServiceLeads} onSaved={saved}/></TabsContent>
           <p className="text-xs text-muted-foreground mb-4">Käynnit päivitetty: {events.dataUpdatedAt?fmt(new Date(events.dataUpdatedAt).toISOString()):'–'} · Mainoskulut: {ads.dataUpdatedAt?fmt(new Date(ads.dataUpdatedAt).toISOString()):'–'} · Suomen aika</p>
 
           <TabsContent value="overview" className="space-y-4 mt-0">
@@ -317,10 +324,10 @@ export default function AdminMarketingPage() {
 
           <TabsContent value="leads" className="space-y-3 mt-0">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2"><p className="text-sm text-muted-foreground">{svc.label}: merkitse tila ja muistiinpanot, niin näet mistä kanavista tulee oikeita aloittajia.</p><Button size="sm" variant="outline" className="self-start shrink-0" onClick={exportCsv}><Download className="mr-2 h-4 w-4" />Lataa Excel (CSV)</Button></div>
-            {leads.isLoading||tasks.isLoading||team.isLoading?<Loader2 className="h-5 w-5 animate-spin"/>:leads.isError||tasks.isError||team.isError?<p>Tiedot eivät ole saatavilla.</p>:<CrmLeads leads={allServiceLeads} tasks={tasks.data??[]} team={team.data??[]} me={{id:user.id,email:user.email??''}} onSaved={saved}/>}
+            {leads.isLoading||tasks.isLoading||team.isLoading?<Loader2 className="h-5 w-5 animate-spin"/>:leads.isError||tasks.isError||team.isError?<p>Tiedot eivät ole saatavilla.</p>:<CrmLeads leads={allServiceLeads} tasks={tasks.data??[]} offers={offers.data??[]} openId={params.get('asiakas')??undefined} team={team.data??[]} me={{id:user.id,email:user.email??''}} onSaved={saved}/>}
           </TabsContent>
           <TabsContent value="tasks"><TasksPanel tasks={tasks.data??[]} leads={allServiceLeads} team={team.data??[]} me={{id:user.id,email:user.email??''}} onSaved={saved}/></TabsContent>
-          <TabsContent value="sales"><SalesPanel leads={allServiceLeads} since={since}/></TabsContent>
+          <TabsContent value="sales" className="space-y-6"><SalesPanel leads={allServiceLeads} since={since}/><section className="border-t pt-4 space-y-3"><h2 className="font-semibold">Markkinoinnin tuotto</h2><p className="text-xs text-muted-foreground">Mainoskulut ja kaupat valitulta ajalta. Tuotto perustuu vahvistettuun myyntiin ja tallennettuun kampanjakohdistukseen, ei klikkauksiin.</p>{adRows.map(r=>{const result=campaignReturn(allServiceLeads,since,r.platform,mapped.filter(c=>matchesAd(c,r)).map(c=>c.utm_campaign));return <div key={`${r.platform}-${r.campaign_id??r.campaign}`} className="border-b py-3"><h3 className="font-semibold text-sm break-words">{r.campaign}</h3><p className="text-sm">Kulut {eur(r.spend)} · {result.count} kauppaa · Myynti {eur(result.revenue)} · ROAS {r.spend>0&&!result.missing?(result.revenue/r.spend).toFixed(2):'–'}{result.missing?` · ${result.missing} kauppaa ilman arvoa`:''}</p></div>;})}<p className="text-sm text-muted-foreground">{allServiceLeads.filter(l=>l.status==='koulutukseen'&&l.sale_closed_at&&l.sale_closed_at>=since&&!adRows.some(r=>paidPlatform(l.utm_source,l.utm_medium)===r.platform&&mapped.some(c=>matchesAd(c,r)&&c.utm_campaign===l.utm_campaign))).length} kauppaa ilman vahvistettua mainoskampanjakohdistusta.</p>{(!metaOk||!googleOk)&&<p role="alert" className="text-destructive text-sm">Kaikkien mainosalustojen kulut eivät ole saatavilla.</p>}</section></TabsContent>
           <TabsContent value="campaigns"><CampaignPanel campaigns={mapped} ads={ads.data?.rows??[]} service={service} onSaved={saved}/></TabsContent>
 
           <TabsContent value="users" className="mt-0"><UsersPanel /></TabsContent>
