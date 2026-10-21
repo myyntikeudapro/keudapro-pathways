@@ -116,6 +116,126 @@ export type Database = {
         }
         Relationships: []
       }
+      crm_interactions: {
+        Row: {
+          created_at: string
+          created_by: string
+          id: string
+          kind: string
+          lead_id: string
+          occurred_at: string
+          summary: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string
+          id?: string
+          kind: string
+          lead_id: string
+          occurred_at?: string
+          summary: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          id?: string
+          kind?: string
+          lead_id?: string
+          occurred_at?: string
+          summary?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_interactions_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_notifications: {
+        Row: {
+          created_at: string
+          emailed_at: string | null
+          id: string
+          kind: string
+          lead_id: string
+          read_at: string | null
+          recipient_id: string
+        }
+        Insert: {
+          created_at?: string
+          emailed_at?: string | null
+          id?: string
+          kind: string
+          lead_id: string
+          read_at?: string | null
+          recipient_id: string
+        }
+        Update: {
+          created_at?: string
+          emailed_at?: string | null
+          id?: string
+          kind?: string
+          lead_id?: string
+          read_at?: string | null
+          recipient_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_notifications_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_offers: {
+        Row: {
+          amount: number
+          created_at: string
+          created_by: string | null
+          expected_close: string
+          id: string
+          lead_id: string
+          probability: number
+          status: string
+          title: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          created_by?: string | null
+          expected_close: string
+          id?: string
+          lead_id: string
+          probability?: number
+          status?: string
+          title: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          created_by?: string | null
+          expected_close?: string
+          id?: string
+          lead_id?: string
+          probability?: number
+          status?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_offers_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       crm_tasks: {
         Row: {
           completed_at: string | null
