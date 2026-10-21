@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ContactHistory, OffersPanel } from './SalesOperations';
 import type { Offer } from '@/lib/salesOperations';
 import { useQuery } from '@tanstack/react-query';
@@ -21,7 +21,8 @@ export function Choice({ label, value, onChange, options }: { label:string; valu
 const teamOptions = (team:TeamMember[]) => team.map(u=>[u.id,u.email] as [string,string]);
 export function CrmLeads({ leads, tasks, team, me, onSaved, offers=[], openId }: { leads:Lead[]; tasks:Task[]; team:TeamMember[]; me:TeamMember; onSaved:()=>void; offers?:Offer[]; openId?:string }) {
   const [search,setSearch]=useState(''); const [owner,setOwner]=useState('all'); const [status,setStatus]=useState('all'); const [selected,setSelected]=useState<Lead|null>(null);
-  useEffect(()=>{if(openId){const lead=leads.find(l=>l.id===openId);if(lead)setSelected(lead);}},[openId,leads]);
+  const openedId=useRef<string>();
+  useEffect(()=>{if(openId&&openedId.current!==openId){const lead=leads.find(l=>l.id===openId);if(lead){setSelected(lead);openedId.current=openId;}}},[openId,leads]);
   const filtered = leads.filter(l => (owner==='all' || (owner==='none' ? !l.owner_id : l.owner_id===owner)) && (status==='all'||l.status===status) && `${l.name} ${l.email} ${l.organization ?? ''}`.toLowerCase().includes(search.toLowerCase()));
   const overdue = tasks.filter(t=>taskOverdue(t)&&leads.some(l=>l.id===t.lead_id)).length;
   return <div className="space-y-4">

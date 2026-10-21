@@ -208,7 +208,7 @@ export default function AdminMarketingPage() {
   if (!user) return <Navigate to="/admin/login" replace />;
   if (!isEditor) return <Navigate to="/admin/yhteydenotot" replace />;
 
-  const refresh = () => { events.refetch(); leads.refetch(); ads.refetch(); tasks.refetch(); campaigns.refetch(); team.refetch(); };
+  const refresh = () => { events.refetch(); leads.refetch(); ads.refetch(); tasks.refetch(); campaigns.refetch(); team.refetch(); offers.refetch(); qc.invalidateQueries({queryKey:['crm_notifications']}); };
   const busy = events.isFetching || leads.isFetching || ads.isFetching;
 
   const exportCsv = () => {

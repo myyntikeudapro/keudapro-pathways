@@ -17,12 +17,14 @@ Deno.serve(async(req)=>{
   for(const recipient of new Set((notices??[]).map(n=>n.recipient_id))){
    const {data:role}=await db.rpc('is_editor_or_admin',{_user_id:recipient});if(!role)continue;
    const {data:user}=await db.auth.admin.getUserById(recipient);const email=user.user?.email;if(!email)continue;
+   const ids=(notices??[]).filter(n=>n.recipient_id===recipient).map(n=>n.id);
+   const {data:claimed,error:claimError}=await db.from('crm_notifications').update({emailed_at:new Date().toISOString()}).in('id',ids).is('emailed_at',null).select('id');
+   if(claimError)throw claimError;if(!claimed?.length)continue;
    const b64=(s:string)=>btoa(Array.from(new TextEncoder().encode(s),b=>String.fromCharCode(b)).join(''));
    const subject='KeudaPRO – uusi asiakas tai tehtävä';
    const raw=[`To: ${email}`,`Subject: =?UTF-8?B?${b64(subject)}?=`,'MIME-Version: 1.0','Content-Type: text/plain; charset=UTF-8','Content-Transfer-Encoding: base64','',b64('Sinulle on uusi ilmoitus KeudaPROn työtilassa. Tarkista asiakas ja seuraava tehtävä: https://keudapro.fi/admin/markkinointi?tab=daily')].join('\r\n');
    const res=await fetch('https://connector-gateway.lovable.dev/google_mail/gmail/v1/users/me/messages/send',{method:'POST',headers:{Authorization:`Bearer ${gateway}`,'X-Connection-Api-Key':gmail,'Content-Type':'application/json'},body:JSON.stringify({raw:b64(raw).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')})});
-   if(!res.ok){const details=await res.text();console.error(`CRM mail [${res.status}]`,details);return json({error:'Ilmoitus tallentui, sähköpostilähetys epäonnistui',status:res.status},502);}
-   const ids=(notices??[]).filter(n=>n.recipient_id===recipient).map(n=>n.id);await db.from('crm_notifications').update({emailed_at:new Date().toISOString()}).in('id',ids);sent++;
+   if(!res.ok){const details=await res.text();console.error(`CRM mail [${res.status}]`,details);await db.from('crm_notifications').update({emailed_at:null}).in('id',claimed.map(n=>n.id));return json({error:'Ilmoitus tallentui, sähköpostilähetys epäonnistui',status:res.status},502);}sent++;
   }
   return json({ok:true,sent});
  }catch{return json({error:'Ilmoituksen lähetys epäonnistui'},500);}
