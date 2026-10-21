@@ -17,15 +17,20 @@ export type Database = {
       booking_requests: {
         Row: {
           created_at: string
+          deal_value: number | null
           email: string
           handled_by: string | null
           id: string
+          lost_reason: string | null
           meeting_format: string
           message: string
           name: string
           notes: string | null
           organization: string | null
+          owner_id: string | null
           phone: string | null
+          sale_closed_at: string | null
+          service_key: string | null
           session_id: string | null
           source: string | null
           status: string
@@ -35,15 +40,20 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          deal_value?: number | null
           email: string
           handled_by?: string | null
           id?: string
+          lost_reason?: string | null
           meeting_format: string
           message: string
           name: string
           notes?: string | null
           organization?: string | null
+          owner_id?: string | null
           phone?: string | null
+          sale_closed_at?: string | null
+          service_key?: string | null
           session_id?: string | null
           source?: string | null
           status?: string
@@ -53,15 +63,20 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          deal_value?: number | null
           email?: string
           handled_by?: string | null
           id?: string
+          lost_reason?: string | null
           meeting_format?: string
           message?: string
           name?: string
           notes?: string | null
           organization?: string | null
+          owner_id?: string | null
           phone?: string | null
+          sale_closed_at?: string | null
+          service_key?: string | null
           session_id?: string | null
           source?: string | null
           status?: string
@@ -100,6 +115,47 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      crm_tasks: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          due_at: string
+          id: string
+          lead_id: string
+          owner_id: string
+          title: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          due_at: string
+          id?: string
+          lead_id: string
+          owner_id: string
+          title: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          due_at?: string
+          id?: string
+          lead_id?: string
+          owner_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_tasks_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       email_send_log: {
         Row: {
@@ -185,6 +241,83 @@ export type Database = {
           id?: string
           token?: string
           used_at?: string | null
+        }
+        Relationships: []
+      }
+      lead_activity: {
+        Row: {
+          actor_id: string | null
+          changes: Json
+          created_at: string
+          id: string
+          lead_id: string
+        }
+        Insert: {
+          actor_id?: string | null
+          changes: Json
+          created_at?: string
+          id?: string
+          lead_id: string
+        }
+        Update: {
+          actor_id?: string | null
+          changes?: Json
+          created_at?: string
+          id?: string
+          lead_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_activity_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      marketing_campaigns: {
+        Row: {
+          ad_campaign_id: string | null
+          ad_campaign_name: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          landing_path: string
+          name: string
+          platform: string | null
+          service_key: string
+          utm_campaign: string
+          utm_medium: string
+          utm_source: string
+        }
+        Insert: {
+          ad_campaign_id?: string | null
+          ad_campaign_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          landing_path: string
+          name: string
+          platform?: string | null
+          service_key: string
+          utm_campaign: string
+          utm_medium: string
+          utm_source: string
+        }
+        Update: {
+          ad_campaign_id?: string | null
+          ad_campaign_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          landing_path?: string
+          name?: string
+          platform?: string | null
+          service_key?: string
+          utm_campaign?: string
+          utm_medium?: string
+          utm_source?: string
         }
         Relationships: []
       }
