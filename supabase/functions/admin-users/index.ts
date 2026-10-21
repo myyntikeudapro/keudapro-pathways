@@ -17,10 +17,22 @@ Deno.serve(async (req) => {
     const token = (req.headers.get("Authorization") ?? "").replace("Bearer ", "");
     const { data: u, error: ue } = await admin.auth.getUser(token);
     if (ue || !u.user) return json({ error: "Kirjaudu sisään." }, 401);
+    const body = await req.json().catch(() => ({}));
+    if (body.action === "team") {
+      const { data: allowed } = await admin.rpc("is_editor_or_admin", { _user_id: u.user.id });
+      if (!allowed) return json({ error: "Ei käyttöoikeutta." }, 403);
+      const { data: roles, error } = await admin.from("user_roles").select("user_id");
+      if (error) throw error;
+      const members: { id: string; email: string }[] = [];
+      for (const id of new Set((roles ?? []).map((r) => r.user_id))) {
+        const { data, error: userError } = await admin.auth.admin.getUserById(id);
+        if (userError) throw userError;
+        if (data.user?.email) members.push({ id, email: data.user.email });
+      }
+      return json({ users: members });
+    }
     const { data: isAdmin } = await admin.rpc("has_role", { _user_id: u.user.id, _role: "admin" });
     if (!isAdmin) return json({ error: "Vain pääkäyttäjä voi hallita käyttäjiä." }, 403);
-
-    const body = await req.json().catch(() => ({}));
     if (body.action === "list") {
       const { data: roles } = await admin.from("user_roles").select("user_id, role");
       const { data: list } = await admin.auth.admin.listUsers({ perPage: 200 });
@@ -29,7 +41,7 @@ Deno.serve(async (req) => {
         .map((x) => ({
           id: x.id,
           email: x.email,
-          role: roles!.find((r) => r.user_id === x.id && r.role === "admin") ? "admin" : "editor",
+          role: roles?.find((r) => r.user_id === x.id && r.role === "admin") ? "admin" : "editor",
           last_sign_in_at: x.last_sign_in_at,
         }));
       return json({ users });
