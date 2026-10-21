@@ -186,7 +186,7 @@ export default function AdminMarketingPage() {
               <Button variant="ghost" size="sm" onClick={signOut} aria-label="Kirjaudu ulos" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><LogOut className="h-4 w-4 sm:mr-2" /><span className="hidden sm:inline">Ulos</span></Button>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_180px_auto] gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_220px_auto] gap-2">
             <label className="min-w-0"><span className="sr-only">Palvelu</span>
               <Select value={service} onValueChange={(v) => setParam("palvelu", v === "all" ? null : v)}>
                 <SelectTrigger aria-label="Valitse palvelu" className="h-11 bg-background text-foreground"><Layers className="h-4 w-4 mr-2 text-muted-foreground shrink-0" /><SelectValue /></SelectTrigger>
