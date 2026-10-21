@@ -6,7 +6,7 @@ export type TeamMember = { id: string; email: string };
 export const CRM_SERVICES: Record<string, string> = { all: 'Koko sivusto', muutosturva: 'Muutosturva', aly: 'Äly', kasvu: 'Kasvu', hub: 'Hub', osaaminen: 'Osaaminen', muu: 'Muu' };
 export const CRM_STATUSES = ['uusi', 'yhteydessä', 'kartoitus tehty', 'koulutukseen', 'ei jatkoon'];
 export const money = (n: number) => new Intl.NumberFormat('fi-FI', { style: 'currency', currency: 'EUR' }).format(n);
-export const dateTime = (s: string) => new Intl.DateTimeFormat('fi-FI', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(s));
+export const dateTime = (s: string) => new Intl.DateTimeFormat('fi-FI', { timeZone: 'Europe/Helsinki', dateStyle: 'short', timeStyle: 'short' }).format(new Date(s));
 export const normalizeCampaign = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 export function paidPlatform(source: string | null, medium: string | null): 'meta' | 'google' | null {
   if (!['cpc', 'ppc', 'paid', 'paid_social', 'paid-social', 'paid_search', 'display', 'cpm'].includes((medium ?? '').toLowerCase())) return null;
