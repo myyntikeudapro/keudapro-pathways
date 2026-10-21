@@ -21,8 +21,8 @@ type Ev = { session_id: string; event: string; path: string | null; utm_source: 
 
 const nf = new Intl.NumberFormat("fi-FI");
 const pct = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)} %` : "–");
-const fmt = (iso: string) => new Intl.DateTimeFormat("fi-FI", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
-const label = (s: string | null) => s || "suora / tuntematon";
+const fmt = (iso: string) => new Intl.DateTimeFormat("fi-FI", { timeZone: "Europe/Helsinki", day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
+const label = (s: string | null) => ({ig:"instagram",fb:"facebook"}[s?.toLowerCase() ?? ""] ?? s?.toLowerCase()) || "suora / tuntematon";
 const EVENT_NAMES: Record<string, string> = {
   assessment_opened: "Avasi kartoituksen", assessment_step1_completed: "Täytti kartoituksen vaiheen 1", assessment_submitted: "Lähetti kartoituksen",
   assessment_failed: "Kartoituksen lähetys epäonnistui", assessment_phone_clicked: "Klikkasi puhelinnumeroa", assessment_email_clicked: "Klikkasi sähköpostia",
@@ -47,9 +47,9 @@ function countBy<T>(rows: T[], key: (r: T) => string | null | undefined, unique?
 }
 
 const SERVICES: Record<string, { label: string; short: string; paths: string[] | null; leadSource?: string; steps: [string, string][] }> = {
-  all: { label: "Kaikki palvelut", short: "Koko sivusto", paths: null, steps: [["Kävi sivustolla", "page_view"], ["Avasi kartoituksen tai testin", "assessment_opened|ai_assessment_start"], ["Klikkasi ilmoittautumista tai CTA:ta", "course_registration_click|organization_ai_cta|keuda_external_opened|assessment_submitted"], ["Jätti yhteydenoton", "lead_submitted"]] },
+  all: { label: "Kaikki palvelut", short: "Koko sivusto", paths: null, steps: [["Kävi sivustolla", "page_view"], ["Jätti yhteydenoton", "lead_submitted"]] },
   muutosturva: { label: "Muutosturva", short: "/muutosturva", paths: ["/muutosturva"], leadSource: "muutosturva-kartoitus", steps: [["Kävi Muutosturva-sivulla", "page_view"], ["Avasi kartoituksen", "assessment_opened"], ["Täytti vaiheen 1", "assessment_step1_completed"], ["Lähetti kartoituksen", "assessment_submitted"]] },
-  kasvu: { label: "Kasvu", short:"/kasvu", paths:["/kasvu"], steps:[["Kävi sivulla","page_view"],["Avasi kartoituksen","assessment_opened"],["Lähetti kartoituksen","assessment_submitted"],["Jätti yhteydenoton","lead_submitted"]] },
+  kasvu: { label: "Kasvu", short:"/kasvu", paths:["/kasvu"], steps:[["Kävi sivulla","page_view"],["Jätti yhteydenoton","lead_submitted"]] },
   hub: {label:"Hub",short:"/hub",paths:["/hub","/hub/tyoelamaverkko"],steps:[["Kävi sivulla","page_view"],["Jätti yhteydenoton","lead_submitted"]]},
   osaaminen: {label:"Osaaminen",short:"/osaaminen",paths:["/osaaminen"],steps:[["Kävi sivulla","page_view"],["Jätti yhteydenoton","lead_submitted"]]},
   aly: { label: "Äly – tekoälypätevyydet", short: "/aly", paths: ["/aly"], steps: [["Kävi Äly-sivulla", "page_view"], ["Aloitti tekoälytestin", "ai_assessment_start"], ["Suoritti testin", "ai_assessment_complete"], ["Klikkasi ilmoittautumista", "course_registration_click"]] },
@@ -155,8 +155,9 @@ export default function AdminMarketingPage() {
     const views = ev.filter((e) => e.event === "page_view");
     const sessions = new Set(views.map((e) => e.session_id));
     const srcSessions = countBy(views, (e) => label(e.utm_source), (e) => e.session_id);
-    const srcLeads = new Map(countBy(ld, (l) => label(l.utm_source)));
-    const channels = srcSessions.map(([k, v]) => [k, v, `${srcLeads.get(k) ?? 0} yht. (${pct(srcLeads.get(k) ?? 0, v)})`] as [string, number, string]);
+    const srcLeads = new Map(countBy(ld, (l) => l.session_id ? label(l.utm_source) : "Kohdistus puuttuu"));
+    const convertedByChannel = new Map(countBy(ld.filter(l=>l.session_id && sessions.has(l.session_id)),l=>label(l.utm_source),l=>l.session_id ?? l.id));
+    const channels = srcSessions.map(([k, v]) => [k, v, `${srcLeads.get(k) ?? 0} yht. (${pct(convertedByChannel.get(k) ?? 0, v)})`] as [string, number, string]);
     srcLeads.forEach((v, k) => { if (!srcSessions.find((c) => c[0] === k)) channels.push([k, 0, `${v} yht.`]); });
     const courseOf = (e: Ev) => { const p = e.props ?? {}; if (typeof p.course === "string") return p.course as string; const lv = (p.level ?? p.result) as string | undefined; return lv ? LEVELS[lv] ?? lv : null; };
     const funnelCounts = orderedFunnel(ev, svc.steps.map(([,k])=>k), svc.paths);
@@ -195,7 +196,8 @@ export default function AdminMarketingPage() {
   const cpl=(sp:number,n:number)=>(n?eur(sp/n):'–');
   const campaignRows=adRows.map(r=>({...r,leads:s.leads.filter(l=>paidPlatform(l.utm_source,l.utm_medium)===r.platform && l.utm_campaign && (mapped.some(c=>matchesAd(c,r)&&c.utm_source===l.utm_source&&c.utm_campaign===l.utm_campaign) || normalizeCampaign(l.utm_campaign)===normalizeCampaign(r.campaign))).length})).sort((a,b)=>b.spend-a.spend);
   const unknownCampaigns=(ads.data?.rows??[]).filter(r=>!mapped.some(c=>matchesAd(c,r))).length;
-  const consentSessions = new Set(s.leads.filter(l=>l.session_id).map(l=>l.session_id));
+  const viewSessions = new Set((events.data??[]).filter(e=>e.event==='page_view' && (!svc.paths || (e.path && svc.paths.includes(e.path)))).map(e=>e.session_id));
+  const consentSessions = new Set(s.leads.filter(l=>l.session_id && viewSessions.has(l.session_id)).map(l=>l.session_id));
   const knownConversion = pct(consentSessions.size,s.sessions);
   const saved=()=>{qc.invalidateQueries({queryKey:['mkt_leads']});qc.invalidateQueries({queryKey:['crm_tasks']});qc.invalidateQueries({queryKey:['crm_campaigns']});qc.invalidateQueries({queryKey:['lead_activity']});};
 

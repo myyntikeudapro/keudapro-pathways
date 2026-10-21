@@ -35,7 +35,7 @@ Deno.serve(async (req) => {
 
     // Meta
     const metaKey = Deno.env.get("META_ADS_API_KEY");
-    const metaAcc = Deno.env.get("META_AD_ACCOUNT_ID");
+    const metaAcc = Deno.env.get("META_AD_ACCOUNT_ID") ?? "1588371865850122";
     if (lov && metaKey && metaAcc) {
       const q = new URLSearchParams({ level: "campaign", fields: "campaign_id,campaign_name,spend,impressions,clicks,account_currency", time_range: JSON.stringify({ since: d(since), until: d(until) }), limit: "200" });
       const collected: Row[] = [];
