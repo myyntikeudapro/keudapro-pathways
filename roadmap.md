@@ -10,3 +10,7 @@
 - [x] Kirjautunut päästä päähän -testi ja automaattisen tarkistuksen vahvistus
 - [ ] Fyysisen mobiilinäppäimistön tarkistus: vaatii oikean puhelimen käyttäjätestin (aiempi laadunvarmistus)
 - [x] Testaa yhteydenotot, asiakaskortit, vastuuhenkilöt, tehtävät ja kampanjalinkit kirjautuneena 320–430 px puhelinnäkymissä; poista testitiedot
+- [ ] Päivän työlista ja vastuuhenkilöiden muistutukset
+- [ ] Yhteydenpitohistoria ja päällekkäisten asiakkaiden tunnistus
+- [ ] Tarjoukset, ennuste ja markkinoinnin tuotto
+- [ ] Uusien toimintojen testaus ja testitietojen poisto
