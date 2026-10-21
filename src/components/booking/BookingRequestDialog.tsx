@@ -95,11 +95,13 @@ export function BookingRequestDialog() {
           ...parsed.data,
           meetingFormat: FORMATS.find((f) => f.id === format)!.label,
           source: options.source ?? "Varaa aika",
+          ...leadAttribution(),
         },
       });
       if (error) throw error;
       if ((data as { error?: string })?.error) throw new Error((data as { error: string }).error);
       setSent(true);
+      trackEvent("lead_submitted", { source: options.source ?? "Varaa aika" });
     } catch (err) {
       console.error("Booking request failed:", err);
       toast.error("Viestin lähetys epäonnistui. Yritä uudelleen tai lähetä sähköpostia.");
