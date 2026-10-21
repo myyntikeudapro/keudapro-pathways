@@ -36,6 +36,13 @@
       "when": 1792616465443,
       "tag": "0004_crm_workspace_tasks_sales_campaigns",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792617794566,
+      "tag": "0005_crm_daily_contacts_offers_notifications",
+      "breakpoints": true
     }
   ]
 }
