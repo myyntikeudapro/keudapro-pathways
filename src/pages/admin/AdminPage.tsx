@@ -227,6 +227,19 @@ export default function AdminPage() {
         </div>
       </header>
 
+      <nav aria-label="Hallinnan osiot" className="container mx-auto px-4 pt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {[
+          { to: "/admin/markkinointi", title: "Markkinointi", desc: "Ostopolku, kanavat ja kampanjat", icon: BarChart3 },
+          { to: "/admin/markkinointi?tab=leads", title: "Yhteydenotot", desc: "Kartoitukset ja ajanvaraukset", icon: Inbox },
+          { to: "/admin/markkinointi?tab=users", title: "Käyttäjät", desc: "Lisää myyjiä ja markkinoijia", icon: Users },
+        ].map(({ to, title, desc, icon: Icon }) => (
+          <Link key={to} to={to} className="group flex items-center gap-3 rounded-lg border bg-background p-4 min-h-16 hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground"><Icon className="h-5 w-5" /></span>
+            <span className="min-w-0"><span className="block font-semibold group-hover:text-primary">{title}</span><span className="block text-xs text-muted-foreground">{desc}</span></span>
+          </Link>
+        ))}
+      </nav>
+
       <main className="container mx-auto px-4 py-6 grid gap-6 lg:grid-cols-[280px_1fr]">
         <aside className="space-y-4">
           <Card>
