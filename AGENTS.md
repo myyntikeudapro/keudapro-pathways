@@ -1,0 +1,2 @@
+- Marketing tracking goes through `trackEvent` in src/lib/analytics.ts into the `marketing_events` table (consent-gated, no personal data); leads carry first-touch UTM attribution — keeps funnel data first-party and joinable with leads.
+- Admin users are created via the admin-only `admin-users` edge function — never by writing to auth tables directly (that broke logins before).
