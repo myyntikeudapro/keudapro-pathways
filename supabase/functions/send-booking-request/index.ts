@@ -22,6 +22,10 @@ Deno.serve(async (req) => {
     const meetingFormat = String(body.meetingFormat ?? "").trim();
     const message = String(body.message ?? "").trim();
     const source = String(body.source ?? "").trim();
+    const opt = (v: unknown, max: number) => {
+      const s = typeof v === "string" ? v.trim().slice(0, max) : "";
+      return s || null;
+    };
 
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (name.length < 2 || name.length > 100 || !emailOk || email.length > 255) {
@@ -50,6 +54,10 @@ Deno.serve(async (req) => {
       meeting_format: meetingFormat || "ei valittu",
       message,
       source: source || null,
+      utm_source: opt(body.utm_source, 100),
+      utm_medium: opt(body.utm_medium, 100),
+      utm_campaign: opt(body.utm_campaign, 150),
+      session_id: opt(body.session_id, 64),
     });
 
     if (dbError) {

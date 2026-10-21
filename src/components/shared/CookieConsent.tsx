@@ -36,6 +36,7 @@ export function CookieConsent() {
   const applyConsent = (accepted: boolean) => {
     try {
       localStorage.setItem(STORAGE_KEY, accepted ? "accepted" : "declined");
+      if (accepted) window.dispatchEvent(new Event("keudapro-consent-accepted"));
     } catch {}
     if (typeof window.fbq === "function") {
       if (accepted) {

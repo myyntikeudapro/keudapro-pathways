@@ -27,6 +27,8 @@ import HubPage from "./pages/HubPage";
 import TyoelamaverkkoPage from "./pages/TyoelamaverkkoPage";
 import AdminPage from "./pages/admin/AdminPage";
 import AdminLeadsPage from "./pages/admin/AdminLeadsPage";
+import AdminMarketingPage from "./pages/admin/AdminMarketingPage";
+import { PageViewTracker } from "@/components/shared/PageViewTracker";
 import { AuthProvider } from "./hooks/useAuth";
 import NotFound from "./pages/NotFound";
 
@@ -43,6 +45,7 @@ const App = () => (
           <Sonner />
           <AuthProvider>
             <ScrollToTop />
+            <PageViewTracker />
             <RouteWizard />
             <CoachSelectionPanel />
             <BookingPanel />
@@ -64,6 +67,7 @@ const App = () => (
               <Route path="/admin/login" element={<AdminLoginPage />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/admin/yhteydenotot" element={<AdminLeadsPage />} />
+              <Route path="/admin/markkinointi" element={<AdminMarketingPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -84,6 +84,7 @@ export default function AdminLeadsPage() {
             <p className="text-xs text-muted-foreground">{user.email}</p>
           </div>
           <div className="flex items-center gap-2">
+            <Button asChild variant="ghost" size="sm"><Link to="/admin/markkinointi">Markkinointi</Link></Button>
             <Button asChild variant="ghost" size="sm"><Link to="/admin">Sisältöeditori</Link></Button>
             <Button variant="outline" size="sm" onClick={() => refetch()} disabled={isFetching}>
               <RefreshCw className={`mr-2 h-4 w-4 ${isFetching ? "animate-spin" : ""}`} /> Päivitä
