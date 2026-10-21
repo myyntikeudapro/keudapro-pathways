@@ -1,2 +1,5 @@
 - Marketing tracking goes through `trackEvent` in src/lib/analytics.ts into the `marketing_events` table (consent-gated, no personal data); leads carry first-touch UTM attribution — keeps funnel data first-party and joinable with leads.
 - Admin users are created via the admin-only `admin-users` edge function — never by writing to auth tables directly (that broke logins before).
+- CRM ownership uses protected role-validated user IDs; editors read only the team directory while account creation remains admin-only.
+- CRM tasks, campaign mappings and lead audit history are persisted separately from consent-gated marketing events; lead service attribution is explicit so rejected tracking consent never hides a customer from sales.
+- Reporting paginates database and advertising reads; funnels require ordered same-service events, paid attribution requires paid media, and sales use closing dates and explicit values rather than inferred clicks.

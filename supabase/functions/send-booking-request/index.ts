@@ -54,6 +54,7 @@ Deno.serve(async (req) => {
       meeting_format: meetingFormat || "ei valittu",
       message,
       source: source || null,
+      service_key: ["muutosturva", "aly", "kasvu", "hub", "osaaminen", "noste", "operaattori", "kumppanit", "verkosto"].includes(String(body.service_key)) ? String(body.service_key) : source === "muutosturva-kartoitus" ? "muutosturva" : null,
       utm_source: opt(body.utm_source, 100),
       utm_medium: opt(body.utm_medium, 100),
       utm_campaign: opt(body.utm_campaign, 150),

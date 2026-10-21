@@ -208,7 +208,7 @@ export default function AdminMarketingPage() {
 
   const exportCsv = () => {
     const rows = [["Saapui", "Nimi", "Sähköposti", "Puhelin", "Lähde", "Kanava", "Kampanja", "Tila", "Käsittelijä", "Muistiinpanot"], ...allServiceLeads.map((l) => [fmt(l.created_at), l.name, l.email, l.phone ?? "", l.source ?? l.meeting_format, l.utm_source ?? "", l.utm_campaign ?? "", l.status, l.handled_by ?? "", l.notes ?? ""])];
-    const csv = "\uFEFF" + rows.map((r) => r.map((c) => `"${( /^[=+@-]/.test(String(c)) ? "\'" + String(c) : String(c)).replace(/"/g, '""')}"`).join(";")).join("\n");
+    const csv = "\uFEFF" + rows.map((r) => r.map((c) => `"${( /^[=+@-]/.test(String(c)) ? "'" + String(c) : String(c)).replace(/"/g, '""')}"`).join(";")).join("\n");
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
     a.download = `yhteydenotot-${service}-${new Date().toISOString().slice(0, 10)}.csv`;
