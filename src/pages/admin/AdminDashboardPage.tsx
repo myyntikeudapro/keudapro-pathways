@@ -1,0 +1,52 @@
+import { useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { useOperationsData } from '@/hooks/useOperationsData';
+import { Button } from '@/components/ui/button';
+import { Choice } from '@/components/admin/CrmWorkspace';
+import { SEO } from '@/components/seo/SEO';
+import { CRM_SERVICES, money, dateTime } from '@/lib/crm';
+import { QUEUES, meanDays, periodStart, queueLink, queueRows } from '@/lib/operationsCenter';
+import { Activity, ArrowUpRight, BarChart3, BriefcaseBusiness, CheckCircle2, ClipboardList, FileText, GraduationCap, Loader2, LogOut, Network, RefreshCw, ShoppingBag, Users, Wallet } from 'lucide-react';
+
+const nf = new Intl.NumberFormat('fi-FI', { maximumFractionDigits: 1 });
+const upcoming = [{ title: 'Tuotanto', icon: GraduationCap }, { title: 'Osallistujat', icon: Users }, { title: 'Verkkokauppa', icon: ShoppingBag }, { title: 'Asiantuntijaverkosto', icon: Network }, { title: 'Talous', icon: Wallet }];
+
+export default function AdminDashboardPage() {
+  const { user, loading, roleLoading, isEditor, signOut } = useAuth();
+  const [service, setService] = useState('all');
+  const [days, setDays] = useState('30');
+  const [scope, setScope] = useState('all');
+  const [until, setUntil] = useState(() => new Date().toISOString());
+  const query = useOperationsData(!!user && isEditor && !loading && !roleLoading, user?.id ?? '');
+  if (loading || roleLoading) return <div className="flex min-h-screen items-center justify-center"><Loader2 className="h-6 w-6 animate-spin" aria-label="Tarkistetaan käyttöoikeutta"/></div>;
+  if (!user) return <Navigate to="/admin/login" replace/>;
+  if (!isEditor) return <main className="mx-auto max-w-lg p-6"><h1 className="text-xl font-semibold">Ei käyttöoikeutta</h1><p className="my-4">Pyydä pääkäyttäjää lisäämään työtilan käyttöoikeus.</p><Button onClick={signOut}>Kirjaudu ulos</Button></main>;
+  const filter = { service, mine: scope === 'mine', userId: user.id, since: periodStart(Number(days), new Date(until)), until };
+  const rows = (key: string) => queueRows(query.data, key, filter);
+  const revenue = rows('revenue').reduce((sum, r) => sum + Number(r.amount ?? 0), 0);
+  const age = meanDays(rows('age'), until);
+  const cycle = meanDays(rows('cycle'));
+  const winsForPeriod = query.data.leads.filter(l => (service === 'all' || (l.service_key ?? 'muu') === service) && (!filter.mine || l.owner_id === user.id) && l.status === 'koulutukseen' && (!l.sale_closed_at || (Date.parse(l.sale_closed_at) >= Date.parse(filter.since) && Date.parse(l.sale_closed_at) <= Date.parse(until))));
+  const incompleteCycle = winsForPeriod.length - rows('cycle').length;
+  const metric = (key: string, value?: string, hint?: string, attention = false) => <Button key={key} asChild variant="ghost" className={`h-auto min-h-28 w-full justify-start whitespace-normal rounded-lg border bg-background p-4 text-left ${attention ? 'border-l-4 border-l-destructive' : 'border-t-2 border-t-primary'}`}><Link to={queueLink(key, filter)}><span className="flex w-full flex-col gap-2"><span className="flex items-start justify-between gap-2 text-sm text-muted-foreground">{QUEUES[key]}<ArrowUpRight className="h-4 w-4 shrink-0"/></span><span className="text-2xl font-semibold tabular-nums text-keuda-blue">{value ?? nf.format(rows(key).length)}</span>{hint && <span className="text-xs font-normal text-muted-foreground">{hint}</span>}</span></Link></Button>;
+  return <div className="min-h-screen bg-muted/40">
+    <SEO title="Tilannekeskus – KeudaPRO" description="KeudaPROn yhteinen liiketoiminnan työtila." path="/admin"/>
+    <header className="border-b bg-background"><div className="container mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-5"><div className="min-w-0"><p className="text-sm font-semibold text-secondary">KeudaPRO / Työtila</p><h1 className="mt-1 text-2xl font-semibold text-keuda-blue">Tilannekeskus</h1><p className="mt-1 break-all text-xs text-muted-foreground">{user.email}</p></div><nav className="flex flex-wrap gap-2" aria-label="Hallinnan navigaatio"><Button asChild variant="outline"><Link to="/admin/yhteydenotot">Saapuneet viestit</Link></Button><Button asChild variant="outline"><Link to="/admin/sisallot"><FileText className="mr-2 h-4 w-4"/>Sisällöt</Link></Button><Button variant="ghost" size="icon" title="Kirjaudu ulos" aria-label="Kirjaudu ulos" onClick={signOut}><LogOut className="h-4 w-4"/></Button></nav></div></header>
+    <main className="container mx-auto space-y-9 px-4 py-6 sm:py-8">
+      <section className="grid items-end gap-3 border-b pb-5 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_auto]">
+        <Choice label="Palvelu" value={service} onChange={setService} options={Object.entries(CRM_SERVICES)}/>
+        <Choice label="Tarkastelujakso" value={days} onChange={setDays} options={[["7","Viimeiset 7 päivää"],["30","Viimeiset 30 päivää"],["90","Viimeiset 90 päivää"],["365","Viimeiset 12 kuukautta"]]}/>
+        <Choice label="Vastuut" value={scope} onChange={setScope} options={[["all","Koko tiimi"],["mine","Omat vastuut"]]}/>
+        <Button variant="secondary" disabled={query.fetching} onClick={() => { setUntil(new Date().toISOString()); query.refresh(); }}><RefreshCw className={`mr-2 h-4 w-4 ${query.fetching ? 'animate-spin' : ''}`}/>Päivitä</Button>
+      </section>
+      {query.pending ? <p role="status" className="flex items-center gap-2 py-10"><Loader2 className="h-5 w-5 animate-spin"/>Ladataan tilannekuvaa…</p> : query.error ? <p role="alert" className="border-l-4 border-destructive p-4 text-destructive">Tilannekuvan tietoja ei voitu hakea. Kokeile Päivitä.</p> : <>
+        <section className="space-y-4"><div className="flex flex-wrap items-baseline justify-between gap-2"><h2 className="flex items-center gap-2 text-lg font-semibold text-keuda-blue"><BarChart3 className="h-5 w-5"/>Liiketoiminnan yleiskuva</h2><p className="text-xs text-muted-foreground">Tilanne {dateTime(until)} · Suomen aika</p></div><div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">{metric('fresh', undefined, 'Saapuneet valitulla jaksolla · tila uusi')}{metric('open', undefined, 'Nykyinen avoin kanta · kaikki saapumisajat')}{metric('offers', undefined, 'Luonnokset ja lähetetyt · kaikki saapumisajat')}{metric('wins', undefined, 'Kauppapäivä valitulla jaksolla')}{metric('revenue', money(revenue), `${rows('missingValue').length} kauppaa ilman arvoa · kauppapäivä valitulla jaksolla`)}</div><div className="grid gap-3 border-y py-4 sm:grid-cols-3">{['Tilaukset','Koulutustuotanto','Laskutusvalmius'].map(title => <div key={title}><h3 className="text-sm font-medium">{title}</h3><p className="mt-1 text-sm text-muted-foreground">Tietoa ei vielä saatavilla</p></div>)}</div></section>
+        <section className="space-y-4"><h2 className="flex items-center gap-2 text-lg font-semibold text-keuda-blue"><Activity className="h-5 w-5"/>LEAN-virtaus</h2><div className="grid gap-3 sm:grid-cols-3">{['uusi','yhteydessä','kartoitus tehty'].map(stage => metric(`stage-${stage}`,undefined,'Keskeneräisiä · kaikki saapumisajat'))}</div><div className="grid gap-3 sm:grid-cols-2">{metric('age', age === null ? 'Ei havaintoja' : `${nf.format(age)} vrk`, `${rows('age').length} asiakkuutta · keskimääräinen ikä saapumisesta`)}{metric('cycle', cycle === null ? 'Ei havaintoja' : `${nf.format(cycle)} vrk`, `${rows('cycle').length} havaintoa · ${incompleteCycle} puutteellista · kauppapäivä valitulla jaksolla`)}</div><p className="text-sm text-muted-foreground">Vaihekohtaiset odotusajat, tuotannon läpimeno ja mitatut pullonkaulat: Tietoa ei vielä saatavilla.</p></section>
+        <section className="space-y-4"><h2 className="flex items-center gap-2 text-lg font-semibold text-keuda-blue"><ClipboardList className="h-5 w-5"/>Toimenpiteitä vaativat asiat</h2><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{['overdue','unassigned','noNext','stale','lateOffers','missingValue'].map(key => metric(key,undefined,key === 'missingValue' ? 'Kauppapäivä valitulla jaksolla' : 'Nykyinen työjono · kaikki saapumisajat',rows(key).length > 0))}</div><p className="text-sm text-muted-foreground">Tuotannon esteet, riskit ja hyväksynnät: Tietoa ei vielä saatavilla.</p></section>
+        <section className="space-y-4"><h2 className="flex items-center gap-2 text-lg font-semibold text-keuda-blue"><CheckCircle2 className="h-5 w-5"/>Oma työjono</h2><Button asChild variant="outline"><Link to={queueLink('open',{...filter,mine:true})}>Omat avoimet asiakkaat<ArrowUpRight className="ml-2 h-4 w-4"/></Link></Button><div className="divide-y">{rows('ownTasks').slice(0,8).map(r => <Button key={r.id} asChild variant="ghost" className="h-auto w-full justify-start whitespace-normal py-3 text-left"><Link to={`/admin/markkinointi?tab=leads&asiakas=${r.lead.id}`}><span className="min-w-0"><span className="block font-medium">{r.title} · {r.lead.name}</span><span className="block text-xs text-muted-foreground">{dateTime(r.date)}</span></span></Link></Button>)}</div>{metric('ownTasks',undefined,'Omat tehtävävastuut · kaikki määräajat')}</section>
+      </>}
+      <section className="space-y-4 border-t pt-6"><h2 className="text-lg font-semibold text-keuda-blue">Työtilat</h2><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{[{title:'Myynti',to:'/admin/markkinointi?tab=leads',icon:BriefcaseBusiness},{title:'Markkinointi',to:'/admin/markkinointi?tab=overview',icon:BarChart3},{title:'Sisältöhallinta',to:'/admin/sisallot',icon:FileText}].map(({title,to,icon:Icon}) => <Button key={title} asChild variant="outline" className="h-auto min-h-20 justify-between gap-3 whitespace-normal bg-background p-4"><Link to={to}><span className="flex items-center gap-3"><Icon className="h-5 w-5 text-secondary"/>{title}</span><ArrowUpRight className="h-4 w-4 shrink-0"/></Link></Button>)}{upcoming.map(({title,icon:Icon}) => <div key={title} className="flex min-h-20 items-center gap-3 rounded-lg border border-dashed p-4"><Icon className="h-5 w-5 shrink-0 text-muted-foreground"/><div><h3 className="text-sm font-medium">{title}</h3><p className="text-xs text-muted-foreground">Ei vielä käytössä</p></div></div>)}</div></section>
+    </main>
+  </div>;
+}

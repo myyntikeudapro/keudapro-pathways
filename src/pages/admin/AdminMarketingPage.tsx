@@ -19,6 +19,7 @@ import { DailyPanel, OffersPanel } from '@/components/admin/SalesOperations';
 import { campaignReturn } from '@/lib/salesOperations';
 import { EmailAutomationPanel } from '@/components/admin/EmailAutomationPanel';
 import { SalesGoalsPanel } from '@/components/admin/SalesGoalsPanel';
+import { OperationsQueue } from '@/components/admin/OperationsQueue';
 
 type Ev = { session_id: string; event: string; path: string | null; utm_source: string | null; utm_campaign: string | null; utm_medium: string | null; device: string | null; props: Record<string, unknown>; created_at: string };
 
@@ -327,8 +328,10 @@ export default function AdminMarketingPage() {
           </TabsContent>
 
           <TabsContent value="leads" className="space-y-3 mt-0">
+            {params.has('jono') ? <OperationsQueue userId={user.id}/> : <>
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2"><p className="text-sm text-muted-foreground">{svc.label}: merkitse tila ja muistiinpanot, niin näet mistä kanavista tulee oikeita aloittajia.</p><Button size="sm" variant="outline" className="self-start shrink-0" onClick={exportCsv}><Download className="mr-2 h-4 w-4" />Lataa Excel (CSV)</Button></div>
             {leads.isLoading||tasks.isLoading||team.isLoading?<Loader2 className="h-5 w-5 animate-spin"/>:leads.isError||tasks.isError||team.isError?<p>Tiedot eivät ole saatavilla.</p>:<CrmLeads leads={allServiceLeads} tasks={tasks.data??[]} offers={offers.data??[]} openId={params.get('asiakas')??undefined} team={team.data??[]} me={{id:user.id,email:user.email??''}} onSaved={saved}/>}
+            </>}
           </TabsContent>
           <TabsContent value="tasks"><TasksPanel tasks={tasks.data??[]} leads={allServiceLeads} team={team.data??[]} me={{id:user.id,email:user.email??''}} onSaved={saved}/></TabsContent>
           <TabsContent value="sales" className="space-y-6"><SalesPanel leads={allServiceLeads} since={since}/><section className="border-t pt-4 space-y-3"><h2 className="font-semibold">Markkinoinnin tuotto</h2><p className="text-xs text-muted-foreground">Mainoskulut ja kaupat valitulta ajalta. Tuotto perustuu vahvistettuun myyntiin ja tallennettuun kampanjakohdistukseen, ei klikkauksiin.</p>{adRows.map(r=>{const result=campaignReturn(allServiceLeads,since,r.platform,mapped.filter(c=>matchesAd(c,r)).map(c=>c.utm_campaign));return <div key={`${r.platform}-${r.campaign_id??r.campaign}`} className="border-b py-3"><h3 className="font-semibold text-sm break-words">{r.campaign}</h3><p className="text-sm">Kulut {eur(r.spend)} · {result.count} kauppaa · Myynti {eur(result.revenue)} · ROAS {r.spend>0&&!result.missing?(result.revenue/r.spend).toFixed(2):'–'}{result.missing?` · ${result.missing} kauppaa ilman arvoa`:''}</p></div>;})}<p className="text-sm text-muted-foreground">{allServiceLeads.filter(l=>l.status==='koulutukseen'&&l.sale_closed_at&&l.sale_closed_at>=since&&!adRows.some(r=>paidPlatform(l.utm_source,l.utm_medium)===r.platform&&mapped.some(c=>matchesAd(c,r)&&c.utm_campaign===l.utm_campaign))).length} kauppaa ilman vahvistettua mainoskampanjakohdistusta.</p>{(!metaOk||!googleOk)&&<p role="alert" className="text-destructive text-sm">Kaikkien mainosalustojen kulut eivät ole saatavilla.</p>}</section></TabsContent>

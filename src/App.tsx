@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { WizardProvider } from "@/contexts/WizardContext";
 import { CoachPanelProvider } from "@/contexts/CoachPanelContext";
 import { BookingRequestProvider } from "@/contexts/BookingRequestContext";
@@ -26,6 +26,7 @@ import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import HubPage from "./pages/HubPage";
 import TyoelamaverkkoPage from "./pages/TyoelamaverkkoPage";
 import AdminPage from "./pages/admin/AdminPage";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminLeadsPage from "./pages/admin/AdminLeadsPage";
 import AdminMarketingPage from "./pages/admin/AdminMarketingPage";
 import { PageViewTracker } from "@/components/shared/PageViewTracker";
@@ -34,6 +35,12 @@ import NotFound from "./pages/NotFound";
 
 
 const queryClient = new QueryClient();
+
+function PublicPanels() {
+  const { pathname } = useLocation();
+  if (pathname.startsWith('/admin')) return null;
+  return <><RouteWizard /><CoachSelectionPanel /><BookingPanel /><BookingRequestDialog /><MultiCoachChat /></>;
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -46,11 +53,7 @@ const App = () => (
           <AuthProvider>
             <ScrollToTop />
             <PageViewTracker />
-            <RouteWizard />
-            <CoachSelectionPanel />
-            <BookingPanel />
-            <BookingRequestDialog />
-            <MultiCoachChat />
+            <PublicPanels />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/aly" element={<InsightPage />} />
@@ -65,7 +68,8 @@ const App = () => (
               <Route path="/hub" element={<HubPage />} />
               <Route path="/hub/tyoelamaverkko" element={<TyoelamaverkkoPage />} />
               <Route path="/admin/login" element={<AdminLoginPage />} />
-              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin" element={<AdminDashboardPage />} />
+              <Route path="/admin/sisallot" element={<AdminPage />} />
               <Route path="/admin/yhteydenotot" element={<AdminLeadsPage />} />
               <Route path="/admin/markkinointi" element={<AdminMarketingPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

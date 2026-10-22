@@ -78,14 +78,15 @@ export default function AdminLeadsPage() {
     <div className="min-h-screen bg-muted/30">
       <SEO title="Saapuneet yhteydenotot – KeudaPRO" description="Kartoitusten ja ajanvarausten hallinta." path="/admin/yhteydenotot" />
       <header className="bg-background border-b">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between gap-3">
+        <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-xl font-semibold">Saapuneet yhteydenotot</h1>
             <p className="text-xs text-muted-foreground">{user.email}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Button asChild variant="ghost" size="sm"><Link to="/admin/markkinointi">Markkinointi</Link></Button>
-            <Button asChild variant="ghost" size="sm"><Link to="/admin">Sisältöeditori</Link></Button>
+            <Button asChild variant="ghost" size="sm"><Link to="/admin">Tilannekeskus</Link></Button>
+            <Button asChild variant="ghost" size="sm"><Link to="/admin/sisallot">Sisältöeditori</Link></Button>
             <Button variant="outline" size="sm" onClick={() => refetch()} disabled={isFetching}>
               <RefreshCw className={`mr-2 h-4 w-4 ${isFetching ? "animate-spin" : ""}`} /> Päivitä
             </Button>

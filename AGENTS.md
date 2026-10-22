@@ -10,3 +10,6 @@
 - A single daily schedule dispatches overdue mail and the weekly digest at Helsinki local time; contact evidence and calendar windows are derived, and ad-spend reads are shared with the existing reporting function to prevent metric drift.
 - Sales goals are admin-managed per service and Helsinki calendar month; actual revenue uses explicit closing dates and values, with missing values disclosed, so target attainment never implies inferred sales.
 - New unowned leads are assigned by a database BEFORE INSERT trigger with a locked per-rule round-robin cursor and live role validation; explicit service rules override the site default, including disabled rules, and existing owners are never overwritten.
+- The admin home is a read-only operations center; the existing content editor lives at /admin/sisallot so CRM and public functionality remain independent.
+- Operations metrics and their URL-addressable queues share operationsCenter calculations and paginated reads, so linked rows use identical service, owner and time boundaries.
+- Public booking and coaching panels mount only outside admin routes, preventing offscreen dialogs and shadows from interfering with the workspace.

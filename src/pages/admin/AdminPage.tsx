@@ -76,7 +76,7 @@ export default function AdminPage() {
       if (error) throw error;
       return data as Card[];
     },
-    enabled: !!selectedCategoryId,
+    enabled: !!selectedCategoryId && !!user && isEditor && !loading && !roleLoading,
   });
 
   useEffect(() => {
@@ -211,15 +211,16 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-muted/40 overflow-x-hidden">
-      <SEO title="Sisältöeditori – KeudaPRO" description="Korttien hallintapaneeli." path="/admin" />
+      <SEO title="Sisältöeditori – KeudaPRO" description="Korttien hallintapaneeli." path="/admin/sisallot" />
       <header className="bg-keuda-hero-surface text-primary-foreground">
-        <div className="container mx-auto px-4 py-5 flex items-start justify-between gap-3">
+        <div className="container mx-auto px-4 py-5 flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-keuda-amber">KeudaPRO · Työtila</p>
-            <h1 className="text-xl sm:text-2xl font-semibold mt-1 text-primary-foreground">Hallinta</h1>
+            <h1 className="text-xl sm:text-2xl font-semibold mt-1 text-primary-foreground">Sisältöeditori</h1>
             <p className="text-xs text-keuda-hero-muted truncate">{user.email}</p>
           </div>
           <div className="flex items-center gap-1 shrink-0">
+            <Button asChild variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/admin">Tilannekeskus</Link></Button>
             <Button asChild variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/">Sivustolle</Link></Button>
             <Button variant="ghost" size="sm" onClick={signOut} aria-label="Kirjaudu ulos" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
               <LogOut className="h-4 w-4 sm:mr-2" /><span className="hidden sm:inline">Kirjaudu ulos</span>

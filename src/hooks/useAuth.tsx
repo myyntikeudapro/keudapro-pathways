@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [isEditor, setIsEditor] = useState(false);
   const [roleLoading, setRoleLoading] = useState(false);
+  const [roleUserId, setRoleUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, s) => {
@@ -34,8 +35,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
+    let active = true;
     if (!user) {
       setIsEditor(false);
+      setRoleUserId(null);
+      setRoleLoading(false);
       return;
     }
     setRoleLoading(true);
@@ -44,10 +48,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       .select("role")
       .eq("user_id", user.id)
       .then(({ data }) => {
+        if (!active) return;
         const roles = (data ?? []).map((r: { role: string }) => r.role);
         setIsEditor(roles.includes("admin") || roles.includes("editor"));
+        setRoleUserId(user.id);
         setRoleLoading(false);
       });
+    return () => { active = false; };
   }, [user]);
 
   const signOut = async () => {
@@ -55,7 +62,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ session, user, loading, isEditor, roleLoading, signOut }}>
+    <AuthContext.Provider value={{ session, user, loading, isEditor: isEditor && roleUserId === user?.id, roleLoading: roleLoading || (!!user && roleUserId !== user.id), signOut }}>
       {children}
     </AuthContext.Provider>
   );
