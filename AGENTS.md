@@ -5,3 +5,6 @@
 - Reporting paginates database and advertising reads; funnels require ordered same-service events, paid attribution requires paid media, and sales use closing dates and explicit values rather than inferred clicks.
 - Sales operations keep interactions and offers separate from leads; duplicate emails reveal related history without destructive merging, and accepted offers never silently book revenue.
 - CRM assignment notifications are generated transactionally for role-validated recipients; upcoming and overdue reminders are derived in the daily workspace rather than persisted by polling jobs.
+- Customer receipt emails are sent only after lead persistence; delivery failures must not turn a saved submission into a failed submission.
+- Scheduled CRM emails use single-use, short-lived run capabilities in service-only writable run tables; manual previews and sends require server-validated admin sessions to prevent public email triggers.
+- A single daily schedule dispatches overdue mail and the weekly digest at Helsinki local time; contact evidence and calendar windows are derived, and ad-spend reads are shared with the existing reporting function to prevent metric drift.
