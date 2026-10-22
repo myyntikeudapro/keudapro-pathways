@@ -24,3 +24,5 @@
 - [x] Admin-tilannekeskus: nykytilan kartoitus ja hyväksyttävä muutossuunnitelma
 - [x] /admin-tilannekeskus, sisältöeditori /admin/sisallot ja suodatettujen työjonojen linkit
 - [x] Hallinnan ja julkisten sivujen regressiotarkistus: 26 laskentatestiä, kirjautunut asiakaskortin tallennus ja takaisinluku, 18 työjonolinkkiä, 320–1280 px näkymät; testiasiakas poistettu
+- [ ] Vaihe 0B: turvallisen kehitys-, palautus- ja julkaisumallin suunnitelma hyväksyttäväksi
+- [ ] Vaihe 0B toteutus: odottaa suunnitelman hyväksyntää, Git-yhteyden ja varmuuskopioiden käyttäjänäkymän vahvistusta sekä eristettyä testiversiota
