@@ -1,10 +1,6 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.58.0";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
+import { createClient } from "npm:@supabase/supabase-js@2";
+import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { sendMail } from '../_shared/gmail.ts';
 
 const RECIPIENT = "heikki.kallunki@keuda.fi";
 
@@ -41,12 +37,12 @@ Deno.serve(async (req) => {
       });
     }
 
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-    );
+    const url = Deno.env.get('SUPABASE_URL');
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    if (!url || !serviceKey) throw new Error('Tallennusyhteys puuttuu');
+    const supabase = createClient(url, serviceKey);
 
-    const { error: dbError } = await supabase.from("booking_requests").insert({
+    const { data: stored, error: dbError } = await supabase.from("booking_requests").insert({
       name,
       email,
       phone: phone || null,
@@ -59,7 +55,7 @@ Deno.serve(async (req) => {
       utm_medium: opt(body.utm_medium, 100),
       utm_campaign: opt(body.utm_campaign, 150),
       session_id: opt(body.session_id, 64),
-    });
+    }).select('id').single();
 
     if (dbError) {
       console.error("DB insert failed:", dbError.message);
@@ -121,7 +117,19 @@ Deno.serve(async (req) => {
       console.warn("Gmail connection missing — request stored but email not sent.");
     }
 
-    return new Response(JSON.stringify({ ok: true, emailSent }), {
+    let confirmationSent = false;
+    if (stored) {
+      try {
+        const messageId = await sendMail(email, 'KeudaPRO – yhteydenottosi on vastaanotettu', 'Kiitos yhteydenotostasi!\n\nOlemme vastaanottaneet viestisi. Tiimimme käsittelee sen ja ottaa sinuun yhteyttä. Tämä vahvistus ei ole koulutuspaikan tai tapaamisajan vahvistus.\n\nVoit täydentää tietojasi vastaamalla tähän viestiin.\n\nYstävällisin terveisin\nKeudaPRO\nhttps://keudapro.fi');
+        confirmationSent = true;
+        const { error: logError } = await supabase.from('email_send_log').insert({template_name:'customer_confirmation',recipient_email:email,status:'sent',message_id:messageId,metadata:{lead_id:stored.id}});
+        if (logError) console.error('Confirmation log failed');
+      } catch {
+        console.error('Customer confirmation failed; request is stored');
+        await supabase.from('email_send_log').insert({template_name:'customer_confirmation',recipient_email:email,status:'failed',error_message:'Gmail-lähetys epäonnistui',metadata:{lead_id:stored.id}});
+      }
+    }
+    return new Response(JSON.stringify({ ok: true, emailSent, confirmationSent }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
