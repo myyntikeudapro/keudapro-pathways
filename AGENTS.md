@@ -12,3 +12,4 @@
 - New unowned leads are assigned by a database BEFORE INSERT trigger with a locked per-rule round-robin cursor and live role validation; explicit service rules override the site default, including disabled rules, and existing owners are never overwritten.
 - The admin home is a read-only operations center; the existing content editor lives at /admin/sisallot so CRM and public functionality remain independent.
 - Operations metrics and their URL-addressable queues share operationsCenter calculations and paginated reads, so linked rows use identical service, owner and time boundaries.
+- Public booking and coaching panels mount only outside admin routes, preventing offscreen dialogs and shadows from interfering with the workspace.

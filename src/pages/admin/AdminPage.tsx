@@ -213,7 +213,7 @@ export default function AdminPage() {
     <div className="min-h-screen bg-muted/40 overflow-x-hidden">
       <SEO title="Sisältöeditori – KeudaPRO" description="Korttien hallintapaneeli." path="/admin/sisallot" />
       <header className="bg-keuda-hero-surface text-primary-foreground">
-        <div className="container mx-auto px-4 py-5 flex items-start justify-between gap-3">
+        <div className="container mx-auto px-4 py-5 flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-keuda-amber">KeudaPRO · Työtila</p>
             <h1 className="text-xl sm:text-2xl font-semibold mt-1 text-primary-foreground">Sisältöeditori</h1>
