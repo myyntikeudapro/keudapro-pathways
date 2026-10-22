@@ -5,7 +5,7 @@ export function staleLeads(leads:EmailLead[], contacted:Set<string>, now:number)
 }
 export function helsinkiDay(now:Date) { return new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Helsinki'}).format(now); }
 export function previousWeek(now:Date) {
-  const day=helsinkiDay(now);const until=new Date(`${day}T12:00:00Z`);until.setUTCDate(until.getUTCDate()-1);
+  const day=helsinkiDay(now);const until=new Date(`${day}T12:00:00Z`);const weekday=until.getUTCDay()||7;until.setUTCDate(until.getUTCDate()-weekday);
   const since=new Date(until);since.setUTCDate(since.getUTCDate()-6);
   return {since:since.toISOString().slice(0,10),until:until.toISOString().slice(0,10)};
 }
