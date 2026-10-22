@@ -21,3 +21,6 @@
 - [x] Palvelukohtaiset kuukausitavoitteet ja toteuman seuranta
 - [x] Pääkäyttäjän määrittämä automaattinen asiakasjako ja omien asiakkaiden valinta
 - [x] Tavoitteiden ja asiakasjaon kirjautunut testi sekä testitietojen poisto
+- [ ] Admin-tilannekeskus: nykytilan kartoitus ja hyväksyttävä muutossuunnitelma
+- [ ] Suunnitelman hyväksynnän jälkeen: /admin-tilannekeskus, sisältöeditori /admin/sisallot ja suodatettujen työjonojen linkit
+- [ ] Suunnitelman hyväksynnän jälkeen: hallinnan ja julkisten sivujen regressiotarkistus
