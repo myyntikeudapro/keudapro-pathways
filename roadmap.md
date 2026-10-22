@@ -22,5 +22,5 @@
 - [x] Pääkäyttäjän määrittämä automaattinen asiakasjako ja omien asiakkaiden valinta
 - [x] Tavoitteiden ja asiakasjaon kirjautunut testi sekä testitietojen poisto
 - [x] Admin-tilannekeskus: nykytilan kartoitus ja hyväksyttävä muutossuunnitelma
-- [ ] Suunnitelman hyväksynnän jälkeen: /admin-tilannekeskus, sisältöeditori /admin/sisallot ja suodatettujen työjonojen linkit
-- [ ] Suunnitelman hyväksynnän jälkeen: hallinnan ja julkisten sivujen regressiotarkistus
+- [x] /admin-tilannekeskus, sisältöeditori /admin/sisallot ja suodatettujen työjonojen linkit
+- [x] Hallinnan ja julkisten sivujen regressiotarkistus: 26 laskentatestiä, kirjautunut asiakaskortin tallennus ja takaisinluku, 18 työjonolinkkiä, 320–1280 px näkymät; testiasiakas poistettu
