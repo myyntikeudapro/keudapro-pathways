@@ -116,6 +116,71 @@ export type Database = {
         }
         Relationships: []
       }
+      crm_email_deliveries: {
+        Row: {
+          id: string
+          kind: string
+          message_id: string | null
+          recipient_id: string
+          run_id: string
+          state: string
+        }
+        Insert: {
+          id?: string
+          kind: string
+          message_id?: string | null
+          recipient_id: string
+          run_id: string
+          state?: string
+        }
+        Update: {
+          id?: string
+          kind?: string
+          message_id?: string | null
+          recipient_id?: string
+          run_id?: string
+          state?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_email_deliveries_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "crm_email_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_email_runs: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          finished_at: string | null
+          id: string
+          kind: string
+          period_key: string
+          state: string
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          finished_at?: string | null
+          id?: string
+          kind: string
+          period_key: string
+          state?: string
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          finished_at?: string | null
+          id?: string
+          kind?: string
+          period_key?: string
+          state?: string
+        }
+        Relationships: []
+      }
       crm_interactions: {
         Row: {
           created_at: string

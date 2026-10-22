@@ -1,0 +1,11 @@
+CREATE TABLE public.crm_email_runs (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), kind text NOT NULL CHECK (kind IN ('daily','weekly')), period_key text NOT NULL, state text NOT NULL DEFAULT 'pending' CHECK(state IN ('pending','processing','sent','failed')), created_at timestamptz NOT NULL DEFAULT now(), finished_at timestamptz, error_message text, UNIQUE(kind,period_key));
+GRANT ALL ON public.crm_email_runs TO service_role;
+GRANT SELECT ON public.crm_email_runs TO authenticated;
+ALTER TABLE public.crm_email_runs ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins read email automation runs" ON public.crm_email_runs FOR SELECT TO authenticated USING(public.has_role(auth.uid(),'admin'));
+CREATE TABLE public.crm_email_deliveries (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), run_id uuid NOT NULL REFERENCES public.crm_email_runs(id), recipient_id uuid NOT NULL, kind text NOT NULL, state text NOT NULL DEFAULT 'pending' CHECK(state IN ('pending','sending','sent','failed')), message_id text, UNIQUE(run_id,recipient_id));
+GRANT ALL ON public.crm_email_deliveries TO service_role;
+ALTER TABLE public.crm_email_deliveries ENABLE ROW LEVEL SECURITY;
+CREATE INDEX crm_email_runs_pending ON public.crm_email_runs(created_at) WHERE state='pending';
+CREATE EXTENSION IF NOT EXISTS pg_cron;
+CREATE EXTENSION IF NOT EXISTS pg_net;
