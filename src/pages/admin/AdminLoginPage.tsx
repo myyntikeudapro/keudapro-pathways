@@ -47,10 +47,10 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <SEO title="Admin – KeudaPRO" description="Sisäänkirjautuminen sisältöeditoriin." path="/admin/login" />
+      <SEO title="Työtilan kirjautuminen – KeudaPRO" description="Sisäänkirjautuminen KeudaPROn yhteiseen työtilaan." path="/admin/login" />
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>KeudaPRO – Sisältöeditori</CardTitle>
+          <CardTitle>KeudaPRO – Työtila</CardTitle>
           <CardDescription>
             {mode === "signin" ? "Kirjaudu sisään sähköpostillasi." : "Luo uusi tili. Adminin on aktivoitava rooli erikseen."}
           </CardDescription>

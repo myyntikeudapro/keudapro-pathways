@@ -26,6 +26,7 @@ import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import HubPage from "./pages/HubPage";
 import TyoelamaverkkoPage from "./pages/TyoelamaverkkoPage";
 import AdminPage from "./pages/admin/AdminPage";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminLeadsPage from "./pages/admin/AdminLeadsPage";
 import AdminMarketingPage from "./pages/admin/AdminMarketingPage";
 import { PageViewTracker } from "@/components/shared/PageViewTracker";
@@ -65,7 +66,8 @@ const App = () => (
               <Route path="/hub" element={<HubPage />} />
               <Route path="/hub/tyoelamaverkko" element={<TyoelamaverkkoPage />} />
               <Route path="/admin/login" element={<AdminLoginPage />} />
-              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin" element={<AdminDashboardPage />} />
+              <Route path="/admin/sisallot" element={<AdminPage />} />
               <Route path="/admin/yhteydenotot" element={<AdminLeadsPage />} />
               <Route path="/admin/markkinointi" element={<AdminMarketingPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
