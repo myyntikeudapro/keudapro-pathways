@@ -43,7 +43,7 @@ export function SalesGoalsPanel({ leads, team, userId, service, unavailable }: {
 function Metric({label,actual,target,currency=false}:{label:string;actual:number;target?:number;currency?:boolean}) {
   const percent = target===undefined?null:targetPercent(actual,target);
   const format = currency?money:(n:number)=>nf.format(n);
-  return <div className="space-y-2"><div className="flex flex-wrap justify-between gap-x-2 gap-y-1"><span className="text-xs text-muted-foreground">{label}</span><span className="text-xs font-medium text-keuda-blue">{percent===null?'–':`${percent} %`}</span></div><p className="text-lg font-semibold tabular-nums break-words">{format(actual)} <span className="font-normal text-sm text-muted-foreground">/ {target===undefined?'–':format(target)}</span></p><Progress value={Math.min(percent??0,100)} aria-label={label}/></div>;
+  return <div className="space-y-2"><div className="flex flex-wrap justify-between gap-x-2 gap-y-1"><span className="text-xs text-muted-foreground">{label}</span><span className="text-xs font-medium text-keuda-blue">{percent===null?'–':`${percent} %`}</span></div><p className="text-lg font-semibold tabular-nums break-words">{format(actual)} <span className="font-normal text-sm text-muted-foreground">/ {target===undefined?'–':format(target)}</span></p><Progress className="h-2 bg-muted" value={Math.min(percent??0,100)} aria-label={label}/></div>;
 }
 
 function GoalEditor({service,month,goal,onSaved}:{service:string;month:string;goal?:Goal;onSaved:()=>void}) {
@@ -68,13 +68,13 @@ function AssignmentPanel({team,admin}:{team:TeamMember[];admin:boolean}) {
   const global=rules.data?.find(r=>r.service_key==='all');
   return <section className="border-t pt-6 space-y-4"><h2 className="text-lg font-semibold flex items-center gap-2"><Users className="h-5 w-5 text-keuda-blue"/>Automaattinen asiakasjako</h2><Choice label="Jaon palvelu" value={scope} onChange={setScope} options={[["all","Koko sivusto – oletus"],...Object.entries(SALES_SERVICES)]}/>{rules.isError?<p role="alert" className="text-destructive">Asiakasjaon asetuksia ei voitu hakea.</p>:rules.isLoading?<Loader2 className="h-5 w-5 animate-spin"/>:<>
     <p className="text-sm text-muted-foreground">{rule?rule.enabled?'Jako käytössä · uudet yhteydenotot jaetaan vuorotellen.':'Automaattinen jako pois käytöstä.':scope!=='all'&&global?.enabled?'Palvelu käyttää koko sivuston oletusjakoa.':'Jakoa ei ole määritetty.'}</p>
-    {admin?<AssignmentEditor key={`${scope}-${rule?.updated_at??'new'}`} scope={scope} rule={rule} team={team} onSaved={()=>qc.invalidateQueries({queryKey:['crm_assignment_rules']})}/>:<div className="flex flex-wrap gap-2">{(rule?.member_ids??global?.member_ids??[]).map(id=><Badge variant="outline" key={id}>{team.find(t=>t.id===id)?.email??'Käyttäjä ei enää tiimissä'}</Badge>)}</div>}
+    {admin&&team.length===0?<p className="text-muted-foreground text-sm">Tiimin tietoja odotetaan.</p>:admin?<AssignmentEditor key={`${scope}-${rule?.updated_at??'new'}`} scope={scope} rule={rule} team={team} onSaved={()=>qc.invalidateQueries({queryKey:['crm_assignment_rules']})}/>:<div className="flex flex-wrap gap-2">{(rule?.member_ids??global?.member_ids??[]).map(id=><Badge variant="outline" key={id}>{team.find(t=>t.id===id)?.email??'Käyttäjä ei enää tiimissä'}</Badge>)}</div>}
   </>}</section>;
 }
 
 function AssignmentEditor({scope,rule,team,onSaved}:{scope:string;rule?:Rule;team:TeamMember[];onSaved:()=>void}) {
   const [enabled,setEnabled]=useState(rule?.enabled??false);
-  const [members,setMembers]=useState(rule?.member_ids??[]);
+  const [members,setMembers]=useState((rule?.member_ids??[]).filter(id=>team.some(t=>t.id===id)));
   const [busy,setBusy]=useState(false);
   const save=async()=>{
     if(enabled&&!members.length)return toast.error('Valitse vähintään yksi vastuuhenkilö.');
