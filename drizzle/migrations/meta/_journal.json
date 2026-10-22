@@ -64,6 +64,13 @@
       "when": 1792644093567,
       "tag": "0008_crm_email_time_dispatch",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1792645978750,
+      "tag": "0009_crm_goals_and_assignment",
+      "breakpoints": true
     }
   ]
 }
