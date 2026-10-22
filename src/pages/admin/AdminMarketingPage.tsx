@@ -17,6 +17,7 @@ import { readAll, orderedFunnel, paidPlatform, normalizeCampaign } from '@/lib/c
 import type { Lead, TeamMember } from '@/lib/crm';
 import { DailyPanel, OffersPanel } from '@/components/admin/SalesOperations';
 import { campaignReturn } from '@/lib/salesOperations';
+import { EmailAutomationPanel } from '@/components/admin/EmailAutomationPanel';
 
 type Ev = { session_id: string; event: string; path: string | null; utm_source: string | null; utm_campaign: string | null; utm_medium: string | null; device: string | null; props: Record<string, unknown>; created_at: string };
 
@@ -268,7 +269,7 @@ export default function AdminMarketingPage() {
             <TabsTrigger value="campaigns" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground">Kampanjalinkit</TabsTrigger>
           </TabsList>
           {(events.isError||leads.isError||tasks.isError||team.isError||campaigns.isError||offers.isError)&&<p role="alert" className="border border-destructive bg-background text-destructive p-3 rounded-lg mb-4 text-sm">Kaikkia tietoja ei saatu haettua. Puuttuvia tietoja ei voi tulkita nollatulokseksi. Kokeile Päivitä.</p>}
-          <TabsContent value="daily"><DailyPanel leads={allServiceLeads} tasks={tasks.data??[]} team={team.data??[]} me={user.id} onOpen={id=>{const n=new URLSearchParams(params);n.set('tab','leads');n.set('asiakas',id);setParams(n);}}/></TabsContent>
+          <TabsContent value="daily"><DailyPanel leads={allServiceLeads} tasks={tasks.data??[]} team={team.data??[]} me={user.id} onOpen={id=>{const n=new URLSearchParams(params);n.set('tab','leads');n.set('asiakas',id);setParams(n);}}/><EmailAutomationPanel userId={user.id}/></TabsContent>
           <TabsContent value="offers"><OffersPanel offers={(offers.data??[]).filter(o=>allServiceLeads.some(l=>l.id===o.lead_id))} leads={allServiceLeads} onSaved={saved}/></TabsContent>
           <p className="text-xs text-muted-foreground mb-4">Käynnit päivitetty: {events.dataUpdatedAt?fmt(new Date(events.dataUpdatedAt).toISOString()):'–'} · Mainoskulut: {ads.dataUpdatedAt?fmt(new Date(ads.dataUpdatedAt).toISOString()):'–'} · Suomen aika</p>
 
