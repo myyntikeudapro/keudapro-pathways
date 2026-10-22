@@ -15,13 +15,17 @@ import { ArrowUpRight, Check, ClipboardList, Copy, Plus, Save, Search, UserRound
 import { CRM_SERVICES, CRM_STATUSES, campaignUrl, dateTime, money, salesSummary, taskOverdue } from '@/lib/crm';
 import type { Lead, Task, Campaign, TeamMember } from '@/lib/crm';
 import { myLeads } from '@/lib/salesGoals';
+import { Link, useSearchParams } from 'react-router-dom';
 
 export function Choice({ label, value, onChange, options }: { label:string; value:string; onChange:(v:string)=>void; options:[string,string][] }) {
   return <div className="min-w-0 space-y-1"><label className="text-xs font-medium text-muted-foreground">{label}</label><Select value={value} onValueChange={onChange}><SelectTrigger aria-label={label} className="w-full"><SelectValue /></SelectTrigger><SelectContent>{options.map(([v,n])=><SelectItem key={v} value={v}>{n}</SelectItem>)}</SelectContent></Select></div>;
 }
 const teamOptions = (team:TeamMember[]) => team.map(u=>[u.id,u.email] as [string,string]);
 export function CrmLeads({ leads, tasks, team, me, onSaved, offers=[], openId }: { leads:Lead[]; tasks:Task[]; team:TeamMember[]; me:TeamMember; onSaved:()=>void; offers?:Offer[]; openId?:string }) {
-  const [search,setSearch]=useState(''); const [owner,setOwner]=useState('all'); const [status,setStatus]=useState('all'); const [selected,setSelected]=useState<Lead|null>(null);
+  const [params,setParams]=useSearchParams();
+  const search=params.get('haku')??''; const owner=params.get('vastuu')??(params.get('oma')==='1'?'mine':'all'); const status=params.get('tila')??'all'; const [selected,setSelected]=useState<Lead|null>(null);
+  const setFilter=(key:string,value:string)=>{const n=new URLSearchParams(params);n.set(key,value);if(key==='vastuu')n.delete('oma');setParams(n,{replace:true});};
+  const setSearch=(v:string)=>setFilter('haku',v); const setOwner=(v:string)=>setFilter('vastuu',v); const setStatus=(v:string)=>setFilter('tila',v);
   const openedId=useRef<string>();
   useEffect(()=>{if(openId&&openedId.current!==openId){const lead=leads.find(l=>l.id===openId);if(lead){setSelected(lead);openedId.current=openId;}}},[openId,leads]);
   const ownedLeads = owner==='mine' ? myLeads(leads,me.id) : leads;
@@ -69,8 +73,8 @@ function TaskRow({task,team,onSaved}:{task:Task;team:TeamMember[];onSaved:()=>vo
  return <div className="flex items-center gap-3 border-b py-3"><Button variant="outline" size="icon" aria-label={task.completed_at?'Avaa tehtävä uudelleen':'Merkitse tehtävä valmiiksi'} disabled={busy} onClick={complete}>{task.completed_at?<Check className="h-4 w-4"/>:<ClipboardList className="h-4 w-4"/>}</Button><div className="min-w-0"><p className={`text-sm ${task.completed_at?'line-through text-muted-foreground':'font-medium'}`}>{task.title}</p><p className={`text-xs ${taskOverdue(task)?'text-destructive':'text-muted-foreground'}`}>{dateTime(task.due_at)} · {team.find(t=>t.id===task.owner_id)?.email??'Tuntematon vastuuhenkilö'}</p></div></div>;
 }
 export function TasksPanel({tasks,leads,team,me,onSaved}:{tasks:Task[];leads:Lead[];team:TeamMember[];me:TeamMember;onSaved:()=>void}) {
- const [filter,setFilter]=useState('mine'); const visible=tasks.filter(t=>leads.some(l=>l.id===t.lead_id)&&(filter==='done'?!!t.completed_at:!t.completed_at&&(filter==='mine'?t.owner_id===me.id:filter==='overdue'?taskOverdue(t):true))).sort((a,b)=>a.due_at.localeCompare(b.due_at));
- return <div className="space-y-4"><Choice label="Tehtävien näkymä" value={filter} onChange={setFilter} options={[["mine","Omat avoimet tehtävät"],["all","Kaikki avoimet tehtävät"],["overdue","Erääntyneet tehtävät"],["done","Valmiit tehtävät"]]}/>{visible.length?visible.map(t=><div key={t.id} className="bg-background rounded-lg border p-4"><p className="text-sm text-primary font-semibold">{leads.find(l=>l.id===t.lead_id)?.name}</p><TaskRow task={t} team={team} onSaved={onSaved}/></div>):<p className="text-muted-foreground py-10 text-center">Ei tehtäviä tässä näkymässä.</p>}</div>;
+ const [params,setParams]=useSearchParams();const filter=params.get('tehtavat')??'mine';const setFilter=(v:string)=>{const n=new URLSearchParams(params);n.set('tehtavat',v);setParams(n,{replace:true});}; const visible=tasks.filter(t=>leads.some(l=>l.id===t.lead_id)&&(filter==='done'?!!t.completed_at:!t.completed_at&&(filter==='mine'?t.owner_id===me.id:filter==='overdue'?taskOverdue(t):true))).sort((a,b)=>a.due_at.localeCompare(b.due_at));
+ return <div className="space-y-4"><Choice label="Tehtävien näkymä" value={filter} onChange={setFilter} options={[["mine","Omat avoimet tehtävät"],["all","Kaikki avoimet tehtävät"],["overdue","Erääntyneet tehtävät"],["done","Valmiit tehtävät"]]}/>{visible.length?visible.map(t=><div key={t.id} className="bg-background rounded-lg border p-4"><Button asChild variant="link" className="h-auto whitespace-normal px-0"><Link to={`/admin/markkinointi?tab=leads&asiakas=${t.lead_id}`}>{leads.find(l=>l.id===t.lead_id)?.name}</Link></Button><TaskRow task={t} team={team} onSaved={onSaved}/></div>):<p className="text-muted-foreground py-10 text-center">Ei tehtäviä tässä näkymässä.</p>}</div>;
 }
 export function SalesPanel({leads,since}:{leads:Lead[];since:string}) {
  const s=salesSummary(leads,since);const wins=leads.filter(l=>l.status==='koulutukseen'&&l.sale_closed_at&&l.sale_closed_at>=since);

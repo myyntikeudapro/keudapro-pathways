@@ -1,0 +1,19 @@
+import { describe, expect, it } from 'vitest';
+import { queueRows, queueLink, periodStart, meanDays } from './operationsCenter';
+import type { OperationsData, QueueFilter } from './operationsCenter';
+import type { Lead, Task } from './crm';
+import type { Offer } from './salesOperations';
+
+const filter: QueueFilter = {service:'all',mine:false,userId:'heikki',since:'2026-10-01T00:00:00Z',until:'2026-10-22T10:40:00Z'};
+const lead=(id:string,extra:Partial<Lead>={}):Lead=>({id,name:id,email:`${id}@example.test`,status:'uusi',created_at:'2026-10-20T10:40:00Z',owner_id:'heikki',service_key:'aly',deal_value:null,sale_closed_at:null,...extra} as Lead);
+const data=(leads:Lead[],extra:Partial<OperationsData>={}):OperationsData=>({leads,tasks:[],offers:[],interactions:[],...extra});
+describe('operations center rules',()=>{
+ it('keeps a real zero-valued sale distinct from a missing value',()=>{const d=data([lead('zero',{status:'koulutukseen',deal_value:0,sale_closed_at:'2026-10-21T10:40:00Z'}),lead('missing',{status:'koulutukseen',sale_closed_at:'2026-10-21T10:40:00Z'})]);expect(queueRows(d,'revenue',filter).map(r=>r.amount)).toEqual([0,null]);expect(queueRows(d,'missingValue',filter).map(r=>r.id)).toEqual(['missing']);});
+ it('counts open work regardless of arrival date and sales by closing date',()=>{const d=data([lead('old',{created_at:'2026-08-01T00:00:00Z'}),lead('won',{created_at:'2026-08-01T00:00:00Z',status:'koulutukseen',sale_closed_at:'2026-10-21T00:00:00Z'}),lead('future',{status:'koulutukseen',sale_closed_at:'2026-10-23T00:00:00Z'})]);expect(queueRows(d,'open',filter).map(r=>r.id)).toEqual(['old']);expect(queueRows(d,'wins',filter).map(r=>r.id)).toEqual(['won']);});
+ it('uses the 48-hour rule and excludes actual customer contact but not notes',()=>{const d=data([lead('boundary'),lead('young',{created_at:'2026-10-20T10:40:01Z'}),lead('contacted'),lead('note')],{interactions:[{lead_id:'contacted',kind:'call'},{lead_id:'note',kind:'note'}]});expect(queueRows(d,'stale',filter).map(r=>r.id)).toEqual(['boundary','note']);});
+ it('filters own tasks by task owner rather than customer owner',()=>{const d=data([lead('satu',{owner_id:'satu'})],{tasks:[{id:'task',lead_id:'satu',owner_id:'heikki',completed_at:null,due_at:'2026-10-21T00:00:00Z'} as Task]});expect(queueRows(d,'overdue',{...filter,mine:true}).map(r=>r.id)).toEqual(['task']);});
+ it('does not interpret accepted offers as open offers or sales',()=>{const d=data([lead('a')],{offers:[{id:'accepted',lead_id:'a',status:'accepted',created_at:'2026-10-21T00:00:00Z',expected_close:'2026-10-21',amount:500} as Offer]});expect(queueRows(d,'offers',filter)).toHaveLength(0);expect(queueRows(d,'wins',filter)).toHaveLength(0);});
+ it('preserves service owner and exact period boundaries in metric links',()=>{const f={...filter,service:'aly',mine:true};const url=new URL(queueLink('wins',f),'https://keudapro.fi');expect(url.searchParams.get('jono')).toBe('wins');expect(url.searchParams.get('oma')).toBe('1');expect(url.searchParams.get('alku')).toBe(f.since);expect(queueRows(data([lead('mine'),lead('other',{owner_id:'satu'}),lead('service',{service_key:'kasvu'})]),'open',f).map(r=>r.id)).toEqual(['mine']);});
+ it('computes lead-to-sale days only for chronologically valid observations',()=>{const d=data([lead('valid',{status:'koulutukseen',sale_closed_at:'2026-10-22T10:40:00Z'}),lead('invalid',{status:'koulutukseen',sale_closed_at:'2026-10-19T10:40:00Z'})]);expect(meanDays(queueRows(d,'cycle',filter))).toBe(2);expect(meanDays([])).toBeNull();});
+ it('uses Helsinki midnight including the winter time boundary',()=>{expect(periodStart(1,new Date('2026-10-22T10:40:00Z'))).toBe('2026-10-21T21:00:00.000Z');expect(periodStart(1,new Date('2026-10-26T10:40:00Z'))).toBe('2026-10-25T22:00:00.000Z');});
+});
