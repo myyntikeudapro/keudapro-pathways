@@ -18,6 +18,6 @@
 - [x] Käsittelemättömien yhteydenottojen päivittäinen sähköpostihälytys
 - [x] Tiimin viikkoraportti: yhteydenotot, tarjoukset, myynti ja mainonnan tuotto
 - [x] Uusien sähköpostitoimintojen testaus ja testitietojen poisto
-- [ ] Palvelukohtaiset kuukausitavoitteet ja toteuman seuranta
-- [ ] Pääkäyttäjän määrittämä automaattinen asiakasjako ja omien asiakkaiden valinta
-- [ ] Tavoitteiden ja asiakasjaon kirjautunut testi sekä testitietojen poisto
+- [x] Palvelukohtaiset kuukausitavoitteet ja toteuman seuranta
+- [x] Pääkäyttäjän määrittämä automaattinen asiakasjako ja omien asiakkaiden valinta
+- [x] Tavoitteiden ja asiakasjaon kirjautunut testi sekä testitietojen poisto
