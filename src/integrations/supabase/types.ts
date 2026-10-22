@@ -116,6 +116,50 @@ export type Database = {
         }
         Relationships: []
       }
+      crm_assignment_cursors: {
+        Row: {
+          next_index: number
+          service_key: string
+        }
+        Insert: {
+          next_index?: number
+          service_key: string
+        }
+        Update: {
+          next_index?: number
+          service_key?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_assignment_cursors_service_key_fkey"
+            columns: ["service_key"]
+            isOneToOne: true
+            referencedRelation: "crm_assignment_rules"
+            referencedColumns: ["service_key"]
+          },
+        ]
+      }
+      crm_assignment_rules: {
+        Row: {
+          enabled: boolean
+          member_ids: string[]
+          service_key: string
+          updated_at: string
+        }
+        Insert: {
+          enabled?: boolean
+          member_ids?: string[]
+          service_key: string
+          updated_at?: string
+        }
+        Update: {
+          enabled?: boolean
+          member_ids?: string[]
+          service_key?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       crm_email_deliveries: {
         Row: {
           id: string
@@ -300,6 +344,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      crm_sales_goals: {
+        Row: {
+          id: string
+          leads_target: number
+          month: string
+          revenue_target: number
+          service_key: string
+          updated_at: string
+          wins_target: number
+        }
+        Insert: {
+          id?: string
+          leads_target: number
+          month: string
+          revenue_target: number
+          service_key: string
+          updated_at?: string
+          wins_target: number
+        }
+        Update: {
+          id?: string
+          leads_target?: number
+          month?: string
+          revenue_target?: number
+          service_key?: string
+          updated_at?: string
+          wins_target?: number
+        }
+        Relationships: []
       }
       crm_tasks: {
         Row: {

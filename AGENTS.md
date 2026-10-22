@@ -8,3 +8,5 @@
 - Customer receipt emails are sent only after lead persistence; delivery failures must not turn a saved submission into a failed submission.
 - Scheduled CRM emails use single-use, short-lived run capabilities in service-only writable run tables; manual previews and sends require server-validated admin sessions to prevent public email triggers.
 - A single daily schedule dispatches overdue mail and the weekly digest at Helsinki local time; contact evidence and calendar windows are derived, and ad-spend reads are shared with the existing reporting function to prevent metric drift.
+- Sales goals are admin-managed per service and Helsinki calendar month; actual revenue uses explicit closing dates and values, with missing values disclosed, so target attainment never implies inferred sales.
+- New unowned leads are assigned by a database BEFORE INSERT trigger with a locked per-rule round-robin cursor and live role validation; explicit service rules override the site default, including disabled rules, and existing owners are never overwritten.

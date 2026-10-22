@@ -18,6 +18,7 @@ import type { Lead, TeamMember } from '@/lib/crm';
 import { DailyPanel, OffersPanel } from '@/components/admin/SalesOperations';
 import { campaignReturn } from '@/lib/salesOperations';
 import { EmailAutomationPanel } from '@/components/admin/EmailAutomationPanel';
+import { SalesGoalsPanel } from '@/components/admin/SalesGoalsPanel';
 
 type Ev = { session_id: string; event: string; path: string | null; utm_source: string | null; utm_campaign: string | null; utm_medium: string | null; device: string | null; props: Record<string, unknown>; created_at: string };
 
@@ -103,7 +104,7 @@ export default function AdminMarketingPage() {
   const { user, loading, isEditor, roleLoading, signOut } = useAuth();
   const [params, setParams] = useSearchParams();
   const requestedTab = params.get('tab') ?? 'daily';
-  const tab = ['daily', 'offers', 'overview', 'leads', 'tasks', 'sales', 'campaigns', 'users'].includes(requestedTab) ? requestedTab : 'daily';
+  const tab = ['daily', 'goals', 'offers', 'overview', 'leads', 'tasks', 'sales', 'campaigns', 'users'].includes(requestedTab) ? requestedTab : 'daily';
   const requestedService = params.get('palvelu') ?? 'all';
   const service = SERVICES[requestedService] ? requestedService : 'all';
   const days = [7, 30, 90, 365].includes(Number(params.get("pv"))) ? Number(params.get("pv")) : 30;
@@ -260,6 +261,7 @@ export default function AdminMarketingPage() {
         <Tabs value={tab} onValueChange={(v) => setParam("tab", v)}>
           <TabsList className="mb-5 grid w-full grid-cols-2 sm:grid-cols-4 h-auto p-1 bg-background border shadow-sm">
             <TabsTrigger value="daily" className="py-2">Päivän työlista</TabsTrigger>
+            <TabsTrigger value="goals" className="py-2"><Target className="h-4 w-4 mr-2"/>Tavoitteet ja jako</TabsTrigger>
             <TabsTrigger value="offers" className="py-2">Tarjoukset</TabsTrigger>
             <TabsTrigger value="overview" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><BarChart3 className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Yleiskuva</span></TabsTrigger>
             <TabsTrigger value="leads" className="py-2 data-[state=active]:bg-keuda-blue data-[state=active]:text-primary-foreground"><Inbox className="h-4 w-4 sm:mr-2" /><span className="text-xs sm:text-sm">Asiakkaat</span></TabsTrigger>
@@ -270,6 +272,7 @@ export default function AdminMarketingPage() {
           </TabsList>
           {(events.isError||leads.isError||tasks.isError||team.isError||campaigns.isError||offers.isError)&&<p role="alert" className="border border-destructive bg-background text-destructive p-3 rounded-lg mb-4 text-sm">Kaikkia tietoja ei saatu haettua. Puuttuvia tietoja ei voi tulkita nollatulokseksi. Kokeile Päivitä.</p>}
           <TabsContent value="daily"><DailyPanel leads={allServiceLeads} tasks={tasks.data??[]} team={team.data??[]} me={user.id} onOpen={id=>{const n=new URLSearchParams(params);n.set('tab','leads');n.set('asiakas',id);setParams(n);}}/><EmailAutomationPanel userId={user.id}/></TabsContent>
+          <TabsContent value="goals"><SalesGoalsPanel leads={leads.data??[]} team={team.data??[]} userId={user.id} service={service} unavailable={leads.isLoading||leads.isError||team.isError}/></TabsContent>
           <TabsContent value="offers"><OffersPanel offers={(offers.data??[]).filter(o=>allServiceLeads.some(l=>l.id===o.lead_id))} leads={allServiceLeads} onSaved={saved}/></TabsContent>
           <p className="text-xs text-muted-foreground mb-4">Käynnit päivitetty: {events.dataUpdatedAt?fmt(new Date(events.dataUpdatedAt).toISOString()):'–'} · Mainoskulut: {ads.dataUpdatedAt?fmt(new Date(ads.dataUpdatedAt).toISOString()):'–'} · Suomen aika</p>
 
