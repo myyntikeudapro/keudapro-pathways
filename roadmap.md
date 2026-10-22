@@ -14,7 +14,7 @@
 - [x] Yhteydenpitohistoria ja päällekkäisten asiakkaiden tunnistus ilman tietojen poistamista
 - [x] Tarjoukset, painotettu ennuste ja vahvistettuihin kampanjakauppoihin perustuva markkinoinnin tuotto
 - [x] Uusien toimintojen kirjautunut puhelintesti, laskentatestit ja testitietojen poisto
-- [ ] Asiakkaan automaattinen vastaanottovahvistus ja lähetyksen tarkistus
-- [ ] Käsittelemättömien yhteydenottojen päivittäinen sähköpostihälytys
-- [ ] Tiimin viikkoraportti: yhteydenotot, tarjoukset, myynti ja mainonnan tuotto
-- [ ] Uusien sähköpostitoimintojen testaus ja testitietojen poisto
+- [x] Asiakkaan automaattinen vastaanottovahvistus ja lähetyksen tarkistus
+- [x] Käsittelemättömien yhteydenottojen päivittäinen sähköpostihälytys
+- [x] Tiimin viikkoraportti: yhteydenotot, tarjoukset, myynti ja mainonnan tuotto
+- [x] Uusien sähköpostitoimintojen testaus ja testitietojen poisto
