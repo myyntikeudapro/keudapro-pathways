@@ -41,7 +41,7 @@ const queryClient = new QueryClient();
 
 function PublicPanels() {
   const { pathname } = useLocation();
-  if (pathname.startsWith('/admin')) return null;
+  if (pathname.startsWith('/admin') || pathname.startsWith('/hub/ai-talent')) return null;
   return <><RouteWizard /><CoachSelectionPanel /><BookingPanel /><BookingRequestDialog /><MultiCoachChat /></>;
 }
 

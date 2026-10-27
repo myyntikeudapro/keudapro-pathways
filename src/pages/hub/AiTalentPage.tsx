@@ -136,7 +136,7 @@ function ProgramContent() {
         <div aria-hidden className="absolute -top-40 -right-40 h-[480px] w-[480px] rounded-full bg-[hsl(var(--keuda-blue))]/30 blur-3xl" />
         <div className="keuda-container relative">
           <Eyebrow light>AI Talent · Pilotti 2026–2027 · Helsingin työllisyyspalvelut × KeudaPRO</Eyebrow>
-          <h1 className="text-4xl md:text-6xl font-bold leading-[1.08] max-w-4xl mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold leading-[1.08] max-w-4xl mb-6 text-white">
             Opi. Rakenna. Näytä. <span className="text-keuda-orange">Työllisty – tai työllistä itsesi.</span>
           </h1>
           <div className="max-w-3xl space-y-3 text-lg text-white/75 mb-10">
@@ -164,7 +164,7 @@ function ProgramContent() {
               return (
                 <article key={s.k} className={`rounded-2xl p-6 ${last ? "bg-[hsl(var(--keuda-blue))] text-white" : "bg-[#0B0B0B] text-white"}`}>
                   <p className="text-sm font-bold tracking-[0.2em] text-keuda-orange">{String(i + 1).padStart(2, "0")} · {s.k}</p>
-                  <h3 className="mt-2 mb-4 text-xl font-bold">{s.t}</h3>
+                  <h3 className="mt-2 mb-4 text-xl font-bold text-white">{s.t}</h3>
                   <List items={s.items} light />
                 </article>
               );
