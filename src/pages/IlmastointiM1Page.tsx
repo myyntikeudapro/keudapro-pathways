@@ -22,15 +22,27 @@ const Todo = ({ children }: { children: React.ReactNode }) => (
   <span className="rounded border border-dashed border-accent bg-accent/10 px-1.5 py-0.5 text-sm text-accent-foreground">[täydennä: {children}]</span>
 );
 
-const Section = ({ id, eyebrow, title, children, muted }: { id?: string; eyebrow?: string; title: string; children: React.ReactNode; muted?: boolean }) => (
-  <section id={id} className={muted ? "border-y border-border/60 bg-muted/40 py-14 md:py-20" : "py-14 md:py-20"} style={{ scrollMarginTop: 80 }}>
-    <div className="keuda-container">
-      {eyebrow && <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">{eyebrow}</p>}
-      <h2 className="mb-6 text-2xl font-bold tracking-tight text-foreground md:mb-8 md:text-4xl">{title}</h2>
-      {children}
-    </div>
-  </section>
-);
+type Tone = "light" | "muted" | "blue" | "dark";
+const TONE_BG: Record<Tone, string> = {
+  light: "bg-background",
+  muted: "border-y border-border/60 bg-muted/50",
+  blue: "border-y border-[hsl(var(--keuda-blue)/0.15)] bg-[hsl(var(--keuda-blue-light))]",
+  dark: "relative overflow-hidden bg-foreground",
+};
+const Section = ({ id, eyebrow, title, children, muted, tone }: { id?: string; eyebrow?: string; title: string; children: React.ReactNode; muted?: boolean; tone?: Tone }) => {
+  const t: Tone = tone ?? (muted ? "muted" : "light");
+  const dark = t === "dark";
+  return (
+    <section id={id} className={`${TONE_BG[t]} py-14 md:py-20`} style={{ scrollMarginTop: 80 }}>
+      {dark && <div aria-hidden="true" className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-[hsl(var(--keuda-blue)/0.35)] blur-3xl" />}
+      <div className="keuda-container relative">
+        {eyebrow && <p className={`mb-2 text-xs font-bold uppercase tracking-[0.2em] ${dark ? "text-[hsl(var(--keuda-orange))]" : "text-primary"}`}>{eyebrow}</p>}
+        <h2 className={`mb-6 text-2xl font-bold tracking-tight md:mb-8 md:text-4xl ${dark ? "text-background" : "text-foreground"}`}>{title}</h2>
+        {children}
+      </div>
+    </section>
+  );
+};
 
 const themes = [
   "Ajoneuvojen ilmastointijärjestelmien rakenne ja toiminta",
@@ -222,9 +234,9 @@ export default function IlmastointiM1Page() {
         </ul>
       </nav>
 
-      <Section id="miksi-nyt" eyebrow="Miksi nyt" title="Pätevyysvaatimukset ovat muuttuneet – päivitä osaamisesi ajoissa">
+      <Section id="miksi-nyt" eyebrow="Miksi nyt" title="Pätevyysvaatimukset ovat muuttuneet – päivitä osaamisesi ajoissa" tone="dark">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_1fr]">
-          <div className="space-y-4 text-muted-foreground">
+          <div className="space-y-4 text-background/80">
             <p>Ajoneuvojen ilmastointijärjestelmien henkilöpätevyydet on uudistettu. Uudet M1–M4-pätevyysluokat määrittelevät, millaisia huolto-, korjaus- ja talteenottotöitä henkilö saa tehdä. Vanhan järjestelmän mukaiset pätevyydet ovat voimassa 12.3.2029 saakka.</p>
             <p>Vanhan pätevyyden haltija voi päivittää pätevyytensä siirtymäajan menettelyllä. Kertauskoulutukseen perustuvaa uutta pätevyyttä on haettava viimeistään 12.12.2028.</p>
             <p>Muutos koskee henkilöauto- ja hyötyajoneuvokorjaamoita, ilmastointihuoltoja ja muita yrityksiä, joissa työskennellään ajoneuvojen kylmäainejärjestelmien parissa. Koulutuspaikkojen kysyntä kasvaa siirtymäajan lopulla, joten pätevyyttä ei kannata jättää viimeiseen hetkeen.</p>
@@ -276,7 +288,7 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section eyebrow="Edellytykset" title="Osallistumisen edellytykset" muted>
+      <Section eyebrow="Edellytykset" title="Osallistumisen edellytykset" tone="blue">
         <p className="mb-4 text-muted-foreground">Sopiva koulutuspolku riippuu aiemmasta pätevyydestäsi, koulutustaustastasi ja työtehtävistäsi. Pätevyyden hakemiseen voidaan edellyttää:</p>
         <ul className="mb-5 list-disc space-y-2 pl-6">
           <li>aiempaa ajoneuvojen ilmastointipätevyyttä tai riittävää ajoneuvoalan koulutustaustaa</li>
@@ -327,7 +339,7 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section id="ilmoittaudu" eyebrow="Ilmoittautuminen" title="Ilmoittaudu koulutukseen">
+      <Section id="ilmoittaudu" eyebrow="Ilmoittautuminen" title="Ilmoittaudu koulutukseen" tone="blue">
         {sent ? (
           <div role="status" className="rounded-xl border border-secondary bg-card p-6">
             <CheckCircle2 className="mb-3 h-8 w-8 text-secondary" aria-hidden />
@@ -435,7 +447,7 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section eyebrow="Miksi Keuda" title="Miksi kouluttautua Keudassa">
+      <Section eyebrow="Miksi Keuda" title="Miksi kouluttautua Keudassa" tone="dark">
         <div className="grid gap-5 sm:grid-cols-2">
           {[
             ["Käytännönläheinen koulutus.", "Teoria ja käytännön harjoitukset Keudan ajoneuvoalan opetuskalustolla samana päivänä."],
