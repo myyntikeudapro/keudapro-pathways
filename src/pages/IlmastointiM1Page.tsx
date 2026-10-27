@@ -234,9 +234,9 @@ export default function IlmastointiM1Page() {
         </ul>
       </nav>
 
-      <Section id="miksi-nyt" eyebrow="Miksi nyt" title="Pätevyysvaatimukset ovat muuttuneet – päivitä osaamisesi ajoissa">
+      <Section id="miksi-nyt" eyebrow="Miksi nyt" title="Pätevyysvaatimukset ovat muuttuneet – päivitä osaamisesi ajoissa" tone="dark">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_1fr]">
-          <div className="space-y-4 text-muted-foreground">
+          <div className="space-y-4 text-background/80">
             <p>Ajoneuvojen ilmastointijärjestelmien henkilöpätevyydet on uudistettu. Uudet M1–M4-pätevyysluokat määrittelevät, millaisia huolto-, korjaus- ja talteenottotöitä henkilö saa tehdä. Vanhan järjestelmän mukaiset pätevyydet ovat voimassa 12.3.2029 saakka.</p>
             <p>Vanhan pätevyyden haltija voi päivittää pätevyytensä siirtymäajan menettelyllä. Kertauskoulutukseen perustuvaa uutta pätevyyttä on haettava viimeistään 12.12.2028.</p>
             <p>Muutos koskee henkilöauto- ja hyötyajoneuvokorjaamoita, ilmastointihuoltoja ja muita yrityksiä, joissa työskennellään ajoneuvojen kylmäainejärjestelmien parissa. Koulutuspaikkojen kysyntä kasvaa siirtymäajan lopulla, joten pätevyyttä ei kannata jättää viimeiseen hetkeen.</p>
@@ -288,7 +288,7 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section eyebrow="Edellytykset" title="Osallistumisen edellytykset" muted>
+      <Section eyebrow="Edellytykset" title="Osallistumisen edellytykset" tone="blue">
         <p className="mb-4 text-muted-foreground">Sopiva koulutuspolku riippuu aiemmasta pätevyydestäsi, koulutustaustastasi ja työtehtävistäsi. Pätevyyden hakemiseen voidaan edellyttää:</p>
         <ul className="mb-5 list-disc space-y-2 pl-6">
           <li>aiempaa ajoneuvojen ilmastointipätevyyttä tai riittävää ajoneuvoalan koulutustaustaa</li>
@@ -339,7 +339,7 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section id="ilmoittaudu" eyebrow="Ilmoittautuminen" title="Ilmoittaudu koulutukseen">
+      <Section id="ilmoittaudu" eyebrow="Ilmoittautuminen" title="Ilmoittaudu koulutukseen" tone="blue">
         {sent ? (
           <div role="status" className="rounded-xl border border-secondary bg-card p-6">
             <CheckCircle2 className="mb-3 h-8 w-8 text-secondary" aria-hidden />
@@ -447,7 +447,7 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section eyebrow="Miksi Keuda" title="Miksi kouluttautua Keudassa">
+      <Section eyebrow="Miksi Keuda" title="Miksi kouluttautua Keudassa" tone="dark">
         <div className="grid gap-5 sm:grid-cols-2">
           {[
             ["Käytännönläheinen koulutus.", "Teoria ja käytännön harjoitukset Keudan ajoneuvoalan opetuskalustolla samana päivänä."],
