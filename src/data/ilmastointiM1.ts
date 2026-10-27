@@ -28,7 +28,7 @@ export const ILMASTOINTI_M1 = {
 };
 
 /** Julkaisulupa: pidä false, kunnes Heikki on hyväksynnyt sivun ja [täydennä]-kohdat. */
-export const ILMASTOINTI_M1_PUBLISHED = false;
+export const ILMASTOINTI_M1_PUBLISHED = true;
 
 /** Sivu näkyy julkaisemattomana vain esikatselussa ja paikallisesti. */
 export function isPreviewHost(host: string): boolean {
