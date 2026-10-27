@@ -22,10 +22,11 @@ const Todo = ({ children }: { children: React.ReactNode }) => (
   <span className="rounded border border-dashed border-accent bg-accent/10 px-1.5 py-0.5 text-sm text-accent-foreground">[täydennä: {children}]</span>
 );
 
-const Section = ({ id, title, children, muted }: { id?: string; title: string; children: React.ReactNode; muted?: boolean }) => (
-  <section id={id} className={muted ? "bg-muted/40 py-14 md:py-20" : "py-14 md:py-20"} style={{ scrollMarginTop: 80 }}>
-    <div className="container max-w-5xl">
-      <h2 className="mb-6 text-2xl font-bold text-primary md:text-3xl">{title}</h2>
+const Section = ({ id, eyebrow, title, children, muted }: { id?: string; eyebrow?: string; title: string; children: React.ReactNode; muted?: boolean }) => (
+  <section id={id} className={muted ? "border-y border-border/60 bg-muted/40 py-14 md:py-20" : "py-14 md:py-20"} style={{ scrollMarginTop: 80 }}>
+    <div className="keuda-container max-w-5xl">
+      {eyebrow && <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">{eyebrow}</p>}
+      <h2 className="mb-6 text-2xl font-bold tracking-tight text-foreground md:mb-8 md:text-4xl">{title}</h2>
       {children}
     </div>
   </section>
@@ -221,7 +222,7 @@ export default function IlmastointiM1Page() {
         </ul>
       </nav>
 
-      <Section title="Pätevyysvaatimukset ovat muuttuneet – päivitä osaamisesi ajoissa">
+      <Section id="miksi-nyt" eyebrow="Miksi nyt" title="Pätevyysvaatimukset ovat muuttuneet – päivitä osaamisesi ajoissa">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_1fr]">
           <div className="space-y-4 text-muted-foreground">
             <p>Ajoneuvojen ilmastointijärjestelmien henkilöpätevyydet on uudistettu. Uudet M1–M4-pätevyysluokat määrittelevät, millaisia huolto-, korjaus- ja talteenottotöitä henkilö saa tehdä. Vanhan järjestelmän mukaiset pätevyydet ovat voimassa 12.3.2029 saakka.</p>
@@ -230,7 +231,7 @@ export default function IlmastointiM1Page() {
           </div>
           <div className="space-y-3">
             {[["12.12.2028", "viimeinen päivä hakea kertauskoulutukseen perustuvaa uutta pätevyyttä"], ["12.3.2029", "vanhan järjestelmän mukaisten pätevyyksien voimassaolo päättyy"]].map(([d, t]) => (
-              <div key={d} className="rounded-xl border-l-4 border-accent bg-card p-4 shadow-sm">
+              <div key={d} className="rounded-xl border-l-4 border-[hsl(var(--keuda-orange))] bg-card p-5 shadow-[var(--shadow-card)]">
                 <p className="text-2xl font-bold text-primary">{d}</p>
                 <p className="text-sm text-muted-foreground">{t}</p>
               </div>
@@ -239,14 +240,14 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section title="Kenelle koulutus sopii" muted>
+      <Section id="kenelle" eyebrow="Kohderyhmä" title="Kenelle koulutus sopii" muted>
         <div className="grid gap-5 md:grid-cols-3">
           {[
             ["Korjaamon asentajat", "Teet ilmastointijärjestelmien huoltoja ja korjauksia, joissa kylmäainepiiri avataan. M1 on työsi perustason pätevyys."],
             ["Vanhan pätevyyden haltijat", "Sinulla on vanhan järjestelmän mukainen ilmastointipätevyys ja haluat päivittää sen uuden järjestelmän mukaiseksi siirtymäaikana."],
             ["Korjaamoyritykset", "Useamman työntekijän pätevyydet pitää saattaa ajan tasalle. Ilmoita koko ryhmä samaan toteutukseen tai pyydä yrityskohtainen koulutus."],
           ].map(([t, d]) => (
-            <div key={t} className="rounded-xl border bg-card p-6">
+            <div key={t} className="rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-6">
               <h3 className="mb-2 text-lg font-semibold text-foreground">{t}</h3>
               <p className="text-muted-foreground">{d}</p>
             </div>
@@ -254,7 +255,7 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section title="Tietoa koulutuksesta">
+      <Section id="sisalto" eyebrow="Sisältö" title="Tietoa koulutuksesta">
         <div className="grid gap-10 md:grid-cols-2">
           <div className="space-y-4 text-muted-foreground">
             <h3 className="text-lg font-semibold text-foreground">Sisältö ja tavoite</h3>
@@ -275,7 +276,7 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section title="Osallistumisen edellytykset" muted>
+      <Section eyebrow="Edellytykset" title="Osallistumisen edellytykset" muted>
         <p className="mb-4 text-muted-foreground">Sopiva koulutuspolku riippuu aiemmasta pätevyydestäsi, koulutustaustastasi ja työtehtävistäsi. Pätevyyden hakemiseen voidaan edellyttää:</p>
         <ul className="mb-5 list-disc space-y-2 pl-6">
           <li>aiempaa ajoneuvojen ilmastointipätevyyttä tai riittävää ajoneuvoalan koulutustaustaa</li>
@@ -285,14 +286,14 @@ export default function IlmastointiM1Page() {
         <p className="rounded-lg border bg-card p-4 text-sm text-muted-foreground">Jos et ole varma, riittääkö taustasi, kerro tilanteestasi ilmoittautumislomakkeella. Autamme selvittämään sinulle sopivan polun ennen koulutusta.</p>
       </Section>
 
-      <Section id="ajankohdat" title="Valitse koulutuspäivä">
+      <Section id="ajankohdat" eyebrow="Ajankohdat" title="Valitse koulutuspäivä">
         <p className="mb-6 text-muted-foreground">Koulutukset järjestetään Keudan toimipisteessä Mäntsälässä klo 8.00–16.00.</p>
         <div className="grid gap-3">
           {P.sessions.map((s) => {
             const open = isSessionOpen(s);
             const label = !open && s.status === "avoinna" ? "Ilmoittautuminen päättynyt" : STATUS_LABEL[s.status];
             return (
-              <div key={s.id} className={`grid items-center gap-3 rounded-xl border bg-card p-4 sm:grid-cols-[auto_1fr_1fr_auto] ${v.date === s.date ? "ring-2 ring-primary" : ""}`}>
+              <div key={s.id} className={`grid items-center gap-3 rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-4 sm:grid-cols-[auto_1fr_1fr_auto] ${v.date === s.date ? "ring-2 ring-primary" : ""}`}>
                 <span className="text-sm text-muted-foreground">Toteutus {s.id}</span>
                 <span className="text-lg font-semibold">{formatFiDate(s.date)} <span className="text-sm font-normal text-muted-foreground">{s.weekday}</span></span>
                 <span className={`text-sm font-medium ${open ? "text-secondary" : "text-muted-foreground"}`}>{label}</span>
@@ -306,9 +307,9 @@ export default function IlmastointiM1Page() {
         <p className="mt-5 text-sm text-muted-foreground">Ilmoittautuminen päättyy 14 vuorokautta ennen koulutuspäivää. Koulutuksen toteutuminen vahvistetaan ilmoittautumisajan päätyttyä, kun osallistujia on vähintään viisi. Ryhmään mahtuu enintään 12 osallistujaa.</p>
       </Section>
 
-      <Section title="Hinta ja ehdot" muted>
+      <Section id="hinta" eyebrow="Hinta" title="Hinta ja ehdot" muted>
         <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-xl border bg-card p-6">
+          <div className="rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-6">
             <p className="text-3xl font-bold text-primary">320 € <span className="text-base font-normal text-muted-foreground">+ alv / osallistuja</span></p>
             <p className="mt-4 text-muted-foreground"><strong className="text-foreground">Hintaan sisältyy:</strong> koulutuspäivä, koulutusmateriaali, käytännön harjoitukset Keudan kalustolla ja osallistumistodistus. Tukesin pätevyyshakemuksen mahdollinen käsittelymaksu ei sisälly hintaan.</p>
             <p className="mt-3 text-muted-foreground"><strong className="text-foreground">Ryhmäkoko:</strong> vähintään 5, enintään 12 osallistujaa.</p>
@@ -326,14 +327,14 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section id="ilmoittaudu" title="Ilmoittaudu koulutukseen">
+      <Section id="ilmoittaudu" eyebrow="Ilmoittautuminen" title="Ilmoittaudu koulutukseen">
         {sent ? (
           <div role="status" className="rounded-xl border border-secondary bg-card p-6">
             <CheckCircle2 className="mb-3 h-8 w-8 text-secondary" aria-hidden />
             <p className="text-lg">Kiitos ilmoittautumisestasi. Lähetimme vahvistuksen sähköpostiisi. Vahvistamme koulutuksen toteutumisen viimeistään 14 vuorokautta ennen koulutuspäivää.</p>
           </div>
         ) : (
-          <form onSubmit={submit} noValidate className="grid gap-5 rounded-xl border bg-card p-5 md:grid-cols-2 md:p-8">
+          <form onSubmit={submit} noValidate className="grid gap-5 rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-5 md:grid-cols-2 md:p-8">
             <div className="md:col-span-2">
               <Label htmlFor="m1-date">Koulutuspäivä *</Label>
               <select id="m1-date" value={v.date ?? ""} onChange={(e) => set("date", e.target.value)} className="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
@@ -401,7 +402,7 @@ export default function IlmastointiM1Page() {
         )}
       </Section>
 
-      <Section id="yrityksellesi" title="Koulutus suoraan yrityksellesi" muted>
+      <Section id="yrityksellesi" eyebrow="Yrityksille" title="Koulutus suoraan yrityksellesi" muted>
         <div className="grid gap-8 md:grid-cols-2">
           <div className="space-y-4 text-muted-foreground">
             <p>Onko korjaamollasi useita työntekijöitä, joiden ilmastointipätevyydet pitää päivittää? Järjestämme M1-koulutuksen myös yrityskohtaisena toteutuksena Keudan koulutustiloissa tai soveltuvin osin yrityksesi omissa tiloissa.</p>
@@ -416,7 +417,7 @@ export default function IlmastointiM1Page() {
           {corpState === "sent" ? (
             <div role="status" className="rounded-xl border border-secondary bg-card p-6">Kiitos! Otamme yhteyttä tarjouksen tiimoilta.</div>
           ) : (
-            <form onSubmit={submitCorp} noValidate className="grid gap-4 rounded-xl border bg-card p-5">
+            <form onSubmit={submitCorp} noValidate className="grid gap-4 rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-5">
               {[["company", "Yritys *"], ["name", "Yhteyshenkilö *"], ["email", "Sähköposti *"], ["phone", "Puhelin"], ["count", "Osallistujia arviolta"]].map(([k, l]) => (
                 <div key={k}>
                   <Label htmlFor={`corp-${k}`}>{l}</Label>
@@ -434,7 +435,7 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section title="Miksi kouluttautua Keudassa">
+      <Section eyebrow="Miksi Keuda" title="Miksi kouluttautua Keudassa">
         <div className="grid gap-5 sm:grid-cols-2">
           {[
             ["Käytännönläheinen koulutus.", "Teoria ja käytännön harjoitukset Keudan ajoneuvoalan opetuskalustolla samana päivänä."],
@@ -442,13 +443,13 @@ export default function IlmastointiM1Page() {
             ["Valitse itse päivä.", "Kuusi toteutusta joulukuusta toukokuuhun – ilmoittaudu silloin, kun korjaamon arki sen sallii."],
             ["Luotettava kumppani.", "Keuda on vakiintunut ammatillisen koulutuksen järjestäjä. KeudaPRO vastaa yrityskoulutusten myynnistä, asiakaspalvelusta ja toteutusten koordinoinnista."],
           ].map(([t, d]) => (
-            <div key={t} className="rounded-xl border bg-card p-5"><p className="font-semibold text-foreground">{t}</p><p className="mt-1 text-muted-foreground">{d}</p></div>
+            <div key={t} className="rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-5"><p className="font-semibold text-foreground">{t}</p><p className="mt-1 text-muted-foreground">{d}</p></div>
           ))}
         </div>
       </Section>
 
-      <Section title="Usein kysytyt kysymykset" muted>
-        <Accordion type="single" collapsible className="rounded-xl border bg-card px-5">
+      <Section id="ukk" eyebrow="UKK" title="Usein kysytyt kysymykset" muted>
+        <Accordion type="single" collapsible className="rounded-xl border border-border bg-card shadow-[var(--shadow-card)] px-5">
           {faqs.map(([q, a], i) => (
             <AccordionItem key={q} value={`q${i}`}>
               <AccordionTrigger className="text-left">{q}</AccordionTrigger>
