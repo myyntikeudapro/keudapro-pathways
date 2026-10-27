@@ -24,7 +24,7 @@ const Todo = ({ children }: { children: React.ReactNode }) => (
 
 const Section = ({ id, eyebrow, title, children, muted }: { id?: string; eyebrow?: string; title: string; children: React.ReactNode; muted?: boolean }) => (
   <section id={id} className={muted ? "border-y border-border/60 bg-muted/40 py-14 md:py-20" : "py-14 md:py-20"} style={{ scrollMarginTop: 80 }}>
-    <div className="keuda-container max-w-5xl">
+    <div className="keuda-container">
       {eyebrow && <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">{eyebrow}</p>}
       <h2 className="mb-6 text-2xl font-bold tracking-tight text-foreground md:mb-8 md:text-4xl">{title}</h2>
       {children}
@@ -186,7 +186,7 @@ export default function IlmastointiM1Page() {
             <span className="mb-3 inline-flex text-[10px] font-bold uppercase tracking-[0.2em] text-background/60 md:text-xs">KeudaPRO · {P.category}</span>
             <h1 lang="fi" className="mb-4 hyphens-auto break-words text-[32px] font-extrabold leading-[1.08] tracking-tight text-background md:mb-5 md:text-5xl lg:text-6xl">
               Ajoneuvojen ilmastointi&shy;pätevyys&shy;koulutus{" "}
-              <span style={{ color: "hsl(var(--keuda-orange))" }}>M1 – Mäntsälä</span>
+              <span className="whitespace-nowrap" style={{ color: "hsl(var(--keuda-orange))" }}>M1 – Mäntsälä</span>
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-background/85 md:text-xl">
               Yhden päivän koulutus, joka valmentaa ajoneuvojen ilmastointijärjestelmien huolto- ja korjaustöiden M1-pätevyyskokeeseen. Valitse sopiva päivä ja varmista pätevyytesi ennen siirtymäajan päättymistä.
@@ -460,7 +460,7 @@ export default function IlmastointiM1Page() {
       </Section>
 
       <div className="border-t py-6">
-        <p className="container max-w-5xl text-xs text-muted-foreground">
+        <p className="keuda-container text-xs text-muted-foreground">
           Koulutus ei sisällä pätevyyskoetta eikä yksin merkitse viranomaispätevyyden myöntämistä. Tarvittava pätevyys haetaan Turvallisuus- ja kemikaalivirasto Tukesin menettelyn mukaisesti. Koulutuksen järjestäjä: Keuda. Myynti ja asiakaspalvelu: KeudaPRO, Keuda Koulutuspalvelut Oy.
         </p>
       </div>
