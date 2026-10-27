@@ -176,33 +176,50 @@ export default function IlmastointiM1Page() {
         <div className="bg-accent/15 py-2 text-center text-sm text-foreground">Esikatselu – sivu ei ole julkinen ennen hyväksyntää.</div>
       )}
 
-      {/* Hero */}
-      <section className="bg-gradient-to-b from-muted/60 to-background py-12 md:py-20">
-        <div className="container grid max-w-6xl grid-cols-1 items-center gap-10 md:grid-cols-2">
-          <div>
-            <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-secondary">{P.category}</p>
-            <h1 lang="fi" className="mb-5 hyphens-auto break-words text-3xl font-bold leading-tight text-primary md:text-5xl">{P.name}</h1>
-            <p className="mb-6 text-lg text-muted-foreground">
+      {/* Hero – sama tumma kuvapohja kuin Äly-sivulla */}
+      <section className="relative overflow-hidden bg-foreground">
+        <img src={heroImg} alt="" aria-hidden="true" width={1280} height={832} className="absolute inset-0 h-full w-full object-cover opacity-60 md:opacity-100" style={{ objectPosition: "70% 40%" }} />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-foreground/70 via-foreground/85 to-foreground md:bg-gradient-to-r md:from-foreground/95 md:via-foreground/80 md:to-foreground/30" />
+        <div className="keuda-container relative py-10 sm:py-14 md:py-24">
+          <div className="max-w-3xl">
+            <span className="mb-3 inline-flex text-[10px] font-bold uppercase tracking-[0.2em] text-background/60 md:text-xs">KeudaPRO · {P.category}</span>
+            <h1 lang="fi" className="mb-4 hyphens-auto break-words text-[32px] font-extrabold leading-[1.08] tracking-tight text-background md:mb-5 md:text-5xl lg:text-6xl">
+              Ajoneuvojen ilmastointi&shy;pätevyys&shy;koulutus{" "}
+              <span style={{ color: "hsl(var(--keuda-orange))" }}>M1 – Mäntsälä</span>
+            </h1>
+            <p className="max-w-2xl text-base leading-relaxed text-background/85 md:text-xl">
               Yhden päivän koulutus, joka valmentaa ajoneuvojen ilmastointijärjestelmien huolto- ja korjaustöiden M1-pätevyyskokeeseen. Valitse sopiva päivä ja varmista pätevyytesi ennen siirtymäajan päättymistä.
             </p>
-            <ul className="mb-7 grid gap-3 sm:grid-cols-3">
-              {[[CalendarDays, "1 päivä, klo 8.00–16.00"], [Euro, P.priceText], [MapPin, "Keuda Mäntsälä"]].map(([Icon, t]) => {
-                const I = Icon as typeof CalendarDays;
-                return (
-                  <li key={t as string} className="flex items-start gap-2 rounded-lg border bg-card p-3 text-sm font-medium">
-                    <I className="mt-0.5 h-4 w-4 shrink-0 text-secondary" aria-hidden />{t as string}
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg"><a href="#ajankohdat">Ilmoittaudu koulutukseen</a></Button>
-              <Button asChild size="lg" variant="outline"><a href="#yrityksellesi">Pyydä tarjous yrityksellesi</a></Button>
-            </div>
           </div>
-          <img src={heroImg} alt="Asentaja huoltaa auton ilmastointijärjestelmää talteenottolaitteella" width={1280} height={832} className="aspect-[16/11] w-full rounded-2xl object-cover shadow-lg" />
+          <ul className="mt-8 grid max-w-4xl gap-3 sm:grid-cols-3 md:mt-10 md:gap-4">
+            {[[CalendarDays, "Kesto", "1 päivä, klo 8.00–16.00"], [Euro, "Hinta", P.priceText], [MapPin, "Paikka", "Keuda Mäntsälä"]].map(([Icon, k, t]) => {
+              const I = Icon as typeof CalendarDays;
+              return (
+                <li key={k as string} className="flex items-center gap-3 rounded-xl border border-background/15 bg-background/5 p-4 backdrop-blur-sm">
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[hsl(var(--keuda-orange))] text-foreground"><I className="h-5 w-5" aria-hidden /></span>
+                  <span>
+                    <span className="block text-[11px] font-medium uppercase tracking-wider text-background/50">{k as string}</span>
+                    <span className="block font-bold leading-tight text-background">{t as string}</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+          <div className="mt-8 flex flex-col gap-3 md:mt-10 md:flex-row">
+            <Button asChild variant="cta" size="lg" className="keuda-cta-wrap w-full shadow-lg shadow-foreground/20 md:w-auto"><a href="#ajankohdat">Ilmoittaudu koulutukseen</a></Button>
+            <Button asChild size="lg" variant="outline" className="keuda-cta-wrap w-full border-background/25 bg-transparent text-background hover:bg-background/10 hover:text-background md:w-auto"><a href="#yrityksellesi">Pyydä tarjous yrityksellesi</a></Button>
+          </div>
         </div>
       </section>
+
+      {/* Pikalinkit – kuten Äly-sivun ankkuririvi */}
+      <nav aria-label="Sivun osiot" className="border-b border-border bg-background">
+        <ul className="keuda-container flex gap-2 overflow-x-auto py-3 [scrollbar-width:none]">
+          {[["miksi-nyt", "Miksi nyt"], ["kenelle", "Kenelle"], ["sisalto", "Sisältö"], ["ajankohdat", "Ajankohdat"], ["hinta", "Hinta ja ehdot"], ["yrityksellesi", "Yrityksille"], ["ukk", "Kysymykset"]].map(([id, l]) => (
+            <li key={id} className="shrink-0"><a href={`#${id}`} className="inline-flex rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary">{l}</a></li>
+          ))}
+        </ul>
+      </nav>
 
       <Section title="Pätevyysvaatimukset ovat muuttuneet – päivitä osaamisesi ajoissa">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_1fr]">
