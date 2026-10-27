@@ -240,7 +240,7 @@ export default function IlmastointiM1Page() {
           <div className="space-y-4 text-muted-foreground">
             <h3 className="text-lg font-semibold text-foreground">Sisältö ja tavoite</h3>
             <p>Koulutus antaa valmiudet ajoneuvojen ilmastointijärjestelmien turvalliseen ja määräysten mukaiseen huoltoon ja korjaukseen. Päivän aikana kerrataan kylmäaineiden käsittely, talteenotto ja järjestelmän huolto- ja korjaustoimenpiteet sekä pätevyysvaatimusten edellyttämä osaaminen.</p>
-            <p>Koulutus valmentaa M1-pätevyyskokeeseen. Kokeen järjestely ja ajankohta vahvistetaan ilmoittautuneille erikseen <Todo>kokeen järjestäjä ja ajankohta, kun Keudan kokeenjärjestämisoikeus on vahvistettu</Todo>.</p>
+            <p>Koulutus valmentaa M1-pätevyyskokeeseen. Koulutus ei sisällä pätevyyskoetta, vaan antaa osaamisen ja valmiudet kokeen suorittamiseen. Koe suoritetaan erikseen.</p>
             <p>Tukes erottaa vastuuhenkilön M1-pätevyyden ja asentajan M1 A -pätevyyden. Hyväksytty koe ja riittävä koulutustausta mahdollistavat soveltuvan pätevyyden hakemisen Tukesilta.</p>
             <h3 className="pt-2 text-lg font-semibold text-foreground">Päivän kulku</h3>
             <p>Klo 8.00–16.00 Keudan ajoneuvoalan koulutustiloissa Mäntsälässä. Päivä sisältää teoriaosuuden ja käytännön harjoituksia Keudan opetuskalustolla. Kahvit <Todo>sisältyykö lounas</Todo>.</p>
@@ -431,7 +431,7 @@ export default function IlmastointiM1Page() {
 
       <div className="border-t py-6">
         <p className="container max-w-5xl text-xs text-muted-foreground">
-          Koulutus ja sen yhteydessä suoritettava koe eivät yksin merkitse viranomaispätevyyden myöntämistä. Tarvittava pätevyys haetaan Turvallisuus- ja kemikaalivirasto Tukesin menettelyn mukaisesti. Koulutuksen järjestäjä: Keuda. Myynti ja asiakaspalvelu: KeudaPRO, Keuda Koulutuspalvelut Oy.
+          Koulutus ei sisällä pätevyyskoetta eikä yksin merkitse viranomaispätevyyden myöntämistä. Tarvittava pätevyys haetaan Turvallisuus- ja kemikaalivirasto Tukesin menettelyn mukaisesti. Koulutuksen järjestäjä: Keuda. Myynti ja asiakaspalvelu: KeudaPRO, Keuda Koulutuspalvelut Oy.
         </p>
       </div>
     </Layout>
