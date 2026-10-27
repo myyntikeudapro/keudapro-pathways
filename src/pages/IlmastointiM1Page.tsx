@@ -176,10 +176,10 @@ export default function IlmastointiM1Page() {
 
       {/* Hero */}
       <section className="bg-gradient-to-b from-muted/60 to-background py-12 md:py-20">
-        <div className="container grid max-w-6xl items-center gap-10 md:grid-cols-2">
+        <div className="container grid max-w-6xl grid-cols-1 items-center gap-10 md:grid-cols-2">
           <div>
             <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-secondary">{P.category}</p>
-            <h1 className="mb-5 text-3xl font-bold leading-tight text-primary md:text-5xl">{P.name}</h1>
+            <h1 lang="fi" className="mb-5 hyphens-auto break-words text-3xl font-bold leading-tight text-primary md:text-5xl">{P.name}</h1>
             <p className="mb-6 text-lg text-muted-foreground">
               Yhden päivän koulutus, joka valmentaa ajoneuvojen ilmastointijärjestelmien huolto- ja korjaustöiden M1-pätevyyskokeeseen. Valitse sopiva päivä ja varmista pätevyytesi ennen siirtymäajan päättymistä.
             </p>
@@ -203,7 +203,7 @@ export default function IlmastointiM1Page() {
       </section>
 
       <Section title="Pätevyysvaatimukset ovat muuttuneet – päivitä osaamisesi ajoissa">
-        <div className="grid gap-8 md:grid-cols-[1.4fr_1fr]">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_1fr]">
           <div className="space-y-4 text-muted-foreground">
             <p>Ajoneuvojen ilmastointijärjestelmien henkilöpätevyydet on uudistettu. Uudet M1–M4-pätevyysluokat määrittelevät, millaisia huolto-, korjaus- ja talteenottotöitä henkilö saa tehdä. Vanhan järjestelmän mukaiset pätevyydet ovat voimassa 12.3.2029 saakka.</p>
             <p>Vanhan pätevyyden haltija voi päivittää pätevyytensä siirtymäajan menettelyllä. Kertauskoulutukseen perustuvaa uutta pätevyyttä on haettava viimeistään 12.12.2028.</p>
