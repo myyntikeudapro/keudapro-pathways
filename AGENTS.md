@@ -14,3 +14,4 @@
 - Operations metrics and their URL-addressable queues share operationsCenter calculations and paginated reads, so linked rows use identical service, owner and time boundaries.
 - Public booking and coaching panels mount only outside admin routes, preventing offscreen dialogs and shadows from interfering with the workspace.
 - M1 registration links and explicit Helsinki-calendar deadlines live in the course data; the local participant form stays behind a registration-channel flag, and outbound clicks never count as completed registrations because Lyyti owns confirmation.
+- AI Talent Hub access is decided by email-matched, confirmed-account rows in ai_talent_members (site admins also manage it); the page is gated by AI_TALENT_PUBLISHED so production stays hidden until approval.
