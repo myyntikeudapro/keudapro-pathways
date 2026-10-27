@@ -27,3 +27,5 @@
 - [x] Vaihe 0B: turvallisen kehitys-, palautus- ja julkaisumallin suunnitelma hyväksyttäväksi
 - [x] Vaihe 0B: hyväksytyn suunnitelman tarkistuslista ja Remix-kehityskopion aloitusohje
 - [ ] Vaihe 0B toteutus: odottaa käyttäjän luomaa Remix-kehityskopiota, Git-yhteyden ja varmuuskopioiden käyttäjänäkymän vahvistusta sekä palautuskohteen vastuuhenkilöä
+- [x] M1-ilmastointipätevyys: Pätevyyskoulutukset-ryhmä, tuotesivu, ilmoittautuminen ja yritystarjous
+- [ ] M1-sivun julkaisu: odottaa Heikin hyväksyntää ja [täydennä]-kohtia

@@ -21,6 +21,7 @@ import KumppanitPage from "./pages/KumppanitPage";
 import YhteystiedotPage from "./pages/YhteystiedotPage";
 import PatevyydetPage from "./pages/PatevyydetPage";
 import MuutosturvaPage from "./pages/MuutosturvaPage";
+import IlmastointiM1Page from "./pages/IlmastointiM1Page";
 import VerkostoPage from "./pages/VerkostoPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import HubPage from "./pages/HubPage";
@@ -60,6 +61,7 @@ const App = () => (
               <Route path="/osaaminen" element={<PatevyydetPage />} />
               <Route path="/noste" element={<WorkPlusPage />} />
               <Route path="/muutosturva" element={<MuutosturvaPage />} />
+              <Route path="/koulutukset/ilmastointipatevyys-m1-mantsala" element={<IlmastointiM1Page />} />
               <Route path="/kasvu" element={<GrowthPage />} />
               <Route path="/operaattori" element={<OperaattoriPage />} />
               <Route path="/kumppanit" element={<KumppanitPage />} />

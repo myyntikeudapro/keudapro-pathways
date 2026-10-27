@@ -120,7 +120,12 @@ Deno.serve(async (req) => {
     let confirmationSent = false;
     if (stored) {
       try {
-        const messageId = await sendMail(email, 'KeudaPRO – yhteydenottosi on vastaanotettu', 'Kiitos yhteydenotostasi!\n\nOlemme vastaanottaneet viestisi. Tiimimme käsittelee sen ja ottaa sinuun yhteyttä. Tämä vahvistus ei ole koulutuspaikan tai tapaamisajan vahvistus.\n\nVoit täydentää tietojasi vastaamalla tähän viestiin.\n\nYstävällisin terveisin\nKeudaPRO\nhttps://keudapro.fi');
+        const m1Dates = ["2026-12-01", "2027-01-12", "2027-02-02", "2027-03-02", "2027-04-06", "2027-05-04"];
+        const m1Date = source === "ilmastointi-m1" && m1Dates.includes(String(body.training_date)) ? String(body.training_date) : null;
+        const fiDate = m1Date ? m1Date.split("-").map(Number).reverse().join(".") : "";
+        const messageId = m1Date
+          ? await sendMail(email, `Ilmoittautumisesi M1-ilmastointipätevyyskoulutukseen ${fiDate} on vastaanotettu`, `Kiitos ilmoittautumisestasi!\n\nOlemme vastaanottaneet ilmoittautumisesi Ajoneuvojen ilmastointipätevyyskoulutukseen M1 (Keuda, Mäntsälä) ${fiDate} klo 8.00–16.00.\n\nVahvistamme koulutuksen toteutumisen viimeistään 14 vuorokautta ennen koulutuspäivää.\n\nVoit täydentää tietojasi vastaamalla tähän viestiin.\n\nYstävällisin terveisin\nKeudaPRO\nhttps://keudapro.fi`)
+          : await sendMail(email, 'KeudaPRO – yhteydenottosi on vastaanotettu', 'Kiitos yhteydenotostasi!\n\nOlemme vastaanottaneet viestisi. Tiimimme käsittelee sen ja ottaa sinuun yhteyttä. Tämä vahvistus ei ole koulutuspaikan tai tapaamisajan vahvistus.\n\nVoit täydentää tietojasi vastaamalla tähän viestiin.\n\nYstävällisin terveisin\nKeudaPRO\nhttps://keudapro.fi');
         confirmationSent = true;
         const { error: logError } = await supabase.from('email_send_log').insert({template_name:'customer_confirmation',recipient_email:email,status:'sent',message_id:messageId,metadata:{lead_id:stored.id}});
         if (logError) console.error('Confirmation log failed');

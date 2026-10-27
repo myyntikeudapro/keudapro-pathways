@@ -56,6 +56,8 @@ import growthKaynistys from "@/assets/growth-kaynistys.jpg";
 import growthSkaalaus from "@/assets/growth-skaalaus.jpg";
 import growthOsaaminen from "@/assets/growth-osaaminen.jpg";
 import growthUudistuminen from "@/assets/growth-uudistuminen.jpg";
+import courseIlmastointi from "@/assets/course-ilmastointi-m1.jpg";
+import { ILMASTOINTI_M1, isIlmastointiVisible } from "@/data/ilmastointiM1";
 import coachReitti from "@/assets/coach-reitti.png";
 import coachAna from "@/assets/coach-ana.png";
 import coachVeli from "@/assets/coach-veli.png";
@@ -407,6 +409,21 @@ const accordionCategories: AccordionCategory[] = [
     bottomCta: { text: "Katso kaikki Kasvu-reitin ohjelmat", href: "/kasvu" },
   },
   {
+    id: "patevyyskoulutukset",
+    title: "Pätevyyskoulutukset",
+    intro: "Lakisääteiset ja alakohtaiset pätevyydet ammattilaisille — valitse päivä ja ilmoittaudu.",
+    cards: [
+      {
+        title: "Ilmastointipätevyys M1 – Mäntsälä",
+        badge: "Ajoneuvoala",
+        description: "Yhden päivän koulutus ajoneuvojen ilmastointijärjestelmien M1-pätevyyskokeeseen. 320 € + alv, kuusi toteutusta 12/2026–5/2027.",
+        ctaText: "Lue lisää ja ilmoittaudu",
+        ctaHref: ILMASTOINTI_M1.path,
+        image: courseIlmastointi,
+      },
+    ],
+  },
+  {
     id: "kortit",
     title: "Korttikoulutukset",
     intro: "Viralliset korttikoulutukset nopeasti — yrityksille, tiimeille ja yksittäisille osallistujille.",
@@ -626,7 +643,7 @@ const PatevyydetPage = () => {
           </div>
 
           <div className="flex flex-col gap-3 max-w-5xl mx-auto">
-            {accordionCategories.map((cat) => {
+            {accordionCategories.filter((c) => c.id !== "patevyyskoulutukset" || isIlmastointiVisible()).map((cat) => {
               const isActive = openCategory === cat.id;
               return (
                 <div
