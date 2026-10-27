@@ -29,4 +29,4 @@
 - [ ] Vaihe 0B toteutus: odottaa käyttäjän luomaa Remix-kehityskopiota, Git-yhteyden ja varmuuskopioiden käyttäjänäkymän vahvistusta sekä palautuskohteen vastuuhenkilöä
 - [x] M1-ilmastointipätevyys: Pätevyyskoulutukset-ryhmä, tuotesivu, ilmoittautuminen ja yritystarjous
 - [x] M1-sivun julkaisulupa: Heikki hyväksyi 27.10.2026
-- [ ] M1 Lyyti: päiväkohtaiset linkit, määräpäivät, piilotettu säilytetty osallistujalomake ja suostumusperusteinen siirtymäseuranta; lopputesti
+- [x] M1 Lyyti: kuusi päiväkohtaista linkkiä ja yhteinen linkki, Lyytin määräpäivät, säilytetty piilotettu osallistujalomake; yritystarjous näkyvissä. 11 testiä ja lint läpäisty; selainpolut 320/390/768/1280 px, suostumusrajat ilman tuotantokirjoituksia ja ei virheilmoituksia. Ilmoittautumista tai maksua ei lähetetty; muutos ei vielä julkaistu.
