@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_talent_members: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          email: string
+          id: string
+          role: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          email: string
+          id?: string
+          role?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          email?: string
+          id?: string
+          role?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       booking_requests: {
         Row: {
           created_at: string
@@ -725,6 +752,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      ai_talent_role: { Args: { _user_id: string }; Returns: string }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
@@ -745,6 +773,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_ai_talent_admin: { Args: { _user_id: string }; Returns: boolean }
       is_editor_or_admin: { Args: { _user_id: string }; Returns: boolean }
       move_to_dlq: {
         Args: {

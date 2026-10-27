@@ -71,6 +71,13 @@
       "when": 1792645978750,
       "tag": "0009_crm_goals_and_assignment",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1793135316042,
+      "tag": "0010_ai_talent_members",
+      "breakpoints": true
     }
   ]
 }
