@@ -86,6 +86,7 @@ export default function IlmastointiM1Page() {
     if (!Number.isInteger(n) || n < 1 || n > P.maxParticipants) e.count = `Osallistujia 1–${P.maxParticipants}.`;
     if (!v.previous) e.previous = "Valitse aiempi pätevyys.";
     if (v.previous === "vanha" && !/^\d{4}$/.test(v.previousYear ?? "")) e.previousYear = "Kirjoita vanhan pätevyyden vuosi.";
+    if (!v.payment) e.payment = "Valitse maksutapa.";
     if (!v.sfs) e.sfs = "Valitse SFS 6002 -tilanne.";
     if (!privacy) e.privacy = "Tietosuojaselosteen hyväksyntä on pakollinen.";
     setErrors(e);
@@ -105,6 +106,7 @@ export default function IlmastointiM1Page() {
       `Osallistujia: ${v.count}`,
       `Aiempi ilmastointipätevyys: ${v.previous === "vanha" ? `vanha pätevyys (${v.previousYear})` : "ei"}`,
       `SFS 6002 voimassa: ${v.sfs}`,
+      `Maksutapa: ${v.payment === "lasku" ? "lasku työnantajalle (työnantajan suostumus vahvistettu)" : "verkkomaksu"}`,
       `Ajoneuvoalan koulutustausta: ${v.background || "–"}`,
       `Lisätiedot: ${v.extra || "–"}`,
       `Markkinointilupa: ${marketing ? "kyllä" : "ei"}`,
@@ -347,6 +349,12 @@ export default function IlmastointiM1Page() {
                 <Input aria-label="Vanhan pätevyyden vuosi" placeholder="Vuosi, esim. 2015" inputMode="numeric" maxLength={4} value={v.previousYear ?? ""} onChange={(e) => set("previousYear", e.target.value)} className="mt-3 max-w-[200px]" />
               )}
               {err("previous")}{err("previousYear")}
+            </fieldset>
+            <fieldset className="md:col-span-2">
+              <legend className="mb-2 text-sm font-medium">Maksutapa *</legend>
+              {radio("payment", [["verkkomaksu", "Verkkomaksu"], ["lasku", "Lasku työnantajalle"]])}
+              {v.payment === "lasku" && <p className="mt-2 text-sm text-muted-foreground">Vahvistat, että sinulla on työnantajan suostumus osallistua koulutukseen työnantajan kustannuksella.</p>}
+              {err("payment")}
             </fieldset>
             <fieldset className="md:col-span-2">
               <legend className="mb-2 text-sm font-medium">SFS 6002 voimassa *</legend>
