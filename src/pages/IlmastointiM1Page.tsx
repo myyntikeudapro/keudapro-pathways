@@ -243,7 +243,7 @@ export default function IlmastointiM1Page() {
             <p>Koulutus valmentaa M1-pätevyyskokeeseen. Koulutus ei sisällä pätevyyskoetta, vaan antaa osaamisen ja valmiudet kokeen suorittamiseen. Koe suoritetaan erikseen.</p>
             <p>Tukes erottaa vastuuhenkilön M1-pätevyyden ja asentajan M1 A -pätevyyden. Hyväksytty koe ja riittävä koulutustausta mahdollistavat soveltuvan pätevyyden hakemisen Tukesilta.</p>
             <h3 className="pt-2 text-lg font-semibold text-foreground">Päivän kulku</h3>
-            <p>Klo 8.00–16.00 Keudan ajoneuvoalan koulutustiloissa Mäntsälässä. Päivä sisältää teoriaosuuden ja käytännön harjoituksia Keudan opetuskalustolla. Kahvit <Todo>sisältyykö lounas</Todo>.</p>
+            <p>Klo 8.00–16.00 Keudan ajoneuvoalan koulutustiloissa Mäntsälässä. Päivä sisältää teoriaosuuden ja käytännön harjoituksia Keudan opetuskalustolla. Koulutukseen sisältyvät aamukahvit (kahvi ja sämpylä).</p>
           </div>
           <div>
             <h3 className="mb-4 text-lg font-semibold text-foreground">Koulutuspäivän teemat</h3>
