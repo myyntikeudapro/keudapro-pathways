@@ -303,6 +303,23 @@ const HubPage = () => {
             </p>
           </div>
 
+          {isAiTalentVisible() && (
+            <Link
+              to="/hub/ai-talent"
+              className="group mb-8 grid overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] transition-all hover:shadow-[var(--shadow-card-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:grid-cols-[220px_1fr]"
+            >
+              <div className="relative h-40 overflow-hidden md:h-auto">
+                <img src={imgAiDirector} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              </div>
+              <div className="p-6 md:p-8">
+                <span className={cn("px-2.5 py-1 rounded-full text-xs font-semibold", statusClasses("pilot"))}>Pilotti 2026–2027</span>
+                <h3 className="mt-4 mb-2 text-2xl font-bold text-foreground">AI Talent – nuorten AI-osaamis- ja työllistymisohjelma</h3>
+                <p className="mb-4 text-muted-foreground">Helsingin työllisyyspalvelut × KeudaPRO. Osallistujien, työllisyyspalvelujen ja kumppaniyritysten projektisivu.</p>
+                <span className="font-semibold text-[hsl(var(--keuda-blue))]">Kirjaudu projektiin →</span>
+              </div>
+            </Link>
+          )}
+
           {/* Featured */}
           <div className="group relative rounded-2xl border border-border bg-keuda-teal-light shadow-[var(--shadow-card)] overflow-hidden mb-8 hover:shadow-[var(--shadow-card-hover)] transition-all">
             <div className="grid md:grid-cols-[220px_1.4fr_1fr]">
