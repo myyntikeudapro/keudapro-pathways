@@ -15,7 +15,7 @@ export function useAiTalentMembership() {
     setChecking(true);
     (async () => {
       const [{ data: member }, { data: siteRoles }] = await Promise.all([
-        supabase.from("ai_talent_members").select("role").maybeSingle(),
+        supabase.from("ai_talent_members").select("role").eq("email", (user.email ?? "").toLowerCase()).maybeSingle(),
         supabase.from("user_roles").select("role").eq("user_id", user.id),
       ]);
       if (!active) return;
