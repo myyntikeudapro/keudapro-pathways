@@ -22,13 +22,13 @@ const Todo = ({ children }: { children: React.ReactNode }) => (
   <span className="rounded border border-dashed border-accent bg-accent/10 px-1.5 py-0.5 text-sm text-accent-foreground">[täydennä: {children}]</span>
 );
 
-type Tone = "light" | "muted" | "blue" | "teal" | "warm" | "dark";
+type Tone = "light" | "muted" | "blue" | "teal" | "gray" | "dark";
 const TONE_BG: Record<Tone, string> = {
   light: "bg-background",
   muted: "border-y border-border/60 bg-muted/50",
   blue: "border-y border-[hsl(var(--keuda-blue)/0.15)] bg-[hsl(var(--keuda-blue-light))]",
-  teal: "border-y border-border/60 bg-[hsl(var(--keuda-teal-light))]",
-  warm: "border-y border-border/60 bg-[hsl(var(--keuda-orange-light))]",
+  teal: "border-y border-border/60 bg-[hsl(var(--keuda-teal-section))]",
+  gray: "border-y border-border/60 bg-[hsl(var(--keuda-gray-section))]",
   dark: "relative overflow-hidden bg-foreground",
 };
 const Section = ({ id, eyebrow, title, children, muted, tone }: { id?: string; eyebrow?: string; title: string; children: React.ReactNode; muted?: boolean; tone?: Tone }) => {
@@ -299,7 +299,7 @@ export default function IlmastointiM1Page() {
         <p className="rounded-lg border bg-card p-4 text-sm text-muted-foreground">Jos et ole varma, riittääkö taustasi, kerro tilanteestasi ilmoittautumislomakkeella. Autamme selvittämään sinulle sopivan polun ennen koulutusta.</p>
       </Section>
 
-      <Section id="ajankohdat" eyebrow="Ajankohdat" title="Valitse koulutuspäivä" tone="blue">
+      <Section id="ajankohdat" eyebrow="Ajankohdat" title="Valitse koulutuspäivä" tone="gray">
         <p className="mb-6 text-muted-foreground">Koulutukset järjestetään Keudan toimipisteessä Mäntsälässä klo 8.00–16.00.</p>
         <div className="grid gap-3">
           {P.sessions.map((s) => {
@@ -338,7 +338,7 @@ export default function IlmastointiM1Page() {
         </div>
       </Section>
 
-      <Section id="ilmoittaudu" eyebrow="Ilmoittautuminen" title="Ilmoittaudu koulutukseen" tone="warm">
+      <Section id="ilmoittaudu" eyebrow="Ilmoittautuminen" title="Ilmoittaudu koulutukseen" tone="teal">
         {M1_LYYTI_ENABLED ? (
           <div className="max-w-2xl space-y-5">
             <p className="text-muted-foreground">Valitse koulutuspäivä ja täytä osallistujatiedot Lyyti-palvelussa. Saat ilmoittautumisen vahvistusviestin sähköpostiisi Lyytistä.</p>
