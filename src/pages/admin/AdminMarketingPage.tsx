@@ -20,6 +20,7 @@ import { campaignReturn } from '@/lib/salesOperations';
 import { EmailAutomationPanel } from '@/components/admin/EmailAutomationPanel';
 import { SalesGoalsPanel } from '@/components/admin/SalesGoalsPanel';
 import { OperationsQueue } from '@/components/admin/OperationsQueue';
+import { ILMASTOINTI_M1 } from '@/data/ilmastointiM1';
 
 type Ev = { session_id: string; event: string; path: string | null; utm_source: string | null; utm_campaign: string | null; utm_medium: string | null; device: string | null; props: Record<string, unknown>; created_at: string };
 
@@ -56,7 +57,7 @@ const SERVICES: Record<string, { label: string; short: string; paths: string[] |
   muutosturva: { label: "Muutosturva", short: "/muutosturva", paths: ["/muutosturva"], leadSource: "muutosturva-kartoitus", steps: [["Kävi Muutosturva-sivulla", "page_view"], ["Avasi kartoituksen", "assessment_opened"], ["Täytti vaiheen 1", "assessment_step1_completed"], ["Lähetti kartoituksen", "assessment_submitted"]] },
   kasvu: { label: "Kasvu", short:"/kasvu", paths:["/kasvu"], steps:[["Kävi sivulla","page_view"],["Jätti yhteydenoton","lead_submitted"]] },
   hub: {label:"Hub",short:"/hub",paths:["/hub","/hub/tyoelamaverkko"],steps:[["Kävi sivulla","page_view"],["Jätti yhteydenoton","lead_submitted"]]},
-  osaaminen: {label:"Osaaminen",short:"/osaaminen",paths:["/osaaminen"],steps:[["Kävi sivulla","page_view"],["Jätti yhteydenoton","lead_submitted"]]},
+  osaaminen: {label:"Osaaminen",short:"/osaaminen",paths:["/osaaminen", ILMASTOINTI_M1.path],steps:[["Kävi sivulla","page_view"],["Jätti yhteydenoton","lead_submitted"]]},
   aly: { label: "Äly – tekoälypätevyydet", short: "/aly", paths: ["/aly"], steps: [["Kävi Äly-sivulla", "page_view"], ["Aloitti tekoälytestin", "ai_assessment_start"], ["Suoritti testin", "ai_assessment_complete"], ["Klikkasi ilmoittautumista", "course_registration_click"]] },
 };
 type AdRow = { campaign_id?: string; platform: "meta" | "google"; campaign: string; spend: number; impressions: number; clicks: number; currency: string };
@@ -182,7 +183,7 @@ export default function AdminMarketingPage() {
       pages: countBy(views, (e) => e.path),
       devices: countBy(views, (e) => e.device, (e) => e.session_id),
       courses: countBy(ev.filter((e) => ["course_selected", "assessment_submitted", "keuda_external_opened", "course_registration_click", "ai_assessment_complete"].includes(e.event)), courseOf),
-      actions: countBy(ev.filter((e) => e.event !== "page_view" && !e.event.startsWith("ai_result_")), (e) => EVENT_NAMES[e.event] ?? e.event),
+      actions: countBy(ev.filter((e) => e.event !== "page_view" && !e.event.startsWith("ai_result_")), (e) => e.event === "cta_clicked" && e.props?.cta === "m1_lyyti_registration" ? "Siirtyi M1-ilmoittautumiseen Lyytissä" : EVENT_NAMES[e.event] ?? e.event),
       statuses: countBy(ld, (l) => l.status),
     };
   }, [events.data, leads.data, svc, service, since]);

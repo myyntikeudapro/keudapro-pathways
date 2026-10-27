@@ -13,9 +13,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { leadAttribution, trackEvent } from "@/lib/analytics";
 import NotFound from "./NotFound";
 import heroImg from "@/assets/course-ilmastointi-m1.jpg";
-import { CalendarDays, Euro, MapPin, CheckCircle2, AlertTriangle } from "lucide-react";
+import { CalendarDays, Euro, MapPin, CheckCircle2, AlertTriangle, ExternalLink } from "lucide-react";
 import {
-  ILMASTOINTI_M1 as P, ILMASTOINTI_M1_PUBLISHED, STATUS_LABEL, formatFiDate, isIlmastointiVisible, isSessionOpen, prefillDate,
+  ILMASTOINTI_M1 as P, ILMASTOINTI_M1_PUBLISHED, M1_LYYTI_ENABLED, M1_LYYTI_URL, STATUS_LABEL, formatFiDate, isIlmastointiVisible, isSessionOpen, prefillDate,
 } from "@/data/ilmastointiM1";
 
 const Todo = ({ children }: { children: React.ReactNode }) => (
@@ -81,10 +81,8 @@ export default function IlmastointiM1Page() {
   if (!isIlmastointiVisible()) return <NotFound />;
   const set = (k: string, val: string) => setV((p) => ({ ...p, [k]: val }));
 
-  const pick = (date: string) => {
-    set("date", date);
-    trackEvent("cta_clicked", { cta: "m1_select_date" });
-    document.getElementById("ilmoittaudu")?.scrollIntoView({ behavior: "smooth" });
+  const trackLyyti = (date?: string) => {
+    trackEvent("cta_clicked", { cta: "m1_lyyti_registration", source: "ilmastointi-m1", service: "osaaminen", destination: "lyyti", ...(date ? { training_date: date } : {}) });
   };
 
   const validate = () => {
@@ -108,6 +106,7 @@ export default function IlmastointiM1Page() {
 
   const submit = async (ev: React.FormEvent) => {
     ev.preventDefault();
+    if (M1_LYYTI_ENABLED) return;
     setFailure("");
     if (!validate()) return;
     setBusy(true);
@@ -176,7 +175,7 @@ export default function IlmastointiM1Page() {
   const jsonLd = {
     "@context": "https://schema.org", "@type": "Course", name: P.name, description: P.seoDescription,
     provider: { "@type": "EducationalOrganization", name: "KeudaPRO", url: "https://keudapro.fi" },
-    hasCourseInstance: P.sessions.map((s) => ({ "@type": "CourseInstance", courseMode: "onsite", startDate: s.date, location: { "@type": "Place", name: P.place } })),
+    hasCourseInstance: P.sessions.map((s) => ({ "@type": "CourseInstance", courseMode: "onsite", startDate: s.date, url: s.registrationUrl, location: { "@type": "Place", name: P.place } })),
     offers: { "@type": "Offer", price: 320, priceCurrency: "EUR", category: "Paid" },
   };
 
@@ -303,20 +302,18 @@ export default function IlmastointiM1Page() {
         <div className="grid gap-3">
           {P.sessions.map((s) => {
             const open = isSessionOpen(s);
-            const label = !open && s.status === "avoinna" ? "Ilmoittautuminen päättynyt" : STATUS_LABEL[s.status];
+            const label = !open && s.status === "avoinna" ? "Ilmoittautuminen päättynyt" : s.status === "avoinna" ? "Ilmoittautuminen avoinna" : STATUS_LABEL[s.status];
             return (
               <div key={s.id} className={`grid items-center gap-3 rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-4 sm:grid-cols-[auto_1fr_1fr_auto] ${v.date === s.date ? "ring-2 ring-primary" : ""}`}>
                 <span className="text-sm text-muted-foreground">Toteutus {s.id}</span>
                 <span className="text-lg font-semibold">{formatFiDate(s.date)} <span className="text-sm font-normal text-muted-foreground">{s.weekday}</span></span>
-                <span className={`text-sm font-medium ${open ? "text-secondary" : "text-muted-foreground"}`}>{label}</span>
-                <Button variant={v.date === s.date ? "default" : "outline"} disabled={!open} onClick={() => pick(s.date)} aria-label={`Valitse ${formatFiDate(s.date)}`}>
-                  {v.date === s.date ? "Valittu" : "Valitse tämä päivä"}
-                </Button>
+                <div><p className={`text-sm font-medium ${open ? "text-secondary" : "text-muted-foreground"}`}>{label}</p><p className="mt-1 text-sm text-muted-foreground">Ilmoittaudu viimeistään {formatFiDate(s.deadline)}</p></div>
+                {open ? <Button asChild variant="cta" className="w-full sm:w-auto"><a href={s.registrationUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackLyyti(s.date)} aria-label={`Ilmoittaudu ${formatFiDate(s.date)} Lyyti-palvelussa (uusi välilehti)`}>Ilmoittaudu <ExternalLink className="ml-2 h-4 w-4 shrink-0" aria-hidden /></a></Button> : <Button variant="outline" disabled>Ilmoittautuminen suljettu</Button>}
               </div>
             );
           })}
         </div>
-        <p className="mt-5 text-sm text-muted-foreground">Ilmoittautuminen päättyy 14 vuorokautta ennen koulutuspäivää. Koulutuksen toteutuminen vahvistetaan ilmoittautumisajan päätyttyä, kun osallistujia on vähintään viisi. Ryhmään mahtuu enintään 12 osallistujaa.</p>
+        <p className="mt-5 text-sm text-muted-foreground">Ilmoittautuminen avautuu Lyyti-palveluun uuteen välilehteen. Ajantasainen paikkatilanne varmistuu Lyytissä. Koulutuksen toteutuminen vahvistetaan ilmoittautumisajan päätyttyä, kun osallistujia on vähintään viisi. Ryhmään mahtuu enintään 12 osallistujaa.</p>
       </Section>
 
       <Section id="hinta" eyebrow="Hinta" title="Hinta ja ehdot" muted>
@@ -340,10 +337,16 @@ export default function IlmastointiM1Page() {
       </Section>
 
       <Section id="ilmoittaudu" eyebrow="Ilmoittautuminen" title="Ilmoittaudu koulutukseen" tone="blue">
-        {sent ? (
+        {M1_LYYTI_ENABLED ? (
+          <div className="max-w-2xl space-y-5">
+            <p className="text-muted-foreground">Valitse koulutuspäivä ja täytä osallistujatiedot Lyyti-palvelussa. Saat ilmoittautumisen vahvistusviestin sähköpostiisi Lyytistä.</p>
+            <Button asChild variant="cta" size="lg" className="keuda-cta-wrap w-full sm:w-auto"><a href={M1_LYYTI_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackLyyti()}>Valitse päivä ja ilmoittaudu Lyytissä <ExternalLink className="ml-2 h-4 w-4 shrink-0" aria-hidden /></a></Button>
+            <p className="text-sm text-muted-foreground">Lyyti avautuu uuteen välilehteen. Ilmoittautuminen vahvistetaan vasta Lyytissä, ei tällä sivulla.</p>
+          </div>
+        ) : sent ? (
           <div role="status" className="rounded-xl border border-secondary bg-card p-6">
             <CheckCircle2 className="mb-3 h-8 w-8 text-secondary" aria-hidden />
-            <p className="text-lg">Kiitos ilmoittautumisestasi. Lähetimme vahvistuksen sähköpostiisi. Vahvistamme koulutuksen toteutumisen viimeistään 14 vuorokautta ennen koulutuspäivää.</p>
+            <p className="text-lg">Kiitos ilmoittautumisestasi. Lähetimme vahvistuksen sähköpostiisi. Vahvistamme koulutuksen toteutumisen ilmoittautumisajan päätyttyä.</p>
           </div>
         ) : (
           <form onSubmit={submit} noValidate className="grid gap-5 rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-5 md:grid-cols-2 md:p-8">

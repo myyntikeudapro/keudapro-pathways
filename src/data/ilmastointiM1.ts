@@ -1,5 +1,7 @@
 // Yksi tietolähde M1-ilmastointipätevyyskoulutuksen päiville, hinnalle ja paikkatilanteelle.
 export type SeatStatus = "avoinna" | "vahaan_paikkoja" | "taynna" | "peruttu";
+export const M1_LYYTI_ENABLED = true;
+export const M1_LYYTI_URL = "https://www.lyyti.fi/reg/Ajoneuvojen_ilmastointipatevyyskoulutus_M1landing_page_2645";
 
 export const ILMASTOINTI_M1 = {
   slug: "ilmastointipatevyys-m1-mantsala",
@@ -13,17 +15,16 @@ export const ILMASTOINTI_M1 = {
   priceText: "320 € + alv / osallistuja",
   minParticipants: 5,
   maxParticipants: 12,
-  closesDaysBefore: 14,
   seoTitle: "Ilmastointipätevyyskoulutus M1 Mäntsälä | KeudaPRO",
   seoDescription:
     "Yhden päivän M1-ilmastointipätevyyskoulutus ajoneuvoalan ammattilaisille Mäntsälässä. 320 € + alv. Kuusi toteutusta 12/2026–5/2027. Valitse päivä ja ilmoittaudu.",
   sessions: [
-    { id: 1, date: "2026-12-01", weekday: "tiistai", status: "avoinna" as SeatStatus },
-    { id: 2, date: "2027-01-12", weekday: "tiistai", status: "avoinna" as SeatStatus },
-    { id: 3, date: "2027-02-02", weekday: "tiistai", status: "avoinna" as SeatStatus },
-    { id: 4, date: "2027-03-02", weekday: "tiistai", status: "avoinna" as SeatStatus },
-    { id: 5, date: "2027-04-06", weekday: "tiistai", status: "avoinna" as SeatStatus },
-    { id: 6, date: "2027-05-04", weekday: "tiistai", status: "avoinna" as SeatStatus },
+    { id: 1, date: "2026-12-01", deadline: "2026-11-23", registrationUrl: "https://www.lyyti.in/Ajoneuvojen_ilmastointipatevyyskoulutus_M1_Mantsala_2881", weekday: "tiistai", status: "avoinna" as SeatStatus },
+    { id: 2, date: "2027-01-12", deadline: "2027-01-04", registrationUrl: "https://www.lyyti.in/Ajoneuvojen_ilmastointipatevyyskoulutus_M1_Mantsala_5134", weekday: "tiistai", status: "avoinna" as SeatStatus },
+    { id: 3, date: "2027-02-02", deadline: "2027-01-25", registrationUrl: "https://www.lyyti.in/Ajoneuvojen_ilmastointipatevyyskoulutus_M1_Mantsala_0324", weekday: "tiistai", status: "avoinna" as SeatStatus },
+    { id: 4, date: "2027-03-02", deadline: "2027-02-23", registrationUrl: "https://www.lyyti.in/Ajoneuvojen_ilmastointipatevyyskoulutus_M1_Mantsala_4424", weekday: "tiistai", status: "avoinna" as SeatStatus },
+    { id: 5, date: "2027-04-06", deadline: "2027-03-29", registrationUrl: "https://www.lyyti.in/Ajoneuvojen_ilmastointipatevyyskoulutus_M1_Mantsala_9970", weekday: "tiistai", status: "avoinna" as SeatStatus },
+    { id: 6, date: "2027-05-04", deadline: "2027-04-26", registrationUrl: "https://www.lyyti.in/Ajoneuvojen_ilmastointipatevyyskoulutus_M1_Mantsala_0810", weekday: "tiistai", status: "avoinna" as SeatStatus },
   ],
 };
 
@@ -56,14 +57,10 @@ export function helsinkiToday(now = new Date()): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Helsinki" }).format(now);
 }
 
-function daysBetween(fromIso: string, toIso: string): number {
-  return Math.round((Date.parse(`${toIso}T00:00:00Z`) - Date.parse(`${fromIso}T00:00:00Z`)) / 86_400_000);
-}
-
-/** Ilmoittautuminen päättyy 14 vuorokautta ennen koulutuspäivää; täydet ja perutut eivät ole valittavissa. */
-export function isSessionOpen(session: { date: string; status: SeatStatus }, now = new Date()): boolean {
+/** Lyytin ilmoittautumispäivä on mukana Helsingin kalenteripäivän loppuun asti. */
+export function isSessionOpen(session: { date: string; deadline: string; status: SeatStatus }, now = new Date()): boolean {
   if (session.status === "taynna" || session.status === "peruttu") return false;
-  return daysBetween(helsinkiToday(now), session.date) >= ILMASTOINTI_M1.closesDaysBefore;
+  return helsinkiToday(now) <= session.deadline && helsinkiToday(now) < session.date;
 }
 
 /** URL-parametrin ?pvm= esitäyttö hyväksytään vain avoimelle toteutukselle. */
