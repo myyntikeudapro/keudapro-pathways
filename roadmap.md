@@ -28,4 +28,5 @@
 - [x] Vaihe 0B: hyväksytyn suunnitelman tarkistuslista ja Remix-kehityskopion aloitusohje
 - [ ] Vaihe 0B toteutus: odottaa käyttäjän luomaa Remix-kehityskopiota, Git-yhteyden ja varmuuskopioiden käyttäjänäkymän vahvistusta sekä palautuskohteen vastuuhenkilöä
 - [x] M1-ilmastointipätevyys: Pätevyyskoulutukset-ryhmä, tuotesivu, ilmoittautuminen ja yritystarjous
-- [ ] M1-sivun julkaisu: odottaa Heikin hyväksyntää ja [täydennä]-kohtia
+- [x] M1-sivun julkaisulupa: Heikki hyväksyi 27.10.2026
+- [ ] M1 Lyyti: päiväkohtaiset linkit, määräpäivät, piilotettu säilytetty osallistujalomake ja suostumusperusteinen siirtymäseuranta; lopputesti
