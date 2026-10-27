@@ -86,6 +86,7 @@ export default function IlmastointiM1Page() {
     if (!Number.isInteger(n) || n < 1 || n > P.maxParticipants) e.count = `Osallistujia 1–${P.maxParticipants}.`;
     if (!v.previous) e.previous = "Valitse aiempi pätevyys.";
     if (v.previous === "vanha" && !/^\d{4}$/.test(v.previousYear ?? "")) e.previousYear = "Kirjoita vanhan pätevyyden vuosi.";
+    if (!v.payment) e.payment = "Valitse maksutapa.";
     if (!v.sfs) e.sfs = "Valitse SFS 6002 -tilanne.";
     if (!privacy) e.privacy = "Tietosuojaselosteen hyväksyntä on pakollinen.";
     setErrors(e);
@@ -105,6 +106,7 @@ export default function IlmastointiM1Page() {
       `Osallistujia: ${v.count}`,
       `Aiempi ilmastointipätevyys: ${v.previous === "vanha" ? `vanha pätevyys (${v.previousYear})` : "ei"}`,
       `SFS 6002 voimassa: ${v.sfs}`,
+      `Maksutapa: ${v.payment === "lasku" ? "lasku työnantajalle (työnantajan suostumus vahvistettu)" : "verkkomaksu"}`,
       `Ajoneuvoalan koulutustausta: ${v.background || "–"}`,
       `Lisätiedot: ${v.extra || "–"}`,
       `Markkinointilupa: ${marketing ? "kyllä" : "ei"}`,
@@ -293,11 +295,15 @@ export default function IlmastointiM1Page() {
             <p className="text-3xl font-bold text-primary">320 € <span className="text-base font-normal text-muted-foreground">+ alv / osallistuja</span></p>
             <p className="mt-4 text-muted-foreground"><strong className="text-foreground">Hintaan sisältyy:</strong> koulutuspäivä, koulutusmateriaali, käytännön harjoitukset Keudan kalustolla ja osallistumistodistus. Tukesin pätevyyshakemuksen mahdollinen käsittelymaksu ei sisälly hintaan.</p>
             <p className="mt-3 text-muted-foreground"><strong className="text-foreground">Ryhmäkoko:</strong> vähintään 5, enintään 12 osallistujaa.</p>
-            <p className="mt-3 text-muted-foreground"><strong className="text-foreground">Laskutus:</strong> laskutamme koulutuksen vahvistuksen jälkeen <Todo>maksuehto, esim. 14 pv netto</Todo>.</p>
+            <p className="mt-3 text-muted-foreground"><strong className="text-foreground">Maksaminen:</strong> Koulutuksen osallistumismaksu maksetaan verkkomaksuna ilmoittautumisen yhteydessä tai työnantajan maksaessa laskulla.</p>
           </div>
           <div className="space-y-3 text-muted-foreground">
             <h3 className="text-lg font-semibold text-foreground">Peruutusehdot</h3>
-            <p>Peruutus on maksuton ilmoittautumisajan päättymiseen saakka eli 14 vuorokautta ennen koulutuspäivää. Tämän jälkeen tehdystä peruutuksesta veloitamme koulutuksen koko hinnan. Osallistujan voi vaihtaa toiseen henkilöön ilman lisäkuluja. <Todo>vahvista ehdot KeudaPRO:n yleisten ehtojen mukaisiksi</Todo></p>
+            <p>Ilmoittautuminen on sitova. Peruutukset tulee tehdä viimeistään seitsemän vuorokautta ennen koulutuksen alkua osoitteeseen <a href="mailto:satu.vainio@keuda.fi" className="text-primary underline">satu.vainio@keuda.fi</a>. Jos olet maksanut verkkomaksuna, lähetä myös tilinumerosi maksun palautusta varten.</p>
+            <p>Myöhemmin tehdystä peruutuksesta veloitamme 50 % koulutuksen hinnasta. Peruuttamatta jätetystä koulutuksesta perimme koko hinnan. Osallistujan voi vaihtaa toiseen henkilöön ilman lisäkuluja.</p>
+            <p>Sairastapauksessa palautamme maksun kokonaan, kun sairauslomatodistus toimitetaan viikon kuluessa koulutuspäivästä luottamuksellisesti osoitteessa <a href="https://turvaposti.keuda.fi/" target="_blank" rel="noopener noreferrer" className="text-primary underline">turvaposti.keuda.fi</a>.</p>
+            <p>Jos työnantaja maksaa koulutuksen laskulla, ilmoittautuja vahvistaa, että hänellä on työnantajan suostumus. Jos työnantaja ei maksa laskua, maksu siirtyy osallistujan maksettavaksi.</p>
+            <p>Koko ehdot: <a href="https://www.keuda.fi/lyhytkoulutuksen-peruutusehdot/" target="_blank" rel="noopener noreferrer" className="text-primary underline">Keudan lyhytkoulutuksen peruutusehdot</a>.</p>
             <p>Jos koulutus ei toteudu vähimmäisosallistujamäärän jäädessä täyttymättä, tarjoamme paikan seuraavasta toteutuksesta tai palautamme maksun kokonaisuudessaan.</p>
           </div>
         </div>
@@ -343,6 +349,12 @@ export default function IlmastointiM1Page() {
                 <Input aria-label="Vanhan pätevyyden vuosi" placeholder="Vuosi, esim. 2015" inputMode="numeric" maxLength={4} value={v.previousYear ?? ""} onChange={(e) => set("previousYear", e.target.value)} className="mt-3 max-w-[200px]" />
               )}
               {err("previous")}{err("previousYear")}
+            </fieldset>
+            <fieldset className="md:col-span-2">
+              <legend className="mb-2 text-sm font-medium">Maksutapa *</legend>
+              {radio("payment", [["verkkomaksu", "Verkkomaksu"], ["lasku", "Lasku työnantajalle"]])}
+              {v.payment === "lasku" && <p className="mt-2 text-sm text-muted-foreground">Vahvistat, että sinulla on työnantajan suostumus osallistua koulutukseen työnantajan kustannuksella.</p>}
+              {err("payment")}
             </fieldset>
             <fieldset className="md:col-span-2">
               <legend className="mb-2 text-sm font-medium">SFS 6002 voimassa *</legend>
