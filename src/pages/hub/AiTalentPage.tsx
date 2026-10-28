@@ -8,6 +8,7 @@ import { AiTalentShell } from "@/components/hub/AiTalentShell";
 import { useAiTalentMembership } from "@/hooks/useAiTalentMembership";
 import NotFound from "@/pages/NotFound";
 import { isAiTalentVisible } from "@/data/aiTalent";
+import heroImg from "@/assets/hero-ai-coaches.jpg";
 
 const TITLE = "AI Talent – nuorten AI-osaamis- ja työllistymisohjelma";
 const CONTACT = "heikki.kallunki@keuda.fi";
@@ -15,9 +16,9 @@ const CONTACT = "heikki.kallunki@keuda.fi";
 const KeyFacts = () => (
   <dl className="grid grid-cols-3 gap-3">
     {[["Käynnistys", "10.11.2026"], ["Kesto", "n. 4–5 kk"], ["Paikkoja", "3–6"]].map(([k, v]) => (
-      <div key={k} className="rounded-xl border border-border bg-card p-3">
-        <dt className="text-xs uppercase tracking-wider text-muted-foreground">{k}</dt>
-        <dd className="mt-1 font-bold text-[hsl(var(--keuda-blue))]">{v}</dd>
+      <div key={k} className="rounded-xl border border-background/15 bg-background/5 p-3">
+        <dt className="text-xs uppercase tracking-wider text-background/50">{k}</dt>
+        <dd className="mt-1 font-bold text-background">{v}</dd>
       </div>
     ))}
   </dl>
@@ -45,16 +46,18 @@ function LoginGate({ signedInEmail, onSignOut }: { signedInEmail?: string | null
   };
 
   return (
-    <section className="bg-muted/40 py-12 md:py-20">
-      <div className="keuda-container grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start">
+    <section className="relative overflow-hidden bg-foreground text-background py-12 md:py-20">
+      <img src={heroImg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" style={{ objectPosition: "center 25%" }} />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-foreground/70 via-foreground/90 to-foreground md:bg-gradient-to-r md:from-foreground/95 md:via-foreground/85 md:to-foreground/60" />
+      <div className="keuda-container relative grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start">
         <div className="min-w-0">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-keuda-orange mb-3">KeudaPRO Hub · Projekti</p>
-          <h1 className="text-3xl md:text-5xl font-bold text-[hsl(var(--keuda-blue))] leading-tight mb-5 hyphens-auto">{TITLE}</h1>
-          <p className="text-lg text-muted-foreground mb-4">AI-koulutus, oikea kehitysprojekti ja näyttö työnantajille – tavoitteena työpaikka tai omat AI-toimeksiannot.</p>
-          <p className="mb-8 text-foreground">Ohjelma on tarkoitettu alle 30-vuotiaille työnhakijoille sekä nuorille yrittäjille, jotka haluavat kehittää omaa liiketoimintaansa tekoälyn avulla.</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-background/60 mb-3">KeudaPRO Hub · Projekti</p>
+          <h1 className="text-[32px] md:text-5xl font-extrabold tracking-tight text-background leading-[1.05] mb-5 hyphens-auto">{TITLE}</h1>
+          <p className="text-lg text-background/85 mb-4">AI-koulutus, oikea kehitysprojekti ja näyttö työnantajille – tavoitteena työpaikka tai omat AI-toimeksiannot.</p>
+          <p className="mb-8 text-background/75">Ohjelma on tarkoitettu alle 30-vuotiaille työnhakijoille sekä nuorille yrittäjille, jotka haluavat kehittää omaa liiketoimintaansa tekoälyn avulla.</p>
           <KeyFacts />
         </div>
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
+        <div className="rounded-xl border-2 border-border bg-card text-foreground p-6 shadow-[var(--shadow-card)]">
           {signedInEmail ? (
             <div className="space-y-4">
               <h2 className="text-xl font-bold">Ei käyttöoikeutta</h2>
@@ -94,7 +97,7 @@ const AccessNote = () => (
 );
 
 const Eyebrow = ({ children, light }: { children: React.ReactNode; light?: boolean }) => (
-  <p className={`text-xs font-bold uppercase tracking-[0.2em] mb-3 ${light ? "text-keuda-orange" : "text-[hsl(var(--keuda-blue))]"}`}>{children}</p>
+  <p className={`text-xs font-semibold uppercase tracking-[0.18em] mb-3 ${light ? "text-background/60" : "text-primary"}`}>{children}</p>
 );
 
 const STEPS = [
@@ -132,40 +135,43 @@ const List = ({ items, light }: { items: string[]; light?: boolean }) => (
 function ProgramContent() {
   return (
     <>
-      <section className="relative overflow-hidden bg-[#0B0B0B] text-white py-16 md:py-24">
-        <div aria-hidden className="absolute -top-40 -right-40 h-[480px] w-[480px] rounded-full bg-[hsl(var(--keuda-blue))]/30 blur-3xl" />
-        <div className="keuda-container relative">
+      <section className="relative overflow-hidden bg-foreground text-background">
+        <img src={heroImg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-70 md:opacity-100" style={{ objectPosition: "center 25%" }} />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/85 to-foreground md:bg-gradient-to-r md:from-foreground/95 md:via-foreground/80 md:to-foreground/45" />
+        <div className="keuda-container relative py-10 sm:py-14 md:py-24">
           <Eyebrow light>AI Talent · Pilotti 2026–2027 · Helsingin työllisyyspalvelut × KeudaPRO</Eyebrow>
-          <h1 className="text-4xl md:text-6xl font-bold leading-[1.08] max-w-4xl mb-6 text-white">
-            Opi. Rakenna. Näytä. <span className="text-keuda-orange">Työllisty – tai työllistä itsesi.</span>
+          <h1 className="text-[34px] md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] max-w-4xl mb-6 text-background">
+            Opi. Rakenna. Näytä. <span style={{ color: "hsl(var(--keuda-orange))" }}>Työllisty – tai työllistä itsesi.</span>
           </h1>
-          <div className="max-w-3xl space-y-3 text-lg text-white/75 mb-10">
+          <div className="max-w-3xl space-y-3 text-base md:text-xl text-background/80 mb-10">
             <p>Sinulta ei odoteta valmista työuraa. Odotamme, että haluat rakentaa sellaisen. AI Talentissa saat AI-koulutuksen, oikean kehitysprojektin ja mahdollisuuden näyttää työnantajille, mihin pystyt.</p>
             <p>Tavoitteena ei ole vain suorittaa koulutusta. Tavoitteena on päästä töihin – tai yrittäjänä saada omalle yritykselle ensimmäiset AI-toimeksiannot.</p>
           </div>
           <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[["Kenelle", "Alle 30-vuotiaat työnhakijat ja nuoret yrittäjät"], ["Startti", "ti 10.11.2026"], ["Lähipäivät", "klo 13–17"], ["Pätevyys", "Tekoälykoordinaattori (AI-Coordinator)"]].map(([k, v]) => (
-              <div key={k} className="rounded-xl border border-white/15 bg-white/5 p-4">
-                <dt className="text-xs uppercase tracking-wider text-keuda-orange">{k}</dt>
-                <dd className="mt-1 font-semibold">{v}</dd>
+              <div key={k} className="rounded-xl border border-background/15 bg-background/5 p-4 backdrop-blur-sm">
+                <dt className="text-[11px] font-medium uppercase tracking-wider text-background/50">{k}</dt>
+                <dd className="mt-1 font-bold text-background">{v}</dd>
               </div>
             ))}
           </dl>
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-background" aria-labelledby="ait-steps">
+      <section className="dark bg-background text-foreground py-14 md:py-20 border-y border-border/60" aria-labelledby="ait-steps">
         <div className="keuda-container">
           <Eyebrow>Näin ohjelma etenee</Eyebrow>
-          <h2 id="ait-steps" className="text-3xl md:text-4xl font-bold text-[hsl(var(--keuda-blue))] mb-10">Neljä vaihetta koulutuksesta työhön</h2>
+          <h2 id="ait-steps" className="text-2xl md:text-4xl font-bold text-foreground mb-10">Neljä vaihetta koulutuksesta työhön</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => {
               const last = i === STEPS.length - 1;
               return (
-                <article key={s.k} className={`rounded-2xl p-6 ${last ? "bg-[hsl(var(--keuda-blue))] text-white" : "bg-[#0B0B0B] text-white"}`}>
-                  <p className="text-sm font-bold tracking-[0.2em] text-keuda-orange">{String(i + 1).padStart(2, "0")} · {s.k}</p>
-                  <h3 className="mt-2 mb-4 text-xl font-bold text-white">{s.t}</h3>
-                  <List items={s.items} light />
+                <article key={s.k} className={`relative overflow-hidden rounded-xl border-2 bg-card p-6 shadow-[var(--shadow-card)] ${last ? "border-primary/60" : "border-border"}`}>
+                  <span aria-hidden className="absolute inset-x-0 top-0 h-1.5 bg-keuda-orange" />
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-keuda-orange text-lg font-extrabold text-foreground shadow-[0_0_18px_hsl(var(--keuda-orange)/0.45)]">{i + 1}</span>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{s.k}</p>
+                  <h3 className="mt-1 mb-4 text-xl font-bold text-foreground">{s.t}</h3>
+                  <List items={s.items} />
                 </article>
               );
             })}
@@ -173,15 +179,15 @@ function ProgramContent() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-muted/50 border-y border-border" aria-labelledby="ait-paths">
+      <section className="py-14 md:py-20 bg-accent/60 border-b border-border/60" aria-labelledby="ait-paths">
         <div className="keuda-container">
           <Eyebrow>Viisi polkua</Eyebrow>
-          <h2 id="ait-paths" className="text-3xl md:text-4xl font-bold text-[hsl(var(--keuda-blue))] mb-10 max-w-3xl">Perusosaaminen ja sen päällä poikkeuksellinen kyky käyttää tekoälyä</h2>
+          <h2 id="ait-paths" className="text-2xl md:text-4xl font-bold text-foreground mb-10 max-w-3xl">Perusosaaminen ja sen päällä poikkeuksellinen kyky käyttää tekoälyä</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PATHS.map((p, i) => (
-              <article key={p.t} className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
-                <p className="text-3xl font-bold text-keuda-orange">{i + 1}</p>
-                <h3 className="mt-1 mb-3 text-lg font-bold">{p.t}</h3>
+              <article key={p.t} className="group rounded-xl border-2 border-border bg-card p-6 shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[var(--shadow-card-hover)]">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-keuda-orange font-extrabold text-foreground">{i + 1}</span>
+                <h3 className="mt-4 mb-3 text-lg font-bold text-foreground">{p.t}</h3>
                 <List items={p.d} />
               </article>
             ))}
@@ -190,10 +196,10 @@ function ProgramContent() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-background" aria-labelledby="ait-time">
+      <section className="py-14 md:py-20 bg-background" aria-labelledby="ait-time">
         <div className="keuda-container">
           <Eyebrow>Aikataulu</Eyebrow>
-          <h2 id="ait-time" className="text-3xl md:text-4xl font-bold text-[hsl(var(--keuda-blue))] mb-10">Haku marraskuussa, näyttö maaliskuussa</h2>
+          <h2 id="ait-time" className="text-2xl md:text-4xl font-bold text-foreground mb-10">Haku marraskuussa, näyttö maaliskuussa</h2>
           <ol className="relative max-w-3xl border-l-2 border-keuda-orange pl-6 space-y-8">
             {TIMELINE.map((s) => (
               <li key={s.t} className="relative">
@@ -207,15 +213,15 @@ function ProgramContent() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-muted/50 border-y border-border" aria-labelledby="ait-fit">
+      <section className="py-14 md:py-20 bg-primary/5 border-y border-border/60" aria-labelledby="ait-fit">
         <div className="keuda-container">
           <h2 id="ait-fit" className="sr-only">Mitä sinulta odotetaan ja mitä saat</h2>
           <div className="grid gap-4 md:grid-cols-2">
-            <article className="rounded-2xl border border-border bg-card p-6">
+            <article className="rounded-xl border-2 border-border bg-card p-6 shadow-[var(--shadow-card)]">
               <h3 className="text-xl font-bold text-[hsl(var(--keuda-blue))] mb-4">Mitä sinulta odotetaan</h3>
               <List items={["Olet alle 30-vuotias työnhakija Helsingissä tai nuori yrittäjä, jolla on oma yritys tai yritysidea", "Haluat töihin tai haluat kehittää omaa liiketoimintaasi tekoälyn avulla, ja olet valmis tekemään asioita valmiiksi", "Kiinnostus tekoälyyn riittää – aiempaa AI-osaamista ei vaadita", "Pystyt osallistumaan lähipäiviin klo 13–17 ja projektityöhön niiden välillä"]} />
             </article>
-            <article className="rounded-2xl border border-border bg-card p-6">
+            <article className="rounded-xl border-2 border-border bg-card p-6 shadow-[var(--shadow-card)]">
               <h3 className="text-xl font-bold text-[hsl(var(--keuda-blue))] mb-4">Mitä saat</h3>
               <List items={["Tekoälykoordinaattorin pätevyys (AI-Coordinator)", "Henkilökohtainen valmennus (Heikki Kallunki ja Satu Vainio, KeudaPRO)", "ChatGPT- ja Lovable-lisenssit ohjelman ajaksi", "Oikea projekti, portfolio ja suora yhteys työnantajiin ja toimeksiantajiin"]} />
             </article>
@@ -227,17 +233,17 @@ function ProgramContent() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-background" aria-labelledby="ait-contact">
+      <section className="py-14 md:py-20 bg-background" aria-labelledby="ait-contact">
         <div className="keuda-container">
           <Eyebrow>Yhteystiedot</Eyebrow>
-          <h2 id="ait-contact" className="text-3xl font-bold text-[hsl(var(--keuda-blue))] mb-8">Kysy lisää</h2>
+          <h2 id="ait-contact" className="text-2xl md:text-3xl font-bold text-foreground mb-8">Kysy lisää</h2>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-border bg-card p-6">
+            <div className="rounded-xl border-2 border-border bg-card p-6 shadow-[var(--shadow-card)]">
               <h3 className="font-bold text-lg">Heikki Kallunki</h3>
               <p className="text-muted-foreground">Toimitusjohtaja, KeudaPRO · ohjelman vastuuhenkilö</p>
               <a href={`mailto:${CONTACT}`} className="mt-2 inline-block text-[hsl(var(--keuda-blue))] underline">{CONTACT}</a>
             </div>
-            <div className="rounded-2xl border border-border bg-card p-6">
+            <div className="rounded-xl border-2 border-border bg-card p-6 shadow-[var(--shadow-card)]">
               <h3 className="font-bold text-lg">Helsingin työllisyyspalvelut</h3>
               <p className="text-muted-foreground">Osallistujien tunnistus ja valinta yhdessä KeudaPROn kanssa.</p>
               <p className="mt-2 font-semibold">Oma omavalmentajasi kertoo lisää.</p>

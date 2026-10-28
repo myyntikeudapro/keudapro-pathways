@@ -148,30 +148,32 @@ const AiTalentProjectsPage = () => {
         </section>
       ) : (
         <>
-          <section className="bg-muted/40 border-b border-border py-10 md:py-14">
-            <div className="keuda-container">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-keuda-orange mb-3">AI Talent · Projektit</p>
-              <h1 className="text-3xl md:text-4xl font-bold text-[hsl(var(--keuda-blue))] mb-4">{role === "participant" ? "Oma projektisi" : "Aihiopankki"}</h1>
+          <section className="relative overflow-hidden bg-foreground text-background py-12 md:py-20">
+            <div aria-hidden className="absolute -top-32 -right-32 h-[420px] w-[420px] rounded-full bg-primary/30 blur-3xl" />
+            <div className="keuda-container relative">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-background/60 mb-3">AI Talent · Projektit</p>
+              <h1 className="text-[32px] md:text-5xl font-extrabold tracking-tight text-background mb-4">{role === "participant" ? "Oma projektisi" : "Aihiopankki"}</h1>
               {role !== "participant" && (
-                <p className="max-w-3xl text-foreground">Aihiopankki on ohjelman tärkein työkalu polkujen lunastamiseen: viisi polkua on tarjolla vain, jos jokaiseen on oikea aihio, jolla on oikea omistaja. Tavoite ennen valintoja: 6–8 rajattua aihiota.</p>
+                <p className="max-w-3xl text-background/80 md:text-lg">Aihiopankki on ohjelman tärkein työkalu polkujen lunastamiseen: viisi polkua on tarjolla vain, jos jokaiseen on oikea aihio, jolla on oikea omistaja. Tavoite ennen valintoja: 6–8 rajattua aihiota.</p>
               )}
               {canProposeProject(role) && (
                 <Button className="mt-6" onClick={() => { setNotice(null); setEditing({ ...EMPTY }); }}>{isAdmin ? "Lisää aihio" : "Ehdota aihiota"}</Button>
               )}
-              {notice && <p role="status" className="mt-4 text-sm text-primary">{notice}</p>}
+              {notice && <p role="status" className="mt-4 text-sm text-background">{notice}</p>}
             </div>
           </section>
-          <section className="keuda-container py-10 md:py-14 space-y-10">
+          <section className="bg-accent/60"><div className="keuda-container py-12 md:py-16 space-y-10">
             {projects.length === 0 && <p className="text-muted-foreground">{role === "participant" ? "Sinulle ei ole vielä kiinnitetty aihiota." : "Aihioita ei vielä ole."}</p>}
             {[1, 2, 3, 4, 5].map((n) => {
               const list = projects.filter((p) => p.path === n);
               if (!list.length) return null;
               return (
                 <div key={n}>
-                  <h2 className="text-xl md:text-2xl font-bold mb-4"><span className="text-keuda-orange">{n}.</span> {AI_TALENT_PATH_NAMES[n]}</h2>
+                  <h2 className="text-xl md:text-2xl font-bold mb-4"><span className="mr-2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-keuda-orange align-middle text-base font-extrabold text-foreground">{n}</span>{AI_TALENT_PATH_NAMES[n]}</h2>
                   <ul className="grid gap-4 md:grid-cols-2">
                     {list.map((p) => (
-                      <li key={p.id} className="flex flex-col rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-card)]">
+                      <li key={p.id} className="flex flex-col relative overflow-hidden rounded-xl border-2 border-border bg-card p-5 pt-6 shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50">
+                        <span aria-hidden className="absolute inset-x-0 top-0 h-1.5 bg-keuda-orange" />
                         <div className="mb-3 flex flex-wrap items-center gap-2">
                           <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Polku {n}</span>
                           <span className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold ${STATUS_STYLE[p.status]}`}>{p.status}</span>
@@ -191,7 +193,7 @@ const AiTalentProjectsPage = () => {
                 </div>
               );
             })}
-          </section>
+          </div></section>
         </>
       )}
       <Dialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)}>
