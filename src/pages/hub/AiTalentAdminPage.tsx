@@ -39,6 +39,17 @@ const AiTalentAdminPage = () => {
     if (error) { setMsg({ kind: "err", text: error.code === "23505" ? "Osoite on jo jäsenlistalla." : "Lisäys epäonnistui." }); return; }
     setEmail(""); setMsg({ kind: "ok", text: `${clean} lisättiin. Hän voi kirjautua sivulle sähköpostilinkillä.` }); load();
   };
+  const [demo, setDemo] = useState<{ email: string; password: string } | null>(null);
+  const demoAction = async (action: "ai_talent_demo" | "ai_talent_demo_disable") => {
+    if (action === "ai_talent_demo_disable" && !window.confirm("Suljetaanko demotunnus? Salasana lakkaa toimimasta.")) return;
+    setBusy(true); setMsg(null);
+    const { data, error } = await supabase.functions.invoke("admin-users", { body: { action, role: "partner" } });
+    setBusy(false);
+    if (error || data?.error) { setMsg({ kind: "err", text: data?.error ?? "Demotunnuksen käsittely epäonnistui." }); return; }
+    setDemo(action === "ai_talent_demo" ? { email: data.email, password: data.password } : null);
+    setMsg({ kind: "ok", text: action === "ai_talent_demo" ? "Demotunnus on valmis." : "Demotunnus suljettiin." });
+    load();
+  };
   const remove = async (m: Member) => {
     if (!window.confirm(`Poistetaanko ${m.email} jäsenistä?`)) return;
     const { error } = await supabase.from("ai_talent_members").delete().eq("id", m.id);
@@ -67,6 +78,21 @@ const AiTalentAdminPage = () => {
               </div>
               <Button type="submit" variant="cta" disabled={busy}>Lisää jäsen</Button>
             </form>
+            <div className="mb-6 rounded-2xl border-2 border-keuda-orange/50 bg-card p-5">
+              <h2 className="font-bold text-lg mb-1">Demopalaverin yhteinen tunnus</h2>
+              <p className="text-sm text-muted-foreground mb-4">Kumppanin näkymä: näkee ohjelman ja aihiopankin, voi ehdottaa aihioita. Ei pääsyä myyntityötilaan. Uusi luonti vaihtaa salasanan.</p>
+              {demo && (
+                <div className="mb-4 rounded-lg bg-muted p-3 text-sm">
+                  <p>Tunnus: <strong className="break-all">{demo.email}</strong></p>
+                  <p>Salasana: <strong className="font-mono">{demo.password}</strong></p>
+                  <p className="mt-1 text-xs text-muted-foreground">Salasana näytetään vain nyt. Kirjautuminen: /hub/ai-talent → sähköposti ja salasana.</p>
+                </div>
+              )}
+              <div className="flex flex-wrap gap-2">
+                <Button variant="cta" disabled={busy} onClick={() => demoAction("ai_talent_demo")}>Luo / uusi demotunnus</Button>
+                <Button variant="outline" disabled={busy} onClick={() => demoAction("ai_talent_demo_disable")}>Sulje demotunnus</Button>
+              </div>
+            </div>
             {msg && <p role="status" className={`mb-4 text-sm ${msg.kind === "ok" ? "text-[hsl(var(--keuda-blue))]" : "text-destructive"}`}>{msg.text}</p>}
             <ul className="divide-y divide-border rounded-2xl border border-border bg-card">
               {members.length === 0 && <li className="p-4 text-sm text-muted-foreground">Ei vielä jäseniä.</li>}

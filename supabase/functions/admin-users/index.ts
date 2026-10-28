@@ -65,6 +65,41 @@ Deno.serve(async (req) => {
       if (!has) await admin.from("user_roles").insert({ user_id: userId, role });
       return json({ ok: true, email, password });
     }
+    if (body.action === "ai_talent_demo") {
+      // Shared AI Talent demo login: no site roles (never CRM access), membership only.
+      const email = "ai-talent-demo@keudapro.fi";
+      const memberRole = ["participant", "helsinki", "partner"].includes(body.role) ? body.role : "partner";
+      const bytes = crypto.getRandomValues(new Uint8Array(6));
+      const password = "Demo-" + btoa(String.fromCharCode(...bytes)).replace(/[+/=]/g, "x");
+      const { data: list } = await admin.auth.admin.listUsers({ perPage: 1000 });
+      const existing = list?.users.find((x) => x.email?.toLowerCase() === email);
+      let userId = existing?.id;
+      if (userId) {
+        const { data: siteRoles } = await admin.from("user_roles").select("id").eq("user_id", userId);
+        if ((siteRoles ?? []).length) return json({ error: "Demotunnuksella on sivuston rooli, ei muutettu." }, 409);
+        const { error } = await admin.auth.admin.updateUserById(userId, { password });
+        if (error) throw error;
+      } else {
+        const { data: created, error } = await admin.auth.admin.createUser({ email, password, email_confirm: true });
+        if (error) throw error;
+        userId = created.user.id;
+      }
+      await admin.from("ai_talent_members").delete().eq("email", email);
+      const { error: me } = await admin.from("ai_talent_members").insert({ email, role: memberRole, user_id: userId, created_by: u.user.id });
+      if (me) throw me;
+      return json({ ok: true, email, password, role: memberRole });
+    }
+    if (body.action === "ai_talent_demo_disable") {
+      const email = "ai-talent-demo@keudapro.fi";
+      await admin.from("ai_talent_members").delete().eq("email", email);
+      const { data: list } = await admin.auth.admin.listUsers({ perPage: 1000 });
+      const existing = list?.users.find((x) => x.email?.toLowerCase() === email);
+      if (existing) {
+        const bytes = crypto.getRandomValues(new Uint8Array(24));
+        await admin.auth.admin.updateUserById(existing.id, { password: btoa(String.fromCharCode(...bytes)) });
+      }
+      return json({ ok: true });
+    }
     return json({ error: "Tuntematon toiminto." }, 400);
   } catch (e) {
     console.error("admin-users error:", e);
