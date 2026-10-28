@@ -41,6 +41,60 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_talent_projects: {
+        Row: {
+          commitment_accepted: boolean
+          created_at: string
+          created_by: string | null
+          data_scope: string | null
+          deliverable: string | null
+          id: string
+          metric: string | null
+          owner_name: string | null
+          owner_org: string
+          participant_user_id: string | null
+          path: number
+          problem: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          commitment_accepted?: boolean
+          created_at?: string
+          created_by?: string | null
+          data_scope?: string | null
+          deliverable?: string | null
+          id?: string
+          metric?: string | null
+          owner_name?: string | null
+          owner_org?: string
+          participant_user_id?: string | null
+          path: number
+          problem?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          commitment_accepted?: boolean
+          created_at?: string
+          created_by?: string | null
+          data_scope?: string | null
+          deliverable?: string | null
+          id?: string
+          metric?: string | null
+          owner_name?: string | null
+          owner_org?: string
+          participant_user_id?: string | null
+          path?: number
+          problem?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       booking_requests: {
         Row: {
           created_at: string
@@ -752,6 +806,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      ai_talent_participants: {
+        Args: never
+        Returns: {
+          email: string
+          user_id: string
+        }[]
+      }
       ai_talent_role: { Args: { _user_id: string }; Returns: string }
       delete_email: {
         Args: { message_id: number; queue_name: string }

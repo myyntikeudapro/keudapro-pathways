@@ -78,6 +78,13 @@
       "when": 1793135316042,
       "tag": "0010_ai_talent_members",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1793163887530,
+      "tag": "0011_ai_talent_projects",
+      "breakpoints": true
     }
   ]
 }
