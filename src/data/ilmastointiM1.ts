@@ -9,6 +9,8 @@ export const ILMASTOINTI_M1 = {
   name: "Ajoneuvojen ilmastointipätevyyskoulutus M1 – Mäntsälä",
   shortName: "M1-ilmastointipätevyys",
   category: "Pätevyyskoulutukset",
+  sisaltaa_kokeen: true,
+  todistuksen_myontaja: "Keuda",
   duration: "1 päivä",
   hours: "8.00–16.00",
   place: "Keuda, Mäntsälä",
@@ -17,7 +19,7 @@ export const ILMASTOINTI_M1 = {
   maxParticipants: 12,
   seoTitle: "Ilmastointipätevyyskoulutus M1 Mäntsälä | KeudaPRO",
   seoDescription:
-    "Yhden päivän M1-ilmastointipätevyyskoulutus ajoneuvoalan ammattilaisille Mäntsälässä. 320 € + alv. Kuusi toteutusta 12/2026–5/2027. Valitse päivä ja ilmoittaudu.",
+    "Yhden päivän M1-ilmastointipätevyyskoulutus Mäntsälässä, sisältää M1-pätevyyskokeen. 320 € + alv. Kuusi toteutusta 12/2026–5/2027. Valitse päivä ja ilmoittaudu.",
   sessions: [
     { id: 1, date: "2026-12-01", deadline: "2026-11-23", registrationUrl: "https://www.lyyti.in/Ajoneuvojen_ilmastointipatevyyskoulutus_M1_Mantsala_2881", weekday: "tiistai", status: "avoinna" as SeatStatus },
     { id: 2, date: "2027-01-12", deadline: "2027-01-04", registrationUrl: "https://www.lyyti.in/Ajoneuvojen_ilmastointipatevyyskoulutus_M1_Mantsala_5134", weekday: "tiistai", status: "avoinna" as SeatStatus },

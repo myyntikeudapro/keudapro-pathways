@@ -52,14 +52,15 @@ const themes = [
   "Kylmäaineen talteenotto, täyttö ja tiiviyden varmistaminen",
   "Huolto- ja korjaustyöt turvallisesti ja määräysten mukaisesti",
   "Pätevyysvaatimukset ja viranomaismenettely",
-  "Valmistautuminen M1-pätevyyskokeeseen",
+  "M1-pätevyyskoe",
 ];
 
 const faqs: [string, string][] = [
-  ["Saanko koulutuksesta suoraan M1-pätevyyden?", "Et suoraan. Koulutus ja hyväksytty pätevyyskoe ovat edellytys pätevyyden hakemiselle. Pätevyys haetaan Tukesilta viranomaismenettelyn mukaisesti."],
-  ["Minulla on vanha ilmastointipätevyys. Pitääkö minun käydä koko koulutus?", "Vanhan pätevyyden haltija voi päivittää pätevyytensä siirtymäajan kertauskoulutuksella ja pätevyysmenettelyllä. Kerro aiempi pätevyytesi lomakkeella, niin varmistamme sinulle sopivan polun."],
-  ["Mikä on M1:n ja M1 A:n ero?", "Tukes erottaa vastuuhenkilön M1-pätevyyden ja asentajan M1 A -pätevyyden. Kumpaa haet, riippuu työtehtävistäsi ja koulutustaustastasi."],
-  ["Tarvitsenko SFS 6002 -koulutuksen?", "Voimassa oleva SFS 6002 -sähkötyöturvallisuuskoulutus voi olla pätevyyden edellytys. Jos sinulla ei ole sitä, kerro siitä lomakkeella."],
+  ["Sisältyykö pätevyyskoe koulutukseen?", "Kyllä. Koulutuspäivä sisältää M1-pätevyyskokeen, ja hyväksytystä suorituksesta saat Keudan todistuksen. Pätevyyden haet itse Tukesilta todistuksen ja koulutustaustasi perusteella."],
+  ["Minulla on vanha KU A -pätevyys. Riittääkö siirtymäajan päivityskoulutus?", "Päivityskoulutuksella saat vain M2-pätevyyden eli oikeuden rajattuihin huoltotöihin. Jos teet korjaustöitä, joissa kylmäainepiiri avataan, tarvitset M1- tai M1 A -pätevyyden, jonka suoritat tällä koulutuksella."],
+  ["Mikä on M1:n ja M1 A:n ero?", "M1 on yrityksen vastuuhenkilön pätevyys ja M1 A asentajan pätevyys. Kumman haet, riippuu työtehtävästäsi ja koulutustaustastasi. Molemmat haetaan tämän koulutuksen todistuksella."],
+  ["Voinko osallistua ilman SFS 6002 -koulutusta?", "Et. Voimassa oleva ajoneuvoalan SFS 6002 -sähkötyöturvallisuuskoulutus on osallistumisen edellytys, ja todistus esitetään kurssin alussa. Ota yhteyttä, niin kerromme, miten saat sen suoritettua ennen koulutuspäivää."],
+  ["Meillä on R744-järjestelmiä. Riittääkö M1?", "Ei. Hiilidioksidia käyttävien järjestelmien töihin tarvitaan M3-pätevyys. M3-koulutukset ovat tarjonnassa vuonna 2027."],
   ["Mitä jos koulutuspäivä ei toteudu?", "Tarjoamme paikan seuraavasta toteutuksesta tai palautamme maksun kokonaan."],
   ["Voiko koulutuksen järjestää meidän korjaamollamme?", "Kyllä, soveltuvin osin. Pyydä yrityskoulutustarjous."],
 ];
@@ -97,10 +98,11 @@ export default function IlmastointiM1Page() {
     if ((v.billing ?? "").trim().length < 3) e.billing = "Kirjoita laskutus- tai verkkolaskuosoite.";
     const n = Number(v.count);
     if (!Number.isInteger(n) || n < 1 || n > P.maxParticipants) e.count = `Osallistujia 1–${P.maxParticipants}.`;
-    if (!v.previous) e.previous = "Valitse aiempi pätevyys.";
-    if (v.previous === "vanha" && !/^\d{4}$/.test(v.previousYear ?? "")) e.previousYear = "Kirjoita vanhan pätevyyden vuosi.";
+    if (!/^\d{1,2}\.\d{1,2}\.\d{4}$/.test((v.birthdate ?? "").trim())) e.birthdate = "Kirjoita syntymäaika muodossa PP.KK.VVVV.";
+    if (!v.previous) e.previous = "Valitse KU A tai M2.";
+    if (!/^\d{4}$/.test(v.previousYear ?? "")) e.previousYear = "Kirjoita pätevyyden suoritusvuosi.";
     if (!v.payment) e.payment = "Valitse maksutapa.";
-    if (!v.sfs) e.sfs = "Valitse SFS 6002 -tilanne.";
+    if (!/^(0?[1-9]|1[0-2])\/\d{4}$/.test((v.sfs ?? "").trim())) e.sfs = "Kirjoita voimassaolo muodossa KK/VVVV.";
     if (!privacy) e.privacy = "Tietosuojaselosteen hyväksyntä on pakollinen.";
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -118,10 +120,10 @@ export default function IlmastointiM1Page() {
       `Y-tunnus: ${v.ytunnus || "–"}`,
       `Laskutusosoite: ${v.billing}`,
       `Osallistujia: ${v.count}`,
-      `Aiempi ilmastointipätevyys: ${v.previous === "vanha" ? `vanha pätevyys (${v.previousYear})` : "ei"}`,
-      `SFS 6002 voimassa: ${v.sfs}`,
+      `Syntymäaika: ${v.birthdate}`,
+      `Aiempi pätevyys: ${v.previous === "m2" ? "M2" : "KU A"} (${v.previousYear})`,
+      `SFS 6002 voimassa saakka: ${v.sfs}`,
       `Maksutapa: ${v.payment === "lasku" ? "lasku työnantajalle (työnantajan suostumus vahvistettu)" : "verkkomaksu"}`,
-      `Ajoneuvoalan koulutustausta: ${v.background || "–"}`,
       `Lisätiedot: ${v.extra || "–"}`,
       `Markkinointilupa: ${marketing ? "kyllä" : "ei"}`,
     ];
@@ -202,11 +204,11 @@ export default function IlmastointiM1Page() {
               <span className="whitespace-nowrap" style={{ color: "hsl(var(--keuda-orange))" }}>M1 – Mäntsälä</span>
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-background/85 md:text-xl">
-              Yhden päivän koulutus, joka valmentaa ajoneuvojen ilmastointijärjestelmien huolto- ja korjaustöiden M1-pätevyyskokeeseen. Valitse sopiva päivä ja varmista pätevyytesi ennen siirtymäajan päättymistä.
+              Yhden päivän koulutus, joka sisältää M1-pätevyyskokeen. Hyväksytyllä suorituksella haet Tukesilta vastuuhenkilön M1- tai asentajan M1 A -pätevyyden. Valitse sopiva päivä ja varmista korjaamosi pätevyydet ennen siirtymäajan päättymistä.
             </p>
           </div>
           <ul className="mt-8 grid max-w-4xl gap-3 sm:grid-cols-3 md:mt-10 md:gap-4">
-            {[[CalendarDays, "Kesto", "1 päivä, klo 8.00–16.00"], [Euro, "Hinta", P.priceText], [MapPin, "Paikka", "Keuda Mäntsälä"]].map(([Icon, k, t]) => {
+            {[[CalendarDays, "Kesto", "1 päivä, klo 8.00–16.00, sisältää kokeen"], [Euro, "Hinta", P.priceText], [MapPin, "Paikka", "Keuda Mäntsälä"]].map(([Icon, k, t]) => {
               const I = Icon as typeof CalendarDays;
               return (
                 <li key={k as string} className="flex items-center gap-3 rounded-xl border border-background/15 bg-background/5 p-4 backdrop-blur-sm">
@@ -239,7 +241,7 @@ export default function IlmastointiM1Page() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_1fr]">
           <div className="space-y-4 text-background/80">
             <p>Ajoneuvojen ilmastointijärjestelmien henkilöpätevyydet on uudistettu. Uudet M1–M4-pätevyysluokat määrittelevät, millaisia huolto-, korjaus- ja talteenottotöitä henkilö saa tehdä. Vanhan järjestelmän mukaiset pätevyydet ovat voimassa 12.3.2029 saakka.</p>
-            <p>Vanhan pätevyyden haltija voi päivittää pätevyytensä siirtymäajan menettelyllä. Kertauskoulutukseen perustuvaa uutta pätevyyttä on haettava viimeistään 12.12.2028.</p>
+            <p>Vanhan KU A -pätevyyden haltija voi päivittää pätevyytensä siirtymäajan kertauskoulutuksella, mutta sillä saa vain M2-pätevyyden eli oikeuden rajattuihin huoltotöihin. Jos teet korjaustöitä, joissa kylmäainepiiri avataan, tarvitset M1- tai M1 A -pätevyyden. Sen suoritat tällä koulutuksella ja siihen sisältyvällä kokeella.</p>
             <p>Muutos koskee henkilöauto- ja hyötyajoneuvokorjaamoita, ilmastointihuoltoja ja muita yrityksiä, joissa työskennellään ajoneuvojen kylmäainejärjestelmien parissa. Koulutuspaikkojen kysyntä kasvaa siirtymäajan lopulla, joten pätevyyttä ei kannata jättää viimeiseen hetkeen.</p>
           </div>
           <div className="space-y-3">
@@ -256,9 +258,9 @@ export default function IlmastointiM1Page() {
       <Section id="kenelle" eyebrow="Kohderyhmä" title="Kenelle koulutus sopii" muted>
         <div className="grid gap-5 md:grid-cols-3">
           {[
-            ["Korjaamon asentajat", "Teet ilmastointijärjestelmien huoltoja ja korjauksia, joissa kylmäainepiiri avataan. M1 on työsi perustason pätevyys."],
-            ["Vanhan pätevyyden haltijat", "Sinulla on vanhan järjestelmän mukainen ilmastointipätevyys ja haluat päivittää sen uuden järjestelmän mukaiseksi siirtymäaikana."],
-            ["Korjaamoyritykset", "Useamman työntekijän pätevyydet pitää saattaa ajan tasalle. Ilmoita koko ryhmä samaan toteutukseen tai pyydä yrityskohtainen koulutus."],
+            ["Korjaamon asentajat", "Teet työssäsi ilmastointijärjestelmien huoltoja ja korjauksia, joissa kylmäainepiiri avataan. M1 A on näiden töiden uusi pätevyysluokka, jolla saat jatkossakin tehdä kaikkia ajoneuvoilmastointiin liittyviä töitä (paitsi R744)."],
+            ["Vanhan pätevyyden haltijat", "Sinulla on vanhan järjestelmän mukainen ilmastointipätevyys KU A, ja haluat päivittää sen uuden järjestelmän mukaiseksi siirtymäaikana."],
+            ["Korjaamoyritykset", "Useamman työntekijän pätevyydet pitää saattaa ajan tasalle. Ilmoita koko ryhmä samaan toteutukseen tai pyydä yrityskohtainen koulutus. Samalla saat vastuuhenkilönne koulutuksen vastaamaan asentajien uusia pätevyyksiä."],
           ].map(([t, d]) => (
             <div key={t} className="rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-6">
               <h3 className="mb-2 text-lg font-semibold text-foreground">{t}</h3>
@@ -266,17 +268,27 @@ export default function IlmastointiM1Page() {
             </div>
           ))}
         </div>
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <div className="rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
+            <h3 className="mb-3 text-lg font-semibold text-foreground">M1-pätevyyden kattavuus</h3>
+            <ul className="grid grid-cols-2 gap-2">
+              {["Henkilöautot", "Pakettiautot", "Kuorma-autot", "Linja-autot", "Työkoneet", "Traktorit"].map((x) => (
+                <li key={x} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden /><span>{x}</span></li>
+              ))}
+            </ul>
+          </div>
+          <p className="self-start rounded-xl border-l-4 border-[hsl(var(--keuda-orange))] bg-card p-5 text-muted-foreground shadow-[var(--shadow-card)]"><strong className="text-foreground">Huomautus:</strong> Jos yrityksessänne työskennellään hiilidioksidia (R744) kylmäaineena käyttävien ajoneuvojen parissa, vastuuhenkilö ja asentajat tarvitsevat M3-pätevyyden. M3-koulutukset ovat tarjonnassa 2027.</p>
+        </div>
       </Section>
 
       <Section id="sisalto" eyebrow="Sisältö" title="Tietoa koulutuksesta" tone="teal">
         <div className="grid gap-10 md:grid-cols-2">
           <div className="space-y-4 text-muted-foreground">
             <h3 className="text-lg font-semibold text-foreground">Sisältö ja tavoite</h3>
-            <p>Koulutus antaa valmiudet ajoneuvojen ilmastointijärjestelmien turvalliseen ja määräysten mukaiseen huoltoon ja korjaukseen. Päivän aikana kerrataan kylmäaineiden käsittely, talteenotto ja järjestelmän huolto- ja korjaustoimenpiteet sekä pätevyysvaatimusten edellyttämä osaaminen.</p>
-            <p>Koulutus valmentaa M1-pätevyyskokeeseen. Koulutus ei sisällä pätevyyskoetta, vaan antaa osaamisen ja valmiudet kokeen suorittamiseen. Koe suoritetaan erikseen.</p>
-            <p>Tukes erottaa vastuuhenkilön M1-pätevyyden ja asentajan M1 A -pätevyyden. Hyväksytty koe ja riittävä koulutustausta mahdollistavat soveltuvan pätevyyden hakemisen Tukesilta.</p>
+            <p>Koulutus antaa valmiudet ajoneuvojen ilmastointijärjestelmien turvalliseen ja määräysten mukaiseen huoltoon ja korjaukseen. Päivän aikana käydään läpi kylmäaineiden käsittely, talteenotto sekä järjestelmän huolto- ja korjaustoimenpiteet ja pätevyysvaatimusten edellyttämä osaaminen.</p>
+            <p>Koulutuspäivä sisältää M1-pätevyyskokeen. Hyväksytystä suorituksesta saat Keudan todistuksen, jolla haet pätevyyttä Tukesilta.</p>
             <h3 className="pt-2 text-lg font-semibold text-foreground">Päivän kulku</h3>
-            <p>Klo 8.00–16.00 Keudan ajoneuvoalan koulutustiloissa Mäntsälässä. Päivä sisältää teoriaosuuden ja käytännön harjoituksia Keudan opetuskalustolla. Koulutukseen sisältyvät aamukahvit (kahvi ja sämpylä).</p>
+            <p>Klo 8.00–16.00 Keudan ajoneuvoalan koulutustiloissa Mäntsälässä. Päivä sisältää teoriaosuuden, käytännön harjoituksia Keudan opetuskalustolla ja loppukokeen. Hintaan sisältyvät lounas ja kahvit.</p>
           </div>
           <div>
             <h3 className="mb-4 text-lg font-semibold text-foreground">Koulutuspäivän teemat</h3>
@@ -287,16 +299,37 @@ export default function IlmastointiM1Page() {
             </ul>
           </div>
         </div>
+        <div className="mt-10 rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-card)] md:p-8">
+          <h3 className="mb-2 text-lg font-semibold text-foreground">Pätevyyden hakeminen Tukesilta</h3>
+          <p className="mb-5 text-muted-foreground">Kun olet suorittanut koulutuksen ja läpäissyt loppukokeen, voit hakea pätevyyttä Tukesilta seuraavasti.</p>
+          <div className="grid gap-6 text-muted-foreground md:grid-cols-2">
+            <div>
+              <p className="mb-2 font-medium text-foreground">Yrityksen vastuuhenkilön pätevyys M1, kun jokin seuraavista täyttyy kohdallasi:</p>
+              <ul className="list-disc space-y-1 pl-6">
+                <li>suoritettu ajoneuvoalan perustutkinto, ammattitutkinto tai erikoisammattitutkinto</li>
+                <li>autoalalle soveltuva työteknikon, teknikon tai insinöörin tutkinto</li>
+                <li>olet itse autoliikkeen omistaja.</li>
+              </ul>
+            </div>
+            <div>
+              <p className="mb-2 font-medium text-foreground">Asentajan pätevyys M1 A, kun toinen seuraavista täyttyy kohdallasi:</p>
+              <ul className="list-disc space-y-1 pl-6">
+                <li>suoritettu ajoneuvoalan perustutkinto, joka sisältää tutkinnon osan Lämmönhallintajärjestelmän korjaustyöt, 15 osp (vuodesta 2026 alkaen)</li>
+                <li>muu riittävä ajoneuvoalan koulutustausta, esimerkiksi todistus valmistajan tai maahantuojan järjestämistä koulutuksista.</li>
+              </ul>
+            </div>
+          </div>
+          <p className="mt-5 text-sm text-muted-foreground">Tukes voi pyytää hakemuksesi liitteeksi edellä mainittuja todistuksia. Tähän koulutukseen osallistuminen ei niitä edellytä.</p>
+        </div>
       </Section>
 
       <Section eyebrow="Edellytykset" title="Osallistumisen edellytykset" tone="blue">
-        <p className="mb-4 text-muted-foreground">Sopiva koulutuspolku riippuu aiemmasta pätevyydestäsi, koulutustaustastasi ja työtehtävistäsi. Pätevyyden hakemiseen voidaan edellyttää:</p>
+        <p className="mb-4 text-muted-foreground">Koulutukseen osallistuminen edellyttää, että sinulla on</p>
         <ul className="mb-5 list-disc space-y-2 pl-6">
-          <li>aiempaa ajoneuvojen ilmastointipätevyyttä tai riittävää ajoneuvoalan koulutustaustaa</li>
-          <li>voimassa olevaa SFS 6002 -sähkötyöturvallisuuskoulutusta</li>
-          <li>tarvittaessa tutkinnon osaa Lämmönhallintajärjestelmän korjaustyöt, 15 osp.</li>
+          <li>suoritettuna KU A- tai M2-pätevyys, josta on merkintä Tukesin rekisterissä, ja</li>
+          <li>voimassa oleva ajoneuvoalan SFS 6002 -sähkötyöturvallisuuskoulutus. Todistus esitetään kouluttajalle kurssin alussa.</li>
         </ul>
-        <p className="rounded-lg border bg-card p-4 text-sm text-muted-foreground">Jos et ole varma, riittääkö taustasi, kerro tilanteestasi ilmoittautumislomakkeella. Autamme selvittämään sinulle sopivan polun ennen koulutusta.</p>
+        <p className="rounded-lg border bg-card p-4 text-sm text-muted-foreground">Näiden pohjalta koulutus voidaan toteuttaa yhdessä päivässä. Jos SFS 6002 -koulutuksesi on vanhentunut tai puuttuu, ota yhteyttä, niin kerromme, miten saat sen suoritettua ennen koulutuspäivää.</p>
       </Section>
 
       <Section id="ajankohdat" eyebrow="Ajankohdat" title="Valitse koulutuspäivä" tone="gray">
@@ -322,7 +355,7 @@ export default function IlmastointiM1Page() {
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-6">
             <p className="text-3xl font-bold text-primary">320 € <span className="text-base font-normal text-muted-foreground">+ alv / osallistuja</span></p>
-            <p className="mt-4 text-muted-foreground"><strong className="text-foreground">Hintaan sisältyy:</strong> koulutuspäivä, koulutusmateriaali, käytännön harjoitukset Keudan kalustolla ja osallistumistodistus. Tukesin pätevyyshakemuksen mahdollinen käsittelymaksu ei sisälly hintaan.</p>
+            <p className="mt-4 text-muted-foreground"><strong className="text-foreground">Hintaan sisältyy:</strong> koulutuspäivä, koulutusmateriaali, käytännön harjoitukset Keudan kalustolla, M1-pätevyyskoe ja Keudan todistus hyväksytystä suorituksesta sekä lounas ja kahvit. Tukesin pätevyyshakemuksen käsittelymaksu ei sisälly hintaan.</p>
             <p className="mt-3 text-muted-foreground"><strong className="text-foreground">Ryhmäkoko:</strong> vähintään 5, enintään 12 osallistujaa.</p>
             <p className="mt-3 text-muted-foreground"><strong className="text-foreground">Maksaminen:</strong> Koulutuksen osallistumismaksu maksetaan verkkomaksuna ilmoittautumisen yhteydessä tai työnantajan maksaessa laskulla.</p>
           </div>
@@ -348,7 +381,7 @@ export default function IlmastointiM1Page() {
         ) : sent ? (
           <div role="status" className="rounded-xl border border-secondary bg-card p-6">
             <CheckCircle2 className="mb-3 h-8 w-8 text-secondary" aria-hidden />
-            <p className="text-lg">Kiitos ilmoittautumisestasi. Lähetimme vahvistuksen sähköpostiisi. Vahvistamme koulutuksen toteutumisen ilmoittautumisajan päätyttyä.</p>
+            <p className="text-lg">Kiitos ilmoittautumisestasi. Lähetimme vahvistuksen sähköpostiisi. Vahvistamme koulutuksen toteutumisen viimeistään 14 vuorokautta ennen koulutuspäivää. Muistathan ottaa SFS 6002 -todistuksen mukaan koulutukseen.</p>
           </div>
         ) : (
           <form onSubmit={submit} noValidate className="grid gap-5 rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-5 md:grid-cols-2 md:p-8">
@@ -374,15 +407,15 @@ export default function IlmastointiM1Page() {
               {err("count")}
             </div>
             <div>
-              <Label htmlFor="m1-background">Ajoneuvoalan koulutustausta</Label>
-              <Input id="m1-background" maxLength={200} value={v.background ?? ""} onChange={(e) => set("background", e.target.value)} className="mt-1" />
+              <Label htmlFor="m1-birthdate">Syntymäaika *</Label>
+              <Input id="m1-birthdate" placeholder="PP.KK.VVVV" inputMode="numeric" maxLength={10} value={v.birthdate ?? ""} onChange={(e) => set("birthdate", e.target.value)} className="mt-1" />
+              <p className="mt-1 text-sm text-muted-foreground">Älä kirjoita henkilötunnusta.</p>
+              {err("birthdate")}
             </div>
             <fieldset className="md:col-span-2">
-              <legend className="mb-2 text-sm font-medium">Aiempi ilmastointipätevyys *</legend>
-              {radio("previous", [["ei", "Ei"], ["vanha", "Vanha pätevyys"]])}
-              {v.previous === "vanha" && (
-                <Input aria-label="Vanhan pätevyyden vuosi" placeholder="Vuosi, esim. 2015" inputMode="numeric" maxLength={4} value={v.previousYear ?? ""} onChange={(e) => set("previousYear", e.target.value)} className="mt-3 max-w-[200px]" />
-              )}
+              <legend className="mb-2 text-sm font-medium">Aiempi pätevyys Tukesin rekisterissä *</legend>
+              {radio("previous", [["kua", "KU A"], ["m2", "M2"]])}
+              <Input aria-label="Pätevyyden suoritusvuosi" placeholder="Suoritusvuosi, esim. 2015" inputMode="numeric" maxLength={4} value={v.previousYear ?? ""} onChange={(e) => set("previousYear", e.target.value)} className="mt-3 max-w-[220px]" />
               {err("previous")}{err("previousYear")}
             </fieldset>
             <fieldset className="md:col-span-2">
@@ -392,8 +425,9 @@ export default function IlmastointiM1Page() {
               {err("payment")}
             </fieldset>
             <fieldset className="md:col-span-2">
-              <legend className="mb-2 text-sm font-medium">SFS 6002 voimassa *</legend>
-              {radio("sfs", [["kyllä", "Kyllä"], ["ei", "Ei"], ["en tiedä", "En tiedä"]])}
+              <legend className="mb-2 text-sm font-medium">SFS 6002 -koulutus voimassa saakka (KK/VVVV) *</legend>
+              <Input aria-label="SFS 6002 voimassa saakka" placeholder="KK/VVVV" inputMode="numeric" maxLength={7} value={v.sfs ?? ""} onChange={(e) => set("sfs", e.target.value)} className="max-w-[220px]" />
+              <p className="mt-1 text-sm text-muted-foreground">Todistus esitetään kouluttajalle kurssin alussa.</p>
               {err("sfs")}
             </fieldset>
             <div className="md:col-span-2">
@@ -425,11 +459,12 @@ export default function IlmastointiM1Page() {
             <p>Onko korjaamollasi useita työntekijöitä, joiden ilmastointipätevyydet pitää päivittää? Järjestämme M1-koulutuksen myös yrityskohtaisena toteutuksena Keudan koulutustiloissa tai soveltuvin osin yrityksesi omissa tiloissa.</p>
             <p className="font-medium text-foreground">Yrityskohtaisessa toteutuksessa</p>
             <ul className="list-disc space-y-1 pl-6">
-              <li>koulutat koko ryhmän samalla kertaa</li>
+              <li>koulutat asentajat ja vastuuhenkilön samalla kertaa</li>
               <li>sisältö kohdennetaan yrityksesi todellisiin työtehtäviin</li>
               <li>ajankohta sovitaan yrityksesi tuotannon mukaan.</li>
             </ul>
-            <p>Yrityskohtaiset toteutukset hinnoitellaan erikseen. Kysy myös M2-, M3- ja M1+M3-koulutuksista.</p>
+            <p>Yrityskohtaiset toteutukset hinnoitellaan erikseen. Kysy myös M2-koulutuksista ja vuoden 2027 M3-koulutuksista (R744).</p>
+            <p className="font-medium text-foreground">M3-koulutukset (R744) tarjonnassa 2027.</p>
           </div>
           {corpState === "sent" ? (
             <div role="status" className="rounded-xl border border-secondary bg-card p-6">Kiitos! Otamme yhteyttä tarjouksen tiimoilta.</div>
@@ -455,10 +490,10 @@ export default function IlmastointiM1Page() {
       <Section eyebrow="Miksi Keuda" title="Miksi kouluttautua Keudassa" tone="dark">
         <div className="grid gap-5 sm:grid-cols-2">
           {[
-            ["Käytännönläheinen koulutus.", "Teoria ja käytännön harjoitukset Keudan ajoneuvoalan opetuskalustolla samana päivänä."],
-            ["Kokeneet kouluttajat.", "Koulutuksesta vastaavat ajoneuvoalan opetuksen ja korjaamotyön tuntevat ammattilaiset."],
+            ["Koe samana päivänä.", "Koulutus ja M1-pätevyyskoe yhdessä päivässä, todistus hyväksytystä suorituksesta mukaan heti."],
+            ["Kokeneet kouluttajat.", "Koulutuksesta vastaavat ajoneuvoalan opetuksen ja korjaamotyön tuntevat ammattilaiset Keudan opetuskalustolla."],
             ["Valitse itse päivä.", "Kuusi toteutusta joulukuusta toukokuuhun – ilmoittaudu silloin, kun korjaamon arki sen sallii."],
-            ["Luotettava kumppani.", "Keuda on vakiintunut ammatillisen koulutuksen järjestäjä. KeudaPRO vastaa yrityskoulutusten myynnistä, asiakaspalvelusta ja toteutusten koordinoinnista."],
+            ["Luotettava kumppani.", "Keuda on vakiintunut ammatillisen koulutuksen järjestäjä, ja koulutus toteutetaan Keudan koulutusluvalla. KeudaPRO vastaa myynnistä, asiakaspalvelusta ja toteutusten koordinoinnista."],
           ].map(([t, d]) => (
             <div key={t} className="rounded-xl border border-border bg-card shadow-[var(--shadow-card)] p-5"><p className="font-semibold text-foreground">{t}</p><p className="mt-1 text-muted-foreground">{d}</p></div>
           ))}
@@ -478,7 +513,7 @@ export default function IlmastointiM1Page() {
 
       <div className="border-t py-6">
         <p className="keuda-container text-xs text-muted-foreground">
-          Koulutus ei sisällä pätevyyskoetta eikä yksin merkitse viranomaispätevyyden myöntämistä. Tarvittava pätevyys haetaan Turvallisuus- ja kemikaalivirasto Tukesin menettelyn mukaisesti. Koulutuksen järjestäjä: Keuda. Myynti ja asiakaspalvelu: KeudaPRO, Keuda Koulutuspalvelut Oy.
+          Koulutus järjestetään Keudan koulutusluvalla, ja todistuksen hyväksytystä suorituksesta myöntää Keuda. Todistus ei yksin merkitse viranomaispätevyyden myöntämistä: pätevyys haetaan Turvallisuus- ja kemikaalivirasto Tukesilta sen menettelyn mukaisesti. Myynti ja asiakaspalvelu: KeudaPRO, Keuda Koulutuspalvelut Oy.
         </p>
       </div>
     </Layout>

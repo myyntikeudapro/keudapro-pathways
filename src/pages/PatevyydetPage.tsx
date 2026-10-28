@@ -416,7 +416,7 @@ const accordionCategories: AccordionCategory[] = [
       {
         title: "Ilmastointipätevyys M1 – Mäntsälä",
         badge: "Ajoneuvoala",
-        description: "Yhden päivän koulutus ajoneuvojen ilmastointijärjestelmien M1-pätevyyskokeeseen. 320 € + alv, kuusi toteutusta 12/2026–5/2027.",
+        description: "Yhden päivän koulutus, joka sisältää M1-pätevyyskokeen. 320 € + alv, kuusi toteutusta 12/2026–5/2027. M3-koulutukset (R744) tarjonnassa 2027.",
         ctaText: "Lue lisää ja ilmoittaudu",
         ctaHref: ILMASTOINTI_M1.path,
         image: courseIlmastointi,
