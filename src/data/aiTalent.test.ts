@@ -17,3 +17,13 @@ describe("AI Talent", () => {
     expect(normalizeMemberEmail("ei-osoite")).toBeNull();
   });
 });
+
+import { canProposeProject } from "./aiTalent";
+describe("aihiopankki", () => {
+  it("vain partner ja admin voivat ehdottaa aihiota", () => {
+    expect(canProposeProject("partner")).toBe(true);
+    expect(canProposeProject("admin")).toBe(true);
+    expect(canProposeProject("helsinki")).toBe(false);
+    expect(canProposeProject("participant")).toBe(false);
+  });
+});

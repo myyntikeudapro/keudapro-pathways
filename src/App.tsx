@@ -28,6 +28,7 @@ import HubPage from "./pages/HubPage";
 import TyoelamaverkkoPage from "./pages/TyoelamaverkkoPage";
 import AiTalentPage from "./pages/hub/AiTalentPage";
 import AiTalentAdminPage from "./pages/hub/AiTalentAdminPage";
+import AiTalentProjectsPage from "./pages/hub/AiTalentProjectsPage";
 import AdminPage from "./pages/admin/AdminPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminLeadsPage from "./pages/admin/AdminLeadsPage";
@@ -73,6 +74,7 @@ const App = () => (
               <Route path="/hub/tyoelamaverkko" element={<TyoelamaverkkoPage />} />
               <Route path="/hub/ai-talent" element={<AiTalentPage />} />
               <Route path="/hub/ai-talent/admin" element={<AiTalentAdminPage />} />
+              <Route path="/hub/ai-talent/projektit" element={<AiTalentProjectsPage />} />
               <Route path="/admin/login" element={<AdminLoginPage />} />
               <Route path="/admin" element={<AdminDashboardPage />} />
               <Route path="/admin/sisallot" element={<AdminPage />} />

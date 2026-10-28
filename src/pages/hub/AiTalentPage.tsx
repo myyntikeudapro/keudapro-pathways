@@ -258,11 +258,12 @@ const AiTalentPage = () => {
         <p className="keuda-container py-24 text-muted-foreground" role="status">Ladataan…</p>
       ) : role ? (
         <>
-          {role === "admin" && (
-            <div className="bg-muted border-b border-border">
-              <div className="keuda-container py-2 text-sm"><Link to="/hub/ai-talent/admin" className="font-semibold text-[hsl(var(--keuda-blue))] underline">Hallitse jäseniä →</Link></div>
+          <div className="bg-muted border-b border-border">
+            <div className="keuda-container flex flex-wrap gap-x-6 gap-y-1 py-2 text-sm">
+              <Link to="/hub/ai-talent/projektit" className="font-semibold text-[hsl(var(--keuda-blue))] underline">{role === "participant" ? "Oma projektini →" : "Projektit ja aihiopankki →"}</Link>
+              {role === "admin" && <Link to="/hub/ai-talent/admin" className="font-semibold text-[hsl(var(--keuda-blue))] underline">Hallitse jäseniä →</Link>}
             </div>
-          )}
+          </div>
           <ProgramContent />
         </>
       ) : (
