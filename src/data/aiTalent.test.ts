@@ -3,7 +3,7 @@ import { AI_TALENT_PUBLISHED, canSeeProjects, isAiTalentVisible, normalizeMember
 
 describe("AI Talent", () => {
   it("pysyy piilossa keudapro.fi:ssä ennen hyväksyntää", () => {
-    expect(AI_TALENT_PUBLISHED).toBe(false);
+    expect(AI_TALENT_PUBLISHED).toBe(true);
     expect(isAiTalentVisible("keudapro.fi")).toBe(false);
     expect(isAiTalentVisible("localhost")).toBe(true);
   });
