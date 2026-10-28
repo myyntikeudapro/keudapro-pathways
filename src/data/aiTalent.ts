@@ -25,3 +25,19 @@ export function normalizeMemberEmail(value: string): string | null {
   const email = value.trim().toLowerCase();
   return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ? email : null;
 }
+
+export const AI_TALENT_PATH_NAMES: Record<number, string> = {
+  1: "AI + myynti ja kaupallinen työ",
+  2: "AI + markkinointi ja sisältö",
+  3: "AI + asiakaspalvelu ja asiakkuudet",
+  4: "AI Operations / AI Project",
+  5: "AI + liiketoiminnan uudistaminen ja ratkaisurakentaminen",
+};
+
+export const AI_TALENT_PROJECT_STATUSES = ["ehdotus", "avoin", "rajattu", "käynnissä", "valmis"] as const;
+export type AiTalentProjectStatus = (typeof AI_TALENT_PROJECT_STATUSES)[number];
+
+/** Partner ehdottaa, admin hallitsee; osallistuja näkee vain omat kiinnitetyt aihionsa (RLS). */
+export function canProposeProject(role: AiTalentRole | null): boolean {
+  return role === "partner" || role === "admin";
+}
