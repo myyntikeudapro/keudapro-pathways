@@ -57,6 +57,8 @@ import growthSkaalaus from "@/assets/growth-skaalaus.jpg";
 import growthOsaaminen from "@/assets/growth-osaaminen.jpg";
 import growthUudistuminen from "@/assets/growth-uudistuminen.jpg";
 import courseIlmastointi from "@/assets/course-ilmastointi-m1.jpg";
+import courseIlmastointiM2 from "@/assets/course-ilmastointi-m2.jpg";
+import courseIlmastointiM3 from "@/assets/course-ilmastointi-m3.jpg";
 import { ILMASTOINTI_M1, isIlmastointiVisible } from "@/data/ilmastointiM1";
 import coachReitti from "@/assets/coach-reitti.png";
 import coachAna from "@/assets/coach-ana.png";
@@ -427,7 +429,7 @@ const accordionCategories: AccordionCategory[] = [
         description: "M2-koulutus tulossa vuonna 2027. Koulutuksen sisältö, ajankohdat ja ilmoittautuminen vahvistetaan myöhemmin.",
         ctaText: "Kysy tulevasta koulutuksesta",
         ctaHref: `${ILMASTOINTI_M1.path}#yrityksellesi`,
-        image: courseIlmastointi,
+        image: courseIlmastointiM2,
       },
       {
         title: "Ilmastointipätevyys M3 (R744)",
@@ -435,7 +437,7 @@ const accordionCategories: AccordionCategory[] = [
         description: "M3-koulutukset (R744) tulossa vuonna 2027. Koulutuksen sisältö, ajankohdat ja ilmoittautuminen vahvistetaan myöhemmin.",
         ctaText: "Kysy tulevasta koulutuksesta",
         ctaHref: `${ILMASTOINTI_M1.path}#yrityksellesi`,
-        image: courseIlmastointi,
+        image: courseIlmastointiM3,
       },
     ],
   },
