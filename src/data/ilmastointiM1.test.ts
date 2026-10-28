@@ -2,6 +2,15 @@ import { describe, it, expect } from "vitest";
 import { ILMASTOINTI_M1, M1_LYYTI_ENABLED, M1_LYYTI_URL, isSessionOpen, prefillDate, isPreviewHost } from "./ilmastointiM1";
 
 describe("M1-ilmoittautuminen", () => {
+  it("laskutetaan koulutuksen alkaessa", () => {
+    expect(ILMASTOINTI_M1.invoiceTiming).toBe("training_start");
+  });
+  it("käyttää 14 päivän maksuehtoa", () => {
+    expect(ILMASTOINTI_M1.paymentTermDays).toBe(14);
+  });
+  it("sallii erikseen sovittavat laskutuspoikkeamat", () => {
+    expect(ILMASTOINTI_M1.billingExceptionsByAgreement).toBe(true);
+  });
   it("sisältää lounaan ja kahvit", () => {
     expect(ILMASTOINTI_M1.mealsIncluded).toEqual({ lunch: true, coffee: true });
   });
