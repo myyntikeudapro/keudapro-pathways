@@ -28,6 +28,7 @@ import HubPage from "./pages/HubPage";
 import TyoelamaverkkoPage from "./pages/TyoelamaverkkoPage";
 import AiTalentPage from "./pages/hub/AiTalentPage";
 import AiTalentAdminPage from "./pages/hub/AiTalentAdminPage";
+import AiTalentProjectsPage from "./pages/hub/AiTalentProjectsPage";
 import AdminPage from "./pages/admin/AdminPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminLeadsPage from "./pages/admin/AdminLeadsPage";
