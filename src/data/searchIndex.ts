@@ -13,6 +13,7 @@ import progJohtaminen from "@/assets/prog-johtaminen.jpg";
 import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
 import courseTyoturvallisuus from "@/assets/course-tyoturvallisuus.jpg";
 import courseTulityo from "@/assets/course-tulityo.jpg";
+import courseIlmastointi from "@/assets/course-ilmastointi-m1.jpg";
 import courseEa1 from "@/assets/course-ea1.jpg";
 import courseHygienia from "@/assets/course-hygienia.jpg";
 import courseAnniskelu from "@/assets/course-anniskelu.jpg";
@@ -153,6 +154,18 @@ export const searchIndex: SearchEntry[] = [
     image: courseTyoturvallisuus,
     category: "Pätevyys",
     keywords: ["työturvallisuus", "kortti", "rakennus", "teollisuus"],
+  },
+  {
+    id: "pat-ilmastointi-m1",
+    title: "Ajoneuvoilmastoinnin pätevyys M1 (Mäntsälä)",
+    description: "Ajoneuvojen ilmastointilaitteiden huollon M1-pätevyyskoulutus kokeineen, Keudan todistus.",
+    href: "/koulutukset/ilmastointipatevyys-m1-mantsala",
+    image: courseIlmastointi,
+    category: "Pätevyys",
+    keywords: [
+      "ilmastointi", "ilmastointipätevyys", "ajoneuvoilmastointi", "M1", "M1 A", "kylmäaine",
+      "f-kaasu", "tukes", "autokorjaamo", "ilmastointihuolto", "mäntsälä", "pätevyyskoulutus",
+    ],
   },
   {
     id: "pat-tulityo",
