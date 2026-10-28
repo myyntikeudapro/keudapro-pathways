@@ -8,7 +8,7 @@ import { AiTalentShell } from "@/components/hub/AiTalentShell";
 import { useAiTalentMembership } from "@/hooks/useAiTalentMembership";
 import NotFound from "@/pages/NotFound";
 import { isAiTalentVisible } from "@/data/aiTalent";
-import heroImg from "@/assets/hero-ai-coaches.jpg";
+import heroImg from "@/assets/hero-ai-talent-young.jpg";
 
 const TITLE = "AI Talent – nuorten AI-osaamis- ja työllistymisohjelma";
 const CONTACT = "heikki.kallunki@keuda.fi";
