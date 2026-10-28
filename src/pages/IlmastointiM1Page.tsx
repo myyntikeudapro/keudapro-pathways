@@ -357,15 +357,16 @@ export default function IlmastointiM1Page() {
             <p className="text-3xl font-bold text-primary">320 € <span className="text-base font-normal text-muted-foreground">+ alv / osallistuja</span></p>
             <p className="mt-4 text-muted-foreground"><strong className="text-foreground">Hintaan sisältyy:</strong> koulutuspäivä, koulutusmateriaali, käytännön harjoitukset Keudan kalustolla, M1-pätevyyskoe ja Keudan todistus hyväksytystä suorituksesta sekä lounas ja kahvit. Tukesin pätevyyshakemuksen käsittelymaksu ei sisälly hintaan.</p>
             <p className="mt-3 text-muted-foreground"><strong className="text-foreground">Ryhmäkoko:</strong> vähintään 5, enintään 12 osallistujaa.</p>
-            <p className="mt-3 text-muted-foreground"><strong className="text-foreground">Maksaminen:</strong> Koulutuksen osallistumismaksu maksetaan verkkomaksuna ilmoittautumisen yhteydessä tai työnantajan maksaessa laskulla.</p>
+            <p className="mt-3 text-muted-foreground"><strong className="text-foreground">Maksaminen ja laskutus:</strong> Maksutapa valitaan ilmoittautumisen yhteydessä Lyytissä. Koulutuksen osallistumismaksu maksetaan verkkomaksuna ilmoittautumisen yhteydessä tai työnantajan/yrityksen maksaessa laskulla. Laskulla maksettaessa veloitetaan {P.invoiceFeeEuros.toLocaleString("fi-FI", { minimumFractionDigits: 2 })} € laskutuslisä. Maksuaika ja eräpäivä ilmoitetaan laskulla.</p>
           </div>
           <div className="space-y-3 text-muted-foreground">
             <h3 className="text-lg font-semibold text-foreground">Peruutusehdot</h3>
+            <p>Noudatamme Lyyti-ilmoittautumisessa hyväksyttäviä Keudan lyhytkoulutuksen peruutusehtoja.</p>
             <p>Ilmoittautuminen on sitova. Peruutukset tulee tehdä viimeistään seitsemän vuorokautta ennen koulutuksen alkua osoitteeseen <a href="mailto:satu.vainio@keuda.fi" className="text-primary underline">satu.vainio@keuda.fi</a>. Jos olet maksanut verkkomaksuna, lähetä myös tilinumerosi maksun palautusta varten.</p>
             <p>Myöhemmin tehdystä peruutuksesta veloitamme 50 % koulutuksen hinnasta. Peruuttamatta jätetystä koulutuksesta perimme koko hinnan. Osallistujan voi vaihtaa toiseen henkilöön ilman lisäkuluja.</p>
             <p>Sairastapauksessa palautamme maksun kokonaan, kun sairauslomatodistus toimitetaan viikon kuluessa koulutuspäivästä luottamuksellisesti osoitteessa <a href="https://turvaposti.keuda.fi/" target="_blank" rel="noopener noreferrer" className="text-primary underline">turvaposti.keuda.fi</a>.</p>
             <p>Jos työnantaja maksaa koulutuksen laskulla, ilmoittautuja vahvistaa, että hänellä on työnantajan suostumus. Jos työnantaja ei maksa laskua, maksu siirtyy osallistujan maksettavaksi.</p>
-            <p>Koko ehdot: <a href="https://www.keuda.fi/lyhytkoulutuksen-peruutusehdot/" target="_blank" rel="noopener noreferrer" className="text-primary underline">Keudan lyhytkoulutuksen peruutusehdot</a>.</p>
+            <p>Koko ehdot: <a href={P.cancellationTermsUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Keudan lyhytkoulutuksen peruutusehdot</a>.</p>
             <p>Jos koulutus ei toteudu vähimmäisosallistujamäärän jäädessä täyttymättä, tarjoamme paikan seuraavasta toteutuksesta tai palautamme maksun kokonaisuudessaan.</p>
           </div>
         </div>
