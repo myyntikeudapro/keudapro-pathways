@@ -309,6 +309,7 @@ type AccordionCard = {
   ctaText: string;
   ctaHref: string;
   badge?: string;
+  imageLabel?: string;
   infoUrl?: string;
   signupUrl?: string;
   image?: string;
@@ -426,6 +427,7 @@ const accordionCategories: AccordionCategory[] = [
       {
         title: "Ilmastointipätevyys M2",
         badge: "Tulossa 2027",
+        imageLabel: "Tulossa 2027",
         description: "M2-koulutus tulossa vuonna 2027. Koulutuksen sisältö, ajankohdat ja ilmoittautuminen vahvistetaan myöhemmin.",
         ctaText: "Kysy tulevasta koulutuksesta",
         ctaHref: `${ILMASTOINTI_M1.path}#yrityksellesi`,
@@ -434,6 +436,7 @@ const accordionCategories: AccordionCategory[] = [
       {
         title: "Ilmastointipätevyys M3 (R744)",
         badge: "Tulossa 2027",
+        imageLabel: "Tulossa 2027",
         description: "M3-koulutukset (R744) tulossa vuonna 2027. Koulutuksen sisältö, ajankohdat ja ilmoittautuminen vahvistetaan myöhemmin.",
         ctaText: "Kysy tulevasta koulutuksesta",
         ctaHref: `${ILMASTOINTI_M1.path}#yrityksellesi`,
@@ -712,7 +715,7 @@ const PatevyydetPage = () => {
                                   key={card.title}
                                   className="rounded-xl border border-border bg-background overflow-hidden flex flex-col"
                                 >
-                                  <div className="w-full h-36 md:h-44 overflow-hidden bg-muted">
+                                  <div className="relative w-full h-36 md:h-44 overflow-hidden bg-muted">
                                     <img
                                       src={cardImage}
                                       alt={card.title}
@@ -725,6 +728,13 @@ const PatevyydetPage = () => {
                                       }}
                                       className="w-full h-full object-cover"
                                     />
+                                    {card.imageLabel && (
+                                      <div className="absolute inset-0 flex items-center justify-center bg-foreground/15">
+                                        <span className="rounded-md border border-background/30 bg-foreground/80 px-5 py-3 text-lg font-bold uppercase text-background backdrop-blur-sm">
+                                          {card.imageLabel}
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                   <div className="p-5 flex flex-col flex-1">
                                   {card.badge && (
