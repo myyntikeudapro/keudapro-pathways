@@ -464,8 +464,16 @@ export default function IlmastointiM1Page() {
               <li>sisältö kohdennetaan yrityksesi todellisiin työtehtäviin</li>
               <li>ajankohta sovitaan yrityksesi tuotannon mukaan.</li>
             </ul>
-            <p>Yrityskohtaiset toteutukset hinnoitellaan erikseen. Kysy myös M2-koulutuksista ja vuoden 2027 M3-koulutuksista (R744).</p>
-            <p className="font-medium text-foreground">M3-koulutukset (R744) tarjonnassa 2027.</p>
+            <p>Yrityskohtaiset toteutukset hinnoitellaan erikseen.</p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {["M2", "M3 (R744)"].map((qualification) => (
+                <div key={qualification} className="rounded-lg border border-border bg-card p-4">
+                  <p className="text-xs font-semibold uppercase text-secondary">Tulossa 2027</p>
+                  <h3 className="mt-2 text-lg font-semibold text-foreground">Ilmastointipätevyys {qualification}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">Ajankohdat ja ilmoittautuminen vahvistetaan myöhemmin.</p>
+                </div>
+              ))}
+            </div>
           </div>
           {corpState === "sent" ? (
             <div role="status" className="rounded-xl border border-secondary bg-card p-6">Kiitos! Otamme yhteyttä tarjouksen tiimoilta.</div>
