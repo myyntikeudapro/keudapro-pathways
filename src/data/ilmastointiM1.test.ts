@@ -2,6 +2,15 @@ import { describe, it, expect } from "vitest";
 import { ILMASTOINTI_M1, M1_LYYTI_ENABLED, M1_LYYTI_URL, isSessionOpen, prefillDate, isPreviewHost } from "./ilmastointiM1";
 
 describe("M1-ilmoittautuminen", () => {
+  it("sisältää lounaan ja kahvit", () => {
+    expect(ILMASTOINTI_M1.mealsIncluded).toEqual({ lunch: true, coffee: true });
+  });
+  it("noudattaa Lyytin linkittämiä Keudan peruutusehtoja", () => {
+    expect(ILMASTOINTI_M1.cancellationTermsUrl).toBe("https://www.keuda.fi/lyhytkoulutuksen-peruutusehdot/");
+  });
+  it("käyttää Lyytissä ilmoitettua laskutuslisää", () => {
+    expect(ILMASTOINTI_M1.invoiceFeeEuros).toBe(6.5);
+  });
   it("käyttää väliaikaisesti Lyyti-ilmoittautumista", () => {
     expect(M1_LYYTI_ENABLED).toBe(true);
     expect(M1_LYYTI_URL).toBe("https://www.lyyti.fi/reg/Ajoneuvojen_ilmastointipatevyyskoulutus_M1landing_page_2645");
