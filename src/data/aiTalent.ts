@@ -1,7 +1,7 @@
 import { isPreviewHost } from "@/data/ilmastointiM1";
 
 /** AI Talent pysyy piilossa keudapro.fi:ssä, kunnes Heikki hyväksyy julkaisun. */
-export const AI_TALENT_PUBLISHED = false;
+export const AI_TALENT_PUBLISHED = true;
 
 export type AiTalentRole = "participant" | "helsinki" | "partner" | "admin";
 
