@@ -199,7 +199,7 @@ export default function IlmastointiM1Page() {
         <div className="keuda-container relative py-10 sm:py-14 md:py-24">
           <div className="max-w-3xl">
             <span className="mb-3 inline-flex text-[10px] font-bold uppercase tracking-[0.2em] text-background/60 md:text-xs">KeudaPRO · {P.category}</span>
-            <h1 lang="fi" className="mb-4 hyphens-auto break-words text-[32px] font-extrabold leading-[1.08] tracking-tight text-background md:mb-5 md:text-5xl lg:text-6xl">
+            <h1 lang="fi" className="mb-4 hyphens-manual text-[32px] font-extrabold leading-[1.08] tracking-tight text-background [overflow-wrap:normal] md:mb-5 md:text-5xl lg:text-6xl">
               Ajoneuvojen ilmastointi&shy;pätevyys&shy;koulutus{" "}
               <span className="whitespace-nowrap" style={{ color: "hsl(var(--keuda-orange))" }}>M1 – Mäntsälä</span>
             </h1>
