@@ -16,9 +16,9 @@ const CONTACT = "heikki.kallunki@keuda.fi";
 const KeyFacts = () => (
   <dl className="grid grid-cols-3 gap-3">
     {[["Käynnistys", "10.11.2026"], ["Kesto", "n. 4–5 kk"], ["Paikkoja", "3–6"]].map(([k, v]) => (
-      <div key={k} className="rounded-xl border border-border bg-card p-3">
-        <dt className="text-xs uppercase tracking-wider text-muted-foreground">{k}</dt>
-        <dd className="mt-1 font-bold text-[hsl(var(--keuda-blue))]">{v}</dd>
+      <div key={k} className="rounded-xl border border-background/15 bg-background/5 p-3">
+        <dt className="text-xs uppercase tracking-wider text-background/50">{k}</dt>
+        <dd className="mt-1 font-bold text-background">{v}</dd>
       </div>
     ))}
   </dl>
@@ -46,16 +46,18 @@ function LoginGate({ signedInEmail, onSignOut }: { signedInEmail?: string | null
   };
 
   return (
-    <section className="bg-muted/40 py-12 md:py-20">
-      <div className="keuda-container grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start">
+    <section className="relative overflow-hidden bg-foreground text-background py-12 md:py-20">
+      <img src={heroImg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" style={{ objectPosition: "center 25%" }} />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-foreground/70 via-foreground/90 to-foreground md:bg-gradient-to-r md:from-foreground/95 md:via-foreground/85 md:to-foreground/60" />
+      <div className="keuda-container relative grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start">
         <div className="min-w-0">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-keuda-orange mb-3">KeudaPRO Hub · Projekti</p>
-          <h1 className="text-3xl md:text-5xl font-bold text-[hsl(var(--keuda-blue))] leading-tight mb-5 hyphens-auto">{TITLE}</h1>
-          <p className="text-lg text-muted-foreground mb-4">AI-koulutus, oikea kehitysprojekti ja näyttö työnantajille – tavoitteena työpaikka tai omat AI-toimeksiannot.</p>
-          <p className="mb-8 text-foreground">Ohjelma on tarkoitettu alle 30-vuotiaille työnhakijoille sekä nuorille yrittäjille, jotka haluavat kehittää omaa liiketoimintaansa tekoälyn avulla.</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-background/60 mb-3">KeudaPRO Hub · Projekti</p>
+          <h1 className="text-[32px] md:text-5xl font-extrabold tracking-tight text-background leading-[1.05] mb-5 hyphens-auto">{TITLE}</h1>
+          <p className="text-lg text-background/85 mb-4">AI-koulutus, oikea kehitysprojekti ja näyttö työnantajille – tavoitteena työpaikka tai omat AI-toimeksiannot.</p>
+          <p className="mb-8 text-background/75">Ohjelma on tarkoitettu alle 30-vuotiaille työnhakijoille sekä nuorille yrittäjille, jotka haluavat kehittää omaa liiketoimintaansa tekoälyn avulla.</p>
           <KeyFacts />
         </div>
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
+        <div className="rounded-xl border-2 border-border bg-card text-foreground p-6 shadow-[var(--shadow-card)]">
           {signedInEmail ? (
             <div className="space-y-4">
               <h2 className="text-xl font-bold">Ei käyttöoikeutta</h2>
