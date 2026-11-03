@@ -59,6 +59,8 @@ import growthUudistuminen from "@/assets/growth-uudistuminen.jpg";
 import courseIlmastointi from "@/assets/course-ilmastointi-m1.jpg";
 import courseIlmastointiM2 from "@/assets/course-ilmastointi-m2.jpg";
 import courseIlmastointiM3 from "@/assets/course-ilmastointi-m3.jpg";
+import courseAseptiikka from "@/assets/course-aseptiikka.jpg";
+import aseptiikka from "@/data/aseptiikka.json";
 import { ILMASTOINTI_M1, isIlmastointiVisible } from "@/data/ilmastointiM1";
 import coachReitti from "@/assets/coach-reitti.png";
 import coachAna from "@/assets/coach-ana.png";
@@ -304,6 +306,7 @@ const reittiCards: Course[] = [
 
 /* ─── Uusi 5-kategorian accordion-rakenne ─── */
 type AccordionCard = {
+  industry?: string;
   title: string;
   description: string;
   ctaText: string;
@@ -414,10 +417,11 @@ const accordionCategories: AccordionCategory[] = [
   {
     id: "patevyyskoulutukset",
     title: "Pätevyyskoulutukset",
-    intro: "Lakisääteiset ja alakohtaiset pätevyydet ammattilaisille — valitse päivä ja ilmoittaudu.",
+    intro: "Alakohtaiset pätevyydet ja täydennyskoulutukset ammattilaisille ja organisaatioille.",
     cards: [
       {
         title: "Ilmastointipätevyys M1 – Mäntsälä",
+        industry: "Ajoneuvoala",
         badge: "Ajoneuvoala",
         description: "Yhden päivän koulutus, joka sisältää M1-pätevyyskokeen. 320 € + alv, kuusi toteutusta 12/2026–5/2027.",
         ctaText: "Lue lisää ja ilmoittaudu",
@@ -426,6 +430,7 @@ const accordionCategories: AccordionCategory[] = [
       },
       {
         title: "Ilmastointipätevyys M2",
+        industry: "Ajoneuvoala",
         badge: "Tulossa 2027",
         imageLabel: "Tulossa 2027",
         description: "M2-koulutus tulossa vuonna 2027. Koulutuksen sisältö, ajankohdat ja ilmoittautuminen vahvistetaan myöhemmin.",
@@ -435,12 +440,22 @@ const accordionCategories: AccordionCategory[] = [
       },
       {
         title: "Ilmastointipätevyys M3 (R744)",
+        industry: "Ajoneuvoala",
         badge: "Tulossa 2027",
         imageLabel: "Tulossa 2027",
         description: "M3-koulutukset (R744) tulossa vuonna 2027. Koulutuksen sisältö, ajankohdat ja ilmoittautuminen vahvistetaan myöhemmin.",
         ctaText: "Kysy tulevasta koulutuksesta",
         ctaHref: `${ILMASTOINTI_M1.path}#yrityksellesi`,
         image: courseIlmastointiM3,
+      },
+      {
+        title: "Aseptiikka hoitotyössä – etäkoulutus hoiva- ja hoitohenkilöstölle",
+        industry: "Sosiaali- ja terveysala",
+        badge: "Organisaatiokoulutus",
+        description: "Kahden tunnin Teams-koulutus: käsihygienia, suojaimet, tartuntatiet, yleisimmät tartuntataudit sekä pisto- ja viiltotapaturmat. 2 h · Teams · ei osallistujarajaa · tilattavissa organisaatiolle tarjouspyynnöllä.",
+        ctaText: "Lue lisää ja pyydä tarjous",
+        ctaHref: aseptiikka.path,
+        image: courseAseptiikka,
       },
     ],
   },
@@ -706,8 +721,12 @@ const PatevyydetPage = () => {
                     <div className="animate-accordion-down border-t border-teal-100">
                       <div className="p-5 md:p-6 bg-card">
                         {cat.cards.length > 0 ? (
-                          <div className="grid md:grid-cols-3 gap-5 mb-6">
-                            {cat.cards.map((card) => {
+                          <div className="space-y-8 mb-6">
+                            {Array.from(new Set(cat.cards.map(card => card.industry))).map(industry => (
+                              <div key={industry ?? cat.id}>
+                                {industry && <h4 className="text-xl font-bold text-primary border-b border-border pb-3 mb-5">{industry}</h4>}
+                                <div className="grid md:grid-cols-3 gap-5">
+                            {cat.cards.filter(card => card.industry === industry).map((card) => {
                               const isExternal = !card.ctaHref.startsWith("/") && !card.ctaHref.startsWith("#");
                               const cardImage = getCardImage(card);
                               return (
@@ -742,9 +761,9 @@ const PatevyydetPage = () => {
                                       {card.badge}
                                     </span>
                                   )}
-                                  <h4 className="text-base font-bold text-foreground mb-2 leading-snug">
+                                  <h5 className="text-base font-bold text-foreground mb-2 leading-snug">
                                     {card.title}
-                                  </h4>
+                                  </h5>
                                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed flex-1">
                                     {card.description}
                                   </p>
@@ -779,6 +798,9 @@ const PatevyydetPage = () => {
                                 </div>
                               );
                             })}
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         ) : (
                           <p className="text-muted-foreground mb-6">

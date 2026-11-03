@@ -6,6 +6,14 @@ export const BASE_URL = "https://keudapro.fi";
 
 export const routes = [
   {
+    path: "/koulutukset/aseptiikka-hoitotyossa",
+    title: "Aseptiikka hoitotyössä – etäkoulutus | KeudaPRO",
+    description: "Kahden tunnin Teams-koulutus hoiva- ja hoitohenkilöstölle. Yhteinen aseptinen osaaminen koko organisaatiolle ilman osallistujarajaa.",
+    h1: "Aseptiikka hoitotyössä",
+    changefreq: "monthly",
+    priority: "0.8",
+  },
+  {
     path: "/tyohonvalmennus-pks",
     title: "Työnhakijan yksilövalmennus – pääkaupunkiseutu | KeudaPRO",
     description: "Maksuton yksilövalmennus Helsingin, Espoon ja Vantaan työllisyyspalveluiden asiakkaille. Oma valmentaja ja tukea työnhakuun 1–9 kuukaudeksi.",

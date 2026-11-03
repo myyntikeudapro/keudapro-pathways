@@ -1,0 +1,30 @@
+{
+  "title": "Aseptiikka hoitotyössä",
+  "path": "/koulutukset/aseptiikka-hoitotyossa",
+  "description": "Kahden tunnin Teams-koulutus hoiva- ja hoitohenkilöstölle. Yhteinen aseptinen osaaminen koko organisaatiolle ilman osallistujarajaa.",
+  "durationHours": 2,
+  "participantLimit": null,
+  "firstDeliveryEuros": 900,
+  "additionalDeliveryEuros": 480,
+  "paymentDays": 14,
+  "recordingMonths": 3,
+  "trainerCount": 2,
+  "earliestDeliveryWeeks": 3,
+  "quoteResponseBusinessDays": 2,
+  "contactEmail": "heikki.kallunki@keuda.fi",
+  "themes": ["Aseptiikan keskeiset käsitteet", "Tartuntatiet ja -portit", "Tavanomaiset varotoimet: henkilökohtainen hygienia, käsihygienia, eritetahradesinfektio, suojakäsineet ja suojapukeutuminen", "Yleisimmät tartuntataudit", "Pisto- ja viiltotapaturmat", "Erityiskysymykset tilaajan toiveiden mukaan"],
+  "sections": [
+    {"title": "Yhteinen aseptinen osaaminen koko henkilöstölle", "paragraphs": ["Aseptinen työskentely suojaa asukkaita, asiakkaita ja työntekijöitä tartunnoilta ja ehkäisee epidemioita, poissaoloja ja laatupoikkeamia. Osaaminen kuitenkin vaihtelee, kun henkilöstö vaihtuu, taustat ovat erilaisia ja ohjeet päivittyvät.", "Koulutuksen jälkeen osallistuja tietää, mihin tavanomaiset varotoimet perustuvat, osaa soveltaa niitä omassa työssään ja tietää, miten toimia tartuntavaaratilanteessa sekä pisto- tai viiltotapaturmassa."]},
+    {"title": "Kenelle koulutus sopii", "paragraphs": ["Hoivakotien, palveluasumisen, kotihoidon ja muiden sosiaali- ja terveysalan yksiköiden hoito- ja hoivahenkilöstölle: lähihoitajille, hoiva-avustajille, sairaanhoitajille sekä muulle asukas- ja asiakastyötä tekevälle henkilöstölle.", "Sopii perehdytyksen tueksi uusille työntekijöille ja osaamisen kertaukseen koko yksikölle. Osallistujamäärää ei rajoiteta. Etätoteutukseen voi osallistua henkilöstöä useasta yksiköstä ja työvuorosta."]},
+    {"title": "Sisältö ja tavoite", "paragraphs": ["Koulutus kokoaa aseptiikan perusteet ja tavanomaiset varotoimet yhteen kahden tunnin kokonaisuuteen, joka sovitetaan tilaajan omiin hygienia- ja toimintaohjeisiin. Esimerkit nousevat tilaajan arjesta, ja ennen koulutusta kerätään yksiköiden kysymykset, joihin erityiskysymysten osio vastaa.", "Tavoitteena on, että koko henkilöstöllä on sama käsitys aseptisen työskentelyn perusteista ja että ohjeet muuttuvat toiminnaksi omassa työpisteessä."]},
+    {"title": "Ajankohta ja toteutus", "paragraphs": ["Kesto 2 tuntia. Toteutus Microsoft Teamsissa, KeudaPRO toimittaa osallistumislinkin. Koulutus on tilattavissa organisaatiolle erillisellä tarjouspyynnöllä. Ajankohta sovitaan tilauksen yhteydessä; ensimmäinen toteutus on mahdollinen noin kolmen viikon kuluttua tilauksesta.", "Sama koulutus voidaan toteuttaa useampana kertana esimerkiksi eri työvuoroille tai alueille."]},
+    {"title": "Koulutuksen toteuttajat", "paragraphs": ["Koulutuksen toteuttavat Keudan sosiaali- ja terveysalan opettajat, joilla on hoitotyön ja infektioiden torjunnan opetuskokemus. Koulutuksessa on kaksi kouluttajaa: toinen vetää sisällön, toinen vastaa osallistujien kysymyksistä ja keskustelusta. KeudaPRO vastaa koulutuksen sopimisesta, materiaaleista ja todistuksista."]},
+    {"title": "Kustannukset ja maksuehdot", "paragraphs": ["Ensimmäinen toteutus 900 € ja lisätoteutukset samalle organisaatiolle 480 € / toteutus. Hinnat ovat verottomia; hintoihin lisätään arvonlisävero. Osallistujamäärä ei vaikuta hintaan.", "Hintaan sisältyy sisällön sovittaminen tilaajan ohjeisiin, kahden kouluttajan toteuttama koulutus, koulutusmateriaali PDF-muodossa, tallenne tilaajan sisäiseen käyttöön kolmen kuukauden ajaksi ja osallistumistodistukset osallistujalistan perusteella.", "Laskutus toteutuksen jälkeen, maksuehto 14 päivää netto."]},
+    {"title": "Peruutusehdot", "paragraphs": ["Siirto- ja peruutusehdot sovitaan ja vahvistetaan tarjouksen yhteydessä."]}
+  ],
+  "steps": [
+    {"title": "Lähetä tarjouspyyntö", "text": "Kerro yksiköt, arvio osallistujamäärästä ja toiveajankohdat. Saat tarjouksen kahden arkipäivän kuluessa."},
+    {"title": "Sovitaan koulutus", "text": "Tilauksen jälkeen sovimme ajankohdat ja keräämme yksiköiden kysymykset sekä koulutuksessa huomioitavat omat ohjeet."},
+    {"title": "Henkilöstö mukaan Teamsissa", "text": "Toimitamme Teams-linkin jaettavaksi osallistujille. Koulutuksen jälkeen saat materiaalit, tallenteen ja osallistumistodistukset osallistujalistan perusteella."}
+  ]
+}
