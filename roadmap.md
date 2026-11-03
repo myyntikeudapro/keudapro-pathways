@@ -32,3 +32,4 @@
 - [x] M1 Lyyti: kuusi päiväkohtaista linkkiä ja yhteinen linkki, Lyytin määräpäivät, säilytetty piilotettu osallistujalomake; yritystarjous näkyvissä. 11 testiä ja lint läpäisty; selainpolut 320/390/768/1280 px, suostumusrajat ilman tuotantokirjoituksia ja ei virheilmoituksia. Ilmoittautumista tai maksua ei lähetetty; muutos ei vielä julkaistu.
 
 - [ ] AI Talent (/hub/ai-talent): julkaisu odottaa Heikin hyväksyntää (AI_TALENT_PUBLISHED)
+- [ ] Työnhakijan yksilövalmennus PKS: Noste-palvelulaatikko, esitteen kuva, oma palvelusivu ja selainvarmistus
