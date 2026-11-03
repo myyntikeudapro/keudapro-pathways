@@ -6,6 +6,14 @@ export const BASE_URL = "https://keudapro.fi";
 
 export const routes = [
   {
+    path: "/tyohonvalmennus-pks",
+    title: "Työnhakijan yksilövalmennus – pääkaupunkiseutu | KeudaPRO",
+    description: "Maksuton yksilövalmennus Helsingin, Espoon ja Vantaan työllisyyspalveluiden asiakkaille. Oma valmentaja ja tukea työnhakuun 1–9 kuukaudeksi.",
+    changefreq: "monthly",
+    priority: "0.8",
+    h1: "Työnhakijan yksilövalmennus – pääkaupunkiseutu",
+  },
+  {
     path: "/",
     title: "KeudaPRO – Osaamisen ja siirtymien operaattori",
     description:

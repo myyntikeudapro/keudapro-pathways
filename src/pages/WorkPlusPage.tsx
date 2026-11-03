@@ -11,6 +11,7 @@ import { useWizard } from "@/contexts/WizardContext";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { MuutosturvaFormModal } from "@/components/noste/MuutosturvaFormModal";
 import { NosteFAQ } from "@/components/noste/NosteFAQ";
+import { PksCoachingCard } from "@/components/noste/PksCoachingCard";
 import { Panel1, Panel2, Panel3, Panel4, Panel5 } from "@/components/noste/PathPanels";
 import { OwnWorkProfileModal } from "@/components/noste/OwnWorkProfileModal";
 import { cn } from "@/lib/utils";
@@ -233,6 +234,8 @@ const WorkPlusPage = () => {
       </section>
 
       {/* TILANNEVALINTA + POLUT */}
+      <PksCoachingCard />
+
       <section className="py-16 md:py-20 bg-[#E4F0EE]">
         <div className="keuda-container">
           {/* Tilannevalinta */}

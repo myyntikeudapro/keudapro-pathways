@@ -5,6 +5,7 @@
  */
 import routeAly from "@/assets/route-aly.jpg";
 import routeNoste from "@/assets/route-noste.jpg";
+import pksCoaching from "@/assets/tyohonvalmennus-pks.jpg.asset.json";
 import routeKasvu from "@/assets/route-kasvu.jpg";
 import progAiDirector from "@/assets/prog-ai-director.jpg";
 import progAiManager from "@/assets/prog-ai-manager.jpg";
@@ -51,6 +52,15 @@ export type SearchEntry = {
 
 
 export const searchIndex: SearchEntry[] = [
+  {
+    id: "noste-tyohonvalmennus-pks",
+    title: "Työnhakijan yksilövalmennus – pääkaupunkiseutu",
+    description: "Maksuton 1–9 kuukauden yksilövalmennus Helsingin, Espoon ja Vantaan työllisyyspalveluiden asiakkaille. Palveluun oman asiantuntijan kautta.",
+    href: "/tyohonvalmennus-pks",
+    image: pksCoaching.url,
+    category: "Palvelu",
+    keywords: ["työnhakija", "yksilövalmennus", "työhönvalmennus", "pääkaupunkiseutu", "pks", "Helsinki", "Espoo", "Vantaa", "maksuton", "työtön", "CV", "työllistyminen", "Kohti työtä"],
+  },
   // ─── Reitit ───
   {
     id: "route-aly",

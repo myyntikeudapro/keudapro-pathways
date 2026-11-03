@@ -4,6 +4,14 @@
 
 /* KeudaPRO Design System - Clean, Institutional-Modern Style */
 
+.pks-coaching-hero { min-height: 560px; }
+.pks-coaching-shade { background: linear-gradient(90deg, hsl(var(--foreground) / .92) 0%, hsl(var(--foreground) / .78) 42%, hsl(var(--foreground) / .12) 78%); }
+@media (max-width: 767px) {
+  .pks-coaching-hero { min-height: 630px; }
+  .pks-coaching-shade { background: linear-gradient(0deg, hsl(var(--foreground) / .96) 0%, hsl(var(--foreground) / .86) 50%, hsl(var(--foreground) / .12) 100%); }
+  .pks-coaching-hero > .keuda-container { padding-top: 120px; }
+}
+
 @layer base {
   :root {
     /* Core backgrounds */

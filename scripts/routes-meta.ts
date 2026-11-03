@@ -13,6 +13,13 @@ export interface RouteMeta {
 
 export const routes: RouteMeta[] = [
   {
+    path: "/tyohonvalmennus-pks",
+    title: "Työnhakijan yksilövalmennus – pääkaupunkiseutu | KeudaPRO",
+    description: "Maksuton yksilövalmennus Helsingin, Espoon ja Vantaan työllisyyspalveluiden asiakkaille. Oma valmentaja ja tukea työnhakuun 1–9 kuukaudeksi.",
+    changefreq: "monthly",
+    priority: "0.8",
+  },
+  {
     path: "/",
     title: "KeudaPRO – Osaamisen ja siirtymien operaattori",
     description:
