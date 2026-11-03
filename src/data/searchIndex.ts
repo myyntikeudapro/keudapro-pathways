@@ -15,6 +15,8 @@ import progTurvallisuus from "@/assets/prog-turvallisuus.jpg";
 import courseTyoturvallisuus from "@/assets/course-tyoturvallisuus.jpg";
 import courseTulityo from "@/assets/course-tulityo.jpg";
 import courseIlmastointi from "@/assets/course-ilmastointi-m1.jpg";
+import courseAseptiikka from "@/assets/course-aseptiikka.jpg";
+import aseptiikka from "@/data/aseptiikka.json";
 import courseEa1 from "@/assets/course-ea1.jpg";
 import courseHygienia from "@/assets/course-hygienia.jpg";
 import courseAnniskelu from "@/assets/course-anniskelu.jpg";
@@ -52,6 +54,15 @@ export type SearchEntry = {
 
 
 export const searchIndex: SearchEntry[] = [
+  {
+    id: "osaaminen-aseptiikka",
+    title: aseptiikka.title,
+    description: aseptiikka.description,
+    href: aseptiikka.path,
+    image: courseAseptiikka,
+    category: "Pätevyys",
+    keywords: ["aseptiikka", "hoitotyö", "hoiva", "käsihygienia", "suojaimet", "tartuntataudit", "infektioiden torjunta", "sosiaali- ja terveysala", "sote", "hoivakoti", "kotihoito", "Teams", "etäkoulutus", "henkilöstökoulutus"],
+  },
   {
     id: "noste-tyohonvalmennus-pks",
     title: "Työnhakijan yksilövalmennus – pääkaupunkiseutu",

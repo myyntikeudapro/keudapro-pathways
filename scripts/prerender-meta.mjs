@@ -12,6 +12,13 @@ import { resolve, join } from "node:path";
 import { BASE_URL, routes } from "./routes-meta.mjs";
 import { alySeoBodyHtml, alyJsonLd } from "./aly-seo.mjs";
 const pksService = JSON.parse(readFileSync(new URL("../src/data/tyohonvalmennusPks.json", import.meta.url), "utf-8"));
+const aseptiikka = JSON.parse(readFileSync(new URL("../src/data/aseptiikka.json", import.meta.url), "utf-8"));
+
+function aseptiikkaSeoBodyHtml() {
+  return aseptiikka.sections.map(section => `<h2>${escapeHtml(section.title)}</h2>${section.paragraphs.map(text => `<p>${escapeHtml(text)}</p>`).join("")}`).join("")
+    + `<h2>Koulutuksen teemat</h2><ul>${aseptiikka.themes.map(text => `<li>${escapeHtml(text)}</li>`).join("")}</ul>`
+    + `<h2>Tilaa koulutus organisaatiollesi</h2>${aseptiikka.steps.map(step => `<h3>${escapeHtml(step.title)}</h3><p>${escapeHtml(step.text)}</p>`).join("")}<a href="mailto:${aseptiikka.contactEmail}">Pyydä tarjous: ${aseptiikka.contactEmail}</a>`;
+}
 
 function pksSeoBodyHtml() {
   return pksService.sections.map(section => `<h2>${escapeHtml(section.title)}</h2>${section.paragraphs.map(text => `<p>${escapeHtml(text)}</p>`).join("")}`).join("")
@@ -103,7 +110,8 @@ export async function runPrerenderMeta() {
   for (const route of routes) {
     let html = rewriteHead(baseHtml, route);
     const isAly = route.path === "/aly";
-    html = injectSeoBlock(html, route, isAly ? alySeoBodyHtml() : route.path === pksService.path ? pksSeoBodyHtml() : "");
+    html = injectSeoBlock(html, route, isAly ? alySeoBodyHtml() : route.path === pksService.path ? pksSeoBodyHtml() : route.path === aseptiikka.path ? aseptiikkaSeoBodyHtml() : "");
+    if (route.path === aseptiikka.path) html = injectJsonLd(html, [{ "@context": "https://schema.org", "@type": "Course", name: aseptiikka.title, description: aseptiikka.description, url: `${BASE_URL}${aseptiikka.path}`, provider: { "@type": "Organization", name: "KeudaPRO" }, timeRequired: "PT2H", courseMode: "online", inLanguage: "fi" }]);
     if (isAly) html = injectJsonLd(html, alyJsonLd());
     if (route.path === "/") {
       writeFileSync(INDEX, html);

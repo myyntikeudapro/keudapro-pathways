@@ -16,3 +16,4 @@
 - M1 registration links and explicit Helsinki-calendar deadlines live in the course data; the local participant form stays behind a registration-channel flag, and outbound clicks never count as completed registrations because Lyyti owns confirmation.
 - AI Talent Hub access is decided by email-matched, confirmed-account rows in ai_talent_members (site admins also manage it); the page is gated by AI_TALENT_PUBLISHED so production stays hidden until approval.
 - PKS coaching uses shared service data for the public page and static SEO content, with original brochure media stored as asset pointers; this keeps service terms consistent and brochure links recognizable.
+- Aseptiikka training uses shared JSON data for the page, search and static SEO content, with industry-grouped course listings and a prefilled email quote link; this keeps terms consistent without introducing a separate submission flow.
