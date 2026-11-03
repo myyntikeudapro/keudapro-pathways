@@ -1,0 +1,26 @@
+{
+  "path": "/tyohonvalmennus-pks",
+  "title": "Työnhakijan yksilövalmennus – pääkaupunkiseutu",
+  "description": "Maksuton yksilövalmennus Helsingin, Espoon ja Vantaan työllisyyspalveluiden asiakkaille. Oma valmentaja ja tukea työnhakuun 1–9 kuukaudeksi.",
+  "priceEuros": 0,
+  "durationMonths": { "min": 1, "max": 9 },
+  "cities": ["Helsinki", "Espoo", "Vantaa"],
+  "languages": ["suomi", "ruotsi", "englanti"],
+  "registrationChannel": "employment_expert",
+  "contactWithinBusinessDays": 1,
+  "sections": [
+    { "title": "Oma valmentaja, selkeä suunnitelma ja tukea työn alkuun", "paragraphs": ["Työnhaku on helpompaa, kun rinnalla on ihminen, joka tuntee työmarkkinat ja uskoo sinun osaamiseesi. Saat oman valmentajan, jonka kanssa teet konkreettisen suunnitelman työllistymiseen ja etenet sen mukaan askel kerrallaan.", "Tavoite on työpaikka avoimilta työmarkkinoilta. Joillekin oikea seuraava askel on koulutus, työkokeilu tai yrittäjyys, ja myös siihen saat tukea. Valmennus jatkuu tarvittaessa työsuhteen alussa, jotta uusi työ lähtee hyvin käyntiin."] },
+    { "title": "Kenelle palvelu sopii?", "paragraphs": ["Palvelu on tarkoitettu Helsingin, Espoon ja Vantaan työllisyyspalveluiden asiakkaille, joiden työttömyys on pitkittynyt tai joilla on työllistymisen esteitä esimerkiksi osaamisen, kielitaidon tai työkyvyn vuoksi.", "Palvelu sopii sinulle, kun haluat edetä kohti työtä ja pystyt osallistumaan valmennukseen suomeksi, ruotsiksi tai englanniksi. Tarvittaessa käytetään selkokieltä."] },
+    { "title": "Mitä valmennuksessa tehdään?", "paragraphs": ["Valmennus alkaa osaamisesi ja tilanteesi kartoituksella. Ensimmäisillä tapaamisilla teette valmentajan kanssa työllistymissuunnitelman, kirkastatte osaamisesi ja laitatte työnhaun asiakirjat kuntoon.", "Sen jälkeen valmennus etenee tarpeidesi mukaan: yksilötapaamisia, viikoittaisia verkkotilaisuuksia, työnhakuklinikoita, verkkomateriaaleja ja työnantajatapahtumia. Valmentaja pitää sinuun yhteyttä säännöllisesti koko palvelun ajan."] },
+    { "title": "Ajankohta, kesto ja tapaamiset", "paragraphs": ["Palveluun voi tulla jatkuvasti. Valmennus kestää tilanteestasi riippuen 1–9 kuukautta. Tapaamiset järjestetään etänä, lähitapaamisina tai hybridinä. Tapaamisten käytännöistä sovitaan valmentajan kanssa.", "Lähitapaamisissa on käytössäsi tietokone ja verkkoyhteys. Palvelun kielet ovat suomi, ruotsi ja englanti sekä tarvittaessa selkokieli."] },
+    { "title": "Maksuton palvelu", "paragraphs": ["Palvelu on sinulle maksuton. Sen järjestää oma työllisyysalueesi. Valmennukseen osallistuvat on vakuutettu palvelun ajan."] },
+    { "title": "Jos et pysty jatkamaan", "paragraphs": ["Kerro siitä valmentajallesi ja omalle työllisyyspalvelun asiantuntijallesi mahdollisimman pian. Palvelun keskeyttämisestä päättää työllisyyspalvelu yhdessä kanssasi."] },
+    { "title": "Palvelun toteuttajat", "paragraphs": ["Palvelun tuottaa KeudaPRO yhdessä Valo-Valmennusyhdistyksen ja Wulff Pron kanssa. KeudaPRO on Keski-Uudenmaan koulutuskuntayhtymä Keudan omistama yhtiö.", "Valmentajillamme on pitkä kokemus työnhaun ohjauksesta, uravalmennuksesta ja yhteistyöstä pääkaupunkiseudun työnantajien kanssa."] }
+  ],
+  "themes": ["Osaamisen tunnistaminen ja sanoittaminen", "Työllistymissuunnitelma ja työmarkkinoiden mahdollisuudet", "Työhakemus, CV ja työhaastattelu", "Työnhaun kanavat, verkostot ja piilotyöpaikat", "Yhteydet työnantajiin ja tuki työsuhteen alussa"],
+  "steps": [
+    { "title": "Keskustele oman asiantuntijasi kanssa", "text": "Ota asia puheeksi oman työllisyyspalvelun asiantuntijasi kanssa ja kerro, että haluat KeudaPROn työhönvalmennukseen. Palveluun ei voi ilmoittautua itse." },
+    { "title": "Valmentaja ottaa sinuun yhteyttä", "text": "Kun ohjaus on tehty, valmentajamme ottaa sinuun yhteyttä viimeistään seuraavana arkipäivänä. Sovitte ensimmäisen tapaamisen." },
+    { "title": "Rakennatte oman suunnitelmasi", "text": "Kartoitatte tilanteesi ja osaamisesi. Etenet kohti työtä oman valmentajasi tuella." }
+  ]
+}

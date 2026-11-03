@@ -11,6 +11,13 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { BASE_URL, routes } from "./routes-meta.mjs";
 import { alySeoBodyHtml, alyJsonLd } from "./aly-seo.mjs";
+const pksService = JSON.parse(readFileSync(new URL("../src/data/tyohonvalmennusPks.json", import.meta.url), "utf-8"));
+
+function pksSeoBodyHtml() {
+  return pksService.sections.map(section => `<h2>${escapeHtml(section.title)}</h2>${section.paragraphs.map(text => `<p>${escapeHtml(text)}</p>`).join("")}`).join("")
+    + `<h2>Valmennuksen teemat</h2><ul>${pksService.themes.map(text => `<li>${escapeHtml(text)}</li>`).join("")}</ul>`
+    + `<h2>Näin pääset mukaan</h2>${pksService.steps.map(step => `<h3>${escapeHtml(step.title)}</h3><p>${escapeHtml(step.text)}</p>`).join("")}`;
+}
 
 
 function escapeHtml(s) {
@@ -96,7 +103,7 @@ export async function runPrerenderMeta() {
   for (const route of routes) {
     let html = rewriteHead(baseHtml, route);
     const isAly = route.path === "/aly";
-    html = injectSeoBlock(html, route, isAly ? alySeoBodyHtml() : "");
+    html = injectSeoBlock(html, route, isAly ? alySeoBodyHtml() : route.path === pksService.path ? pksSeoBodyHtml() : "");
     if (isAly) html = injectJsonLd(html, alyJsonLd());
     if (route.path === "/") {
       writeFileSync(INDEX, html);

@@ -15,6 +15,7 @@ import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import Index from "./pages/Index";
 import InsightPage from "./pages/InsightPage";
 import WorkPlusPage from "./pages/WorkPlusPage";
+import TyohonvalmennusPksPage from "./pages/TyohonvalmennusPksPage";
 import GrowthPage from "./pages/GrowthPage";
 import OperaattoriPage from "./pages/OperaattoriPage";
 import KumppanitPage from "./pages/KumppanitPage";
@@ -63,6 +64,7 @@ const App = () => (
               <Route path="/aly" element={<InsightPage />} />
               <Route path="/osaaminen" element={<PatevyydetPage />} />
               <Route path="/noste" element={<WorkPlusPage />} />
+              <Route path="/tyohonvalmennus-pks" element={<TyohonvalmennusPksPage />} />
               <Route path="/muutosturva" element={<MuutosturvaPage />} />
               <Route path="/koulutukset/ilmastointipatevyys-m1-mantsala" element={<IlmastointiM1Page />} />
               <Route path="/kasvu" element={<GrowthPage />} />
