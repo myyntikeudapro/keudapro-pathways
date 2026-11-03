@@ -41,7 +41,7 @@ export default function TyohonvalmennusPksPage() {
           <div><h3 className="text-xl font-bold text-foreground mb-5">Valmennuksen teemat</h3><ul className="space-y-4">{service.themes.map(theme => <li key={theme} className="flex gap-3 text-foreground"><Check className="text-primary h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" /><span>{theme}</span></li>)}</ul></div>
         </div>
       </section>
-      <section id="mukaan" className="scroll-mt-24 bg-keuda-teal-section py-14 md:py-20">
+      <section id="mukaan" className="scroll-mt-24 bg-keuda-teal-light py-14 md:py-20">
         <div className="keuda-container">
           <p className="text-primary font-semibold text-sm mb-3">Jatkuva haku · Ei omaa ilmoittautumislomaketta</p>
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-9">Näin pääset mukaan</h2>
