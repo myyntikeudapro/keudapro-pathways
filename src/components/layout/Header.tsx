@@ -105,7 +105,7 @@ export function Header() {
             )}
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden">
             <Button variant="cta" size="default" onClick={() => openPanel()}>
               Apua? Kysy AI-valmentajalta
             </Button>
@@ -163,7 +163,7 @@ export function Header() {
                     )}
                   </div>
                 ))}
-                <div className="pt-2">
+                <div className="hidden">
                   <Button variant="cta" className="w-full" onClick={() => { setMobileMenuOpen(false); openPanel(); }}>
                     Apua? Kysy AI-valmentajalta
                   </Button>
