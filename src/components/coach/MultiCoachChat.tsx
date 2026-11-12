@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { X, Send, UserCheck, Mail, ArrowLeft, Bot } from "lucide-react";
 import { toast } from "sonner";
+import { useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useCoachPanel, CoachType } from "@/contexts/CoachPanelContext";
 
@@ -48,7 +49,8 @@ const formatTranscript = (
 
 export function MultiCoachChat() {
   const { activeChat } = useCoachPanel();
-  if (!activeChat || !canOpenCoach(activeChat)) return null;
+  const { pathname } = useLocation();
+  if (!activeChat || !canOpenCoach(activeChat, undefined, pathname)) return null;
   // Unmount on member changes/close: drafts, history and pending responses cannot cross members.
   return <CoachChatSession key={activeChat} />;
 }

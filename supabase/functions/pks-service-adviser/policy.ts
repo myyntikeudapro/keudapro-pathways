@@ -1,4 +1,4 @@
-// Public preview only; production release remains a separate approval gate.
+// Approved public service adviser; only recognized site origins are accepted.
 export const publicAdviserPolicy = {
   id: "tyonhakijan-yksilovalmennus-pks",
   enabled: true,
@@ -12,8 +12,8 @@ export const publicAdviserPolicy = {
   profile: "none",
 } as const;
 
-export function isAllowedPreviewOrigin(origin: string | null) {
-  return origin === "http://localhost:8080" || origin === "http://127.0.0.1:8080" || origin === "https://id-preview--372569a7-94e8-4660-8a21-6fa94be31047.lovable.app";
+export function isAllowedAdviserOrigin(origin: string | null) {
+  return origin !== null && ["http://localhost:8080", "http://127.0.0.1:8080", "https://id-preview--372569a7-94e8-4660-8a21-6fa94be31047.lovable.app", "https://keudapro.fi", "https://www.keudapro.fi", "https://keudapro.lovable.app"].includes(origin);
 }
 
 export function filterAdviserActions(value: unknown) {

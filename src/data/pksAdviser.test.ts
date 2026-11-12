@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { PKS_COACH_ID, coachRegistry, canBookCoach, canOpenCoach, isPksPreviewOrigin } from "./coachRegistry";
-import { publicAdviserPolicy, validatePublicConversation, isAllowedPreviewOrigin, filterAdviserActions, sanitizeAdviserAnswer } from "../../supabase/functions/pks-service-adviser/policy";
+import { PKS_COACH_ID, coachRegistry, canBookCoach, canOpenCoach, isPksAllowedOrigin, getAvailableCoaches } from "./coachRegistry";
+import { publicAdviserPolicy, validatePublicConversation, isAllowedAdviserOrigin, filterAdviserActions, sanitizeAdviserAnswer } from "../../supabase/functions/pks-service-adviser/policy";
 import drafts from "../../docs/pks-adviser/faq-draft-records.json";
 import knowledge from "../../supabase/functions/pks-service-adviser/public-knowledge.json";
 import service from "./tyohonvalmennusPks.json";
@@ -21,14 +21,26 @@ describe("PKS-palveluneuvojan käyttörajat", () => {
     expect(PKS_COACH_ID).toBe("tyonhakijan-yksilovalmennus-pks");
     expect(Object.keys(coachRegistry)).toEqual(["ana", "veli", "reitti", PKS_COACH_ID]);
   });
-  it("toimii vain esikatselussa eikä julkisilla domaineilla", () => {
+  it("hyväksyy esikatselun ja omat julkiset domainit, ei vieraita osoitteita", () => {
     expect(publicAdviserPolicy.enabled).toBe(true);
-    expect(isPksPreviewOrigin("localhost")).toBe(true);
-    expect(isPksPreviewOrigin("keudapro.fi")).toBe(false);
-    expect(isPksPreviewOrigin("keudapro.lovable.app")).toBe(false);
-    expect(isAllowedPreviewOrigin("http://localhost:8080")).toBe(true);
-    expect(isAllowedPreviewOrigin("https://keudapro.fi")).toBe(false);
-    expect(isAllowedPreviewOrigin(null)).toBe(false);
+    expect(isPksAllowedOrigin("localhost")).toBe(true);
+    for (const host of ["keudapro.fi", "www.keudapro.fi", "keudapro.lovable.app"]) {
+      expect(isPksAllowedOrigin(host)).toBe(true);
+      expect(isAllowedAdviserOrigin(`https://${host}`)).toBe(true);
+    }
+    expect(isAllowedAdviserOrigin("http://localhost:8080")).toBe(true);
+    expect(isAllowedAdviserOrigin("https://keudapro.fi.evil.example")).toBe(false);
+    expect(isAllowedAdviserOrigin(null)).toBe(false);
+  });
+  it("avaa Alisan vain PKS-sivulla myös ankkurien yhteydessä", () => {
+    expect(canOpenCoach(PKS_COACH_ID, true, "/tyohonvalmennus-pks")).toBe(true);
+    expect(canOpenCoach(PKS_COACH_ID, true, "/tyohonvalmennus-pks/")).toBe(true);
+    for (const path of ["/", "/noste", "/aly", "/yhteystiedot", "/admin", "/tyohonvalmennus-pks/muu"]) {
+      expect(canOpenCoach(PKS_COACH_ID, true, path)).toBe(false);
+    }
+  });
+  it("ei listaa Alisaa yleisessä valmentajavalikossa", () => {
+    expect(getAvailableCoaches()).toEqual(["ana", "veli", "reitti"]);
   });
   it("säilyttää 42 UKK-luonnosta erillään mallin aineistosta", () => {
     expect(drafts.records).toHaveLength(42);

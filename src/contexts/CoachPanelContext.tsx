@@ -1,5 +1,6 @@
-import { useState, useRef, ReactNode } from "react";
-import { canOpenCoach, canBookCoach, PKS_COACH_ID, type CoachType } from "@/data/coachRegistry";
+import { useState, useRef, useEffect, ReactNode } from "react";
+import { useLocation } from "react-router-dom";
+import { canOpenCoach, canBookCoach, isPksPage, PKS_COACH_ID, type CoachType } from "@/data/coachRegistry";
 import { CoachPanelContext } from "./coachPanelStore";
 export { useCoachPanel } from "./coachPanelStore";
 export type { CoachType } from "@/data/coachRegistry";
@@ -10,6 +11,10 @@ export function CoachPanelProvider({ children }: { children: ReactNode }) {
   const [highlightedCoach, setHighlightedCoach] = useState<CoachType | null>(null);
   const [bookingCoach, setBookingCoach] = useState<CoachType | null>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (!isPksPage(pathname)) setActiveChat(current => current === PKS_COACH_ID ? null : current);
+  }, [pathname]);
 
   return (
     <CoachPanelContext.Provider

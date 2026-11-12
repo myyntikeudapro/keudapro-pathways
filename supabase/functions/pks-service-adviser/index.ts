@@ -1,6 +1,6 @@
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { generateChatCompletion, GatewayError } from "npm:@lovable.dev/ai-gateway@0.1.11";
-import { publicAdviserPolicy, validatePublicConversation, isAllowedPreviewOrigin, filterAdviserActions, sanitizeAdviserAnswer } from "./policy.ts";
+import { publicAdviserPolicy, validatePublicConversation, isAllowedAdviserOrigin, filterAdviserActions, sanitizeAdviserAnswer } from "./policy.ts";
 import { SYSTEM_INSTRUCTION } from "./system-instruction.ts";
 import knowledge from "./public-knowledge.json" with { type: "json" };
 
@@ -12,7 +12,7 @@ Deno.serve(async (req: Request) => {
   });
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   if (req.method !== "POST") return respond(405, "Method not allowed");
-  if (!publicAdviserPolicy.enabled || !isAllowedPreviewOrigin(req.headers.get("origin"))) return respond(403, "Palveluneuvoja on käytössä vain esikatselussa.");
+  if (!publicAdviserPolicy.enabled || !isAllowedAdviserOrigin(req.headers.get("origin"))) return respond(403, "Palveluneuvoja ei ole käytettävissä tästä osoitteesta.");
   try {
     const reader = req.body?.getReader();
     if (!reader) return respond(400, "Invalid request");
