@@ -21,6 +21,8 @@ export const routes = [
     priority: "0.8",
     h1: "Työnhakijan yksilövalmennus",
   },
+  { path: "/tyohonvalmennus-pks/en", title: "Individual coaching for jobseekers | KeudaPRO", description: "Free individual coaching for clients of the employment services in Helsinki, Espoo and Vantaa. Support for job searching for 1–9 months through a referral from your own specialist.", changefreq: "monthly", priority: "0.8" },
+  { path: "/tyohonvalmennus-pks/sv", title: "Individuell coachning för arbetssökande | KeudaPRO", description: "Kostnadsfri individuell coachning för kunder hos sysselsättningstjänsterna i Helsingfors, Esbo och Vanda. Stöd i arbetssökandet i 1–9 månader genom hänvisning av din egen sakkunniga.", changefreq: "monthly", priority: "0.8" },
   {
     path: "/",
     title: "KeudaPRO – Osaamisen ja siirtymien operaattori",

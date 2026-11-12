@@ -7,7 +7,7 @@ import { JSDOM } from "jsdom";
 
 const ROUTES = [
   "/", "/aly", "/noste", "/kasvu", "/muutosturva",
-  "/tyohonvalmennus-pks",
+  "/tyohonvalmennus-pks", "/tyohonvalmennus-pks/en", "/tyohonvalmennus-pks/sv",
   "/osaaminen", "/operaattori", "/kumppanit", "/yhteystiedot",
 ];
 

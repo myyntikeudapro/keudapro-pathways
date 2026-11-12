@@ -1,3 +1,4 @@
+import { localizedRefusals, type AdviserLanguage } from "./languages.ts";
 export type AdviserScope = "pks-service" | "other-keudapro" | "personal-coaching" | "unrelated";
 
 export const SCOPE_INSTRUCTION = `Olet Alisa, vain Työnhakijan yksilövalmennus -palvelun PKS-palveluneuvoja.
@@ -21,7 +22,8 @@ export function parseAdviserScope(value: unknown): AdviserScope | null {
   return scope === "pks-service" || scope === "other-keudapro" || scope === "personal-coaching" || scope === "unrelated" ? scope : null;
 }
 
-export function scopeRefusal(scope: Exclude<AdviserScope, "pks-service">) {
+export function scopeRefusal(scope: Exclude<AdviserScope, "pks-service">, language: AdviserLanguage = "fi") {
+  if (language !== "fi") return { answer: localizedRefusals[language][scope], actions: scope === "other-keudapro" ? ["keudapro-contact"] : scope === "personal-coaching" ? ["entry"] : ["faq"] };
   if (scope === "other-keudapro") return {
     answer: "Neuvon vain Työnhakijan yksilövalmennuksesta pääkaupunkiseudulla. Muita valmennuksia, koulutuksia tai osaamisen kehittämistä koskevissa kysymyksissä ota yhteyttä KeudaPROn asiantuntijaan yhteystietosivun kautta.",
     actions: ["keudapro-contact"],

@@ -66,6 +66,8 @@ const App = () => (
               <Route path="/osaaminen" element={<PatevyydetPage />} />
               <Route path="/noste" element={<WorkPlusPage />} />
               <Route path="/tyohonvalmennus-pks" element={<TyohonvalmennusPksPage />} />
+              <Route path="/tyohonvalmennus-pks/en" element={<TyohonvalmennusPksPage />} />
+              <Route path="/tyohonvalmennus-pks/sv" element={<TyohonvalmennusPksPage />} />
               <Route path="/muutosturva" element={<MuutosturvaPage />} />
               <Route path="/koulutukset/ilmastointipatevyys-m1-mantsala" element={<IlmastointiM1Page />} />
               <Route path="/koulutukset/aseptiikka-hoitotyossa" element={<AseptiikkaPage />} />

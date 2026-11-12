@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, ReactNode } from "react";
 import { useLocation } from "react-router-dom";
-import { canOpenCoach, canBookCoach, isPksPage, PKS_COACH_ID, type CoachType } from "@/data/coachRegistry";
+import { canOpenCoach, canBookCoach, PKS_COACH_ID, type CoachType } from "@/data/coachRegistry";
 import { CoachPanelContext } from "./coachPanelStore";
 export { useCoachPanel } from "./coachPanelStore";
 export type { CoachType } from "@/data/coachRegistry";
@@ -13,7 +13,8 @@ export function CoachPanelProvider({ children }: { children: ReactNode }) {
   const returnFocus = useRef<HTMLElement | null>(null);
   const { pathname } = useLocation();
   useEffect(() => {
-    if (!isPksPage(pathname)) setActiveChat(current => current === PKS_COACH_ID ? null : current);
+    // Language changes also end the session so a new greeting uses the selected language.
+    setActiveChat(current => current === PKS_COACH_ID ? null : current);
   }, [pathname]);
 
   return (

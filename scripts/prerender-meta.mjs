@@ -20,15 +20,17 @@ function aseptiikkaSeoBodyHtml() {
     + `<h2>Tilaa koulutus organisaatiollesi</h2>${aseptiikka.steps.map(step => `<h3>${escapeHtml(step.title)}</h3><p>${escapeHtml(step.text)}</p>`).join("")}<a href="mailto:${aseptiikka.contactEmail}">Pyydä tarjous: ${aseptiikka.contactEmail}</a>`;
 }
 
-function pksSeoBodyHtml() {
+const pksTranslations = Object.fromEntries(["en", "sv"].map(language => [language, JSON.parse(readFileSync(new URL(`../src/data/pks/${language}.json`, import.meta.url), "utf-8"))]));
+const pksUi = JSON.parse(readFileSync(new URL("../src/data/pks/ui.json", import.meta.url), "utf-8"));
+function pksSeoBodyHtml(service = pksService, ui = pksUi.fi) {
   const items = list => list.map(item => `<h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>`).join("");
-  return `<p>${escapeHtml(pksService.intro)}</p><h2>Näin pääset mukaan</h2><p>${escapeHtml(pksService.entry.intro)}</p>`
-    + items(pksService.steps)
-    + `<h2>Voisiko tästä olla apua sinulle?</h2><p>${escapeHtml(pksService.audience)}</p><ul>${pksService.situations.map(text => `<li>${escapeHtml(text)}</li>`).join("")}</ul>`
-    + `<h2>Mitä valmentajan kanssa tehdään?</h2>${items(pksService.examples)}<p>${escapeHtml(pksService.examplesNote)}</p>`
-    + `<h2>Miten valmennus sopii arkeesi?</h2>${items(pksService.everyday)}`
-    + `<h2>Usein kysytyt kysymykset</h2>${pksService.faq.map(item => `<h3>${escapeHtml(item.question)}</h3><p>${escapeHtml(item.answer)}</p>`).join("")}`
-    + `<h2>Oma valmentaja ja toteuttajat</h2><p>${escapeHtml(pksService.ownCoach)}</p><p>${escapeHtml(pksService.providers.join(" · "))}</p>`;
+  return `<p>${escapeHtml(service.intro)}</p><h2>${escapeHtml(ui.join)}</h2><p>${escapeHtml(service.entry.intro)}</p>`
+    + items(service.steps)
+    + `<h2>${escapeHtml(ui.audience)}</h2><p>${escapeHtml(service.audience)}</p><ul>${service.situations.map(text => `<li>${escapeHtml(text)}</li>`).join("")}</ul>`
+    + `<h2>${escapeHtml(ui.examples)}</h2>${items(service.examples)}<p>${escapeHtml(service.examplesNote)}</p>`
+    + `<h2>${escapeHtml(ui.everyday)}</h2>${items(service.everyday)}`
+    + `<h2>${escapeHtml(ui.faq)}</h2>${service.faq.map(item => `<h3>${escapeHtml(item.question)}</h3><p>${escapeHtml(item.answer)}</p>`).join("")}`
+    + `<h2>${escapeHtml(ui.providers)}</h2><p>${escapeHtml(service.ownCoach)}</p><p>${escapeHtml(service.providers.join(" · "))}</p>`;
 }
 
 
@@ -115,10 +117,17 @@ export async function runPrerenderMeta() {
   for (const route of routes) {
     let html = rewriteHead(baseHtml, route);
     const isAly = route.path === "/aly";
-    html = injectSeoBlock(html, route, isAly ? alySeoBodyHtml() : route.path === pksService.path ? pksSeoBodyHtml() : route.path === aseptiikka.path ? aseptiikkaSeoBodyHtml() : "");
-    if (route.path === pksService.path) html = injectJsonLd(html, [
-      { "@context": "https://schema.org", "@type": "Service", name: pksService.title, description: pksService.description, url: `${BASE_URL}${pksService.path}`, provider: { "@type": "Organization", name: "KeudaPRO" }, areaServed: pksService.cities.map(name => ({ "@type": "City", name })), offers: { "@type": "Offer", price: pksService.priceEuros, priceCurrency: "EUR" } },
-      { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: pksService.faq.map(item => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
+    const pksLanguage = route.path === `${pksService.path}/en` ? "en" : route.path === `${pksService.path}/sv` ? "sv" : "fi";
+    const isPks = route.path === pksService.path || route.path === `${pksService.path}/en` || route.path === `${pksService.path}/sv`;
+    const currentPks = { ...pksService, ...(pksTranslations[pksLanguage] ?? {}), path: route.path };
+    if (isPks) {
+      html = html.replace(/<html[^>]*>/, `<html lang="${pksLanguage}">`);
+      html = html.replace("</head>", ["fi", "en", "sv"].map(lang => `<link rel="alternate" hreflang="${lang}" href="${BASE_URL}${pksService.path}${lang === "fi" ? "" : `/${lang}`}" />`).join("\n") + `<link rel="alternate" hreflang="x-default" href="${BASE_URL}${pksService.path}" /></head>`);
+    }
+    html = injectSeoBlock(html, route, isAly ? alySeoBodyHtml() : isPks ? pksSeoBodyHtml(currentPks, pksUi[pksLanguage]) : route.path === aseptiikka.path ? aseptiikkaSeoBodyHtml() : "");
+    if (isPks) html = injectJsonLd(html, [
+      { "@context": "https://schema.org", "@type": "Service", name: currentPks.title, description: currentPks.description, url: `${BASE_URL}${currentPks.path}`, provider: { "@type": "Organization", name: "KeudaPRO" }, areaServed: currentPks.cities.map(name => ({ "@type": "City", name })), offers: { "@type": "Offer", price: currentPks.priceEuros, priceCurrency: "EUR" } },
+      { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: currentPks.faq.map(item => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
     ]);
     if (route.path === aseptiikka.path) html = injectJsonLd(html, [{ "@context": "https://schema.org", "@type": "Course", name: aseptiikka.title, description: aseptiikka.description, url: `${BASE_URL}${aseptiikka.path}`, provider: { "@type": "Organization", name: "KeudaPRO" }, timeRequired: "PT2H", courseMode: "online", inLanguage: "fi" }]);
     if (isAly) html = injectJsonLd(html, alyJsonLd());

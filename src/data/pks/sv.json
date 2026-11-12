@@ -1,0 +1,128 @@
+{
+  "title": "Individuell coachning för arbetssökande",
+  "description": "Kostnadsfri individuell coachning för kunder hos sysselsättningstjänsterna i Helsingfors, Esbo och Vanda. Stöd i arbetssökandet i 1–9 månader genom hänvisning av din egen sakkunniga.",
+  "intro": "Du får en egen coach som stöder dig i arbetssökandet. Tillsammans kan ni hitta en tydligare riktning, skriva ansökningar och förbereda er för arbetsintervjuer. Coachningen är kostnadsfri för dig. Du kommer med genom hänvisning av dina sysselsättningstjänster.",
+  "facts": [
+    {
+      "label": "Pris",
+      "value": "Kostnadsfri"
+    },
+    {
+      "label": "Total längd",
+      "value": "1–9 månader enligt din situation"
+    },
+    {
+      "label": "Träffar",
+      "value": "På distans eller på plats enligt överenskommelse"
+    },
+    {
+      "label": "Att komma med",
+      "value": "Kontinuerligt via dina sysselsättningstjänster"
+    }
+  ],
+  "entry": {
+    "title": "Så kommer du med",
+    "intro": "Kontakta din egen sakkunniga vid sysselsättningstjänsterna och berätta att du är intresserad av KeudaPROs individuella coachning för arbetssökande. Tillsammans bedömer ni om tjänsten passar dig och om du kan hänvisas till den.",
+    "message": "Hej! Jag skulle vilja delta i KeudaPROs individuella coachning för arbetssökande. Kan vi utreda om den skulle passa min situation och hur jag kunde komma med?",
+    "requirementText": "För att lämna en kontaktbegäran måste din jobbsökning vara i kraft och ditt telefonnummer finnas sparat i dina kontaktuppgifter.",
+    "help": "Du kan lämna en kontaktbegäran på Jobbmarknaden när din jobbsökning är i kraft och dina kontaktuppgifter innehåller ett telefonnummer. Logga in i E-tjänster och välj Lämna en kontaktbegäran under Genvägar. Om du inte kan använda e-tjänsten, använd dina sysselsättningstjänsters övriga kontaktsätt.",
+    "city": "Kontakta din egen sakkunniga via Jobbmarknadens E-tjänster eller via ett annat kontaktsätt som dina sysselsättningstjänster erbjuder. Tillsammans bedömer ni om tjänsten passar dig och om en hänvisning är möjlig.",
+    "other": "Tjänstebeskrivningen på den här sidan gäller kunder hos sysselsättningstjänsterna i Helsingfors, Esbo och Vanda. Fråga dina egna sysselsättningstjänster vilken tjänst som skulle passa din situation.",
+    "unknown": "Om du inte vet vilka sysselsättningstjänster du är kund hos, sök kontaktuppgifterna för ditt område. Du kan kontrollera ditt kundförhållande via sysselsättningstjänsternas rådgivning.",
+    "notCustomer": "Utred ditt kundförhållande och vilka tjänster som passar dig hos sysselsättningstjänsterna i ditt område. Att anmäla sig som arbetssökande är inte att anmäla sig till den här coachningen. Dina lokala sysselsättningstjänster ger råd om hur du ska gå vidare."
+  },
+  "steps": [
+    {
+      "title": "Ta kontakt",
+      "text": "Kontakta dina egna sysselsättningstjänster."
+    },
+    {
+      "title": "Bedöm lämpligheten",
+      "text": "Tillsammans bedömer ni om tjänsten passar dig och om en hänvisning är möjlig."
+    },
+    {
+      "title": "Kom överens om den första träffen",
+      "text": "När hänvisningen har gjorts kontaktar coachen dig och ni kommer överens om den första träffen."
+    }
+  ],
+  "situations": [
+    "Jag vet inte vilket slags arbete jag kunde söka.",
+    "Jag har svårt att beskriva mitt kunnande.",
+    "Jag behöver hjälp med CV eller ansökningar.",
+    "Jag vill öva inför en arbetsintervju.",
+    "Jag har sökt arbete länge och behöver stöd."
+  ],
+  "audience": "Tjänsten är avsedd för kunder hos sysselsättningstjänsterna i Helsingfors, Esbo och Vanda som har varit arbetslösa länge eller vars sysselsättning försvåras av exempelvis faktorer som gäller kunnande, språkkunskaper eller arbetsförmåga. Du bedömer tjänstens lämplighet tillsammans med din egen sakkunniga vid sysselsättningstjänsterna.",
+  "examples": [
+    {
+      "title": "CV och kunnande",
+      "text": "Ni går igenom tidigare arbetsuppgifter och beskriver det kunnande som du har fått."
+    },
+    {
+      "title": "Arbetsansökan",
+      "text": "Ni tittar på en intressant platsannons och anpassar ansökan till den aktuella uppgiften."
+    },
+    {
+      "title": "Arbetsintervju",
+      "text": "Ni övar på att berätta om dig och ditt kunnande samt på vanliga intervjufrågor."
+    },
+    {
+      "title": "Riktning för arbetssökandet",
+      "text": "Ni funderar på lämpliga uppgifter och kanaler för arbetssökande."
+    }
+  ],
+  "examplesNote": "Om ditt CV redan är i skick kan ni exempelvis fokusera på att hitta arbetsplatser eller förbereda er för intervjuer. Du kommer överens om arbetets fokus med din egen coach.",
+  "everyday": [
+    {
+      "title": "Enligt din situation",
+      "text": "Den totala längden är 1–9 månader enligt din situation och dina framsteg. Allas coachning varar inte i nio månader."
+    },
+    {
+      "title": "Träffar och självständigt arbete",
+      "text": "Du kommer överens om träffar och arbetet mellan träffarna med coachen. Självständigt arbete kan till exempel vara att färdigställa en ansökan, komplettera ditt CV eller söka arbetsplatser."
+    },
+    {
+      "title": "På distans och på plats",
+      "text": "Träffarna kan ordnas på distans, på plats eller som en kombination. Du kan framföra önskemål om deltagande och tidtabeller. Ni kommer överens om arrangemangen med coachen; deltagande helt på distans garanteras inte för alla. Vid träffar på plats finns dator och internetanslutning."
+    },
+    {
+      "title": "Språk och stöd när arbetet börjar",
+      "text": "Tjänstens språk är finska, svenska och engelska. Vid behov används klarspråk. Om du får arbete kan stödet vid behov fortsätta i början av anställningen."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Hur kommer jag med?",
+      "answer": "Kontakta din egen sakkunniga vid sysselsättningstjänsterna och berätta att du är intresserad av KeudaPROs individuella coachning för arbetssökande. Tillsammans bedömer ni lämpligheten och möjligheten att hänvisa dig till tjänsten. Du anmäler dig inte själv."
+    },
+    {
+      "question": "Hur vet jag om coachningen passar mig?",
+      "answer": "Tjänsten är avsedd för kunder hos sysselsättningstjänsterna i Helsingfors, Esbo och Vanda som har varit arbetslösa länge eller vars sysselsättning försvåras av exempelvis kunnande, språkkunskaper eller arbetsförmåga. Du bedömer lämpligheten tillsammans med din egen sakkunniga."
+    },
+    {
+      "question": "Vad gör man i coachningen?",
+      "answer": "Med din egen coach kan du till exempel identifiera ditt kunnande, göra CV och ansökningar, öva inför arbetsintervjuer eller hitta en riktning för arbetssökandet. Fokus avtalas enligt din situation; exemplen är inte en obligatorisk arbetsordning för alla."
+    },
+    {
+      "question": "Hur länge varar coachningen?",
+      "answer": "Den totala längden är 1–9 månader enligt din situation och dina framsteg. Allas coachning varar inte i nio månader."
+    },
+    {
+      "question": "Hur ofta träffar jag coachen och hur mycket tid tar deltagandet?",
+      "answer": "Du kommer överens om träffar och arbetet mellan dem med din egen coach. Du kan framföra önskemål om tidtabellen. Självständigt arbete kan vara att komplettera CV, färdigställa en ansökan eller söka arbetsplatser. Den här tjänstebeskrivningen anger ingen gemensam mötesrytm eller något gemensamt antal veckotimmar."
+    },
+    {
+      "question": "Kan jag delta helt på distans?",
+      "answer": "Träffarna kan ordnas på distans, på plats eller som en kombination. Du kan framföra önskemål om deltagande och komma överens om arrangemangen med coachen. Deltagande helt på distans garanteras inte för alla."
+    },
+    {
+      "question": "Behöver jag ett färdigt CV?",
+      "answer": "Du behöver inte ett färdigt CV. Du får hjälp med att göra det och beskriva ditt kunnande. Om ditt CV redan är i skick kan ni fokusera på andra behov i arbetssökandet."
+    },
+    {
+      "question": "Vad händer om jag hittar ett arbete?",
+      "answer": "Stödet kan vid behov fortsätta i början av anställningen så att det nya arbetet kommer igång bra. Stödets exakta längd anges inte i den här tjänstebeskrivningen."
+    }
+  ],
+  "ownCoach": "Du får en egen coach, med vilken du kommer överens om målen för ditt arbetssökande och hur ni ska arbeta. Coachningen är kostnadsfri för dig och deltagarna är försäkrade under tjänsten."
+}

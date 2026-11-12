@@ -11,7 +11,7 @@ export function isPksAllowedOrigin(hostname: string) {
 }
 export const PKS_COACH_ENABLED: boolean = PKS_COACH_AVAILABLE && typeof window !== "undefined" && isPksAllowedOrigin(window.location.hostname);
 export function isPksPage(pathname: string) {
-  return pathname === "/tyohonvalmennus-pks" || pathname === "/tyohonvalmennus-pks/";
+  return /^\/tyohonvalmennus-pks(?:\/(?:en|sv))?\/?$/.test(pathname);
 }
 
 export const coachRegistry = {

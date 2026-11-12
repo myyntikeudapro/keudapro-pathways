@@ -1,0 +1,128 @@
+{
+  "title": "Individual coaching for jobseekers",
+  "description": "Free individual coaching for clients of the employment services in Helsinki, Espoo and Vantaa. Support for job searching for 1–9 months through a referral from your own specialist.",
+  "intro": "You get your own coach to support your job search. Together you can clarify your direction, prepare applications and practise for job interviews. The service is free of charge. You join through a referral from your employment services.",
+  "facts": [
+    {
+      "label": "Cost",
+      "value": "Free of charge"
+    },
+    {
+      "label": "Total duration",
+      "value": "1–9 months depending on your situation"
+    },
+    {
+      "label": "Meetings",
+      "value": "Remote or in person, as agreed"
+    },
+    {
+      "label": "Joining",
+      "value": "Ongoing referrals through your employment services"
+    }
+  ],
+  "entry": {
+    "title": "How to join",
+    "intro": "Contact your specialist at your employment services and tell them you are interested in KeudaPRO’s individual coaching for jobseekers. Together you will assess whether the service is suitable and whether you can be referred to it.",
+    "message": "Hello! I would like to take part in KeudaPRO’s individual coaching for jobseekers. Could we find out whether it would suit my situation and how I could join?",
+    "requirementText": "To submit a contact request, your job search must be active and your phone number must be saved in your contact details.",
+    "help": "You can submit a contact request on Job Market Finland when your job search is active and your contact details include a phone number. Sign in to E-services and select Submit a contact request under Shortcuts. If you cannot use E-services, use the other contact options offered by your employment services.",
+    "city": "Contact your own specialist through Job Market Finland’s E-services or another contact option offered by your employment services. Together you will assess the service’s suitability and the possibility of a referral.",
+    "other": "This service description applies to clients of the employment services in Helsinki, Espoo and Vantaa. Ask your own employment services which service would suit your situation.",
+    "unknown": "If you do not know which employment services you are a client of, find the contact details for your area. The employment services’ advice service can help you check your client status.",
+    "notCustomer": "Ask the employment services in your area about your client status and suitable services. Registering as a jobseeker is not registration for this coaching. Your local employment services can advise you on how to proceed."
+  },
+  "steps": [
+    {
+      "title": "Get in touch",
+      "text": "Contact your own employment services."
+    },
+    {
+      "title": "Assess suitability",
+      "text": "Together you assess whether the service is suitable and whether a referral is possible."
+    },
+    {
+      "title": "Arrange the first meeting",
+      "text": "Once the referral has been made, your coach will contact you and you will arrange your first meeting."
+    }
+  ],
+  "situations": [
+    "I do not know what kind of work I could apply for.",
+    "I find it difficult to describe my skills.",
+    "I need help with my CV or applications.",
+    "I want to practise for a job interview.",
+    "I have been looking for work for a long time and need support."
+  ],
+  "audience": "The service is for clients of the employment services in Helsinki, Espoo and Vantaa who have been unemployed for a long time or face barriers to employment related, for example, to skills, language proficiency or work ability. You assess the service’s suitability together with your own employment services specialist.",
+  "examples": [
+    {
+      "title": "CV and skills",
+      "text": "You review your previous tasks and describe the skills you gained."
+    },
+    {
+      "title": "Job application",
+      "text": "You look at a job advertisement that interests you and adapt your application to that role."
+    },
+    {
+      "title": "Job interview",
+      "text": "You practise talking about yourself and your skills, as well as common interview questions."
+    },
+    {
+      "title": "Direction for your job search",
+      "text": "You consider suitable roles and job search channels."
+    }
+  ],
+  "examplesNote": "If your CV is already ready, you can focus on finding jobs or preparing for interviews, for example. You agree on the focus of your work with your own coach.",
+  "everyday": [
+    {
+      "title": "Based on your situation",
+      "text": "The total duration is 1–9 months depending on your situation and progress. Not everyone’s coaching lasts nine months."
+    },
+    {
+      "title": "Meetings and independent work",
+      "text": "You agree on meetings and work between meetings with your coach. Independent work can include finishing an application, updating your CV or looking for jobs."
+    },
+    {
+      "title": "Remote and in person",
+      "text": "Meetings can be remote, in person or a combination of both. You can share your preferences for participation and schedules. Arrangements are agreed with your coach; fully remote participation is not guaranteed for everyone. A computer and internet connection are available at in-person meetings."
+    },
+    {
+      "title": "Language and support when starting work",
+      "text": "The service languages are Finnish, Swedish and English. Plain language is used when needed. If you find work, support may continue at the start of your employment when needed."
+    }
+  ],
+  "faq": [
+    {
+      "question": "How do I join?",
+      "answer": "Contact your specialist at your own employment services and tell them you are interested in KeudaPRO’s individual coaching for jobseekers. Together you will assess suitability and the possibility of a referral. You cannot register for the service yourself."
+    },
+    {
+      "question": "How do I know whether coaching is right for me?",
+      "answer": "The service is for clients of the employment services in Helsinki, Espoo and Vantaa who have been unemployed for a long time or face barriers related, for example, to skills, language proficiency or work ability. You assess suitability with your own employment services specialist."
+    },
+    {
+      "question": "What do you do in coaching?",
+      "answer": "With your own coach you can identify your skills, prepare a CV and applications, practise interviews or clarify your job search direction. The focus is agreed based on your situation; the examples are not a mandatory sequence for everyone."
+    },
+    {
+      "question": "How long does coaching last?",
+      "answer": "The total duration is 1–9 months depending on your situation and progress. Not everyone’s coaching lasts nine months."
+    },
+    {
+      "question": "How often will I meet my coach and how much time does participation take?",
+      "answer": "You agree on meetings and work between meetings with your own coach. You can share your scheduling preferences. Independent work can include updating your CV, finishing an application or looking for jobs. This service description does not specify a common meeting frequency or number of weekly hours."
+    },
+    {
+      "question": "Can I participate entirely remotely?",
+      "answer": "Meetings can be remote, in person or a combination of both. You can share your participation preferences and agree on arrangements with your coach. Fully remote participation is not guaranteed for everyone."
+    },
+    {
+      "question": "Do I need a finished CV?",
+      "answer": "You do not need a finished CV. You get help creating it and describing your skills. If your CV is already ready, you can focus on other job search needs."
+    },
+    {
+      "question": "What happens if I find a job?",
+      "answer": "Support may continue at the start of your employment when needed to help you get off to a good start. This service description does not specify the exact duration of that support."
+    }
+  ],
+  "ownCoach": "You get your own coach, with whom you agree on your job search goals and how to work towards them. Coaching is free of charge, and participants are insured during the service."
+}

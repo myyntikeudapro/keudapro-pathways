@@ -7,7 +7,7 @@ import { useCoachPanel, CoachType } from "@/contexts/CoachPanelContext";
 
 import { coachRegistry, PKS_COACH_ID, canOpenCoach } from "@/data/coachRegistry";
 import { Button } from "@/components/ui/button";
-import service from "@/data/tyohonvalmennusPks.json";
+import { getPksLanguage, getPksUi, getPksContent, type PksLanguage } from "@/data/pksContent";
 import { PksEmploymentContact } from "@/components/noste/PksEmploymentContact";
 import { filterAdviserActions, sanitizeAdviserAnswer } from "../../../supabase/functions/pks-service-adviser/policy";
 import { trackPksAction } from "@/lib/pksAnalytics";
@@ -52,11 +52,15 @@ export function MultiCoachChat() {
   const { pathname } = useLocation();
   if (!activeChat || !canOpenCoach(activeChat, undefined, pathname)) return null;
   // Unmount on member changes/close: drafts, history and pending responses cannot cross members.
-  return <CoachChatSession key={activeChat} />;
+  return <CoachChatSession key={`${activeChat}:${activeChat === PKS_COACH_ID ? pathname : ""}`} />;
 }
 
 function CoachChatSession() {
   const { activeChat, closeChat, openPanel } = useCoachPanel();
+  const { pathname } = useLocation();
+  const [chatLanguage, setChatLanguage] = useState<PksLanguage>(() => getPksLanguage(pathname));
+  const ui = getPksUi(chatLanguage);
+  const service = getPksContent(chatLanguage);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -93,9 +97,9 @@ function CoachChatSession() {
 
   useEffect(() => {
     if (activeChat && messages.length === 0 && config) {
-      setMessages([{ role: "assistant", content: config.greeting }]);
+      setMessages([{ role: "assistant", content: isPublicAdviser ? ui.greeting : config.greeting }]);
     }
-  }, [activeChat, messages.length, config]);
+  }, [activeChat, messages.length, config, isPublicAdviser, ui.greeting]);
 
   useEffect(() => {
     if (activeChat) inputRef.current?.focus();
@@ -147,6 +151,7 @@ function CoachChatSession() {
         const answer = sanitizeAdviserAnswer(payload.answer);
         if (!answer) throw new Error("Invalid response");
         const actions = filterAdviserActions(payload.actions);
+        if (payload.language === "fi" || payload.language === "en" || payload.language === "sv") setChatLanguage(payload.language);
         setMessages(prev => [...prev, { role: "assistant", content: answer }]);
         setShowEntry(actions.includes("entry") || actions.includes("copy-message"));
         setShowKeudaproContact(actions.includes("keudapro-contact"));
@@ -189,18 +194,18 @@ function CoachChatSession() {
       if (endpoint === "pks-service-adviser") setAdviserFailed(true);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: endpoint === "pks-service-adviser" ? "Palveluneuvoja ei ole juuri nyt käytettävissä. Löydät palvelutiedot usein kysytyistä kysymyksistä ja mukaanpääsyohjeesta." : "Pahoittelen – minulla on tekninen ongelma juuri nyt. Ota yhteyttä suoraan: keudapro@keuda.fi" },
+        { role: "assistant", content: endpoint === "pks-service-adviser" ? ui.failure : "Pahoittelen – minulla on tekninen ongelma juuri nyt. Ota yhteyttä suoraan: keudapro@keuda.fi" },
       ]);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [ui.failure]);
 
   const send = useCallback(
     (text: string) => {
       if (!text.trim() || isLoading || !config || (isPublicAdviser && (text.trim().length > 2000 || messages.filter(m => m.role === "user").length >= 10))) return;
       const userMsg: Msg = { role: "user", content: text.trim() };
-      const history = messages.filter((m) => !(m === messages[0] && m.content === config.greeting));
+      const history = messages.filter((m, index) => !(index === 0 && m.role === "assistant"));
       const newAll = [...history, userMsg];
       setMessages((prev) => [...prev, userMsg]);
       setInput("");
@@ -246,13 +251,13 @@ function CoachChatSession() {
   if (!activeChat || !config) return null;
 
   return (
-    <div role="dialog" aria-modal="false" aria-label={config.name} className={cn("fixed z-[62] inset-0 md:inset-auto md:bottom-6 md:right-6 md:w-[380px] transition-all duration-200 ease-out opacity-100 translate-y-0 pointer-events-auto", isPublicAdviser ? "md:h-[min(760px,calc(100dvh-3rem))]" : "md:h-[540px]")}>
+    <div lang={isPublicAdviser ? chatLanguage : undefined} role="dialog" aria-modal="false" aria-label={config.name} className={cn("fixed z-[62] inset-0 md:inset-auto md:bottom-6 md:right-6 md:w-[380px] transition-all duration-200 ease-out opacity-100 translate-y-0 pointer-events-auto", isPublicAdviser ? "md:h-[min(760px,calc(100dvh-3rem))]" : "md:h-[540px]")}>
       <div className="flex flex-col h-full md:rounded-2xl overflow-hidden border border-border shadow-2xl bg-background">
 
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 bg-foreground" style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))" }}>
           <div className="flex items-center gap-2 min-w-0">
-            <Button variant="ghost" size="icon" onClick={() => { closeChat(); if (!isPublicAdviser) openPanel(); }} className="shrink-0 text-background hover:bg-background/10" aria-label="Takaisin">
+            <Button variant="ghost" size="icon" onClick={() => { closeChat(); if (!isPublicAdviser) openPanel(); }} className="shrink-0 text-background hover:bg-background/10" aria-label={isPublicAdviser ? ui.back : "Takaisin"}>
               <ArrowLeft className="w-4 h-4 text-background" />
             </Button>
             {config.image ? <img src={config.image} alt={config.name} className="w-7 h-7 rounded-full object-cover border border-background/30" /> : <Bot className="w-7 h-7 shrink-0 text-background" aria-label="Tekoäly" />}
@@ -260,7 +265,7 @@ function CoachChatSession() {
               <span className="text-sm font-semibold text-background">{config.name}</span>
               <span className="flex items-center gap-1 text-[10px] text-background/60">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                {config.role}
+                {isPublicAdviser ? ui.role : config.role}
               </span>
             </div>
           </div>
@@ -270,7 +275,7 @@ function CoachChatSession() {
                 Päätä sessio
               </button>
             )}
-            <Button variant="ghost" size="icon" onClick={closeChat} className="shrink-0 text-background/70 hover:text-background" aria-label="Sulje chat">
+            <Button variant="ghost" size="icon" onClick={closeChat} className="shrink-0 text-background/70 hover:text-background" aria-label={isPublicAdviser ? ui.close : "Sulje chat"}>
               <X className="w-5 h-5" />
             </Button>
           </div>
@@ -278,7 +283,7 @@ function CoachChatSession() {
 
         {/* Messages */}
         <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3 bg-muted/30">
-          {isPublicAdviser && messages.length <= 1 && <div className="flex flex-wrap gap-2">{["Miten pääsen mukaan?", "Sopiiko valmennus minulle?", "Mitä valmennuksessa tehdään?", "Kesto ja tapaamiset"].map(text => <Button key={text} variant="outline" size="sm" className="h-auto whitespace-normal text-left" onClick={() => send(text)} disabled={isLoading}>{text}</Button>)}</div>}
+          {isPublicAdviser && messages.length <= 1 && <div className="flex flex-wrap gap-2">{ui.quick.map(text => <Button key={text} variant="outline" size="sm" className="h-auto whitespace-normal text-left" onClick={() => send(text)} disabled={isLoading}>{text}</Button>)}</div>}
           {messages.map((m, i) => (
             <div key={i} className={cn("flex", m.role === "user" ? "justify-end" : "justify-start")}>
               <div className={cn(
@@ -291,7 +296,7 @@ function CoachChatSession() {
               </div>
             </div>
           ))}
-          {isPublicAdviser && userMessageCount > 0 && !isLoading && !adviserFailed && <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground"><span>Auttoiko vastaus?</span>{(["helpful", "unhelpful"] as const).map(value => <Button key={value} size="sm" variant={feedback === value ? "default" : "outline"} disabled={feedback !== null} onClick={() => { setFeedback(value); trackPksAction("answer_feedback", value); }}>{value === "helpful" ? "Kyllä" : "Ei"}</Button>)}</div>}
+          {isPublicAdviser && userMessageCount > 0 && !isLoading && !adviserFailed && <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground"><span>{ui.helpful}</span>{(["helpful", "unhelpful"] as const).map(value => <Button key={value} size="sm" variant={feedback === value ? "default" : "outline"} disabled={feedback !== null} onClick={() => { setFeedback(value); trackPksAction("answer_feedback", value); }}>{value === "helpful" ? ui.yes : ui.no}</Button>)}</div>}
 
           {isLoading && (
             <div className="flex justify-start">
@@ -302,9 +307,9 @@ function CoachChatSession() {
               </div>
             </div>
           )}
-          {isPublicAdviser && showEntry && !adviserFailed && <PksEmploymentContact compact />}
-          {isPublicAdviser && showKeudaproContact && !adviserFailed && <Button variant="outline" asChild className="max-w-full whitespace-normal h-auto min-h-10 py-2"><a href="/yhteystiedot" target="_blank" rel="noopener noreferrer"><UserCheck className="h-4 w-4 shrink-0" aria-hidden="true" /> Ota yhteyttä KeudaPROn asiantuntijaan</a></Button>}
-          {isPublicAdviser && adviserFailed && <div className="space-y-3 border-t border-border pt-3"><p className="text-sm text-foreground">{service.faq[0].answer}</p><PksEmploymentContact compact /></div>}
+          {isPublicAdviser && showEntry && !adviserFailed && <PksEmploymentContact compact language={chatLanguage} />}
+          {isPublicAdviser && showKeudaproContact && !adviserFailed && <Button variant="outline" asChild className="max-w-full whitespace-normal h-auto min-h-10 py-2"><a href="/yhteystiedot" target="_blank" rel="noopener noreferrer"><UserCheck className="h-4 w-4 shrink-0" aria-hidden="true" /> {ui.expert}</a></Button>}
+          {isPublicAdviser && adviserFailed && <div className="space-y-3 border-t border-border pt-3"><p className="text-sm text-foreground">{service.faq[0].answer}</p><PksEmploymentContact compact language={chatLanguage} /></div>}
 
           {showCoachCTA && !isLoading && (
             <div className="flex flex-col items-center gap-2 pt-2">
@@ -392,12 +397,12 @@ function CoachChatSession() {
         </div>
 
         {isPublicAdviser && <div className="p-3 border-t border-border bg-background space-y-3">
-          <p className="text-xs text-muted-foreground">Lähde: <a href="/tyohonvalmennus-pks#ukk" onClick={closeChat} className="underline">{service.title}</a> · Helsinki, Espoo ja Vantaa</p>
+          <p className="text-xs text-muted-foreground">{ui.source}: <a href={`${service.path}#ukk`} onClick={closeChat} className="underline">{service.title}</a> · {ui.choices.slice(0, 3).join(" · ")}</p>
           <div className="flex flex-wrap gap-2">
-            <Button variant="cta" asChild><a href="/tyohonvalmennus-pks#mukaan" onClick={closeChat}>Näin pääset mukaan</a></Button>
-            <Button variant="outline" asChild><a href="/tyohonvalmennus-pks#ukk" onClick={closeChat}>Usein kysytyt kysymykset</a></Button>
+            <Button variant="cta" asChild><a href={`${service.path}#mukaan`} onClick={closeChat}>{ui.join}</a></Button>
+            <Button variant="outline" asChild><a href={`${service.path}#ukk`} onClick={closeChat}>{ui.faq}</a></Button>
           </div>
-          <p className="text-xs text-muted-foreground">Kopioitava viestipohja ja oman työllisyyspalvelun yhteydenottotavat löytyvät mukaanpääsyohjeesta.</p>
+          <p className="text-xs text-muted-foreground">{ui.templateHint}</p>
         </div>}
         {/* Input */}
         <div className="p-3 border-t border-border bg-background space-y-1.5" style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}>
@@ -406,7 +411,7 @@ function CoachChatSession() {
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Kirjoita viesti..."
+              placeholder={isPublicAdviser ? ui.placeholder : "Kirjoita viesti..."}
               className="flex-1 min-w-0 px-3 py-2 text-sm rounded-lg bg-muted border border-border focus:outline-none focus:ring-2 focus:ring-primary/40"
               disabled={isLoading || (isPublicAdviser && userMessageCount >= 10)}
               maxLength={isPublicAdviser ? 2000 : undefined}
@@ -415,14 +420,14 @@ function CoachChatSession() {
               type="submit"
               disabled={isLoading || !input.trim() || (isPublicAdviser && userMessageCount >= 10)}
               className="p-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-40 transition-colors"
-              aria-label="Lähetä"
+              aria-label={isPublicAdviser ? ui.send : "Lähetä"}
             >
               <Send className="w-4 h-4" />
             </Button>
           </form>
-          {isPublicAdviser && userMessageCount >= 10 && <p className="text-xs text-muted-foreground">Keskustelun viestiraja täyttyi. Voit jatkaa UKK:sta tai mukaanpääsyohjeesta.</p>}
+          {isPublicAdviser && userMessageCount >= 10 && <p className="text-xs text-muted-foreground">{ui.limit}</p>}
           <div className="flex items-center justify-between text-[10px] text-muted-foreground">
-            <span className="italic">{isPublicAdviser ? "Tekoäly, ei oma valmentajasi. Älä kirjoita henkilötietoja. Viestit käsitellään AI-palvelussa; keskustelu on tässä selaimessa vain avoimen paneelin ajan." : "AI-valmentaja – ei ihminen. Ei tallenna tietojasi."}</span>
+            <span className="italic">{isPublicAdviser ? ui.privacy : "AI-valmentaja – ei ihminen. Ei tallenna tietojasi."}</span>
             {!isPublicAdviser && <a href="mailto:keudapro@keuda.fi" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
               keudapro@keuda.fi
             </a>}
