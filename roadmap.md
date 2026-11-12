@@ -37,4 +37,5 @@
 - [x] PKS-sivun uudistus: yhteinen versioitu sisältö, 8 UKK-vastausta, kuusi yhteydenottohaaraa ja kopioinnin varareitti; 19 testiä, näppäimistö ja 320/390/768/918/1280 px tarkistettu. Staattiset metatiedot ja Service/FAQ-JSON-LD varmennettu. Kuvan ja esitteen alkuperäiset tiedostot tarkistettu tallennuksesta, paikallisen Viten kuvavälitys puuttuu. Vain esikatselu, ei chatia tai julkaisua.
 - [ ] PKS-valmentajan yhteydenoton täsmällinen aikaraja: odottaa palvelun vastuuhenkilön vahvistusta.
 - [x] PKS-palveluneuvojan valmistelu: yhteinen jäsenmääritys, eristetty keskustelu, sallitut toiminnot ja suljettu palvelinraja; rajattu generoitu tietopohja, käyttörajatestit ja UKK-selainpolku 390/918/1280 px. Ei mallikutsua, käyttöönottoa tai julkaisua.
-- [ ] PKS-palveluneuvojan AI-vastaukset: odottaa seuraavan ohjeistuksen ja hyväksytyn tietopohjan liittämistä; ei julkaista tai oteta käyttöön tässä vaiheessa.
+- [x] PKS-palveluneuvojan esikatselu: jäsenkohtainen ohje, 42 erillistä UKK-luonnostietuetta, rajattu SDK-malliyhteys ja alkuperäportti. 41 testiä, oikea AI-vastaus, Helsingin linkit/kopiointi, sulkemisen eristys 390/918/1280 px ja palvelukatkon varareitti varmennettu; tuotantodomain estetty, ei sivuston julkaisua.
+- [ ] PKS-laajan UKK:n käyttöönotto: 42 luonnosvastauksen julkaisuhyväksyntä ja tuontiraportin täsmennykset odottavat vahvistusta.

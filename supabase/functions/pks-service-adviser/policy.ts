@@ -1,7 +1,7 @@
-// Fail closed until the next approved instruction/knowledge activation step.
+// Public preview only; production release remains a separate approval gate.
 export const publicAdviserPolicy = {
   id: "tyonhakijan-yksilovalmennus-pks",
-  enabled: false,
+  enabled: true,
   maxMessages: 20,
   maxMessageLength: 2000,
   maxBodyBytes: 48000,
@@ -11,6 +11,25 @@ export const publicAdviserPolicy = {
   cache: "none",
   profile: "none",
 } as const;
+
+export function isAllowedPreviewOrigin(origin: string | null) {
+  return origin === "http://localhost:8080" || origin === "http://127.0.0.1:8080" || origin === "https://id-preview--372569a7-94e8-4660-8a21-6fa94be31047.lovable.app";
+}
+
+export function filterAdviserActions(value: unknown) {
+  if (!Array.isArray(value)) return [];
+  return [...new Set(value.filter((id): id is typeof publicAdviserPolicy.allowedActions[number] =>
+    publicAdviserPolicy.allowedActions.some(allowed => allowed === id)))];
+}
+
+export function sanitizeAdviserAnswer(value: unknown) {
+  if (typeof value !== "string" || !value.trim() || value.length > 8000) return null;
+  // Model prose never supplies clickable URLs or contact details.
+  return value.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/(?:https?:\/\/|www\.)\S+/gi, "[linkki löytyy toimintopainikkeista]")
+    .replace(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/gi, "[yhteystiedot löytyvät ohjeesta]")
+    .replace(/(?:\+358|0)\d[\d \-]{6,}\d/g, "[yhteystiedot löytyvät ohjeesta]");
+}
 
 export function validatePublicConversation(body: unknown): boolean {
   if (!body || typeof body !== "object" || Array.isArray(body)) return false;

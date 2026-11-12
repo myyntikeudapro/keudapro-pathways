@@ -12,7 +12,7 @@ function ExternalAction({ href, children, primary = false }: { href: string; chi
   return <Button variant={primary ? "cta" : "outline"} size="lg" asChild className={linkClass}><a href={href} target="_blank" rel="noopener noreferrer">{children}<ArrowUpRight className="shrink-0 h-4 w-4" aria-hidden="true" /></a></Button>;
 }
 
-export function PksEmploymentContact() {
+export function PksEmploymentContact({ compact = false }: { compact?: boolean }) {
   const [choice, setChoice] = useState<EmploymentChoice | null>(null);
   const [copyStatus, setCopyStatus] = useState("");
   const route = getEmploymentRoute(choice);
@@ -26,20 +26,20 @@ export function PksEmploymentContact() {
   };
   const guidance = route.city ? service.entry.city : choice === "Muu" ? service.entry.other : choice === "En tiedä" ? service.entry.unknown : choice === "En ole vielä asiakas" ? service.entry.notCustomer : null;
 
-  return <section id="mukaan" className="scroll-mt-24 bg-keuda-teal-section py-14 md:py-20">
-    <div className="keuda-container">
+  return <section id={compact ? undefined : "mukaan"} className={compact ? "bg-muted/30 p-3" : "scroll-mt-24 bg-keuda-teal-section py-14 md:py-20"}>
+    <div className={compact ? "space-y-3" : "keuda-container"}>
       <p className="text-primary font-semibold text-sm mb-3">Oman työllisyyspalvelun kautta</p>
-      <h2 className="text-3xl md:text-4xl font-bold text-primary mb-5">{service.entry.title}</h2>
+      <h2 className={compact ? "text-lg font-bold text-primary" : "text-3xl md:text-4xl font-bold text-primary mb-5"}>{service.entry.title}</h2>
       <p className="max-w-3xl text-foreground leading-relaxed text-lg">{service.entry.intro}</p>
-      <div className="mt-9 grid lg:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-14 border-t border-primary/20 pt-8">
+      <div className={compact ? "space-y-4 border-t border-border pt-3" : "mt-9 grid lg:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-14 border-t border-primary/20 pt-8"}>
         <div>
-          <label id="employment-label" className="block text-lg font-semibold text-foreground mb-4">Minkä työllisyyspalvelun asiakas olet?</label>
+          <label id={compact ? "adviser-employment-label" : "employment-label"} className="block text-lg font-semibold text-foreground mb-4">Minkä työllisyyspalvelun asiakas olet?</label>
           <Select value={choice ?? ""} onValueChange={value => {
             const next = employmentChoices.find(item => item === value);
             if (next) { setChoice(next); setCopyStatus(""); }
           }}>
-            <SelectTrigger aria-labelledby="employment-label" className="h-12 max-w-md"><SelectValue placeholder="Valitse työllisyyspalvelu" /></SelectTrigger>
-            <SelectContent>{employmentChoices.map(item => <SelectItem value={item} key={item}>{item}</SelectItem>)}</SelectContent>
+            <SelectTrigger aria-labelledby={compact ? "adviser-employment-label" : "employment-label"} className="h-12 max-w-md"><SelectValue placeholder="Valitse työllisyyspalvelu" /></SelectTrigger>
+            <SelectContent className={compact ? "z-[70]" : undefined}>{employmentChoices.map(item => <SelectItem value={item} key={item}>{item}</SelectItem>)}</SelectContent>
           </Select>
         </div>
         <div className="min-w-0 space-y-5" aria-live="polite">
@@ -51,8 +51,8 @@ export function PksEmploymentContact() {
               <ExternalAction href={route.contactUrl}>Katso oman työllisyyspalvelusi yhteystiedot</ExternalAction>
             </div>
             <div className="border-t border-primary/20 pt-5">
-              <label htmlFor="pks-message" className="block font-semibold mb-3 text-foreground">Viesti omalle asiantuntijallesi</label>
-              <textarea id="pks-message" readOnly value={service.entry.message} rows={5} className="w-full resize-y rounded-md border border-input bg-background p-4 text-foreground leading-relaxed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+              <label htmlFor={compact ? "adviser-pks-message" : "pks-message"} className="block font-semibold mb-3 text-foreground">Viesti omalle asiantuntijallesi</label>
+              <textarea id={compact ? "adviser-pks-message" : "pks-message"} readOnly value={service.entry.message} rows={5} className="w-full resize-y rounded-md border border-input bg-background p-4 text-foreground leading-relaxed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
               <Button variant="outline" onClick={copyMessage} className="mt-3">{copyStatus === "Viesti kopioitu" ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}Kopioi viesti</Button>
               <p role="status" className="mt-2 text-sm text-foreground">{copyStatus}</p>
               <p className="text-sm text-foreground mt-2">Viestiä ei lähetetä tältä sivulta.</p>
@@ -70,7 +70,7 @@ export function PksEmploymentContact() {
           <AccordionContent className="text-base text-foreground leading-relaxed max-w-3xl"><p>{service.entry.help}</p><a href={pksEmploymentLinks.contactHelp} target="_blank" rel="noopener noreferrer" className="inline-block text-primary underline underline-offset-4 mt-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring">Lue yhteydenottopyynnön ohje<ArrowUpRight className="inline ml-1 h-4 w-4" aria-hidden="true" /></a></AccordionContent>
         </AccordionItem>
       </Accordion>
-      <ol className="mt-10 grid md:grid-cols-3 gap-8">{service.steps.map((step, index) => <li key={step.title} className="border-t border-primary/30 pt-5"><span className="text-3xl font-bold text-primary">0{index + 1}</span><h3 className="text-xl font-bold mt-4 mb-3 text-foreground">{step.title}</h3><p className="text-foreground leading-relaxed">{step.text}</p></li>)}</ol>
+      {!compact && <ol className="mt-10 grid md:grid-cols-3 gap-8">{service.steps.map((step, index) => <li key={step.title} className="border-t border-primary/30 pt-5"><span className="text-3xl font-bold text-primary">0{index + 1}</span><h3 className="text-xl font-bold mt-4 mb-3 text-foreground">{step.title}</h3><p className="text-foreground leading-relaxed">{step.text}</p></li>)}</ol>}
     </div>
   </section>;
 }

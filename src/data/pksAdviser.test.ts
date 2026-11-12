@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { PKS_COACH_ID, coachRegistry, canBookCoach, canOpenCoach, getAvailableCoaches } from "./coachRegistry";
-import { publicAdviserPolicy, validatePublicConversation } from "../../supabase/functions/pks-service-adviser/policy";
+import { PKS_COACH_ID, coachRegistry, canBookCoach, canOpenCoach, isPksPreviewOrigin } from "./coachRegistry";
+import { publicAdviserPolicy, validatePublicConversation, isAllowedPreviewOrigin, filterAdviserActions, sanitizeAdviserAnswer } from "../../supabase/functions/pks-service-adviser/policy";
+import drafts from "../../docs/pks-adviser/faq-draft-records.json";
 import knowledge from "../../supabase/functions/pks-service-adviser/public-knowledge.json";
 import service from "./tyohonvalmennusPks.json";
 
@@ -20,10 +21,26 @@ describe("PKS-palveluneuvojan käyttörajat", () => {
     expect(PKS_COACH_ID).toBe("tyonhakijan-yksilovalmennus-pks");
     expect(Object.keys(coachRegistry)).toEqual(["ana", "veli", "reitti", PKS_COACH_ID]);
   });
-  it("ei käynnisty ennen seuraavan ohjeistuksen liittämistä", () => {
-    expect(canOpenCoach(PKS_COACH_ID)).toBe(false);
-    expect(publicAdviserPolicy.enabled).toBe(false);
-    expect(getAvailableCoaches()).toEqual(["ana", "veli", "reitti"]);
+  it("toimii vain esikatselussa eikä julkisilla domaineilla", () => {
+    expect(publicAdviserPolicy.enabled).toBe(true);
+    expect(isPksPreviewOrigin("localhost")).toBe(true);
+    expect(isPksPreviewOrigin("keudapro.fi")).toBe(false);
+    expect(isPksPreviewOrigin("keudapro.lovable.app")).toBe(false);
+    expect(isAllowedPreviewOrigin("http://localhost:8080")).toBe(true);
+    expect(isAllowedPreviewOrigin("https://keudapro.fi")).toBe(false);
+    expect(isAllowedPreviewOrigin(null)).toBe(false);
+  });
+  it("säilyttää 42 UKK-luonnosta erillään mallin aineistosta", () => {
+    expect(drafts.records).toHaveLength(42);
+    expect(drafts.records.every(item => item.publicationStatus === "draft" && item.approvedBy === null && item.checkedAt === "2026-11-12")).toBe(true);
+    expect(knowledge.service.faq).toHaveLength(8);
+  });
+  it("hylkää mallin ylimääräiset toimintotunnisteet", () => {
+    expect(filterAdviserActions(["entry", "book", "ana", "https://example.com", "entry"])).toEqual(["entry"]);
+  });
+  it("ei päästä mallin linkkejä tai yhteystietoja vastauksen kautta", () => {
+    expect(sanitizeAdviserAnswer("Avaa https://example.com tai fake@example.com")).not.toContain("example.com");
+    expect(sanitizeAdviserAnswer({ answer: "ohitus" })).toBeNull();
   });
   it("ei peri ajanvarausta", () => expect(canBookCoach(PKS_COACH_ID)).toBe(false));
   it("säilyttää vanhojen jäsenten avauksen ja ajanvarauksen", () => {

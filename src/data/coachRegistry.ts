@@ -4,7 +4,10 @@ import coachReitti from "@/assets/coach-reitti.png";
 
 export const PKS_COACH_ID = "tyonhakijan-yksilovalmennus-pks";
 // Separate activation gate: registering this member must not activate public AI.
-export const PKS_COACH_ENABLED: boolean = false;
+export function isPksPreviewOrigin(hostname: string) {
+  return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "id-preview--372569a7-94e8-4660-8a21-6fa94be31047.lovable.app";
+}
+export const PKS_COACH_ENABLED: boolean = typeof window !== "undefined" && isPksPreviewOrigin(window.location.hostname);
 
 export const coachRegistry = {
   ana: {
@@ -28,7 +31,7 @@ export const coachRegistry = {
   [PKS_COACH_ID]: {
     name: "Työnhakijan palveluneuvoja", role: "Tekoälyavusteinen palveluneuvonta", image: null,
     description: "Auttaa ymmärtämään Työnhakijan yksilövalmennusta, sen käytäntöjä ja palveluun hakeutumista.",
-    greeting: "Olen tekoälyavusteinen palveluneuvoja. Autan tutustumaan Työnhakijan yksilövalmennukseen Helsingissä, Espoossa ja Vantaalla. Valmennuksessa saat oman valmentajan.",
+    greeting: "Hei! Autan sinua tutustumaan Työnhakijan yksilövalmennukseen. Mistä haluaisit tietää?",
     endpoint: "pks-service-adviser", color: "border-primary", allowBooking: false,
   },
 } as const;
