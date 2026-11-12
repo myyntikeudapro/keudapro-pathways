@@ -32,7 +32,7 @@ export const routes: RouteMeta[] = [
     path: "/",
     title: "KeudaPRO – Osaamisen ja siirtymien operaattori",
     description:
-      "Johtamiskoulutukset (ÄLY), työhönvalmennus (NOSTE) ja yritysten kasvuohjelmat (KASVU) KUUMA-seudulla – yksi reitti, kolme suuntaa.",
+      "Johtamiskoulutukset (ÄLY), työhönvalmennus (NOSTE) ja yritysten kasvuohjelmat (KASVU) koko Suomessa – yksi reitti, kolme suuntaa.",
     changefreq: "weekly",
     priority: "1.0",
   },
@@ -46,9 +46,9 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/noste",
-    title: "NOSTE – Työhönvalmennus ja muutosturva KUUMA-seudulla | KeudaPRO",
+    title: "NOSTE – Työhönvalmennus ja muutosturva koko Suomessa | KeudaPRO",
     description:
-      "Työhönvalmennus, muutosturvakoulutukset ja uudelleenkouluttautumisen polut työttömille, työnhakijoille ja työpaikkaa vaihtaville KUUMA-seudulla.",
+      "Työhönvalmennus, muutosturvakoulutukset ja uudelleenkouluttautumisen polut työttömille, työnhakijoille ja työpaikkaa vaihtaville koko Suomessa.",
     changefreq: "weekly",
     priority: "0.9",
   },
@@ -56,7 +56,7 @@ export const routes: RouteMeta[] = [
     path: "/kasvu",
     title: "KASVU – Yritysten kasvuohjelmat ja ELY-rahoitus | KeudaPRO",
     description:
-      "Yritysten kasvuohjelmat, johtamisen kehittäminen ja ELY-rahoitteiset koulutukset. Neljä kasvutasoa pk-yrityksille KUUMA-seudulla.",
+      "Yritysten kasvuohjelmat, johtamisen kehittäminen ja ELY-rahoitteiset koulutukset. Neljä kasvutasoa pk-yrityksille koko Suomessa.",
     changefreq: "weekly",
     priority: "0.9",
   },
@@ -64,7 +64,7 @@ export const routes: RouteMeta[] = [
     path: "/muutosturva",
     title: "Muutosturvakoulutus | KeudaPRO",
     description:
-      "Muutosturvakoulutukset KUUMA-seudulla: alakohtaiset Tekoälyn ammattiosaaja / AI-Coordinator -koulutukset työntekijöille ja työnantajille. Avaimet käteen -toteutus.",
+      "Muutosturvakoulutukset koko Suomessa: alakohtaiset Tekoälyn ammattiosaaja / AI-Coordinator -koulutukset työntekijöille ja työnantajille. Avaimet käteen -toteutus.",
     changefreq: "monthly",
     priority: "0.8",
   },
@@ -72,7 +72,7 @@ export const routes: RouteMeta[] = [
     path: "/osaaminen",
     title: "Osaaminen ja pätevyydet | KeudaPRO",
     description:
-      "Ammatilliset pätevyydet, kortit ja sertifikaatit työelämään – KUUMA-seudun ammattikoulutuksen täysi tarjonta.",
+      "Ammatilliset pätevyydet, kortit ja sertifikaatit työelämään – Keudan ammattikoulutuksen täysi tarjonta.",
     changefreq: "monthly",
     priority: "0.8",
   },
@@ -80,7 +80,7 @@ export const routes: RouteMeta[] = [
     path: "/operaattori",
     title: "Operaattorimalli – Yksi yhteyshenkilö, koko verkosto | KeudaPRO",
     description:
-      "KeudaPRO operoi osaamisen, työllistymisen ja yrittäjyyden palvelut yhden yhteyshenkilön kautta KUUMA-seudulla.",
+      "KeudaPRO operoi osaamisen, työllistymisen ja yrittäjyyden palvelut yhden yhteyshenkilön kautta koko Suomessa.",
     changefreq: "monthly",
     priority: "0.7",
   },
@@ -88,7 +88,7 @@ export const routes: RouteMeta[] = [
     path: "/kumppanit",
     title: "Kumppanit ja verkosto | KeudaPRO",
     description:
-      "KeudaPRO-verkosto: kunnat, oppilaitokset, yritykset ja kehittämisyhtiöt KUUMA-seudulla yhteistyössä.",
+      "KeudaPRO-verkosto: kunnat, oppilaitokset, yritykset ja kehittämisyhtiöt koko Suomessa yhteistyössä.",
     changefreq: "monthly",
     priority: "0.7",
   },

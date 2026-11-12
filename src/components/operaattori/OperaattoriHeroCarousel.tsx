@@ -24,8 +24,8 @@ const slides = [
   },
   {
     image: heroImg4,
-    title: "KUUMA-seudun vahvuus",
-    subtitle: "Toimimme osana kasvavaa KUUMA-seutua, lähellä pääkaupunkiseutua",
+    title: "Valtakunnallinen verkosto",
+    subtitle: "Toimimme koko Suomessa vahvan kumppaniverkoston kanssa",
   },
 ];
 

@@ -113,7 +113,7 @@ const WHY_KEUDAPRO = [
 const FAQ = [
   {
     q: "Mikä on muutosturvakoulutus?",
-    a: "Muutosturvakoulutus on tuotannollis-taloudellisin syin irtisanotun työntekijän uudelleentyöllistymistä tukeva, yksilöllisesti räätälöity koulutus. Se kestää enintään 6 kuukautta ja on osallistujalle maksuton ja vapaaehtoinen. KeudaPRO toteuttaa muutosturvakoulutuksia KUUMA-seudulla, muualla Uudellamaalla ja koko Suomessa.",
+    a: "Muutosturvakoulutus on tuotannollis-taloudellisin syin irtisanotun työntekijän uudelleentyöllistymistä tukeva, yksilöllisesti räätälöity koulutus. Se kestää enintään 6 kuukautta ja on osallistujalle maksuton ja vapaaehtoinen. KeudaPRO toteuttaa muutosturvakoulutuksia koko Suomessa.",
   },
   {
     q: "Kuka on oikeutettu 55 vuotta täyttäneiden muutosturvakoulutukseen?",
@@ -144,8 +144,8 @@ const FAQ = [
     a: "Yleinen muutosturva koskee kaikenikäisiä muutosneuvottelujen kautta tuotannollis-taloudellisin syin irtisanottuja; siihen kuuluva muutosvalmennus järjestetään työnantajan kustantamana. Laajennettu 55 vuotta täyttäneiden muutosturva puolestaan sisältää muutosturvarahan, työllisyysalueen kustantaman muutosturvakoulutuksen ja laajennetun työllistymisvapaan (5, 15 tai 25 päivää työsuhteen pituudesta riippuen).",
   },
   {
-    q: "Tarjoaako KeudaPRO muutosturvakoulutusta KUUMA-seudulla?",
-    a: "Kyllä. KeudaPRO toteuttaa muutosturvakoulutuksia KUUMA-seudulla (Hyvinkää, Järvenpää, Kerava, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula) sekä muualla Uudellamaalla ja Suomessa. Sinut kytketään yhteen yhteyshenkilöön, joka rakentaa henkilökohtaisen koulutussuunnitelman yhdessä työllisyysalueen kanssa.",
+    q: "Tarjoaako KeudaPRO muutosturvakoulutusta koko Suomessa?",
+    a: "Kyllä. KeudaPRO toteuttaa muutosturvakoulutuksia koko Suomessa. Sinut kytketään yhteen yhteyshenkilöön, joka rakentaa henkilökohtaisen koulutussuunnitelman yhdessä työllisyysalueen kanssa.",
   },
 ];
 
@@ -176,7 +176,7 @@ export default function MuutosturvaPage() {
     "@type": "Service",
     name: "Muutosturva – KeudaPRO",
     provider: { "@type": "EducationalOrganization", name: "KeudaPRO", url: "https://keudapro.fi" },
-    areaServed: "KUUMA-seutu, Suomi",
+    areaServed: "Suomi",
     description:
       "Muutosturvakoulutukset työntekijöille ja työnantajille — myös laajennettu muutosturva yli 55-vuotiaille. Tekoälyn ammattiosaaja -koulutukset alakohtaisesti (Tekoälykoordinaattori, Tekoälypäällikkö, Tekoälyjohtaja).",
   };
@@ -196,7 +196,7 @@ export default function MuutosturvaPage() {
     <Layout>
       <SEO
         title="Muutosturva | KeudaPRO"
-        description="Muutosturvakoulutukset KUUMA-seudulla: alle 55- ja yli 55-vuotiaille, työntekijöille ja työnantajille. Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (koordinaattori, päällikkö, johtaja). Avaimet käteen -toteutus."
+        description="Muutosturvakoulutukset koko Suomessa: alle 55- ja yli 55-vuotiaille, työntekijöille ja työnantajille. Alakohtaiset Tekoälyn ammattiosaaja -koulutukset (koordinaattori, päällikkö, johtaja). Avaimet käteen -toteutus."
         path="/muutosturva"
         jsonLd={[serviceJsonLd, courseJsonLd, FAQ_JSONLD]}
       />
@@ -372,15 +372,15 @@ export default function MuutosturvaPage() {
               muutosneuvottelujen kautta tuotannollis-taloudellisista syistä. Työnantaja vastaa
               muutosturvaan liittyvästä tiedottamisesta, muutosneuvotteluista ja työnantajan
               kustantamasta muutosvalmennuksesta. KeudaPRO toteuttaa työnantajan tilaamia
-              muutosvalmennuksia ja -koulutuksia KUUMA-seudulla, Uudellamaalla ja koko Suomessa.</AccordionContent></AccordionItem><AccordionItem value="background-1"><AccordionTrigger className="text-left min-h-11">55 vuotta täyttäneiden laajennettu muutosturva</AccordionTrigger><AccordionContent className="text-muted-foreground leading-relaxed">Laajennettu muutosturva on 1.1.2023 alkaen voimassa oleva erillinen kokonaisuus, joka
+              muutosvalmennuksia ja -koulutuksia koko Suomessa.</AccordionContent></AccordionItem><AccordionItem value="background-1"><AccordionTrigger className="text-left min-h-11">55 vuotta täyttäneiden laajennettu muutosturva</AccordionTrigger><AccordionContent className="text-muted-foreground leading-relaxed">Laajennettu muutosturva on 1.1.2023 alkaen voimassa oleva erillinen kokonaisuus, joka
               on tarkoitettu 55 vuotta täyttäneille vähintään 5 vuotta saman työnantajan
               palveluksessa olleille irtisanotuille. Se sisältää muutosturvarahan (noin kuukauden
               palkka), työllisyysalueen hankkiman muutosturvakoulutuksen (enintään 2 kk palkkaa
               vastaava arvo, kesto enintään 6 kk) ja laajennetun työllistymisvapaan (5, 15 tai
               25 päivää). Osallistujalle koulutus on maksuton ja vapaaehtoinen.</AccordionContent></AccordionItem><AccordionItem value="background-2"><AccordionTrigger className="text-left min-h-11">KeudaPRO:n rooli toteuttajana</AccordionTrigger><AccordionContent className="text-muted-foreground leading-relaxed">KeudaPRO on julkinen ammatillinen kouluttaja, joka toteuttaa sekä yleistä
               muutosvalmennusta (työnantajan tilaamana) että 55 vuotta täyttäneiden laajennettua
-              muutosturvakoulutusta (työllisyysalueen hankkimana) KUUMA-seudulla, Uudellamaalla ja
-              muualla Suomessa. Rakennamme koulutussuunnitelman yhden yhteyshenkilön kautta ja
+              muutosturvakoulutusta (työllisyysalueen hankkimana) koko
+              Suomessa. Rakennamme koulutussuunnitelman yhden yhteyshenkilön kautta ja
               hoidamme sekä sisällön (mm. alakohtaiset Tekoälyn ammattiosaaja -koulutukset) että
               raportoinnin työllisyysalueelle tai työnantajalle. Osallistuja tai työnantaja voi
               ehdottaa työllisyysalueelle KeudaPRO:ta koulutuksen toteuttajaksi; virallisen

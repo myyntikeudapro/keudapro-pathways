@@ -2,12 +2,12 @@ const faqs = [
   {
     question: "Mistä saan apua alanvaihtoon tai työllistymiseen Uudellamaalla?",
     answer:
-      "KeudaPRO NOSTE-palvelu tarjoaa työhönvalmennusta, uraohjausta ja alakohtaisia koulutuksia työnhakijoille ja alaa vaihtaville Uudellamaalla, painopisteenä KUUMA-seutu (Hyvinkää, Järvenpää, Kerava, Mäntsälä, Nurmijärvi, Pornainen, Sipoo, Tuusula). Aloitat maksuttomasta reittikartoituksesta, jossa käydään läpi tilanteesi ja sopivat polut. Työttömille ja muutosturvan piirissä oleville palvelut ovat maksuttomia.",
+      "KeudaPRO NOSTE-palvelu tarjoaa työhönvalmennusta, uraohjausta ja alakohtaisia koulutuksia työnhakijoille ja alaa vaihtaville Uudellamaalla. Aloitat maksuttomasta reittikartoituksesta, jossa käydään läpi tilanteesi ja sopivat polut. Työttömille ja muutosturvan piirissä oleville palvelut ovat maksuttomia.",
   },
   {
     question: "Onko maahanmuuttajille ja kotoutujille suunnattua koulutusta?",
     answer:
-      "Kyllä. NOSTE-polkuun kuuluu työelämän suomen kielen valmennus, kotoutumiskoulutukset ja alakohtainen ammatillinen osaaminen. Toteutamme koulutuksia KUUMA-seudulla suomeksi, ruotsiksi ja englanniksi, ja yhdistämme kielitaidon suoraan työelämään ja pätevyyksiin. Ohjaus tapahtuu yhden yhteyshenkilön kautta.",
+      "Kyllä. NOSTE-polkuun kuuluu työelämän suomen kielen valmennus, kotoutumiskoulutukset ja alakohtainen ammatillinen osaaminen. Toteutamme koulutuksia koko Suomessa suomeksi, ruotsiksi ja englanniksi, ja yhdistämme kielitaidon suoraan työelämään ja pätevyyksiin. Ohjaus tapahtuu yhden yhteyshenkilön kautta.",
   },
   {
     question: "Voiko KeudaPRO:n kautta löytää reitin yrittäjyyteen tai opintoihin?",
@@ -27,7 +27,7 @@ const faqs = [
   {
     question: "Miten pääsen alkuun ja kuinka nopeasti?",
     answer:
-      "Voit aloittaa anonyymisti AI-valmentaja Anan kanssa milloin tahansa – keskustelu antaa nopean kuvan vaihtoehdoista noin 10 minuutissa. Sen jälkeen varaat 45 minuutin maksuttoman ajan Reittivalmentajalle, ja henkilökohtainen suunnitelma syntyy tyypillisesti 1–2 viikossa. Toimimme KUUMA-seudulla ja koko Uudellamaalla.",
+      "Voit aloittaa anonyymisti AI-valmentaja Anan kanssa milloin tahansa – keskustelu antaa nopean kuvan vaihtoehdoista noin 10 minuutissa. Sen jälkeen varaat 45 minuutin maksuttoman ajan Reittivalmentajalle, ja henkilökohtainen suunnitelma syntyy tyypillisesti 1–2 viikossa. Toimimme koko Suomessa ja koko Uudellamaalla.",
   },
 ];
 

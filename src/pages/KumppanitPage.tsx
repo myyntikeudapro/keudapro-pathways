@@ -88,7 +88,7 @@ const partnerCategories = [
     title: "Asiantuntijaverkosto ja kumppanit",
     value: "Laaja verkosto, jossa osaaminen ja vaikuttavuus kasvavat.",
     description:
-      "Olemme osa laajempia osaamisen ja työllisyyden verkostoja KUUMA-seudulla ja valtakunnallisesti.",
+      "Olemme osa laajempia osaamisen ja työllisyyden verkostoja koko Suomessa.",
     forYou: "Sinulle, jos haluat jakaa osaamistasi ja kasvaa asiantuntijana.",
   },
 ];
@@ -140,7 +140,7 @@ const KumppanitPage = () => {
 
   return (
     <Layout>
-      <SEO title={"Kumppanit – Verkostomme ja yhteistyökumppanit | KeudaPRO"} description={"KeudaPRO:n kumppaniverkosto: koulutusorganisaatiot, yritykset, julkiset toimijat ja kehittäjäverkostot KUUMA-seudulla."} path="/kumppanit" />
+      <SEO title={"Kumppanit – Verkostomme ja yhteistyökumppanit | KeudaPRO"} description={"KeudaPRO:n kumppaniverkosto: koulutusorganisaatiot, yritykset, julkiset toimijat ja kehittäjäverkostot koko Suomessa."} path="/kumppanit" />
       {/* 1. Hero */}
       <KumppanitHeroCarousel />
 

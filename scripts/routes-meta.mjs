@@ -27,12 +27,12 @@ export const routes = [
     path: "/",
     title: "KeudaPRO – Osaamisen ja siirtymien operaattori",
     description:
-      "Johtamiskoulutukset (ÄLY), työhönvalmennus (NOSTE) ja yritysten kasvuohjelmat (KASVU) KUUMA-seudulla – yksi reitti, kolme suuntaa.",
+      "Johtamiskoulutukset (ÄLY), työhönvalmennus (NOSTE) ja yritysten kasvuohjelmat (KASVU) koko Suomessa – yksi reitti, kolme suuntaa.",
     changefreq: "weekly",
     priority: "1.0",
-    h1: "KeudaPRO – Osaamisen ja siirtymien operaattori KUUMA-seudulla",
+    h1: "KeudaPRO – Osaamisen ja siirtymien operaattori koko Suomessa",
     intro:
-      "KeudaPRO on KUUMA-seudun operaattori, joka yhdistää johtamiskoulutukset (ÄLY), työhönvalmennuksen (NOSTE) ja yritysten kasvuohjelmat (KASVU) yhden yhteyshenkilön kautta. Yksi reitti, kolme suuntaa – tekoäly, työllistyminen ja kasvu.",
+      "KeudaPRO on valtakunnallinen operaattori, joka yhdistää johtamiskoulutukset (ÄLY), työhönvalmennuksen (NOSTE) ja yritysten kasvuohjelmat (KASVU) yhden yhteyshenkilön kautta. Yksi reitti, kolme suuntaa – tekoäly, työllistyminen ja kasvu.",
   },
   {
     path: "/aly",
@@ -47,69 +47,69 @@ export const routes = [
   },
   {
     path: "/noste",
-    title: "NOSTE – Työhönvalmennus ja muutosturva KUUMA-seudulla | KeudaPRO",
+    title: "NOSTE – Työhönvalmennus ja muutosturva koko Suomessa | KeudaPRO",
     description:
-      "Työhönvalmennus, muutosturvakoulutukset ja uudelleenkouluttautumisen polut työttömille, työnhakijoille ja työpaikkaa vaihtaville KUUMA-seudulla.",
+      "Työhönvalmennus, muutosturvakoulutukset ja uudelleenkouluttautumisen polut työttömille, työnhakijoille ja työpaikkaa vaihtaville koko Suomessa.",
     changefreq: "weekly",
     priority: "0.9",
-    h1: "NOSTE – Työhönvalmennus ja muutosturva KUUMA-seudulla",
+    h1: "NOSTE – Työhönvalmennus ja muutosturva koko Suomessa",
     intro:
-      "NOSTE tarjoaa työhönvalmennusta, muutosturvakoulutuksia ja uudelleenkouluttautumisen polkuja työttömille, työnhakijoille ja työpaikkaa vaihtaville. Autamme löytämään uuden suunnan tekoälyavusteisilla ammattikoulutuksilla KUUMA-seudulla.",
+      "NOSTE tarjoaa työhönvalmennusta, muutosturvakoulutuksia ja uudelleenkouluttautumisen polkuja työttömille, työnhakijoille ja työpaikkaa vaihtaville. Autamme löytämään uuden suunnan tekoälyavusteisilla ammattikoulutuksilla koko Suomessa.",
   },
   {
     path: "/kasvu",
     title: "KASVU – Yritysten kasvuohjelmat ja ELY-rahoitus | KeudaPRO",
     description:
-      "Yritysten kasvuohjelmat, johtamisen kehittäminen ja ELY-rahoitteiset koulutukset. Neljä kasvutasoa pk-yrityksille KUUMA-seudulla.",
+      "Yritysten kasvuohjelmat, johtamisen kehittäminen ja ELY-rahoitteiset koulutukset. Neljä kasvutasoa pk-yrityksille koko Suomessa.",
     changefreq: "weekly",
     priority: "0.9",
     h1: "KASVU – Yritysten kasvuohjelmat ja ELY-rahoitus",
     intro:
-      "KASVU-palvelu tarjoaa pk-yrityksille neljä kasvutasoa, johtamisen kehittämistä ja ELY-rahoitteisia koulutuksia. Rakennamme kasvupolut liikevaihdon, henkilöstön ja markkinoiden mukaan KUUMA-seudulla.",
+      "KASVU-palvelu tarjoaa pk-yrityksille neljä kasvutasoa, johtamisen kehittämistä ja ELY-rahoitteisia koulutuksia. Rakennamme kasvupolut liikevaihdon, henkilöstön ja markkinoiden mukaan koko Suomessa.",
   },
   {
     path: "/muutosturva",
     title: "Muutosturvakoulutus | KeudaPRO",
     description:
-      "Muutosturvakoulutukset KUUMA-seudulla: alakohtaiset Tekoälyn ammattiosaaja / AI-Coordinator -koulutukset työntekijöille ja työnantajille. Avaimet käteen -toteutus.",
+      "Muutosturvakoulutukset koko Suomessa: alakohtaiset Tekoälyn ammattiosaaja / AI-Coordinator -koulutukset työntekijöille ja työnantajille. Avaimet käteen -toteutus.",
     changefreq: "monthly",
     priority: "0.8",
     h1: "Muutosturvakoulutus – Tekoälyn ammattiosaaja",
     intro:
-      "KeudaPROn muutosturvakoulutukset tarjoavat alakohtaiset Tekoälyn ammattiosaaja- ja AI-Coordinator-koulutukset työntekijöille ja työnantajille. Avaimet käteen -toteutus KUUMA-seudulla 50 eri alalle.",
+      "KeudaPROn muutosturvakoulutukset tarjoavat alakohtaiset Tekoälyn ammattiosaaja- ja AI-Coordinator-koulutukset työntekijöille ja työnantajille. Avaimet käteen -toteutus koko Suomessa 50 eri alalle.",
   },
   {
     path: "/osaaminen",
     title: "Osaaminen ja pätevyydet | KeudaPRO",
     description:
-      "Ammatilliset pätevyydet, kortit ja sertifikaatit työelämään – KUUMA-seudun ammattikoulutuksen täysi tarjonta.",
+      "Ammatilliset pätevyydet, kortit ja sertifikaatit työelämään – Keudan ammattikoulutuksen täysi tarjonta.",
     changefreq: "monthly",
     priority: "0.8",
     h1: "Osaaminen ja pätevyydet työelämään",
     intro:
-      "KeudaPROn kautta saat KUUMA-seudun ammattikoulutuksen täyden tarjonnan: ammatilliset pätevyydet, työturvallisuuskortit ja sertifikaatit yhden yhteyshenkilön kautta.",
+      "KeudaPROn kautta saat Keudan ammattikoulutuksen täyden tarjonnan: ammatilliset pätevyydet, työturvallisuuskortit ja sertifikaatit yhden yhteyshenkilön kautta.",
   },
   {
     path: "/operaattori",
     title: "Operaattorimalli – Yksi yhteyshenkilö, koko verkosto | KeudaPRO",
     description:
-      "KeudaPRO operoi osaamisen, työllistymisen ja yrittäjyyden palvelut yhden yhteyshenkilön kautta KUUMA-seudulla.",
+      "KeudaPRO operoi osaamisen, työllistymisen ja yrittäjyyden palvelut yhden yhteyshenkilön kautta koko Suomessa.",
     changefreq: "monthly",
     priority: "0.7",
     h1: "Operaattorimalli – Yksi yhteyshenkilö, koko verkosto",
     intro:
-      "KeudaPROn operaattorimalli yhdistää osaamisen, työllistymisen ja yrittäjyyden palvelut yhden yhteyshenkilön kautta. Verkostomme kattaa KUUMA-seudun kunnat, oppilaitokset ja kehittämisyhtiöt.",
+      "KeudaPROn operaattorimalli yhdistää osaamisen, työllistymisen ja yrittäjyyden palvelut yhden yhteyshenkilön kautta. Verkostomme kattaa kunnat, oppilaitokset ja kehittämisyhtiöt.",
   },
   {
     path: "/kumppanit",
     title: "Kumppanit ja verkosto | KeudaPRO",
     description:
-      "KeudaPRO-verkosto: kunnat, oppilaitokset, yritykset ja kehittämisyhtiöt KUUMA-seudulla yhteistyössä.",
+      "KeudaPRO-verkosto: kunnat, oppilaitokset, yritykset ja kehittämisyhtiöt koko Suomessa yhteistyössä.",
     changefreq: "monthly",
     priority: "0.7",
     h1: "Kumppanit ja verkosto",
     intro:
-      "KeudaPRO-verkosto kokoaa yhteen KUUMA-seudun kunnat, oppilaitokset, yritykset ja kehittämisyhtiöt. Yhteistyö varmistaa, että osaamisen ja siirtymien palvelut toimivat saumattomasti.",
+      "KeudaPRO-verkosto kokoaa yhteen kunnat, oppilaitokset, yritykset ja kehittämisyhtiöt. Yhteistyö varmistaa, että osaamisen ja siirtymien palvelut toimivat saumattomasti.",
   },
   {
     path: "/yhteystiedot",

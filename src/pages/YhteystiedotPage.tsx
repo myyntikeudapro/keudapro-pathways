@@ -109,7 +109,7 @@ const YhteystiedotPage = () => {
             addressLocality: "Järvenpää",
             addressCountry: "FI",
           },
-          areaServed: ["Hyvinkää", "Järvenpää", "Kerava", "Kirkkonummi", "Mäntsälä", "Nurmijärvi", "Pornainen", "Sipoo", "Tuusula", "Vihti"],
+          areaServed: "Suomi",
         }}
       />
       {/* ════════ HERO CAROUSEL ════════ */}
