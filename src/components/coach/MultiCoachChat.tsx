@@ -65,6 +65,7 @@ function CoachChatSession() {
   const [transcriptDraft, setTranscriptDraft] = useState("");
   const [currentCoach, setCurrentCoach] = useState<CoachType | null>(null);
   const [showEntry, setShowEntry] = useState(false);
+  const [showKeudaproContact, setShowKeudaproContact] = useState(false);
   const [adviserFailed, setAdviserFailed] = useState(false);
   const [feedback, setFeedback] = useState<"helpful" | "unhelpful" | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -148,6 +149,7 @@ function CoachChatSession() {
         const actions = filterAdviserActions(payload.actions);
         setMessages(prev => [...prev, { role: "assistant", content: answer }]);
         setShowEntry(actions.includes("entry") || actions.includes("copy-message"));
+        setShowKeudaproContact(actions.includes("keudapro-contact"));
         setAdviserFailed(false);
         setFeedback(null);
         return;
@@ -301,6 +303,7 @@ function CoachChatSession() {
             </div>
           )}
           {isPublicAdviser && showEntry && !adviserFailed && <PksEmploymentContact compact />}
+          {isPublicAdviser && showKeudaproContact && !adviserFailed && <Button variant="outline" asChild className="max-w-full whitespace-normal h-auto min-h-10 py-2"><a href="/yhteystiedot" target="_blank" rel="noopener noreferrer"><UserCheck className="h-4 w-4 shrink-0" aria-hidden="true" /> Ota yhteyttä KeudaPROn asiantuntijaan</a></Button>}
           {isPublicAdviser && adviserFailed && <div className="space-y-3 border-t border-border pt-3"><p className="text-sm text-foreground">{service.faq[0].answer}</p><PksEmploymentContact compact /></div>}
 
           {showCoachCTA && !isLoading && (

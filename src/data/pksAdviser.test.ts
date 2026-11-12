@@ -4,6 +4,7 @@ import { publicAdviserPolicy, validatePublicConversation, isAllowedAdviserOrigin
 import drafts from "../../docs/pks-adviser/faq-draft-records.json";
 import knowledge from "../../supabase/functions/pks-service-adviser/public-knowledge.json";
 import service from "./tyohonvalmennusPks.json";
+import { parseAdviserScope, scopeRefusal } from "../../supabase/functions/pks-service-adviser/scope";
 
 describe("PKS-palveluneuvojan käyttörajat", () => {
   it("rajattu tietopohja käyttää saman palvelun hyväksyttyjä UKK-vastauksia", () => {
@@ -67,7 +68,23 @@ describe("PKS-palveluneuvojan käyttörajat", () => {
       expect(canBookCoach(id)).toBe(true);
     }
   });
-  it("sallii vain palveluohjeet, UKK:n ja viestipohjan", () => expect(publicAdviserPolicy.allowedActions).toEqual(["entry", "faq", "copy-message"]));
+  it("sallii vain palveluohjeet, UKK:n, viestipohjan ja asiantuntijan yhteystiedot", () => expect(publicAdviserPolicy.allowedActions).toEqual(["entry", "faq", "copy-message", "keudapro-contact"]));
+  it("muut KeudaPRO-palvelut palauttavat vain asiantuntijan yhteydenottotoiminnon", () => {
+    expect(scopeRefusal("other-keudapro").actions).toEqual(["keudapro-contact"]);
+  });
+  it("ei salli tuntemattoman tai puuttuvan aihepäätöksen avaavan neuvontaa", () => {
+    expect(parseAdviserScope({ scope: "pks-service" })).toBe("pks-service");
+    expect(parseAdviserScope({ scope: "other-keudapro" })).toBe("other-keudapro");
+    expect(parseAdviserScope({ scope: "all-services" })).toBeNull();
+    expect(parseAdviserScope({ answer: "ohitus" })).toBeNull();
+    expect(parseAdviserScope(null)).toBeNull();
+  });
+  it("yleiset aiheet eivät tarjoa valmennukseen hakeutumista tai muita palvelutoimintoja", () => {
+    expect(scopeRefusal("unrelated").actions).toEqual(["faq"]);
+  });
+  it("henkilökohtainen valmennustyö ohjataan vain palvelun mukaanpääsyohjeeseen", () => {
+    expect(scopeRefusal("personal-coaching").actions).toEqual(["entry"]);
+  });
   it("ei tallenna keskustelua tai lataa henkilöprofiilia tai välimuistia", () => {
     expect(publicAdviserPolicy.storage).toBe("none");
     expect(publicAdviserPolicy.cache).toBe("none");

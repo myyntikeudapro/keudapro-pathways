@@ -5,7 +5,7 @@ export const publicAdviserPolicy = {
   maxMessages: 20,
   maxMessageLength: 2000,
   maxBodyBytes: 48000,
-  allowedActions: ["entry", "faq", "copy-message"],
+  allowedActions: ["entry", "faq", "copy-message", "keudapro-contact"],
   booking: false,
   storage: "none",
   cache: "none",

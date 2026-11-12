@@ -24,3 +24,4 @@
 - Imported FAQ drafts remain per-record sourced/statused in docs, excluded from model deployment; adviser system instructions live separately from the public knowledge artifact, and the shared contact UI enforces the same membership branches inside chat and on the page.
 - Closed coach panels must be inert and hidden from assistive navigation; PKS chat returns focus to its opener, yields to cookie choices, and records only fixed consent-gated action/feedback values without conversation text.
 - Keep the PKS floating launcher page-scoped in PksAdviserEntry and hide it during cookie choices or other panels without unmounting its button, so focus returns to the same opener and other pages remain unchanged.
+- Gate PKS answers with a separate server topic classification and an answer-scope check; outside requests return fixed refusals, and other-service questions expose only the fixed contact-page action, so prompt instructions alone cannot enable general assistance.
