@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Check, FileDown, FileText, Compass, MessageCircle, BriefcaseBusiness } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, FileDown, MessageCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/seo/SEO";
@@ -12,10 +12,14 @@ import photo from "@/assets/tyohonvalmennus-pks.jpg.asset.json";
 import brochureFi from "@/assets/tyohonvalmennus-pks-esite-fi.pdf.asset.json";
 import brochureSv from "@/assets/tyohonvalmennus-pks-esite-sv.pdf.asset.json";
 import brochureEn from "@/assets/tyohonvalmennus-pks-esite-en.pdf.asset.json";
+import cvPhoto from "@/assets/pks-cv-osaaminen.jpg";
+import applicationPhoto from "@/assets/pks-tyohakemus.jpg";
+import interviewPhoto from "@/assets/pks-tyohaastattelu.jpg";
+import directionPhoto from "@/assets/pks-tyonhaun-suunta.jpg";
 import { getPksLanguage, getPksContent, getPksUi, pksLanguages, pksPath } from "@/data/pksContent";
 import { Helmet } from "react-helmet-async";
 
-const exampleIcons = [FileText, BriefcaseBusiness, MessageCircle, Compass];
+const examplePhotos = [cvPhoto, applicationPhoto, interviewPhoto, directionPhoto];
 const anchorClass = "max-w-full whitespace-normal h-auto min-h-12 px-5 py-3";
 const brochures = [
   { language: "fi", label: "Esite suomeksi (PDF)", url: brochureFi.url },
@@ -68,8 +72,8 @@ export default function TyohonvalmennusPksPage() {
       <div className="keuda-container">
         <h2 className="text-3xl font-bold text-primary mb-9">{ui.examples}</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">{service.examples.map((item, index) => {
-          const Icon = exampleIcons[index] ?? FileText;
-          return <div key={item.title} className="border-t border-border pt-6"><Icon className="text-primary h-7 w-7 mb-4" aria-hidden="true" /><h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3><p className="text-foreground leading-relaxed">{item.text}</p></div>;
+          const image = examplePhotos[index] ?? cvPhoto;
+          return <div key={item.title} className="border-t border-border pt-6"><img src={image} alt="" width={816} height={816} loading="lazy" className="h-20 w-20 rounded-full object-cover mb-4 border border-border" /><h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3><p className="text-foreground leading-relaxed">{item.text}</p></div>;
         })}</div>
         <p className="mt-9 max-w-3xl text-foreground leading-relaxed">{service.examplesNote}</p>
       </div>
