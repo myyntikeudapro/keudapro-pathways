@@ -1,7 +1,7 @@
 import coachAna from "@/assets/coach-ana.png";
 import coachVeli from "@/assets/coach-veli.png";
 import coachReitti from "@/assets/coach-reitti.png";
-import alisa from "@/assets/alisa-palveluneuvoja.png.asset.json";
+import alisa from "@/assets/alisa-lammin-palveluneuvoja.png.asset.json";
 
 export const PKS_COACH_ID = "tyonhakijan-yksilovalmennus-pks";
 export const PKS_COACH_AVAILABLE: boolean = true;
