@@ -12,7 +12,10 @@ Deno.serve(async(req)=>{
   const {data:allowed}=await db.rpc('is_editor_or_admin',{_user_id:auth.user.id});if(!allowed)return json({error:'Ei käyttöoikeutta'},403);
   const parsed=z.object({lead_id:z.string().uuid()}).safeParse(await req.json());if(!parsed.success)return json({error:'Virheellinen asiakas'},400);
   const {data:lead,error:le}=await db.from('booking_requests').select('id,name,owner_id').eq('id',parsed.data.lead_id).single();if(le||!lead)return json({error:'Asiakasta ei löytynyt'},404);
-  const {data:notices,error:ne}=await db.from('crm_notifications').select('*').eq('lead_id',lead.id).is('emailed_at',null).gte('created_at',new Date(Date.now()-300000).toISOString());if(ne)throw ne;
+  const since=new Date(Date.now()-300000).toISOString();
+  const [{count:acts},{count:tasks}]=await Promise.all([db.from('lead_activity').select('id',{count:'exact',head:true}).eq('lead_id',lead.id).eq('actor_id',auth.user.id).gte('created_at',since),db.from('crm_tasks').select('id',{count:'exact',head:true}).eq('lead_id',lead.id).eq('created_by',auth.user.id).gte('created_at',since)]);
+  if(!acts&&!tasks)return json({error:'Ei omaa tuoretta muutosta'},403);
+  const {data:notices,error:ne}=await db.from('crm_notifications').select('*').in('kind',['assigned','task_assigned']).eq('lead_id',lead.id).is('emailed_at',null).gte('created_at',new Date(Date.now()-300000).toISOString());if(ne)throw ne;
   let sent=0;
   for(const recipient of new Set((notices??[]).map(n=>n.recipient_id))){
    const {data:role}=await db.rpc('is_editor_or_admin',{_user_id:recipient});if(!role)continue;

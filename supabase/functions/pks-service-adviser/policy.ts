@@ -36,7 +36,7 @@ export function validatePublicConversation(body: unknown): boolean {
   if (Object.keys(body).some(key => key !== "messages")) return false;
   if (!("messages" in body) || !Array.isArray(body.messages)) return false;
   const messages = body.messages;
-  return messages.length > 0 && messages.length <= publicAdviserPolicy.maxMessages && messages.every(message =>
+  return messages.length > 0 && (messages.at(-1) as { role?: unknown })?.role === "user" && messages.length <= publicAdviserPolicy.maxMessages && messages.every(message =>
     message && typeof message === "object" &&
     Object.keys(message).every(key => key === "role" || key === "content") &&
     (message.role === "user" || message.role === "assistant") &&

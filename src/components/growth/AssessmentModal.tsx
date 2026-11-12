@@ -222,12 +222,12 @@ function handlePrint(level: number, config: LevelConfig, answers: Answers, flags
     if (key === "avoin" && !val) continue;
     const label = getQuestionLabel(key, level);
     const value = Array.isArray(val) ? val.join(", ") : val;
-    if (value) lines.push(`<dt style="font-weight:600;margin-top:8px">${label}</dt><dd>${value}</dd>`);
+    if (value) lines.push(`<dt style="font-weight:600;margin-top:8px">${escapeHtml(String(label))}</dt><dd>${escapeHtml(String(value))}</dd>`);
   }
   lines.push("</dl>");
 
   if (answers.avoin) {
-    lines.push(`<h3>Vapaa viesti</h3><p>${answers.avoin}</p>`);
+    lines.push(`<h3>Vapaa viesti</h3><p>${escapeHtml(String(answers.avoin))}</p>`);
   }
 
   lines.push(`<p style="color:gray;font-size:12px;margin-top:24px">Tietojasi käytetään vain kartoitustapaamiseen valmistautumiseen.</p>`);
@@ -549,4 +549,8 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
       </DialogContent>
     </Dialog>
   );
+}
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string);
 }

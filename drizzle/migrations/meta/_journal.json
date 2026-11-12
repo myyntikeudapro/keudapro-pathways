@@ -92,6 +92,13 @@
       "when": 1794492084401,
       "tag": "0012_lock_email_queue_functions",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1794492260099,
+      "tag": "0013_security_hardening_roles_email_events",
+      "breakpoints": true
     }
   ]
 }
