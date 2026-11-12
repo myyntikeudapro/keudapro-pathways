@@ -21,8 +21,8 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/tyohonvalmennus-pks",
-    title: "Työnhakijan yksilövalmennus – pääkaupunkiseutu | KeudaPRO",
-    description: "Maksuton yksilövalmennus Helsingin, Espoon ja Vantaan työllisyyspalveluiden asiakkaille. Oma valmentaja ja tukea työnhakuun 1–9 kuukaudeksi.",
+    title: "Työnhakijan yksilövalmennus | KeudaPRO",
+    description: "Maksuton työnhakijan yksilövalmennus Helsingin, Espoon ja Vantaan työllisyyspalveluiden asiakkaille. Tukea työnhakuun 1–9 kuukaudeksi oman asiantuntijan ohjauksella.",
     changefreq: "monthly",
     priority: "0.8",
   },

@@ -34,3 +34,5 @@
 - [ ] AI Talent (/hub/ai-talent): julkaisu odottaa Heikin hyväksyntää (AI_TALENT_PUBLISHED)
 - [x] Aseptiikka hoitotyössä: koulutussivu, Ajoneuvoala- ja Sosiaali- ja terveysala -ryhmät, älykäs haku ja staattinen sisältö; 26 testiä ja selainpolku tarjouslinkkiin 320–1280 px. Ei julkaistu; liitteen vahvistamaton peruutusehto sovitaan tarjouksessa.
 - [x] Työnhakijan yksilövalmennus PKS: Noste-palvelulaatikko, alkuperäinen esitteen kuva ja PDF, oma /tyohonvalmennus-pks-sivu, hakutulos ja staattinen sisältö; 6 testiä ja selainpolku 320–1280 px. Paikallisen kuvapalvelun puuttuessa kuvat varmennettu tallennuksesta noudetuilla tiedostoilla. Ei julkaistu.
+- [x] PKS-sivun uudistus: yhteinen versioitu sisältö, 8 UKK-vastausta, kuusi yhteydenottohaaraa ja kopioinnin varareitti; 19 testiä, näppäimistö ja 320/390/768/918/1280 px tarkistettu. Staattiset metatiedot ja Service/FAQ-JSON-LD varmennettu. Kuvan ja esitteen alkuperäiset tiedostot tarkistettu tallennuksesta, paikallisen Viten kuvavälitys puuttuu. Vain esikatselu, ei chatia tai julkaisua.
+- [ ] PKS-valmentajan yhteydenoton täsmällinen aikaraja: odottaa palvelun vastuuhenkilön vahvistusta.
