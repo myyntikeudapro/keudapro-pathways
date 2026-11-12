@@ -1,3 +1,4 @@
+import { supabase } from "@/integrations/supabase/client";
 import { isAiTalentVisible } from "@/data/aiTalent";
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
@@ -89,7 +90,7 @@ const standardProjects: Project[] = [
     customers: [{ initials: "AU", name: "Aukee", tone: "violet" }],
     meta: "Suojattu salasanalla",
     ctaLabel: "Kirjaudu →",
-    ctaUrl: "https://aukee-open-doors.lovable.app",
+    ctaUrl: "aukee",
     image: imgAukee,
   },
   {
@@ -470,7 +471,7 @@ const HubPage = () => {
                         {p.ctaUrl ? (
                           <button
                             type="button"
-                            onClick={() => setGate({ open: true, url: p.ctaUrl!, name: p.name, password: "Mahis2026", value: "", error: "" })}
+                            onClick={() => setGate({ open: true, url: p.ctaUrl!, name: p.name, password: "", value: "", error: "" })}
                             className={cn(
                               "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 min-h-[44px] bg-keuda-orange text-[#0B0B0B] hover:bg-keuda-orange/90 shadow-sm hover:shadow-md"
                             )}
@@ -602,17 +603,17 @@ const HubPage = () => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                if (gate.value === gate.password) {
-                  const url = gate.url;
-                  try {
-                    localStorage.setItem('password', gate.password);
-                    localStorage.setItem('lovable-password', gate.password);
-                  } catch {}
-                  setGate({ open: false, url: "", name: "", password: "", value: "", error: "" });
-                  window.open(url, '_blank', 'noopener,noreferrer');
-                } else {
-                  setGate({ ...gate, error: "Väärä salasana", value: "" });
-                }
+                const pilot = gate.url;
+                void supabase.functions
+                  .invoke("hub-pilot-access", { body: { pilot, password: gate.value } })
+                  .then(({ data, error }) => {
+                    if (error || !data?.url) {
+                      setGate((g) => ({ ...g, error: "Väärä salasana", value: "" }));
+                      return;
+                    }
+                    setGate({ open: false, url: "", name: "", password: "", value: "", error: "" });
+                    window.open(data.url, "_blank", "noopener,noreferrer");
+                  });
               }}
               className="space-y-3"
             >

@@ -85,6 +85,13 @@
       "when": 1793163887530,
       "tag": "0011_ai_talent_projects",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1794492084401,
+      "tag": "0012_lock_email_queue_functions",
+      "breakpoints": true
     }
   ]
 }
