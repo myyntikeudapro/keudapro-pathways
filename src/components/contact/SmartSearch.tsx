@@ -4,6 +4,7 @@ import { Search, Loader2, ArrowRight, Sparkles, MessageCircle, Compass, External
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { searchIndex, type SearchEntry } from "@/data/searchIndex";
+import { mergeSearchMatches } from "@/lib/smartSearch";
 import { useWizard } from "@/contexts/WizardContext";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { Link } from "react-router-dom";
@@ -16,6 +17,8 @@ const exampleQueries = [
   "muutosturva",
   "hygieniapassi",
   "kasvukartoitus",
+  "yksilövalmennus",
+  "valmennus",
 ];
 
 export function SmartSearch() {
@@ -36,12 +39,14 @@ export function SmartSearch() {
         body: { query: q, index: searchIndex },
       });
       if (fnError) throw fnError;
-      const ms: Match[] = (data?.matches as Match[]) ?? [];
+      const ms = mergeSearchMatches(q, searchIndex, (data?.matches as Match[]) ?? []);
       setMatches(ms);
       if (ms.length === 0) setError("Emme löytäneet sopivaa kohdetta — kokeile toisin sanoin tai kysy AI-valmentajalta.");
     } catch (e) {
       console.error(e);
-      setError("Haku epäonnistui. Yritä hetken kuluttua uudelleen.");
+      const directMatches = mergeSearchMatches(q, searchIndex, []);
+      setMatches(directMatches);
+      if (directMatches.length === 0) setError("Haku epäonnistui. Yritä hetken kuluttua uudelleen.");
     } finally {
       setLoading(false);
     }
@@ -98,14 +103,16 @@ export function SmartSearch() {
         {/* Esimerkkihakuehdot */}
         <div className="mt-4 flex flex-wrap gap-2">
           {exampleQueries.map((q) => (
-            <button
+            <Button
               key={q}
               type="button"
+              variant="outline"
+              size="sm"
               onClick={() => onExample(q)}
-              className="text-xs px-3 py-1.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 hover:bg-teal-100 transition-colors"
+              className="h-auto text-xs px-3 py-1.5 rounded-full bg-accent text-accent-foreground border-border hover:bg-muted"
             >
               {q}
-            </button>
+            </Button>
           ))}
         </div>
 
@@ -149,7 +156,7 @@ export function SmartSearch() {
                   const content = (
                     <div className="group flex items-stretch gap-0 rounded-2xl overflow-hidden border border-border bg-background hover:border-primary hover:shadow-lg transition-all">
                       {/* Pieni kuva */}
-                      <div className="relative w-24 sm:w-32 shrink-0 overflow-hidden">
+                      <div className="relative w-16 sm:w-32 shrink-0 overflow-hidden">
                         <img
                           src={m.image}
                           alt=""
@@ -160,14 +167,14 @@ export function SmartSearch() {
                       </div>
 
                       {/* Sisältö */}
-                      <div className="flex-1 min-w-0 p-4 flex items-center gap-4">
+                      <div className="flex-1 min-w-0 p-3 sm:p-4 flex items-center gap-2 sm:gap-4">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                             <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                               {m.category}
                             </span>
                           </div>
-                          <h3 className="text-base font-semibold text-foreground mb-1 truncate">
+                          <h3 className="text-base font-semibold text-foreground mb-1 break-words">
                             {m.title}
                           </h3>
                           <p className="text-sm text-muted-foreground line-clamp-2">

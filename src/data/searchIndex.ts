@@ -71,7 +71,7 @@ export const searchIndex: SearchEntry[] = [
     href: "/tyohonvalmennus-pks",
     image: pksCoaching.url,
     category: "Palvelu",
-    keywords: ["työnhakija", "yksilövalmennus", "työhönvalmennus", "pääkaupunkiseutu", "pks", "Helsinki", "Espoo", "Vantaa", "maksuton", "työtön", "CV", "työllistyminen", "Kohti työtä"],
+    keywords: ["työnhakija", "yksilövalmennus", "työhönvalmennus", "pääkaupunkiseutu", "pks", "Helsinki", "Espoo", "Vantaa", "maksuton", "työtön", "CV", "työllistyminen", "valmennus", "työnhaku", "työnhakuvalmennus", "henkilökohtainen tuki", "pitkittynyt työttömyys", "työllisyyspalvelut", "työhaastattelu", "urasuunnittelu"],
   },
   // ─── Reitit ───
   {
