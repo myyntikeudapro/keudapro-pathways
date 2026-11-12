@@ -43,6 +43,12 @@ describe("PKS-palveluneuvojan käyttörajat", () => {
     expect(sanitizeAdviserAnswer({ answer: "ohitus" })).toBeNull();
   });
   it("ei peri ajanvarausta", () => expect(canBookCoach(PKS_COACH_ID)).toBe(false));
+  it("jäsenkohtainen poiskytkentä ei sulje muita valmentajia", () => {
+    expect(canOpenCoach(PKS_COACH_ID, false)).toBe(false);
+    expect(canOpenCoach("ana", false)).toBe(true);
+    expect(canOpenCoach("veli", false)).toBe(true);
+    expect(canOpenCoach("reitti", false)).toBe(true);
+  });
   it("säilyttää vanhojen jäsenten avauksen ja ajanvarauksen", () => {
     for (const id of ["ana", "veli", "reitti"] as const) {
       expect(canOpenCoach(id)).toBe(true);
@@ -64,7 +70,7 @@ describe("PKS-palveluneuvojan käyttörajat", () => {
     expect(validatePublicConversation({ messages: [{ role: "user", content: "a".repeat(2000) }] })).toBe(true);
     expect(validatePublicConversation({ messages: [{ role: "user", content: "a".repeat(2001) }] })).toBe(false);
   });
-  it.each(["coach", "source", "system", "path", "url", "conversationId", "profile"])("hylkää selaimen %s-ohituksen", key => {
+  it.each(["coach", "source", "system", "path", "url", "conversationId", "profile", "action"])("hylkää selaimen %s-ohituksen", key => {
     expect(validatePublicConversation({ messages: [{ role: "user", content: "Hei" }], [key]: "ana" })).toBe(false);
   });
   it("hylkää järjestelmäroolin ja lähdeohituksen viestin sisällä", () => {

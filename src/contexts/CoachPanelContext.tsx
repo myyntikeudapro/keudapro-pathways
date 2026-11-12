@@ -1,5 +1,5 @@
-import { useState, ReactNode } from "react";
-import { canOpenCoach, canBookCoach, type CoachType } from "@/data/coachRegistry";
+import { useState, useRef, ReactNode } from "react";
+import { canOpenCoach, canBookCoach, PKS_COACH_ID, type CoachType } from "@/data/coachRegistry";
 import { CoachPanelContext } from "./coachPanelStore";
 export { useCoachPanel } from "./coachPanelStore";
 export type { CoachType } from "@/data/coachRegistry";
@@ -9,6 +9,7 @@ export function CoachPanelProvider({ children }: { children: ReactNode }) {
   const [activeChat, setActiveChat] = useState<CoachType | null>(null);
   const [highlightedCoach, setHighlightedCoach] = useState<CoachType | null>(null);
   const [bookingCoach, setBookingCoach] = useState<CoachType | null>(null);
+  const returnFocus = useRef<HTMLElement | null>(null);
 
   return (
     <CoachPanelContext.Provider
@@ -26,12 +27,24 @@ export function CoachPanelProvider({ children }: { children: ReactNode }) {
         activeChat,
         openChat: (coach) => {
           if (!canOpenCoach(coach)) return;
+          if (coach === PKS_COACH_ID) {
+            const cookieChoices = document.querySelector('[aria-label="Evästeasetukset"]');
+            if (cookieChoices) {
+              cookieChoices.querySelector<HTMLButtonElement>('button')?.focus();
+              return;
+            }
+          }
+          returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
           setBookingCoach(null);
           setActiveChat(coach);
           setIsPanelOpen(false);
           setHighlightedCoach(null);
         },
-        closeChat: () => setActiveChat(null),
+        closeChat: () => {
+          setActiveChat(null);
+          const target = returnFocus.current;
+          requestAnimationFrame(() => { if (target?.isConnected) target.focus(); });
+        },
         bookingCoach,
         openBooking: (coach) => {
           if (!canBookCoach(coach)) return;

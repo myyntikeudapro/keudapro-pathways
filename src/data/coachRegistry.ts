@@ -3,11 +3,12 @@ import coachVeli from "@/assets/coach-veli.png";
 import coachReitti from "@/assets/coach-reitti.png";
 
 export const PKS_COACH_ID = "tyonhakijan-yksilovalmennus-pks";
+export const PKS_COACH_AVAILABLE: boolean = true;
 // Separate activation gate: registering this member must not activate public AI.
 export function isPksPreviewOrigin(hostname: string) {
   return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "id-preview--372569a7-94e8-4660-8a21-6fa94be31047.lovable.app";
 }
-export const PKS_COACH_ENABLED: boolean = typeof window !== "undefined" && isPksPreviewOrigin(window.location.hostname);
+export const PKS_COACH_ENABLED: boolean = PKS_COACH_AVAILABLE && typeof window !== "undefined" && isPksPreviewOrigin(window.location.hostname);
 
 export const coachRegistry = {
   ana: {
@@ -37,12 +38,12 @@ export const coachRegistry = {
 } as const;
 
 export type CoachType = keyof typeof coachRegistry;
-export function canOpenCoach(id: CoachType) {
-  return id !== PKS_COACH_ID || PKS_COACH_ENABLED;
+export function canOpenCoach(id: CoachType, pksEnabled = PKS_COACH_ENABLED) {
+  return id !== PKS_COACH_ID || pksEnabled;
 }
 export function canBookCoach(id: CoachType) {
   return coachRegistry[id].allowBooking;
 }
 export function getAvailableCoaches() {
-  return (Object.keys(coachRegistry) as CoachType[]).filter(canOpenCoach);
+  return (Object.keys(coachRegistry) as CoachType[]).filter(id => canOpenCoach(id));
 }

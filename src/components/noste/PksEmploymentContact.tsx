@@ -5,11 +5,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import service from "@/data/tyohonvalmennusPks.json";
 import { employmentChoices, getEmploymentRoute, pksEmploymentLinks, type EmploymentChoice } from "@/data/pksEmploymentLinks";
+import { trackPksAction } from "@/lib/pksAnalytics";
 
 const linkClass = "h-auto min-h-12 whitespace-normal text-left justify-between gap-3 px-5 py-3 max-w-full";
 
 function ExternalAction({ href, children, primary = false }: { href: string; children: React.ReactNode; primary?: boolean }) {
-  return <Button variant={primary ? "cta" : "outline"} size="lg" asChild className={linkClass}><a href={href} target="_blank" rel="noopener noreferrer">{children}<ArrowUpRight className="shrink-0 h-4 w-4" aria-hidden="true" /></a></Button>;
+  return <Button variant={primary ? "cta" : "outline"} size="lg" asChild className={linkClass}><a href={href} target="_blank" rel="noopener noreferrer" onClick={() => trackPksAction("contact_open", "employment_contact")}>{children}<ArrowUpRight className="shrink-0 h-4 w-4" aria-hidden="true" /></a></Button>;
 }
 
 export function PksEmploymentContact({ compact = false }: { compact?: boolean }) {
@@ -20,8 +21,10 @@ export function PksEmploymentContact({ compact = false }: { compact?: boolean })
     try {
       await navigator.clipboard.writeText(service.entry.message);
       setCopyStatus("Viesti kopioitu");
+      trackPksAction("message_copy", "success");
     } catch {
       setCopyStatus("Automaattinen kopiointi ei onnistunut. Voit valita viestin ja kopioida sen käsin.");
+      trackPksAction("message_copy", "failed");
     }
   };
   const guidance = route.city ? service.entry.city : choice === "Muu" ? service.entry.other : choice === "En tiedä" ? service.entry.unknown : choice === "En ole vielä asiakas" ? service.entry.notCustomer : null;

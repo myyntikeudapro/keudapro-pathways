@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import service from "@/data/tyohonvalmennusPks.json";
 import { PksEmploymentContact } from "@/components/noste/PksEmploymentContact";
 import { filterAdviserActions, sanitizeAdviserAnswer } from "../../../supabase/functions/pks-service-adviser/policy";
+import { trackPksAction } from "@/lib/pksAnalytics";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -63,6 +64,7 @@ function CoachChatSession() {
   const [currentCoach, setCurrentCoach] = useState<CoachType | null>(null);
   const [showEntry, setShowEntry] = useState(false);
   const [adviserFailed, setAdviserFailed] = useState(false);
+  const [feedback, setFeedback] = useState<"helpful" | "unhelpful" | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -95,6 +97,17 @@ function CoachChatSession() {
   useEffect(() => {
     if (activeChat) inputRef.current?.focus();
   }, [activeChat]);
+  useEffect(() => {
+    if (!isPublicAdviser) return;
+    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape" && !document.querySelector('[role="listbox"]')) closeChat(); };
+    const onCookies = () => closeChat();
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("keudapro:open-cookie-consent", onCookies);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("keudapro:open-cookie-consent", onCookies);
+    };
+  }, [isPublicAdviser, closeChat]);
 
   const streamChat = useCallback(async (allMessages: Msg[], endpoint: string) => {
     setIsLoading(true);
@@ -134,6 +147,7 @@ function CoachChatSession() {
         setMessages(prev => [...prev, { role: "assistant", content: answer }]);
         setShowEntry(actions.includes("entry") || actions.includes("copy-message"));
         setAdviserFailed(false);
+        setFeedback(null);
         return;
       }
 
@@ -264,7 +278,7 @@ function CoachChatSession() {
           {messages.map((m, i) => (
             <div key={i} className={cn("flex", m.role === "user" ? "justify-end" : "justify-start")}>
               <div className={cn(
-                "max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm whitespace-pre-wrap leading-relaxed",
+                "max-w-[80%] break-words px-3.5 py-2.5 rounded-2xl text-sm whitespace-pre-wrap leading-relaxed",
                 m.role === "user"
                   ? "bg-primary text-primary-foreground rounded-br-md"
                   : "bg-foreground text-background rounded-bl-md"
@@ -273,6 +287,7 @@ function CoachChatSession() {
               </div>
             </div>
           ))}
+          {isPublicAdviser && userMessageCount > 0 && !isLoading && !adviserFailed && <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground"><span>Auttoiko vastaus?</span>{(["helpful", "unhelpful"] as const).map(value => <Button key={value} size="sm" variant={feedback === value ? "default" : "outline"} disabled={feedback !== null} onClick={() => { setFeedback(value); trackPksAction("answer_feedback", value); }}>{value === "helpful" ? "Kyllä" : "Ei"}</Button>)}</div>}
 
           {isLoading && (
             <div className="flex justify-start">

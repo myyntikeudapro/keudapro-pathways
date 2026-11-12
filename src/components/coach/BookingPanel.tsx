@@ -129,6 +129,8 @@ export function BookingPanel() {
         />
       )}
       <div
+        {...(!isOpen ? { inert: "" } : {})}
+        aria-hidden={!isOpen}
         className={cn(
           "fixed top-0 right-0 z-[61] h-full w-full sm:w-[480px] bg-background shadow-2xl transition-transform duration-300 ease-out flex flex-col",
           isOpen ? "translate-x-0" : "translate-x-full"

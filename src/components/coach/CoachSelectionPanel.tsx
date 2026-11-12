@@ -21,6 +21,8 @@ export function CoachSelectionPanel() {
 
       {/* Slide-in Panel */}
       <div
+        {...(!isPanelOpen ? { inert: "" } : {})}
+        aria-hidden={!isPanelOpen}
         className={cn(
           "fixed top-0 right-0 z-[61] h-full w-full sm:w-[420px] bg-background shadow-2xl transition-transform duration-300 ease-out flex flex-col",
           isPanelOpen ? "translate-x-0" : "translate-x-full"
