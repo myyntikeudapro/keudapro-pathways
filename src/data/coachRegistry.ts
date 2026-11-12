@@ -1,6 +1,7 @@
 import coachAna from "@/assets/coach-ana.png";
 import coachVeli from "@/assets/coach-veli.png";
 import coachReitti from "@/assets/coach-reitti.png";
+import alisa from "@/assets/alisa-palveluneuvoja.png.asset.json";
 
 export const PKS_COACH_ID = "tyonhakijan-yksilovalmennus-pks";
 export const PKS_COACH_AVAILABLE: boolean = true;
@@ -30,9 +31,9 @@ export const coachRegistry = {
     endpoint: "route-coach-chat", color: "border-teal-400", allowBooking: true,
   },
   [PKS_COACH_ID]: {
-    name: "Työnhakijan palveluneuvoja", role: "Tekoälyavusteinen palveluneuvonta", image: null,
+    name: "Alisa", role: "Tekoälyavusteinen palveluneuvonta", image: alisa.url,
     description: "Auttaa ymmärtämään Työnhakijan yksilövalmennusta, sen käytäntöjä ja palveluun hakeutumista.",
-    greeting: "Hei! Autan sinua tutustumaan Työnhakijan yksilövalmennukseen. Mistä haluaisit tietää?",
+    greeting: "Hei! Olen Alisa, tekoälyavusteinen palveluneuvojasi. Autan sinua tutustumaan Työnhakijan yksilövalmennukseen. Mistä haluaisit tietää?",
     endpoint: "pks-service-adviser", color: "border-primary", allowBooking: false,
   },
 } as const;
