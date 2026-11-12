@@ -1,21 +1,8 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { useState, ReactNode } from "react";
 import { canOpenCoach, canBookCoach, type CoachType } from "@/data/coachRegistry";
+import { CoachPanelContext } from "./coachPanelStore";
+export { useCoachPanel } from "./coachPanelStore";
 export type { CoachType } from "@/data/coachRegistry";
-
-interface CoachPanelContextType {
-  isPanelOpen: boolean;
-  openPanel: (highlight?: CoachType | null) => void;
-  closePanel: () => void;
-  highlightedCoach: CoachType | null;
-  activeChat: CoachType | null;
-  openChat: (coach: CoachType) => void;
-  closeChat: () => void;
-  bookingCoach: CoachType | null;
-  openBooking: (coach: CoachType) => void;
-  closeBooking: () => void;
-}
-
-const CoachPanelContext = createContext<CoachPanelContextType | undefined>(undefined);
 
 export function CoachPanelProvider({ children }: { children: ReactNode }) {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
@@ -61,8 +48,3 @@ export function CoachPanelProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function useCoachPanel() {
-  const ctx = useContext(CoachPanelContext);
-  if (!ctx) throw new Error("useCoachPanel must be used within CoachPanelProvider");
-  return ctx;
-}
