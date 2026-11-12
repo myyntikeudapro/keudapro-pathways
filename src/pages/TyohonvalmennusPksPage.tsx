@@ -9,12 +9,19 @@ import { PksAdviserEntry } from "@/components/noste/PksAdviserEntry";
 import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { PKS_COACH_ENABLED, PKS_COACH_ID } from "@/data/coachRegistry";
 import photo from "@/assets/tyohonvalmennus-pks.jpg.asset.json";
-import brochure from "@/assets/tyohonvalmennus-pks-esite.pdf.asset.json";
+import brochureFi from "@/assets/tyohonvalmennus-pks-esite-fi.pdf.asset.json";
+import brochureSv from "@/assets/tyohonvalmennus-pks-esite-sv.pdf.asset.json";
+import brochureEn from "@/assets/tyohonvalmennus-pks-esite-en.pdf.asset.json";
 import { getPksLanguage, getPksContent, getPksUi, pksLanguages, pksPath } from "@/data/pksContent";
 import { Helmet } from "react-helmet-async";
 
 const exampleIcons = [FileText, BriefcaseBusiness, MessageCircle, Compass];
 const anchorClass = "max-w-full whitespace-normal h-auto min-h-12 px-5 py-3";
+const brochures = [
+  { language: "fi", label: "Esite suomeksi (PDF)", url: brochureFi.url },
+  { language: "sv", label: "Broschyr på svenska (PDF)", url: brochureSv.url },
+  { language: "en", label: "Brochure in English (PDF)", url: brochureEn.url },
+];
 
 export default function TyohonvalmennusPksPage() {
   const { openChat } = useCoachPanel();
@@ -81,7 +88,7 @@ export default function TyohonvalmennusPksPage() {
     <section className="bg-keuda-teal-section py-14 md:py-20">
       <div className="keuda-container grid lg:grid-cols-[1.2fr_0.8fr] gap-9 lg:gap-16">
         <div><h2 className="text-3xl font-bold text-primary mb-5">{ui.providers}</h2><p className="text-foreground leading-relaxed max-w-2xl">{service.ownCoach}</p><p className="text-foreground font-semibold text-lg mt-5">{service.providers.join(" · ")}</p></div>
-        <div className="flex flex-col items-start justify-center gap-4"><Button variant="outline" size="lg" asChild className={anchorClass}><a href={brochure.url} target="_blank" rel="noopener noreferrer"><FileDown aria-hidden="true" /> {ui.brochure}</a></Button><p className="text-sm text-foreground">{ui.brochureNote}</p><Button variant="cta" size="lg" asChild className={anchorClass}><a href="#mukaan">{ui.join} <ArrowRight aria-hidden="true" /></a></Button></div>
+        <div className="flex flex-col items-start justify-center gap-4">{brochures.map(brochure => <Button key={brochure.language} variant="outline" size="lg" asChild className={anchorClass}><a href={brochure.url} lang={brochure.language} hrefLang={brochure.language} type="application/pdf" target="_blank" rel="noopener noreferrer"><FileDown aria-hidden="true" /> {brochure.label}</a></Button>)}<Button variant="cta" size="lg" asChild className={anchorClass}><a href="#mukaan">{ui.join} <ArrowRight aria-hidden="true" /></a></Button></div>
       </div>
     </section>
     </div>
