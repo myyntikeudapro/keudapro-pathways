@@ -25,23 +25,23 @@ export default function TyohonvalmennusPksPage() {
           </div>
         </div>
       </section>
-      <section className="bg-keuda-teal-light border-b border-border">
+      <section className="bg-keuda-gray-section border-b border-border">
         <dl className="keuda-container grid grid-cols-2 md:grid-cols-4 gap-6 py-7 md:py-9">
           {[['Hinta', `${service.priceEuros} € – maksuton`], ['Kesto', `${service.durationMonths.min}–${service.durationMonths.max} kuukautta`], ['Hakuaika', 'Jatkuva'], ['Tapaamiset', 'Etänä tai lähitapaamisina']].map(([label, value]) => <div key={label}><dt className="text-sm text-muted-foreground mb-1">{label}</dt><dd className="font-semibold text-foreground">{value}</dd></div>)}
         </dl>
       </section>
-      <section className="py-14 md:py-20">
+      <section className="bg-keuda-blue-light py-14 md:py-20">
         <div className="keuda-container grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-20">
           {service.sections.slice(0, 2).map(section => <div key={section.title}><h2 className="text-2xl md:text-3xl text-primary font-bold mb-5 leading-tight">{section.title}</h2>{section.paragraphs.map(text => <p key={text} className="text-muted-foreground leading-relaxed mb-4">{text}</p>)}</div>)}
         </div>
       </section>
-      <section className="bg-muted py-14 md:py-20">
+      <section className="bg-keuda-gray-section py-14 md:py-20">
         <div className="keuda-container grid lg:grid-cols-2 gap-10 lg:gap-20">
           <div><h2 className="text-2xl md:text-3xl font-bold text-primary mb-5">{service.sections[2].title}</h2>{service.sections[2].paragraphs.map(text => <p key={text} className="text-muted-foreground leading-relaxed mb-4">{text}</p>)}</div>
           <div><h3 className="text-xl font-bold text-foreground mb-5">Valmennuksen teemat</h3><ul className="space-y-4">{service.themes.map(theme => <li key={theme} className="flex gap-3 text-foreground"><Check className="text-primary h-5 w-5 shrink-0 mt-0.5" aria-hidden="true" /><span>{theme}</span></li>)}</ul></div>
         </div>
       </section>
-      <section id="mukaan" className="scroll-mt-24 bg-keuda-teal-light py-14 md:py-20">
+      <section id="mukaan" className="scroll-mt-24 bg-keuda-teal-section py-14 md:py-20">
         <div className="keuda-container">
           <p className="text-primary font-semibold text-sm mb-3">Jatkuva haku · Ei omaa ilmoittautumislomaketta</p>
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-9">Näin pääset mukaan</h2>
@@ -55,7 +55,7 @@ export default function TyohonvalmennusPksPage() {
       <section className="py-14 md:py-20">
         <div className="keuda-container grid md:grid-cols-2 gap-x-16 gap-y-9">{service.sections.slice(3, 6).map(section => <div key={section.title}><h2 className="text-2xl font-bold text-primary mb-4">{section.title}</h2>{section.paragraphs.map(text => <p key={text} className="text-muted-foreground leading-relaxed mb-3">{text}</p>)}</div>)}</div>
       </section>
-      <section className="bg-muted py-12 md:py-16">
+      <section className="bg-keuda-blue-light py-12 md:py-16">
         <div className="keuda-container"><h2 className="text-2xl font-bold text-primary mb-5">Palvelun toteuttajat</h2><p className="text-xl font-semibold text-foreground mb-6">KeudaPRO · Valo-Valmennusyhdistys · Wulff Pro</p>{service.sections[6].paragraphs.map(text => <p key={text} className="max-w-3xl text-muted-foreground leading-relaxed mb-3">{text}</p>)}</div>
       </section>
     </Layout>

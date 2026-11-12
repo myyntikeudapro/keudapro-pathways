@@ -67,6 +67,8 @@ export default {
           "blue-light": "hsl(var(--keuda-blue-light))",
           teal: "hsl(var(--keuda-teal))",
           "teal-light": "hsl(var(--keuda-teal-light))",
+          "teal-section": "hsl(var(--keuda-teal-section))",
+          "gray-section": "hsl(var(--keuda-gray-section))",
           orange: "hsl(var(--keuda-orange))",
           "orange-light": "hsl(var(--keuda-orange-light))",
           "orange-deep": "hsl(var(--keuda-orange-deep))",
