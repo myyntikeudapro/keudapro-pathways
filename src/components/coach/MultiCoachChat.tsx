@@ -1,44 +1,14 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { X, Send, UserCheck, Mail, ArrowLeft } from "lucide-react";
+import { X, Send, UserCheck, Mail, ArrowLeft, Bot } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useCoachPanel, CoachType } from "@/contexts/CoachPanelContext";
 
-import coachAna from "@/assets/coach-ana.png";
-import coachVeli from "@/assets/coach-veli.png";
-import coachReitti from "@/assets/coach-reitti.png";
+import { coachRegistry, PKS_COACH_ID, canOpenCoach } from "@/data/coachRegistry";
+import { Button } from "@/components/ui/button";
+import service from "@/data/tyohonvalmennusPks.json";
 
 type Msg = { role: "user" | "assistant"; content: string };
-
-const coachConfig: Record<CoachType, {
-  name: string;
-  role: string;
-  image: string;
-  greeting: string;
-  endpoint: string;
-}> = {
-  ana: {
-    name: "Ana",
-    role: "Työhönvalmentaja",
-    image: coachAna,
-    greeting: "Hei! Olen Ana, työhönvalmentajasi. Kerro – missä tilanteessa olet juuri nyt?",
-    endpoint: "coach-chat",
-  },
-  veli: {
-    name: "Veli",
-    role: "Osaamisen kehittämisen valmentaja",
-    image: coachVeli,
-    greeting: "Hei! Olen Veli, osaamisen kehittämisen valmentajasi. Mikä osaamiseen liittyvä asia mietityttää sinua juuri nyt?",
-    endpoint: "veli-coach-chat",
-  },
-  reitti: {
-    name: "Reittivalmentaja",
-    role: "Ura- ja opinto-ohjaaja",
-    image: coachReitti,
-    greeting: "Hei! Olen reittivalmentajasi – autan sinua löytämään oikean koulutus- tai urapolun. Kerro, missä tilanteessa olet?",
-    endpoint: "route-coach-chat",
-  },
-};
 
 const EMAIL_SUBJECT = "KeudaPRO – Muistio AI-valmentajakeskustelusta";
 
@@ -74,6 +44,13 @@ const formatTranscript = (
 };
 
 export function MultiCoachChat() {
+  const { activeChat } = useCoachPanel();
+  if (!activeChat || !canOpenCoach(activeChat)) return null;
+  // Unmount on member changes/close: drafts, history and pending responses cannot cross members.
+  return <CoachChatSession key={activeChat} />;
+}
+
+function CoachChatSession() {
   const { activeChat, closeChat, openPanel } = useCoachPanel();
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
@@ -85,9 +62,12 @@ export function MultiCoachChat() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const config = activeChat ? coachConfig[activeChat] : null;
+  const config = activeChat ? coachRegistry[activeChat] : null;
   const userMessageCount = messages.filter((m) => m.role === "user").length;
-  const showCoachCTA = userMessageCount >= 5;
+  const isPublicAdviser = activeChat === PKS_COACH_ID;
+  const showCoachCTA = !isPublicAdviser && userMessageCount >= 5;
+  const abortRef = useRef<AbortController | null>(null);
+  useEffect(() => () => abortRef.current?.abort(), []);
 
   // Reset messages when coach changes
   useEffect(() => {
@@ -128,8 +108,11 @@ export function MultiCoachChat() {
       });
     };
 
+    const controller = new AbortController();
+    abortRef.current = controller;
     try {
       const resp = await fetch(url, {
+        signal: controller.signal,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -170,9 +153,10 @@ export function MultiCoachChat() {
         }
       }
     } catch {
+      if (controller.signal.aborted) return;
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "Pahoittelen – minulla on tekninen ongelma juuri nyt. Ota yhteyttä suoraan: keudapro@keuda.fi" },
+        { role: "assistant", content: endpoint === "pks-service-adviser" ? "Palveluneuvoja ei ole juuri nyt käytettävissä. Löydät palvelutiedot usein kysytyistä kysymyksistä ja mukaanpääsyohjeesta." : "Pahoittelen – minulla on tekninen ongelma juuri nyt. Ota yhteyttä suoraan: keudapro@keuda.fi" },
       ]);
     } finally {
       setIsLoading(false);
@@ -181,7 +165,7 @@ export function MultiCoachChat() {
 
   const send = useCallback(
     (text: string) => {
-      if (!text.trim() || isLoading || !config) return;
+      if (!text.trim() || isLoading || !config || (isPublicAdviser && (text.trim().length > 2000 || messages.filter(m => m.role === "user").length >= 10))) return;
       const userMsg: Msg = { role: "user", content: text.trim() };
       const history = messages.filter((m) => !(m === messages[0] && m.content === config.greeting));
       const newAll = [...history, userMsg];
@@ -189,18 +173,18 @@ export function MultiCoachChat() {
       setInput("");
       streamChat(newAll, config.endpoint);
     },
-    [messages, isLoading, streamChat, config]
+    [messages, isLoading, streamChat, config, isPublicAdviser]
   );
 
   const openPreview = (target: "self" | "coach") => {
-    if (!config) return;
+    if (!config || isPublicAdviser) return;
     setTranscriptDraft(formatTranscript(config.name, config.role, messages));
     setPreviewTarget(target);
     setShowEndSession(false);
   };
 
   const sendPreview = () => {
-    if (!config || !previewTarget) return;
+    if (!config || !previewTarget || isPublicAdviser) return;
     const subject = encodeURIComponent(EMAIL_SUBJECT);
     const body = encodeURIComponent(transcriptDraft);
     const to = previewTarget === "coach" ? "keudapro@keuda.fi" : "";
@@ -235,10 +219,10 @@ export function MultiCoachChat() {
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 bg-foreground" style={{ paddingTop: "max(0.75rem, env(safe-area-inset-top))" }}>
           <div className="flex items-center gap-2">
-            <button onClick={() => { closeChat(); openPanel(); }} className="p-1 rounded hover:bg-background/10 transition-colors" aria-label="Takaisin">
+            <button onClick={() => { closeChat(); if (!isPublicAdviser) openPanel(); }} className="p-1 rounded hover:bg-background/10 transition-colors" aria-label="Takaisin">
               <ArrowLeft className="w-4 h-4 text-background" />
             </button>
-            <img src={config.image} alt={config.name} className="w-7 h-7 rounded-full object-cover border border-background/30" />
+            {config.image ? <img src={config.image} alt={config.name} className="w-7 h-7 rounded-full object-cover border border-background/30" /> : <Bot className="w-7 h-7 shrink-0 text-background" aria-label="Tekoäly" />}
             <div>
               <span className="text-sm font-semibold text-background">{config.name}</span>
               <span className="flex items-center gap-1 text-[10px] text-background/60">
@@ -248,7 +232,7 @@ export function MultiCoachChat() {
             </div>
           </div>
           <div className="flex items-center gap-1">
-            {messages.length > 2 && (
+            {!isPublicAdviser && messages.length > 2 && (
               <button onClick={() => setShowEndSession(true)} className="text-[10px] text-background/50 hover:text-background/80 transition-colors px-2">
                 Päätä sessio
               </button>
@@ -305,7 +289,7 @@ export function MultiCoachChat() {
             </div>
           )}
 
-          {showEndSession && (
+          {!isPublicAdviser && showEndSession && (
             <div className="bg-card border border-border rounded-xl p-4 space-y-3">
               <p className="text-sm font-medium text-foreground">Tallenna keskustelu tai lähetä valmentajalle</p>
               <div className="flex flex-col gap-2">
@@ -333,7 +317,7 @@ export function MultiCoachChat() {
             </div>
           )}
 
-          {previewTarget && (
+          {!isPublicAdviser && previewTarget && (
             <div className="bg-card border border-border rounded-xl p-4 space-y-3">
               <div>
                 <p className="text-sm font-medium text-foreground">Tarkista ja muokkaa muistiota</p>
@@ -369,6 +353,14 @@ export function MultiCoachChat() {
           )}
         </div>
 
+        {isPublicAdviser && <div className="p-3 border-t border-border bg-background space-y-3">
+          <p className="text-xs text-muted-foreground">Julkinen palvelutieto: {service.title} · Helsinki, Espoo ja Vantaa</p>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="cta" asChild><a href="/tyohonvalmennus-pks#mukaan" onClick={closeChat}>Näin pääset mukaan</a></Button>
+            <Button variant="outline" asChild><a href="/tyohonvalmennus-pks#ukk" onClick={closeChat}>Usein kysytyt kysymykset</a></Button>
+          </div>
+          <p className="text-xs text-muted-foreground">Kopioitava viestipohja ja oman työllisyyspalvelun yhteydenottotavat löytyvät mukaanpääsyohjeesta.</p>
+        </div>}
         {/* Input */}
         <div className="p-3 border-t border-border bg-background space-y-1.5" style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}>
           <form onSubmit={(e) => { e.preventDefault(); send(input); }} className="flex gap-2">
@@ -379,6 +371,7 @@ export function MultiCoachChat() {
               placeholder="Kirjoita viesti..."
               className="flex-1 px-3 py-2 text-sm rounded-lg bg-muted border border-border focus:outline-none focus:ring-2 focus:ring-primary/40"
               disabled={isLoading}
+              maxLength={isPublicAdviser ? 2000 : undefined}
             />
             <button
               type="submit"
@@ -390,10 +383,10 @@ export function MultiCoachChat() {
             </button>
           </form>
           <div className="flex items-center justify-between text-[10px] text-muted-foreground">
-            <span className="italic">AI-valmentaja – ei ihminen. Ei tallenna tietojasi.</span>
-            <a href="mailto:keudapro@keuda.fi" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+            <span className="italic">{isPublicAdviser ? "Tekoäly, ei oma valmentajasi. Älä kirjoita henkilötietoja. Viestit käsitellään AI-palvelussa; keskustelu on tässä selaimessa vain avoimen paneelin ajan." : "AI-valmentaja – ei ihminen. Ei tallenna tietojasi."}</span>
+            {!isPublicAdviser && <a href="mailto:keudapro@keuda.fi" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
               keudapro@keuda.fi
-            </a>
+            </a>}
           </div>
         </div>
       </div>

@@ -1,44 +1,10 @@
-import { X, MessageCircle, CalendarDays } from "lucide-react";
-import { useCoachPanel, CoachType } from "@/contexts/CoachPanelContext";
+import { X, MessageCircle, CalendarDays, Bot } from "lucide-react";
+import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { cn } from "@/lib/utils";
 import { BOOKING_URL } from "@/lib/booking";
 
-import coachAna from "@/assets/coach-ana.png";
-import coachVeli from "@/assets/coach-veli.png";
-import coachReitti from "@/assets/coach-reitti.png";
-
-const coaches = [
-  {
-    id: "ana" as CoachType,
-    name: "Ana",
-    role: "Työhönvalmentaja",
-    description: "Auttaa sinua löytämään suunnan, tunnistamaan osaamisesi ja etenemään kohti työtä.",
-    image: coachAna,
-    color: "border-pink-400",
-    bgColor: "bg-pink-50",
-    bookingUrl: "mailto:keudapro@keuda.fi?subject=Varaa%20aika%20–%20Työhönvalmentaja",
-  },
-  {
-    id: "veli" as CoachType,
-    name: "Veli",
-    role: "Osaamisen kehittämisen valmentaja",
-    description: "Sparraa tekoäly- ja digitaalisen osaamisen kehittämisessä ja ohjelmavalinnoissa.",
-    image: coachVeli,
-    color: "border-amber-400",
-    bgColor: "bg-amber-50",
-    bookingUrl: "mailto:keudapro@keuda.fi?subject=Varaa%20aika%20–%20Osaamisen%20kehittäminen",
-  },
-  {
-    id: "reitti" as CoachType,
-    name: "Reittivalmentaja",
-    role: "Ura- ja opinto-ohjaaja",
-    description: "Auttaa löytämään oikean koulutus- tai urapolun sinun tilanteestasi käsin.",
-    image: coachReitti,
-    color: "border-teal-400",
-    bgColor: "bg-teal-50",
-    bookingUrl: "mailto:keudapro@keuda.fi?subject=Varaa%20aika%20–%20Ura-%20ja%20opinto-ohjaus",
-  },
-];
+import { coachRegistry, getAvailableCoaches } from "@/data/coachRegistry";
+import { Button } from "@/components/ui/button";
 
 export function CoachSelectionPanel() {
   const { isPanelOpen, closePanel, openChat, highlightedCoach } = useCoachPanel();
@@ -73,25 +39,26 @@ export function CoachSelectionPanel() {
 
         {/* Coach Cards */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
-          {coaches.map((coach) => {
-            const isHighlighted = highlightedCoach === coach.id;
+          {getAvailableCoaches().map((id) => {
+            const coach = coachRegistry[id];
+            const isHighlighted = highlightedCoach === id;
             return (
               <div
-                key={coach.id}
+                key={id}
                 className={cn(
                   "rounded-xl border-2 p-4 transition-all duration-200 hover:shadow-md",
                   isHighlighted ? "border-teal-500 shadow-md" : coach.color
                 )}
               >
                 <div className="flex gap-4">
-                  <img
+                  {coach.image ? <img
                     src={coach.image}
                     alt={coach.name}
                     className="w-16 h-16 rounded-full object-cover border-2 border-background shadow-sm flex-shrink-0"
                     loading="lazy"
                     width={64}
                     height={64}
-                  />
+                  /> : <span className="w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center shrink-0"><Bot className="w-8 h-8 text-primary" aria-label="Tekoäly" /></span>}
                   <div className="flex-1 min-w-0">
                     <h3 className="font-bold text-foreground text-base">{coach.name}</h3>
                     <p className="text-xs font-medium text-primary">{coach.role}</p>
@@ -106,14 +73,14 @@ export function CoachSelectionPanel() {
                 )}
 
                 <div className="flex gap-2 mt-4">
-                  <button
-                    onClick={() => openChat(coach.id)}
+                  <Button
+                    onClick={() => openChat(id)}
                     className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
                     Keskustele AI:n kanssa
-                  </button>
-                  <a
+                  </Button>
+                  {coach.allowBooking ? <a
                     href={BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -122,7 +89,7 @@ export function CoachSelectionPanel() {
                   >
                     <CalendarDays className="w-4 h-4" />
                     Varaa aika ihmiselle
-                  </a>
+                  </a> : <Button variant="outline" asChild><a href="/tyohonvalmennus-pks#mukaan" onClick={closePanel}>Näin pääset mukaan</a></Button>}
                 </div>
               </div>
             );

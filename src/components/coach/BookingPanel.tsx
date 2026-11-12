@@ -1,13 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
-import { useCoachPanel, CoachType } from "@/contexts/CoachPanelContext";
+import { useCoachPanel } from "@/contexts/CoachPanelContext";
 import { cn } from "@/lib/utils";
-
-const COACH_LABELS: Record<CoachType, string> = {
-  ana: "Ana",
-  veli: "Veli",
-  reitti: "Reittivalmentaja",
-};
+import { canBookCoach, coachRegistry } from "@/data/coachRegistry";
 
 type FormatId = "ai" | "short" | "deep";
 
@@ -44,7 +39,7 @@ const FORMATS: {
 
 export function BookingPanel() {
   const { bookingCoach, closeBooking, openChat } = useCoachPanel();
-  const isOpen = bookingCoach !== null;
+  const isOpen = bookingCoach !== null && canBookCoach(bookingCoach);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const [format, setFormat] = useState<FormatId | null>(null);
@@ -104,8 +99,9 @@ export function BookingPanel() {
     }
     setErrors({});
 
-    const fmt = FORMATS.find((f) => f.id === format)!;
-    const coachLabel = bookingCoach ? COACH_LABELS[bookingCoach] : "";
+    const fmt = FORMATS.find((f) => f.id === format);
+    if (!fmt || !bookingCoach || !canBookCoach(bookingCoach)) return;
+    const coachLabel = coachRegistry[bookingCoach].name;
     const subject = `Ajanvaraus — ${fmt.emailLabel} — ${name.trim()}`;
     const body = [
       `Valittu valmentaja: ${coachLabel}`,

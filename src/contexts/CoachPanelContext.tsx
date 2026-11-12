@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-
-export type CoachType = "ana" | "veli" | "reitti";
+import { canOpenCoach, canBookCoach, type CoachType } from "@/data/coachRegistry";
+export type { CoachType } from "@/data/coachRegistry";
 
 interface CoachPanelContextType {
   isPanelOpen: boolean;
@@ -38,6 +38,8 @@ export function CoachPanelProvider({ children }: { children: ReactNode }) {
         },
         activeChat,
         openChat: (coach) => {
+          if (!canOpenCoach(coach)) return;
+          setBookingCoach(null);
           setActiveChat(coach);
           setIsPanelOpen(false);
           setHighlightedCoach(null);
@@ -45,6 +47,8 @@ export function CoachPanelProvider({ children }: { children: ReactNode }) {
         closeChat: () => setActiveChat(null),
         bookingCoach,
         openBooking: (coach) => {
+          if (!canBookCoach(coach)) return;
+          setActiveChat(null);
           setIsPanelOpen(false);
           setHighlightedCoach(null);
           setBookingCoach(coach);

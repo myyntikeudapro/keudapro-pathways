@@ -5,6 +5,9 @@ import { SEO } from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PksEmploymentContact } from "@/components/noste/PksEmploymentContact";
+import { PksAdviserEntry } from "@/components/noste/PksAdviserEntry";
+import { useCoachPanel } from "@/contexts/CoachPanelContext";
+import { PKS_COACH_ENABLED, PKS_COACH_ID } from "@/data/coachRegistry";
 import photo from "@/assets/tyohonvalmennus-pks.jpg.asset.json";
 import brochure from "@/assets/tyohonvalmennus-pks-esite.pdf.asset.json";
 import service from "@/data/tyohonvalmennusPks.json";
@@ -13,6 +16,7 @@ const exampleIcons = [FileText, BriefcaseBusiness, MessageCircle, Compass];
 const anchorClass = "max-w-full whitespace-normal h-auto min-h-12 px-5 py-3";
 
 export default function TyohonvalmennusPksPage() {
+  const { openChat } = useCoachPanel();
   return <Layout>
     <SEO title={`${service.title} | KeudaPRO`} description={service.description} path={service.path} jsonLd={[
       { "@context": "https://schema.org", "@type": "Service", name: service.title, description: service.description, url: `https://keudapro.fi${service.path}`, provider: { "@type": "Organization", name: "KeudaPRO" }, areaServed: service.cities.map(name => ({ "@type": "City", name })), offers: { "@type": "Offer", price: service.priceEuros, priceCurrency: "EUR" } },
@@ -30,7 +34,7 @@ export default function TyohonvalmennusPksPage() {
           <p className="text-primary-foreground mt-5 text-base md:text-lg leading-relaxed max-w-lg">{service.intro}</p>
           <div className="flex flex-wrap gap-3 mt-7">
             <Button variant="cta" size="lg" asChild className={anchorClass}><a href="#mukaan">Näin pääset mukaan <ArrowRight aria-hidden="true" /></a></Button>
-            <Button variant="outline" size="lg" asChild className={`${anchorClass} bg-background text-foreground`}><a href="#ukk">Kysy valmennuksesta <MessageCircle aria-hidden="true" /></a></Button>
+            {PKS_COACH_ENABLED ? <Button variant="outline" size="lg" className={`${anchorClass} bg-background text-foreground`} onClick={() => openChat(PKS_COACH_ID)}>Kysy valmennuksesta <MessageCircle aria-hidden="true" /></Button> : <Button variant="outline" size="lg" asChild className={`${anchorClass} bg-background text-foreground`}><a href="#ukk">Kysy valmennuksesta <MessageCircle aria-hidden="true" /></a></Button>}
           </div>
         </div>
       </div>
@@ -62,7 +66,7 @@ export default function TyohonvalmennusPksPage() {
       <div className="keuda-container max-w-4xl">
         <h2 className="text-3xl font-bold text-primary mb-5">Usein kysytyt kysymykset</h2>
         <Accordion type="multiple">{service.faq.map((item, index) => <AccordionItem key={item.question} value={`faq-${index}`} className="border-primary/20"><AccordionTrigger className="text-left text-base text-foreground gap-4 py-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring">{item.question}</AccordionTrigger><AccordionContent className="text-base text-foreground leading-relaxed">{item.answer}</AccordionContent></AccordionItem>)}</Accordion>
-        {/* Future member uses this same versioned public content. No chat CTA until ready. */}
+        <PksAdviserEntry />
         <div id="palveluneuvoja" className="border-t border-primary/20 pt-7 mt-7"><Button variant="cta" asChild className={anchorClass}><a href="#mukaan">Näin pääset mukaan <ArrowRight aria-hidden="true" /></a></Button></div>
       </div>
     </section>
