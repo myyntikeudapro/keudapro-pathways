@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { isPksPage } from "@/data/coachRegistry";
 import { getPksLanguage } from "@/data/pksContent";
 import pksCommissioners from "@/assets/pks-palvelun-tilaajat.png.asset.json";
+import wulffProLogo from "@/assets/wulffpro-logo.svg.asset.json";
+import valoLogo from "@/assets/valo-valmennusyhdistys-logo.png.asset.json";
 
 // TikTok icon as custom SVG since it's not in Lucide
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -28,7 +30,7 @@ const socialLinks = [
 export function Footer() {
   const { pathname } = useLocation();
   const language = getPksLanguage(pathname);
-  const commissionersLabel = language === "en" ? "Service commissioners" : language === "sv" ? "Tjänstens beställare" : "Palvelun tilaajat";
+  const commissionersLabel = language === "en" ? "In cooperation with" : language === "sv" ? "I samarbete med" : "Yhteistyössä";
   return (
     <footer className="border-t border-[#333]">
       {isPksPage(pathname) && (
@@ -36,6 +38,10 @@ export function Footer() {
           <div className="keuda-container flex flex-col items-center gap-5">
             <h2 className="text-base font-semibold">{commissionersLabel}</h2>
             <img src={pksCommissioners.url} alt="Espoo / Esbo, Helsinki, Vantaa" width={1004} height={200} loading="lazy" className="block h-auto w-full max-w-3xl" />
+            <div className="flex w-full max-w-xl flex-wrap items-center justify-center gap-x-12 gap-y-8 pt-3">
+              <img src={wulffProLogo.url} alt="WulffPRO" width={366} height={90} loading="lazy" className="h-16 w-52 max-w-full object-contain" />
+              <img src={valoLogo.url} alt="Valo-Valmennusyhdistys" width={403} height={172} loading="lazy" className="h-20 w-52 max-w-full object-contain" />
+            </div>
           </div>
         </section>
       )}
