@@ -37,10 +37,10 @@ export function Footer() {
         <section aria-label={commissionersLabel} lang={language} className="pks-commissioners py-8 md:py-10 border-b border-border">
           <div className="keuda-container flex flex-col items-center gap-5">
             <h2 className="text-base font-semibold">{commissionersLabel}</h2>
-            <img src={pksCommissioners.url} alt="Espoo / Esbo, Helsinki, Vantaa" width={1004} height={200} loading="lazy" className="block h-auto w-full max-w-3xl" />
-            <div className="flex w-full max-w-xl flex-wrap items-center justify-center gap-x-12 gap-y-8 pt-3">
-              <img src={wulffProLogo.url} alt="WulffPRO" width={366} height={90} loading="lazy" className="h-16 w-52 max-w-full object-contain" />
-              <img src={valoLogo.url} alt="Valo-Valmennusyhdistys" width={403} height={172} loading="lazy" className="h-20 w-52 max-w-full object-contain" />
+            <div className="grid w-full max-w-4xl grid-cols-[minmax(0,1fr)_minmax(0,3fr)_minmax(0,1fr)] items-center gap-3 sm:gap-6 md:gap-8">
+              <img src={valoLogo.url} alt="Valo-Valmennusyhdistys" width={403} height={172} loading="lazy" className="block h-auto w-full object-contain" />
+              <img src={pksCommissioners.url} alt="Espoo / Esbo, Helsinki, Vantaa" width={1004} height={200} loading="lazy" className="block h-auto w-full object-contain" />
+              <img src={wulffProLogo.url} alt="WulffPRO" width={366} height={90} loading="lazy" className="block h-auto w-full object-contain" />
             </div>
           </div>
         </section>
