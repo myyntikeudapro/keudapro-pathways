@@ -1,4 +1,5 @@
 - [x] Tarkista 49 alakohtaista linkkiä ja kaksi yhteistä ohjelmaa: HTTP 200 ja oikeat kohdeotsikot
+- [x] Seurannan M1-havainto vanhentunut: osallistujalomake ei renderöidy Lyyti-tilassa. Kasvu-kartoituksen sähköposti korjattu Heikille, perusteeton Lähetetty-tila poistettu ja ajanvaraus avaa nykyisen lomakkeen kartoitusaiheella; selainpolku varmennettu ilman viestin lähettämistä.
 - [x] Korjaa mobiililistan piilotus ennen hakua, evästebannerin kerrostus ja lomakkeen vieritys
 - [x] Testaa seitsemän näyttökokoa, fokuslukitus, epävarman asiakkaan tiedot ja yksi aktiivinen modaali
 - [x] Tarkista muutettujen ominaisuustiedostojen lint ja kahdeksan läpäisevää testiä

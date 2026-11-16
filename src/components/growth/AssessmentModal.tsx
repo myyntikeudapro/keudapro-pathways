@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
+import { useBookingRequest } from "@/contexts/BookingRequestContext";
 import { ArrowLeft, ArrowRight, Flag, Send, Calendar, Printer, X } from "lucide-react";
 
 /* ─── Types ─── */
@@ -247,6 +248,7 @@ interface AssessmentModalProps {
 }
 
 export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalProps) {
+  const { openBookingRequest } = useBookingRequest();
   const isMobile = useIsMobile();
   const config = levelConfigs[level];
   const questions = config.questions;
@@ -255,14 +257,12 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [validationError, setValidationError] = useState(false);
-  const [sent, setSent] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const reset = useCallback(() => {
     setStep(0);
     setAnswers({});
     setValidationError(false);
-    setSent(false);
   }, []);
 
   const handleOpenChange = useCallback(
@@ -344,12 +344,13 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
   const handleSend = () => {
     const subject = encodeURIComponent(`Kartoitus: ${config.name}`);
     const body = buildMailtoBody();
-    window.location.href = `mailto:LISAA_SAHKOPOSTIOSOITE_TAHAN?subject=${subject}&body=${body}`;
-    setSent(true);
+    window.location.href = `mailto:heikki.kallunki@keuda.fi?subject=${subject}&body=${body}`;
   };
 
   const handleBooking = () => {
-    window.open("https://calendly.com/LISAA-TAHAN", "_blank");
+    const topic = `Kartoitus: ${config.name}`;
+    handleOpenChange(false);
+    openBookingRequest({ source: "Kasvu – kartoituksen ajanvaraus", topic });
   };
 
   /* ─── Render question ─── */
@@ -365,6 +366,7 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
             value={(a as string) ?? ""}
             onChange={(e) => setOpen(currentQ.id, e.target.value)}
             placeholder="Kirjoita vapaasti..."
+            maxLength={1500}
             className="min-h-[120px]"
           />
           <p className="text-xs text-muted-foreground">Valinnainen</p>
@@ -462,14 +464,14 @@ export function AssessmentModal({ level, open, onOpenChange }: AssessmentModalPr
 
       {/* GDPR */}
       <p className="text-[11px] text-muted-foreground leading-relaxed">
-        Tietojasi käytetään vain kartoitustapaamiseen valmistautumiseen. Yhteenveto lähetetään valmentajallesi ja sitä käsitellään luottamuksellisesti.
+        Tietojasi käytetään vain kartoitustapaamiseen valmistautumiseen. Yhteenveto avautuu sähköpostiluonnokseksi; lähetä viesti sähköpostiohjelmastasi.
       </p>
 
       {/* Action buttons */}
       <div className="flex flex-col gap-2">
-        <Button variant="cta" size="lg" className="w-full" onClick={handleSend} disabled={sent}>
+        <Button variant="cta" size="lg" className="w-full" onClick={handleSend}>
           <Send className="w-4 h-4 mr-2" />
-          {sent ? "Lähetetty!" : "Lähetä yhteenveto valmentajalle"}
+          Lähetä yhteenveto valmentajalle
         </Button>
         <Button variant="secondary" size="lg" className="w-full" onClick={handleBooking}>
           <Calendar className="w-4 h-4 mr-2" />
