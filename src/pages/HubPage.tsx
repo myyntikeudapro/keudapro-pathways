@@ -269,21 +269,6 @@ const HubPage = () => {
               </Button>
             </div>
 
-            <div className="pt-10 border-t border-white/10">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-left sm:text-center">
-                {[
-                  { n: "1", l: "Live-projekti" },
-                  { n: "1", l: "Pilotti käynnissä" },
-                  { n: "3", l: "Pilottia valmisteilla" },
-                  { n: "103", l: "Osallistujaa" },
-                ].map((s) => (
-                  <div key={s.l}>
-                    <div className="text-3xl md:text-4xl font-bold text-keuda-orange">{s.n}</div>
-                    <div className="text-xs text-white/60 mt-1 uppercase tracking-wider">{s.l}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
