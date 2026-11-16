@@ -1,5 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
-import { isAiTalentVisible } from "@/data/aiTalent";
+import { AI_TALENT_PUBLISHED } from "@/data/aiTalent";
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
@@ -305,7 +305,7 @@ const HubPage = () => {
             </p>
           </div>
 
-          {isAiTalentVisible() && (
+          {AI_TALENT_PUBLISHED && (
             <Link
               to="/hub/ai-talent"
               className="group mb-8 grid overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] transition-all hover:shadow-[var(--shadow-card-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:grid-cols-[220px_1fr]"

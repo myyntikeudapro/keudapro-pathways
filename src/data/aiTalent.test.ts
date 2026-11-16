@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 import { AI_TALENT_PUBLISHED, canSeeProjects, isAiTalentVisible, normalizeMemberEmail } from "./aiTalent";
 
 describe("AI Talent", () => {
-  it("on hyväksytty ja näkyy keudapro.fi:ssä", () => {
-    expect(AI_TALENT_PUBLISHED).toBe(true);
-    expect(isAiTalentVisible("keudapro.fi")).toBe(true);
+  it("ei näy julkisilla osoitteilla mutta säilyy esikatselussa", () => {
+    expect(AI_TALENT_PUBLISHED).toBe(false);
+    expect(isAiTalentVisible("keudapro.fi")).toBe(false);
+    expect(isAiTalentVisible("www.keudapro.fi")).toBe(false);
+    expect(isAiTalentVisible("keudapro.lovable.app")).toBe(false);
     expect(isAiTalentVisible("localhost")).toBe(true);
   });
   it("Projektit näkyvät vain helsinki-, partner- ja admin-rooleille", () => {
