@@ -1,5 +1,8 @@
 import { Instagram, Linkedin, Youtube, Facebook } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { isPksPage } from "@/data/coachRegistry";
+import { getPksLanguage } from "@/data/pksContent";
+import pksCommissioners from "@/assets/pks-palvelun-tilaajat.png.asset.json";
 
 // TikTok icon as custom SVG since it's not in Lucide
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -23,8 +26,19 @@ const socialLinks = [
 ];
 
 export function Footer() {
+  const { pathname } = useLocation();
+  const language = getPksLanguage(pathname);
+  const commissionersLabel = language === "en" ? "Service commissioners" : language === "sv" ? "Tjänstens beställare" : "Palvelun tilaajat";
   return (
     <footer className="border-t border-[#333]">
+      {isPksPage(pathname) && (
+        <section aria-label={commissionersLabel} lang={language} className="pks-commissioners py-8 md:py-10 border-b border-border">
+          <div className="keuda-container flex flex-col items-center gap-5">
+            <h2 className="text-base font-semibold">{commissionersLabel}</h2>
+            <img src={pksCommissioners.url} alt="Espoo / Esbo, Helsinki, Vantaa" width={1004} height={200} loading="lazy" className="block h-auto w-full max-w-3xl" />
+          </div>
+        </section>
+      )}
       {/* Social Media Section */}
       <div className="bg-[#0B0B0B] py-5">
         <div className="keuda-container">
