@@ -1,10 +1,30 @@
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { createClient } from "npm:@supabase/supabase-js@2";
 import { generateChatCompletion, GatewayError } from "npm:@lovable.dev/ai-gateway@0.1.11";
 import { publicAdviserPolicy, validatePublicConversation, isAllowedAdviserOrigin, filterAdviserActions, sanitizeAdviserAnswer } from "./policy.ts";
 import { SYSTEM_INSTRUCTION } from "./system-instruction.ts";
 import knowledge from "./public-knowledge.json" with { type: "json" };
 import { LANGUAGE_INSTRUCTION, parseAdviserLanguage, unknownExpertAnswers } from "./languages.ts";
 import { SCOPE_INSTRUCTION, SCOPE_CLASSIFIER_INSTRUCTION, parseAdviserScope, scopeRefusal } from "./scope.ts";
+
+// Usage limits: per visitor (hashed IP, never stored raw) and site-wide per hour.
+const VISITOR_HOURLY_LIMIT = 20;
+const GLOBAL_HOURLY_LIMIT = 400;
+const limitMessages = {
+  fi: "Olet esittänyt tunnin aikana jo paljon kysymyksiä. Kokeile hetken päästä uudelleen tai katso UKK ja mukaanpääsyohje.",
+  en: "You have asked many questions this hour. Please try again later or see the FAQ and how to join.",
+  sv: "Du har ställt många frågor den här timmen. Försök igen senare eller läs vanliga frågor och anvisningen.",
+};
+async function withinUsageLimit(req: Request): Promise<boolean> {
+  const ip = (req.headers.get("x-forwarded-for") ?? "").split(",")[0].trim() || req.headers.get("cf-connecting-ip") || "unknown";
+  const day = new Date().toISOString().slice(0, 10);
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`pks:${day}:${ip}`));
+  const visitor = Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 32);
+  const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
+  const { data, error } = await admin.rpc("pks_adviser_consume", { _visitor: visitor, _visitor_limit: VISITOR_HOURLY_LIMIT, _global_limit: GLOBAL_HOURLY_LIMIT });
+  if (error) return false; // fail closed: never spend AI credits without a working limit
+  return data === true;
+}
 
 // Dedicated public boundary: no client-selected coach, sources, prompts, profile,
 // conversation ID or URLs. No database, profile, cache or body/response logging.
@@ -35,6 +55,11 @@ Deno.serve(async (req: Request) => {
     for (const chunk of chunks) { data.set(chunk, offset); offset += chunk.byteLength; }
     const body = JSON.parse(new TextDecoder().decode(data));
     if (!validatePublicConversation(body)) return respond(400, "Invalid request");
+    if (!(await withinUsageLimit(req))) {
+      return new Response(JSON.stringify({ answer: [limitMessages.fi, limitMessages.sv, limitMessages.en].join("\n\n"), language: "fi", actions: ["faq", "entry"], source: knowledge.source, limited: true }), {
+        status: 200, headers: { ...corsHeaders, "Content-Type": "application/json", "Cache-Control": "no-store" },
+      });
+    }
     if (knowledge.memberId !== publicAdviserPolicy.id || !knowledge.service.faq.length) return respond(503, "Palvelutietoja ei ole saatavilla. Käytä UKK:ta ja mukaanpääsyohjetta.");
     // Independent topic gate: no free-form answer is generated for outside requests.
     const classification = await generateChatCompletion({

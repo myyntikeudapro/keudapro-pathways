@@ -703,6 +703,24 @@ export type Database = {
         }
         Relationships: []
       }
+      pks_adviser_usage: {
+        Row: {
+          bucket_key: string
+          request_count: number
+          window_start: string
+        }
+        Insert: {
+          bucket_key: string
+          request_count?: number
+          window_start: string
+        }
+        Update: {
+          bucket_key?: string
+          request_count?: number
+          window_start?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
@@ -844,6 +862,14 @@ export type Database = {
           source_queue: string
         }
         Returns: number
+      }
+      pks_adviser_consume: {
+        Args: {
+          _global_limit: number
+          _visitor: string
+          _visitor_limit: number
+        }
+        Returns: boolean
       }
       read_email_batch: {
         Args: { batch_size: number; queue_name: string; vt: number }
