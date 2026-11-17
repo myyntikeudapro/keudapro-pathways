@@ -8,7 +8,7 @@ import { LANGUAGE_INSTRUCTION, parseAdviserLanguage, unknownExpertAnswers } from
 import { SCOPE_INSTRUCTION, SCOPE_CLASSIFIER_INSTRUCTION, parseAdviserScope, scopeRefusal } from "./scope.ts";
 
 // Usage limits: per visitor (hashed IP, never stored raw) and site-wide per hour.
-const VISITOR_HOURLY_LIMIT = 20;
+const VISITOR_HOURLY_LIMIT = 10;
 const GLOBAL_HOURLY_LIMIT = 400;
 const limitMessages = {
   fi: "Olet esittänyt tunnin aikana jo paljon kysymyksiä. Kokeile hetken päästä uudelleen tai katso UKK ja mukaanpääsyohje.",
