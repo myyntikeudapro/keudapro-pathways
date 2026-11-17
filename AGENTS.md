@@ -28,3 +28,4 @@
 - Gate PKS answers with a separate server topic classification and an answer-scope check; outside requests return fixed refusals, and other-service questions expose only the fixed contact-page action, so prompt instructions alone cannot enable general assistance.
 - Contact search merges exact catalog title/keyword matches with semantic results using smartSearch; direct service matches survive model omissions or outages while other coaching destinations remain available.
 - Render service collaboration logos in the shared footer only on matching service routes, with localized labels and a fixed light logo surface; reuse original partner artwork so regional collaboration does not imply a site-wide service boundary.
+- PKS adviser enforces hourly per-visitor (daily-salted IP hash) and site-wide request limits in the database before any AI call and fails closed, capping public AI spend without storing personal data.
