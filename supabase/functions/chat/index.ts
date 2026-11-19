@@ -1,3 +1,4 @@
+import { requireStaff } from "../_shared/requireStaff.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -33,6 +34,8 @@ serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
+  const _denied = await requireStaff(req, corsHeaders);
+  if (_denied) return _denied;
 
   const _origin = req.headers.get("origin");
   if (!_origin || !["http://localhost:8080", "http://127.0.0.1:8080", "https://id-preview--372569a7-94e8-4660-8a21-6fa94be31047.lovable.app", "https://keudapro.fi", "https://www.keudapro.fi", "https://keudapro.lovable.app"].includes(_origin)) {

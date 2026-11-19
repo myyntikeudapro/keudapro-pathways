@@ -1,3 +1,4 @@
+import { supabase } from "@/integrations/supabase/client";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { X, Send, UserCheck, Mail, ArrowLeft, Bot } from "lucide-react";
 import { toast } from "sonner";
@@ -135,12 +136,14 @@ function CoachChatSession() {
     const controller = new AbortController();
     abortRef.current = controller;
     try {
+      const { data: { session: _s } } = await supabase.auth.getSession();
+      const _token = endpoint !== "pks-service-adviser" && _s?.access_token ? _s.access_token : import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
       const resp = await fetch(url, {
         signal: controller.signal,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${_token}`,
         },
         body: JSON.stringify({ messages: allMessages }),
       });

@@ -1,3 +1,4 @@
+import { supabase } from "@/integrations/supabase/client";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { MessageCircle, X, Send } from "lucide-react";
@@ -71,11 +72,13 @@ export function ChatWidget() {
     };
 
     try {
+      const { data: { session: _s } } = await supabase.auth.getSession();
+      const _token = true && _s?.access_token ? _s.access_token : import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${_token}`,
         },
         body: JSON.stringify({ messages: allMessages }),
       });
