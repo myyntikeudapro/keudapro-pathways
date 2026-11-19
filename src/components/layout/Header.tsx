@@ -8,6 +8,8 @@ import { useCoachPanel } from "@/contexts/CoachPanelContext";
 type NavChild = { label: string; href: string };
 type NavItem = { label: string; href: string; children?: NavChild[] };
 
+const LEARN_URL = "https://learn.keudapro.fi";
+
 const navItems: NavItem[] = [
   { label: "Reitit", href: "/" },
   {
@@ -24,13 +26,12 @@ const navItems: NavItem[] = [
     children: [
       { label: "Operaattori", href: "/operaattori" },
       { label: "HUB-verkosto", href: "/verkosto" },
+      { label: "LEARN-alusta", href: LEARN_URL },
     ],
   },
   { label: "Ota yhteyttä", href: "/yhteystiedot" },
   { label: "HUB", href: "/hub" },
 ];
-
-const LEARN_URL = "https://learn.keudapro.fi";
 
 export function Header() {
   const location = useLocation();
@@ -67,7 +68,15 @@ export function Header() {
                   </Link>
                   <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full pt-2 min-w-[240px]">
                     <div className="rounded-lg border border-border bg-background shadow-lg py-2">
-                      {item.children.map((c) => (
+                      {item.children.map((c) => c.href === LEARN_URL ? (
+                        <a
+                          key={c.href}
+                          href={c.href}
+                          className="block px-4 py-2 text-sm text-foreground hover:bg-accent transition-colors"
+                        >
+                          {c.label}
+                        </a>
+                      ) : (
                         <Link
                           key={c.href}
                           to={c.href}
@@ -105,12 +114,6 @@ export function Header() {
                 </Link>
               )
             )}
-            <a
-              href={LEARN_URL}
-              className="ml-2 px-3 py-1 rounded-md text-sm font-semibold leading-none border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-            >
-              LEARN – oppimisympäristö
-            </a>
           </nav>
 
           <div className="hidden">
@@ -157,7 +160,16 @@ export function Header() {
                       <div className="ml-3 pl-3 border-l border-border my-1 space-y-1">
                         {item.children
                           .filter((c) => c.href !== item.href)
-                          .map((c) => (
+                          .map((c) => c.href === LEARN_URL ? (
+                            <a
+                              key={c.href}
+                              href={c.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="block px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                            >
+                              {c.label}
+                            </a>
+                          ) : (
                             <Link
                               key={c.href}
                               to={c.href}
@@ -171,12 +183,6 @@ export function Header() {
                     )}
                   </div>
                 ))}
-                <a
-                  href={LEARN_URL}
-                  className="block px-4 py-3 rounded-lg text-sm font-semibold border border-primary text-primary"
-                >
-                  LEARN – oppimisympäristö
-                </a>
                 <div className="hidden">
                   <Button variant="cta" className="w-full" onClick={() => { setMobileMenuOpen(false); openPanel(); }}>
                     Apua? Kysy AI-valmentajalta
