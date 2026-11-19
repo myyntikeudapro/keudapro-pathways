@@ -30,6 +30,8 @@ const navItems: NavItem[] = [
   { label: "HUB", href: "/hub" },
 ];
 
+const LEARN_URL = "https://learn.keudapro.fi";
+
 export function Header() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -103,6 +105,12 @@ export function Header() {
                 </Link>
               )
             )}
+            <a
+              href={LEARN_URL}
+              className="ml-2 px-3 py-1 rounded-md text-sm font-semibold leading-none border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              LEARN – oppimisympäristö
+            </a>
           </nav>
 
           <div className="hidden">
@@ -163,6 +171,12 @@ export function Header() {
                     )}
                   </div>
                 ))}
+                <a
+                  href={LEARN_URL}
+                  className="block px-4 py-3 rounded-lg text-sm font-semibold border border-primary text-primary"
+                >
+                  LEARN – oppimisympäristö
+                </a>
                 <div className="hidden">
                   <Button variant="cta" className="w-full" onClick={() => { setMobileMenuOpen(false); openPanel(); }}>
                     Apua? Kysy AI-valmentajalta
