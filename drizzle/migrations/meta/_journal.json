@@ -169,6 +169,13 @@
       "when": 1795525458723,
       "tag": "0023_course_catalog",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1795526338210,
+      "tag": "0024_course_registrations",
+      "breakpoints": true
     }
   ]
 }

@@ -260,52 +260,88 @@ export type Database = {
       }
       cat_offerings: {
         Row: {
+          administrative_ends_at: string | null
           capacity: number
           created_at: string
           delivery_id: string | null
           ends_at: string
           free_cancel_days: number
+          go_decided_at: string | null
+          go_decided_by: string | null
+          go_reason: string | null
+          go_status: string
+          group_key: string | null
           id: string
           late_cancel_pct: number
           location: string | null
+          min_participants: number | null
           price_version_id: string
           product_id: string
           reg_closes_at: string
           reg_opens_at: string
+          registration_enabled: boolean
+          schedule: Json
+          source_deadline: string | null
+          source_key: string | null
+          source_status: string | null
           starts_at: string
           status: string
           waitlist_enabled: boolean
         }
         Insert: {
+          administrative_ends_at?: string | null
           capacity: number
           created_at?: string
           delivery_id?: string | null
           ends_at: string
           free_cancel_days?: number
+          go_decided_at?: string | null
+          go_decided_by?: string | null
+          go_reason?: string | null
+          go_status?: string
+          group_key?: string | null
           id?: string
           late_cancel_pct?: number
           location?: string | null
+          min_participants?: number | null
           price_version_id: string
           product_id: string
           reg_closes_at: string
           reg_opens_at: string
+          registration_enabled?: boolean
+          schedule?: Json
+          source_deadline?: string | null
+          source_key?: string | null
+          source_status?: string | null
           starts_at: string
           status?: string
           waitlist_enabled?: boolean
         }
         Update: {
+          administrative_ends_at?: string | null
           capacity?: number
           created_at?: string
           delivery_id?: string | null
           ends_at?: string
           free_cancel_days?: number
+          go_decided_at?: string | null
+          go_decided_by?: string | null
+          go_reason?: string | null
+          go_status?: string
+          group_key?: string | null
           id?: string
           late_cancel_pct?: number
           location?: string | null
+          min_participants?: number | null
           price_version_id?: string
           product_id?: string
           reg_closes_at?: string
           reg_opens_at?: string
+          registration_enabled?: boolean
+          schedule?: Json
+          source_deadline?: string | null
+          source_key?: string | null
+          source_status?: string | null
           starts_at?: string
           status?: string
           waitlist_enabled?: boolean
@@ -333,6 +369,57 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      cat_parties: {
+        Row: {
+          billing_address: string | null
+          billing_city: string | null
+          billing_postal_code: string | null
+          business_id: string | null
+          contact_name: string
+          created_at: string
+          einvoice_address: string | null
+          einvoice_operator: string | null
+          email: string
+          id: string
+          kind: string
+          order_reference: string | null
+          org_name: string | null
+          phone: string | null
+        }
+        Insert: {
+          billing_address?: string | null
+          billing_city?: string | null
+          billing_postal_code?: string | null
+          business_id?: string | null
+          contact_name: string
+          created_at?: string
+          einvoice_address?: string | null
+          einvoice_operator?: string | null
+          email: string
+          id?: string
+          kind: string
+          order_reference?: string | null
+          org_name?: string | null
+          phone?: string | null
+        }
+        Update: {
+          billing_address?: string | null
+          billing_city?: string | null
+          billing_postal_code?: string | null
+          business_id?: string | null
+          contact_name?: string
+          created_at?: string
+          einvoice_address?: string | null
+          einvoice_operator?: string | null
+          email?: string
+          id?: string
+          kind?: string
+          order_reference?: string | null
+          org_name?: string | null
+          phone?: string | null
+        }
+        Relationships: []
       }
       cat_price_versions: {
         Row: {
@@ -440,6 +527,308 @@ export type Database = {
             columns: ["training_card_id"]
             isOneToOne: false
             referencedRelation: "training_cards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cat_registration_answers: {
+        Row: {
+          billing_details_pending: boolean
+          cancellation_accepted_at: string
+          cancellation_url: string | null
+          city: string
+          created_at: string
+          extra_info: string | null
+          form_version: string
+          id: string
+          offering_id: string
+          orientation: string | null
+          payer_option: string
+          payer_option_label: string
+          phone_country: string
+          phone_number: string
+          postal_code: string
+          price_accepted_at: string
+          price_amount: number
+          price_version_id: string
+          privacy_accepted_at: string
+          privacy_url: string | null
+          program: string
+          registration_id: string
+          seat_id: string
+          street_address: string
+          terms_accepted_at: string | null
+          terms_review_status: string | null
+          terms_version: string | null
+          vat_basis: string
+        }
+        Insert: {
+          billing_details_pending?: boolean
+          cancellation_accepted_at: string
+          cancellation_url?: string | null
+          city: string
+          created_at?: string
+          extra_info?: string | null
+          form_version: string
+          id?: string
+          offering_id: string
+          orientation?: string | null
+          payer_option: string
+          payer_option_label: string
+          phone_country: string
+          phone_number: string
+          postal_code: string
+          price_accepted_at: string
+          price_amount: number
+          price_version_id: string
+          privacy_accepted_at: string
+          privacy_url?: string | null
+          program: string
+          registration_id: string
+          seat_id: string
+          street_address: string
+          terms_accepted_at?: string | null
+          terms_review_status?: string | null
+          terms_version?: string | null
+          vat_basis: string
+        }
+        Update: {
+          billing_details_pending?: boolean
+          cancellation_accepted_at?: string
+          cancellation_url?: string | null
+          city?: string
+          created_at?: string
+          extra_info?: string | null
+          form_version?: string
+          id?: string
+          offering_id?: string
+          orientation?: string | null
+          payer_option?: string
+          payer_option_label?: string
+          phone_country?: string
+          phone_number?: string
+          postal_code?: string
+          price_accepted_at?: string
+          price_amount?: number
+          price_version_id?: string
+          privacy_accepted_at?: string
+          privacy_url?: string | null
+          program?: string
+          registration_id?: string
+          seat_id?: string
+          street_address?: string
+          terms_accepted_at?: string | null
+          terms_review_status?: string | null
+          terms_version?: string | null
+          vat_basis?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cat_registration_answers_offering_id_fkey"
+            columns: ["offering_id"]
+            isOneToOne: false
+            referencedRelation: "cat_offerings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_registration_answers_price_version_id_fkey"
+            columns: ["price_version_id"]
+            isOneToOne: false
+            referencedRelation: "cat_price_versions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_registration_answers_registration_id_fkey"
+            columns: ["registration_id"]
+            isOneToOne: true
+            referencedRelation: "cat_registrations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_registration_answers_seat_id_fkey"
+            columns: ["seat_id"]
+            isOneToOne: true
+            referencedRelation: "cat_seats"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cat_registrations: {
+        Row: {
+          billing_party_id: string
+          buyer_party_id: string
+          created_at: string
+          id: string
+          marketing_consent: boolean
+          offering_id: string
+          order_id: string | null
+          payer_party_id: string
+          privacy_version: string
+          seats_requested: number
+          source: string
+          status: string
+          terms_accepted_at: string
+        }
+        Insert: {
+          billing_party_id: string
+          buyer_party_id: string
+          created_at?: string
+          id?: string
+          marketing_consent?: boolean
+          offering_id: string
+          order_id?: string | null
+          payer_party_id: string
+          privacy_version: string
+          seats_requested: number
+          source: string
+          status?: string
+          terms_accepted_at: string
+        }
+        Update: {
+          billing_party_id?: string
+          buyer_party_id?: string
+          created_at?: string
+          id?: string
+          marketing_consent?: boolean
+          offering_id?: string
+          order_id?: string | null
+          payer_party_id?: string
+          privacy_version?: string
+          seats_requested?: number
+          source?: string
+          status?: string
+          terms_accepted_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cat_registrations_billing_party_id_fkey"
+            columns: ["billing_party_id"]
+            isOneToOne: false
+            referencedRelation: "cat_parties"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_registrations_buyer_party_id_fkey"
+            columns: ["buyer_party_id"]
+            isOneToOne: false
+            referencedRelation: "cat_parties"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_registrations_offering_id_fkey"
+            columns: ["offering_id"]
+            isOneToOne: false
+            referencedRelation: "cat_offerings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_registrations_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "crm_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_registrations_payer_party_id_fkey"
+            columns: ["payer_party_id"]
+            isOneToOne: false
+            referencedRelation: "cat_parties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cat_seats: {
+        Row: {
+          created_at: string
+          hold_expires_at: string | null
+          id: string
+          offering_id: string
+          participant_email: string | null
+          participant_name: string | null
+          registration_id: string
+          state: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          hold_expires_at?: string | null
+          id?: string
+          offering_id: string
+          participant_email?: string | null
+          participant_name?: string | null
+          registration_id: string
+          state: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          hold_expires_at?: string | null
+          id?: string
+          offering_id?: string
+          participant_email?: string | null
+          participant_name?: string | null
+          registration_id?: string
+          state?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cat_seats_offering_id_fkey"
+            columns: ["offering_id"]
+            isOneToOne: false
+            referencedRelation: "cat_offerings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_seats_registration_id_fkey"
+            columns: ["registration_id"]
+            isOneToOne: false
+            referencedRelation: "cat_registrations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cat_waitlist: {
+        Row: {
+          created_at: string
+          id: string
+          offering_id: string
+          position: number
+          registration_id: string
+          seats: number
+          state: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          offering_id: string
+          position: number
+          registration_id: string
+          seats: number
+          state?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          offering_id?: string
+          position?: number
+          registration_id?: string
+          seats?: number
+          state?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cat_waitlist_offering_id_fkey"
+            columns: ["offering_id"]
+            isOneToOne: false
+            referencedRelation: "cat_offerings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_waitlist_registration_id_fkey"
+            columns: ["registration_id"]
+            isOneToOne: false
+            referencedRelation: "cat_registrations"
             referencedColumns: ["id"]
           },
         ]
@@ -1770,6 +2159,61 @@ export type Database = {
           },
         ]
       }
+      prod_attendance: {
+        Row: {
+          hours: number
+          id: string
+          note: string | null
+          participant_id: string
+          recorded_at: string
+          recorded_by: string | null
+          session_id: string
+          status: string
+        }
+        Insert: {
+          hours?: number
+          id?: string
+          note?: string | null
+          participant_id: string
+          recorded_at?: string
+          recorded_by?: string | null
+          session_id: string
+          status: string
+        }
+        Update: {
+          hours?: number
+          id?: string
+          note?: string | null
+          participant_id?: string
+          recorded_at?: string
+          recorded_by?: string | null
+          session_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_attendance_participant_id_fkey"
+            columns: ["participant_id"]
+            isOneToOne: false
+            referencedRelation: "prod_participants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_attendance_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_attendance_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_trainer_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
       prod_billing_readiness: {
         Row: {
           billing_ready: boolean
@@ -2027,6 +2471,9 @@ export type Database = {
           email: string | null
           id: string
           name: string
+          registration_id: string | null
+          removed_at: string | null
+          seat_id: string | null
         }
         Insert: {
           certificate_status?: string
@@ -2036,6 +2483,9 @@ export type Database = {
           email?: string | null
           id?: string
           name: string
+          registration_id?: string | null
+          removed_at?: string | null
+          seat_id?: string | null
         }
         Update: {
           certificate_status?: string
@@ -2045,6 +2495,9 @@ export type Database = {
           email?: string | null
           id?: string
           name?: string
+          registration_id?: string | null
+          removed_at?: string | null
+          seat_id?: string | null
         }
         Relationships: [
           {
@@ -2302,6 +2755,8 @@ export type Database = {
           ends_at: string
           id: string
           location: string | null
+          offering_schedule_key: string | null
+          provider_name: string | null
           region: string | null
           seq: number
           starts_at: string
@@ -2314,6 +2769,8 @@ export type Database = {
           ends_at: string
           id?: string
           location?: string | null
+          offering_schedule_key?: string | null
+          provider_name?: string | null
           region?: string | null
           seq: number
           starts_at: string
@@ -2326,6 +2783,8 @@ export type Database = {
           ends_at?: string
           id?: string
           location?: string | null
+          offering_schedule_key?: string | null
+          provider_name?: string | null
           region?: string | null
           seq?: number
           starts_at?: string
@@ -2640,6 +3099,38 @@ export type Database = {
         }[]
       }
       ai_talent_role: { Args: { _user_id: string }; Returns: string }
+      cat_active_seats: { Args: { _offering: string }; Returns: number }
+      cat_add_participant: {
+        Args: { p_email: string; p_name: string; p_registration_id: string }
+        Returns: string
+      }
+      cat_catalog_group_details: {
+        Args: { p_offering: string; p_preview?: boolean }
+        Returns: Json
+      }
+      cat_confirm_registration: {
+        Args: { p_registration_id: string }
+        Returns: number
+      }
+      cat_create_source_group: {
+        Args: { p_config: Json; p_source: Json }
+        Returns: string
+      }
+      cat_decide_go: {
+        Args: { p_go: boolean; p_offering: string; p_reason: string }
+        Returns: string
+      }
+      cat_evaluate_go: { Args: { p_offering: string }; Returns: string }
+      cat_group_key: { Args: { _offering: string }; Returns: string }
+      cat_group_status: { Args: { p_offering: string }; Returns: Json }
+      cat_insert_party: { Args: { kind: string; p: Json }; Returns: string }
+      cat_offer_from_waitlist: {
+        Args: { p_offering_id: string }
+        Returns: string
+      }
+      cat_program_form: { Args: { p_offering: string }; Returns: Json }
+      cat_program_form_config: { Args: { p_slug: string }; Returns: Json }
+      cat_program_form_config_v2: { Args: { p_slug: string }; Returns: Json }
       cat_public_catalog: { Args: { p_slug: string }; Returns: Json }
       cat_public_slugs: {
         Args: never
@@ -2648,6 +3139,31 @@ export type Database = {
           name: string
           slug: string
         }[]
+      }
+      cat_register: {
+        Args: {
+          p_billing: Json
+          p_buyer: Json
+          p_marketing_consent: boolean
+          p_offering_id: string
+          p_participants: Json
+          p_payer: Json
+          p_privacy_version: string
+          p_seats: number
+          p_terms_accepted: boolean
+        }
+        Returns: Json
+      }
+      cat_register_program: {
+        Args: { p_form: Json; p_offering: string }
+        Returns: Json
+      }
+      cat_release_seat: { Args: { p_seat_id: string }; Returns: undefined }
+      cat_sync_schedule: { Args: { p_offering: string }; Returns: number }
+      cat_valid_business_id: { Args: { p: string }; Returns: boolean }
+      cat_valid_party: {
+        Args: { need_org: boolean; p: Json }
+        Returns: boolean
       }
       company_attach_order: {
         Args: { p_id: string; p_order: string; p_template: string }
@@ -2863,6 +3379,17 @@ export type Database = {
         }
         Returns: boolean
       }
+      prod_attendance_summary: {
+        Args: { p_delivery: string }
+        Returns: {
+          hours: number
+          name: string
+          participant_id: string
+          sessions_attended: number
+          sessions_total: number
+          sessions_unrecorded: number
+        }[]
+      }
       prod_create_delivery: {
         Args: {
           p_order_id: string
@@ -2876,6 +3403,17 @@ export type Database = {
         Returns: boolean
       }
       prod_recompute: { Args: { _delivery: string }; Returns: undefined }
+      prod_record_attendance: {
+        Args: {
+          p_hours: number
+          p_note?: string
+          p_participant: string
+          p_session: string
+          p_status: string
+        }
+        Returns: string
+      }
+      prod_sync_participants: { Args: { p_delivery: string }; Returns: number }
       read_email_batch: {
         Args: { batch_size: number; queue_name: string; vt: number }
         Returns: {
