@@ -1,3 +1,4 @@
+import { WorkspaceHeader, headerGhost } from '@/components/admin/WorkspaceHeader';
 import { WorkspaceNav } from '@/components/admin/WorkspaceNav';
 import { Navigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -78,25 +79,7 @@ export default function AdminLeadsPage() {
   return (
     <div className="min-h-screen bg-muted/30 ws-with-nav"><WorkspaceNav />
       <SEO title="Saapuneet yhteydenotot – KeudaPRO" description="Kartoitusten ja ajanvarausten hallinta." path="/admin/yhteydenotot" />
-      <header className="bg-background border-b">
-        <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h1 className="text-xl font-semibold">Saapuneet yhteydenotot</h1>
-            <p className="text-xs text-muted-foreground">{user.email}</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <Button asChild variant="ghost" size="sm"><Link to="/admin/markkinointi">Markkinointi</Link></Button>
-            <Button asChild variant="ghost" size="sm"><Link to="/admin">Tilannekeskus</Link></Button>
-            <Button asChild variant="ghost" size="sm"><Link to="/admin/sisallot">Sisältöeditori</Link></Button>
-            <Button variant="outline" size="sm" onClick={() => refetch()} disabled={isFetching}>
-              <RefreshCw className={`mr-2 h-4 w-4 ${isFetching ? "animate-spin" : ""}`} /> Päivitä
-            </Button>
-            <Button variant="outline" size="sm" onClick={signOut}>
-              <LogOut className="mr-2 h-4 w-4" /> Kirjaudu ulos
-            </Button>
-          </div>
-        </div>
-      </header>
+      <WorkspaceHeader title="Saapuneet yhteydenotot" subtitle={user.email} onSignOut={signOut} actions={<Button variant="ghost" size="sm" className={headerGhost} onClick={() => refetch()} disabled={isFetching}><RefreshCw className={`mr-2 h-4 w-4 ${isFetching ? "animate-spin" : ""}`} /> Päivitä</Button>} />
 
       <main className="container mx-auto px-4 py-6 space-y-4">
         {isLoading ? (

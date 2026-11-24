@@ -1,3 +1,4 @@
+import { WorkspaceHeader, headerGhost } from '@/components/admin/WorkspaceHeader';
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -31,7 +32,7 @@ export default function AdminCatalogPage() {
   if (!isEditor) return <main className="mx-auto max-w-lg p-6"><h1 className="text-xl font-semibold">Ei käyttöoikeutta</h1><Button className="mt-4" onClick={signOut}>Kirjaudu ulos</Button></main>;
   return <div className="ws-page ws-with-nav"><WorkspaceNav />
     <SEO title="Kurssiluettelo – KeudaPRO" description="Koulutustuotteet, hinnat ja toteutuskerrat." path="/admin/kurssiluettelo" />
-    <header className="ws-header"><div className="container mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-6"><div><p className="text-xs font-semibold uppercase tracking-widest text-keuda-hero-muted">KeudaPRO / Työtila</p><h1 className="mt-1 text-3xl font-bold tracking-tight">Kurssiluettelo</h1><p className="mt-1 text-sm text-keuda-hero-muted">Koulutustuotteet, hintaversiot ja toteutuskerrat</p></div><WorkspaceIdentity /><nav className="flex flex-wrap gap-2" aria-label="Hallinnan navigaatio"><Button asChild variant="secondary"><Link to="/admin">Tilannekeskus</Link></Button><Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground" aria-label="Kirjaudu ulos" onClick={signOut}><LogOut className="h-4 w-4" /></Button></nav></div></header>
+    <WorkspaceHeader title="Kurssiluettelo" subtitle="Koulutustuotteet, hintaversiot ja toteutuskerrat" onSignOut={signOut} actions={<WorkspaceIdentity />} />
     <main className="container mx-auto space-y-4 px-4 py-8"><Catalog userId={user.id} /></main>
   </div>;
 }

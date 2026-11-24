@@ -1,3 +1,4 @@
+import { WorkspaceHeader, headerGhost } from '@/components/admin/WorkspaceHeader';
 import { WorkspaceNav } from "@/components/admin/WorkspaceNav";
 import { AttendancePanel } from '@/components/admin/AttendancePanel';
 import { WorkspaceSummary as SummaryCard } from "@/components/admin/WorkspaceSummary";
@@ -49,7 +50,7 @@ export default function AdminProductionPage() {
   if (!user) return <Navigate to="/admin/login" replace />;
   return <div className="ws-page ws-with-nav ws-area-production"><WorkspaceNav />
     <SEO title="Tuotanto – KeudaPRO" description="Koulutustuotannon työtila." path="/admin/tuotanto" />
-    <header className="ws-header"><div className="container mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-6"><div><p className="text-xs font-semibold uppercase tracking-widest text-keuda-hero-muted">KeudaPRO / Työtila</p><h1 className="mt-1 text-3xl font-bold tracking-tight">Koulutustuotanto</h1><p className="mt-1 text-sm text-keuda-hero-muted">Toteutusten valmius, poikkeamat ja vastuut yhdellä näkymällä</p></div><WorkspaceIdentity /><nav className="flex flex-wrap gap-2" aria-label="Hallinnan navigaatio">{isEditor && <Button asChild variant="secondary"><Link to="/admin">Tilannekeskus</Link></Button>}<Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground" aria-label="Kirjaudu ulos" onClick={signOut}><LogOut className="h-4 w-4" /></Button></nav></div></header>
+    <WorkspaceHeader title="Koulutustuotanto" subtitle="Toteutusten valmius, poikkeamat ja vastuut yhdellä näkymällä" onSignOut={signOut} home={isEditor} actions={<WorkspaceIdentity />} />
     <main className="container mx-auto space-y-8 px-4 py-8">{isEditor ? <StaffView userId={user.id} /> : <TrainerView />}</main>
   </div>;
 }
