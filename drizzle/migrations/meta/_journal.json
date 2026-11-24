@@ -113,6 +113,55 @@
       "when": 1794916349915,
       "tag": "0015_pks_adviser_usage_limit",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1795523551844,
+      "tag": "0016_add_trainer_role",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1795523697265,
+      "tag": "0017_crm_orders_model",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1795523794991,
+      "tag": "0018_production_core",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1795523935250,
+      "tag": "0019_expert_registry_assignments",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1795523957362,
+      "tag": "0020_company_training_prerequisites",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1795524164756,
+      "tag": "0021_company_training_workflow",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1795524185945,
+      "tag": "0022_company_handoff_guard",
+      "breakpoints": true
     }
   ]
 }

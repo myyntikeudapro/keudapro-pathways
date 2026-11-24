@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { WizardProvider } from "@/contexts/WizardContext";
 import { CoachPanelProvider } from "@/contexts/CoachPanelContext";
 import { BookingRequestProvider } from "@/contexts/BookingRequestContext";
@@ -35,12 +35,19 @@ import AdminPage from "./pages/admin/AdminPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminLeadsPage from "./pages/admin/AdminLeadsPage";
 import AdminMarketingPage from "./pages/admin/AdminMarketingPage";
+import AdminProductionPage from "./pages/admin/AdminProductionPage";
 import { PageViewTracker } from "@/components/shared/PageViewTracker";
 import { AuthProvider } from "./hooks/useAuth";
 import NotFound from "./pages/NotFound";
 
 
 const queryClient = new QueryClient();
+
+/** Keeps the recovery token (URL hash) when forwarding to the login page's reset mode. */
+function PasswordResetRedirect() {
+  const { hash } = useLocation();
+  return <Navigate to={`/admin/login?palautus=1${hash}`} replace />;
+}
 
 function PublicPanels() {
   const { pathname } = useLocation();
@@ -82,10 +89,13 @@ const App = () => (
               <Route path="/hub/ai-talent/admin" element={<AiTalentAdminPage />} />
               <Route path="/hub/ai-talent/projektit" element={<AiTalentProjectsPage />} />
               <Route path="/admin/login" element={<AdminLoginPage />} />
+              <Route path="/admin/forgot-password" element={<Navigate to="/admin/login?unohtunut=1" replace />} />
+              <Route path="/admin/reset-password" element={<PasswordResetRedirect />} />
               <Route path="/admin" element={<AdminDashboardPage />} />
               <Route path="/admin/sisallot" element={<AdminPage />} />
               <Route path="/admin/yhteydenotot" element={<AdminLeadsPage />} />
               <Route path="/admin/markkinointi" element={<AdminMarketingPage />} />
+              <Route path="/admin/tuotanto" element={<AdminProductionPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

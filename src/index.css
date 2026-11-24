@@ -89,6 +89,17 @@
     /* Shadows */
     --shadow-card: 0 2px 8px -2px hsl(215 25% 15% / 0.08), 0 4px 16px -4px hsl(215 25% 15% / 0.06);
     --shadow-card-hover: 0 4px 12px -2px hsl(215 25% 15% / 0.12), 0 8px 24px -4px hsl(215 25% 15% / 0.08);
+    --ws-canvas: 210 22% 95%;
+    --ws-tint: 210 30% 97.5%;
+    --ws-bronze: 30 52% 42%;
+    --ws-bronze-light: 32 55% 94%;
+    --ws-ok: 152 45% 34%;
+    --ws-ok-light: 150 40% 94%;
+    --ws-warn: 32 85% 38%;
+    --ws-warn-light: 40 90% 94%;
+    --ws-risk-light: 0 75% 96%;
+    --ws-avatar-skin: 32 58% 80%;
+    --ws-avatar-ink: 215 25% 20%;
   }
 
   .dark {
@@ -213,4 +224,61 @@
     background: #FFBC3C !important;
     color: #00232B !important;
   }
+  .ws-page { min-height: 100vh; background: hsl(var(--ws-canvas)); --ws-area: var(--keuda-blue); --ws-area-soft: var(--keuda-hero-muted); }
+  .ws-area-dashboard { --ws-area: 210 75% 52%; --ws-area-soft: 210 80% 78%; }
+  .ws-area-sales { --ws-area: 168 55% 38%; --ws-area-soft: 168 55% 70%; }
+  .ws-area-marketing { --ws-area: 26 85% 48%; --ws-area-soft: 30 90% 72%; }
+  .ws-area-production { --ws-area: 30 52% 42%; --ws-area-soft: 32 60% 70%; }
+  .ws-area-shop { --ws-area: 145 45% 36%; --ws-area-soft: 145 45% 70%; }
+  .ws-area-experts { --ws-area: 345 55% 45%; --ws-area-soft: 345 65% 78%; }
+  .ws-area-monitoring { --ws-area: 215 20% 48%; --ws-area-soft: 215 25% 75%; }
+  .ws-area-content { --ws-area: 195 70% 38%; --ws-area-soft: 195 70% 72%; }
+  .ws-nav { display: flex; gap: 0.25rem; overflow-x: auto; padding: 0.5rem 0.75rem; background: hsl(var(--card)); border-bottom: 1px solid hsl(var(--border)); }
+  .ws-nav-brand { display: none; }
+  .ws-nav-group { display: contents; }
+  .ws-nav-title { display: none; }
+  .ws-nav-link { display: flex; flex-shrink: 0; align-items: center; gap: 0.5rem; border-radius: 0.5rem; padding: 0.5rem 0.75rem; font-size: 0.875rem; font-weight: 500; color: hsl(var(--foreground)); border-left: 3px solid transparent; }
+  .ws-nav-link svg { color: hsl(var(--ws-area)); }
+  .ws-nav-link:hover { background: hsl(var(--ws-area) / 0.08); }
+  .ws-nav-link[aria-current="page"] { background: hsl(var(--ws-area) / 0.14); border-left-color: hsl(var(--ws-area)); font-weight: 700; }
+  @media (min-width: 1024px) {
+    .ws-with-nav { padding-left: 15rem; }
+    .ws-nav { position: fixed; inset: 0 auto 0 0; z-index: 30; width: 15rem; flex-direction: column; overflow-y: auto; padding: 1.25rem 0.75rem; border-bottom: 0; border-right: 1px solid hsl(var(--border)); }
+    .ws-nav-brand { display: flex; flex-direction: column; padding: 0 0.75rem 1rem; font-weight: 700; color: hsl(var(--keuda-blue)); }
+    .ws-nav-brand span { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: hsl(var(--muted-foreground)); }
+    .ws-nav-group { display: flex; flex-direction: column; gap: 0.125rem; margin-bottom: 1rem; }
+    .ws-nav-title { display: block; padding: 0 0.75rem 0.25rem; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: hsl(var(--muted-foreground)); }
+  }
+  .ws-header { background: hsl(var(--keuda-navy-section)); color: hsl(var(--primary-foreground)); border-bottom: 4px solid hsl(var(--ws-area)); }
+  .ws-header h1 { color: hsl(var(--primary-foreground)); font-weight: 700; letter-spacing: 0; }
+  .ws-header :is(.text-secondary, .text-keuda-blue) { color: hsl(var(--ws-area-soft)); }
+  .ws-header .text-muted-foreground { color: hsl(var(--keuda-hero-muted)); }
+  .ws-header > div > div:first-child > p:first-child { color: hsl(var(--ws-area-soft)); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; }
+  .ws-header :is(button, a).hover\:bg-accent:not(.bg-background), .ws-header button[aria-label="Kirjaudu ulos"]:not(.border) { color: hsl(var(--primary-foreground)); }
+  .ws-header :is(button, a).hover\:bg-accent:not(.bg-background):hover { background: hsl(var(--primary-foreground) / 0.1); color: hsl(var(--primary-foreground)); }
+  .ws-page :is(h2, h3, h4) { font-weight: 700; letter-spacing: 0; }
+  .ws-avatar { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%; background: hsl(var(--accent)); color: hsl(var(--primary)); font-weight: 700; box-shadow: inset 0 0 0 1px hsl(var(--border)); }
+  .ws-symbol { display: inline-flex; width: 3.5rem; height: 3.5rem; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 50%; background: hsl(var(--ws-symbol-color)); color: hsl(var(--primary-foreground)); box-shadow: 0 0 0 5px hsl(var(--ws-symbol-color) / 0.1); }
+  .ws-tone-neutral { --ws-symbol-color: var(--primary); }
+  .ws-tone-accent { --ws-symbol-color: var(--ws-area, var(--primary)); }
+  .ws-tone-ok { --ws-symbol-color: var(--ws-ok); }
+  .ws-tone-warn { --ws-symbol-color: var(--ws-warn); }
+  .ws-tone-risk { --ws-symbol-color: var(--destructive); }
+  .ws-summary { border-top: 3px solid hsl(var(--ws-symbol-color)); }
+  .ws-summary-label { font-size: 0.75rem; line-height: 1.4; font-weight: 700; color: hsl(var(--foreground)); }
+  .ws-header .ws-identity { color: hsl(var(--primary-foreground)); max-width: 100%; white-space: normal; }
+  .ws-header .ws-identity:hover { background: hsl(var(--primary-foreground) / 0.1); }
+  .ws-header .ws-identity .text-muted-foreground { color: hsl(var(--keuda-hero-muted)); }
+  .ws-header :is(a, button).bg-background { color: hsl(var(--foreground)); }
+  .dark .ws-page {
+    --ws-canvas: var(--background); --ws-tint: var(--muted);
+    --ws-avatar-skin: 32 45% 72%; --ws-avatar-ink: 215 25% 20%;
+    --keuda-navy-section: var(--foreground); --keuda-blue: 210 70% 72%;
+    --keuda-blue-light: 210 30% 22%; --ws-bronze: 32 60% 70%; --ws-bronze-light: 30 30% 20%;
+    --ws-ok: 152 45% 65%; --ws-ok-light: 152 30% 17%;
+    --ws-warn: 38 80% 68%; --ws-warn-light: 32 35% 18%; --ws-risk-light: 0 30% 17%;
+  }
+  .dark .ws-header { background: hsl(var(--card)); }
+  .dark .ws-page .ws-symbol { color: hsl(var(--background)); }
+  .dark .ws-page .border-input, .dark .ws-page button.border { color: hsl(var(--foreground)); background: hsl(var(--card)); }
 }

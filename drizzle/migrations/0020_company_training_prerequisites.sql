@@ -1,0 +1,7 @@
+ALTER TABLE public.booking_requests ADD COLUMN mt_personal boolean NOT NULL DEFAULT false, ADD COLUMN mt_production_owner uuid, ADD COLUMN mt_delegates uuid[] NOT NULL DEFAULT '{}';
+ALTER TABLE public.crm_production_handoffs ADD COLUMN mt_state text CHECK(mt_state IN ('prepared','submitted','accepted','returned')),ADD COLUMN mt_response_by uuid,ADD COLUMN mt_response_at timestamptz,ADD COLUMN mt_return_reason text,ADD COLUMN mt_revision integer NOT NULL DEFAULT 0;
+ALTER TABLE public.prod_deliveries ADD COLUMN offering_group text;
+CREATE UNIQUE INDEX prod_deliveries_offering_group_uq ON public.prod_deliveries(offering_group) WHERE offering_group IS NOT NULL;
+CREATE FUNCTION public.mt_can_case(p_lead uuid) RETURNS boolean LANGUAGE sql STABLE SECURITY DEFINER SET search_path=public AS $$ SELECT coalesce((SELECT (auth.uid() IS NOT NULL AND NOT b.mt_personal) OR (public.is_editor_or_admin(auth.uid()) AND (public.has_role(auth.uid(),'admin') OR b.owner_id=auth.uid() OR b.mt_production_owner=auth.uid() OR auth.uid()=ANY(b.mt_delegates))) FROM public.booking_requests b WHERE b.id=p_lead),false) $$;
+REVOKE ALL ON FUNCTION public.mt_can_case(uuid) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.mt_can_case(uuid) TO authenticated;

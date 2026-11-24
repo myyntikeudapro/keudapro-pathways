@@ -7,6 +7,7 @@ interface AuthContextValue {
   user: User | null;
   loading: boolean;
   isEditor: boolean;
+  isAdmin: boolean;
   roleLoading: boolean;
   signOut: () => Promise<void>;
 }
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isEditor, setIsEditor] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [roleLoading, setRoleLoading] = useState(false);
   const [roleUserId, setRoleUserId] = useState<string | null>(null);
 
@@ -38,6 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     let active = true;
     if (!user) {
       setIsEditor(false);
+      setIsAdmin(false);
       setRoleUserId(null);
       setRoleLoading(false);
       return;
@@ -51,6 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (!active) return;
         const roles = (data ?? []).map((r: { role: string }) => r.role);
         setIsEditor(roles.includes("admin") || roles.includes("editor"));
+        setIsAdmin(roles.includes('admin'));
         setRoleUserId(user.id);
         setRoleLoading(false);
       });
@@ -62,7 +66,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ session, user, loading, isEditor: isEditor && roleUserId === user?.id, roleLoading: roleLoading || (!!user && roleUserId !== user.id), signOut }}>
+    <AuthContext.Provider value={{ session, user, loading, isAdmin: isAdmin && roleUserId === user?.id, isEditor: isEditor && roleUserId === user?.id, roleLoading: roleLoading || (!!user && roleUserId !== user.id), signOut }}>
       {children}
     </AuthContext.Provider>
   );

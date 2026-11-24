@@ -97,6 +97,13 @@ export type Database = {
       }
       booking_requests: {
         Row: {
+          ai_classified_at: string | null
+          ai_level: string | null
+          ai_model: string | null
+          ai_procurement: string | null
+          ai_recommendation: string | null
+          company_programme_id: string | null
+          contact_id: string | null
           created_at: string
           deal_value: number | null
           email: string
@@ -105,9 +112,13 @@ export type Database = {
           lost_reason: string | null
           meeting_format: string
           message: string
+          mt_delegates: string[]
+          mt_personal: boolean
+          mt_production_owner: string | null
           name: string
           notes: string | null
           organization: string | null
+          organization_id: string | null
           owner_id: string | null
           phone: string | null
           sale_closed_at: string | null
@@ -115,11 +126,20 @@ export type Database = {
           session_id: string | null
           source: string | null
           status: string
+          training_model: string | null
+          updated_at: string | null
           utm_campaign: string | null
           utm_medium: string | null
           utm_source: string | null
         }
         Insert: {
+          ai_classified_at?: string | null
+          ai_level?: string | null
+          ai_model?: string | null
+          ai_procurement?: string | null
+          ai_recommendation?: string | null
+          company_programme_id?: string | null
+          contact_id?: string | null
           created_at?: string
           deal_value?: number | null
           email: string
@@ -128,9 +148,13 @@ export type Database = {
           lost_reason?: string | null
           meeting_format: string
           message: string
+          mt_delegates?: string[]
+          mt_personal?: boolean
+          mt_production_owner?: string | null
           name: string
           notes?: string | null
           organization?: string | null
+          organization_id?: string | null
           owner_id?: string | null
           phone?: string | null
           sale_closed_at?: string | null
@@ -138,11 +162,20 @@ export type Database = {
           session_id?: string | null
           source?: string | null
           status?: string
+          training_model?: string | null
+          updated_at?: string | null
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
         }
         Update: {
+          ai_classified_at?: string | null
+          ai_level?: string | null
+          ai_model?: string | null
+          ai_procurement?: string | null
+          ai_recommendation?: string | null
+          company_programme_id?: string | null
+          contact_id?: string | null
           created_at?: string
           deal_value?: number | null
           email?: string
@@ -151,9 +184,13 @@ export type Database = {
           lost_reason?: string | null
           meeting_format?: string
           message?: string
+          mt_delegates?: string[]
+          mt_personal?: boolean
+          mt_production_owner?: string | null
           name?: string
           notes?: string | null
           organization?: string | null
+          organization_id?: string | null
           owner_id?: string | null
           phone?: string | null
           sale_closed_at?: string | null
@@ -161,11 +198,35 @@ export type Database = {
           session_id?: string | null
           source?: string | null
           status?: string
+          training_model?: string | null
+          updated_at?: string | null
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "booking_requests_company_programme_id_fkey"
+            columns: ["company_programme_id"]
+            isOneToOne: false
+            referencedRelation: "prod_programme_versions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "booking_requests_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "crm_contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "booking_requests_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "crm_organizations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       card_categories: {
         Row: {
@@ -240,6 +301,74 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      crm_audit: {
+        Row: {
+          action: string
+          actor_id: string | null
+          changes: Json
+          created_at: string
+          id: string
+          row_id: string
+          table_name: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          changes: Json
+          created_at?: string
+          id?: string
+          row_id: string
+          table_name: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          changes?: Json
+          created_at?: string
+          id?: string
+          row_id?: string
+          table_name?: string
+        }
+        Relationships: []
+      }
+      crm_contacts: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          organization_id: string
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          organization_id: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          organization_id?: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_contacts_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "crm_organizations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       crm_email_deliveries: {
         Row: {
@@ -382,6 +511,132 @@ export type Database = {
           },
         ]
       }
+      crm_offer_version_lines: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          line_no: number
+          quantity: number
+          unit_price: number
+          version_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          line_no: number
+          quantity: number
+          unit_price: number
+          version_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          line_no?: number
+          quantity?: number
+          unit_price?: number
+          version_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_offer_version_lines_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: false
+            referencedRelation: "crm_offer_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_offer_versions: {
+        Row: {
+          approval_method: string | null
+          approval_note: string | null
+          approved_at: string | null
+          approved_by: string | null
+          contact_id: string | null
+          content: string | null
+          created_at: string
+          created_by: string | null
+          ends_on: string | null
+          id: string
+          offer_id: string
+          organization_id: string | null
+          payment_terms: string | null
+          service_key: string | null
+          starts_on: string | null
+          terms: string | null
+          vat_basis: string | null
+          vat_rate: number | null
+          version_no: number
+        }
+        Insert: {
+          approval_method?: string | null
+          approval_note?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          contact_id?: string | null
+          content?: string | null
+          created_at?: string
+          created_by?: string | null
+          ends_on?: string | null
+          id?: string
+          offer_id: string
+          organization_id?: string | null
+          payment_terms?: string | null
+          service_key?: string | null
+          starts_on?: string | null
+          terms?: string | null
+          vat_basis?: string | null
+          vat_rate?: number | null
+          version_no: number
+        }
+        Update: {
+          approval_method?: string | null
+          approval_note?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          contact_id?: string | null
+          content?: string | null
+          created_at?: string
+          created_by?: string | null
+          ends_on?: string | null
+          id?: string
+          offer_id?: string
+          organization_id?: string | null
+          payment_terms?: string | null
+          service_key?: string | null
+          starts_on?: string | null
+          terms?: string | null
+          vat_basis?: string | null
+          vat_rate?: number | null
+          version_no?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_offer_versions_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "crm_contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_offer_versions_offer_id_fkey"
+            columns: ["offer_id"]
+            isOneToOne: false
+            referencedRelation: "crm_offers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_offer_versions_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "crm_organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       crm_offers: {
         Row: {
           amount: number
@@ -422,6 +677,244 @@ export type Database = {
             columns: ["lead_id"]
             isOneToOne: false
             referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_order_lines: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          line_no: number
+          order_id: string
+          quantity: number
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          line_no: number
+          order_id: string
+          quantity: number
+          unit_price: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          line_no?: number
+          order_id?: string
+          quantity?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_order_lines_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "crm_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_orders: {
+        Row: {
+          confirmed_at: string
+          confirmed_by: string
+          contact_id: string
+          created_at: string
+          ends_on: string | null
+          id: string
+          idempotency_key: string
+          lead_id: string
+          offer_version_id: string
+          organization_id: string
+          owner_id: string
+          payment_terms: string
+          service_key: string
+          starts_on: string
+          terms: string
+          total_net: number
+          vat_basis: string
+          vat_rate: number
+        }
+        Insert: {
+          confirmed_at?: string
+          confirmed_by: string
+          contact_id: string
+          created_at?: string
+          ends_on?: string | null
+          id?: string
+          idempotency_key: string
+          lead_id: string
+          offer_version_id: string
+          organization_id: string
+          owner_id: string
+          payment_terms: string
+          service_key: string
+          starts_on: string
+          terms: string
+          total_net: number
+          vat_basis: string
+          vat_rate: number
+        }
+        Update: {
+          confirmed_at?: string
+          confirmed_by?: string
+          contact_id?: string
+          created_at?: string
+          ends_on?: string | null
+          id?: string
+          idempotency_key?: string
+          lead_id?: string
+          offer_version_id?: string
+          organization_id?: string
+          owner_id?: string
+          payment_terms?: string
+          service_key?: string
+          starts_on?: string
+          terms?: string
+          total_net?: number
+          vat_basis?: string
+          vat_rate?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_orders_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "crm_contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_orders_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_orders_offer_version_id_fkey"
+            columns: ["offer_version_id"]
+            isOneToOne: true
+            referencedRelation: "crm_offer_versions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_orders_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "crm_organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_organizations: {
+        Row: {
+          business_id: string | null
+          created_at: string
+          id: string
+          name: string
+          owner_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          business_id?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          owner_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          business_id?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          owner_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      crm_production_handoffs: {
+        Row: {
+          cancelled_at: string | null
+          cancelled_by: string | null
+          company_programme_id: string | null
+          company_response_at: string | null
+          company_response_by: string | null
+          company_return_reason: string | null
+          company_revision: number
+          company_state: string | null
+          handed_at: string
+          handed_by: string
+          id: string
+          mt_response_at: string | null
+          mt_response_by: string | null
+          mt_return_reason: string | null
+          mt_revision: number
+          mt_state: string | null
+          note: string | null
+          order_id: string
+          production_owner_id: string
+        }
+        Insert: {
+          cancelled_at?: string | null
+          cancelled_by?: string | null
+          company_programme_id?: string | null
+          company_response_at?: string | null
+          company_response_by?: string | null
+          company_return_reason?: string | null
+          company_revision?: number
+          company_state?: string | null
+          handed_at?: string
+          handed_by?: string
+          id?: string
+          mt_response_at?: string | null
+          mt_response_by?: string | null
+          mt_return_reason?: string | null
+          mt_revision?: number
+          mt_state?: string | null
+          note?: string | null
+          order_id: string
+          production_owner_id: string
+        }
+        Update: {
+          cancelled_at?: string | null
+          cancelled_by?: string | null
+          company_programme_id?: string | null
+          company_response_at?: string | null
+          company_response_by?: string | null
+          company_return_reason?: string | null
+          company_revision?: number
+          company_state?: string | null
+          handed_at?: string
+          handed_by?: string
+          id?: string
+          mt_response_at?: string | null
+          mt_response_by?: string | null
+          mt_return_reason?: string | null
+          mt_revision?: number
+          mt_state?: string | null
+          note?: string | null
+          order_id?: string
+          production_owner_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_production_handoffs_company_programme_id_fkey"
+            columns: ["company_programme_id"]
+            isOneToOne: false
+            referencedRelation: "prod_programme_versions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_production_handoffs_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: true
+            referencedRelation: "crm_orders"
             referencedColumns: ["id"]
           },
         ]
@@ -584,6 +1077,328 @@ export type Database = {
         }
         Relationships: []
       }
+      exp_assignment_events: {
+        Row: {
+          action: string
+          actor_id: string | null
+          assignment_id: string
+          created_at: string
+          details: Json
+          id: string
+          reason: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          assignment_id: string
+          created_at?: string
+          details?: Json
+          id?: string
+          reason?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          assignment_id?: string
+          created_at?: string
+          details?: Json
+          id?: string
+          reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exp_assignment_events_assignment_id_fkey"
+            columns: ["assignment_id"]
+            isOneToOne: false
+            referencedRelation: "exp_assignments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exp_assignments: {
+        Row: {
+          approval_reason: string | null
+          approved_at: string | null
+          approved_by: string | null
+          conflict_reasons: string[]
+          created_at: string
+          expert_accepted_at: string | null
+          expert_id: string
+          id: string
+          needs_approval: boolean
+          requested_by: string
+          session_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          approval_reason?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          conflict_reasons?: string[]
+          created_at?: string
+          expert_accepted_at?: string | null
+          expert_id: string
+          id?: string
+          needs_approval?: boolean
+          requested_by: string
+          session_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          approval_reason?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          conflict_reasons?: string[]
+          created_at?: string
+          expert_accepted_at?: string | null
+          expert_id?: string
+          id?: string
+          needs_approval?: boolean
+          requested_by?: string
+          session_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exp_assignments_expert_id_fkey"
+            columns: ["expert_id"]
+            isOneToOne: false
+            referencedRelation: "exp_experts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "exp_assignments_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "exp_assignments_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_trainer_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
+      exp_availability: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          ends_at: string
+          expert_id: string
+          id: string
+          kind: string
+          note: string | null
+          starts_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          ends_at: string
+          expert_id: string
+          id?: string
+          kind: string
+          note?: string | null
+          starts_at: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          ends_at?: string
+          expert_id?: string
+          id?: string
+          kind?: string
+          note?: string | null
+          starts_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exp_availability_expert_id_fkey"
+            columns: ["expert_id"]
+            isOneToOne: false
+            referencedRelation: "exp_experts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exp_commercial_terms: {
+        Row: {
+          contract_ref: string | null
+          created_at: string
+          day_rate: number | null
+          expert_id: string
+          hour_rate: number | null
+          id: string
+          note: string | null
+          valid_from: string | null
+          valid_to: string | null
+        }
+        Insert: {
+          contract_ref?: string | null
+          created_at?: string
+          day_rate?: number | null
+          expert_id: string
+          hour_rate?: number | null
+          id?: string
+          note?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Update: {
+          contract_ref?: string | null
+          created_at?: string
+          day_rate?: number | null
+          expert_id?: string
+          hour_rate?: number | null
+          id?: string
+          note?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exp_commercial_terms_expert_id_fkey"
+            columns: ["expert_id"]
+            isOneToOne: false
+            referencedRelation: "exp_experts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exp_expert_skills: {
+        Row: {
+          expert_id: string
+          level: number
+          skill_id: string
+        }
+        Insert: {
+          expert_id: string
+          level: number
+          skill_id: string
+        }
+        Update: {
+          expert_id?: string
+          level?: number
+          skill_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exp_expert_skills_expert_id_fkey"
+            columns: ["expert_id"]
+            isOneToOne: false
+            referencedRelation: "exp_experts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "exp_expert_skills_skill_id_fkey"
+            columns: ["skill_id"]
+            isOneToOne: false
+            referencedRelation: "exp_skills"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exp_experts: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          kind: string
+          name: string
+          region: string
+          remote_ok: boolean
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind: string
+          name: string
+          region: string
+          remote_ok?: boolean
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind?: string
+          name?: string
+          region?: string
+          remote_ok?: boolean
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      exp_skills: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      exp_template_fit: {
+        Row: {
+          approved_at: string
+          approved_by: string | null
+          expert_id: string
+          status: string
+          template_key: string
+        }
+        Insert: {
+          approved_at?: string
+          approved_by?: string | null
+          expert_id: string
+          status: string
+          template_key: string
+        }
+        Update: {
+          approved_at?: string
+          approved_by?: string | null
+          expert_id?: string
+          status?: string
+          template_key?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exp_template_fit_expert_id_fkey"
+            columns: ["expert_id"]
+            isOneToOne: false
+            referencedRelation: "exp_experts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "exp_template_fit_template_key_fkey"
+            columns: ["template_key"]
+            isOneToOne: false
+            referencedRelation: "prod_templates"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
       lead_activity: {
         Row: {
           actor_id: string | null
@@ -721,6 +1536,801 @@ export type Database = {
         }
         Relationships: []
       }
+      prod_actuals: {
+        Row: {
+          attendees: number
+          created_at: string
+          held: boolean
+          hours: number
+          id: string
+          note: string | null
+          recorded_by: string | null
+          session_id: string
+        }
+        Insert: {
+          attendees: number
+          created_at?: string
+          held: boolean
+          hours: number
+          id?: string
+          note?: string | null
+          recorded_by?: string | null
+          session_id: string
+        }
+        Update: {
+          attendees?: number
+          created_at?: string
+          held?: boolean
+          hours?: number
+          id?: string
+          note?: string | null
+          recorded_by?: string | null
+          session_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_actuals_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: true
+            referencedRelation: "prod_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_actuals_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: true
+            referencedRelation: "prod_trainer_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
+      prod_billing_readiness: {
+        Row: {
+          billing_ready: boolean
+          checked_at: string | null
+          checked_by: string | null
+          delivery_id: string
+          id: string
+          note: string | null
+          payment_status: string
+          updated_at: string
+        }
+        Insert: {
+          billing_ready?: boolean
+          checked_at?: string | null
+          checked_by?: string | null
+          delivery_id: string
+          id?: string
+          note?: string | null
+          payment_status?: string
+          updated_at?: string
+        }
+        Update: {
+          billing_ready?: boolean
+          checked_at?: string | null
+          checked_by?: string | null
+          delivery_id?: string
+          id?: string
+          note?: string | null
+          payment_status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_billing_readiness_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: true
+            referencedRelation: "prod_deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prod_blockers: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          delivery_id: string
+          description: string
+          id: string
+          owner_id: string
+          resolved_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          delivery_id: string
+          description: string
+          id?: string
+          owner_id: string
+          resolved_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          delivery_id?: string
+          description?: string
+          id?: string
+          owner_id?: string
+          resolved_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_blockers_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "prod_deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prod_deliveries: {
+        Row: {
+          company_programme_id: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          offering_group: string | null
+          order_id: string
+          production_owner_id: string
+          production_status: string
+          sales_owner_id: string
+          template_key: string
+          title: string
+          training_model: string | null
+          updated_at: string
+        }
+        Insert: {
+          company_programme_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          offering_group?: string | null
+          order_id: string
+          production_owner_id: string
+          production_status?: string
+          sales_owner_id: string
+          template_key: string
+          title: string
+          training_model?: string | null
+          updated_at?: string
+        }
+        Update: {
+          company_programme_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          offering_group?: string | null
+          order_id?: string
+          production_owner_id?: string
+          production_status?: string
+          sales_owner_id?: string
+          template_key?: string
+          title?: string
+          training_model?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_deliveries_company_programme_id_fkey"
+            columns: ["company_programme_id"]
+            isOneToOne: false
+            referencedRelation: "prod_programme_versions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_deliveries_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: true
+            referencedRelation: "crm_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_deliveries_template_key_fkey"
+            columns: ["template_key"]
+            isOneToOne: false
+            referencedRelation: "prod_templates"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
+      prod_feedback: {
+        Row: {
+          comment: string | null
+          created_at: string
+          delivery_id: string
+          id: string
+          recorded_by: string | null
+          score: number
+          session_id: string | null
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          delivery_id: string
+          id?: string
+          recorded_by?: string | null
+          score: number
+          session_id?: string | null
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          delivery_id?: string
+          id?: string
+          recorded_by?: string | null
+          score?: number
+          session_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_feedback_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "prod_deliveries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_feedback_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_feedback_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_trainer_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
+      prod_message_drafts: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          audience: string
+          body: string
+          created_at: string
+          created_by: string | null
+          delivery_id: string
+          id: string
+          send_state: string
+          subject: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          audience: string
+          body: string
+          created_at?: string
+          created_by?: string | null
+          delivery_id: string
+          id?: string
+          send_state?: string
+          subject: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          audience?: string
+          body?: string
+          created_at?: string
+          created_by?: string | null
+          delivery_id?: string
+          id?: string
+          send_state?: string
+          subject?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_message_drafts_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "prod_deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prod_participants: {
+        Row: {
+          certificate_status: string
+          completion_status: string
+          created_at: string
+          delivery_id: string
+          email: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          certificate_status?: string
+          completion_status?: string
+          created_at?: string
+          delivery_id: string
+          email?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          certificate_status?: string
+          completion_status?: string
+          created_at?: string
+          delivery_id?: string
+          email?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_participants_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "prod_deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prod_programme_approvals: {
+        Row: {
+          event_revision: number
+          id: string
+          kind: string
+          programme_version_id: string
+          reason: string | null
+          recorded_at: string
+          recorded_by: string
+          snapshot: Json
+        }
+        Insert: {
+          event_revision: number
+          id?: string
+          kind: string
+          programme_version_id: string
+          reason?: string | null
+          recorded_at?: string
+          recorded_by: string
+          snapshot: Json
+        }
+        Update: {
+          event_revision?: number
+          id?: string
+          kind?: string
+          programme_version_id?: string
+          reason?: string | null
+          recorded_at?: string
+          recorded_by?: string
+          snapshot?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_programme_approvals_programme_version_id_fkey"
+            columns: ["programme_version_id"]
+            isOneToOne: false
+            referencedRelation: "prod_programme_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prod_programme_versions: {
+        Row: {
+          capacity: Json
+          case_lead_id: string
+          created_at: string
+          created_by: string
+          id: string
+          production_owner_id: string
+          programme: Json
+          promises: string
+          resource_list_verified: boolean
+          resource_plan: Json
+          responsible_trainer_id: string | null
+          review_findings: Json
+          revision: number
+          sales_owner_id: string
+          source_version_id: string | null
+          state: string
+        }
+        Insert: {
+          capacity?: Json
+          case_lead_id: string
+          created_at?: string
+          created_by: string
+          id?: string
+          production_owner_id: string
+          programme?: Json
+          promises?: string
+          resource_list_verified?: boolean
+          resource_plan?: Json
+          responsible_trainer_id?: string | null
+          review_findings?: Json
+          revision: number
+          sales_owner_id: string
+          source_version_id?: string | null
+          state?: string
+        }
+        Update: {
+          capacity?: Json
+          case_lead_id?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          production_owner_id?: string
+          programme?: Json
+          promises?: string
+          resource_list_verified?: boolean
+          resource_plan?: Json
+          responsible_trainer_id?: string | null
+          review_findings?: Json
+          revision?: number
+          sales_owner_id?: string
+          source_version_id?: string | null
+          state?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_programme_versions_case_lead_id_fkey"
+            columns: ["case_lead_id"]
+            isOneToOne: false
+            referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_programme_versions_source_version_id_fkey"
+            columns: ["source_version_id"]
+            isOneToOne: false
+            referencedRelation: "prod_programme_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prod_quality_issues: {
+        Row: {
+          closed_at: string | null
+          corrective_action: string | null
+          created_at: string
+          created_by: string | null
+          delivery_id: string
+          description: string
+          id: string
+          owner_id: string
+          session_id: string | null
+          severity: string
+        }
+        Insert: {
+          closed_at?: string | null
+          corrective_action?: string | null
+          created_at?: string
+          created_by?: string | null
+          delivery_id: string
+          description: string
+          id?: string
+          owner_id: string
+          session_id?: string | null
+          severity: string
+        }
+        Update: {
+          closed_at?: string | null
+          corrective_action?: string | null
+          created_at?: string
+          created_by?: string | null
+          delivery_id?: string
+          description?: string
+          id?: string
+          owner_id?: string
+          session_id?: string | null
+          severity?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_quality_issues_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "prod_deliveries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_quality_issues_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_quality_issues_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_trainer_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
+      prod_resource_bookings: {
+        Row: {
+          created_at: string
+          id: string
+          resource_id: string
+          session_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          resource_id: string
+          session_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          resource_id?: string
+          session_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_resource_bookings_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "prod_resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_resource_bookings_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_resource_bookings_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_trainer_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
+      prod_resources: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      prod_sessions: {
+        Row: {
+          created_at: string
+          delivery_id: string
+          delivery_mode: string
+          ends_at: string
+          id: string
+          location: string | null
+          region: string | null
+          seq: number
+          starts_at: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          delivery_id: string
+          delivery_mode?: string
+          ends_at: string
+          id?: string
+          location?: string | null
+          region?: string | null
+          seq: number
+          starts_at: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          delivery_id?: string
+          delivery_mode?: string
+          ends_at?: string
+          id?: string
+          location?: string | null
+          region?: string | null
+          seq?: number
+          starts_at?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_sessions_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "prod_deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prod_tasks: {
+        Row: {
+          anchor: string
+          blocks_start: boolean
+          code: string
+          completed_at: string | null
+          completed_by: string | null
+          created_at: string
+          delivery_id: string
+          due_at: string | null
+          id: string
+          offset_days: number
+          owner_id: string | null
+          owner_role: string
+          scope: string
+          template_task_id: string | null
+          title: string
+        }
+        Insert: {
+          anchor: string
+          blocks_start: boolean
+          code: string
+          completed_at?: string | null
+          completed_by?: string | null
+          created_at?: string
+          delivery_id: string
+          due_at?: string | null
+          id?: string
+          offset_days: number
+          owner_id?: string | null
+          owner_role: string
+          scope: string
+          template_task_id?: string | null
+          title: string
+        }
+        Update: {
+          anchor?: string
+          blocks_start?: boolean
+          code?: string
+          completed_at?: string | null
+          completed_by?: string | null
+          created_at?: string
+          delivery_id?: string
+          due_at?: string | null
+          id?: string
+          offset_days?: number
+          owner_id?: string | null
+          owner_role?: string
+          scope?: string
+          template_task_id?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_tasks_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "prod_deliveries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_tasks_template_task_id_fkey"
+            columns: ["template_task_id"]
+            isOneToOne: false
+            referencedRelation: "prod_template_tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prod_template_tasks: {
+        Row: {
+          anchor: string
+          blocks_start: boolean
+          code: string
+          id: string
+          offset_days: number
+          owner_role: string
+          scope: string
+          sort_order: number
+          template_key: string | null
+          title: string
+        }
+        Insert: {
+          anchor: string
+          blocks_start?: boolean
+          code: string
+          id?: string
+          offset_days: number
+          owner_role: string
+          scope: string
+          sort_order?: number
+          template_key?: string | null
+          title: string
+        }
+        Update: {
+          anchor?: string
+          blocks_start?: boolean
+          code?: string
+          id?: string
+          offset_days?: number
+          owner_role?: string
+          scope?: string
+          sort_order?: number
+          template_key?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_template_tasks_template_key_fkey"
+            columns: ["template_key"]
+            isOneToOne: false
+            referencedRelation: "prod_templates"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
+      prod_templates: {
+        Row: {
+          created_at: string
+          description: string
+          key: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          key: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          key?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      prod_trainer_bookings: {
+        Row: {
+          created_at: string
+          id: string
+          session_id: string
+          status: string
+          trainer_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          session_id: string
+          status?: string
+          trainer_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          session_id?: string
+          status?: string
+          trainer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prod_trainer_bookings_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prod_trainer_bookings_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "prod_trainer_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
       suppressed_emails: {
         Row: {
           created_at: string
@@ -821,7 +2431,19 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      prod_trainer_sessions: {
+        Row: {
+          booking_status: string | null
+          delivery_title: string | null
+          ends_at: string | null
+          location: string | null
+          seq: number | null
+          session_id: string | null
+          session_title: string | null
+          starts_at: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       ai_talent_participants: {
@@ -832,6 +2454,128 @@ export type Database = {
         }[]
       }
       ai_talent_role: { Args: { _user_id: string }; Returns: string }
+      company_attach_order: {
+        Args: { p_id: string; p_order: string; p_template: string }
+        Returns: string
+      }
+      company_capacity_approve: { Args: { p_id: string }; Returns: undefined }
+      company_capacity_defects: { Args: { p: Json }; Returns: string[] }
+      company_capacity_save: {
+        Args: { p_capacity: Json; p_id: string }
+        Returns: string
+      }
+      company_event: {
+        Args: { p_id: string; p_kind: string; p_reason?: string }
+        Returns: undefined
+      }
+      company_handoff_respond: {
+        Args: {
+          p_accept: boolean
+          p_id: string
+          p_order: string
+          p_reason?: string
+        }
+        Returns: undefined
+      }
+      company_handoff_submit: {
+        Args: { p_id: string; p_order: string }
+        Returns: undefined
+      }
+      company_is_owner: { Args: { p_table: unknown }; Returns: boolean }
+      company_latest: {
+        Args: { p_id: string }
+        Returns: {
+          capacity: Json
+          case_lead_id: string
+          created_at: string
+          created_by: string
+          id: string
+          production_owner_id: string
+          programme: Json
+          promises: string
+          resource_list_verified: boolean
+          resource_plan: Json
+          responsible_trainer_id: string | null
+          review_findings: Json
+          revision: number
+          sales_owner_id: string
+          source_version_id: string | null
+          state: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "prod_programme_versions"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      company_my_trainer_programmes: {
+        Args: never
+        Returns: {
+          capacity_approved: boolean
+          ends_at: string
+          id: string
+          revision: number
+          starts_at: string
+          state: string
+        }[]
+      }
+      company_programme_approve: {
+        Args: { p_id: string; p_review_note: string }
+        Returns: undefined
+      }
+      company_programme_defects: { Args: { p_id: string }; Returns: string[] }
+      company_programme_read: { Args: { p_id: string }; Returns: Json }
+      company_programme_save: {
+        Args: {
+          p_capacity: Json
+          p_case: string
+          p_expected: string
+          p_programme: Json
+          p_receiver: string
+          p_resource_verified: boolean
+          p_resources: Json
+          p_source?: string
+          p_trainer: string
+        }
+        Returns: string
+      }
+      company_ready: {
+        Args: { p_id: string; p_require_acceptance?: boolean }
+        Returns: Json
+      }
+      company_require: {
+        Args: { p_id: string; p_mode?: string }
+        Returns: {
+          capacity: Json
+          case_lead_id: string
+          created_at: string
+          created_by: string
+          id: string
+          production_owner_id: string
+          programme: Json
+          promises: string
+          resource_list_verified: boolean
+          resource_plan: Json
+          responsible_trainer_id: string | null
+          review_findings: Json
+          revision: number
+          sales_owner_id: string
+          source_version_id: string | null
+          state: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "prod_programme_versions"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      company_resource_defects: { Args: { p_id: string }; Returns: string[] }
+      crm_confirm_order: {
+        Args: { p_idempotency_key: string; p_version_id: string }
+        Returns: string
+      }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
@@ -845,6 +2589,58 @@ export type Database = {
         Args: { payload: Json; queue_name: string }
         Returns: number
       }
+      exp_approve_conflict: {
+        Args: { p_id: string; p_reason: string }
+        Returns: string
+      }
+      exp_cancel_assignment: {
+        Args: { p_id: string; p_reason: string }
+        Returns: undefined
+      }
+      exp_evaluate: {
+        Args: { p_exclude: string; p_expert: string; p_session: string }
+        Returns: Json
+      }
+      exp_is_own_expert: {
+        Args: { _expert: string; _user: string }
+        Returns: boolean
+      }
+      exp_log: {
+        Args: {
+          p_action: string
+          p_assignment: string
+          p_details: Json
+          p_reason: string
+        }
+        Returns: undefined
+      }
+      exp_my_assignments: {
+        Args: never
+        Returns: {
+          assignment_id: string
+          delivery_mode: string
+          delivery_title: string
+          ends_at: string
+          location: string
+          needs_response: boolean
+          session_title: string
+          starts_at: string
+          status: string
+        }[]
+      }
+      exp_my_session_participants: {
+        Args: { p_session: string }
+        Returns: Json
+      }
+      exp_request_assignment: {
+        Args: { p_expert: string; p_note?: string; p_session: string }
+        Returns: string
+      }
+      exp_respond_assignment: {
+        Args: { p_accept: boolean; p_id: string; p_note?: string }
+        Returns: string
+      }
+      exp_try_confirm: { Args: { p_id: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -863,6 +2659,7 @@ export type Database = {
         }
         Returns: number
       }
+      mt_can_case: { Args: { p_lead: string }; Returns: boolean }
       pks_adviser_consume: {
         Args: {
           _global_limit: number
@@ -871,6 +2668,19 @@ export type Database = {
         }
         Returns: boolean
       }
+      prod_create_delivery: {
+        Args: {
+          p_order_id: string
+          p_production_owner?: string
+          p_template_key: string
+        }
+        Returns: string
+      }
+      prod_is_session_trainer: {
+        Args: { _session: string; _user: string }
+        Returns: boolean
+      }
+      prod_recompute: { Args: { _delivery: string }; Returns: undefined }
       read_email_batch: {
         Args: { batch_size: number; queue_name: string; vt: number }
         Returns: {
@@ -881,7 +2691,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "editor"
+      app_role: "admin" | "editor" | "trainer"
       cta_type: "enroll" | "ask"
     }
     CompositeTypes: {
@@ -1010,7 +2820,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "editor"],
+      app_role: ["admin", "editor", "trainer"],
       cta_type: ["enroll", "ask"],
     },
   },
