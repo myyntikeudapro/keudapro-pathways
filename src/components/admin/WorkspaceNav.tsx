@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, Megaphone, Factory, FileText } from "lucide-react";
+import { LayoutDashboard, Users, Megaphone, Factory, FileText, BookOpen } from "lucide-react";
 
 const GROUPS = [
   { title: "Päivittäinen työ", items: [
@@ -9,6 +9,7 @@ const GROUPS = [
   ] },
   { title: "Markkinointi ja ylläpito", items: [
     { to: "/admin/markkinointi", label: "Markkinointi", icon: Megaphone, area: "ws-area-marketing" },
+    { to: "/admin/kurssiluettelo", label: "Kurssiluettelo", icon: BookOpen, area: "ws-area-content" },
     { to: "/admin/sisallot", label: "Sisällöt", icon: FileText, area: "ws-area-content" },
   ] },
 ];

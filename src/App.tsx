@@ -36,6 +36,8 @@ import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminLeadsPage from "./pages/admin/AdminLeadsPage";
 import AdminMarketingPage from "./pages/admin/AdminMarketingPage";
 import AdminProductionPage from "./pages/admin/AdminProductionPage";
+import AdminCatalogPage from "./pages/admin/AdminCatalogPage";
+import CatalogProductPage from "./pages/CatalogProductPage";
 import { PageViewTracker } from "@/components/shared/PageViewTracker";
 import { AuthProvider } from "./hooks/useAuth";
 import NotFound from "./pages/NotFound";
@@ -96,6 +98,8 @@ const App = () => (
               <Route path="/admin/yhteydenotot" element={<AdminLeadsPage />} />
               <Route path="/admin/markkinointi" element={<AdminMarketingPage />} />
               <Route path="/admin/tuotanto" element={<AdminProductionPage />} />
+              <Route path="/admin/kurssiluettelo" element={<AdminCatalogPage />} />
+              <Route path="/kurssit/:slug" element={<CatalogProductPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

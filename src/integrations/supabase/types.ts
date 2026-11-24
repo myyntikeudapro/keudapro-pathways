@@ -258,6 +258,192 @@ export type Database = {
         }
         Relationships: []
       }
+      cat_offerings: {
+        Row: {
+          capacity: number
+          created_at: string
+          delivery_id: string | null
+          ends_at: string
+          free_cancel_days: number
+          id: string
+          late_cancel_pct: number
+          location: string | null
+          price_version_id: string
+          product_id: string
+          reg_closes_at: string
+          reg_opens_at: string
+          starts_at: string
+          status: string
+          waitlist_enabled: boolean
+        }
+        Insert: {
+          capacity: number
+          created_at?: string
+          delivery_id?: string | null
+          ends_at: string
+          free_cancel_days?: number
+          id?: string
+          late_cancel_pct?: number
+          location?: string | null
+          price_version_id: string
+          product_id: string
+          reg_closes_at: string
+          reg_opens_at: string
+          starts_at: string
+          status?: string
+          waitlist_enabled?: boolean
+        }
+        Update: {
+          capacity?: number
+          created_at?: string
+          delivery_id?: string | null
+          ends_at?: string
+          free_cancel_days?: number
+          id?: string
+          late_cancel_pct?: number
+          location?: string | null
+          price_version_id?: string
+          product_id?: string
+          reg_closes_at?: string
+          reg_opens_at?: string
+          starts_at?: string
+          status?: string
+          waitlist_enabled?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cat_offerings_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "prod_deliveries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_offerings_price_version_id_fkey"
+            columns: ["price_version_id"]
+            isOneToOne: false
+            referencedRelation: "cat_price_versions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cat_offerings_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "cat_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cat_price_versions: {
+        Row: {
+          created_at: string
+          id: string
+          locked_at: string | null
+          product_id: string
+          unit_price: number
+          valid_from: string
+          valid_to: string | null
+          vat_basis: string
+          version_no: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          locked_at?: string | null
+          product_id: string
+          unit_price: number
+          valid_from: string
+          valid_to?: string | null
+          vat_basis: string
+          version_no: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          locked_at?: string | null
+          product_id?: string
+          unit_price?: number
+          valid_from?: string
+          valid_to?: string | null
+          vat_basis?: string
+          version_no?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cat_price_versions_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "cat_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cat_products: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          name: string
+          production_owner_id: string
+          published_at: string | null
+          published_by: string | null
+          sales_owner_id: string
+          service_key: string
+          slug: string
+          status: string
+          template_key: string | null
+          training_card_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          name: string
+          production_owner_id: string
+          published_at?: string | null
+          published_by?: string | null
+          sales_owner_id: string
+          service_key: string
+          slug: string
+          status?: string
+          template_key?: string | null
+          training_card_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+          production_owner_id?: string
+          published_at?: string | null
+          published_by?: string | null
+          sales_owner_id?: string
+          service_key?: string
+          slug?: string
+          status?: string
+          template_key?: string | null
+          training_card_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cat_products_template_key_fkey"
+            columns: ["template_key"]
+            isOneToOne: false
+            referencedRelation: "prod_templates"
+            referencedColumns: ["key"]
+          },
+          {
+            foreignKeyName: "cat_products_training_card_id_fkey"
+            columns: ["training_card_id"]
+            isOneToOne: false
+            referencedRelation: "training_cards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       crm_assignment_cursors: {
         Row: {
           next_index: number
@@ -2454,6 +2640,15 @@ export type Database = {
         }[]
       }
       ai_talent_role: { Args: { _user_id: string }; Returns: string }
+      cat_public_catalog: { Args: { p_slug: string }; Returns: Json }
+      cat_public_slugs: {
+        Args: never
+        Returns: {
+          description: string
+          name: string
+          slug: string
+        }[]
+      }
       company_attach_order: {
         Args: { p_id: string; p_order: string; p_template: string }
         Returns: string
