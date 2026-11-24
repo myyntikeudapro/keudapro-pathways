@@ -1,3 +1,4 @@
+import { WorkspaceNav } from '@/components/admin/WorkspaceNav';
 import { useMemo, useState, type ReactNode } from "react";
 import { Navigate, Link, useSearchParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -226,7 +227,7 @@ export default function AdminMarketingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/40 overflow-x-hidden">
+    <div className="min-h-screen bg-muted/40 overflow-x-hidden ws-with-nav"><WorkspaceNav />
       <SEO title="Markkinointi ja myynti – KeudaPRO" description="Markkinoinnin ja ostopolun seuranta." path="/admin/markkinointi" />
       <header className="bg-keuda-hero-surface text-primary-foreground">
         <div className="container mx-auto px-4 pt-5 pb-6 space-y-5">

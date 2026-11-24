@@ -1,3 +1,4 @@
+import { WorkspaceNav } from '@/components/admin/WorkspaceNav';
 import { Navigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -75,7 +76,7 @@ export default function AdminLeadsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-muted/30 ws-with-nav"><WorkspaceNav />
       <SEO title="Saapuneet yhteydenotot – KeudaPRO" description="Kartoitusten ja ajanvarausten hallinta." path="/admin/yhteydenotot" />
       <header className="bg-background border-b">
         <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">

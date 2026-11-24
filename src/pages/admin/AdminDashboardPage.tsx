@@ -1,3 +1,4 @@
+import { WorkspaceNav } from '@/components/admin/WorkspaceNav';
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
@@ -30,7 +31,7 @@ export default function AdminDashboardPage() {
   const winsForPeriod = query.data.leads.filter(l => (service === 'all' || (l.service_key ?? 'muu') === service) && (!filter.mine || l.owner_id === user.id) && l.status === 'koulutukseen' && (!l.sale_closed_at || (Date.parse(l.sale_closed_at) >= Date.parse(filter.since) && Date.parse(l.sale_closed_at) <= Date.parse(until))));
   const incompleteCycle = winsForPeriod.length - rows('cycle').length;
   const metric = (key: string, value?: string, hint?: string, attention = false) => <Button key={key} asChild variant="ghost" className={`h-auto min-h-28 w-full justify-start whitespace-normal rounded-lg border bg-background p-4 text-left ${attention ? 'border-l-4 border-l-destructive' : 'border-t-2 border-t-primary'}`}><Link to={queueLink(key, filter)}><span className="flex w-full flex-col gap-2"><span className="flex items-start justify-between gap-2 text-sm text-muted-foreground">{QUEUES[key]}<ArrowUpRight className="h-4 w-4 shrink-0"/></span><span className="text-2xl font-semibold tabular-nums text-keuda-blue">{value ?? nf.format(rows(key).length)}</span>{hint && <span className="text-xs font-normal text-muted-foreground">{hint}</span>}</span></Link></Button>;
-  return <div className="min-h-screen bg-muted/40">
+  return <div className="min-h-screen bg-muted/40 ws-with-nav"><WorkspaceNav />
     <SEO title="Tilannekeskus – KeudaPRO" description="KeudaPROn yhteinen liiketoiminnan työtila." path="/admin"/>
     <header className="border-b bg-background"><div className="container mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-5"><div className="min-w-0"><p className="text-sm font-semibold text-secondary">KeudaPRO / Työtila</p><h1 className="mt-1 text-2xl font-semibold text-keuda-blue">Tilannekeskus</h1><p className="mt-1 break-all text-xs text-muted-foreground">{user.email}</p></div><nav className="flex flex-wrap gap-2" aria-label="Hallinnan navigaatio"><Button asChild variant="outline"><Link to="/admin/yhteydenotot">Saapuneet viestit</Link></Button><Button asChild variant="outline"><Link to="/admin/sisallot"><FileText className="mr-2 h-4 w-4"/>Sisällöt</Link></Button><Button variant="ghost" size="icon" title="Kirjaudu ulos" aria-label="Kirjaudu ulos" onClick={signOut}><LogOut className="h-4 w-4"/></Button></nav></div></header>
     <main className="container mx-auto space-y-9 px-4 py-6 sm:py-8">

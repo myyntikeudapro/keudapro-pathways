@@ -1,3 +1,4 @@
+import { WorkspaceNav } from '@/components/admin/WorkspaceNav';
 import { useEffect, useMemo, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -210,7 +211,7 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/40 overflow-x-hidden">
+    <div className="min-h-screen bg-muted/40 overflow-x-hidden ws-with-nav"><WorkspaceNav />
       <SEO title="Sisältöeditori – KeudaPRO" description="Korttien hallintapaneeli." path="/admin/sisallot" />
       <header className="bg-keuda-hero-surface text-primary-foreground">
         <div className="container mx-auto px-4 py-5 flex flex-wrap items-start justify-between gap-3">
