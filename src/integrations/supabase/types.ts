@@ -2300,7 +2300,7 @@ export type Database = {
           created_by: string | null
           id: string
           offering_group: string | null
-          order_id: string
+          order_id: string | null
           production_owner_id: string
           production_status: string
           sales_owner_id: string
@@ -2315,7 +2315,7 @@ export type Database = {
           created_by?: string | null
           id?: string
           offering_group?: string | null
-          order_id: string
+          order_id?: string | null
           production_owner_id: string
           production_status?: string
           sales_owner_id: string
@@ -2330,7 +2330,7 @@ export type Database = {
           created_by?: string | null
           id?: string
           offering_group?: string | null
-          order_id?: string
+          order_id?: string | null
           production_owner_id?: string
           production_status?: string
           sales_owner_id?: string
@@ -3396,6 +3396,10 @@ export type Database = {
           p_production_owner?: string
           p_template_key: string
         }
+        Returns: string
+      }
+      prod_create_group_delivery: {
+        Args: { p_offering: string; p_production_owner?: string }
         Returns: string
       }
       prod_is_session_trainer: {

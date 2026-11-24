@@ -13,6 +13,8 @@ import { SEO } from '@/components/seo/SEO';
 import { CRM_SERVICES, dateTime, money } from '@/lib/crm';
 import { OFFERING_STATUS, PRODUCT_STATUS, SLUG_PATTERN, catalogPath, latestVersion, priceVersionFor, slugify, type PriceVersion } from '@/lib/catalog';
 import { useToast } from '@/hooks/use-toast';
+import { OfferingRegistrations } from '@/components/admin/CatalogRegistrations';
+import { CohortSchedulePanel } from '@/components/admin/CohortSchedulePanel';
 import { Loader2, LogOut } from 'lucide-react';
 
 const db = supabase as any;
@@ -77,7 +79,7 @@ function Catalog({ userId }: { userId: string }) {
   };
 
   return <>
-    <p className="rounded-lg border border-dashed p-3 text-sm text-muted-foreground">Julkaistu tuote näkyy osoitteessa /kurssit/osoite. Verkossa ilmoittautuminen ja maksut eivät ole vielä käytössä: sivun painike ohjaa yhteydenottoon.</p>
+    <p className="rounded-lg border border-dashed p-3 text-sm text-muted-foreground">Julkaistu tuote näkyy osoitteessa /kurssit/osoite. Verkkoilmoittautuminen avataan toteutuskerroittain; kiinni olevissa sivun painike ohjaa yhteydenottoon. Verkkomaksu ei ole vielä käytössä eikä ilmoittautujille lähetetä automaattisia viestejä.</p>
     <Box title="Tuotteet">
       {d.products.length === 0 && <p className="text-sm text-muted-foreground">Ei vielä tuotteita.</p>}
       <ul className="divide-y text-sm">{d.products.map(x => { const pv = d.prices.filter(v => v.product_id === x.id).sort((a, b) => b.version_no - a.version_no); return <li key={x.id} className="grid items-end gap-2 py-3 sm:grid-cols-[1fr_12rem]">
@@ -96,7 +98,8 @@ function Catalog({ userId }: { userId: string }) {
       {d.offerings.length === 0 && <p className="text-sm text-muted-foreground">Ei vielä toteutuskertoja.</p>}
       <ul className="divide-y text-sm">{[...d.offerings].sort((a, b) => a.starts_at.localeCompare(b.starts_at)).map(x => { const v = d.prices.find(pv => pv.id === x.price_version_id); return <li key={x.id} className="grid items-end gap-2 py-3 sm:grid-cols-[1fr_12rem]">
         <span><strong>{productName(x.product_id)}</strong> · {dateTime(x.starts_at)}–{dateTime(x.ends_at)}<span className="block text-xs text-muted-foreground">{x.location ?? 'Paikka avoinna'} · {x.capacity} paikkaa · {v ? `${money(v.unit_price)} (v${v.version_no})` : ''} · ilmoittautuminen päättyy {dateTime(x.reg_closes_at)}</span>{x.status === 'julkaistu' && <Badge variant="outline" className="mt-1">Näkyy sivulla</Badge>}</span>
-        <Choice label="Tila" value={x.status} onChange={s => act.mutate(() => db.from('cat_offerings').update({ status: s }).eq('id', x.id))} options={OFFERING_STATUS} /></li>; })}</ul>
+        <Choice label="Tila" value={x.status} onChange={s => act.mutate(() => db.from('cat_offerings').update({ status: s }).eq('id', x.id))} options={OFFERING_STATUS} />
+        <div className="sm:col-span-2"><OfferingRegistrations offering={x} /></div></li>; })}</ul>
       {d.products.length > 0 && <form className="grid gap-2 sm:grid-cols-3" onSubmit={addOffering}>
         <Choice label="Tuote" value={o.product_id} onChange={v => setO({ ...o, product_id: v, price: String(latestVersion(d.prices, v)?.unit_price ?? '') })} options={[...d.products.filter(x => x.status !== 'arkistoitu').map(x => [x.id, x.name] as [string, string])]} />
         <label className="text-xs">Alkaa<Input type="datetime-local" value={o.starts} onChange={e => setO({ ...o, starts: e.target.value })} required /></label>
@@ -109,5 +112,6 @@ function Catalog({ userId }: { userId: string }) {
       </form>}
       <p className="text-xs text-muted-foreground">Kun toteutuskerta julkaistaan, sen hinta lukittuu. Uusi hinta tekee automaattisesti uuden hintaversion.</p>
     </Box>
+    <Box title="AI-ohjelmien ryhmät ja aikataulut"><CohortSchedulePanel /></Box>
   </>;
 }

@@ -1,0 +1,2141 @@
+{
+  "schema_version": "1.0",
+  "compiled_on": "2026-10-27",
+  "timezone": "Europe/Helsinki",
+  "warning": "Source data is historical and future offerings listed in copied Lyyti pages; not confirmation of future sales publication. Dates are not templates to blindly shift into new years.",
+  "cohorts": [
+    {
+      "program": "AI Coordinator",
+      "title": "13.10.2026 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2026-10-13",
+      "start_time": "13:00",
+      "registration_deadline": "2026-10-05",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekolykoordinaattori__koulutusohjelma_0283",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2026-10-13",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, erikoistuminen, startti, orientoituminen",
+          "source_line": "Ti 13.10.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-10-14",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "Ke 14.10.2026 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2026-10-20",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kultainen lanka",
+          "source_line": "Ti 20.10.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-10-22",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyys vaihtoehdot, workshop",
+          "source_line": "To 22.10.2026 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2026-10-29",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | määrittelyworkshop",
+          "source_line": "To 29.10.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-11-12",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | määrittelyworkshop",
+          "source_line": "To 12.11.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-11-17",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 17.11.2026 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2026-11-24",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 24.11.2026 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "alkanut"
+    },
+    {
+      "program": "AI Coordinator",
+      "title": "10.11.2026 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2026-11-10",
+      "start_time": "13:00",
+      "registration_deadline": "2026-11-02",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekolykoordinaattori__koulutusohjelma_3710",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2026-11-10",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, erikoistuminen, startti, orientoituminen",
+          "source_line": "Ti 10.11.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-11-12",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 12.11.2026 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2026-11-17",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kultainen lanka",
+          "source_line": "Ti 17.11.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-11-19",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyys vaihtoehdot, workshop",
+          "source_line": "To 19.11.2026 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2026-11-26",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | määrittelyworkshop",
+          "source_line": "To 26.11.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-12-10",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | määrittelyworkshop",
+          "source_line": "To 10.12.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-12-15",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 15.12.2026 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2026-12-22",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 22.12.2026 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Coordinator",
+      "title": "12.1.2027 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2027-01-12",
+      "start_time": "13:00",
+      "registration_deadline": "2027-01-04",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekolykoordinaattori__koulutusohjelma_0943",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-01-12",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, erikoistuminen, startti, orientoituminen",
+          "source_line": "Ti 12.1.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-01-14",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 14.1.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-01-19",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kultainen lanka",
+          "source_line": "Ti 19.1.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-01-21",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyys vaihtoehdot, workshop",
+          "source_line": "To 21.1.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-01-28",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | määrittelyworkshop",
+          "source_line": "To 28.1.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-02-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | määrittelyworkshop",
+          "source_line": "To 11.2.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-02-16",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 16.2.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-02-23",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 23.2.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Coordinator",
+      "title": "9.2.2027 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2027-02-09",
+      "start_time": "13:00",
+      "registration_deadline": "2027-02-01",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekoalykoordinaattori__koulutusohjelma_8318",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-02-09",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 9.2.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-02-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 11.2.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-02-18",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 18.2.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-03-02",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 2.3.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-03-04",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 4.3.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-03-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 11.3.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-03-16",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 16.3.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-03-23",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 23.3.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Coordinator",
+      "title": "9.3.2027 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2027-03-09",
+      "start_time": "13:00",
+      "registration_deadline": "2027-03-01",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekoalykoordinaattori__koulutusohjelma_6613",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-03-09",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 9.3.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-03-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 11.3.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-03-18",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 18.3.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-03-30",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 30.3.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-04-01",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 1.4.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-04-08",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 8.4.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-04-09",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Pe 9.4.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-04-20",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 20.4.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Coordinator",
+      "title": "13.4.2027 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2027-04-13",
+      "start_time": "13:00",
+      "registration_deadline": "2027-04-05",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekoalykoordinaattori__koulutusohjelma_7452",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-04-13",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 13.4.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-04-15",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 15.4.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-04-22",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 22.4.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-04-27",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 27.4.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-05-04",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "Ti 4.5.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-05-13",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 13.5.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-05-18",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 18.5.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-05-26",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ke 26.5.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Coordinator",
+      "title": "11.5.2027 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2027-05-11",
+      "start_time": "13:00",
+      "registration_deadline": "2027-05-03",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekoalykoordinaattori__koulutusohjelma_1312",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-05-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 11.5.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-05-13",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 13.5.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-05-20",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 20.5.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-05-25",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 25.5.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-05-27",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 27.5.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-06-03",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 3.6.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-06-08",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 8.6.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-06-10",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "To 10.6.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Coordinator",
+      "title": "17.8.2027 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2027-08-17",
+      "start_time": "13:00",
+      "registration_deadline": "2027-08-09",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekoalykoordinaattori__koulutusohjelma_9041",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-08-17",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 17.8.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-08-19",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 19.8.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-08-26",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 26.8.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-08-31",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 31.8.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-09-02",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 2.9.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-09-09",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 9.9.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-09-14",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 14.9.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-09-21",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 21.9.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Coordinator",
+      "title": "14.9.2027 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2027-09-14",
+      "start_time": "13:00",
+      "registration_deadline": "2027-09-06",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekoalykoordinaattori__koulutusohjelma_8936",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-09-14",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 14.9.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-09-22",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "Ke 22.9.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-09-23",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 23.9.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-09-28",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 28.9.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-09-30",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 30.9.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-10-07",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 7.10.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-10-08",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Pe 8.10.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-10-26",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 26.10.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Coordinator",
+      "title": "12.10.2027 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2027-10-12",
+      "start_time": "13:00",
+      "registration_deadline": "2027-10-04",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekoalykoordinaattori__koulutusohjelma_3069",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-10-12",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 12.10.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-10-14",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 14.10.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-10-28",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 28.10.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-11-02",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 2.11.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-11-04",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 4.11.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-11-10",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "Ke 10.11.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-11-16",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 16.11.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-11-24",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ke 24.11.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Coordinator",
+      "title": "9.11.2027 AI-coordinator | Tekoälykoordinaattori -koulutusohjelma",
+      "start_date": "2027-11-09",
+      "start_time": "13:00",
+      "registration_deadline": "2027-11-01",
+      "original_link": "https://www.lyyti.in/AIcoordinator__Tekoalykoordinaattori__koulutusohjelma_2591",
+      "source": "Liitetty markdown(6).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-11-09",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 9.11.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-11-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 11.11.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-11-18",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 18.11.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-11-23",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 23.11.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-11-25",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 25.11.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-12-02",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 2.12.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-12-07",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 7.12.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-12-16",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "To 16.12.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        }
+      ],
+      "individual_sparring": null,
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Manager",
+      "title": "13.10.2026 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2026-10-13",
+      "start_time": "13:00",
+      "registration_deadline": "2026-10-05",
+      "original_link": "https://www.lyyti.in/AImanager__Tekolypllikk__koulutusohjelma_2809",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2026-10-13",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, erikoistuminen, startti, orientoituminen",
+          "source_line": "Ti 13.10.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-10-14",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "Ke 14.10.2026 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2026-10-20",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kultainen lanka",
+          "source_line": "Ti 20.10.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-10-22",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyys vaihtoehdot, workshop",
+          "source_line": "To 22.10.2026 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2026-10-29",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | määrittelyworkshop",
+          "source_line": "To 29.10.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-11-12",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | määrittelyworkshop",
+          "source_line": "To 12.11.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-11-17",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 17.11.2026 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2026-11-24",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 24.11.2026 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "alkanut"
+    },
+    {
+      "program": "AI Manager",
+      "title": "10.11.2026 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2026-11-10",
+      "start_time": "13:00",
+      "registration_deadline": "2026-11-02",
+      "original_link": "https://www.lyyti.in/AImanager__Tekolypllikk__koulutusohjelma_8877",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2026-11-10",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, erikoistuminen, startti, orientoituminen",
+          "source_line": "Ti 10.11.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-11-12",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 12.11.2026 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2026-11-17",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kultainen lanka",
+          "source_line": "Ti 17.11.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-11-19",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyys vaihtoehdot, workshop",
+          "source_line": "To 19.11.2026 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2026-11-26",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | määrittelyworkshop",
+          "source_line": "To 26.11.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-12-10",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | määrittelyworkshop",
+          "source_line": "To 10.12.2026 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2026-12-15",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 15.12.2026 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2026-12-22",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 22.12.2026 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Manager",
+      "title": "12.1.2027 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2027-01-12",
+      "start_time": "13:00",
+      "registration_deadline": "2027-01-04",
+      "original_link": "https://www.lyyti.in/AImanager__Tekolypllikk__koulutusohjelma_6252",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-01-12",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, erikoistuminen, startti, orientoituminen",
+          "source_line": "Ti 12.1.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-01-14",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 14.1.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-01-19",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kultainen lanka",
+          "source_line": "Ti 19.1.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-01-21",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyys vaihtoehdot, workshop",
+          "source_line": "To 21.1.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-01-28",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | määrittelyworkshop",
+          "source_line": "To 28.1.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-02-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | määrittelyworkshop",
+          "source_line": "To 11.2.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-02-16",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 16.2.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-02-23",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 23.2.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Manager",
+      "title": "9.2.2027 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2027-02-09",
+      "start_time": "13:00",
+      "registration_deadline": "2027-02-01",
+      "original_link": "https://www.lyyti.in/AImanager__Tekoalypaallikko__koulutusohjelma_8609",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-02-09",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 9.2.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-02-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 11.2.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-02-18",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 18.2.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-03-02",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 2.3.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-03-04",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 4.3.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-03-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 11.3.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-03-16",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 16.3.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-03-23",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 23.3.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Manager",
+      "title": "9.3.2027 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2027-03-09",
+      "start_time": "13:00",
+      "registration_deadline": "2027-03-01",
+      "original_link": "https://www.lyyti.in/AImanager__Tekoalypaallikko__koulutusohjelma_9535",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-03-09",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 9.3.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-03-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 11.3.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-03-18",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 18.3.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-03-30",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 30.3.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-04-01",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 1.4.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-04-08",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 8.4.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-04-09",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Pe 9.4.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-04-20",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 20.4.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Manager",
+      "title": "13.4.2027 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2027-04-13",
+      "start_time": "13:00",
+      "registration_deadline": "2027-04-05",
+      "original_link": "https://www.lyyti.in/AImanager__Tekoalypaallikko__koulutusohjelma_3640",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-04-13",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 13.4.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-04-15",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 15.4.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-04-22",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 22.4.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-04-27",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 27.4.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-05-04",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "Ti 4.5.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-05-13",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 13.5.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-05-18",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 18.5.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-05-26",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ke 26.5.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Manager",
+      "title": "11.5.2027 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2027-05-11",
+      "start_time": "13:00",
+      "registration_deadline": "2027-05-03",
+      "original_link": "https://www.lyyti.in/AImanager__Tekoalypaallikko__koulutusohjelma_9996",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-05-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 11.5.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-05-13",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 13.5.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-05-20",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 20.5.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-05-25",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 25.5.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-05-27",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 27.5.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-06-03",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 3.6.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-06-08",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 8.6.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-06-10",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "To 10.6.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Manager",
+      "title": "17.8.2027 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2027-08-17",
+      "start_time": "13:00",
+      "registration_deadline": "2027-08-09",
+      "original_link": "https://www.lyyti.in/AImanager__Tekoalypaallikko__koulutusohjelma_5688",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-08-17",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 17.8.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-08-19",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 19.8.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-08-26",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 26.8.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-08-31",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 31.8.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-09-02",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 2.9.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-09-09",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 9.9.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-09-14",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 14.9.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-09-21",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 21.9.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Manager",
+      "title": "14.9.2027 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2027-09-14",
+      "start_time": "13:00",
+      "registration_deadline": "2027-09-06",
+      "original_link": "https://www.lyyti.in/AImanager__Tekoalypaallikko__koulutusohjelma_3676",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-09-14",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 14.9.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-09-22",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "Ke 22.9.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-09-23",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 23.9.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-09-28",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 28.9.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-09-30",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 30.9.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-10-07",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 7.10.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-10-08",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Pe 8.10.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-10-26",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ti 26.10.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Manager",
+      "title": "12.10.2027 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2027-10-12",
+      "start_time": "13:00",
+      "registration_deadline": "2027-10-04",
+      "original_link": "https://www.lyyti.in/AImanager__Tekoalypaallikko__koulutusohjelma_4689",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-10-12",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 12.10.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-10-14",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 14.10.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-10-28",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 28.10.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-11-02",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 2.11.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-11-04",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 4.11.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-11-10",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "Ke 10.11.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-11-16",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 16.11.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-11-24",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "Ke 24.11.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Manager",
+      "title": "9.11.2027 AI-manager | Tekoälypäällikkö -koulutusohjelma",
+      "start_date": "2027-11-09",
+      "start_time": "13:00",
+      "registration_deadline": "2027-11-01",
+      "original_link": "https://www.lyyti.in/AImanager__Tekoalypaallikko__koulutusohjelma_7597",
+      "source": "Liitetty markdown (2).md",
+      "fixed_sessions": [
+        {
+          "date": "2027-11-09",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Koulutusohjelma, suuntautumiset, startti, orientoituminen",
+          "source_line": "Ti 9.11.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-11-11",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 1)",
+          "source_line": "To 11.11.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-11-18",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyn toiminnallisuusajattelu | Tekoälyn kuriviitekehys",
+          "source_line": "To 18.11.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-11-23",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Tekoälysovellukset | Toiminnallisuus- ja käytännöllisyysvaihtoehdot, workshop",
+          "source_line": "Ti 23.11.2027 klo 13-17 | Tekoälykonsultit"
+        },
+        {
+          "date": "2027-11-25",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyapurit | Kevytagentit | Työnkulut, määrittelyworkshop",
+          "source_line": "To 25.11.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-12-02",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykeskus",
+          "topic": "Tekoälyagentit | Cowork | Automaatiot, määrittelyworkshop",
+          "source_line": "To 2.12.2027 klo 13-17 | Tekoälykeskus"
+        },
+        {
+          "date": "2027-12-07",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Berggren",
+          "topic": "Eettisten ja vastuullisten AI-käytäntöjen varmistaminen (osa 2)",
+          "source_line": "Ti 7.12.2027 klo 13-17 | Berggren"
+        },
+        {
+          "date": "2027-12-16",
+          "start_time": "13:00",
+          "end_time": "17:00",
+          "trainer_or_provider": "Tekoälykonsultit",
+          "topic": "Uusi osaaminen, uudet toimintatavat jalkauttaminen | määrittelyworkshop",
+          "source_line": "To 16.12.2027 klo 13-17 | Tekoälykonsultit"
+        }
+      ],
+      "flexible_blocks": [
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly työtehtävissä ja organisaation projekteissa, workshop"
+        },
+        {
+          "quantity": 3,
+          "type": "workshop",
+          "time_status": "sovitaan erikseen valmentajan kanssa",
+          "provider": "Tekoälykeskus & Tekoälykonsultit",
+          "topic": "Tekoäly kehittämisessä ja johtamisessa, workshop"
+        }
+      ],
+      "individual_sparring": "tarpeen mukaan",
+      "source_status": "source-listed historical or future cohort; not independently verified for availability",
+      "start_status_on_2026_10_27": "tuleva_aikataulutieto"
+    },
+    {
+      "program": "AI Director",
+      "title": "AI-Director | CEO-johtoryhmätason valmennusohjelma",
+      "start_date": "2026-09-07",
+      "start_time": "16:00",
+      "registration_deadline": "2026-08-31",
+      "original_link": "https://www.lyyti.in/AIDirector__CEOjohtoryhmtason_valmennusohjelma_5970",
+      "source": "27.10.2026 user message (Director group list)",
+      "fixed_sessions": [
+        {
+          "date": "2026-09-07",
+          "start_time": "16:00",
+          "end_time": "18:00",
+          "trainer_or_provider": null,
+          "topic": "Startti: teollinen vallankoumous potenssiin x = tekoäly tänään ja huomenna",
+          "module_number": 1
+        },
+        {
+          "date": "2026-09-10",
+          "start_time": "16:00",
+          "end_time": "19:00",
+          "trainer_or_provider": null,
+          "topic": "Johtajan oma tekoälyajattelu, työkalut, toiminnallisuusmallit, vastuullisuus, eettisyys ja selustan suojaaminen",
+          "module_number": 2
+        },
+        {
+          "date": "2026-09-22",
+          "start_time": "16:00",
+          "end_time": "18:00",
+          "trainer_or_provider": null,
+          "topic": "Innovointi, strategiatyö, johtamistyö, suunnittelutyö omilla tekoälytyökaluilla",
+          "module_number": 3
+        },
+        {
+          "date": "2026-09-28",
+          "start_time": "16:00",
+          "end_time": "18:00",
+          "trainer_or_provider": null,
+          "topic": "Johtajan työajan käyttö, uusi normaali + ryhmäsparrausta",
+          "module_number": 4
+        },
+        {
+          "date": "2026-10-08",
+          "start_time": "16:00",
+          "end_time": "18:00",
+          "trainer_or_provider": null,
+          "topic": "Vaikeat kysymykset ja asiat tekoälytransformaatiossa organisaatiossa",
+          "module_number": 5
+        },
+        {
+          "date": "2026-10-12",
+          "start_time": "16:00",
+          "end_time": "18:30",
+          "trainer_or_provider": null,
+          "topic": "Johdetaan organisaatio tekoälyaikakauteen part 1",
+          "module_number": 6
+        },
+        {
+          "date": "2026-10-15",
+          "start_time": "16:00",
+          "end_time": "18:30",
+          "trainer_or_provider": null,
+          "topic": "Johdetaan organisaatio tekoälyaikakauteen part 2",
+          "module_number": 7
+        }
+      ],
+      "flexible_blocks": [],
+      "individual_sparring": "henkilökohtaiset sparraustunnit tarpeen mukaan",
+      "source_status": "historical reference, not an upcoming group",
+      "start_status_on_2026_10_27": "alkanut"
+    },
+    {
+      "program": "AI Director",
+      "title": "AI-Director | CEO-johtoryhmätason valmennusohjelma",
+      "start_date": "2026-10-26",
+      "start_time": "8:00",
+      "registration_deadline": "2026-10-19",
+      "original_link": "https://www.lyyti.in/AIDirector__CEOjohtoryhmtason_valmennusohjelma_6745",
+      "source": "27.10.2026 user message (Director group list)",
+      "fixed_sessions": [
+        {
+          "date": "2026-10-26",
+          "start_time": "8:00",
+          "end_time": "10:00",
+          "trainer_or_provider": null,
+          "topic": "Startti: teollinen vallankoumous potenssiin x = tekoäly tänään ja huomenna",
+          "module_number": 1
+        },
+        {
+          "date": "2026-10-29",
+          "start_time": "8:00",
+          "end_time": "11:00",
+          "trainer_or_provider": null,
+          "topic": "Johtajan oma tekoälyajattelu, työkalut, toiminnallisuusmallit, vastuullisuus, eettisyys ja selustan suojaaminen",
+          "module_number": 2
+        },
+        {
+          "date": "2026-11-10",
+          "start_time": "8:00",
+          "end_time": "10:00",
+          "trainer_or_provider": null,
+          "topic": "Innovointi, strategiatyö, johtamistyö, suunnittelutyö omilla tekoälytyökaluilla",
+          "module_number": 3
+        },
+        {
+          "date": "2026-11-16",
+          "start_time": "8:00",
+          "end_time": "10:00",
+          "trainer_or_provider": null,
+          "topic": "Johtajan työajan käyttö, uusi normaali + ryhmäsparrausta",
+          "module_number": 4
+        },
+        {
+          "date": "2026-11-26",
+          "start_time": "8:00",
+          "end_time": "10:00",
+          "trainer_or_provider": null,
+          "topic": "Vaikeat kysymykset ja asiat tekoälytransformaatiossa organisaatiossa",
+          "module_number": 5
+        },
+        {
+          "date": "2026-11-30",
+          "start_time": "8:00",
+          "end_time": "10:30",
+          "trainer_or_provider": null,
+          "topic": "Johdetaan organisaatio tekoälyaikakauteen part 1",
+          "module_number": 6
+        },
+        {
+          "date": "2026-12-03",
+          "start_time": "8:00",
+          "end_time": "10:30",
+          "trainer_or_provider": null,
+          "topic": "Johdetaan organisaatio tekoälyaikakauteen part 2",
+          "module_number": 7
+        }
+      ],
+      "flexible_blocks": [],
+      "individual_sparring": "henkilökohtaiset sparraustunnit tarpeen mukaan",
+      "source_status": "historical reference, not an upcoming group",
+      "start_status_on_2026_10_27": "alkanut"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cancellationShare, priceVersionFor, registrationOpen, slugify, type PriceVersion } from './catalog';
+import { canRegisterOnline, cancellationShare, priceVersionFor, registrationErrors, registrationOpen, slugify, type PriceVersion } from './catalog';
 
 const v = (n: number, price: number, locked = true): PriceVersion => ({ id: `v${n}`, product_id: 'p', version_no: n, unit_price: price, locked_at: locked ? '2026-01-01' : null });
 
@@ -27,5 +27,22 @@ describe('catalog rules', () => {
   });
   it('builds URL ids from Finnish names', () => {
     expect(slugify('Ilmastointi pätevyys – Mäntsälä')).toBe('ilmastointi-patevyys-mantsala');
+  });
+});
+
+describe('verkkoilmoittautuminen', () => {
+  const o = { reg_opens_at: '2026-01-01T00:00:00Z', reg_closes_at: '2026-12-31T00:00:00Z', free_seats: 3, waitlist_enabled: false };
+  const now = Date.parse('2026-06-01T00:00:00Z');
+  it('lomake näkyy vain, kun henkilökunta on avannut ilmoittautumisen', () => {
+    expect(canRegisterOnline({ ...o, registration_enabled: false }, now)).toBe(false);
+    expect(canRegisterOnline({ ...o, registration_enabled: true }, now)).toBe(true);
+  });
+  it('täysi ryhmä ilman jonoa ei ota ilmoittautumisia', () => expect(canRegisterOnline({ ...o, registration_enabled: true, free_seats: 0 }, now)).toBe(false));
+  it('täyteen ryhmään voi jonottaa, jos jono on käytössä', () => expect(canRegisterOnline({ ...o, registration_enabled: true, free_seats: 0, waitlist_enabled: true }, now)).toBe(true));
+  it('ilmoittautumisajan päätyttyä lomake sulkeutuu', () => expect(canRegisterOnline({ ...o, registration_enabled: true }, Date.parse('2027-01-02T00:00:00Z'))).toBe(false));
+  it('ehtojen hyväksyntä on pakollinen', () => {
+    const base = { seats: 1, buyer: { contact_name: 'Testi Henkilö', email: 't@example.fi' }, billing: { org_name: 'Testi Oy', contact_name: 'Testi Henkilö', email: 't@example.fi' }, participants: [] };
+    expect(registrationErrors({ ...base, terms: true })).toEqual([]);
+    expect(registrationErrors({ ...base, terms: false })).toContain('Hyväksy ehdot ja tietosuojaseloste');
   });
 });

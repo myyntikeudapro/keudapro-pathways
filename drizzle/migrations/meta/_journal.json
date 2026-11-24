@@ -176,6 +176,13 @@
       "when": 1795526338210,
       "tag": "0024_course_registrations",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1795526437670,
+      "tag": "0025_group_deliveries",
+      "breakpoints": true
     }
   ]
 }
