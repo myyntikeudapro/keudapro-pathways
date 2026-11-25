@@ -31,3 +31,9 @@ INSERT INTO crm_contacts (id,organization_id,name,email,phone) VALUES
 ('13000000-0000-4000-8000-000000000001','12000000-0000-4000-8000-000000000001','Tiina Tilaaja','tiina.tilaaja@example.com','+358 40 000 0000');
 INSERT INTO booking_requests (id,name,email,phone,organization,meeting_format,message,source,status,service_key,owner_id,organization_id,contact_id) VALUES
 ('14000000-0000-4000-8000-000000000001','Tiina Tilaaja','tiina.tilaaja@example.com','+358 40 000 0000','TESTI Oy – yrityskohtainen koulutus','Teams-palaveri','TESTI: yrityskohtainen koulutus läpivientitestiin.','testi','uusi','osaaminen','10000000-0000-4000-8000-000000000001','12000000-0000-4000-8000-000000000001','13000000-0000-4000-8000-000000000001');
+INSERT INTO crm_organizations (id,name,owner_id) VALUES
+('12000000-0000-4000-8000-000000000002','TESTI 2 Oy – yrityskohtainen koulutus','10000000-0000-4000-8000-000000000001');
+INSERT INTO crm_contacts (id,organization_id,name,email,phone) VALUES
+('13000000-0000-4000-8000-000000000002','12000000-0000-4000-8000-000000000002','Tero Tilaaja','tero.tilaaja@example.com','+358 40 000 0001');
+INSERT INTO booking_requests (id,name,email,phone,organization,meeting_format,message,source,status,service_key,owner_id,organization_id,contact_id) VALUES
+('14000000-0000-4000-8000-000000000002','Tero Tilaaja','tero.tilaaja@example.com','+358 40 000 0001','TESTI 2 Oy – yrityskohtainen koulutus','Teams-palaveri','TESTI 2: puhdas yrityskoulutuksen läpivientitesti.','testi','uusi','osaaminen','10000000-0000-4000-8000-000000000001','12000000-0000-4000-8000-000000000002','13000000-0000-4000-8000-000000000002');
