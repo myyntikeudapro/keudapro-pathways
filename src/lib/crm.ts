@@ -47,3 +47,15 @@ export async function readAll<T>(page: (from: number, to: number) => PromiseLike
     if (!data || data.length < 500) return rows;
   }
 }
+export const PIPELINE_COLUMNS = [
+  { key: 'uusi', label: 'Uusi', statuses: ['uusi'] },
+  { key: 'yhteydessä', label: 'Yhteydessä', statuses: ['yhteydessä'] },
+  { key: 'kartoitus tehty', label: 'Kartoitus / tarjous', statuses: ['kartoitus tehty'] },
+  { key: 'suljettu', label: 'Suljettu', statuses: ['koulutukseen', 'ei jatkoon'] },
+] as const;
+export function pipelineColumns(leads: Lead[]) {
+  return PIPELINE_COLUMNS.map(c => {
+    const items = leads.filter(l => (c.statuses as readonly string[]).includes(l.status));
+    return { ...c, items, count: items.length, total: items.reduce((s, l) => s + Number(l.deal_value ?? 0), 0) };
+  });
+}
