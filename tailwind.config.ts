@@ -40,6 +40,8 @@ export default {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
+        'flow-ok': 'hsl(var(--flow-ok))',
+        'flow-warn': 'hsl(var(--flow-warn))',
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",

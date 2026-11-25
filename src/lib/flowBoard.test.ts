@@ -1,0 +1,32 @@
+import { describe, it, expect } from 'vitest';
+import { flowBoard, type FlowInput } from './flowBoard';
+const now = Date.parse('2026-11-25T12:00:00Z');
+const ago = (d: number) => new Date(now - d * 86_400_000).toISOString();
+const base: FlowInput = { offers: [], orders: [], handoffs: [], deliveries: [], sessions: [], actuals: [], tasks: [], blockers: [], billing: [] };
+const st = (i: Partial<FlowInput>, k: string) => flowBoard({ ...base, ...i }, now).find(s => s.key === k)!;
+describe('flowBoard', () => {
+  it('empty stream is green', () => { expect(flowBoard(base, now).every(s => s.light === 'green')).toBe(true); });
+  it('open offer turns yellow at 7 and red at 14 days', () => {
+    const o = (d: number) => ({ id: 'o', lead_id: 'l', title: 'T', status: 'sent', created_at: ago(d) });
+    expect(st({ offers: [o(6)] }, 'offer').light).toBe('green');
+    expect(st({ offers: [o(7)] }, 'offer').light).toBe('yellow');
+    expect(st({ offers: [o(14)] }, 'offer').light).toBe('red');
+    expect(st({ offers: [{ ...o(30), status: 'accepted' }] }, 'offer').items).toHaveLength(0);
+  });
+  it('handed-over order is not waiting; unaccepted handoff turns red after 3 days', () => {
+    const orders = [{ id: 'x', lead_id: 'l', confirmed_at: ago(10), created_at: ago(10), name: 'A' }];
+    const handoffs = [{ order_id: 'x', handed_at: ago(3), cancelled_at: null, company_state: 'submitted', mt_state: null }];
+    expect(st({ orders, handoffs }, 'order').items).toHaveLength(0);
+    expect(st({ orders, handoffs }, 'handoff').light).toBe('red');
+  });
+  it('open critical task is red 3 days before start', () => {
+    const i = { deliveries: [{ id: 'd', order_id: 'x', title: 'D' }], sessions: [{ id: 's', delivery_id: 'd', starts_at: ago(-2), ends_at: ago(-2) }], tasks: [{ delivery_id: 'd', blocks_start: true, completed_at: null }] };
+    expect(st(i, 'start').light).toBe('red');
+  });
+  it('unrecorded session red after 7 days, billing red 7 days after last session', () => {
+    const deliveries = [{ id: 'd', order_id: 'x', title: 'D' }]; const sessions = [{ id: 's', delivery_id: 'd', starts_at: ago(8), ends_at: ago(7) }];
+    expect(st({ deliveries, sessions }, 'held').light).toBe('red');
+    expect(st({ deliveries, sessions, actuals: [{ session_id: 's' }] }, 'billing').light).toBe('red');
+    expect(st({ deliveries, sessions, actuals: [{ session_id: 's' }], billing: [{ delivery_id: 'd', billing_ready: true }] }, 'billing').items).toHaveLength(0);
+  });
+});
