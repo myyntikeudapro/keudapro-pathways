@@ -19,10 +19,10 @@ export function salesFlow(i: { hasOffer: boolean; hasOrder: boolean; programmeSa
     offer: { who: 'Myyjä', text: 'Tallenna tarjous asiakaskortilla ja vaihda sen tila Hyväksytyksi.' },
     order: { who: 'Myyjä', text: 'Paina Vahvista tilaus asiakaskortin yrityskoulutusosiossa.' },
     programme: { who: 'Myyjä', text: i.programmeSaved ? 'Kirjoita tarkistusmerkintä ja paina Hyväksy ohjelma.' : 'Täytä ohjelma, ajat ja vastuuhenkilöt ja paina Tallenna ohjelmaluonnos.' },
-    capacity: { who: 'Kouluttaja tai tuotanto', text: 'Kouluttaja tai tuotannon vastuuhenkilö (kouluttajan puolesta) avaa Tuotannon, asettaa osallistujamäärän ja painaa Tallenna ja hyväksy.' },
+    capacity: { who: 'Kouluttaja tai tuotanto', text: 'Kouluttaja (Tuotanto → Yrityskoulutuksen kapasiteetti) tai tuotantovastaava kouluttajan puolesta (Tuotanto → Yrityskoulutukset: valitse asiakas, tai asiakaskortti) asettaa osallistujamäärän ja painaa Tallenna ja hyväksy.' },
     attach: { who: 'Myyjä', text: 'Valitse vahvistettu tilaus ja toteutuspohja ja paina Kytke tilaus.' },
     handoff: { who: 'Myyjä', text: i.handoff === 'returned' ? 'Tuotanto palautti täydennettäväksi: korjaa syyn mukaan ja paina Luovuta tuotantoon.' : 'Paina Luovuta tuotantoon.' },
-    accepted: { who: 'Tuotanto', text: 'Tuotantovastaava avaa Tuotanto-näkymän ja vastaanottaa luovutuksen.' },
+    accepted: { who: 'Tuotanto', text: 'Tuotantovastaava avaa Tuotannon ja painaa Vastaanota kohdassa Yrityskoulutukset: luovutukset ja kapasiteetti.' },
   };
   const current = steps.findIndex(s => !s.done);
   return { steps, current, next: current === -1 ? null : NEXT[steps[current].key] };
