@@ -2,6 +2,7 @@
 - Admin users are created via the admin-only `admin-users` edge function — never by writing to auth tables directly (that broke logins before).
 - CRM ownership uses protected role-validated user IDs; editors read only the team directory while account creation remains admin-only.
 - The is_editor_or_admin lookup accepts only the caller's own user ID or a service-role request, preventing cross-user staff-role disclosure while preserving self-scoped policies.
+- Triggers and server functions that must validate another person's role use the internal staff_has_editor_role / staff_user_has_role helpers (not callable by clients); is_editor_or_admin and has_role stay caller-scoped, so using them on other user IDs silently fails.
 - CRM tasks, campaign mappings and lead audit history are persisted separately from consent-gated marketing events; lead service attribution is explicit so rejected tracking consent never hides a customer from sales.
 - Reporting paginates database and advertising reads; funnels require ordered same-service events, paid attribution requires paid media, and sales use closing dates and explicit values rather than inferred clicks.
 - Sales operations keep interactions and offers separate from leads; duplicate emails reveal related history without destructive merging, and accepted offers never silently book revenue.

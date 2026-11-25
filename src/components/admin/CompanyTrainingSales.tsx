@@ -29,7 +29,7 @@ function Pick({ label, value, onChange, options }: { label: string; value: strin
       <option value="">Valitse</option>{options.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select>{/kouluttaja|vastaava/i.test(label) && value && <div className="mt-2"><WorkspacePerson person={{ id: value }} name={options.find(([v]) => v === value)?.[1]} size="xs" /></div>}</div>;
 }
 
-export function CompanyTrainingSales({ leadId }: { leadId?: string }) {
+export function CompanyTrainingSales({ leadId, refreshKey = '' }: { leadId?: string; refreshKey?: string }) {
   const [selected, setSelected] = useState(leadId ?? '');
   const team = useQuery({ queryKey: ['mt_team'], queryFn: async () => { const { data, error } = await supabase.functions.invoke('admin-users', { body: { action: 'team' } }); if (error) throw error; return data.users as Team; } });
   const cases = useQuery({ enabled: !leadId, queryKey: ['company_cases'], queryFn: async () => readAll((f, t) => db.from('booking_requests').select('id,name,organization').eq('mt_personal', false).not('organization', 'is', null).order('organization').order('id').range(f, t)) as Promise<any[]> });
@@ -40,13 +40,13 @@ export function CompanyTrainingSales({ leadId }: { leadId?: string }) {
     {!leadId && cases.isError && <p role="alert" className="text-sm text-destructive">Yritysasiakkaita ei voitu hakea.</p>}
     {!leadId && cases.isSuccess && cases.data.length === 0 && <p className="text-sm text-muted-foreground">Ei yritysasiakkaita.</p>}
     {team.isError && <p role="alert" className="text-sm text-destructive">Tiimihakemistoa ei saatu. Vain jo tallennetut vastuuhenkilöt voidaan säilyttää.</p>}
-    {selected && <CaseProgramme key={selected} leadId={selected} team={team.data ?? []} />}
+    {selected && <CaseProgramme key={selected} leadId={selected} team={team.data ?? []} refreshKey={refreshKey} />}
   </section>;
 }
 
-function CaseProgramme({ leadId, team }: { leadId: string; team: Team }) {
+function CaseProgramme({ leadId, team, refreshKey }: { leadId: string; team: Team; refreshKey: string }) {
   const qc = useQueryClient();
-  const key = ['company_case', leadId];
+  const key = ['company_case', leadId, refreshKey];
   const q = useQuery({ queryKey: key, queryFn: async () => {
     const lead = await db.from('booking_requests').select('id,name,email,organization,owner_id,mt_personal,company_programme_id,service_key').eq('id', leadId).maybeSingle();
     if (lead.error) throw lead.error;
@@ -109,7 +109,7 @@ function ProgrammeForm({ lead, snapshot, team, orders, handoffs, deliveries, tem
   const [promises, setPromises] = useState(s?.promises ?? '');
   const [start, setStart] = useState(local(s?.programme?.startsAt)); const [end, setEnd] = useState(local(s?.programme?.endsAt));
   const [receiver, setReceiver] = useState(s?.production_owner_id ?? ''); const [trainer, setTrainer] = useState(s?.responsible_trainer_id ?? '');
-  const [note, setNote] = useState(''); const [order, setOrder] = useState(orders[0]?.id ?? ''); const [template, setTemplate] = useState(templates[0]?.key ?? '');
+  const [note, setNote] = useState(''); const [order, setOrder] = useState(orders[0]?.id ?? ''); const [template, setTemplate] = useState(templates.some((t: any) => t.key === 'yrityskoulutus_tilaus') ? 'yrityskoulutus_tilaus' : '');
   const known = new Set((team as Team).map(t => t.id));
   const options: [string, string][] = [...(team as Team).map(t => [t.id, t.email] as [string, string]),
     ...[s?.production_owner_id, s?.responsible_trainer_id].filter((id, i, a): id is string => !!id && !known.has(id) && a.indexOf(id) === i).map(id => [id, `Tallennettu vastuuhenkilö ${id.slice(0, 8)}`] as [string, string])];

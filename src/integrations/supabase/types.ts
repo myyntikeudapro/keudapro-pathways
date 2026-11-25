@@ -3424,6 +3424,15 @@ export type Database = {
           read_ct: number
         }[]
       }
+      staff_has_editor_role: { Args: { _user_id: string }; Returns: boolean }
+      staff_member_is_staff: { Args: { _user_id: string }; Returns: boolean }
+      staff_user_has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role: "admin" | "editor" | "trainer"

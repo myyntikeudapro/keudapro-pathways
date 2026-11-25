@@ -45,12 +45,14 @@ export function CompanyTrainerCapacity() {
 export function CompanyCapacityPanel({ programmeId, onChanged }: { programmeId: string; onChanged: () => Promise<unknown> }) {
   const qc = useQueryClient();
   const q = useQuery({ queryKey: ['company_capacity', programmeId], retry: false, queryFn: () => workflow.read(programmeId) });
+  const me = useQuery({ queryKey: ['me_id'], queryFn: async () => (await supabase.auth.getUser()).data.user?.id ?? null });
   return <section className="space-y-2 rounded border p-3">
     <h3 className="text-base font-semibold text-keuda-blue">Kapasiteetti</h3>
     <p className="text-xs text-muted-foreground">Vastuukouluttaja tai tuotantovastaava voi tallentaa ja hyväksyä. Tekoäly- ja yleiskoulutuksissa rastit ja koneet eivät ole pakollisia: aseta osallistujamäärä, tallenna ja hyväksy.</p>
     {q.isPending && <p role="status" className="text-sm">Ladataan kapasiteettia…</p>}
     {q.isError && <p role="alert" className="text-sm text-destructive">{companyErrorText(q.error)}</p>}
-    {q.data && <CapacityForm key={q.data.id} snap={q.data} onSaved={async () => { qc.removeQueries({ queryKey: ['company_capacity'] }); await onChanged(); }} reload={async () => { await qc.refetchQueries({ queryKey: ['company_capacity', programmeId] }); await onChanged(); }} />}
+    {q.data && me.data && me.data !== (q.data as any).responsible_trainer_id && <p className="rounded-md border border-dashed bg-muted/40 p-2 text-sm">{me.data === (q.data as any).production_owner_id ? 'Vastuukouluttaja tallentaa kapasiteetin omalla tunnuksellaan (Tuotanto → Yrityskoulutuksen kapasiteetti). Kun se on tallennettu, voit hyväksyä sen tästä.' : 'Vastuukouluttaja tallentaa kapasiteetin ja hän tai tuotantovastaava hyväksyy sen omalla tunnuksellaan. Sinun ei tarvitse tehdä tässä mitään.'}</p>}
+    {q.data && me.data && (me.data === (q.data as any).responsible_trainer_id || me.data === (q.data as any).production_owner_id) && <CapacityForm canSave={me.data === (q.data as any).responsible_trainer_id} key={q.data.id} snap={q.data} onSaved={async () => { qc.removeQueries({ queryKey: ['company_capacity'] }); await onChanged(); }} reload={async () => { await qc.refetchQueries({ queryKey: ['company_capacity', programmeId] }); await onChanged(); }} />}
   </section>;
 }
 
@@ -62,7 +64,7 @@ function TrainerProgramme({ id, onRevision }: { id: string; onRevision: (id: str
   return <CapacityForm key={q.data.id} snap={q.data} onSaved={async next => { qc.removeQueries({ queryKey: ['company_trainer'] }); await qc.invalidateQueries({ queryKey: ['company_trainer_list'] }); onRevision(next); }} reload={() => Promise.all([qc.refetchQueries({ queryKey: ['company_trainer', id] }), qc.refetchQueries({ queryKey: ['company_trainer_list'] })])} />;
 }
 
-function CapacityForm({ snap, onSaved, reload }: { snap: CompanySnapshot & { resources?: any[] }; onSaved: (id: string) => Promise<void>; reload: () => Promise<unknown> }) {
+function CapacityForm({ snap, onSaved, reload, canSave = true }: { snap: CompanySnapshot & { resources?: any[] }; onSaved: (id: string) => Promise<void>; reload: () => Promise<unknown>; canSave?: boolean }) {
   const cap = (snap.capacity ?? {}) as any;
   const trainerId: string = cap.responsibleTrainerId ?? '';
   const machines: string[] = (Array.isArray((snap as any).resources) ? (snap as any).resources : Array.isArray((snap as any).resource_plan) ? (snap as any).resource_plan : []).map((r: any) => String(r.resourceId)).filter(Boolean);
@@ -109,7 +111,7 @@ function CapacityForm({ snap, onSaved, reload }: { snap: CompanySnapshot & { res
     </div>
     <div><h3 className="text-sm font-semibold">Palvelimen tarkistus tallennetulle versiolle</h3><Missing items={capacityMissing} /></div>
     <div className="flex flex-wrap gap-2">
-      <Button disabled={busy || !trainerId} onClick={() => run(async () => { const next = await workflow.saveCapacity(snap.id, buildCapacity({ participants, trainerId, stations, slots }) as any); await onSaved(next.id); }, 'Kapasiteetti tallennettu uutena revisiona ja luettu takaisin')}><Save className="mr-2 h-4 w-4" />Tallenna kapasiteetti</Button>
+      {canSave && <Button disabled={busy || !trainerId} onClick={() => run(async () => { const next = await workflow.saveCapacity(snap.id, buildCapacity({ participants, trainerId, stations, slots }) as any); await onSaved(next.id); }, 'Kapasiteetti tallennettu uutena revisiona ja luettu takaisin')}><Save className="mr-2 h-4 w-4" />Tallenna kapasiteetti</Button>}
       <Button variant="outline" disabled={busy} onClick={() => run(async () => { await workflow.approveCapacity(snap.id); await reload(); }, 'Kapasiteetti hyväksytty ja luettu takaisin')}><Check className="mr-2 h-4 w-4" />Hyväksy kapasiteetti</Button>
     </div>
     <Status error={error} result={result} />

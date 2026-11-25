@@ -23,7 +23,7 @@ export default function AdminDashboardPage() {
   const query = useOperationsData(!!user && isEditor && !loading && !roleLoading, user?.id ?? '');
   if (loading || roleLoading) return <div className="flex min-h-screen items-center justify-center"><Loader2 className="h-6 w-6 animate-spin" aria-label="Tarkistetaan käyttöoikeutta"/></div>;
   if (!user) return <Navigate to="/admin/login" replace/>;
-  if (!isEditor) return <main className="mx-auto max-w-lg p-6"><h1 className="text-xl font-semibold">Ei käyttöoikeutta</h1><p className="my-4">Pyydä pääkäyttäjää lisäämään työtilan käyttöoikeus.</p><Button onClick={signOut}>Kirjaudu ulos</Button></main>;
+  if (!isEditor) return <Navigate to="/admin/tuotanto" replace/>;
   const filter = { service, mine: scope === 'mine', userId: user.id, since: periodStart(Number(days), new Date(until)), until };
   const rows = (key: string) => queueRows(query.data, key, filter);
   const revenue = rows('revenue').reduce((sum, r) => sum + Number(r.amount ?? 0), 0);
