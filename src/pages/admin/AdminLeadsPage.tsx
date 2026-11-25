@@ -114,6 +114,7 @@ export default function AdminLeadsPage() {
                     {r.organization && <span>{r.organization}</span>}
                   </div>
                   <p className="whitespace-pre-wrap">{r.message}</p>
+                  <Button asChild size="sm" className="mt-1"><Link to={`/admin/markkinointi?tab=leads&asiakas=${r.id}`}>Avaa asiakaskortti</Link></Button>
                 </CardContent>
               </Card>
             ))}
