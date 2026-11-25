@@ -110,8 +110,10 @@ function CapacityForm({ snap, onSaved, reload, canSave = true }: { snap: Company
       <Button size="sm" variant="outline" onClick={() => setSlots([...slots, { stationId: stations[0]?.id ?? '', participantId: 'p1', machineId: s0Machine(stations[0]?.machineIds), startsAt: local(snap.programme?.startsAt), endsAt: local(snap.programme?.endsAt) }])}><Plus className="mr-1 h-4 w-4" />Lisää vuoro</Button>
     </div>
     <div><h3 className="text-sm font-semibold">Palvelimen tarkistus tallennetulle versiolle</h3><Missing items={capacityMissing} /></div>
+    {canSave && <p className="text-xs text-muted-foreground">Helpoin tapa: aseta osallistujamäärä ja paina <strong>Tallenna ja hyväksy</strong>. Hyväksyntä koskee aina viimeksi tallennettua versiota.</p>}
     <div className="flex flex-wrap gap-2">
       {canSave && <Button disabled={busy || !trainerId} onClick={() => run(async () => { const next = await workflow.saveCapacity(snap.id, buildCapacity({ participants, trainerId, stations, slots }) as any); await onSaved(next.id); }, 'Kapasiteetti tallennettu uutena revisiona ja luettu takaisin')}><Save className="mr-2 h-4 w-4" />Tallenna kapasiteetti</Button>}
+      {canSave && <Button variant="secondary" disabled={busy || !trainerId} onClick={() => run(async () => { const next = await workflow.saveCapacity(snap.id, buildCapacity({ participants, trainerId, stations, slots }) as any); await workflow.approveCapacity(next.id); await onSaved(next.id); }, 'Kapasiteetti tallennettu, hyväksytty ja luettu takaisin')}><Check className="mr-2 h-4 w-4" />Tallenna ja hyväksy</Button>}
       <Button variant="outline" disabled={busy} onClick={() => run(async () => { await workflow.approveCapacity(snap.id); await reload(); }, 'Kapasiteetti hyväksytty ja luettu takaisin')}><Check className="mr-2 h-4 w-4" />Hyväksy kapasiteetti</Button>
     </div>
     <Status error={error} result={result} />
