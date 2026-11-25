@@ -1,3 +1,5 @@
+import { salesFlow } from '@/lib/companyFlow';
+import { FlowStepper } from './FlowStepper';
 import { WorkspacePerson } from "./WorkspacePerson";
 import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -73,7 +75,7 @@ function CaseProgramme({ leadId, team, refreshKey }: { leadId: string; team: Tea
   if (q.isError) return <p role="alert" className="text-sm text-destructive">{companyErrorText(q.error)}</p>;
   const { lead, orders, snapshot, handoffs, deliveries, templates, offers } = q.data;
   if (!lead || lead.mt_personal) return null;
-  return <>{orders.length > 0 && <p className="rounded-md border bg-muted/40 p-2 text-sm">Tilaus on vahvistettu ({new Date(orders[0].created_at).toLocaleDateString('fi-FI')}). Jatka alempana kohdasta Kytke tilaus.</p>}{orders.length === 0 && offers.length === 0 && <p className="rounded-md border border-dashed p-2 text-sm text-muted-foreground">Vahvista tilaus -lomake ilmestyy tähän, kun asiakkaan tarjouksen tila on Hyväksytty.</p>}{orders.length === 0 && offers.length > 0 && <OrderForm lead={lead} offers={offers} busy={busy} run={run} />}<ProgrammeForm key={snapshot?.id ?? 'new'} lead={lead} snapshot={snapshot} team={team} orders={orders} handoffs={handoffs} deliveries={deliveries} templates={templates} busy={busy} run={run} error={error} result={result} /></>;
+  return <>{orders.length > 0 && <p className="rounded-md border bg-muted/40 p-2 text-sm">Tilaus on vahvistettu ({new Date(orders[0].created_at).toLocaleDateString('fi-FI')}). Jatka alempana kohdasta Kytke tilaus.</p>}{orders.length === 0 && offers.length === 0 && <p className="rounded-md border border-dashed p-2 text-sm text-muted-foreground">Vahvista tilaus -lomake ilmestyy tähän, kun asiakkaan tarjouksen tila on Hyväksytty.</p>}{orders.length === 0 && offers.length > 0 && <OrderForm lead={lead} offers={offers} busy={busy} run={run} />}<ProgrammeForm hasOffer={offers.length > 0} key={snapshot?.id ?? 'new'} lead={lead} snapshot={snapshot} team={team} orders={orders} handoffs={handoffs} deliveries={deliveries} templates={templates} busy={busy} run={run} error={error} result={result} /></>;
 }
 
 function OrderForm({ lead, offers, busy, run }: any) {
@@ -103,7 +105,7 @@ function OrderForm({ lead, offers, busy, run }: any) {
   </div>;
 }
 
-function ProgrammeForm({ lead, snapshot, team, orders, handoffs, deliveries, templates, busy, run, error, result }: any) {
+function ProgrammeForm({ hasOffer, lead, snapshot, team, orders, handoffs, deliveries, templates, busy, run, error, result }: any) {
   const s = snapshot as CompanyStaffSnapshot | null;
   const [text, setText] = useState(s?.programme?.text ?? '');
   const [promises, setPromises] = useState(s?.promises ?? '');
@@ -118,7 +120,9 @@ function ProgrammeForm({ lead, snapshot, team, orders, handoffs, deliveries, tem
   const handoff = handoffs.find((h: any) => h.order_id === order);
   const handoffText = handoff?.company_programme_id === s?.id ? ({ submitted: 'Luovutettu, odottaa vastaanottoa', accepted: 'Tuotanto vastaanotti', returned: 'Palautettu täydennettäväksi' } as Record<string, string>)[handoff?.company_state] : undefined;
   const save = () => run(() => workflow.save(nextRevisionInput({ caseId: lead.id, current: s, text, promises, startsAt: start, endsAt: end, receiverId: receiver, trainerId: trainer, trainers: [email(trainer)] })), s ? 'Uusi revisio tallennettu ja luettu takaisin' : 'Ohjelmaluonnos tallennettu ja luettu takaisin');
+  const flow = salesFlow({ hasOffer, hasOrder: orders.length > 0, programmeSaved: !!s, programmeApproved: s?.state === 'approved', missing: s?.readiness.missing ?? [], attached: !!delivery, handoff: handoff?.company_programme_id === s?.id ? handoff?.company_state : null });
   return <div className="space-y-4">
+    <FlowStepper title="Yrityskoulutuksen eteneminen" flow={flow} />
     <div className="flex flex-wrap items-center gap-2 text-sm">
       {s ? <><Badge variant="outline">Revisio {s.revision}</Badge><Badge variant={s.state === 'approved' ? 'default' : 'secondary'}>{s.state === 'approved' ? 'Ohjelma hyväksytty' : 'Luonnos'}</Badge>{s.readiness.ready ? <Badge>Aloitusvalmis</Badge> : <span className="text-muted-foreground">Aloitukselta puuttuu {s.readiness.missing.length}</span>}</> : <span className="text-muted-foreground">Ohjelmaa ei ole vielä tallennettu.</span>}
     </div>

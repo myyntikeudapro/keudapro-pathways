@@ -1,3 +1,5 @@
+import { productionFlow } from '@/lib/companyFlow';
+import { FlowStepper } from '@/components/admin/FlowStepper';
 import { WorkspaceHeader, headerGhost } from '@/components/admin/WorkspaceHeader';
 import { WorkspaceNav } from "@/components/admin/WorkspaceNav";
 import { AttendancePanel } from '@/components/admin/AttendancePanel';
@@ -148,6 +150,7 @@ function DeliveryDetail({ id, data, team, email, back }: { id: string; data: typ
   const staff: [string, string][] = team.filter(m => m.kind !== 'trainer').map(m => [m.id, m.email]);
   return <article className="space-y-5">
     <Button variant="ghost" onClick={back}><ArrowLeft className="mr-2 h-4 w-4" />Kaikki toteutukset</Button>
+    <FlowStepper title="Toteutuksen eteneminen" flow={productionFlow({ sessions: sessions.length, sessionsBooked: sessions.every(x => data.bookings.some(b => b.session_id === x.id && b.status !== 'peruttu')), ready: r.ready, allHeld: sessions.every(x => data.actuals.some(a => a.session_id === x.id)), billingReady: !!billing?.billing_ready })} />
     <div className="flex flex-wrap items-start justify-between gap-3 rounded-xl border bg-card p-4 shadow-card sm:p-5"><div><h2 className="text-2xl font-bold text-keuda-navy-section">{d.title}</h2><p className="mt-1 text-sm text-muted-foreground">Pohja {d.template_key} · luotu {dateTime(d.created_at)} · myynnin vastuu {email(d.sales_owner_id)}</p></div>
       <div className="grid w-full gap-2 sm:w-auto sm:grid-cols-2"><Choice label="Tuotannon tila" value={d.production_status} onChange={v => act.mutate(() => db.from('prod_deliveries').update({ production_status: v }).eq('id', id))} options={STATUS} /><Choice label="Tuotannon vastuuhenkilö" value={d.production_owner_id} onChange={v => act.mutate(() => db.from('prod_deliveries').update({ production_owner_id: v }).eq('id', id))} options={staff.length ? staff : [[d.production_owner_id, email(d.production_owner_id)]]} /></div></div>
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
