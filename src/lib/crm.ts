@@ -53,9 +53,16 @@ export const PIPELINE_COLUMNS = [
   { key: 'kartoitus tehty', label: 'Kartoitus / tarjous', statuses: ['kartoitus tehty'] },
   { key: 'suljettu', label: 'Suljettu', statuses: ['koulutukseen', 'ei jatkoon'] },
 ] as const;
-export function pipelineColumns(leads: Lead[]) {
+export type PipelineOffer = { lead_id: string; status: string };
+/** Open leads with an active or accepted offer belong in the offer column; status itself (and revenue) is never changed. */
+export function pipelineStage(lead: Lead, offers: PipelineOffer[] = []) {
+  if (['koulutukseen', 'ei jatkoon'].includes(lead.status)) return 'suljettu';
+  if (offers.some(o => o.lead_id === lead.id && ['draft', 'sent', 'accepted'].includes(o.status))) return 'kartoitus tehty';
+  return lead.status === 'kartoitus tehty' ? 'kartoitus tehty' : lead.status === 'yhteydessä' ? 'yhteydessä' : 'uusi';
+}
+export function pipelineColumns(leads: Lead[], offers: PipelineOffer[] = []) {
   return PIPELINE_COLUMNS.map(c => {
-    const items = leads.filter(l => (c.statuses as readonly string[]).includes(l.status));
+    const items = leads.filter(l => pipelineStage(l, offers) === c.key);
     return { ...c, items, count: items.length, total: items.reduce((s, l) => s + Number(l.deal_value ?? 0), 0) };
   });
 }
