@@ -12,9 +12,6 @@ import categoryTyoelama from "@/assets/category-tyoelama.jpg";
 import categoryAi from "@/assets/category-ai.jpg";
 import { BackgroundMusic } from "@/components/shared/BackgroundMusic";
 
-import heroAly from "@/assets/hero-aly-1.jpg";
-import heroKasvu from "@/assets/hero-kasvu-1.jpg";
-import heroKumppanit from "@/assets/hero-kumppanit-1.jpg";
 
 import routeAly from "@/assets/route-aly.jpg";
 import routeNoste from "@/assets/route-noste.jpg";
@@ -45,7 +42,12 @@ const routes = [
   },
 ];
 
-const bannerImages = [heroAly, heroKasvu, heroKumppanit, routeNoste];
+import bannerAly from "@/assets/hero-aly-2880.jpg.asset.json";
+import bannerKasvu from "@/assets/hero-kasvu-2880.jpg.asset.json";
+import bannerKumppanit from "@/assets/hero-kumppanit-2880.jpg.asset.json";
+import bannerNoste from "@/assets/hero-noste-2880.jpg.asset.json";
+
+const bannerImages = [bannerAly.url, bannerKasvu.url, bannerKumppanit.url, bannerNoste.url];
 
 const Index = () => {
   const [bannerIdx, setBannerIdx] = useState(0);
