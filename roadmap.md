@@ -1,3 +1,6 @@
+- [x] Asiakkaat 1A: lukeva organisaatiolista, haku ja asiakkuus-/vastuu-/palvelurajaukset
+- [x] Asiakkaat 1A: yhteinen asiakaskortti ja nykyiset myynnin/tuotannon linkit
+- [x] Asiakkaat 1A: 20 testiä ja lint läpi; kirjautunut tyhjän rekisterin myyntisiirtymä, synteettiset asiakaskortin välilehdet ja linkit, 390/1144 px sekä kirjautumaton esto tarkistettu ilman tietomuutoksia. Täytetyn oikean asiakaskortin läpivienti ei ollut mahdollinen tyhjässä organisaatiorekisterissä. Ei julkaistu.
 - [x] Käyttöönoton tarkistus 1: TESTI 3 Oy läpi kolmella roolilla; ensimmäinen toteuma ei riitä, viimeinen merkitsee laskutusvalmiiksi; TESTI 2 Oy koskematon
 - [x] Käyttäjän hyväksymä lisäys: luonnoksen testiasiakkaan tallennustarkistus korjattu; suojattua ohjelmakytkentää ei voi ohittaa
 - [x] Käyttöönoton tarkistus 2: kapasiteetin muutos, kouluttajavastuu, osallistujat ja kriittiset tehtävät; session muokkaus/poisto, varauksen peruutus/palautus ja osallistujan poisto lisätty ja selaimessa tarkistettu

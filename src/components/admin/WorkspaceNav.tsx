@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { LayoutDashboard, Users, Megaphone, Factory, FileText, BookOpen } from "lucide-react";
+import { LayoutDashboard, Users, Megaphone, Factory, FileText, BookOpen, Building2 } from "lucide-react";
 
 const GROUPS = [
   { title: "Päivittäinen työ", items: [
     { to: "/admin", label: "Tilannekeskus", icon: LayoutDashboard, area: "ws-area-dashboard" },
     { to: "/admin/markkinointi?tab=leads", label: "Myynti", icon: Users, area: "ws-area-sales" },
+    { to: "/admin/asiakkaat", label: "Asiakkaat", icon: Building2, area: "ws-area-sales" },
     { to: "/admin/tuotanto", label: "Tuotanto", icon: Factory, area: "ws-area-production" },
   ] },
   { title: "Markkinointi ja ylläpito", items: [
