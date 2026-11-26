@@ -5,7 +5,7 @@ import { LayoutDashboard, Users, Megaphone, Factory, FileText, BookOpen } from "
 const GROUPS = [
   { title: "Päivittäinen työ", items: [
     { to: "/admin", label: "Tilannekeskus", icon: LayoutDashboard, area: "ws-area-dashboard" },
-    { to: "/admin/yhteydenotot", label: "Myynti", icon: Users, area: "ws-area-sales" },
+    { to: "/admin/markkinointi?tab=leads", label: "Myynti", icon: Users, area: "ws-area-sales" },
     { to: "/admin/tuotanto", label: "Tuotanto", icon: Factory, area: "ws-area-production" },
   ] },
   { title: "Markkinointi ja ylläpito", items: [
@@ -17,7 +17,8 @@ const GROUPS = [
 
 /** Pysyvä työtilavalikko: sama paikka joka sivulla, nykyinen sivu korostettu osion värillä. */
 export function WorkspaceNav() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
+  const salesTab = pathname === "/admin/yhteydenotot" || (pathname === "/admin/markkinointi" && /[?&]tab=(leads|daily|tasks|offers|sales|goals)(&|$)/.test(search));
   const { isEditor, roleLoading } = useAuth();
   const groups = isEditor || roleLoading ? GROUPS : [{ title: "Päivittäinen työ", items: GROUPS[0].items.filter(i => i.to === "/admin/tuotanto") }];
   return <nav aria-label="Työtilan valikko" className="ws-nav">
@@ -25,7 +26,8 @@ export function WorkspaceNav() {
     {groups.map(g => <div key={g.title} className="ws-nav-group">
       <p className="ws-nav-title">{g.title}</p>
       {g.items.map(({ to, label, icon: Icon, area }) => {
-        const active = to === "/admin" ? pathname === "/admin" : pathname.startsWith(to);
+        const path = to.split("?")[0];
+        const active = to === "/admin" ? pathname === "/admin" : label === "Myynti" ? salesTab : path === "/admin/markkinointi" ? pathname === path && !salesTab : pathname.startsWith(path);
         return <Link key={to} to={to} aria-current={active ? "page" : undefined} className={`${area} ws-nav-link`}><Icon className="h-4 w-4 shrink-0" aria-hidden />{label}</Link>;
       })}
     </div>)}
