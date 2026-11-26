@@ -20,6 +20,7 @@ import { dateTime, readAll } from '@/lib/crm';
 import { EMPTY_PRODUCTION, EXCEPTION_LABEL, PRODUCTION_QUEUES, exceptions, productionQueue, readiness } from '@/lib/productionCenter';
 import { AlertTriangle, ArrowLeft, CheckCircle2, ClipboardList, Activity, Loader2, LogOut, RefreshCw, ChevronDown, UserRound, Users, Layers, Pencil, Trash2, X, type LucideIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { ProductionDaily } from '@/components/admin/ProductionDaily';
 import { CompanyTrainingSales } from '@/components/admin/CompanyTrainingSales';
 import { CompanyTrainerCapacity, CompanyHandoffsPanel } from '@/components/admin/CompanyTrainingProduction';
 import { helsinkiIso as local, helsinkiLocal } from '@/lib/helsinkiTime';
@@ -101,6 +102,7 @@ function StaffView({ userId }: { userId: string }) {
     </div>
     {queueBar}
     {rows ? <section aria-label={queue ? PRODUCTION_QUEUES[queue] : undefined} className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">{rows.length === 0 && <p className="p-4 text-sm text-muted-foreground">Ei rivejä.</p>}{rows.map(r => <Button variant="ghost" key={r.id} className="h-auto w-full justify-start whitespace-normal rounded-none p-4 text-left" onClick={() => setParams({ toteutus: r.deliveryId })}><span><span className="block font-semibold text-keuda-navy-section">{r.title}</span><span className="block text-xs text-muted-foreground">{r.detail} · <WorkspacePerson person={team.data?.find(m => m.id === r.ownerId)} name={email(r.ownerId)} size="xs" /></span></span></Button>)}</section> : <>
+      <Zone title="Päivän työ" icon={ClipboardList} open><ProductionDaily data={data} team={team.data ?? []} userId={userId} email={email} open={id => setParams({ toteutus: id })} /></Zone>
       <Zone title="Kriittinen tila" icon={AlertTriangle} open>
         {exc.length > 0 && <div className="rounded-xl border border-destructive/40 border-l-4 border-l-destructive bg-ws-risk-light p-4 shadow-card sm:p-5">
           <h3 className="flex items-center gap-2 text-lg font-semibold text-destructive"><AlertTriangle className="h-5 w-5" />Poikkeamat ({exc.length})</h3>
