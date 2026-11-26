@@ -25,7 +25,7 @@ import { CompanyTrainerCapacity, CompanyHandoffsPanel } from '@/components/admin
 import { helsinkiIso as local, helsinkiLocal } from '@/lib/helsinkiTime';
 import { sessionInput, bookingToReuse } from '@/lib/productionSession';
 import { billingEligible } from '@/lib/billingReadiness';
-import { STAGE_LABEL, boardRow, boardRows, timeline, type BoardRow, type CardTab, type Tone } from '@/lib/productionBoard';
+import { STAGE_LABEL, boardRow, boardRows, ganttBar, ganttWeeks, timeline, type BoardRow, type CardTab, type Tone } from '@/lib/productionBoard';
 
 type Member = { id: string; email: string; kind?: string };
 const db = supabase as any;
@@ -125,19 +125,28 @@ function Light({ tone }: { tone: Tone }) { return <span className={`inline-block
 
 function WorkList({ data, now, mineId, team, email, open }: { data: typeof EMPTY_PRODUCTION; now: Date; mineId?: string; team: Member[]; email: (id: string | null) => string; open: (id: string) => void }) {
   const [params, setParams] = useSearchParams();
-  const view = params.get('nakyma') === 'aikajana' ? 'aikajana' : 'lista';
+  const view = (['lista', 'aikajana'] as const).find(v => v === params.get('nakyma')) ?? 'gantt';
   const onlyUnscheduled = params.get('vaihe') === 'aikatauluttamatta';
-  const all = boardRows(data, now, mineId);
-  const rows = onlyUnscheduled ? all.filter(r => r.stage === 'aikatauluttamatta') : all;
+  const showDone = params.get('valmiit') === '1';
+  const owner = params.get('vastuu') ?? '';
+  const search = (params.get('haku') ?? '').trim().toLowerCase();
+  const all = boardRows(data, now, mineId, showDone);
+  const rows = all.filter(r => (!onlyUnscheduled || r.stage === 'aikatauluttamatta') && (!owner || r.ownerId === owner) && (!search || r.title.toLowerCase().includes(search)));
   const unscheduled = all.filter(r => r.stage === 'aikatauluttamatta').length;
-  const set = (k: string, v: string | null) => { const n = new URLSearchParams(params); v ? n.set(k, v) : n.delete(k); setParams(n); };
+  const owners = [...new Set(all.map(r => r.ownerId).filter(Boolean))];
+  const set = (k: string, v: string | null) => { const n = new URLSearchParams(params); v ? n.set(k, v) : n.delete(k); setParams(n, { replace: k === 'haku' }); };
   const person = (id: string) => <WorkspacePerson person={team.find(m => m.id === id)} name={email(id)} size="xs" />;
+  const views = [['gantt', 'Gantt'], ['lista', 'Lista'], ['aikajana', 'Sessiot viikoittain']] as const;
   return <section className="rounded-xl border bg-card shadow-card">
     <div className="flex flex-wrap items-center gap-2 border-b px-4 py-3"><h3 className="mr-auto text-base font-semibold text-keuda-navy-section">Koulutukset <span className="text-xs font-normal text-muted-foreground">{rows.length} kpl{mineId ? ' · omat' : ''}</span></h3>
+      <div className="inline-flex rounded-md border p-0.5" role="group" aria-label="Näkymä">{views.map(([v, l]) => <Button key={v} size="sm" variant={view === v ? 'secondary' : 'ghost'} aria-pressed={view === v} onClick={() => set('nakyma', v === 'gantt' ? null : v)}>{l}</Button>)}</div></div>
+    <div className="flex flex-wrap items-center gap-2 border-b bg-ws-tint/40 px-4 py-2">
+      <Input type="search" aria-label="Hae koulutusta" placeholder="Hae koulutusta" className="h-8 w-full sm:w-56" defaultValue={params.get('haku') ?? ''} onChange={e => set('haku', e.target.value || null)} />
+      <select aria-label="Vastuuhenkilö" className="h-8 rounded-md border bg-background px-2 text-sm" value={owner} onChange={e => set('vastuu', e.target.value || null)}><option value="">Kaikki vastuuhenkilöt</option>{owners.map(id => <option key={id} value={id}>{email(id)}</option>)}</select>
       <Button size="sm" variant={onlyUnscheduled ? 'default' : 'outline'} onClick={() => set('vaihe', onlyUnscheduled ? null : 'aikatauluttamatta')}>Aikatauluttamattomat <span className="ml-1.5 rounded-full bg-muted px-1.5 text-xs tabular-nums text-foreground">{unscheduled}</span></Button>
-      <div className="inline-flex rounded-md border p-0.5" role="group" aria-label="Näkymä"><Button size="sm" variant={view === 'lista' ? 'secondary' : 'ghost'} aria-pressed={view === 'lista'} onClick={() => set('nakyma', null)}>Lista</Button><Button size="sm" variant={view === 'aikajana' ? 'secondary' : 'ghost'} aria-pressed={view === 'aikajana'} onClick={() => set('nakyma', 'aikajana')}>Aikajana</Button></div></div>
+      <label className="ml-auto flex items-center gap-2 text-sm"><input type="checkbox" className="h-4 w-4 accent-primary" checked={showDone} onChange={e => set('valmiit', e.target.checked ? '1' : null)} />Näytä laskutetut</label></div>
     {rows.length === 0 && <p className="p-4 text-sm text-muted-foreground">Ei koulutuksia tällä rajauksella.</p>}
-    {view === 'lista' ? <ul className="divide-y">{rows.map(r => <li key={r.id}><button className="grid w-full gap-1 p-4 text-left hover:bg-ws-tint md:grid-cols-[minmax(0,2fr)_9rem_8rem_minmax(0,1fr)_minmax(0,2fr)] md:items-center md:gap-3" onClick={() => open(r.id)}>
+    {view === 'gantt' ? rows.length > 0 && <Gantt rows={rows} now={now} open={open} /> : view === 'lista' ? <ul className="divide-y">{rows.map(r => <li key={r.id}><button className="grid w-full gap-1 p-4 text-left hover:bg-ws-tint md:grid-cols-[minmax(0,2fr)_9rem_8rem_minmax(0,1fr)_minmax(0,2fr)] md:items-center md:gap-3" onClick={() => open(r.id)}>
       <span className="flex min-w-0 items-center gap-2"><Light tone={r.tone} /><span className="min-w-0 break-words font-semibold text-keuda-blue">{r.title}</span></span>
       <span><Badge variant="outline">{STAGE_LABEL[r.stage]}</Badge></span>
       <span className="text-xs text-muted-foreground">{r.firstStart ? dateTime(r.firstStart) : 'Ei aikataulua'}</span>
@@ -150,6 +159,29 @@ function WorkList({ data, now, mineId, team, email, open }: { data: typeof EMPTY
           return <div key={wk}><h4 className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Viikko alkaen {new Date(`${wk}T12:00:00`).toLocaleDateString('fi-FI')}</h4>
             <ul className="divide-y rounded-lg border">{items.map(i => { const r = byId.get(i.deliveryId)!; return <li key={i.sessionId}><button className="flex w-full flex-wrap items-center gap-x-3 gap-y-1 p-3 text-left text-sm hover:bg-ws-tint" onClick={() => open(i.deliveryId)}><Light tone={r.tone} /><span className="w-40 shrink-0 text-xs tabular-nums text-muted-foreground">{dateTime(i.starts_at)}–{new Date(i.ends_at).toLocaleTimeString('fi-FI', { timeZone: 'Europe/Helsinki', hour: '2-digit', minute: '2-digit' })}</span><span className="min-w-0 flex-1 break-words"><strong>{r.title}</strong> · {i.title}</span><span className="text-xs">{i.trainers.length ? i.trainers.map(t => <span key={t} className="mr-2">{person(t)}{(trainerCount.get(t) ?? 0) > 1 ? <span className="ml-1 text-muted-foreground">({trainerCount.get(t)} sessiota viikolla)</span> : null}</span>) : <span className="text-destructive">Kouluttaja puuttuu</span>}</span></button></li>; })}</ul></div>; }); })()}</div>}
   </section>;
+}
+
+function Gantt({ rows, now, open }: { rows: BoardRow[]; now: Date; open: (id: string) => void }) {
+  const weeks = ganttWeeks(now); const today = weeks.indexOf(weeks.find((_, i) => i === 2)!);
+  const dayOffset = ((now.getDay() + 6) % 7) / 7;
+  const cols = { gridTemplateColumns: `repeat(${weeks.length}, minmax(3.25rem, 1fr))` };
+  const wn = (iso: string) => { const d = new Date(`${iso}T12:00:00`); d.setDate(d.getDate() + 3 - ((d.getDay() + 6) % 7)); const y = new Date(d.getFullYear(), 0, 4); return 1 + Math.round(((d.getTime() - y.getTime()) / 86400000 - 3 + ((y.getDay() + 6) % 7)) / 7); };
+  const bar: Record<Tone, string> = { ok: 'bg-ws-ok', warn: 'bg-ws-warn', risk: 'bg-destructive' };
+  return <div className="grid grid-cols-[minmax(12rem,22rem)_1fr] overflow-hidden">
+    <div className="border-r">
+      <div className="flex h-12 items-end justify-between border-b bg-ws-tint px-3 pb-1.5 text-xs font-semibold text-keuda-navy-section"><span>Koulutus</span><span>Kriittiset</span></div>
+      {rows.map(r => <button key={r.id} onClick={() => open(r.id)} className="flex h-14 w-full items-center gap-2 border-b px-3 text-left hover:bg-ws-tint">
+        <Light tone={r.tone} /><span className="min-w-0 flex-1"><span className="block truncate text-sm font-semibold text-keuda-blue">{r.title}</span><span className="block truncate text-xs text-muted-foreground">{STAGE_LABEL[r.stage]} · {r.reason}</span></span>
+        <span className="flex shrink-0 items-center gap-1 text-xs tabular-nums text-muted-foreground"><ClipboardList className="h-3.5 w-3.5" />{r.done}/{r.total}</span></button>)}
+    </div>
+    <div className="overflow-x-auto"><div className="relative min-w-[44rem]">
+      <div className="grid h-12 border-b bg-ws-tint text-center text-[11px] leading-tight" style={cols}>{weeks.map((w, i) => <div key={w} className={`flex flex-col justify-end border-l pb-1.5 ${i === today ? 'font-semibold text-keuda-navy-section' : 'text-muted-foreground'}`}><span>{new Date(`${w}T12:00:00`).toLocaleDateString('fi-FI', { day: 'numeric', month: 'numeric' })}</span><span>vk {wn(w)}</span></div>)}</div>
+      {rows.map(r => { const b = ganttBar(weeks, r.firstStart, r.lastEnd); return <div key={r.id} className="relative grid h-14 border-b" style={cols}>{weeks.map(w => <div key={w} className="border-l" />)}
+        {b ? <button onClick={() => open(r.id)} title={`${r.title}: ${r.firstStart ? dateTime(r.firstStart) : ''}${r.lastEnd ? ` – ${dateTime(r.lastEnd)}` : ''}`} className={`absolute top-1/2 h-5 -translate-y-1/2 rounded-full ${bar[r.tone]} opacity-90 shadow-sm hover:opacity-100`} style={{ left: `calc(${(b.start / weeks.length) * 100}% + 4px)`, width: `calc(${(b.span / weeks.length) * 100}% - 8px)` }}><span className="sr-only">{r.title}</span></button>
+          : <span className="absolute inset-y-0 left-2 flex items-center text-xs text-muted-foreground">{r.firstStart ? 'Aikajanan ulkopuolella' : 'Ei aikataulua'}</span>}</div>; })}
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 w-px bg-destructive" style={{ left: `${((today + dayOffset) / weeks.length) * 100}%` }}><span className="absolute top-11 -left-1 h-2 w-2 rounded-full bg-destructive" /></div>
+    </div></div>
+  </div>;
 }
 
 function CreateDelivery() {

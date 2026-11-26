@@ -43,8 +43,8 @@ export function boardRow(d: ProductionData, id: string, now: Date): BoardRow {
   return { ...base, stage: 'valmistelu', tone, reason: `${r.missing.length} aloitusehtoa puuttuu${Number.isFinite(daysTo) ? `, alkuun ${Math.max(0, Math.ceil(daysTo))} pv` : ''}`, next: first, tab };
 }
 
-export function boardRows(d: ProductionData, now: Date, mineId?: string): BoardRow[] {
-  const rows = d.deliveries.map(x => boardRow(d, x.id, now)).filter(r => r.stage !== 'peruttu' && r.stage !== 'laskutettu');
+export function boardRows(d: ProductionData, now: Date, mineId?: string, includeDone = false): BoardRow[] {
+  const rows = d.deliveries.map(x => boardRow(d, x.id, now)).filter(r => r.stage !== 'peruttu' && (includeDone || r.stage !== 'laskutettu'));
   const order: Record<Tone, number> = { risk: 0, warn: 1, ok: 2 };
   return (mineId ? rows.filter(r => isMine(r, mineId)) : rows).sort((a, b) => order[a.tone] - order[b.tone] || (a.firstStart ?? '9').localeCompare(b.firstStart ?? '9'));
 }
@@ -66,4 +66,20 @@ export function timeline(d: ProductionData, ids: Set<string>) {
     weeks.set(k, [...(weeks.get(k) ?? []), { sessionId: s.id, deliveryId: s.delivery_id, title: s.title, starts_at: s.starts_at, ends_at: s.ends_at, trainers }]);
   }
   return [...weeks.entries()];
+}
+
+// Gantt (Severa-style): Monday-start week columns and a training's bar position within them.
+export function ganttWeeks(now: Date, before = 2, count = 14): string[] {
+  const start = new Date(`${weekKey(now.toISOString())}T12:00:00`);
+  start.setDate(start.getDate() - before * 7);
+  return Array.from({ length: count }, (_, i) => { const d = new Date(start); d.setDate(d.getDate() + i * 7); return weekKey(d.toISOString()); });
+}
+export function ganttBar(weeks: string[], firstStart: string | null, lastEnd: string | null): { start: number; span: number } | null {
+  if (!firstStart || !weeks.length) return null;
+  const a = weekKey(firstStart), b = weekKey(lastEnd ?? firstStart);
+  const last = weeks[weeks.length - 1];
+  if (b < weeks[0] || a > last) return null;
+  const start = a < weeks[0] ? 0 : weeks.indexOf(a);
+  const end = b > last ? weeks.length - 1 : weeks.indexOf(b);
+  return { start, span: end - start + 1 };
 }
