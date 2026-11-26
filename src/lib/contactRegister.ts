@@ -39,9 +39,11 @@ export function contactRecord(data: CustomerData, contact: CustomerContact) {
   const affiliation = (data.affiliations ?? []).find(a => a.contact_id === contact.id && a.organization_id === contact.organization_id) ?? null;
   const roles = (affiliation?.roles ?? []).filter(k => CONTACT_ROLES[k]);
   const interests = (contact.interests ?? []).filter(k => CONTACT_INTERESTS[k]);
+  /** Mirrors the database guard: contract-linked people keep their name and email. */
+  const historyLocked = data.orders.some(o => o.contact_id === contact.id) || data.versions.some(v => v.contact_id === contact.id && v.approved_at);
   const sameName = data.contacts.filter(c => c.id !== contact.id && norm(c.name) === norm(contact.name)).length;
   return { contact, organization, affiliation, roles, interests, jobTitle: affiliation?.job_title?.trim() || null,
-    isKeyPerson: Boolean(affiliation?.is_key_person), verify: verifyState(contact.contact_verified_at), leads, versions, offers, orders, deliveries, sameName,
+    isKeyPerson: Boolean(affiliation?.is_key_person), verify: verifyState(contact.contact_verified_at), historyLocked, leads, versions, offers, orders, deliveries, sameName,
     phone: contact.phone?.trim() || MISSING, email: contact.email?.trim() || MISSING,
     organizationName: organization?.name ?? 'Organisaatio ei saatavilla' };
 }

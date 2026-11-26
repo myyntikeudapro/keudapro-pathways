@@ -32,11 +32,12 @@ export function ContactEditDialog({ record: r, onSaved }: { record: ContactRecor
       <DialogHeader><DialogTitle>Muokkaa yhteyshenkilöä</DialogTitle><DialogDescription>Roolit ja avainhenkilömerkintä koskevat asemaa organisaatiossa {r.organizationName}. Kiinnostusalue ei ole markkinointisuostumus. Tallennus ei vahvista tietojen oikeellisuutta.</DialogDescription></DialogHeader>
       <div className="space-y-5">
         <div className="grid gap-3 sm:grid-cols-2">
-          <div className="space-y-1"><Label htmlFor="ce-name">Nimi</Label><Input id="ce-name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} /></div>
+          <div className="space-y-1"><Label htmlFor="ce-name">Nimi</Label><Input id="ce-name" disabled={r.historyLocked} value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} /></div>
           <div className="space-y-1"><Label htmlFor="ce-title">Tehtävänimike</Label><Input id="ce-title" value={form.job_title} onChange={e => setForm({ ...form, job_title: e.target.value })} /></div>
-          <div className="space-y-1"><Label htmlFor="ce-email">Sähköposti</Label><Input id="ce-email" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} /></div>
+          <div className="space-y-1"><Label htmlFor="ce-email">Sähköposti</Label><Input id="ce-email" type="email" disabled={r.historyLocked} value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} /></div>
           <div className="space-y-1"><Label htmlFor="ce-phone">Puhelin</Label><Input id="ce-phone" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} /></div>
         </div>
+        {r.historyLocked && <p className="text-sm text-muted-foreground">Henkilö on hyväksytyn tarjouksen tai tilauksen yhteyshenkilö, joten nimeä ja sähköpostia ei voi muuttaa, jotta sopimushistoria säilyy.</p>}
         <label className="flex items-center gap-2 text-sm font-medium"><Checkbox checked={form.is_key_person} onCheckedChange={v => setForm({ ...form, is_key_person: v === true })} />Avainhenkilö tässä organisaatiossa</label>
         <Group title="Asiakkuusroolit" k="roles" options={CONTACT_ROLES} />
         <Group title="Ammatilliset kiinnostusalueet" k="interests" options={CONTACT_INTERESTS} />

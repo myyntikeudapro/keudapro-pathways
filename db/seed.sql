@@ -86,9 +86,11 @@ INSERT INTO crm_offer_versions (id,offer_id,version_no,organization_id,contact_i
 INSERT INTO crm_orders (id,lead_id,offer_version_id,idempotency_key,organization_id,contact_id,owner_id,service_key,vat_rate,vat_basis,starts_on,terms,payment_terms,total_net,confirmed_by) VALUES
 ('17000000-0000-4000-8000-000000000020','14000000-0000-4000-8000-000000000003','16000000-0000-4000-8000-000000000020','seed-1ca-order','12000000-0000-4000-8000-000000000003','13000000-0000-4000-8000-000000000003','10000000-0000-4000-8000-000000000001','osaaminen',25.5,'yleinen','2027-01-20','TESTI-ehdot','14 pv netto',2400,'10000000-0000-4000-8000-000000000001') ON CONFLICT DO NOTHING;
 
+SELECT set_config('keuda.contact_op', 'verify', false);
 -- Yhteyshenkilöt 1C-B: titles, organisation-scoped roles, key person and interests for a few synthetic contacts; others stay without details.
 UPDATE crm_contacts SET interests = '{ai,safety}', contact_verified_at = now() - interval '30 days', contact_verified_by = '10000000-0000-4000-8000-000000000001' WHERE id = '13000000-0000-4000-8000-000000000205';
 UPDATE crm_contacts SET interests = '{leadership}', contact_verified_at = now() - interval '400 days', contact_verified_by = '10000000-0000-4000-8000-000000000002' WHERE id = '13000000-0000-4000-8000-000000000206';
 INSERT INTO crm_contact_affiliations (contact_id,organization_id,job_title,roles,is_key_person) VALUES
 ('13000000-0000-4000-8000-000000000205','12000000-0000-4000-8000-000000000020','Henkilöstöjohtaja','{decision_maker,hr}',true),
 ('13000000-0000-4000-8000-000000000206','12000000-0000-4000-8000-000000000020','Koulutussuunnittelija','{training_coordinator}',false) ON CONFLICT DO NOTHING;
+SELECT set_config('keuda.contact_op', '', false);
