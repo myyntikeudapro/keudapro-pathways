@@ -20,7 +20,9 @@ import { dateTime, readAll } from '@/lib/crm';
 import { EMPTY_PRODUCTION, EXCEPTION_LABEL, PRODUCTION_QUEUES, exceptions, productionQueue, readiness } from '@/lib/productionCenter';
 import { AlertTriangle, ArrowLeft, CheckCircle2, ClipboardList, Activity, Loader2, LogOut, RefreshCw, ChevronDown, UserRound, Users, Layers, Pencil, Trash2, X, type LucideIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { ProductionDaily } from '@/components/admin/ProductionDaily';
+import { ProductionDaily, TrainerLoad } from '@/components/admin/ProductionDaily';
+import { PAYMENT_LABEL, PRODUCTION_SECTIONS, productionSection, readinessSummary } from '@/lib/productionStatus';
+import { daySessions, groupTasks, hkiDay } from '@/lib/productionDaily';
 import { CompanyTrainingSales } from '@/components/admin/CompanyTrainingSales';
 import { CompanyTrainerCapacity, CompanyHandoffsPanel } from '@/components/admin/CompanyTrainingProduction';
 import { helsinkiIso as local, helsinkiLocal } from '@/lib/helsinkiTime';
@@ -33,7 +35,7 @@ const db = supabase as any;
 const STATUS: [string, string][] = [['suunnittelu', 'Suunnittelu'], ['käynnissä', 'Käynnissä'], ['päättynyt', 'Päättynyt'], ['peruttu', 'Peruttu']];
 const COMPLETION: [string, string][] = [['ilmoittautunut', 'Ilmoittautunut'], ['kesken', 'Kesken'], ['suoritettu', 'Suoritettu'], ['keskeytynyt', 'Keskeytynyt']];
 const CERT: [string, string][] = [['ei_aloitettu', 'Ei aloitettu'], ['valmisteilla', 'Valmisteilla'], ['myönnetty', 'Myönnetty'], ['ei_oikeutta', 'Ei oikeutta']];
-const PAYMENT: [string, string][] = [['ei_laskutettu', 'Ei laskutettu'], ['laskutettu', 'Laskutettu'], ['maksettu', 'Maksettu']];
+const PAYMENT: [string, string][] = Object.entries(PAYMENT_LABEL);
 
 function Section({ title, children, open = false }: { title: string; children: ReactNode; open?: boolean }) {
   return <details open={open} className="group rounded-xl border bg-card shadow-card"><summary className="flex cursor-pointer list-none items-center justify-between gap-2 p-4 sm:px-5"><h3 className="text-base font-semibold text-keuda-navy-section">{title}</h3><ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" aria-hidden /></summary><div className="space-y-3 border-t p-4 sm:p-5">{children}</div></details>;
@@ -82,42 +84,71 @@ function StaffView({ userId }: { userId: string }) {
   if (query.isPending) return <p role="status" className="flex items-center gap-2"><Loader2 className="h-5 w-5 animate-spin" />Ladataan…</p>;
   if (query.isError) return <p role="alert" className="text-destructive">Tuotannon tietoja ei voitu hakea.</p>;
   if (selected) return <DeliveryDetail id={selected} data={data} team={team.data ?? []} email={email} back={() => { params.delete('toteutus'); setParams(params); }} />;
+  const osio = productionSection(params.get('osio'));
+  const go = (k: string) => setParams(k === 'projektit' ? {} : { osio: k });
   const exc = exceptions(data, now);
   const rows = queue ? productionQueue(data, queue, now, mine ? userId : undefined) : null;
   const active = data.deliveries.filter(d => d.production_status !== 'päättynyt' && d.production_status !== 'peruttu');
   const readyN = active.filter(d => readiness(data, d.id).ready).length;
   const running = data.deliveries.filter(d => d.production_status === 'käynnissä').length;
   const planning = data.deliveries.filter(d => d.production_status === 'suunnittelu').length;
+  const rs = readinessSummary(active.length, readyN);
   const mineN = boardRows(data, now, userId).length;
-  const queueBar = <div className="flex flex-wrap items-center gap-2 rounded-xl border bg-card p-3 shadow-card">{Object.entries(PRODUCTION_QUEUES).map(([k, label]) => <Button key={k} size="sm" variant={queue === k ? 'default' : 'outline'} onClick={() => setParams({ jono: k, ...(mine ? { omat: '1' } : {}) })}>{label} <span className="ml-1.5 rounded-full bg-muted px-1.5 text-xs tabular-nums text-foreground">{productionQueue(data, k, now, mine ? userId : undefined).length}</span></Button>)}
+  const qn = (k: string) => productionQueue(data, k, now, mine ? userId : undefined).length;
+  const openD = (id: string) => setParams({ toteutus: id });
+  const tabs = <nav aria-label="Tuotannon osiot" className="flex gap-1 overflow-x-auto rounded-xl border bg-card p-1 shadow-card">{PRODUCTION_SECTIONS.map(([k, label]) => <Button key={k} size="sm" aria-current={!queue && osio === k ? 'page' : undefined} variant={!queue && osio === k ? 'default' : 'ghost'} className="shrink-0" onClick={() => go(k)}>{label}{k === 'laskutus' && qn('billingReady') > 0 && <span className="ml-1.5 rounded-full bg-muted px-1.5 text-xs tabular-nums text-foreground">{qn('billingReady')}</span>}</Button>)}
+    <Button size="sm" variant="outline" className="ml-auto shrink-0 border-ws-bronze/50 text-ws-bronze hover:bg-ws-bronze-light hover:text-ws-bronze" disabled={query.isFetching} onClick={() => query.refetch()}><RefreshCw className={`mr-2 h-4 w-4 ${query.isFetching ? 'animate-spin' : ''}`} />Päivitä</Button></nav>;
+  const queueBar = <div className="flex flex-wrap items-center gap-2 rounded-xl border bg-card p-3 shadow-card">{Object.entries(PRODUCTION_QUEUES).map(([k, label]) => <Button key={k} size="sm" variant={queue === k ? 'default' : 'outline'} onClick={() => setParams({ jono: k, ...(mine ? { omat: '1' } : {}) })}>{label} <span className="ml-1.5 rounded-full bg-muted px-1.5 text-xs tabular-nums text-foreground">{qn(k)}</span></Button>)}
       <Button size="sm" variant={mine ? 'secondary' : 'ghost'} onClick={() => { mine ? params.delete('omat') : params.set('omat', '1'); setParams(params); }}>{mine ? 'Näytä koko tiimi' : 'Vain omat vastuut (jonot ja lista)'}</Button>
-      {queue && <Button size="sm" variant="ghost" onClick={() => setParams({})}>Kaikki toteutukset</Button>}
-      <Button size="sm" variant="outline" className="ml-auto border-ws-bronze/50 text-ws-bronze hover:bg-ws-bronze-light hover:text-ws-bronze" disabled={query.isFetching} onClick={() => query.refetch()}><RefreshCw className={`mr-2 h-4 w-4 ${query.isFetching ? 'animate-spin' : ''}`} />Päivitä</Button></div>;
+      {queue && <Button size="sm" variant="ghost" onClick={() => setParams({})}>Kaikki toteutukset</Button>}</div>;
+  const queueList = (r: ReturnType<typeof productionQueue>, label?: string) => <section aria-label={label} className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">{r.length === 0 && <p className="p-4 text-sm text-muted-foreground">Ei rivejä.</p>}{r.map(x => <Button variant="ghost" key={x.id} className="h-auto w-full justify-start whitespace-normal rounded-none p-4 text-left" onClick={() => openD(x.deliveryId)}><span><span className="block font-semibold text-keuda-navy-section">{x.title}</span><span className="block text-xs text-muted-foreground">{x.detail} · <WorkspacePerson person={team.data?.find(m => m.id === x.ownerId)} name={email(x.ownerId)} size="xs" /></span></span></Button>)}</section>;
+  if (rows) return <>{tabs}{queueBar}{queueList(rows, PRODUCTION_QUEUES[queue!])}</>;
   return <>
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-      <SummaryCard icon={Activity} label="Tuotannon tila" value={`${active.length} aktiivista`} meta={`${running} käynnissä · ${planning} suunnittelussa`} />
-      <SummaryCard icon={UserRound} tone="accent" label="Vastuuhenkilö" person={team.data?.find(m => m.id === userId) ?? { id: userId, email: email(userId) }} value={`${mineN} omaa`} meta={email(userId)} />
-      <SummaryCard icon={CheckCircle2} tone={readyN === active.length ? 'ok' : 'warn'} label="Aloitusvalmius" value={`${readyN} / ${active.length} valmis`} meta={active.length - readyN ? `${active.length - readyN} ei aloitusvalmis` : 'Kaikki aloitusvalmiita'} />
-      <SummaryCard icon={AlertTriangle} tone={exc.length ? 'risk' : 'ok'} label="Poikkeamat" value={exc.length} meta={exc.length ? 'Vaatii toimenpiteitä' : 'Ei avoimia poikkeamia'} />
-    </div>
-    {queueBar}
-    {rows ? <section aria-label={queue ? PRODUCTION_QUEUES[queue] : undefined} className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">{rows.length === 0 && <p className="p-4 text-sm text-muted-foreground">Ei rivejä.</p>}{rows.map(r => <Button variant="ghost" key={r.id} className="h-auto w-full justify-start whitespace-normal rounded-none p-4 text-left" onClick={() => setParams({ toteutus: r.deliveryId })}><span><span className="block font-semibold text-keuda-navy-section">{r.title}</span><span className="block text-xs text-muted-foreground">{r.detail} · <WorkspacePerson person={team.data?.find(m => m.id === r.ownerId)} name={email(r.ownerId)} size="xs" /></span></span></Button>)}</section> : <>
-      <Zone title="Päivän työ" icon={ClipboardList} open><ProductionDaily data={data} team={team.data ?? []} userId={userId} email={email} open={id => setParams({ toteutus: id })} /></Zone>
-      <Zone title="Kriittinen tila" icon={AlertTriangle} open>
-        {exc.length > 0 && <div className="rounded-xl border border-destructive/40 border-l-4 border-l-destructive bg-ws-risk-light p-4 shadow-card sm:p-5">
-          <h3 className="flex items-center gap-2 text-lg font-semibold text-destructive"><AlertTriangle className="h-5 w-5" />Poikkeamat ({exc.length})</h3>
-          <ul className="mt-3 divide-y divide-destructive/15 text-sm">{exc.slice(0, 8).map(e => <li key={e.key} className="flex flex-wrap items-center gap-2 py-2"><Badge variant="destructive">{EXCEPTION_LABEL[e.kind]}</Badge><button className="font-medium text-foreground underline-offset-2 hover:underline" onClick={() => setParams({ toteutus: e.deliveryId })}>{e.label}</button><span className="text-xs text-muted-foreground">· <WorkspacePerson person={team.data?.find(m => m.id === e.ownerId)} name={email(e.ownerId)} size="xs" /></span></li>)}</ul>
-          {exc.length > 8 && <Button size="sm" variant="outline" className="mt-2" onClick={() => setParams({ jono: 'exceptions' })}>Näytä kaikki {exc.length}</Button>}
-        </div>}
-        <WorkList data={data} now={now} mineId={mine ? userId : undefined} team={team.data ?? []} email={email} open={id => setParams({ toteutus: id })} />
-      </Zone>
-      <Zone title="Yrityskoulutukset: luovutukset ja kapasiteetti" icon={Layers} open>
-        <Card><CompanyHandoffsPanel userId={userId} /></Card>
-        <Card><CompanyTrainingSales /></Card>
-      </Zone>
-      <Zone title="Uusi toteutus" icon={Activity} tint><Card><CreateDelivery /></Card></Zone>
+    {tabs}
+    {osio === 'projektit' && <>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <SummaryCard icon={Activity} label="Aktiiviset projektit" value={active.length} meta={`${running} käynnissä · ${planning} suunnittelussa`} />
+        <SummaryCard icon={CheckCircle2} tone={rs.tone} label="Aloitusvalmius" value={rs.value} meta={rs.meta} />
+        <SummaryCard icon={AlertTriangle} tone={exc.length ? 'risk' : 'neutral'} label="Poikkeamat" value={exc.length} meta={exc.length ? 'Vaatii toimenpiteitä' : 'Ei avoimia poikkeamia'} />
+        <SummaryCard icon={UserRound} tone="accent" label="Omat vastuut" person={team.data?.find(m => m.id === userId) ?? { id: userId, email: email(userId) }} value={`${mineN} omaa`} meta={email(userId)} />
+      </div>
+      {queueBar}
+      <TodayStrip data={data} now={now} userId={userId} open={openD} more={() => go('paiva')} />
+      {exc.length > 0 && <div className="rounded-xl border border-destructive/40 border-l-4 border-l-destructive bg-ws-risk-light p-4 shadow-card sm:p-5">
+        <h3 className="flex items-center gap-2 text-lg font-semibold text-destructive"><AlertTriangle className="h-5 w-5" />Poikkeamat ({exc.length})</h3>
+        <ul className="mt-3 divide-y divide-destructive/15 text-sm">{exc.slice(0, 8).map(e => <li key={e.key} className="flex flex-wrap items-center gap-2 py-2"><Badge variant="destructive">{EXCEPTION_LABEL[e.kind]}</Badge><button className="font-medium text-foreground underline-offset-2 hover:underline" onClick={() => openD(e.deliveryId)}>{e.label}</button><span className="text-xs text-muted-foreground">· <WorkspacePerson person={team.data?.find(m => m.id === e.ownerId)} name={email(e.ownerId)} size="xs" /></span></li>)}</ul>
+        {exc.length > 8 && <Button size="sm" variant="outline" className="mt-2" onClick={() => setParams({ jono: 'exceptions' })}>Näytä kaikki {exc.length}</Button>}
+      </div>}
+      <WorkList data={data} now={now} mineId={mine ? userId : undefined} team={team.data ?? []} email={email} open={openD} />
+    </>}
+    {osio === 'paiva' && <ProductionDaily data={data} team={team.data ?? []} userId={userId} email={email} open={openD} />}
+    {osio === 'luovutukset' && <>
+      <Card><CompanyHandoffsPanel userId={userId} /></Card>
+      <Zone title="Uusi toteutus vahvistetusta tilauksesta" icon={Activity} tint open><Card><CreateDelivery /></Card></Zone>
+      <Zone title="Yrityskoulutuksen ohjelma ja kapasiteetti" icon={Layers}><Card><CompanyTrainingSales /></Card></Zone>
+    </>}
+    {osio === 'resurssit' && <>
+      <Card><TrainerLoad data={data} team={team.data ?? []} email={email} /></Card>
+      <WorkList data={data} now={now} mineId={mine ? userId : undefined} team={team.data ?? []} email={email} open={openD} fixedView="aikajana" />
+    </>}
+    {osio === 'laskutus' && <>
+      <p className="text-sm text-muted-foreground">Laskutusvalmiiksi kuitatut toteutukset, joita ei ole merkitty laskutetuiksi. Maksutila merkitään käsin; se ei kerro Netvisor-lähetyksestä.</p>
+      {queueList(productionQueue(data, 'billingReady', now, mine ? userId : undefined), PRODUCTION_QUEUES.billingReady)}
     </>}
   </>;
+}
+
+function TodayStrip({ data, now, userId, open, more }: { data: typeof EMPTY_PRODUCTION; now: Date; userId: string; open: (id: string) => void; more: () => void }) {
+  const g = groupTasks(data, now, userId); const tasks = [...g.myohassa, ...g.tanaan].slice(0, 3);
+  const sessions = daySessions(data, hkiDay(now.toISOString()));
+  if (!tasks.length && !sessions.length) return null;
+  const hm = (iso: string) => helsinkiLocal(iso).slice(11, 16).replace(':', '.');
+  return <section aria-label="Tänään" className="flex flex-wrap items-start gap-x-6 gap-y-2 rounded-xl border bg-card p-4 text-sm shadow-card">
+    <h3 className="w-full font-semibold text-keuda-navy-section sm:w-auto">Tänään</h3>
+    {tasks.length > 0 && <ul className="min-w-0 flex-1 space-y-1">{tasks.map(t => <li key={t.id}><button className="text-left hover:underline" onClick={() => open(t.delivery_id)}><span className={g.myohassa.includes(t) ? 'text-destructive' : ''}>{g.myohassa.includes(t) ? 'Myöhässä: ' : ''}{t.title}</span></button></li>)}</ul>}
+    {sessions.length > 0 && <ul className="min-w-0 flex-1 space-y-1">{sessions.map(s => <li key={s.id}><button className="text-left hover:underline" onClick={() => open(s.delivery_id)}>{hm(s.starts_at)}–{hm(s.ends_at)} {s.delivery.title}</button></li>)}</ul>}
+    <Button size="sm" variant="ghost" onClick={more}>Päivän työ</Button>
+  </section>;
 }
 
 const TONE: Record<Tone, { dot: string; text: string; label: string }> = {
@@ -125,9 +156,9 @@ const TONE: Record<Tone, { dot: string; text: string; label: string }> = {
 };
 function Light({ tone }: { tone: Tone }) { return <span className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full ${TONE[tone].dot}`} aria-label={TONE[tone].label} />; }
 
-function WorkList({ data, now, mineId, team, email, open }: { data: typeof EMPTY_PRODUCTION; now: Date; mineId?: string; team: Member[]; email: (id: string | null) => string; open: (id: string) => void }) {
+function WorkList({ data, now, mineId, team, email, open, fixedView }: { data: typeof EMPTY_PRODUCTION; now: Date; mineId?: string; team: Member[]; email: (id: string | null) => string; open: (id: string) => void; fixedView?: 'aikajana' }) {
   const [params, setParams] = useSearchParams();
-  const view = (['lista', 'aikajana'] as const).find(v => v === params.get('nakyma')) ?? 'gantt';
+  const view = fixedView ?? (['gantt', 'aikajana'] as const).find(v => v === params.get('nakyma')) ?? 'lista';
   const onlyUnscheduled = params.get('vaihe') === 'aikatauluttamatta';
   const showDone = params.get('valmiit') === '1';
   const owner = params.get('vastuu') ?? '';
@@ -138,10 +169,10 @@ function WorkList({ data, now, mineId, team, email, open }: { data: typeof EMPTY
   const owners = [...new Set(all.map(r => r.ownerId).filter(Boolean))];
   const set = (k: string, v: string | null) => { const n = new URLSearchParams(params); v ? n.set(k, v) : n.delete(k); setParams(n, { replace: k === 'haku' }); };
   const person = (id: string) => <WorkspacePerson person={team.find(m => m.id === id)} name={email(id)} size="xs" />;
-  const views = [['gantt', 'Gantt'], ['lista', 'Lista'], ['aikajana', 'Sessiot viikoittain']] as const;
+  const views = fixedView ? [] : [['lista', 'Lista'], ['gantt', 'Gantt'], ['aikajana', 'Sessiot viikoittain']] as const;
   return <section className="rounded-xl border bg-card shadow-card">
     <div className="flex flex-wrap items-center gap-2 border-b px-4 py-3"><h3 className="mr-auto text-base font-semibold text-keuda-navy-section">Koulutukset <span className="text-xs font-normal text-muted-foreground">{rows.length} kpl{mineId ? ' · omat' : ''}</span></h3>
-      <div className="inline-flex rounded-md border p-0.5" role="group" aria-label="Näkymä">{views.map(([v, l]) => <Button key={v} size="sm" variant={view === v ? 'secondary' : 'ghost'} aria-pressed={view === v} onClick={() => set('nakyma', v === 'gantt' ? null : v)}>{l}</Button>)}</div></div>
+      <div className="inline-flex rounded-md border p-0.5" role="group" aria-label="Näkymä">{views.map(([v, l]) => <Button key={v} size="sm" variant={view === v ? 'secondary' : 'ghost'} aria-pressed={view === v} onClick={() => set('nakyma', v === 'lista' ? null : v)}>{l}</Button>)}</div></div>
     <div className="flex flex-wrap items-center gap-2 border-b bg-ws-tint/40 px-4 py-2">
       <Input type="search" aria-label="Hae koulutusta" placeholder="Hae koulutusta" className="h-8 w-full sm:w-56" defaultValue={params.get('haku') ?? ''} onChange={e => set('haku', e.target.value || null)} />
       <select aria-label="Vastuuhenkilö" className="h-8 rounded-md border bg-background px-2 text-sm" value={owner} onChange={e => set('vastuu', e.target.value || null)}><option value="">Kaikki vastuuhenkilöt</option>{owners.map(id => <option key={id} value={id}>{email(id)}</option>)}</select>
@@ -290,7 +321,7 @@ function DeliveryDetail({ id, data, team, email, back }: { id: string; data: typ
       <p className="text-xs text-muted-foreground">Erillinen tuotannon tilasta ja osallistujien suorituksista.</p>
       {!canBill && <p className="text-sm text-muted-foreground">Odottaa kaikkien sessioiden päättymistä ja toteumien kirjaamista.</p>}
       {billing?.billing_ready && !canBill && <p role="alert" className="text-sm text-destructive">Aiempi laskutusvalmis-merkintä ei vastaa toteumia. Tarkista sessiot ja toteumakirjaukset ennen laskutusta.</p>}
-      {billing && <div className="grid items-end gap-3 sm:grid-cols-2"><label className="flex items-center gap-2 text-sm"><input type="checkbox" className="h-4 w-4" checked={billing.billing_ready && canBill} disabled={act.isPending || (!billing.billing_ready && !canBill)} onChange={() => act.mutate(() => db.from('prod_billing_readiness').update({ billing_ready: !billing.billing_ready }).eq('delivery_id', id))} />Laskutusvalmis<span className="text-xs text-muted-foreground">(merkitään automaattisesti, kun kaikkien sessioiden toteuma on kirjattu)</span></label><Choice label="Maksutila" value={billing.payment_status} onChange={v => act.mutate(() => db.from('prod_billing_readiness').update({ payment_status: v }).eq('delivery_id', id))} options={PAYMENT} /></div>}
+      {billing && <div className="grid items-end gap-3 sm:grid-cols-2"><label className="flex items-center gap-2 text-sm"><input type="checkbox" className="h-4 w-4" checked={billing.billing_ready && canBill} disabled={act.isPending || (!billing.billing_ready && !canBill)} onChange={() => act.mutate(() => db.from('prod_billing_readiness').update({ billing_ready: !billing.billing_ready }).eq('delivery_id', id))} />Laskutusvalmis<span className="text-xs text-muted-foreground">(merkitään automaattisesti, kun kaikkien sessioiden toteuma on kirjattu)</span></label><Choice label="Maksutila (merkitään käsin)" value={billing.payment_status} onChange={v => act.mutate(() => db.from('prod_billing_readiness').update({ payment_status: v }).eq('delivery_id', id))} options={PAYMENT} /></div>}
     </Section></>}
   </article>;
 }

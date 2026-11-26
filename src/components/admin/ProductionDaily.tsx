@@ -21,10 +21,9 @@ export function ProductionDaily({ data, team, userId, email, open }: { data: Pro
   const now = new Date(); const today = hkiDay(now.toISOString());
   const [who, setWho] = useState<string>(userId);
   const [day, setDay] = useState(today);
-  const [showLoad, setShowLoad] = useState(false);
   const filter = who || undefined;
   const k = taskKpis(data, now, filter); const groups = groupTasks(data, now, filter);
-  const sessions = daySessions(data, day, filter); const load = trainerLoad(data, day);
+  const sessions = daySessions(data, day, filter);
   const title = (id: string) => data.deliveries.find(d => d.id === id)?.title ?? '';
   const toggle = useMutation({
     mutationFn: async ({ id, done }: { id: string; done: boolean }) => { const { error } = await db.from('prod_tasks').update({ completed_at: done ? new Date().toISOString() : null }).eq('id', id); if (error) throw error; },
@@ -44,11 +43,7 @@ export function ProductionDaily({ data, team, userId, email, open }: { data: Pro
     <div className="grid divide-y rounded-xl border bg-card shadow-card sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x">
       {kpis.map(([label, n, unit, risk]) => <div key={label} className="p-4"><p className="flex items-center justify-between text-sm text-muted-foreground">{label}{risk && n > 0 && <AlertCircle className="h-4 w-4 text-destructive" />}</p><p className={`mt-1 ${risk && n > 0 ? 'text-destructive' : 'text-keuda-navy-section'}`}><span className="text-2xl font-semibold tabular-nums">{n}</span> <span className="text-sm">{unit}</span></p></div>)}
     </div>
-    <div className="rounded-xl border bg-card shadow-card">
-      <button className="flex w-full items-center gap-2 p-4 text-left font-semibold text-keuda-navy-section" aria-expanded={showLoad} onClick={() => setShowLoad(!showLoad)}><ChevronRight className={`h-4 w-4 transition-transform ${showLoad ? 'rotate-90' : ''}`} />Kouluttajien kuormitus · viikko alkaen {fiDate(load.days[0], { day: 'numeric', month: 'numeric' })}</button>
-      {showLoad && <div className="overflow-x-auto px-4 pb-4"><table className="w-full min-w-[32rem] text-sm"><thead><tr className="text-left text-xs text-muted-foreground"><th className="py-1 font-medium">Kouluttaja</th>{load.days.map(d => <th key={d} className="py-1 text-center font-medium">{fiDate(d, { weekday: 'short', day: 'numeric', month: 'numeric' })}</th>)}<th className="py-1 text-right font-medium">Yht.</th></tr></thead>
-        <tbody>{load.rows.length === 0 ? <tr><td colSpan={7} className="py-2 text-muted-foreground">Ei kouluttajavarauksia tällä viikolla.</td></tr> : load.rows.map(r => <tr key={r.trainerId} className="border-t"><td className="py-2"><WorkspacePerson person={team.find(m => m.id === r.trainerId)} name={email(r.trainerId)} size="xs" /></td>{r.hours.map((h, i) => <td key={i} className="py-2 text-center"><span className={`inline-block min-w-10 rounded px-1.5 py-0.5 tabular-nums ${h === 0 ? 'text-muted-foreground' : h > 8 ? 'bg-ws-risk-light text-destructive' : h >= 6 ? 'bg-ws-warn/15 text-ws-warn' : 'bg-ws-ok/15 text-ws-ok'}`}>{h ? `${h.toLocaleString('fi-FI')} h` : '–'}</span></td>)}<td className="py-2 text-right font-semibold tabular-nums">{r.hours.reduce((a, b) => a + b, 0).toLocaleString('fi-FI')} h</td></tr>)}</tbody></table></div>}
-    </div>
+    <TrainerLoad data={data} team={team} email={email} collapsible />
     <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(18rem,1fr)]">
       <div className="rounded-xl border bg-card shadow-card">
         <h3 className="p-4 pb-2 text-lg font-semibold text-keuda-navy-section">Suunnitellut tehtävät</h3>
@@ -75,4 +70,19 @@ export function ProductionDaily({ data, team, userId, email, open }: { data: Pro
       </div>
     </div>
   </section>;
+}
+
+export function TrainerLoad({ data, team, email, collapsible = false }: { data: ProductionData; team: Member[]; email: (id: string | null) => string; collapsible?: boolean }) {
+  const [day, setDay] = useState(hkiDay(new Date().toISOString()));
+  const [open, setOpen] = useState(!collapsible);
+  const showLoad = open, setShowLoad = setOpen;
+  const load = trainerLoad(data, day);
+  return <div>
+    <div className={collapsible ? "rounded-xl border bg-card shadow-card" : ""}>
+      <button className="flex w-full items-center gap-2 p-4 text-left font-semibold text-keuda-navy-section" aria-expanded={showLoad} disabled={!collapsible} onClick={() => setShowLoad(!showLoad)}>{collapsible && <ChevronRight className={`h-4 w-4 transition-transform ${showLoad ? 'rotate-90' : ''}`} />}Kouluttajien kuormitus · viikko alkaen {fiDate(load.days[0], { day: 'numeric', month: 'numeric' })}</button>
+      {showLoad && <div className="overflow-x-auto px-4 pb-4"><table className="w-full min-w-[32rem] text-sm"><thead><tr className="text-left text-xs text-muted-foreground"><th className="py-1 font-medium">Kouluttaja</th>{load.days.map(d => <th key={d} className="py-1 text-center font-medium">{fiDate(d, { weekday: 'short', day: 'numeric', month: 'numeric' })}</th>)}<th className="py-1 text-right font-medium">Yht.</th></tr></thead>
+        <tbody>{load.rows.length === 0 ? <tr><td colSpan={7} className="py-2 text-muted-foreground">Ei kouluttajavarauksia tällä viikolla.</td></tr> : load.rows.map(r => <tr key={r.trainerId} className="border-t"><td className="py-2"><WorkspacePerson person={team.find(m => m.id === r.trainerId)} name={email(r.trainerId)} size="xs" /></td>{r.hours.map((h, i) => <td key={i} className="py-2 text-center"><span className={`inline-block min-w-10 rounded px-1.5 py-0.5 tabular-nums ${h === 0 ? 'text-muted-foreground' : h > 8 ? 'bg-ws-risk-light text-destructive' : h >= 6 ? 'bg-ws-warn/15 text-ws-warn' : 'bg-ws-ok/15 text-ws-ok'}`}>{h ? `${h.toLocaleString('fi-FI')} h` : '–'}</span></td>)}<td className="py-2 text-right font-semibold tabular-nums">{r.hours.reduce((a, b) => a + b, 0).toLocaleString('fi-FI')} h</td></tr>)}</tbody></table></div>}
+    </div>
+    {!collapsible && <div className="flex gap-2 px-4 pb-4"><Button size="sm" variant="outline" onClick={() => setDay(addDays(day, -7))}><ChevronLeft className="mr-1 h-4 w-4" />Edellinen viikko</Button><Button size="sm" variant="outline" onClick={() => setDay(hkiDay(new Date().toISOString()))}>Tämä viikko</Button><Button size="sm" variant="outline" onClick={() => setDay(addDays(day, 7))}>Seuraava viikko<ChevronRight className="ml-1 h-4 w-4" /></Button></div>}
+  </div>;
 }
