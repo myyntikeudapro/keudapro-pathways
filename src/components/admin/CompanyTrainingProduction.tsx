@@ -30,13 +30,13 @@ export function CompanyTrainerCapacity() {
   const stateText = (s: string) => ({ draft: 'Luonnos', approved: 'Ohjelma hyväksytty', superseded: 'Korvattu', cancelled: 'Peruttu' } as Record<string, string>)[s] ?? s;
   return <section className="space-y-3 rounded-lg border bg-background p-4">
     <h2 className="text-lg font-semibold text-keuda-blue">Yrityskoulutuksen kapasiteetti</h2>
-    <p className="text-sm text-muted-foreground">Sinulle nimetyt ohjelmat. Asiakas- ja hintatietoja ei näytetä.</p>
+    <p className="text-sm text-muted-foreground">Sinulle nimetyt ohjelmat. Yrityksen nimi näkyy; yhteystiedot ja hinnat eivät näy.</p>
     {list.isPending && <p role="status" className="text-sm">Ladataan omia ohjelmia…</p>}
     {list.isError && <p role="alert" className="text-sm text-destructive">Omia ohjelmia ei voitu lukea.</p>}
     {list.data?.length === 0 && <p className="text-sm text-muted-foreground">Sinulle ei ole nimetty yrityskoulutuksen ohjelmia.</p>}
-    {!!list.data?.length && <ul aria-label="Omat ohjelmat" className="divide-y rounded border">{list.data.map(p => <li key={p.id}><button type="button" aria-current={p.id === id || undefined} onClick={() => open(p.id)} className={`flex w-full flex-wrap items-center gap-2 p-3 text-left text-sm hover:bg-muted ${p.id === id ? 'bg-muted' : ''}`}>
-      <strong>{fmt(p.starts_at ?? undefined)} – {fmt(p.ends_at ?? undefined)}</strong><Badge variant="outline">Revisio {p.revision}</Badge><Badge variant="secondary">{stateText(p.state)}</Badge><Badge variant={p.capacity_approved ? 'default' : 'outline'}>{p.capacity_approved ? 'Kapasiteetti hyväksytty' : 'Kapasiteetti hyväksymättä'}</Badge>
-    </button></li>)}</ul>}
+    {!!list.data?.length && <ul aria-label="Omat ohjelmat" className="divide-y rounded border">{list.data.map(p => <li key={p.id}><Button variant="ghost" type="button" aria-current={p.id === id || undefined} onClick={() => open(p.id)} className={`h-auto w-full flex-wrap justify-start gap-2 whitespace-normal p-3 text-left text-sm ${p.id === id ? 'bg-muted' : ''}`}>
+      <span className="w-full break-words font-semibold text-keuda-blue">{p.company_name ?? 'Yrityksen nimi puuttuu'}</span><span>{fmt(p.starts_at ?? undefined)} – {fmt(p.ends_at ?? undefined)}</span><Badge variant="outline">Revisio {p.revision}</Badge><Badge variant="secondary">{stateText(p.state)}</Badge><Badge variant={p.capacity_approved ? 'default' : 'outline'}>{p.capacity_approved ? 'Kapasiteetti hyväksytty' : 'Kapasiteetti hyväksymättä'}</Badge>
+    </Button></li>)}</ul>}
     {id && <TrainerProgramme key={id} id={id} onRevision={open} />}
   </section>;
 }
@@ -81,6 +81,7 @@ function CapacityForm({ snap, onSaved, reload, canSave = true, onBehalf = false 
   const shortId = (m: string) => `Kone ${m.slice(-4)}`;
   const capacityMissing = snap.readiness.missing.filter(m => !['handoff_not_accepted', 'preparation_tasks_open', 'blockers_open', 'confirmed_order_delivery_missing', 'programme_unapproved'].includes(m));
   return <div className="space-y-4 border-t pt-3">
+    {snap.company_name !== undefined && <h3 className="break-words text-base font-semibold text-keuda-blue">{snap.company_name ?? 'Yrityksen nimi puuttuu'}</h3>}
     <div className="flex flex-wrap items-center gap-2 text-sm"><Badge variant="outline">Revisio {snap.revision}</Badge><span>{fmt(snap.programme?.startsAt)} – {fmt(snap.programme?.endsAt)}</span></div>
     <div className="text-sm"><WorkspacePerson person={{ id: trainerId }} name={snap.programme?.trainers?.[0] ?? "Vastuukouluttaja"} role="Vastuukouluttaja" /></div><p className="whitespace-pre-wrap text-sm">{snap.programme?.text}</p>
     <div className="max-w-[12rem]"><label htmlFor="ct-participants" className="text-xs text-muted-foreground">Osallistujamäärä</label><Input id="ct-participants" type="number" min={1} max={500} value={participants} onChange={e => setParticipants(Math.trunc(num(e.target.value)) || 0)} /></div>

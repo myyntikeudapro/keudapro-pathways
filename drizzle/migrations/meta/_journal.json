@@ -211,6 +211,13 @@
       "when": 1795603948893,
       "tag": "0029_fix_trainer_role_check_in_bookings",
       "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1795674219820,
+      "tag": "0030_trainer_company_name_visibility",
+      "breakpoints": true
     }
   ]
 }

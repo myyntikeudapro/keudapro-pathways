@@ -4,6 +4,7 @@ import type { Programme, CapacityPlan } from './companyTraining';
 // Production binding remains unmounted until migration + authenticated acceptance pass.
 export type CompanyRpc = (name: string, args: Record<string, unknown>) => Promise<unknown>;
 export type CompanySnapshot = {
+  company_name?: string | null;
   id: string; revision: number; programme: Programme; capacity: CapacityPlan;
   readiness: { ready: boolean; missing: string[] };
 };
@@ -130,16 +131,16 @@ export const READINESS_LABELS: Record<string, string> = {
 };
 export const readinessLabel = (code: string) => READINESS_LABELS[code] ?? code;
 
-export type TrainerProgrammeRow = { id: string; revision: number; state: string; starts_at: string | null; ends_at: string | null; capacity_approved: boolean };
-const TRAINER_ROW_KEYS = ['capacity_approved', 'ends_at', 'id', 'revision', 'starts_at', 'state'];
-// Fails closed if the server ever returns extra (e.g. customer) fields or malformed rows.
+export type TrainerProgrammeRow = { id: string; revision: number; state: string; starts_at: string | null; ends_at: string | null; capacity_approved: boolean; company_name: string | null };
+const TRAINER_ROW_KEYS = ['capacity_approved', 'company_name', 'ends_at', 'id', 'revision', 'starts_at', 'state'];
+// Only the company name is permitted in addition to the trainer's operational fields.
 export function readTrainerProgrammes(value: unknown): TrainerProgrammeRow[] {
   if (!Array.isArray(value)) throw new Error('COMPANY_RESPONSE_INVALID');
   return value.map(row => {
     if (!row || typeof row !== 'object' || Object.keys(row).sort().join() !== TRAINER_ROW_KEYS.join()) throw new Error('COMPANY_RESPONSE_INVALID');
     const r = row as TrainerProgrammeRow;
-    if (typeof r.id !== 'string' || typeof r.revision !== 'number' || typeof r.state !== 'string' || typeof r.capacity_approved !== 'boolean') throw new Error('COMPANY_RESPONSE_INVALID');
+    if (typeof r.id !== 'string' || typeof r.revision !== 'number' || typeof r.state !== 'string' || typeof r.capacity_approved !== 'boolean' || (r.company_name !== null && typeof r.company_name !== 'string')) throw new Error('COMPANY_RESPONSE_INVALID');
     return r;
   });
 }
-export const listTrainerProgrammes = async (rpc: CompanyRpc) => readTrainerProgrammes(await rpc('company_my_trainer_programmes', {}));
+export const listTrainerProgrammes = async (rpc: CompanyRpc) => readTrainerProgrammes(await rpc('company_my_trainer_programmes_with_company', {}));

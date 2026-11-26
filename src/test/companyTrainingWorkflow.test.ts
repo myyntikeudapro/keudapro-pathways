@@ -64,8 +64,11 @@ describe('Kouluttajan kapasiteettisyöte',()=>{
 });
 import { readTrainerProgrammes, listTrainerProgrammes } from '@/lib/companyTrainingWorkflow';
 describe('Kouluttajan omat ohjelmat',()=>{
- const row={id:'v1',revision:2,state:'draft',starts_at:'2027-01-15T07:00:00Z',ends_at:'2027-01-15T13:00:00Z',capacity_approved:false};
- it('kelvollinen lista luetaan',async()=>{const rpc=vi.fn().mockResolvedValue([row]);expect(await listTrainerProgrammes(rpc)).toEqual([row]);expect(rpc).toHaveBeenCalledWith('company_my_trainer_programmes',{});});
+ const row={id:'v1',revision:2,state:'draft',starts_at:'2027-01-15T07:00:00Z',ends_at:'2027-01-15T13:00:00Z',capacity_approved:false,company_name:'TESTI 2 Oy'};
+ it('kouluttaja näkee yrityksen nimen',async()=>{const rpc=vi.fn().mockResolvedValue([row]);expect(await listTrainerProgrammes(rpc)).toEqual([row]);expect(rpc).toHaveBeenCalledWith('company_my_trainer_programmes_with_company',{});});
+ it('yhteystiedot ja hinnat eivät kelpaa rajattuun vastaukseen',()=>{for(const extra of [{email:'asiakas@example.com'},{phone:'0400000000'},{total_net:4800}]) expect(()=>readTrainerProgrammes([{...row,...extra}])).toThrow('COMPANY_RESPONSE_INVALID');});
+ it('puuttuva yritysnimi ei muutu henkilön nimeksi',()=>expect(readTrainerProgrammes([{...row,company_name:null}])[0].company_name).toBeNull());
+ it('yritysnimen on oltava tekstiä tai puuttuva tieto',()=>expect(()=>readTrainerProgrammes([{...row,company_name:42}])).toThrow('COMPANY_RESPONSE_INVALID'));
  it('asiakaskenttä vastauksessa hylätään',()=>expect(()=>readTrainerProgrammes([{...row,customer:'X Oy'}])).toThrow('COMPANY_RESPONSE_INVALID'));
  it('ei-lista hylätään',()=>expect(()=>readTrainerProgrammes({})).toThrow('COMPANY_RESPONSE_INVALID'));
 });

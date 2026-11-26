@@ -3077,6 +3077,7 @@ export type Database = {
       prod_trainer_sessions: {
         Row: {
           booking_status: string | null
+          company_name: string | null
           delivery_title: string | null
           ends_at: string | null
           location: string | null
@@ -3222,6 +3223,18 @@ export type Database = {
         Args: never
         Returns: {
           capacity_approved: boolean
+          ends_at: string
+          id: string
+          revision: number
+          starts_at: string
+          state: string
+        }[]
+      }
+      company_my_trainer_programmes_with_company: {
+        Args: never
+        Returns: {
+          capacity_approved: boolean
+          company_name: string
           ends_at: string
           id: string
           revision: number
@@ -3403,6 +3416,16 @@ export type Database = {
       prod_is_session_trainer: {
         Args: { _session: string; _user: string }
         Returns: boolean
+      }
+      prod_my_trainer_tasks: {
+        Args: never
+        Returns: {
+          company_name: string
+          completed_at: string
+          due_at: string
+          id: string
+          title: string
+        }[]
       }
       prod_recompute: { Args: { _delivery: string }; Returns: undefined }
       prod_record_attendance: {
