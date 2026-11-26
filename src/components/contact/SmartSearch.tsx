@@ -36,7 +36,7 @@ export function SmartSearch() {
     setMatches(null);
     try {
       const { data, error: fnError } = await supabase.functions.invoke("smart-search", {
-        body: { query: q, index: searchIndex },
+        body: { query: q },
       });
       if (fnError) throw fnError;
       const ms = mergeSearchMatches(q, searchIndex, (data?.matches as Match[]) ?? []);
@@ -87,6 +87,7 @@ export function SmartSearch() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder='esim. "tulityökortti" tai "AI johdolle"'
             className="w-full h-14 pl-12 pr-28 rounded-2xl bg-[#F5FBFA] text-foreground placeholder:text-muted-foreground border border-teal-100 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
+            maxLength={200}
             aria-label="Älykäs haku"
           />
           <Button

@@ -1,3 +1,5 @@
+import { admitPublicAi } from "../_shared/publicAiBoundary.ts";
+import { consumePublicAi } from "../_shared/publicAiLimit.ts";
 // Älykäs tilannetsekkaus KASVU-sivulle.
 // Ottaa vastaan yrityksen perustiedot ja palauttaa lyhyen suomenkielisen
 // yhteenvedon + suositellun kasvureitin.
@@ -14,6 +16,8 @@ type Input = {
   bottleneck: number;     // 0-100, kuinka paljon yrittäjä on itse pullonkaula
   focus?: string;         // valittu painopiste (esim. "myynti", "rekrytointi")
 };
+
+const ALLOWED_FOCUS = ["myynti", "skaalaus", "uudistuminen", "osaaminen"] as const;
 
 const ROUTES = ["kaynistys", "skaalaus", "kasvu-uudistuminen", "osaaminen"] as const;
 type RouteId = (typeof ROUTES)[number];
@@ -36,15 +40,10 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
-  const _origin = req.headers.get("origin");
-  if (!_origin || !["http://localhost:8080", "http://127.0.0.1:8080", "https://id-preview--372569a7-94e8-4660-8a21-6fa94be31047.lovable.app", "https://keudapro.fi", "https://www.keudapro.fi", "https://keudapro.lovable.app"].includes(_origin)) {
-    return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-  }
-
-  const ALLOWED_FOCUS = ["myynti", "skaalaus", "uudistuminen", "osaaminen"] as const;
-
   try {
-    const raw = (await req.json()) as Input;
+    const admitted = await admitPublicAi(req, "growth-checkup", consumePublicAi, corsHeaders);
+    if (admitted.response) return admitted.response;
+    const raw = admitted.body as Input;
     if (
       typeof raw?.revenue !== "number" ||
       typeof raw?.team !== "number" ||
@@ -57,7 +56,7 @@ Deno.serve(async (req) => {
       });
     }
     // Server-side allowlist for `focus` to prevent prompt injection.
-    const safeFocus =
+    const safeFocus = raw.focus === "osaamisen-johtaminen" ? "osaaminen" :
       typeof raw.focus === "string" && (ALLOWED_FOCUS as readonly string[]).includes(raw.focus)
         ? raw.focus
         : undefined;
@@ -155,7 +154,7 @@ Suositeltu kasvureitti: ${labels[recommended]}.`;
       { headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
   } catch (err) {
-    console.error("growth-checkup error", err);
+
     return new Response(JSON.stringify({ error: "Sisäinen virhe" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },

@@ -1,3 +1,4 @@
+import { BillingPlanPanel } from './BillingPlanPanel';
 import { salesFlow } from '@/lib/companyFlow';
 import { FlowStepper } from './FlowStepper';
 import { WorkspacePerson } from "./WorkspacePerson";
@@ -80,7 +81,7 @@ function CaseProgramme({ leadId, team, refreshKey }: { leadId: string; team: Tea
   if (q.isError) return <p role="alert" className="text-sm text-destructive">{companyErrorText(q.error)}</p>;
   const { lead, orders, snapshot, handoffs, deliveries, templates, offers, buyer, buyerContact } = q.data;
   if (!lead || lead.mt_personal) return null;
-  return <>{orders.length > 0 && <p className="rounded-md border bg-muted/40 p-2 text-sm">Tilaus on vahvistettu ({new Date(orders[0].created_at).toLocaleDateString('fi-FI')}). Jatka alla olevan Seuraava askel -ohjeen mukaan.</p>}{orders.length === 0 && offers.length === 0 && <p className="rounded-md border border-dashed p-2 text-sm text-muted-foreground">Vahvista tilaus -lomake ilmestyy tähän, kun asiakkaan tarjouksen tila on Hyväksytty.</p>}{orders.length === 0 && offers.length > 0 && <OrderForm lead={lead} buyer={buyer} buyerContact={buyerContact} offers={offers} busy={busy} run={run} onLinked={() => qc.invalidateQueries({ queryKey: key })} />}<ProgrammeForm hasOffer={offers.length > 0} key={snapshot?.id ?? 'new'} lead={lead} snapshot={snapshot} team={team} orders={orders} handoffs={handoffs} deliveries={deliveries} templates={templates} busy={busy} run={run} error={error} result={result} /></>;
+  return <>{orders.map((o: { id: string }) => <BillingPlanPanel key={o.id} orderId={o.id} />)}{orders.length > 0 && <p className="rounded-md border bg-muted/40 p-2 text-sm">Tilaus on vahvistettu ({new Date(orders[0].created_at).toLocaleDateString('fi-FI')}). Jatka alla olevan Seuraava askel -ohjeen mukaan.</p>}{orders.length === 0 && offers.length === 0 && <p className="rounded-md border border-dashed p-2 text-sm text-muted-foreground">Vahvista tilaus -lomake ilmestyy tähän, kun asiakkaan tarjouksen tila on Hyväksytty.</p>}{orders.length === 0 && offers.length > 0 && <OrderForm lead={lead} buyer={buyer} buyerContact={buyerContact} offers={offers} busy={busy} run={run} onLinked={() => qc.invalidateQueries({ queryKey: key })} />}<ProgrammeForm hasOffer={offers.length > 0} key={snapshot?.id ?? 'new'} lead={lead} snapshot={snapshot} team={team} orders={orders} handoffs={handoffs} deliveries={deliveries} templates={templates} busy={busy} run={run} error={error} result={result} /></>;
 }
 
 function OrderForm({ lead, buyer, buyerContact, offers, busy, run, onLinked }: any) {

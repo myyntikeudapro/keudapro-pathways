@@ -1,3 +1,4 @@
+import { contractBilling, type BillingOrder, type BillingPlan, type BillingInstallment } from './contractBilling';
 // Shared production calculations. The production page and the operations center both use these,
 // so a metric count always equals the rows of its linked queue.
 import { billingEligible } from './billingReadiness';
@@ -9,7 +10,7 @@ export type Blocker = { id: string; delivery_id: string; description: string; ow
 export type QualityIssue = { id: string; delivery_id: string; severity: string; description: string; owner_id: string; closed_at: string | null };
 export type Actual = { id: string; session_id: string; held?: boolean };
 export type Billing = { delivery_id: string; billing_ready: boolean; payment_status: string };
-export type ProductionData = { deliveries: Delivery[]; sessions: Session[]; bookings: Booking[]; tasks: Task[]; blockers: Blocker[]; quality: QualityIssue[]; actuals: Actual[]; billing: Billing[] };
+export type ProductionData = { deliveries: Delivery[]; sessions: Session[]; bookings: Booking[]; tasks: Task[]; blockers: Blocker[]; quality: QualityIssue[]; actuals: Actual[]; billing: Billing[]; orders?: BillingOrder[]; billingPlans?: BillingPlan[]; billingInstallments?: BillingInstallment[] };
 
 export const EMPTY_PRODUCTION: ProductionData = { deliveries: [], sessions: [], bookings: [], tasks: [], blockers: [], quality: [], actuals: [], billing: [] };
 export const DAY = 86_400_000;
@@ -81,7 +82,7 @@ export const PRODUCTION_FORMULAS: Record<string, string> = {
   upcomingNotReady: 'Ensimmäinen sessio seuraavan 30 päivän aikana ja jokin aloitusehto puuttuu',
   overdue: 'Tekemättömät valmistelutehtävät, joiden määräaika on ohitettu',
   exceptions: 'Poikkeamien määrä: myöhästymiset, puuttuvat kouluttajat/toteumat/vastuut, päällekkäiset varaukset, avoimet estävät tekijät ja laatupoikkeamat',
-  billingReady: 'Toteutukset, joiden laskutusvalmius on kuitattu eikä niitä ole vielä laskutettu',
+  billingReady: 'Vahvistetun sopimussuunnitelman avoimet erät Helsingin laskutuspäivään mennessä; ei koulutuksen valmistumismittari',
 };
 
 export type QueueRow = { id: string; deliveryId: string; title: string; detail: string; ownerId: string | null };
@@ -98,6 +99,11 @@ export function productionQueue(d: ProductionData, key: string, now: Date, mineI
     return [{ id: x.id, deliveryId: x.id, title: x.title, detail: r.ready ? 'Valmis aloitukseen' : r.missing.join(' · '), ownerId: x.production_owner_id }];
   });
   else if (key === 'overdue' || key === 'exceptions') rows = exceptions(d, now).filter(e => key === 'exceptions' || e.kind === 'overdue_task').map(e => ({ id: e.key, deliveryId: e.deliveryId, title: `${EXCEPTION_LABEL[e.kind]}: ${e.label}`, detail: byId.get(e.deliveryId)?.title ?? '', ownerId: e.ownerId }));
-  else if (key === 'billingReady') rows = d.billing.filter(b => b.billing_ready && billingEligible(d.sessions.filter(s => s.delivery_id === b.delivery_id), d.actuals, t) && b.payment_status === 'ei_laskutettu' && byId.has(b.delivery_id) && isLive(byId.get(b.delivery_id)!)).map(b => ({ id: b.delivery_id, deliveryId: b.delivery_id, title: byId.get(b.delivery_id)!.title, detail: 'Laskutusvalmis · ei laskutettu', ownerId: byId.get(b.delivery_id)!.sales_owner_id }));
+  else if (key === 'billingReady') rows = live.flatMap(delivery => {
+    const order = d.orders?.find(o => o.id === delivery.order_id);
+    if (!order) return [];
+    const billing = contractBilling(order, d.billingPlans?.find(p => p.order_id === order.id), d.billingInstallments ?? [], now);
+    return billing.due.map(i => ({ id: i.id, deliveryId: delivery.id, title: delivery.title, detail: `Erä ${i.seq} · ${i.due_on} · ${Number(i.amount).toLocaleString('fi-FI')} € (alv 0 %)`, ownerId: delivery.sales_owner_id }));
+  });
   return mineId ? rows.filter(r => r.ownerId === mineId) : rows;
 }

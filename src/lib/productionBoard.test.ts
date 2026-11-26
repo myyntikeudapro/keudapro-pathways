@@ -34,6 +34,16 @@ describe('productionBoard', () => {
     expect(boardRows(mk({ tasks: [task] }), now, 'kouluttaja')).toHaveLength(1);
     expect(boardRows(mk({ tasks: [task] }), now, 'muu')).toHaveLength(0);
   });
+  it('manual advance payment never marks unfinished training complete or hides it', () => {
+    const d = mk({ sessions: [sess('2027-01-10T07:00:00Z', '2027-01-11T13:00:00Z')], billing: [{ delivery_id: 'd', billing_ready: false, payment_status: 'maksettu' }] });
+    expect(boardRow(d, 'd', now).stage).toBe('kaynnissa');
+    expect(boardRows(d, now)).toHaveLength(1);
+  });
+  it('completed actuals do not hide an open quality issue after a manual payment', () => {
+    const d = mk({ sessions: [sess('2027-01-09T07:00:00Z', '2027-01-09T13:00:00Z')], actuals: [{ id: 'a', session_id: 's1', held: true }], billing: [{ delivery_id: 'd', billing_ready: true, payment_status: 'laskutettu' }], quality: [{ id: 'q', delivery_id: 'd', severity: 'korkea', description: 'TESTI', owner_id: 'satu', closed_at: null }] });
+    expect(boardRow(d, 'd', now)).toMatchObject({ stage: 'paattynyt', tone: 'warn', tab: 'laatu' });
+    expect(boardRows(d, now)).toHaveLength(1);
+  });
   it('weeks start on Monday in Helsinki', () => {
     expect(weekKey('2027-01-10T21:30:00Z')).toBe('2027-01-04'); // Sunday 23:30 Helsinki
     expect(weekKey('2027-01-10T22:30:00Z')).toBe('2027-01-11'); // Monday 00:30 Helsinki

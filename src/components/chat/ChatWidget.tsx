@@ -1,3 +1,4 @@
+import { publicChatMessages } from "@/lib/publicChatRequest";
 import { supabase } from "@/integrations/supabase/client";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
@@ -80,7 +81,7 @@ export function ChatWidget() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${_token}`,
         },
-        body: JSON.stringify({ messages: allMessages }),
+        body: JSON.stringify({ messages: publicChatMessages(allMessages) }),
       });
 
       if (!resp.ok || !resp.body) {
@@ -234,6 +235,7 @@ export function ChatWidget() {
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                maxLength={2000}
                 placeholder="Kirjoita viesti..."
                 className="flex-1 px-3 py-2 text-sm rounded-lg bg-muted border border-border focus:outline-none focus:ring-2 focus:ring-primary/40"
                 disabled={isLoading}

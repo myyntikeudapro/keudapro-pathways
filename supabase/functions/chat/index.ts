@@ -1,4 +1,5 @@
-import { requireStaff } from "../_shared/requireStaff.ts";
+import { admitPublicAi } from "../_shared/publicAiBoundary.ts";
+import { consumePublicAi } from "../_shared/publicAiLimit.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -34,36 +35,11 @@ serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
-  const _denied = await requireStaff(req, corsHeaders);
-  if (_denied) return _denied;
-
-  const _origin = req.headers.get("origin");
-  if (!_origin || !["http://localhost:8080", "http://127.0.0.1:8080", "https://id-preview--372569a7-94e8-4660-8a21-6fa94be31047.lovable.app", "https://keudapro.fi", "https://www.keudapro.fi", "https://keudapro.lovable.app"].includes(_origin)) {
-    return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-  }
 
   try {
-    const body = await req.json();
-    const rawMessages = body?.messages;
-
-    if (!Array.isArray(rawMessages)) {
-      return new Response(JSON.stringify({ error: "Invalid request" }), {
-        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-    if (rawMessages.length === 0 || rawMessages.length > 20) {
-      return new Response(JSON.stringify({ error: "Invalid request" }), {
-        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-    const messages = [];
-    for (const m of rawMessages) {
-      if (!m || typeof m !== "object") continue;
-      if (m.role !== "user" && m.role !== "assistant") continue;
-      if (typeof m.content !== "string") continue;
-      if (m.content.length === 0 || m.content.length > 2000) continue;
-      messages.push({ role: m.role, content: m.content });
-    }
+    const admitted = await admitPublicAi(req, "chat", consumePublicAi, corsHeaders);
+    if (admitted.response) return admitted.response;
+    const messages = [...(admitted.body.messages ?? [])];
 
     // Only the latest user turn keeps a conversational role; earlier turns are passed as quoted, non-authoritative context so callers cannot forge assistant messages.
     const _last = messages[messages.length - 1];
@@ -115,7 +91,7 @@ serve(async (req) => {
         });
       }
       const t = await response.text();
-      console.error("AI gateway error:", response.status, t);
+      console.error("AI gateway status:", response.status);
       return new Response(JSON.stringify({ error: "AI gateway error" }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -126,9 +102,9 @@ serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
   } catch (e) {
-    console.error("chat error:", e);
+    
     return new Response(
-      JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
+      JSON.stringify({ error: "Palvelu ei ole juuri nyt käytettävissä." }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }

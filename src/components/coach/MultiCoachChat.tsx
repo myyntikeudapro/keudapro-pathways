@@ -1,3 +1,4 @@
+import { publicChatMessages } from "@/lib/publicChatRequest";
 import { supabase } from "@/integrations/supabase/client";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { X, Send, UserCheck, Mail, ArrowLeft, Bot } from "lucide-react";
@@ -145,7 +146,7 @@ function CoachChatSession() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${_token}`,
         },
-        body: JSON.stringify({ messages: allMessages }),
+        body: JSON.stringify({ messages: endpoint === "veli-coach-chat" || endpoint === "chat" ? publicChatMessages(allMessages) : allMessages }),
       });
 
       if (!resp.ok || !resp.body) throw new Error("Failed");
@@ -417,7 +418,7 @@ function CoachChatSession() {
               placeholder={isPublicAdviser ? ui.placeholder : "Kirjoita viesti..."}
               className="flex-1 min-w-0 px-3 py-2 text-sm rounded-lg bg-muted border border-border focus:outline-none focus:ring-2 focus:ring-primary/40"
               disabled={isLoading || (isPublicAdviser && userMessageCount >= 10)}
-              maxLength={isPublicAdviser ? 2000 : undefined}
+              maxLength={isPublicAdviser || config.endpoint === "veli-coach-chat" ? 2000 : undefined}
             />
             <Button
               type="submit"

@@ -246,6 +246,27 @@
       "when": 1795701220162,
       "tag": "0034_fix_confirm_order_missing_list",
       "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "7",
+      "when": 1795714222680,
+      "tag": "0035_contract_billing_plans",
+      "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1795714429219,
+      "tag": "0036_customer_order_replay_guard",
+      "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1795714457011,
+      "tag": "0037_public_ai_usage_boundary",
+      "breakpoints": true
     }
   ]
 }

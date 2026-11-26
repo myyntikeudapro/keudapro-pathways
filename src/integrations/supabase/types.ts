@@ -7,11 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "14.5"
-  }
   public: {
     Tables: {
       ai_talent_members: {
@@ -907,6 +902,123 @@ export type Database = {
         }
         Relationships: []
       }
+      crm_billing_installments: {
+        Row: {
+          amount: number
+          due_on: string
+          id: string
+          marked_at: string | null
+          marked_by: string | null
+          order_id: string
+          payment_status: string
+          seq: number
+        }
+        Insert: {
+          amount: number
+          due_on: string
+          id?: string
+          marked_at?: string | null
+          marked_by?: string | null
+          order_id: string
+          payment_status?: string
+          seq: number
+        }
+        Update: {
+          amount?: number
+          due_on?: string
+          id?: string
+          marked_at?: string | null
+          marked_by?: string | null
+          order_id?: string
+          payment_status?: string
+          seq?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_billing_installments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "crm_billing_plans"
+            referencedColumns: ["order_id"]
+          },
+        ]
+      }
+      crm_billing_ops: {
+        Row: {
+          actor_id: string
+          created_at: string
+          op_key: string
+          order_id: string
+          request: Json
+          result: Json
+        }
+        Insert: {
+          actor_id: string
+          created_at?: string
+          op_key: string
+          order_id: string
+          request: Json
+          result: Json
+        }
+        Update: {
+          actor_id?: string
+          created_at?: string
+          op_key?: string
+          order_id?: string
+          request?: Json
+          result?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_billing_ops_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "crm_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_billing_plans: {
+        Row: {
+          confirmed_at: string
+          confirmed_by: string
+          ends_on: string
+          mode: string
+          order_id: string
+          starts_on: string
+          total_net: number
+          version: number
+        }
+        Insert: {
+          confirmed_at?: string
+          confirmed_by: string
+          ends_on: string
+          mode: string
+          order_id: string
+          starts_on: string
+          total_net: number
+          version?: number
+        }
+        Update: {
+          confirmed_at?: string
+          confirmed_by?: string
+          ends_on?: string
+          mode?: string
+          order_id?: string
+          starts_on?: string
+          total_net?: number
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_billing_plans_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: true
+            referencedRelation: "crm_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       crm_contacts: {
         Row: {
           created_at: string
@@ -1287,6 +1399,38 @@ export type Database = {
             columns: ["lead_id"]
             isOneToOne: false
             referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_order_command_ops: {
+        Row: {
+          actor_id: string
+          created_at: string
+          op_key: string
+          order_id: string
+          request: Json
+        }
+        Insert: {
+          actor_id: string
+          created_at?: string
+          op_key: string
+          order_id: string
+          request: Json
+        }
+        Update: {
+          actor_id?: string
+          created_at?: string
+          op_key?: string
+          order_id?: string
+          request?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_order_command_ops_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "crm_orders"
             referencedColumns: ["id"]
           },
         ]
@@ -3014,6 +3158,24 @@ export type Database = {
           },
         ]
       }
+      public_ai_usage: {
+        Row: {
+          bucket_key: string
+          request_count: number
+          window_start: string
+        }
+        Insert: {
+          bucket_key: string
+          request_count?: number
+          window_start: string
+        }
+        Update: {
+          bucket_key?: string
+          request_count?: number
+          window_start?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
@@ -3381,6 +3543,26 @@ export type Database = {
         Returns: Json
       }
       crm_normalize_business_id: { Args: { p: string }; Returns: string }
+      crm_read_billing_plan: { Args: { p_order_id: string }; Returns: Json }
+      crm_save_billing_plan: {
+        Args: {
+          p_expected_version: number
+          p_installments: Json
+          p_mode: string
+          p_op_key: string
+          p_order_id: string
+        }
+        Returns: Json
+      }
+      crm_set_installment_payment: {
+        Args: {
+          p_expected_version: number
+          p_installment_id: string
+          p_op_key: string
+          p_status: string
+        }
+        Returns: Json
+      }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
@@ -3526,6 +3708,10 @@ export type Database = {
         Returns: string
       }
       prod_sync_participants: { Args: { p_delivery: string }; Returns: number }
+      public_ai_consume: {
+        Args: { p_scope: string; p_visitor: string }
+        Returns: boolean
+      }
       read_email_batch: {
         Args: { batch_size: number; queue_name: string; vt: number }
         Returns: {
@@ -3679,3 +3865,4 @@ export const Constants = {
     },
   },
 } as const
+

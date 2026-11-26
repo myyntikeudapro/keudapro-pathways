@@ -1,0 +1,1 @@
+- Public growth/search/Veli/chat share a fail-closed database quota before inference, separate from PKS capacity; bounded requests and a server-owned search catalogue prevent caller-controlled spend and sources.

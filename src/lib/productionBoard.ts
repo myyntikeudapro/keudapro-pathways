@@ -1,3 +1,4 @@
+import { PAYMENT_LABEL } from './productionStatus';
 // Per-training stage, next step and traffic light for the production work list and training card.
 // Display logic only; the database remains the authority for every transition.
 import { billingEligible } from './billingReadiness';
@@ -8,30 +9,32 @@ export type CardTab = 'yhteenveto' | 'aikataulu' | 'tehtavat' | 'osallistujat' |
 export type Stage = 'aikatauluttamatta' | 'valmistelu' | 'aloitusvalmis' | 'kaynnissa' | 'toteumat' | 'laskutusvalmis' | 'laskutettu' | 'paattynyt' | 'peruttu';
 export const STAGE_LABEL: Record<Stage, string> = {
   aikatauluttamatta: 'Aikatauluttamatta', valmistelu: 'Valmistelu', aloitusvalmis: 'Aloitusvalmis', kaynnissa: 'Käynnissä',
-  toteumat: 'Toteumat kirjaamatta', laskutusvalmis: 'Laskutusvalmis', laskutettu: 'Laskutettu', paattynyt: 'Päättynyt', peruttu: 'Peruttu',
+  toteumat: 'Toteumat kirjaamatta', laskutusvalmis: 'Toteumat valmiit', laskutettu: 'Merkitty laskutetuksi (käsin)', paattynyt: 'Toteumat kirjattu', peruttu: 'Peruttu',
 };
 export type BoardRow = { id: string; title: string; stage: Stage; tone: Tone; reason: string; next: string; tab: CardTab; firstStart: string | null; lastEnd: string | null; ownerId: string; taskOwnerIds: string[]; done: number; total: number };
 
 export function boardRow(d: ProductionData, id: string, now: Date): BoardRow {
   const t = now.getTime();
-  const del = d.deliveries.find(x => x.id === id)!;
+  const del = d.deliveries.find(x => x.id === id);
+  if (!del) throw new Error('Delivery not found');
   const sessions = d.sessions.filter(s => s.delivery_id === id).sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
   const tasks = d.tasks.filter(x => x.delivery_id === id);
   const r = readiness(d, id);
   const exc = exceptions(d, now).filter(e => e.deliveryId === id);
   const billing = d.billing.find(b => b.delivery_id === id);
-  const lastEnd = sessions.length ? sessions[sessions.length - 1].ends_at : null;
+  const lastEnd = sessions.at(-1)?.ends_at ?? null;
   const critical = tasks.filter(x => x.blocks_start);
-  const base = { id, title: del.title, firstStart: r.firstStart, lastEnd, ownerId: del.production_owner_id, taskOwnerIds: [...new Set(tasks.filter(x => !x.completed_at && x.owner_id).map(x => x.owner_id!))], done: critical.filter(x => x.completed_at).length, total: critical.length };
+  const base = { id, title: del.title, firstStart: r.firstStart, lastEnd, ownerId: del.production_owner_id, taskOwnerIds: [...new Set(tasks.filter(x => !x.completed_at && x.owner_id).flatMap(x => x.owner_id ? [x.owner_id] : []))], done: critical.filter(x => x.completed_at).length, total: critical.length };
   const daysTo = r.firstStart ? (Date.parse(r.firstStart) - t) / DAY : Infinity;
   if (del.production_status === 'peruttu') return { ...base, stage: 'peruttu', tone: 'ok', reason: 'Peruttu', next: 'Ei toimenpiteitä', tab: 'yhteenveto' };
-  if (billing && billing.payment_status !== 'ei_laskutettu') return { ...base, stage: 'laskutettu', tone: 'ok', reason: billing.payment_status === 'maksettu' ? 'Maksettu' : 'Laskutettu Netvisorissa', next: 'Ei toimenpiteitä', tab: 'toteumat' };
   if (!sessions.length) return { ...base, stage: 'aikatauluttamatta', tone: exc.length ? 'risk' : 'warn', reason: 'Sessioita ei ole aikataulutettu', next: 'Lisää sessiot ja varaa kouluttaja', tab: 'aikataulu' };
   const allEnded = sessions.every(s => Date.parse(s.ends_at) <= t);
   if (allEnded) {
-    if (billingEligible(sessions, d.actuals, t)) return billing?.billing_ready
-      ? { ...base, stage: 'laskutusvalmis', tone: 'ok', reason: 'Toteumat kirjattu', next: 'Laskuta Netvisorissa ja päivitä maksutila', tab: 'toteumat' }
-      : { ...base, stage: 'toteumat', tone: 'warn', reason: 'Laskutusvalmius kuittaamatta', next: 'Tarkista laskutusvalmius', tab: 'toteumat' };
+    if (billingEligible(sessions, d.actuals, t)) return {
+      ...base, stage: 'paattynyt', tone: exc.length ? 'warn' : 'ok',
+      reason: billing && billing.payment_status !== 'ei_laskutettu' ? `Toteumat kirjattu · ${PAYMENT_LABEL[billing.payment_status] ?? 'Maksutila tarkistettava'}` : 'Kaikkien sessioiden toteumat kirjattu',
+      next: exc.length ? 'Tarkista avoimet poikkeamat' : 'Tarkista laatu ja sopimuslaskutus', tab: exc.length ? 'laatu' : 'toteumat',
+    };
     const days = lastEnd ? (t - Date.parse(lastEnd)) / DAY : 0;
     return { ...base, stage: 'toteumat', tone: days > 7 ? 'risk' : 'warn', reason: `Toteumia puuttuu (${Math.floor(days)} pv viimeisestä sessiosta)`, next: 'Kirjaa sessioiden toteumat', tab: 'toteumat' };
   }
@@ -44,7 +47,7 @@ export function boardRow(d: ProductionData, id: string, now: Date): BoardRow {
 }
 
 export function boardRows(d: ProductionData, now: Date, mineId?: string, includeDone = false): BoardRow[] {
-  const rows = d.deliveries.map(x => boardRow(d, x.id, now)).filter(r => r.stage !== 'peruttu' && (includeDone || r.stage !== 'laskutettu'));
+  const rows = d.deliveries.map(x => boardRow(d, x.id, now)).filter(r => r.stage !== 'peruttu' && (includeDone || r.stage !== 'paattynyt' || r.tone !== 'ok'));
   const order: Record<Tone, number> = { risk: 0, warn: 1, ok: 2 };
   return (mineId ? rows.filter(r => isMine(r, mineId)) : rows).sort((a, b) => order[a.tone] - order[b.tone] || (a.firstStart ?? '9').localeCompare(b.firstStart ?? '9'));
 }

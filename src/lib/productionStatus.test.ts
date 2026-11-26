@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { readinessSummary, billingLabel, PAYMENT_LABEL, productionSection } from './productionStatus';
+import { readinessSummary, productionCheckpoint, productionSection } from './productionStatus';
 
 describe('productionStatus', () => {
   it('0 aktiivista ei ole vihreä onnistumistila', () => {
@@ -11,13 +11,14 @@ describe('productionStatus', () => {
     expect(readinessSummary(3, 3).tone).toBe('ok');
     expect(readinessSummary(3, 1)).toMatchObject({ tone: 'warn', meta: '2 ei aloitusvalmis' });
   });
-  it('käsin valittu maksutila ei väitä Netvisor-lähetystä', () => {
-    for (const v of Object.values(PAYMENT_LABEL)) expect(v).not.toMatch(/netvisor/i);
-    expect(billingLabel(true, true, 'laskutettu')).toBe('Merkitty laskutetuksi (käsin)');
+  it('käsin tehty maksumerkintä ei vahvista tuotannon toteumia', () => {
+    expect(productionCheckpoint(false, false, 'laskutettu')).toEqual({ actualsComplete: false, manualPaymentStatus: 'laskutettu' });
+    expect(productionCheckpoint(false, false, 'maksettu')).toEqual({ actualsComplete: false, manualPaymentStatus: 'maksettu' });
   });
-  it('laskutusvalmius vaatii kuittauksen ja toteumat', () => {
-    expect(billingLabel(true, false, 'ei_laskutettu')).toBe('Ei laskutusvalmis');
-    expect(billingLabel(true, true, 'ei_laskutettu')).toBe('Valmis laskutukseen');
+  it('tuotannon tarkistus vaatii kuittauksen ja toteumat, ei laskun merkintää', () => {
+    expect(productionCheckpoint(true, false, 'ei_laskutettu').actualsComplete).toBe(false);
+    expect(productionCheckpoint(false, true, 'ei_laskutettu').actualsComplete).toBe(false);
+    expect(productionCheckpoint(true, true, 'ei_laskutettu')).toEqual({ actualsComplete: true, manualPaymentStatus: null });
   });
   it('tuntematon osio palaa koulutusprojekteihin', () => {
     expect(productionSection(null)).toBe('projektit');

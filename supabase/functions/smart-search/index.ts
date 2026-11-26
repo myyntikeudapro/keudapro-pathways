@@ -1,3 +1,6 @@
+import publicIndex from "./public-index.json" with { type: "json" };
+import { admitPublicAi } from "../_shared/publicAiBoundary.ts";
+import { consumePublicAi } from "../_shared/publicAiLimit.ts";
 // Smart semantic search over the KeudaPRO content index.
 // Uses Lovable AI Gateway to rank/route a free-form Finnish query
 // to the most relevant pages, programs and pätevyydet on the site.
@@ -21,13 +24,11 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  const _origin = req.headers.get("origin");
-  if (!_origin || !["http://localhost:8080", "http://127.0.0.1:8080", "https://id-preview--372569a7-94e8-4660-8a21-6fa94be31047.lovable.app", "https://keudapro.fi", "https://www.keudapro.fi", "https://keudapro.lovable.app"].includes(_origin)) {
-    return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-  }
-
   try {
-    const { query, index } = (await req.json()) as { query: string; index: IndexEntry[] };
+    const admitted = await admitPublicAi(req, "smart-search", consumePublicAi, corsHeaders);
+    if (admitted.response) return admitted.response;
+    const query = admitted.body.query;
+    const index: IndexEntry[] = publicIndex; // Trusted server catalogue only; supplied index is never a model source or link authority.
 
     if (!query || typeof query !== "string" || query.trim().length < 2) {
       return new Response(JSON.stringify({ matches: [] }), {
@@ -50,7 +51,7 @@ Deno.serve(async (req) => {
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
-      return new Response(JSON.stringify({ error: "LOVABLE_API_KEY missing" }), {
+      return new Response(JSON.stringify({ error: "AI-haku ei ole juuri nyt käytettävissä" }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -110,7 +111,7 @@ Vastaa AINA pelkkänä JSONina muodossa:
         });
       }
       const body = await aiRes.text();
-      console.error("AI gateway error", status, body);
+      console.error("AI gateway status", status);
       return new Response(JSON.stringify({ error: "AI-haku epäonnistui" }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -142,7 +143,7 @@ Vastaa AINA pelkkänä JSONina muodossa:
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
-    console.error("smart-search error", err);
+
     return new Response(JSON.stringify({ error: "Sisäinen virhe" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },

@@ -3,11 +3,20 @@
 - [x] Asiakkaat: ehdotettu ensimmäisen aidon asiakastapauksen turvallinen läpivienti Heikin ja Sadun kanssa lukutarkistusraportissa
 - [ ] Jatkotoimet 1–4 luonnoksessa Työtilan jatko 1–4: eristetyt asiakastestit, projektikohtainen laskutus, AI-turvarajat ja laskutustekstit; odottaa luonnoksen tuloksia ja erillistä hyväksyntää
 - [ ] Palautusvalmius: uusimman varmuuskopion UTC-aika, palautusvastuuhenkilö, tiedostovarmistus ja eristetty palautuskoe odottavat vahvistusta
+## Työtilan jatko 1–4 (vain eristetty luonnos)
+- [x] Asiakkaat 1B: kirjautunut synteettinen UI-läpivienti ja neljä palvelinroolia, ostaja/idempotenssi/samanaikaisuus tarkistettu
+- [x] Sopimuslaskutus: tilauksen suunnitelma, erät, palvelintarkistukset ja asiakas/myynti/tuotanto/jonot yhteisellä laskennalla
+- [x] Neljän julkisen AI-toiminnon fail-closed-raja ja palautuksen erillinen suunnitelma; ei mallikutsuja eikä käyttöönottoa
+- [x] Maksutilatekstit, tuotannon toteumien/laatupoikkeamien erottaminen ja 320/390/1280 px UI-tarkistus
+- [x] Kohdennetut regressiot ja 21 eristettyä palvelinkoetta; loppuraportti docs/workspace-continuation-2026-11-26.md
+- [ ] Ajantasainen turvan syvätarkastus: työkalu ei tue luonnoksia; pääprojektissa tehtävä hyväksynnän jälkeen ennen käyttöönottoa
+- [ ] Tuotannon palautusvalmiuden vahvistus: pääprojekti pyytää uusimman onnistuneen varmistuksen UTC-aikaleiman ja palautusvastuuhenkilön; varmistuslistaa ei tarkistettu
+
 - [x] Asiakkaat 1A täydennys: liittämättömien yhteydenottojen näkyvä henkilöstöjono myös tyhjässä rekisterissä; kolme oikeaa yhteydenottoa ja myyntikorttiin siirtyminen tarkistettu kirjautuneena 390/1144 px ilman tallennuksia
 - [x] Asiakkaat 1B: tarkistettu asiakasvalinta, tilausvahvistuksen ostajakorjaus ja hyväksymistestit luonnoksen omassa tietokannassa; ei julkaistu
 - [x] Asiakkaat 1A täydennys: 26 testiä läpäisi, lint ja esikatselu virheettömät; testitulokset ja tarkka 1B-ehdotus toimitettu ilman kirjoittavia muutoksia tai julkaisua
 - [x] Asiakkaat 1B: tarkistettu asiakasvalinta, tilausvahvistuksen ostajakorjaus ja hyväksymistestit luonnoksen omassa tietokannassa; ei julkaistu
-- [ ] Asiakkaat 1A eristetty päästä päähän -hyväksyntätesti: odottaa varmennettua erillistä testitietokantaa ja sen omia testikäyttäjiä; synteettiset lukuvastaukset eivät korvaa palvelimen roolitestejä
+- [x] Asiakkaat 1A eristetty päästä päähän -hyväksyntätesti: tämän luonnoksen omilla admin/editor/trainer/anonymous-rooleilla, synteettisellä asiakaskortilla, tilausostajalla ja todellisilla tallennuksilla todennettu 26.11.2026
 - [x] Asiakkaat 1A: lukeva organisaatiolista, haku ja asiakkuus-/vastuu-/palvelurajaukset
 - [x] Asiakkaat 1A: yhteinen asiakaskortti ja nykyiset myynnin/tuotannon linkit
 - [x] Asiakkaat 1A: 20 testiä ja lint läpi; kirjautunut tyhjän rekisterin myyntisiirtymä, synteettiset asiakaskortin välilehdet ja linkit, 390/1144 px sekä kirjautumaton esto tarkistettu ilman tietomuutoksia. Täytetyn oikean asiakaskortin läpivienti ei ollut mahdollinen tyhjässä organisaatiorekisterissä. Ei julkaistu.

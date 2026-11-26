@@ -1,0 +1,1 @@
+- Contract billing uses order-scoped plans and installments through versioned, idempotent staff RPCs; production actuals and quality stay independent so advance billing cannot imply completion.

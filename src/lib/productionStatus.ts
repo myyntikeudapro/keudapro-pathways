@@ -17,9 +17,9 @@ export const PAYMENT_LABEL: Record<string, string> = {
   maksettu: 'Merkitty maksetuksi (käsin)',
 };
 
-export function billingLabel(billingReady: boolean, eligible: boolean, paymentStatus: string | undefined): string {
-  if (paymentStatus && paymentStatus !== 'ei_laskutettu') return PAYMENT_LABEL[paymentStatus] ?? paymentStatus;
-  return billingReady && eligible ? 'Valmis laskutukseen' : 'Ei laskutusvalmis';
+/** Production checkpoint and manual payment are independent from contract billing eligibility. */
+export function productionCheckpoint(actualsChecked: boolean, actualsEligible: boolean, paymentStatus: string | undefined) {
+  return { actualsComplete: actualsChecked && actualsEligible, manualPaymentStatus: ['laskutettu','maksettu'].includes(paymentStatus ?? '') ? paymentStatus : null };
 }
 
 export const PRODUCTION_SECTIONS = [

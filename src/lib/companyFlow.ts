@@ -33,13 +33,13 @@ export function productionFlow(i: { sessions: number; sessionsBooked: boolean; r
     { key: 'sessions', label: 'Sessiot ja kouluttajat', done: i.sessions > 0 && i.sessionsBooked },
     { key: 'ready', label: 'Aloitusvalmis', done: i.ready },
     { key: 'held', label: 'Toteumat kirjattu', done: i.sessions > 0 && i.allHeld },
-    { key: 'billing', label: 'Laskutusvalmis', done: i.billingReady },
+    { key: 'billing', label: 'Toteumat tarkistettu', done: i.billingReady && i.allHeld && i.sessions > 0 },
   ];
   const NEXT: Record<string, { who: string; text: string }> = {
     sessions: { who: 'Tuotanto', text: 'Lisää sessiot kohdassa Sessiot ja varaa jokaiselle kouluttaja.' },
     ready: { who: 'Tuotanto', text: 'Kuittaa kriittiset tehtävät valmiiksi ja tarkista aloitusvalmiuden puutteet.' },
     held: { who: 'Tuotanto / kouluttaja', text: 'Paina session jälkeen Kirjaa toteuma jokaiselle sessiolle.' },
-    billing: { who: 'Tuotanto', text: 'Tarkista laskutusvalmius ja maksutila Laskutus-osiossa.' },
+    billing: { who: 'Tuotanto', text: 'Tarkista toteumat. Sopimuslaskutus arvioidaan erikseen tilauksen laskutussuunnitelmassa.' },
   };
   const current = steps.findIndex(s => !s.done);
   return { steps, current, next: current === -1 ? null : NEXT[steps[current].key] };

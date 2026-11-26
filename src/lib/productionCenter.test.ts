@@ -62,9 +62,13 @@ describe('queues match metric counts and keep states separate', () => {
     expect(productionQueue(d, 'upcomingReady', now)).toHaveLength(0);
   });
   it('billing ready does not depend on participant completion or production status', () => {
-    const d = base(); d.billing[0].billing_ready = true; d.sessions[0].ends_at = '2026-10-30T13:00:00Z'; d.actuals = [{ id: 'a1', session_id: 's1', held: true }];
-    expect(productionQueue(d, 'billingReady', now).map(r => r.id)).toEqual(['d1']);
-    d.billing[0].payment_status = 'laskutettu';
+    const d = base();
+    d.orders = [{ id: 'o1', total_net: 2400, starts_on: '2026-11-01', ends_on: '2026-12-10' }];
+    d.billingPlans = [{ order_id: 'o1', mode: 'start', version: 1, total_net: 2400, starts_on: '2026-11-01', ends_on: '2026-12-10' }];
+    d.billingInstallments = [{ id: 'i1', order_id: 'o1', seq: 1, amount: 2400, due_on: '2026-11-01', payment_status: 'ei_laskutettu' }];
+    expect(productionQueue(d, 'billingReady', now).map(r => r.id)).toEqual(['i1']);
+    expect(d.billing[0].billing_ready).toBe(false);
+    d.billingInstallments[0].payment_status = 'laskutettu';
     expect(productionQueue(d, 'billingReady', now)).toEqual([]);
   });
   it('mine filter narrows to the owner only', () => {
