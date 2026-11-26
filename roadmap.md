@@ -1,3 +1,4 @@
+- [ ] Aito asiakastapaus Heikin asiakasvalinnasta tilaukseen ja Sadun tuotannon vastaanottoon ilman laskuja tai maksuja: odottaa käyttäjän valitsemaa yritystä/yhteydenottoa, aidon hyväksytyn tarjouksen ehtoja sekä varmuuskopion vahvistusta; esikatselun koostamisvirhe edelleen yksilöimättä, ei liiketoimintatallennuksia.
 - [x] Asiakkaat 1A + 1B julkaisun jälkeinen lukutarkistus: julkaistu ohjelmaversio Heikin istunnolla, live-anonyymi esto, 0033/0034 ja roolisuojat, 21 testiä, muuttumattomat sisältötiivisteet; raportti docs/asiakkaat-julkaisun-jalkeinen-tarkistus-2026-11-26.md
 - [ ] Asiakkaat julkaisun käyttäjätesti: Heikin/Sadun kirjautuminen keudapro.fi:hin, täytetty organisaatiokortti ja kouluttajaistunto; rekisteri on tyhjä eikä uusia tietoja saa luoda tarkistuksessa
 - [x] Asiakkaat: ehdotettu ensimmäisen aidon asiakastapauksen turvallinen läpivienti Heikin ja Sadun kanssa lukutarkistusraportissa
