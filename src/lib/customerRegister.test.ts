@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { EMPTY_CUSTOMERS, customerRecord, filterCustomers, type CustomerData, type Organization } from './customerRegister';
+import { EMPTY_CUSTOMERS, customerRecord, filterCustomers, unlinkedLeads, type CustomerData, type Organization } from './customerRegister';
 
 const org: Organization = { id: 'org', name: 'Testiakatemia Oy', business_id: '1234567-1', owner_id: 'heikki', created_at: '2026-11-26', updated_at: '2026-11-26' };
 const lead = (id: string, organization_id: string | null = org.id) => ({ id, name: 'Testihenkilö', organization: org.name, organization_id, contact_id: null, mt_personal: false, status: 'uusi', service_key: 'aly', owner_id: 'myyja', created_at: '2026-11-26' });
@@ -7,6 +7,28 @@ const data = (patch: Partial<CustomerData>): CustomerData => ({ ...EMPTY_CUSTOME
 const order = { id: 'order', lead_id: 'lead', organization_id: org.id, offer_version_id: 'version', total_net: 1700, service_key: 'aly', confirmed_at: '2026-11-26' } as CustomerData['orders'][number];
 
 describe('shared customer register', () => {
+  it('keeps unlinked leads in a separate queue when the organization register is empty', () => {
+    const d = data({ organizations: [], leads: [lead('unlinked', null), lead('linked')] });
+    expect(d.organizations).toHaveLength(0);
+    expect(unlinkedLeads(d.leads).map(l => l.id)).toEqual(['unlinked']);
+  });
+  it('collects multiple contacts, offers, orders and deliveries without counting an order twice', () => {
+    const leads = [lead('lead'), lead('lead-2')];
+    const orders = [order, { ...order, id: 'order-2', lead_id: 'lead-2', offer_version_id: 'version-2', total_net: 2300 }];
+    const contacts = ['c1', 'c2'].map(id => ({ id, organization_id: org.id, name: id, email: `${id}@example.invalid`, phone: null, created_at: '', updated_at: '' }));
+    const offers = ['lead', 'lead-2'].map((lead_id, i) => ({ id: `offer-${i}`, lead_id, status: 'accepted', amount: 1700 } as CustomerData['offers'][number]));
+    const deliveries = orders.map((o, i) => ({ id: `d${i}`, order_id: o.id, title: 'Koulutus', production_status: 'käynnissä', production_owner_id: 'satu' }));
+    const r = customerRecord(data({ leads, orders, contacts, offers, deliveries }), org);
+    expect(r.leads).toHaveLength(2); expect(r.contacts).toHaveLength(2); expect(r.offers).toHaveLength(2); expect(r.orders).toHaveLength(2); expect(r.deliveries).toHaveLength(2); expect(r.totalNet).toBe(4000);
+  });
+  it('does not put personal change-security cases in the organization-linking queue', () => {
+    expect(unlinkedLeads([lead('company', null), { ...lead('personal', null), mt_personal: true }]).map(l => l.id)).toEqual(['company']);
+  });
+  it('keeps an order-associated lead in the queue until its own organization link is confirmed', () => {
+    const d = data({ leads: [lead('lead', null)], orders: [order] });
+    expect(customerRecord(d, org).leads.map(l => l.id)).toEqual(['lead']);
+    expect(unlinkedLeads(d.leads).map(l => l.id)).toEqual(['lead']);
+  });
   it('collects multiple leads under one organization without name-based merging', () => {
     const r = customerRecord(data({ leads: [lead('a'), lead('b'), lead('same-name', 'other'), lead('unlinked', null)] }), org);
     expect(r.leads.map(l => l.id)).toEqual(['a', 'b']);

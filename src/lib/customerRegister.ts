@@ -22,6 +22,10 @@ export type CustomerData = {
 export const EMPTY_CUSTOMERS: CustomerData = { organizations: [], contacts: [], leads: [], offers: [], versions: [], orders: [], deliveries: [], programmes: [], handoffs: [], tasks: [], interactions: [] };
 export const CUSTOMER_STATES = { prospect: 'Prospekti', active: 'Asiakas – avoin toimitus', previous: 'Aiemmin ostanut', unknown: 'Tilanne ei arvioitavissa' } as const;
 export type CustomerState = keyof typeof CUSTOMER_STATES;
+/** Unlinked contacts remain a work queue, never synthetic organization records. */
+export function unlinkedLeads(leads: CustomerLead[]) {
+  return leads.filter(l => !l.organization_id && !l.mt_personal).sort((a, b) => b.created_at.localeCompare(a.created_at) || a.id.localeCompare(b.id));
+}
 export const leadHref = (id: string) => `/admin/markkinointi?tab=leads&asiakas=${encodeURIComponent(id)}`;
 export const deliveryHref = (id: string) => `/admin/tuotanto?toteutus=${encodeURIComponent(id)}`;
 const openLead = (status: string) => !['koulutukseen', 'ei jatkoon'].includes(status);
