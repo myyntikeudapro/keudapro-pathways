@@ -7,11 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "14.5"
-  }
   public: {
     Tables: {
       ai_talent_members: {
@@ -1042,29 +1037,92 @@ export type Database = {
           },
         ]
       }
+      crm_contact_affiliations: {
+        Row: {
+          contact_id: string
+          created_at: string
+          id: string
+          is_key_person: boolean
+          job_title: string | null
+          organization_id: string
+          roles: string[]
+          updated_at: string
+        }
+        Insert: {
+          contact_id: string
+          created_at?: string
+          id?: string
+          is_key_person?: boolean
+          job_title?: string | null
+          organization_id: string
+          roles?: string[]
+          updated_at?: string
+        }
+        Update: {
+          contact_id?: string
+          created_at?: string
+          id?: string
+          is_key_person?: boolean
+          job_title?: string | null
+          organization_id?: string
+          roles?: string[]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_contact_affiliations_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "crm_contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_contact_affiliations_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "crm_organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       crm_contacts: {
         Row: {
+          contact_verified_at: string | null
+          contact_verified_by: string | null
           created_at: string
+          edited_at: string | null
+          edited_by: string | null
           email: string
           id: string
+          interests: string[]
           name: string
           organization_id: string
           phone: string | null
           updated_at: string
         }
         Insert: {
+          contact_verified_at?: string | null
+          contact_verified_by?: string | null
           created_at?: string
+          edited_at?: string | null
+          edited_by?: string | null
           email: string
           id?: string
+          interests?: string[]
           name: string
           organization_id: string
           phone?: string | null
           updated_at?: string
         }
         Update: {
+          contact_verified_at?: string | null
+          contact_verified_by?: string | null
           created_at?: string
+          edited_at?: string | null
+          edited_by?: string | null
           email?: string
           id?: string
+          interests?: string[]
           name?: string
           organization_id?: string
           phone?: string | null
@@ -3621,6 +3679,14 @@ export type Database = {
         }
         Returns: Json
       }
+      crm_update_contact: {
+        Args: { p: Json; p_contact_id: string; p_expected_updated_at: string }
+        Returns: Json
+      }
+      crm_verify_contact: {
+        Args: { p_contact_id: string; p_expected_updated_at: string }
+        Returns: Json
+      }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
@@ -3923,3 +3989,4 @@ export const Constants = {
     },
   },
 } as const
+

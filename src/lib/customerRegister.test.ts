@@ -15,7 +15,7 @@ describe('shared customer register', () => {
   it('collects multiple contacts, offers, orders and deliveries without counting an order twice', () => {
     const leads = [lead('lead'), lead('lead-2')];
     const orders = [order, { ...order, id: 'order-2', lead_id: 'lead-2', offer_version_id: 'version-2', total_net: 2300 }];
-    const contacts = ['c1', 'c2'].map(id => ({ id, organization_id: org.id, name: id, email: `${id}@example.invalid`, phone: null, created_at: '', updated_at: '' }));
+    const contacts = ['c1', 'c2'].map(id => ({ id, organization_id: org.id, name: id, email: `${id}@example.invalid`, phone: null, created_at: '', updated_at: '' }) as CustomerData['contacts'][number]);
     const offers = ['lead', 'lead-2'].map((lead_id, i) => ({ id: `offer-${i}`, lead_id, status: 'accepted', amount: 1700 } as CustomerData['offers'][number]));
     const deliveries = orders.map((o, i) => ({ id: `d${i}`, order_id: o.id, title: 'Koulutus', production_status: 'käynnissä', production_owner_id: 'satu' }));
     const r = customerRecord(data({ leads, orders, contacts, offers, deliveries }), org);
@@ -51,7 +51,7 @@ describe('shared customer register', () => {
     expect(r.totalNet).toBe(1700); expect(r.openOffers).toHaveLength(0); expect(r.leads).toHaveLength(1);
   });
   it('includes all organization contacts and service types in filters', () => {
-    const r = customerRecord(data({ leads: [lead('a'), { ...lead('b'), service_key: 'kasvu' }], contacts: ['a', 'b'].map(id => ({ id, organization_id: org.id, name: id, email: `${id}@test.invalid`, phone: null, created_at: '', updated_at: '' })) }), org);
+    const r = customerRecord(data({ leads: [lead('a'), { ...lead('b'), service_key: 'kasvu' }], contacts: ['a', 'b'].map(id => ({ id, organization_id: org.id, name: id, email: `${id}@test.invalid`, phone: null, created_at: '', updated_at: '' }) as CustomerData['contacts'][number]) }), org);
     expect(r.contacts).toHaveLength(2);
     expect(filterCustomers([r], { search: 'b@test.invalid', owner: 'heikki', service: 'kasvu', state: 'prospect', attention: false })).toHaveLength(1);
     expect(filterCustomers([r], { search: '', owner: 'myyja', service: 'all', state: 'all', attention: false })).toHaveLength(0);

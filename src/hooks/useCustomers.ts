@@ -11,8 +11,9 @@ export function useCustomers(enabled: boolean) {
       readAll((f, t) => supabase.from('booking_requests').select('id,name,email,organization,organization_id,contact_id,mt_personal,status,service_key,owner_id,created_at').eq('mt_personal', false).order('id').range(f, t)),
     ]);
     if (!organizations.length) return { ...EMPTY_CUSTOMERS, organizations, leads };
-    const [contacts, offers, versions, orders, deliveries, programmes, handoffs, tasks, interactions] = await Promise.all([
+    const [contacts, affiliations, offers, versions, orders, deliveries, programmes, handoffs, tasks, interactions] = await Promise.all([
       readAll((f, t) => supabase.from('crm_contacts').select('*').order('id').range(f, t)),
+      readAll((f, t) => supabase.from('crm_contact_affiliations').select('*').order('id').range(f, t)),
       readAll((f, t) => supabase.from('crm_offers').select('*').order('id').range(f, t)),
       readAll((f, t) => supabase.from('crm_offer_versions').select('*').order('id').range(f, t)),
       readAll((f, t) => supabase.from('crm_orders').select('*').order('id').range(f, t)),
@@ -22,6 +23,6 @@ export function useCustomers(enabled: boolean) {
       readAll((f, t) => supabase.from('crm_tasks').select('*').order('id').range(f, t)),
       readAll((f, t) => supabase.from('crm_interactions').select('*').order('id').range(f, t)),
     ]);
-    return { organizations, contacts, leads, offers, versions, orders, deliveries, programmes, handoffs, tasks, interactions };
+    return { organizations, contacts, affiliations, leads, offers, versions, orders, deliveries, programmes, handoffs, tasks, interactions };
   } });
 }

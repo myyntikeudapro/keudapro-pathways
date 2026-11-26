@@ -281,6 +281,13 @@
       "when": 1795721247572,
       "tag": "0039_offer_import_fix_email_variable",
       "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "7",
+      "when": 1795729614732,
+      "tag": "0040_contact_details_1cb",
+      "breakpoints": true
     }
   ]
 }
