@@ -1,3 +1,8 @@
+- [x] Asiakkaat 1A + 1B julkaisun jälkeinen lukutarkistus: julkaistu ohjelmaversio Heikin istunnolla, live-anonyymi esto, 0033/0034 ja roolisuojat, 21 testiä, muuttumattomat sisältötiivisteet; raportti docs/asiakkaat-julkaisun-jalkeinen-tarkistus-2026-11-26.md
+- [ ] Asiakkaat julkaisun käyttäjätesti: Heikin/Sadun kirjautuminen keudapro.fi:hin, täytetty organisaatiokortti ja kouluttajaistunto; rekisteri on tyhjä eikä uusia tietoja saa luoda tarkistuksessa
+- [x] Asiakkaat: ehdotettu ensimmäisen aidon asiakastapauksen turvallinen läpivienti Heikin ja Sadun kanssa lukutarkistusraportissa
+- [ ] Jatkotoimet 1–4 luonnoksessa Työtilan jatko 1–4: eristetyt asiakastestit, projektikohtainen laskutus, AI-turvarajat ja laskutustekstit; odottaa luonnoksen tuloksia ja erillistä hyväksyntää
+- [ ] Palautusvalmius: uusimman varmuuskopion UTC-aika, palautusvastuuhenkilö, tiedostovarmistus ja eristetty palautuskoe odottavat vahvistusta
 - [x] Asiakkaat 1A täydennys: liittämättömien yhteydenottojen näkyvä henkilöstöjono myös tyhjässä rekisterissä; kolme oikeaa yhteydenottoa ja myyntikorttiin siirtyminen tarkistettu kirjautuneena 390/1144 px ilman tallennuksia
 - [x] Asiakkaat 1B: tarkistettu asiakasvalinta, tilausvahvistuksen ostajakorjaus ja hyväksymistestit luonnoksen omassa tietokannassa; ei julkaistu
 - [x] Asiakkaat 1A täydennys: 26 testiä läpäisi, lint ja esikatselu virheettömät; testitulokset ja tarkka 1B-ehdotus toimitettu ilman kirjoittavia muutoksia tai julkaisua
