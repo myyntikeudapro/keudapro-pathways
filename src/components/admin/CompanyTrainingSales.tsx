@@ -13,6 +13,7 @@ import { companyWorkflow, companyErrorText, nextRevisionInput, readinessLabel, t
 import { readAll } from '@/lib/crm';
 import { confirmCompanyOrder, orderInputErrors } from '@/lib/companyOrder';
 import { CompanyCapacityPanel } from '@/components/admin/CompanyTrainingProduction';
+import { helsinkiLocal as local } from '@/lib/helsinkiTime';
 
 const db = supabase as any;
 // All writes go through server checkpoints; UI shows only state read back after each command.
@@ -21,7 +22,6 @@ const workflow = companyWorkflow(async (name, args) => {
   if (error) throw new Error(error.message || 'rpc_failed');
   return data;
 });
-const local = (iso?: string) => { if (!iso) return ''; const d = new Date(iso); if (!Number.isFinite(d.getTime())) return ''; const p = (n: number) => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; };
 type Team = { id: string; email: string }[];
 
 function Pick({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: [string, string][] }) {

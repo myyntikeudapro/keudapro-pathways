@@ -9,12 +9,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Save, Check, Undo2, Trash2 } from 'lucide-react';
 import { listTrainerProgrammes, companyWorkflow, companyErrorText, buildCapacity, readinessLabel, type CapacityStationInput, type CapacitySlotInput, type CompanySnapshot } from '@/lib/companyTrainingWorkflow';
+import { helsinkiLocal as local } from '@/lib/helsinkiTime';
 
 const db = supabase as any;
 // Every write goes through the companyWorkflow port; UI renders only the state read back afterwards.
 const rpc = async (name: string, args: Record<string, unknown>) => { const { data, error } = await db.rpc(name, args); if (error) throw new Error(error.message || 'rpc_failed'); return data; };
 const workflow = companyWorkflow(rpc);
-const local = (iso?: string) => { if (!iso) return ''; const d = new Date(iso); if (!Number.isFinite(d.getTime())) return ''; const p = (n: number) => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; };
 const fmt = (iso?: string) => iso ? new Date(iso).toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki', dateStyle: 'short', timeStyle: 'short' }) : '–';
 const Status = ({ error, result }: { error: string; result: string }) => <>{error && <p role="alert" className="text-sm text-destructive">{error}</p>}{result && <p role="status" className="text-sm text-primary">{result}</p>}</>;
 function Missing({ items }: { items: string[] }) {

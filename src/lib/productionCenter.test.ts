@@ -40,7 +40,7 @@ describe('automatic exceptions', () => {
   it('flags a held session without an actuals record', () => {
     const d = base(); d.sessions[0].starts_at = '2026-10-30T07:00:00Z'; d.sessions[0].ends_at = '2026-10-30T13:00:00Z';
     expect(exceptions(d, now).map(e => e.kind)).toEqual(['missing_actual']);
-    d.actuals = [{ id: 'a1', session_id: 's1' }];
+    d.actuals = [{ id: 'a1', session_id: 's1', held: true }];
     expect(exceptions(d, now)).toEqual([]);
   });
   it('flags overlapping bookings of the same trainer on both sessions', () => {
@@ -62,7 +62,7 @@ describe('queues match metric counts and keep states separate', () => {
     expect(productionQueue(d, 'upcomingReady', now)).toHaveLength(0);
   });
   it('billing ready does not depend on participant completion or production status', () => {
-    const d = base(); d.billing[0].billing_ready = true;
+    const d = base(); d.billing[0].billing_ready = true; d.sessions[0].ends_at = '2026-10-30T13:00:00Z'; d.actuals = [{ id: 'a1', session_id: 's1', held: true }];
     expect(productionQueue(d, 'billingReady', now).map(r => r.id)).toEqual(['d1']);
     d.billing[0].payment_status = 'laskutettu';
     expect(productionQueue(d, 'billingReady', now)).toEqual([]);

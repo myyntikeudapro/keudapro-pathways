@@ -218,6 +218,20 @@
       "when": 1795674219820,
       "tag": "0030_trainer_company_name_visibility",
       "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1795675215611,
+      "tag": "0031_short_circuit_company_insert_guard",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1795675812763,
+      "tag": "0032_guard_actuals_and_billing_readiness",
+      "breakpoints": true
     }
   ]
 }

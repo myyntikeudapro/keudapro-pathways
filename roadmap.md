@@ -1,3 +1,9 @@
+- [x] Käyttöönoton tarkistus 1: TESTI 3 Oy läpi kolmella roolilla; ensimmäinen toteuma ei riitä, viimeinen merkitsee laskutusvalmiiksi; TESTI 2 Oy koskematon
+- [x] Käyttäjän hyväksymä lisäys: luonnoksen testiasiakkaan tallennustarkistus korjattu; suojattua ohjelmakytkentää ei voi ohittaa
+- [x] Käyttöönoton tarkistus 2: kapasiteetin muutos, kouluttajavastuu, osallistujat ja kriittiset tehtävät; session muokkaus/poisto, varauksen peruutus/palautus ja osallistujan poisto lisätty ja selaimessa tarkistettu
+- [x] Käyttöönoton tarkistus 3: keltaiset/punaiset tarjousrivit, vastaanottoa odottava luovutus ja oikeat kohdelinkit; toteutuksen luominen ei enää piilota odotusta
+- [x] Käyttöönoton tarkistus 4: kolme testiroolia, yritysnimien tietorajaus, UTC/Helsinki/New York ja 320/390/987 px; 97 testiä läpäisi
+- [x] Käyttäjän hyväksymä lisäys: laskutusvalmiuden palvelinsuojaus luonnokseen; tulevaisuuden toteuma ja liian aikainen valmis-merkintä estyvät, session/toteuman muutos palauttaa oikean tilan; 103 testiä läpäisi
 - [x] Tarkista 49 alakohtaista linkkiä ja kaksi yhteistä ohjelmaa: HTTP 200 ja oikeat kohdeotsikot
 - [x] Seurannan M1-havainto vanhentunut: osallistujalomake ei renderöidy Lyyti-tilassa. Kasvu-kartoituksen sähköposti korjattu Heikille, perusteeton Lähetetty-tila poistettu ja ajanvaraus avaa nykyisen lomakkeen kartoitusaiheella; selainpolku varmennettu ilman viestin lähettämistä.
 - [x] Korjaa mobiililistan piilotus ennen hakua, evästebannerin kerrostus ja lomakkeen vieritys

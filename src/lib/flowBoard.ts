@@ -1,4 +1,5 @@
 // Pure flow-board rules: each value-stream stage gets green/yellow/red from the age of its oldest waiting item.
+import { billingEligible } from './billingReadiness';
 export type Light = 'green' | 'yellow' | 'red';
 export type FlowItem = { id: string; label: string; days: number; light: Light; link: string };
 export type FlowStage = { key: string; title: string; rule: string; light: Light; items: FlowItem[] };
@@ -8,7 +9,7 @@ export type FlowInput = {
   handoffs: { order_id: string; handed_at: string; cancelled_at: string | null; company_state: string | null; mt_state: string | null }[];
   deliveries: { id: string; order_id: string; title: string }[];
   sessions: { id: string; delivery_id: string; starts_at: string; ends_at: string }[];
-  actuals: { session_id: string }[];
+  actuals: { session_id: string; held?: boolean }[];
   tasks: { delivery_id: string; blocks_start: boolean; completed_at: string | null }[];
   blockers: { delivery_id: string; resolved_at: string | null }[];
   billing: { delivery_id: string; billing_ready: boolean }[];
@@ -27,20 +28,20 @@ const sort = (items: FlowItem[]) => items.sort((a, b) => b.days - a.days);
 export function flowBoard(i: FlowInput, now = Date.now()): FlowStage[] {
   const live = i.handoffs.filter(h => !h.cancelled_at);
   const handed = new Set(live.map(h => h.order_id));
-  const hasDelivery = new Set(i.deliveries.map(d => d.order_id));
   const orderName = new Map(i.orders.map(o => [o.id, o]));
   const accepted = (h: FlowInput['handoffs'][number]) => h.company_state === 'accepted' || h.mt_state === 'accepted';
 
   const offers = i.offers.filter(o => o.status === 'draft' || o.status === 'sent').map(o => { const d = age(o.created_at, now); return { id: o.id, label: o.title, days: d, light: light(d, LIMITS.offer), link: lead(o.lead_id) }; });
-  const orders = i.orders.filter(o => !handed.has(o.id) && !hasDelivery.has(o.id)).map(o => { const d = age(o.confirmed_at ?? o.created_at, now); return { id: o.id, label: o.name, days: d, light: light(d, LIMITS.order), link: lead(o.lead_id) }; });
-  const handoffs = live.filter(h => !accepted(h) && !hasDelivery.has(h.order_id)).map(h => { const o = orderName.get(h.order_id); const d = age(h.handed_at, now); return { id: h.order_id, label: o?.name ?? 'Tilaus', days: d, light: light(d, LIMITS.handoff), link: lead(o?.lead_id ?? null) }; });
+  const orders = i.orders.filter(o => !handed.has(o.id)).map(o => { const d = age(o.confirmed_at ?? o.created_at, now); return { id: o.id, label: o.name, days: d, light: light(d, LIMITS.order), link: lead(o.lead_id) }; });
+  const handoffs = live.filter(h => !accepted(h)).map(h => { const o = orderName.get(h.order_id); const d = age(h.handed_at, now); return { id: h.order_id, label: o?.name ?? 'Tilaus', days: d, light: light(d, LIMITS.handoff), link: lead(o?.lead_id ?? null) }; });
 
-  const held = new Set(i.actuals.map(a => a.session_id));
+  const held = new Set(i.actuals.filter(a => a.held === true).map(a => a.session_id));
   const start: FlowItem[] = []; const record: FlowItem[] = []; const bill: FlowItem[] = [];
   for (const dl of i.deliveries) {
     const ss = i.sessions.filter(s => s.delivery_id === dl.id).sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
     const ready = i.billing.find(b => b.delivery_id === dl.id)?.billing_ready;
-    if (ready) continue;
+    if (ready && billingEligible(ss, i.actuals, now)) continue;
+    if (ready) { bill.push({ id: dl.id, label: `${dl.title} · laskutusmerkintä ei vastaa toteumia`, days: 0, light: 'red', link: prod(dl.id) }); }
     if (!ss.length) { start.push({ id: dl.id, label: `${dl.title} · ei sessioita`, days: 0, light: 'yellow', link: prod(dl.id) }); continue; }
     const first = Date.parse(ss[0].starts_at);
     if (first > now) {

@@ -37,3 +37,20 @@ INSERT INTO crm_contacts (id,organization_id,name,email,phone) VALUES
 ('13000000-0000-4000-8000-000000000002','12000000-0000-4000-8000-000000000002','Tero Tilaaja','tero.tilaaja@example.com','+358 40 000 0001');
 INSERT INTO booking_requests (id,name,email,phone,organization,meeting_format,message,source,status,service_key,owner_id,organization_id,contact_id) VALUES
 ('14000000-0000-4000-8000-000000000002','Tero Tilaaja','tero.tilaaja@example.com','+358 40 000 0001','TESTI 2 Oy – yrityskohtainen koulutus','Teams-palaveri','TESTI 2: puhdas yrityskoulutuksen läpivientitesti.','testi','uusi','osaaminen','10000000-0000-4000-8000-000000000001','12000000-0000-4000-8000-000000000002','13000000-0000-4000-8000-000000000002');
+
+-- Pre-launch checks: separate examples, never modify TESTI 2 Oy.
+INSERT INTO crm_organizations (id,name,owner_id) VALUES
+('12000000-0000-4000-8000-000000000003','TESTI 3 Oy – käyttöönoton tarkistus','10000000-0000-4000-8000-000000000001'),
+('12000000-0000-4000-8000-000000000004','TESTI Virtaus Oy','10000000-0000-4000-8000-000000000001');
+INSERT INTO crm_contacts (id,organization_id,name,email) VALUES
+('13000000-0000-4000-8000-000000000003','12000000-0000-4000-8000-000000000003','Teppo Testi','teppo.testi@example.com'),
+('13000000-0000-4000-8000-000000000004','12000000-0000-4000-8000-000000000004','Viivi Virtaus','viivi.virtaus@example.com');
+INSERT INTO booking_requests (id,name,email,organization,meeting_format,message,source,status,service_key,owner_id,organization_id,contact_id) VALUES
+('14000000-0000-4000-8000-000000000003','Teppo Testi','teppo.testi@example.com','TESTI 3 Oy – käyttöönoton tarkistus','Teams-palaveri','Erillinen käyttöönoton tarkistus. Ei oikeita lähetyksiä.','testi','uusi','osaaminen','10000000-0000-4000-8000-000000000001','12000000-0000-4000-8000-000000000003','13000000-0000-4000-8000-000000000003'),
+('14000000-0000-4000-8000-000000000004','Viivi Virtaus','viivi.virtaus@example.com','TESTI Virtaus Oy','Teams-palaveri','Virtaustaulun keltainen ja punainen esimerkki.','testi','uusi','osaaminen','10000000-0000-4000-8000-000000000001','12000000-0000-4000-8000-000000000004','13000000-0000-4000-8000-000000000004');
+INSERT INTO crm_offers (id,lead_id,title,amount,probability,expected_close,status,created_by,created_at) VALUES
+('15000000-0000-4000-8000-000000000003','14000000-0000-4000-8000-000000000003','Käyttöönoton testikoulutus',2400,70,'2026-11-26','draft','10000000-0000-4000-8000-000000000001',now());
+-- Traffic-light examples on the agent's previous test case, not the user's TESTI 2 Oy.
+INSERT INTO crm_offers (id,lead_id,title,amount,probability,expected_close,status,created_by,created_at) VALUES
+('15000000-0000-4000-8000-000000000004','14000000-0000-4000-8000-000000000001','TESTI keltainen tarjous',1000,50,'2026-12-01','sent','10000000-0000-4000-8000-000000000001','2026-11-18 06:00+00'),
+('15000000-0000-4000-8000-000000000005','14000000-0000-4000-8000-000000000001','TESTI punainen tarjous',1000,50,'2026-12-01','sent','10000000-0000-4000-8000-000000000001','2026-11-10 06:00+00');

@@ -19,7 +19,7 @@ export function FlowBoard({ enabled }: { enabled: boolean }) {
     const [offers, orders, handoffs, deliveries, sessions, actuals, tasks, blockers, billing] = await Promise.all([
       all('crm_offers', 'id,lead_id,title,status,created_at'), all('crm_orders', 'id,lead_id,confirmed_at,created_at,crm_organizations(name)'),
       all('crm_production_handoffs', 'id,order_id,handed_at,cancelled_at,company_state,mt_state'), all('prod_deliveries', 'id,order_id,title'),
-      all('prod_sessions', 'id,delivery_id,starts_at,ends_at'), all('prod_actuals', 'id,session_id'), all('prod_tasks', 'id,delivery_id,blocks_start,completed_at'),
+      all('prod_sessions', 'id,delivery_id,starts_at,ends_at'), all('prod_actuals', 'id,session_id,held'), all('prod_tasks', 'id,delivery_id,blocks_start,completed_at'),
       all('prod_blockers', 'id,delivery_id,resolved_at'), all('prod_billing_readiness', 'id,delivery_id,billing_ready')]);
     return flowBoard({ offers, orders: orders.map(o => ({ ...o, name: o.crm_organizations?.name ?? 'Tilaus' })), handoffs, deliveries, sessions, actuals, tasks, blockers, billing });
   } });

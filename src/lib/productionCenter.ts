@@ -1,12 +1,13 @@
 // Shared production calculations. The production page and the operations center both use these,
 // so a metric count always equals the rows of its linked queue.
+import { billingEligible } from './billingReadiness';
 export type Delivery = { id: string; order_id: string; template_key: string; title: string; production_status: string; production_owner_id: string; sales_owner_id: string; created_at: string };
 export type Session = { id: string; delivery_id: string; seq: number; title: string; starts_at: string; ends_at: string; location?: string | null };
 export type Booking = { id: string; session_id: string; trainer_id: string; status: string };
 export type Task = { id: string; delivery_id: string; code: string; title: string; scope: string; owner_role: string; owner_id: string | null; due_at: string | null; blocks_start: boolean; completed_at: string | null };
 export type Blocker = { id: string; delivery_id: string; description: string; owner_id: string; resolved_at: string | null };
 export type QualityIssue = { id: string; delivery_id: string; severity: string; description: string; owner_id: string; closed_at: string | null };
-export type Actual = { id: string; session_id: string };
+export type Actual = { id: string; session_id: string; held?: boolean };
 export type Billing = { delivery_id: string; billing_ready: boolean; payment_status: string };
 export type ProductionData = { deliveries: Delivery[]; sessions: Session[]; bookings: Booking[]; tasks: Task[]; blockers: Blocker[]; quality: QualityIssue[]; actuals: Actual[]; billing: Billing[] };
 
@@ -30,7 +31,7 @@ export function exceptions(d: ProductionData, now: Date): ProductionException[] 
   const live = new Map(d.deliveries.filter(isLive).map(x => [x.id, x]));
   const sessions = new Map(d.sessions.map(s => [s.id, s]));
   const booked = new Set(activeBookings(d).map(b => b.session_id));
-  const recorded = new Set(d.actuals.map(a => a.session_id));
+  const recorded = new Set(d.actuals.filter(a => a.held === true).map(a => a.session_id));
   const out: ProductionException[] = [];
   for (const task of d.tasks) {
     if (!live.has(task.delivery_id) || task.completed_at) continue;
@@ -97,6 +98,6 @@ export function productionQueue(d: ProductionData, key: string, now: Date, mineI
     return [{ id: x.id, deliveryId: x.id, title: x.title, detail: r.ready ? 'Valmis aloitukseen' : r.missing.join(' · '), ownerId: x.production_owner_id }];
   });
   else if (key === 'overdue' || key === 'exceptions') rows = exceptions(d, now).filter(e => key === 'exceptions' || e.kind === 'overdue_task').map(e => ({ id: e.key, deliveryId: e.deliveryId, title: `${EXCEPTION_LABEL[e.kind]}: ${e.label}`, detail: byId.get(e.deliveryId)?.title ?? '', ownerId: e.ownerId }));
-  else if (key === 'billingReady') rows = d.billing.filter(b => b.billing_ready && b.payment_status === 'ei_laskutettu' && byId.has(b.delivery_id) && isLive(byId.get(b.delivery_id)!)).map(b => ({ id: b.delivery_id, deliveryId: b.delivery_id, title: byId.get(b.delivery_id)!.title, detail: 'Laskutusvalmis · ei laskutettu', ownerId: byId.get(b.delivery_id)!.sales_owner_id }));
+  else if (key === 'billingReady') rows = d.billing.filter(b => b.billing_ready && billingEligible(d.sessions.filter(s => s.delivery_id === b.delivery_id), d.actuals, t) && b.payment_status === 'ei_laskutettu' && byId.has(b.delivery_id) && isLive(byId.get(b.delivery_id)!)).map(b => ({ id: b.delivery_id, deliveryId: b.delivery_id, title: byId.get(b.delivery_id)!.title, detail: 'Laskutusvalmis · ei laskutettu', ownerId: byId.get(b.delivery_id)!.sales_owner_id }));
   return mineId ? rows.filter(r => r.ownerId === mineId) : rows;
 }

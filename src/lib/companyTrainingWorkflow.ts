@@ -1,4 +1,5 @@
 import type { Programme, CapacityPlan } from './companyTraining';
+import { helsinkiIso, helsinkiLocal } from './helsinkiTime';
 
 // Backend-neutral, typed RPC port; no generated schema bypass or fabricated approval.
 // Production binding remains unmounted until migration + authenticated acceptance pass.
@@ -58,12 +59,13 @@ export type CompanyStaffSnapshot = CompanySnapshot & {
 };
 export function nextRevisionInput(input: { caseId: string; current: CompanyStaffSnapshot | null; text: string; promises: string;
   startsAt: string; endsAt: string; receiverId: string; trainerId: string; trainers: string[] }) {
-  const start = Date.parse(input.startsAt), end = Date.parse(input.endsAt);
+  let startsAt: string, endsAt: string;
+  try { startsAt = helsinkiIso(input.startsAt); endsAt = helsinkiIso(input.endsAt); } catch { throw new Error('COMPANY_PROGRAMME_INVALID'); }
+  const start = Date.parse(startsAt), end = Date.parse(endsAt);
   if (!input.text.trim() || !input.receiverId || !input.trainerId || !Number.isFinite(start) || !Number.isFinite(end) || end <= start) throw new Error('COMPANY_PROGRAMME_INVALID');
-  const startsAt = new Date(start).toISOString(), endsAt = new Date(end).toISOString();
   return {
     caseId: input.caseId, expectedId: input.current?.id ?? null,
-    programme: { version: '', customer: '', year: new Date(start).getUTCFullYear(), text: input.text.trim(), startsAt, endsAt, trainers: input.trainers, promises: input.promises.trim() } as Programme & { promises: string },
+    programme: { version: '', customer: '', year: Number(helsinkiLocal(startsAt).slice(0, 4)), text: input.text.trim(), startsAt, endsAt, trainers: input.trainers, promises: input.promises.trim() } as Programme & { promises: string },
     capacity: ((input.current?.capacity ?? {}) as CapacityPlan),
     resources: Array.isArray(input.current?.resource_plan) ? input.current.resource_plan : [],
     resourceVerified: input.current?.resource_list_verified === true,
@@ -108,7 +110,7 @@ export type CapacitySlotInput = { stationId: string; participantId: string; mach
 // Builds the trainer-entered plan; server adds version/trainer/window identity and computes all defects.
 export function buildCapacity(input: { participants: number; trainerId: string; stations: CapacityStationInput[]; slots: CapacitySlotInput[] }) {
   if (!Number.isInteger(input.participants) || input.participants < 1 || input.participants > 500 || !input.trainerId) throw new Error('COMPANY_CAPACITY_INVALID');
-  const iso = (v: string) => { const t = Date.parse(v); if (!Number.isFinite(t)) throw new Error('COMPANY_CAPACITY_INVALID'); return new Date(t).toISOString(); };
+  const iso = (v: string) => { try { return helsinkiIso(v); } catch { throw new Error('COMPANY_CAPACITY_INVALID'); } };
   return {
     participantIds: Array.from({ length: input.participants }, (_, i) => `p${i + 1}`),
     stations: input.stations.map(s => ({ ...s, trainerIds: [input.trainerId] })),
