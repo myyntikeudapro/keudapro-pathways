@@ -22,21 +22,15 @@ export function orderInputErrors(i: Partial<CompanyOrderInput>): string[] {
   return e;
 }
 
-/** Hyväksytystä tarjouksesta tarjousversio + ihmisen kirjaama hyväksyntä + idempotentti tilaus (crm_confirm_order). */
-export async function confirmCompanyOrder(i: CompanyOrderInput): Promise<string> {
+/**
+ * Ostaja ja yhteyshenkilö tulevat palvelimella yhteydenoton vahvistetusta asiakaslinkistä (crm_link_lead_customer);
+ * selaimen yritysnimellä ei etsitä eikä perusteta organisaatiota. Sama idempotencyKey palauttaa saman tilauksen.
+ */
+export async function confirmCompanyOrder(i: CompanyOrderInput & { idempotencyKey: string }): Promise<string> {
   const errors = orderInputErrors(i); if (errors.length) throw new Error(`Puuttuu: ${errors.join(', ')}`);
-  const name = i.organization.trim();
-  const orgs = must(await db.from('crm_organizations').select('id').eq('name', name).limit(1)) as any[];
-  const org = orgs[0]?.id ?? (must(await db.from('crm_organizations').insert({ name }).select('id').single()) as any).id;
-  const contacts = must(await db.from('crm_contacts').select('id').eq('organization_id', org).eq('name', i.contactName.trim()).limit(1)) as any[];
-  const contact = contacts[0]?.id ?? (must(await db.from('crm_contacts').insert({ organization_id: org, name: i.contactName.trim(), email: i.contactEmail.trim() || null }).select('id').single()) as any).id;
-  const prev = must(await db.from('crm_offer_versions').select('version_no').eq('offer_id', i.offerId).order('version_no', { ascending: false }).limit(1)) as any[];
-  const version = must(await db.from('crm_offer_versions').insert({
-    offer_id: i.offerId, version_no: (prev[0]?.version_no ?? 0) + 1, organization_id: org, contact_id: contact, service_key: i.serviceKey || 'aly',
-    content: i.content.trim(), vat_rate: i.vatBasis === 'koulutus_veroton' ? 0 : 25.5, vat_basis: i.vatBasis,
-    starts_on: i.startsOn, ends_on: i.endsOn || i.startsOn, terms: i.terms.trim(), payment_terms: i.paymentTerms.trim(),
-  }).select('id').single()) as any;
-  must(await db.from('crm_offer_version_lines').insert({ version_id: version.id, line_no: 1, description: i.content.trim().slice(0, 200), quantity: 1, unit_price: i.amount }));
-  must(await db.from('crm_offer_versions').update({ approved_at: new Date().toISOString(), approved_by: i.userId, approval_method: i.approvalMethod, approval_note: i.approvalNote.trim() }).eq('id', version.id));
-  return must(await db.rpc('crm_confirm_order', { p_version_id: version.id, p_idempotency_key: `company-order-${version.id}` })) as string;
+  return must(await db.rpc('crm_confirm_company_order', {
+    p_lead_id: i.leadId, p_offer_id: i.offerId, p_content: i.content.trim(), p_amount: i.amount, p_vat_basis: i.vatBasis,
+    p_starts_on: i.startsOn, p_ends_on: i.endsOn || null, p_terms: i.terms.trim(), p_payment_terms: i.paymentTerms.trim(),
+    p_approval_method: i.approvalMethod, p_approval_note: i.approvalNote.trim(), p_idempotency_key: i.idempotencyKey,
+  })) as string;
 }

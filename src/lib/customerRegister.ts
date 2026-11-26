@@ -6,7 +6,7 @@ export const shortDate = (value: string | null | undefined) => value ? new Intl.
 
 export type Organization = Tables<'crm_organizations'>;
 export type CustomerContact = Tables<'crm_contacts'>;
-export type CustomerLead = Pick<Tables<'booking_requests'>, 'id' | 'name' | 'organization' | 'organization_id' | 'contact_id' | 'mt_personal' | 'status' | 'service_key' | 'owner_id' | 'created_at'>;
+export type CustomerLead = Pick<Tables<'booking_requests'>, 'id' | 'name' | 'organization' | 'organization_id' | 'contact_id' | 'mt_personal' | 'status' | 'service_key' | 'owner_id' | 'created_at'> & { email?: string | null };
 export type CustomerOffer = Tables<'crm_offers'>;
 export type CustomerVersion = Tables<'crm_offer_versions'>;
 export type CustomerOrder = Tables<'crm_orders'>;

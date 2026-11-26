@@ -1,5 +1,7 @@
 - [x] Asiakkaat 1A täydennys: liittämättömien yhteydenottojen näkyvä henkilöstöjono myös tyhjässä rekisterissä; kolme oikeaa yhteydenottoa ja myyntikorttiin siirtyminen tarkistettu kirjautuneena 390/1144 px ilman tallennuksia
+- [x] Asiakkaat 1B: tarkistettu asiakasvalinta, tilausvahvistuksen ostajakorjaus ja hyväksymistestit luonnoksen omassa tietokannassa; ei julkaistu
 - [x] Asiakkaat 1A täydennys: 26 testiä läpäisi, lint ja esikatselu virheettömät; testitulokset ja tarkka 1B-ehdotus toimitettu ilman kirjoittavia muutoksia tai julkaisua
+- [x] Asiakkaat 1B: tarkistettu asiakasvalinta, tilausvahvistuksen ostajakorjaus ja hyväksymistestit luonnoksen omassa tietokannassa; ei julkaistu
 - [ ] Asiakkaat 1A eristetty päästä päähän -hyväksyntätesti: odottaa varmennettua erillistä testitietokantaa ja sen omia testikäyttäjiä; synteettiset lukuvastaukset eivät korvaa palvelimen roolitestejä
 - [x] Asiakkaat 1A: lukeva organisaatiolista, haku ja asiakkuus-/vastuu-/palvelurajaukset
 - [x] Asiakkaat 1A: yhteinen asiakaskortti ja nykyiset myynnin/tuotannon linkit

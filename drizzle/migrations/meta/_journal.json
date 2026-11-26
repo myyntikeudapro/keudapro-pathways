@@ -232,6 +232,20 @@
       "when": 1795675812763,
       "tag": "0032_guard_actuals_and_billing_readiness",
       "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1795700997057,
+      "tag": "0033_customer_link_1b",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1795701220162,
+      "tag": "0034_fix_confirm_order_missing_list",
+      "breakpoints": true
     }
   ]
 }

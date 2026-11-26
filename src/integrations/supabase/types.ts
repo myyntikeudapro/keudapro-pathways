@@ -7,11 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "14.5"
-  }
   public: {
     Tables: {
       ai_talent_members: {
@@ -941,6 +936,41 @@ export type Database = {
             columns: ["organization_id"]
             isOneToOne: false
             referencedRelation: "crm_organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_customer_link_ops: {
+        Row: {
+          actor_id: string | null
+          created_at: string
+          lead_id: string
+          op_key: string
+          request_hash: string
+          result: Json
+        }
+        Insert: {
+          actor_id?: string | null
+          created_at?: string
+          lead_id: string
+          op_key: string
+          request_hash: string
+          result: Json
+        }
+        Update: {
+          actor_id?: string | null
+          created_at?: string
+          lead_id?: string
+          op_key?: string
+          request_hash?: string
+          result?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_customer_link_ops_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "booking_requests"
             referencedColumns: ["id"]
           },
         ]
@@ -3299,10 +3329,53 @@ export type Database = {
         }
       }
       company_resource_defects: { Args: { p_id: string }; Returns: string[] }
+      crm_confirm_company_order: {
+        Args: {
+          p_amount: number
+          p_approval_method: string
+          p_approval_note: string
+          p_content: string
+          p_ends_on: string
+          p_idempotency_key: string
+          p_lead_id: string
+          p_offer_id: string
+          p_payment_terms: string
+          p_starts_on: string
+          p_terms: string
+          p_vat_basis: string
+        }
+        Returns: string
+      }
       crm_confirm_order: {
         Args: { p_idempotency_key: string; p_version_id: string }
         Returns: string
       }
+      crm_find_organization_candidates: {
+        Args: { p_query: string }
+        Returns: {
+          business_id: string
+          id: string
+          match: string
+          name: string
+        }[]
+      }
+      crm_link_lead_customer: {
+        Args: {
+          p_contact_id: string
+          p_expected_contact_id: string
+          p_expected_organization_id: string
+          p_lead_id: string
+          p_new_business_id: string
+          p_new_contact_email: string
+          p_new_contact_name: string
+          p_new_contact_phone: string
+          p_new_organization_name: string
+          p_op_key: string
+          p_organization_id: string
+        }
+        Returns: Json
+      }
+      crm_normalize_business_id: { Args: { p: string }; Returns: string }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
@@ -3601,3 +3674,4 @@ export const Constants = {
     },
   },
 } as const
+
