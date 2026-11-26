@@ -114,9 +114,9 @@ function CapacityForm({ snap, onSaved, reload, canSave = true, onBehalf = false 
     {canSave && <p className="text-xs text-muted-foreground">Helpoin tapa: aseta osallistujamäärä ja paina <strong>Tallenna ja hyväksy</strong>. Hyväksyntä koskee aina viimeksi tallennettua versiota.</p>}
     {onBehalf && <p className="rounded-md border bg-muted/50 p-2 text-xs">Hyväksyt tuotannon vastuuhenkilönä <strong>kouluttajan puolesta</strong>. Hyväksyntä tallentuu omalla nimelläsi, ja kouluttaja voi myöhemmin päivittää kapasiteetin itse.</p>}
     <div className="flex flex-wrap gap-2">
-      {canSave && <Button disabled={busy || !trainerId} onClick={() => run(async () => { const next = await workflow.saveCapacity(snap.id, buildCapacity({ participants, trainerId, stations, slots }) as any); await onSaved(next.id); }, 'Kapasiteetti tallennettu uutena revisiona ja luettu takaisin')}><Save className="mr-2 h-4 w-4" />Tallenna kapasiteetti</Button>}
-      {canSave && <Button variant="secondary" disabled={busy || !trainerId} onClick={() => run(async () => { const next = await workflow.saveCapacity(snap.id, buildCapacity({ participants, trainerId, stations, slots }) as any); await workflow.approveCapacity(next.id); await onSaved(next.id); }, 'Kapasiteetti tallennettu, hyväksytty ja luettu takaisin')}><Check className="mr-2 h-4 w-4" />Tallenna ja hyväksy</Button>}
-      <Button variant="outline" disabled={busy} onClick={() => run(async () => { await workflow.approveCapacity(snap.id); await reload(); }, 'Kapasiteetti hyväksytty ja luettu takaisin')}><Check className="mr-2 h-4 w-4" />Hyväksy kapasiteetti</Button>
+      {canSave && <Button variant="outline" disabled={busy || !trainerId} onClick={() => run(async () => { const next = await workflow.saveCapacity(snap.id, buildCapacity({ participants, trainerId, stations, slots }) as any); await onSaved(next.id); }, 'Kapasiteetti tallennettu uutena revisiona ja luettu takaisin')}><Save className="mr-2 h-4 w-4" />Tallenna kapasiteetti</Button>}
+      {canSave && <Button className="order-first" disabled={busy || !trainerId} onClick={() => run(async () => { const next = await workflow.saveCapacity(snap.id, buildCapacity({ participants, trainerId, stations, slots }) as any); await workflow.approveCapacity(next.id); await onSaved(next.id); }, 'Kapasiteetti tallennettu, hyväksytty ja luettu takaisin')}><Check className="mr-2 h-4 w-4" />Tallenna ja hyväksy</Button>}
+      <Button variant={canSave ? 'ghost' : 'default'} size={canSave ? 'sm' : 'default'} className={canSave ? 'self-center' : ''} disabled={busy} onClick={() => run(async () => { await workflow.approveCapacity(snap.id); await reload(); }, 'Kapasiteetti hyväksytty ja luettu takaisin')}><Check className="mr-2 h-4 w-4" />Hyväksy kapasiteetti</Button>
     </div>
     <Status error={error} result={result} />
   </div>;
@@ -148,10 +148,11 @@ export function CompanyHandoffsPanel({ userId }: { userId: string }) {
 
 function HandoffCard({ item, mine, refresh }: { item: any; mine: boolean; refresh: () => Promise<unknown> }) {
   const { row, snap, delivery, tasks, blockers } = item;
+  const [, setParams] = useSearchParams();
   const [reason, setReason] = useState(''); const [busy, setBusy] = useState(false); const [error, setError] = useState(''); const [result, setResult] = useState('');
   const run = async (fn: () => Promise<unknown>, ok: string) => { setBusy(true); setError(''); setResult(''); try { await fn(); await refresh(); setResult(ok); } catch (e) { setError(companyErrorText(e)); await refresh(); } finally { setBusy(false); } };
   if (snap.error) return <div className="rounded border p-3 text-sm text-destructive" role="alert">{snap.error}</div>;
-  const missing: string[] = snap.readiness.missing; const total = 10; const pct = Math.max(0, Math.round(100 * (total - Math.min(total, missing.length)) / total));
+  const missing: string[] = snap.readiness.missing; const crit = tasks.filter((t: any) => t.blocks_start); const doneN = crit.filter((t: any) => t.completed_at).length; const pct = crit.length ? Math.round(100 * doneN / crit.length) : (snap.readiness.ready ? 100 : 0);
   const state = ({ submitted: 'Odottaa vastaanottoa', accepted: 'Vastaanotettu', returned: 'Palautettu' } as Record<string, string>)[row.company_state] ?? row.company_state;
   const stale = row.company_revision !== snap.revision;
   const critical = tasks.filter((t: any) => t.blocks_start);
@@ -160,14 +161,14 @@ function HandoffCard({ item, mine, refresh }: { item: any; mine: boolean; refres
     {stale && <p className="text-sm text-destructive">Ohjelmasta on uudempi revisio {snap.revision}; tämä luovutus vaatii uuden luovutuksen.</p>}
     <div className="text-sm"><WorkspacePerson person={{ id: snap.responsible_trainer_id }} name={snap.programme?.trainers?.[0] ?? "Vastuukouluttaja"} role="Vastuukouluttaja" /></div><p className="whitespace-pre-wrap text-sm">{snap.programme?.text}</p>
     {snap.promises && <p className="text-sm"><span className="text-muted-foreground">Asiakkaalle luvattu: </span>{snap.promises}</p>}
-    <div><div className="flex items-center justify-between text-xs"><span>Aloitusvalmius</span><span>{snap.readiness.ready ? 'Valmis' : `${missing.length} puutetta`}</span></div>
+    <div><div className="flex items-center justify-between text-xs"><span>Aloitusvalmius</span><span>{snap.readiness.ready ? 'Valmis' : `${missing.length} puutetta`}{crit.length ? ` · kriittiset ${doneN}/${crit.length}` : ''}</span></div>
       <div className="mt-1 h-2 w-full rounded bg-muted" role="meter" aria-label="Aloitusvalmius" aria-valuemin={0} aria-valuemax={100} aria-valuenow={snap.readiness.ready ? 100 : pct}><div className="h-2 rounded bg-primary" style={{ width: `${snap.readiness.ready ? 100 : pct}%` }} /></div>
       <div className="mt-2"><Missing items={missing} /></div></div>
     <div className="grid gap-3 sm:grid-cols-2 text-sm">
       <div><h4 className="font-semibold">Kriittiset tehtävät</h4>{critical.length ? <ul>{critical.map((t: any) => <li key={t.id}>{t.completed_at ? '✓' : '○'} {t.title}</li>)}</ul> : <p className="text-muted-foreground">Ei kriittisiä tehtäviä.</p>}</div>
       <div><h4 className="font-semibold">Puutteet</h4>{blockers.length ? <ul>{blockers.map((b: any) => <li key={b.id}>{b.resolved_at ? '✓' : '○'} {b.description}</li>)}</ul> : <p className="text-muted-foreground">Ei kirjattuja puutteita.</p>}</div>
     </div>
-    <p className="text-xs text-muted-foreground">Kouluttajan linkki: <span className="font-mono">/admin/tuotanto?ohjelma={snap.id}</span></p>
+    <div className="flex flex-wrap items-center gap-2">{delivery && <Button size="sm" onClick={() => setParams({ toteutus: delivery.id })}>Avaa koulutuskortti</Button>}<span className="text-xs text-muted-foreground">Kouluttajan linkki: <span className="font-mono">/admin/tuotanto?ohjelma={snap.id}</span></span></div>
     {row.company_state === 'returned' && <p className="text-sm">Palautuksen syy: {row.company_return_reason}</p>}
     {mine && row.company_state === 'submitted' && !stale && <div className="space-y-2">
       <div><label htmlFor={`ct-reason-${row.id}`} className="text-xs text-muted-foreground">Palautuksen syy</label><Textarea id={`ct-reason-${row.id}`} maxLength={2000} value={reason} onChange={e => setReason(e.target.value)} /></div>
