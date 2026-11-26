@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "bunx tsx scripts/generate-search-knowledge.ts && bunx tsx scripts/generate-sitemap.ts && vite build",
+    "build": "bun scripts/generate-search-knowledge.ts && bun scripts/generate-sitemap.ts && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",

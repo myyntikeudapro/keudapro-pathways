@@ -37,3 +37,5 @@
 - Production list, timeline and card share productionBoard so guidance never diverges.
 - Lead customer links/order buyers: only crm_link_lead_customer / crm_confirm_company_order; no name matching.
 - AI offer import only proposes fields (staff-only, nothing stored/logged); saving goes through crm_import_offer after human review, linking by business ID and never approving, winning, confirming orders, billing or messaging, so AI output cannot create commitments.
+
+- Build pre-steps run with `bun` (not `bunx tsx`): searchIndex imports image assets, which Node/tsx cannot load.
