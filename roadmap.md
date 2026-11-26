@@ -77,3 +77,7 @@
 - [x] PKS-kieliversiot: fi/en/sv-osoitteet, sivutekstit ja UKK, kopioitava viesti, Alisan automaattinen keskustelukieli sekä samat ehdot ja aiherajat. 74 testiä, oikeat englannin/ruotsin AI-vastaukset ja rajausvastaukset, kielenvaihto/uudelleenlataus ja 320/390/919/1280 px tarkistettu. Staattinen canonical/hreflang ja 8 UKK-vastausta per kieli varmennettu. Sivustoa ei julkaistu.
 - [x] Yhteydenottosivun älykäs haku: PKS-yksilövalmennus ja muut valmennukset löytyvät esikatselussa; laajennetut hakusanat ja esimerkit, suorat osumat säilyvät myös AI-haun tyhjissä vastauksissa. 32 testiä, todelliset haut ja linkki palvelusivulle sekä 320/390/1280 px tarkistettu. Julkinen keudapro.fi käyttää vanhaa hakemistoa; muutos odottaa julkaisua.
 - [x] PKS-viimeistely: 13 vastauskoetta, kuusi asiakkuushaaraa 320/390/918/1280 px, fokus/näppäimistö/evästeet, 11 palvelinrajakoetta, turvallinen vastausnäyttö ja palvelukatko. Korjattu suljettujen paneelien inert-raja, fokuspalautus ja epävarman asiantuntijan varavastaus; lisätty suostumuspohjainen toimintoseuranta. Nykyiset kolme valmentajaa vastasivat. Loppuraportti docs/pks-adviser/final-validation-2026-11-12.md; ei julkaisua.
+
+## Tarjouksen tuonti tekoälyllä (luonnos)
+- [x] Tuo tarjous tai keskustelu: syöttö (teksti + PDF selaimessa), staff-only poiminta, tarkistusnäkymä, vahvistettu kirjaus; synteettinen Attendo-tyyppinen läpivienti luonnoksen tietokannassa
+- [ ] Luonnoksen hyväksyntä ja julkaisu odottavat käyttäjää

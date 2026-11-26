@@ -267,6 +267,20 @@
       "when": 1795714457011,
       "tag": "0037_public_ai_usage_boundary",
       "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1795720940442,
+      "tag": "0038_offer_import_ai",
+      "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "7",
+      "when": 1795721247572,
+      "tag": "0039_offer_import_fix_email_variable",
+      "breakpoints": true
     }
   ]
 }

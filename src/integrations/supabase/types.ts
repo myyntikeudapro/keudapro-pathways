@@ -7,11 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "14.5"
-  }
   public: {
     Tables: {
       ai_talent_members: {
@@ -833,6 +828,24 @@ export type Database = {
           },
         ]
       }
+      crm_ai_import_usage: {
+        Row: {
+          created_at: string
+          id: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       crm_assignment_cursors: {
         Row: {
           next_index: number
@@ -1238,6 +1251,30 @@ export type Database = {
           },
         ]
       }
+      crm_offer_import_ops: {
+        Row: {
+          actor_id: string
+          created_at: string
+          op_key: string
+          request_hash: string
+          result: Json
+        }
+        Insert: {
+          actor_id: string
+          created_at?: string
+          op_key: string
+          request_hash: string
+          result: Json
+        }
+        Update: {
+          actor_id?: string
+          created_at?: string
+          op_key?: string
+          request_hash?: string
+          result?: Json
+        }
+        Relationships: []
+      }
       crm_offer_version_lines: {
         Row: {
           created_at: string
@@ -1282,12 +1319,15 @@ export type Database = {
           approval_note: string | null
           approved_at: string | null
           approved_by: string | null
+          billing_installments: Json
+          billing_mode: string | null
           contact_id: string | null
           content: string | null
           created_at: string
           created_by: string | null
           ends_on: string | null
           id: string
+          imported: boolean
           offer_id: string
           organization_id: string | null
           payment_terms: string | null
@@ -1303,12 +1343,15 @@ export type Database = {
           approval_note?: string | null
           approved_at?: string | null
           approved_by?: string | null
+          billing_installments?: Json
+          billing_mode?: string | null
           contact_id?: string | null
           content?: string | null
           created_at?: string
           created_by?: string | null
           ends_on?: string | null
           id?: string
+          imported?: boolean
           offer_id: string
           organization_id?: string | null
           payment_terms?: string | null
@@ -1324,12 +1367,15 @@ export type Database = {
           approval_note?: string | null
           approved_at?: string | null
           approved_by?: string | null
+          billing_installments?: Json
+          billing_mode?: string | null
           contact_id?: string | null
           content?: string | null
           created_at?: string
           created_by?: string | null
           ends_on?: string | null
           id?: string
+          imported?: boolean
           offer_id?: string
           organization_id?: string | null
           payment_terms?: string | null
@@ -3501,6 +3547,7 @@ export type Database = {
         }
       }
       company_resource_defects: { Args: { p_id: string }; Returns: string[] }
+      crm_ai_import_consume: { Args: { p_user: string }; Returns: boolean }
       crm_confirm_company_order: {
         Args: {
           p_amount: number
@@ -3531,6 +3578,7 @@ export type Database = {
           name: string
         }[]
       }
+      crm_import_offer: { Args: { p: Json; p_op_key: string }; Returns: Json }
       crm_link_lead_customer: {
         Args: {
           p_contact_id: string
@@ -3870,3 +3918,4 @@ export const Constants = {
     },
   },
 } as const
+

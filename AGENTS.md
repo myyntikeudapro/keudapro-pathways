@@ -36,3 +36,4 @@
 - The course catalog (cat_products/price versions/offerings) is staff-managed with locked price versions, public via cat_public_catalog at /kurssit/:slug; per-offering sign-up (registration_enabled) runs only through SECURITY DEFINER RPCs (cat_register / cat_register_program, AI forms also need terms approval), seats await staff confirmation; payments, Netvisor and messages stay separate.
 - Production list, timeline and card share productionBoard so guidance never diverges.
 - Lead customer links/order buyers: only crm_link_lead_customer / crm_confirm_company_order; no name matching.
+- AI offer import only proposes fields (staff-only, nothing stored/logged); saving goes through crm_import_offer after human review, linking by business ID and never approving, winning, confirming orders, billing or messaging, so AI output cannot create commitments.
