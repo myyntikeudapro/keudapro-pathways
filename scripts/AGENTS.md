@@ -1,2 +1,3 @@
 - Generate public search knowledge during builds with generate-search-knowledge.ts; explicit public fields keep AI sources aligned without exposing workspace data.
 - Keep fixtures replay-safe in db/seed.sql and run test-workspace-continuation.py only against the isolated loopback draft backend; no real-world calls belong in acceptance tests.
+- Build pre-steps in this folder run with `bun` (not `bunx tsx`): searchIndex imports image assets, which Node/tsx cannot load.
