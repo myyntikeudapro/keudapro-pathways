@@ -72,3 +72,16 @@ INSERT INTO booking_requests(id,name,email,organization,meeting_format,message,s
 ('14000000-0000-4000-8000-000000000008','Rina Kilpailu','rina@example.com','RACE TESTI Oy','Teams-palaveri','Synteettinen samanaikaisuus A.','testi','uusi','osaaminen','10000000-0000-4000-8000-000000000001',false),
 ('14000000-0000-4000-8000-000000000009','Roni Kilpailu','roni@example.com','RACE TESTI Oy','Teams-palaveri','Synteettinen samanaikaisuus B.','testi','uusi','osaaminen','10000000-0000-4000-8000-000000000001',false),
 ('14000000-0000-4000-8000-000000000010','Hanna Henkilö','hanna@example.com',NULL,'Teams-palaveri','Synteettinen henkilökohtainen rajaus.','testi','uusi','muutosturva','10000000-0000-4000-8000-000000000001',true) ON CONFLICT DO NOTHING;
+
+-- Yhteyshenkilöt 1C-A: several contacts per organization, same-named people, pagination and explicit offer/order links.
+INSERT INTO crm_organizations (id,name,owner_id) VALUES
+('12000000-0000-4000-8000-000000000020','TESTI Yhteyshenkilöt Oy','10000000-0000-4000-8000-000000000001') ON CONFLICT DO NOTHING;
+INSERT INTO crm_contacts (id,organization_id,name,email,phone)
+SELECT ('13000000-0000-4000-8000-0000000002' || lpad(g::text,2,'0'))::uuid,'12000000-0000-4000-8000-000000000020','Testihenkilö ' || lpad(g::text,2,'0'),'henkilo' || g || '@example.com', CASE WHEN g % 2 = 0 THEN '040 000 00' || lpad(g::text,2,'0') END
+FROM generate_series(1,27) g ON CONFLICT DO NOTHING;
+INSERT INTO crm_contacts (id,organization_id,name,email) VALUES
+('13000000-0000-4000-8000-000000000299','12000000-0000-4000-8000-000000000003','Teppo Testi','teppo.toinen@example.com') ON CONFLICT DO NOTHING;
+INSERT INTO crm_offer_versions (id,offer_id,version_no,organization_id,contact_id,service_key,starts_on,payment_terms,vat_rate,vat_basis,terms) VALUES
+('16000000-0000-4000-8000-000000000020','15000000-0000-4000-8000-000000000003',1,'12000000-0000-4000-8000-000000000003','13000000-0000-4000-8000-000000000003','osaaminen','2027-01-20','14 pv netto',25.5,'yleinen','TESTI-ehdot') ON CONFLICT DO NOTHING;
+INSERT INTO crm_orders (id,lead_id,offer_version_id,idempotency_key,organization_id,contact_id,owner_id,service_key,vat_rate,vat_basis,starts_on,terms,payment_terms,total_net,confirmed_by) VALUES
+('17000000-0000-4000-8000-000000000020','14000000-0000-4000-8000-000000000003','16000000-0000-4000-8000-000000000020','seed-1ca-order','12000000-0000-4000-8000-000000000003','13000000-0000-4000-8000-000000000003','10000000-0000-4000-8000-000000000001','osaaminen',25.5,'yleinen','2027-01-20','TESTI-ehdot','14 pv netto',2400,'10000000-0000-4000-8000-000000000001') ON CONFLICT DO NOTHING;

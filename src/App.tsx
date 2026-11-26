@@ -100,6 +100,7 @@ const App = () => (
               <Route path="/admin/markkinointi" element={<AdminMarketingPage />} />
               <Route path="/admin/tuotanto" element={<AdminProductionPage />} />
               <Route path="/admin/asiakkaat" element={<AdminCustomersPage />} />
+              <Route path="/admin/asiakkaat/henkilot/:contactId" element={<AdminCustomersPage />} />
               <Route path="/admin/asiakkaat/:organizationId" element={<AdminCustomersPage />} />
               <Route path="/admin/kurssiluettelo" element={<AdminCatalogPage />} />
               <Route path="/kurssit/:slug" element={<CatalogProductPage />} />

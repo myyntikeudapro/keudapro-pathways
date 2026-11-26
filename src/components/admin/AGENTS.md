@@ -1,0 +1,1 @@
+- Contact register (1C-A) is a read-only view over crm_contacts inside /admin/asiakkaat; person links use only explicit contact_id/order_id keys and marketing eligibility is always shown as unverified — prevents inferred relationships and implied consent.
