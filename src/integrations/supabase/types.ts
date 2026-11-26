@@ -3413,6 +3413,10 @@ export type Database = {
         Args: { p_offering: string; p_production_owner?: string }
         Returns: string
       }
+      prod_has_completed_sessions: {
+        Args: { p_delivery: string }
+        Returns: boolean
+      }
       prod_is_session_trainer: {
         Args: { _session: string; _user: string }
         Returns: boolean
