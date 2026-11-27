@@ -1,2 +1,3 @@
 - Company order confirmation compares canonical contract fields and lines against a locked approved source, requires explicit VAT and human change evidence, and preserves immutable source versions; legacy confirmation is not client-callable to prevent bypass.
 - Billing queues use orderBillingQueue over order-scoped contract plans; deliveries only supply links and never duplicate installments, while production actuals and quality remain separate.
+- Imported PDF/email sources persist separately (crm_source_documents via crm_import_offer_with_sources, same transaction, replay-safe); original PDFs sit staff-only in private crm-source-files at `<op_key>/tarjous.pdf`; legacy chunked history is a read fallback, never shown as an original file.
