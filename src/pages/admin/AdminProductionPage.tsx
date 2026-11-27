@@ -51,7 +51,7 @@ function Zone({ title, icon: Icon, tint, open = false, children }: { title: stri
 }
 
 function Card({ children }: { children: ReactNode }) {
-  return <div className="rounded-xl border bg-card p-4 shadow-card sm:p-5">{children}</div>;
+  return <div data-ui="card" className="rounded-xl border bg-card p-4 shadow-card sm:p-5">{children}</div>;
 }
 
 export default function AdminProductionPage() {

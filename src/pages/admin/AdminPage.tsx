@@ -212,7 +212,7 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/40 overflow-x-hidden ws-with-nav"><WorkspaceNav />
+    <div className="ws-page ws-area-content overflow-x-hidden ws-with-nav"><WorkspaceNav />
       <SEO title="Sisältöeditori – KeudaPRO" description="Korttien hallintapaneeli." path="/admin/sisallot" />
       <WorkspaceHeader title="Sisältöeditori" subtitle={user.email} onSignOut={signOut} actions={<Button asChild variant="ghost" size="sm" className={headerGhost}><Link to="/">Sivustolle</Link></Button>} />
 

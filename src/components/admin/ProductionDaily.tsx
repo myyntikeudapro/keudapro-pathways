@@ -40,13 +40,13 @@ export function ProductionDaily({ data, team, userId, email, open }: { data: Pro
       {people.map(id => <Button key={id} size="sm" variant={who === id ? 'default' : 'outline'} onClick={() => setWho(id)}><WorkspacePerson person={team.find(m => m.id === id)} name={id === userId ? 'Minä' : email(id)} size="xs" /></Button>)}
       <Button size="sm" variant={who === '' ? 'default' : 'outline'} onClick={() => setWho('')}>Kaikki</Button>
     </div>
-    <div className="grid divide-y rounded-xl border bg-card shadow-card sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x">
+    <div data-ui="card" className="grid divide-y rounded-xl border bg-card shadow-card sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x">
       {kpis.map(([label, n, unit, risk]) => <div key={label} className="p-4"><p className="flex items-center justify-between text-sm text-muted-foreground">{label}{risk && n > 0 && <AlertCircle className="h-4 w-4 text-destructive" />}</p><p className={`mt-1 ${risk && n > 0 ? 'text-destructive' : 'text-keuda-navy-section'}`}><span className="text-2xl font-semibold tabular-nums">{n}</span> <span className="text-sm">{unit}</span></p></div>)}
     </div>
     <TrainerLoad data={data} team={team} email={email} collapsible />
     <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(18rem,1fr)]">
-      <div className="rounded-xl border bg-card shadow-card">
-        <h3 className="p-4 pb-2 text-lg font-semibold text-keuda-navy-section">Suunnitellut tehtävät</h3>
+      <div data-ui="card" className="rounded-xl border bg-card shadow-card">
+        <div data-ui="card-header" className="p-4"><h3 data-ui="card-title" className="text-lg font-semibold">Suunnitellut tehtävät</h3></div>
         {(Object.keys(groups) as TaskGroup[]).map(g => groups[g].length > 0 && <div key={g}>
           <p className={`border-y bg-muted/50 px-4 py-2 text-xs font-semibold uppercase tracking-wide ${g === 'myohassa' ? 'text-destructive' : 'text-muted-foreground'}`}>{TASK_GROUP_LABEL[g]} ({groups[g].length})</p>
           <ul className="divide-y">{groups[g].map(t => <li key={t.id} className={`flex items-start gap-3 border-l-4 px-4 py-3 ${g === 'myohassa' ? 'border-l-destructive' : t.blocks_start ? 'border-l-ws-warn' : 'border-l-primary'}`}>
@@ -57,8 +57,8 @@ export function ProductionDaily({ data, team, userId, email, open }: { data: Pro
             </button></li>)}</ul></div>)}
         {Object.values(groups).every(x => x.length === 0) && <p className="p-4 text-sm text-muted-foreground">Ei avoimia tehtäviä.</p>}
       </div>
-      <div className="rounded-xl border bg-card p-4 shadow-card">
-        <h3 className="text-lg font-semibold text-keuda-navy-section">Kalenteri</h3>
+      <div data-ui="card" className="rounded-xl border bg-card p-4 shadow-card">
+        <div data-ui="card-header" className="p-3"><h3 data-ui="card-title" className="text-lg font-semibold">Kalenteri</h3></div>
         <div className="mt-2 flex items-center gap-2"><Button size="icon" variant="ghost" aria-label="Edellinen päivä" onClick={() => setDay(addDays(day, -1))}><ChevronLeft className="h-4 w-4" /></Button><span className="flex-1 text-center text-sm font-medium uppercase tracking-wide">{fiDate(day, { weekday: 'long', day: 'numeric', month: 'long' })}</span><Button size="icon" variant="ghost" aria-label="Seuraava päivä" onClick={() => setDay(addDays(day, 1))}><ChevronRight className="h-4 w-4" /></Button></div>
         <Button size="sm" variant="outline" className="mt-1" disabled={day === today} onClick={() => setDay(today)}><CalendarDays className="mr-2 h-4 w-4" />Tänään</Button>
         <div className="relative mt-3 border-l" style={{ height: (END - START) * PX }}>
@@ -78,7 +78,7 @@ export function TrainerLoad({ data, team, email, collapsible = false }: { data: 
   const showLoad = open, setShowLoad = setOpen;
   const load = trainerLoad(data, day);
   return <div>
-    <div className={collapsible ? "rounded-xl border bg-card shadow-card" : ""}>
+    <div data-ui={collapsible ? 'card' : undefined} className={collapsible ? "rounded-xl border bg-card shadow-card" : ""}>
       <button className="flex w-full items-center gap-2 p-4 text-left font-semibold text-keuda-navy-section" aria-expanded={showLoad} disabled={!collapsible} onClick={() => setShowLoad(!showLoad)}>{collapsible && <ChevronRight className={`h-4 w-4 transition-transform ${showLoad ? 'rotate-90' : ''}`} />}Kouluttajien kuormitus · viikko alkaen {fiDate(load.days[0], { day: 'numeric', month: 'numeric' })}</button>
       {showLoad && <div className="overflow-x-auto px-4 pb-4"><table className="w-full min-w-[32rem] text-sm"><thead><tr className="text-left text-xs text-muted-foreground"><th className="py-1 font-medium">Kouluttaja</th>{load.days.map(d => <th key={d} className="py-1 text-center font-medium">{fiDate(d, { weekday: 'short', day: 'numeric', month: 'numeric' })}</th>)}<th className="py-1 text-right font-medium">Yht.</th></tr></thead>
         <tbody>{load.rows.length === 0 ? <tr><td colSpan={7} className="py-2 text-muted-foreground">Ei kouluttajavarauksia tällä viikolla.</td></tr> : load.rows.map(r => <tr key={r.trainerId} className="border-t"><td className="py-2"><WorkspacePerson person={team.find(m => m.id === r.trainerId)} name={email(r.trainerId)} size="xs" /></td>{r.hours.map((h, i) => <td key={i} className="py-2 text-center"><span className={`inline-block min-w-10 rounded px-1.5 py-0.5 tabular-nums ${h === 0 ? 'text-muted-foreground' : h > 8 ? 'bg-ws-risk-light text-destructive' : h >= 6 ? 'bg-ws-warn/15 text-ws-warn' : 'bg-ws-ok/15 text-ws-ok'}`}>{h ? `${h.toLocaleString('fi-FI')} h` : '–'}</span></td>)}<td className="py-2 text-right font-semibold tabular-nums">{r.hours.reduce((a, b) => a + b, 0).toLocaleString('fi-FI')} h</td></tr>)}</tbody></table></div>}

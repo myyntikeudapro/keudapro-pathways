@@ -77,7 +77,7 @@ export default function AdminLeadsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30 ws-with-nav"><WorkspaceNav />
+    <div className="ws-page ws-area-sales ws-with-nav"><WorkspaceNav />
       <SEO title="Saapuneet yhteydenotot – KeudaPRO" description="Kartoitusten ja ajanvarausten hallinta." path="/admin/yhteydenotot" />
       <WorkspaceHeader title="Saapuneet yhteydenotot" subtitle={user.email} onSignOut={signOut} actions={<Button variant="ghost" size="sm" className={headerGhost} onClick={() => refetch()} disabled={isFetching}><RefreshCw className={`mr-2 h-4 w-4 ${isFetching ? "animate-spin" : ""}`} /> Päivitä</Button>} />
 
