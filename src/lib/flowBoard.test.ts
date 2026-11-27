@@ -32,14 +32,14 @@ describe('flowBoard', () => {
     expect(st(i, 'handoff').items[0].link).toBe('/admin/markkinointi?tab=leads&asiakas=l');
     expect(st({ ...i, handoffs: [{ ...i.handoffs[0], company_state: 'accepted' }] }, 'handoff').items).toHaveLength(0);
   });
-  it('unrecorded session red after 7 days, billing red 7 days after last session', () => {
+  it('unrecorded session red after 7 days; actuals alone never imply contract billing', () => {
     const deliveries = [{ id: 'd', order_id: 'x', title: 'D' }]; const sessions = [{ id: 's', delivery_id: 'd', starts_at: ago(8), ends_at: ago(7) }];
     expect(st({ deliveries, sessions }, 'held').light).toBe('red');
-    expect(st({ deliveries, sessions, actuals: [{ session_id: 's', held: true }] }, 'billing').light).toBe('red');
+    expect(st({ deliveries, sessions, actuals: [{ session_id: 's', held: true }] }, 'billing').items).toHaveLength(0);
     expect(st({ deliveries, sessions, actuals: [{ session_id: 's', held: true }], billing: [{ delivery_id: 'd', billing_ready: true }] }, 'billing').items).toHaveLength(0);
   });
   it('flags an earlier invalid billing-ready marker rather than showing green', () => {
     const deliveries = [{ id: 'd', order_id: 'x', title: 'D' }]; const sessions = [{ id: 's', delivery_id: 'd', starts_at: ago(-20), ends_at: ago(-19) }];
-    expect(st({ deliveries, sessions, actuals: [{ session_id: 's', held: true }], billing: [{ delivery_id: 'd', billing_ready: true }] }, 'billing').light).toBe('red');
+    expect(st({ deliveries, sessions, actuals: [{ session_id: 's', held: true }], billing: [{ delivery_id: 'd', billing_ready: true }] }, 'held').light).toBe('red');
   });
 });

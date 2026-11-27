@@ -80,7 +80,8 @@ function StaffView({ userId }: { userId: string }) {
   const team = useQuery({ queryKey: ['prod_team'], queryFn: async () => { const { data, error } = await supabase.functions.invoke('admin-users', { body: { action: 'team' } }); if (error) throw error; return data.users as Member[]; } });
   const { user } = useAuth();
   const email = (id: string | null) => (id === user?.id ? user?.email : id && team.data?.find(m => m.id === id)?.email) || (id ? 'Käyttäjä (hakemistotieto puuttuu)' : 'Ei vastuuhenkilöä');
-  const now = new Date();
+  const at = params.get('hetki');
+  const now = at && Number.isFinite(Date.parse(at)) ? new Date(at) : new Date();
   const queue = params.get('jono'); const mine = params.get('omat') === '1'; const selected = params.get('toteutus');
   if (query.isPending) return <p role="status" className="flex items-center gap-2"><Loader2 className="h-5 w-5 animate-spin" />Ladataan…</p>;
   if (query.isError) return <p role="alert" className="text-destructive">Tuotannon tietoja ei voitu hakea.</p>;
@@ -88,22 +89,23 @@ function StaffView({ userId }: { userId: string }) {
   const osio = productionSection(params.get('osio'));
   const go = (k: string) => setParams(k === 'projektit' ? {} : { osio: k });
   const exc = exceptions(data, now);
-  const rows = queue ? productionQueue(data, queue, now, mine ? userId : undefined) : null;
+  const queueData = { ...data, orders: data.orders?.filter(o => !params.get('palvelu') || params.get('palvelu') === 'all' || o.service_key === params.get('palvelu')) };
+  const rows = queue ? productionQueue(queueData, queue, now, mine ? userId : undefined) : null;
   const active = data.deliveries.filter(d => d.production_status !== 'päättynyt' && d.production_status !== 'peruttu');
   const readyN = active.filter(d => readiness(data, d.id).ready).length;
   const running = data.deliveries.filter(d => d.production_status === 'käynnissä').length;
   const planning = data.deliveries.filter(d => d.production_status === 'suunnittelu').length;
   const rs = readinessSummary(active.length, readyN);
   const mineN = boardRows(data, now, userId).length;
-  const qn = (k: string) => productionQueue(data, k, now, mine ? userId : undefined).length;
+  const qn = (k: string) => productionQueue(queueData, k, now, mine ? userId : undefined).length;
   const openD = (id: string) => setParams({ toteutus: id });
   const tabs = <nav aria-label="Tuotannon osiot" className="flex gap-1 overflow-x-auto rounded-xl border bg-card p-1 shadow-card">{PRODUCTION_SECTIONS.map(([k, label]) => <Button key={k} size="sm" aria-current={!queue && osio === k ? 'page' : undefined} variant={!queue && osio === k ? 'default' : 'ghost'} className="shrink-0" onClick={() => go(k)}>{label}{k === 'laskutus' && qn('billingReady') > 0 && <span className="ml-1.5 rounded-full bg-muted px-1.5 text-xs tabular-nums text-foreground">{qn('billingReady')}</span>}</Button>)}
     <Button size="sm" variant="outline" className="ml-auto shrink-0 border-ws-bronze/50 text-ws-bronze hover:bg-ws-bronze-light hover:text-ws-bronze" disabled={query.isFetching} onClick={() => query.refetch()}><RefreshCw className={`mr-2 h-4 w-4 ${query.isFetching ? 'animate-spin' : ''}`} />Päivitä</Button></nav>;
   const queueBar = <div className="flex flex-wrap items-center gap-2 rounded-xl border bg-card p-3 shadow-card">{Object.entries(PRODUCTION_QUEUES).map(([k, label]) => <Button key={k} size="sm" variant={queue === k ? 'default' : 'outline'} onClick={() => setParams({ jono: k, ...(mine ? { omat: '1' } : {}) })}>{label} <span className="ml-1.5 rounded-full bg-muted px-1.5 text-xs tabular-nums text-foreground">{qn(k)}</span></Button>)}
       <Button size="sm" variant={mine ? 'secondary' : 'ghost'} onClick={() => { mine ? params.delete('omat') : params.set('omat', '1'); setParams(params); }}>{mine ? 'Näytä koko tiimi' : 'Vain omat vastuut (jonot ja lista)'}</Button>
       {queue && <Button size="sm" variant="ghost" onClick={() => setParams({})}>Kaikki toteutukset</Button>}</div>;
-  const queueList = (r: ReturnType<typeof productionQueue>, label?: string) => <section aria-label={label} className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">{r.length === 0 && <p className="p-4 text-sm text-muted-foreground">Ei rivejä.</p>}{r.map(x => <Button variant="ghost" key={x.id} className="h-auto w-full justify-start whitespace-normal rounded-none p-4 text-left" onClick={() => openD(x.deliveryId)}><span><span className="block font-semibold text-keuda-navy-section">{x.title}</span><span className="block text-xs text-muted-foreground">{x.detail} · <WorkspacePerson person={team.data?.find(m => m.id === x.ownerId)} name={email(x.ownerId)} size="xs" /></span></span></Button>)}</section>;
-  if (rows) return <>{tabs}{queueBar}{queueList(rows, PRODUCTION_QUEUES[queue!])}</>;
+  const queueList = (r: ReturnType<typeof productionQueue>, label?: string) => <section aria-label={label} className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">{r.length === 0 && <p className="p-4 text-sm text-muted-foreground">Ei rivejä.</p>}{r.map(x => <Button variant="ghost" key={x.id} className="h-auto w-full justify-start whitespace-normal rounded-none p-4 text-left" asChild={Boolean(x.href)} onClick={() => { if (!x.href && x.deliveryId) openD(x.deliveryId); }}>{x.href ? <Link to={x.href}><span><span className="block font-semibold text-keuda-navy-section">{x.title}</span><span className="block text-xs text-muted-foreground">{x.detail} · <WorkspacePerson person={team.data?.find(m => m.id === x.ownerId)} name={email(x.ownerId)} size="xs" /></span></span></Link> : <span><span className="block font-semibold text-keuda-navy-section">{x.title}</span><span className="block text-xs text-muted-foreground">{x.detail} · <WorkspacePerson person={team.data?.find(m => m.id === x.ownerId)} name={email(x.ownerId)} size="xs" /></span></span>}</Button>)}</section>;
+  if (rows) return <>{tabs}{queueBar}{queueList(rows, PRODUCTION_QUEUES[queue ?? ''])}</>;
   return <>
     {tabs}
     {osio === 'projektit' && <>
@@ -134,7 +136,7 @@ function StaffView({ userId }: { userId: string }) {
     </>}
     {osio === 'laskutus' && <>
       <p className="text-sm text-muted-foreground">Sopimuksen mukaan laskutuspäivään tulleet avoimet erät. Maksutila merkitään käsin; laskuja ei lähetetä tästä työtilasta.</p>
-      {queueList(productionQueue(data, 'billingReady', now, mine ? userId : undefined), PRODUCTION_QUEUES.billingReady)}
+      {queueList(productionQueue(queueData, 'billingReady', now, mine ? userId : undefined), PRODUCTION_QUEUES.billingReady)}
     </>}
   </>;
 }

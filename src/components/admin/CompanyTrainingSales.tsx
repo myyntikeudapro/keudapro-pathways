@@ -12,7 +12,8 @@ import { Badge } from '@/components/ui/badge';
 import { Save, Check, Link2, Send } from 'lucide-react';
 import { companyWorkflow, companyErrorText, nextRevisionInput, readinessLabel, type CompanyStaffSnapshot } from '@/lib/companyTrainingWorkflow';
 import { readAll } from '@/lib/crm';
-import { confirmCompanyOrder, orderInputErrors } from '@/lib/companyOrder';
+import { OrderConfirmationForm } from './OrderConfirmationForm';
+import type { Contract } from '@/lib/orderReview';
 import { CustomerLinkDialog } from '@/components/admin/CustomerLinkDialog';
 import { CompanyCapacityPanel } from '@/components/admin/CompanyTrainingProduction';
 import { helsinkiLocal as local } from '@/lib/helsinkiTime';
@@ -64,11 +65,18 @@ function CaseProgramme({ leadId, team, refreshKey }: { leadId: string; team: Tea
     const templates = await db.from('prod_templates').select('key,name');
     const offers = await db.from('crm_offers').select('id,title,amount,status,expected_close').eq('lead_id', leadId).eq('status', 'accepted').order('created_at');
     if (offers.error) throw offers.error;
+    const offerIds = (offers.data ?? []).map((o: any) => o.id);
+    const versions = offerIds.length ? await db.from('crm_offer_versions').select('*').in('offer_id', offerIds).not('approved_at', 'is', null).order('version_no', { ascending: false }) : { data: [], error: null };
+    if (versions.error) throw versions.error;
+    const versionIds = versions.data.map((v: any) => v.id);
+    const lines = versionIds.length ? await db.from('crm_offer_version_lines').select('*').in('version_id', versionIds).order('line_no') : { data: [], error: null };
+    if (lines.error) throw lines.error;
+    const acceptedOffers = (offers.data ?? []).map((o: any) => { const v = versions.data.find((v: any) => v.offer_id === o.id); const rows = lines.data.filter((l: any) => l.version_id === v?.id); return { ...o, versionId: v?.id ?? null, approvalMethod: v?.approval_method ?? null, approvalNote: v?.approval_note ?? null, contract: v ? { amount: rows.reduce((sum: number,l: any) => sum + Number(l.quantity)*Number(l.unit_price),0), vat_basis: v.vat_basis, vat_rate: v.vat_rate === null ? null : Number(v.vat_rate), vat_reason: v.vat_reason, content: v.content, lines: rows.map((l: any) => ({line_no:l.line_no,description:l.description,quantity:Number(l.quantity),unit_price:Number(l.unit_price)})), starts_on:v.starts_on, ends_on:v.ends_on, terms:v.terms, payment_terms:v.payment_terms, billing_mode:v.billing_mode, billing_installments:v.billing_installments ?? [] } as Contract : null }; });
     const org = lead.data?.organization_id ? await db.from('crm_organizations').select('id,name,business_id').eq('id', lead.data.organization_id).maybeSingle() : { data: null, error: null };
     if (org.error) throw org.error;
     const contact = lead.data?.contact_id ? await db.from('crm_contacts').select('id,name,email').eq('id', lead.data.contact_id).maybeSingle() : { data: null, error: null };
     if (contact.error) throw contact.error;
-    return { buyer: org.data, buyerContact: contact.data, lead: lead.data, orders: orders.data as any[], snapshot, handoffs: handoffs.data as any[], deliveries: deliveries.data as any[], templates: (templates.data ?? []) as any[], offers: offers.data as any[] };
+    return { buyer: org.data, buyerContact: contact.data, lead: lead.data, orders: orders.data as any[], snapshot, handoffs: handoffs.data as any[], deliveries: deliveries.data as any[], templates: (templates.data ?? []) as any[], offers: acceptedOffers };
   } });
   const [busy, setBusy] = useState(false); const [error, setError] = useState(''); const [result, setResult] = useState('');
   const run = async (fn: () => Promise<unknown>, ok: string) => {
@@ -81,34 +89,7 @@ function CaseProgramme({ leadId, team, refreshKey }: { leadId: string; team: Tea
   if (q.isError) return <p role="alert" className="text-sm text-destructive">{companyErrorText(q.error)}</p>;
   const { lead, orders, snapshot, handoffs, deliveries, templates, offers, buyer, buyerContact } = q.data;
   if (!lead || lead.mt_personal) return null;
-  return <>{orders.map((o: { id: string }) => <BillingPlanPanel key={o.id} orderId={o.id} />)}{orders.length > 0 && <p className="rounded-md border bg-muted/40 p-2 text-sm">Tilaus on vahvistettu ({new Date(orders[0].created_at).toLocaleDateString('fi-FI')}). Jatka alla olevan Seuraava askel -ohjeen mukaan.</p>}{orders.length === 0 && offers.length === 0 && <p className="rounded-md border border-dashed p-2 text-sm text-muted-foreground">Vahvista tilaus -lomake ilmestyy tähän, kun asiakkaan tarjouksen tila on Hyväksytty.</p>}{orders.length === 0 && offers.length > 0 && <OrderForm lead={lead} buyer={buyer} buyerContact={buyerContact} offers={offers} busy={busy} run={run} onLinked={() => qc.invalidateQueries({ queryKey: key })} />}<ProgrammeForm hasOffer={offers.length > 0} key={snapshot?.id ?? 'new'} lead={lead} snapshot={snapshot} team={team} orders={orders} handoffs={handoffs} deliveries={deliveries} templates={templates} busy={busy} run={run} error={error} result={result} /></>;
-}
-
-function OrderForm({ lead, buyer, buyerContact, offers, busy, run, onLinked }: any) {
-  const [idempotencyKey] = useState(() => crypto.randomUUID());
-  const [offerId, setOfferId] = useState(offers[0].id); const offer = offers.find((o: any) => o.id === offerId) ?? offers[0];
-    const [content, setContent] = useState(offer.title ?? ''); const [amount, setAmount] = useState(String(offer.amount ?? ''));
-  const [startsOn, setStartsOn] = useState(''); const [endsOn, setEndsOn] = useState(''); const [vat, setVat] = useState<'koulutus_veroton' | 'yleinen'>('koulutus_veroton');
-  const [terms, setTerms] = useState('KeudaPROn yleiset sopimusehdot'); const [pay, setPay] = useState('14 päivää netto');
-  const [method, setMethod] = useState<'sahkoposti' | 'allekirjoitus' | 'suullinen_muistio'>('sahkoposti'); const [note, setNote] = useState('');
-  const input = { leadId: lead.id, offerId, organization: buyer?.name ?? '', contactName: buyerContact?.name ?? '', contactEmail: buyerContact?.email ?? '', content, amount: Number(amount.replace(',', '.')), startsOn, endsOn, vatBasis: vat, terms, paymentTerms: pay, approvalMethod: method, approvalNote: note, serviceKey: lead.service_key };
-  const missing = orderInputErrors(input);
-  const f = (id: string, label: string, v: string, set: (x: string) => void, type = 'text') => <div><label htmlFor={id} className="text-xs text-muted-foreground">{label}</label><Input id={id} type={type} value={v} onChange={e => set(e.target.value)} /></div>;
-  return <div className="space-y-3 rounded-lg border p-3">
-    <h3 className="font-semibold text-keuda-blue">Vahvista tilaus hyväksytystä tarjouksesta</h3>
-    <div className="grid gap-3 sm:grid-cols-2">
-      <Pick label="Hyväksytty tarjous" value={offerId} onChange={v => { setOfferId(v); const o = offers.find((x: any) => x.id === v); if (o) { setContent(o.title); setAmount(String(o.amount)); } }} options={offers.map((o: any) => [o.id, `${o.title} · ${Number(o.amount).toLocaleString('fi-FI')} €`])} />
-      <div className="space-y-2 rounded-md border bg-muted/30 p-2 text-sm sm:col-span-2"><p className="text-xs text-muted-foreground">Ostaja ja tilaajan yhteyshenkilö (vahvistettu asiakasvalinta)</p><p>{buyer ? `${buyer.name} · ${buyer.business_id ?? 'ei Y-tunnusta'}` : 'Ostajaa ei ole valittu'}{buyer && <> · {buyerContact ? `${buyerContact.name} (${buyerContact.email})` : 'yhteyshenkilö puuttuu'}</>}</p><CustomerLinkDialog lead={lead} label={buyer ? 'Vaihda asiakasvalinta' : 'Valitse asiakas'} onLinked={onLinked} /></div>
-      {f('co-content', 'Sovittu sisältö', content, setContent)}{f('co-amount', 'Summa € (alv 0 %)', amount, setAmount)}
-      {f('co-start', 'Alkaa', startsOn, setStartsOn, 'date')}{f('co-end', 'Päättyy', endsOn, setEndsOn, 'date')}
-      <Pick label="ALV-käsittely" value={vat} onChange={v => setVat(v as any)} options={[['koulutus_veroton', 'Koulutus, veroton'], ['yleinen', 'Yleinen 25,5 %']]} />
-      {f('co-terms', 'Sopimusehdot', terms, setTerms)}{f('co-pay', 'Maksuehto', pay, setPay)}
-      <Pick label="Asiakkaan hyväksyntätapa" value={method} onChange={v => setMethod(v as any)} options={[['sahkoposti', 'Sähköposti'], ['allekirjoitus', 'Allekirjoitus'], ['suullinen_muistio', 'Suullinen, muistio']]} />
-      {f('co-note', 'Hyväksynnän kuvaus (esim. kenen viesti ja milloin)', note, setNote)}
-    </div>
-    {missing.length > 0 && <p className="text-xs text-muted-foreground">Puuttuu: {missing.join(', ')}</p>}
-    <Button disabled={busy || missing.length > 0} onClick={() => run(async () => { const { data } = await supabase.auth.getUser(); if (!data.user) throw new Error('Kirjaudu uudelleen'); await confirmCompanyOrder({ ...input, userId: data.user.id, idempotencyKey }); }, 'Tilaus vahvistettu ja luettu takaisin')}><Check className="mr-2 h-4 w-4" />Vahvista tilaus</Button>
-  </div>;
+  return <>{orders.map((o: { id: string }) => <BillingPlanPanel key={o.id} orderId={o.id} />)}{orders.length > 0 && <p className="rounded-md border bg-muted/40 p-2 text-sm">Tilaus on vahvistettu ({new Date(orders[0].created_at).toLocaleDateString('fi-FI')}). Jatka alla olevan Seuraava askel -ohjeen mukaan.</p>}{orders.length === 0 && offers.length === 0 && <p className="rounded-md border border-dashed p-2 text-sm text-muted-foreground">Vahvista tilaus -lomake ilmestyy tähän, kun asiakkaan tarjouksen tila on Hyväksytty.</p>}{orders.length === 0 && offers.length > 0 && <OrderConfirmationForm lead={lead} buyer={buyer} buyerContact={buyerContact} offers={offers} busy={busy} run={run} onLinked={() => qc.invalidateQueries({ queryKey: key })} />}<ProgrammeForm hasOffer={offers.length > 0} key={snapshot?.id ?? 'new'} lead={lead} snapshot={snapshot} team={team} orders={orders} handoffs={handoffs} deliveries={deliveries} templates={templates} busy={busy} run={run} error={error} result={result} /></>;
 }
 
 function ProgrammeForm({ hasOffer, lead, snapshot, team, orders, handoffs, deliveries, templates, busy, run, error, result }: any) {

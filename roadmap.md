@@ -3,9 +3,12 @@
 - [x] 1C-A viimeistely: suomenkieliset tarjoustilat, tyhjän rekisterin selaintesti admin/editor 320/390 px, 403-kirjasinvaroitusten toisto pääprojektin käyttöliittymällä samassa testiympäristössä ja ajantasaisen main-version rajausvertailu; GO-raportti docs/yhteyshenkilot-1C-A-hyvaksyntatarkistus-2026-11-26.md. Ei hyväksyntää tai julkaisua.
 - [x] Yhteyshenkilöt 1C-A ja 1C-B: hyväksytty ja julkaistu 27.11.2026.
 - [x] Vakautustarkastus 27.11.2026: docs/tyotila-vakautus-tarkastus-2026-11-27.md
-- [ ] Korjaus 1: tietoinen ALV-valinta tilausvahvistukseen; odottaa hyväksyntää
-- [ ] Korjaus 2: tilauksen poikkeama hyväksytystä tarjouksesta vaatii erillisen hyväksynnän; odottaa hyväksyntää
-- [ ] Korjaus 3: laskutusjono tilauksista ja eristä, ei tuotantototeutuksista; odottaa hyväksyntää
+- [x] Korjaus 1: tietoinen ALV-valinta ja palvelinvalidointi; toteutettu ja testattu vain tässä eristetyssä luonnoksessa
+- [x] Korjaus 2: hyväksytyn tarjousversion vertailu, poikkeaman hyväksyntänäyttö ja muuttumaton historia; synteettiset palvelin- ja selainkokeet läpi
+- [x] Korjaus 3: yhteinen tilauspohjainen laskutusjono ja Helsinki-rajat; ei tuotantototeutusvaatimusta; sama määrä kaikissa testatuissa näkymissä
+- [x] Vakautuksen hyväksyntätestit: 209 regressiota, 27 palvelinkoetta, neljä roolia ja 320/390/1280 px selainpolut
+- [x] Vakautuksen kuusiosainen loppuraportti: docs/tilaukset-laskutus-vakautus-2026-11-27.md; GO luonnoksen hyväksynnälle, ei Acceptia tai julkaisua
+- [ ] Vakautuksen käyttöönotto odottaa käyttäjän Acceptia, tuoretta turvatarkastusta, varmuuskopion UTC-aikaa/palautusvastuuta ja erillistä julkaisulupaa
 - [ ] Aito asiakastapaus: Attendo Oy; 26.11.2026 lukutarkistuksessa 0 vastaavaa organisaatiota, yhteydenottoa ja tarjousta. Käyttäjän tarjous-PDF (2.11.2026) ja asiakkaan sähköpostivastaus luettu: yksi 2 h Teams-toteutus, 900 € + alv 25,5 %, laskutus toteutuksen jälkeen / 14 pv netto. Käyttäjä vahvisti 26.11.2026 klo 18.56 UTC yhden toteutuksen tarjouksen hyväksytyksi. Asiakas ehdottaa tammikuun puolivälin jälkeistä aikaa klo 13–15, mutta tarkka päivä ja vuosi eivät ole vahvistettuja. Asiakasvalinta, tilaus ja Sadun vastaanotto odottavat varmuuskopion vahvistusta. Ei liiketoimintatallennuksia, viestejä, laskuja tai maksuja.
 - [ ] Varmuuskopion tarkistusapu: käyttäjä ei tiedä uusinta UTC-aikaa; pyydetty kuva More → Database → Manage → Backups -näkymän uusimmasta rivistä. Työkaluilla ei voi lukea varmuuskopioluetteloa, eikä palautusta käynnistetä.
 - [x] Asiakkaat 1A + 1B julkaisun jälkeinen lukutarkistus: julkaistu ohjelmaversio Heikin istunnolla, live-anonyymi esto, 0033/0034 ja roolisuojat, 21 testiä, muuttumattomat sisältötiivisteet; raportti docs/asiakkaat-julkaisun-jalkeinen-tarkistus-2026-11-26.md

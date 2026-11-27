@@ -36,7 +36,7 @@ function BillingPlanForm({ snapshot: s, reload }: { snapshot: BillingSnapshot; r
         : await supabase.rpc('crm_set_installment_payment', { p_installment_id: installmentId ?? '', p_status: status ?? '', p_expected_version: s.plan?.version ?? 0, p_op_key: op });
       if (response.error) throw response.error;
       setResult('Tallennettu.');
-      await Promise.all([qc.invalidateQueries({ queryKey: ['production_data'] }), qc.invalidateQueries({ queryKey: ['customer_register'] }), qc.invalidateQueries({ queryKey: ['billing_plan'] })]);
+      await Promise.all([qc.invalidateQueries({ queryKey: ['production_data'] }), qc.invalidateQueries({ queryKey: ['customer_register'] }), qc.invalidateQueries({ queryKey: ['billing_plan'] }), qc.invalidateQueries({ queryKey: ['flow_board'] })]);
       await reload();
     } catch (e) { setError(billingError(e)); }
     finally { setBusy(false); }

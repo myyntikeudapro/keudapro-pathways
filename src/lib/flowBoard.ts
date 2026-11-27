@@ -1,3 +1,4 @@
+import { orderBillingQueue, type BillingQueueData } from './billingQueue';
 // Pure flow-board rules: each value-stream stage gets green/yellow/red from the age of its oldest waiting item.
 import { billingEligible } from './billingReadiness';
 export type Light = 'green' | 'yellow' | 'red';
@@ -13,6 +14,7 @@ export type FlowInput = {
   tasks: { delivery_id: string; blocks_start: boolean; completed_at: string | null }[];
   blockers: { delivery_id: string; resolved_at: string | null }[];
   billing: { delivery_id: string; billing_ready: boolean }[];
+  billingData?: BillingQueueData;
 };
 
 // Thresholds in days: [yellow from, red from].
@@ -36,12 +38,13 @@ export function flowBoard(i: FlowInput, now = Date.now()): FlowStage[] {
   const handoffs = live.filter(h => !accepted(h)).map(h => { const o = orderName.get(h.order_id); const d = age(h.handed_at, now); return { id: h.order_id, label: o?.name ?? 'Tilaus', days: d, light: light(d, LIMITS.handoff), link: lead(o?.lead_id ?? null) }; });
 
   const held = new Set(i.actuals.filter(a => a.held === true).map(a => a.session_id));
-  const start: FlowItem[] = []; const record: FlowItem[] = []; const bill: FlowItem[] = [];
+  const start: FlowItem[] = []; const record: FlowItem[] = [];
+  const bill: FlowItem[] = orderBillingQueue(i.billingData ?? { deliveries: [] }, new Date(now)).map(r => { const d = age(`${r.dueOn}T12:00:00Z`, now); return { id: r.id, label: `${r.title} · ${r.detail}`, days: d, light: light(d, LIMITS.billing), link: r.href }; });
   for (const dl of i.deliveries) {
     const ss = i.sessions.filter(s => s.delivery_id === dl.id).sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
     const ready = i.billing.find(b => b.delivery_id === dl.id)?.billing_ready;
     if (ready && billingEligible(ss, i.actuals, now)) continue;
-    if (ready) { bill.push({ id: dl.id, label: `${dl.title} · laskutusmerkintä ei vastaa toteumia`, days: 0, light: 'red', link: prod(dl.id) }); }
+    if (ready) { record.push({ id: dl.id, label: `${dl.title} · toteumien tarkistusmerkintä ei vastaa toteumia`, days: 0, light: 'red', link: prod(dl.id) }); }
     if (!ss.length) { start.push({ id: dl.id, label: `${dl.title} · ei sessioita`, days: 0, light: 'yellow', link: prod(dl.id) }); continue; }
     const first = Date.parse(ss[0].starts_at);
     if (first > now) {
@@ -51,7 +54,6 @@ export function flowBoard(i: FlowInput, now = Date.now()): FlowStage[] {
     }
     const missing = ss.filter(s => Date.parse(s.ends_at) < now && !held.has(s.id));
     if (missing.length) { const d = age(missing[0].ends_at, now); record.push({ id: dl.id, label: `${dl.title} · ${missing.length} kirjaamatta`, days: d, light: light(d, LIMITS.held), link: prod(dl.id) }); continue; }
-    if (ss.every(s => held.has(s.id))) { const d = age(ss[ss.length - 1].ends_at, now); bill.push({ id: dl.id, label: dl.title, days: d, light: light(d, LIMITS.billing), link: prod(dl.id) }); }
   }
   const stage = (key: string, title: string, rule: string, items: FlowItem[]): FlowStage => ({ key, title, rule, items: sort(items), light: worst(items) });
   return [
@@ -60,6 +62,6 @@ export function flowBoard(i: FlowInput, now = Date.now()): FlowStage[] {
     stage('handoff', 'Luovutus odottaa tuotantoa', 'Keltainen 1 vrk, punainen 3 vrk', handoffs),
     stage('start', 'Aloitusvalmius', 'Avoin este: keltainen alle 7 vrk, punainen alle 3 vrk alkuun', start),
     stage('held', 'Toteumat kirjaamatta', 'Keltainen 2 vrk, punainen 7 vrk session jälkeen', record),
-    stage('billing', 'Laskutusvalmius', 'Keltainen 3 vrk, punainen 7 vrk viimeisestä sessiosta', bill),
+    stage('billing', 'Laskutusvalmius', 'Sopimuksen avoimet erät · Helsinki; keltainen 3 vrk, punainen 7 vrk laskutuspäivästä', bill),
   ];
 }

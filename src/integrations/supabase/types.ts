@@ -7,11 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "14.5"
-  }
   public: {
     Tables: {
       ai_talent_members: {
@@ -1404,6 +1399,7 @@ export type Database = {
           terms: string | null
           vat_basis: string | null
           vat_rate: number | null
+          vat_reason: string | null
           version_no: number
         }
         Insert: {
@@ -1428,6 +1424,7 @@ export type Database = {
           terms?: string | null
           vat_basis?: string | null
           vat_rate?: number | null
+          vat_reason?: string | null
           version_no: number
         }
         Update: {
@@ -1452,6 +1449,7 @@ export type Database = {
           terms?: string | null
           vat_basis?: string | null
           vat_rate?: number | null
+          vat_reason?: string | null
           version_no?: number
         }
         Relationships: [
@@ -1594,6 +1592,14 @@ export type Database = {
       }
       crm_orders: {
         Row: {
+          approval_differences: Json | null
+          billing_installments: Json | null
+          billing_mode: string | null
+          cancelled_at: string | null
+          change_approval_method: string | null
+          change_approval_reference: string | null
+          change_approved_at: string | null
+          change_approved_by: string | null
           confirmed_at: string
           confirmed_by: string
           contact_id: string
@@ -1607,13 +1613,23 @@ export type Database = {
           owner_id: string
           payment_terms: string
           service_key: string
+          source_offer_version_id: string | null
           starts_on: string
           terms: string
           total_net: number
           vat_basis: string
           vat_rate: number
+          vat_reason: string | null
         }
         Insert: {
+          approval_differences?: Json | null
+          billing_installments?: Json | null
+          billing_mode?: string | null
+          cancelled_at?: string | null
+          change_approval_method?: string | null
+          change_approval_reference?: string | null
+          change_approved_at?: string | null
+          change_approved_by?: string | null
           confirmed_at?: string
           confirmed_by: string
           contact_id: string
@@ -1627,13 +1643,23 @@ export type Database = {
           owner_id: string
           payment_terms: string
           service_key: string
+          source_offer_version_id?: string | null
           starts_on: string
           terms: string
           total_net: number
           vat_basis: string
           vat_rate: number
+          vat_reason?: string | null
         }
         Update: {
+          approval_differences?: Json | null
+          billing_installments?: Json | null
+          billing_mode?: string | null
+          cancelled_at?: string | null
+          change_approval_method?: string | null
+          change_approval_reference?: string | null
+          change_approved_at?: string | null
+          change_approved_by?: string | null
           confirmed_at?: string
           confirmed_by?: string
           contact_id?: string
@@ -1647,11 +1673,13 @@ export type Database = {
           owner_id?: string
           payment_terms?: string
           service_key?: string
+          source_offer_version_id?: string | null
           starts_on?: string
           terms?: string
           total_net?: number
           vat_basis?: string
           vat_rate?: number
+          vat_reason?: string | null
         }
         Relationships: [
           {
@@ -1680,6 +1708,13 @@ export type Database = {
             columns: ["organization_id"]
             isOneToOne: false
             referencedRelation: "crm_organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_orders_source_offer_version_id_fkey"
+            columns: ["source_offer_version_id"]
+            isOneToOne: false
+            referencedRelation: "crm_offer_versions"
             referencedColumns: ["id"]
           },
         ]
@@ -3616,27 +3651,62 @@ export type Database = {
       }
       company_resource_defects: { Args: { p_id: string }; Returns: string[] }
       crm_ai_import_consume: { Args: { p_user: string }; Returns: boolean }
-      crm_confirm_company_order: {
-        Args: {
-          p_amount: number
-          p_approval_method: string
-          p_approval_note: string
-          p_content: string
-          p_ends_on: string
-          p_idempotency_key: string
-          p_lead_id: string
-          p_offer_id: string
-          p_payment_terms: string
-          p_starts_on: string
-          p_terms: string
-          p_vat_basis: string
-        }
-        Returns: string
-      }
+      crm_confirm_company_order:
+        | {
+            Args: {
+              p_amount: number
+              p_approval_method: string
+              p_approval_note: string
+              p_content: string
+              p_ends_on: string
+              p_idempotency_key: string
+              p_lead_id: string
+              p_offer_id: string
+              p_payment_terms: string
+              p_starts_on: string
+              p_terms: string
+              p_vat_basis: string
+            }
+            Returns: string
+          }
+        | {
+            Args: {
+              p_amount: number
+              p_approval_method: string
+              p_approval_note: string
+              p_billing_installments: Json
+              p_billing_mode: string
+              p_change_accepted: boolean
+              p_change_method: string
+              p_change_reference: string
+              p_content: string
+              p_ends_on: string
+              p_expected_contact_id: string
+              p_expected_organization_id: string
+              p_idempotency_key: string
+              p_lead_id: string
+              p_lines: Json
+              p_offer_id: string
+              p_payment_terms: string
+              p_source_version_id: string
+              p_starts_on: string
+              p_terms: string
+              p_vat_basis: string
+              p_vat_rate: number
+              p_vat_reason: string
+            }
+            Returns: string
+          }
       crm_confirm_order: {
         Args: { p_idempotency_key: string; p_version_id: string }
         Returns: string
       }
+      crm_contract_diff: {
+        Args: { p_after: Json; p_before: Json }
+        Returns: Json
+      }
+      crm_contract_lines: { Args: { p: Json }; Returns: Json }
+      crm_contract_text: { Args: { p: string }; Returns: string }
       crm_find_organization_candidates: {
         Args: { p_query: string }
         Returns: {
@@ -3994,3 +4064,4 @@ export const Constants = {
     },
   },
 } as const
+

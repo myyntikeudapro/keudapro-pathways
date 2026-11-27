@@ -1,4 +1,5 @@
-import { contractBilling, type BillingOrder, type BillingPlan, type BillingInstallment } from './contractBilling';
+import { type BillingPlan, type BillingInstallment } from './contractBilling';
+import { orderBillingQueue, type QueueOrder } from './billingQueue';
 // Shared production calculations. The production page and the operations center both use these,
 // so a metric count always equals the rows of its linked queue.
 import { billingEligible } from './billingReadiness';
@@ -10,7 +11,7 @@ export type Blocker = { id: string; delivery_id: string; description: string; ow
 export type QualityIssue = { id: string; delivery_id: string; severity: string; description: string; owner_id: string; closed_at: string | null };
 export type Actual = { id: string; session_id: string; held?: boolean };
 export type Billing = { delivery_id: string; billing_ready: boolean; payment_status: string };
-export type ProductionData = { deliveries: Delivery[]; sessions: Session[]; bookings: Booking[]; tasks: Task[]; blockers: Blocker[]; quality: QualityIssue[]; actuals: Actual[]; billing: Billing[]; orders?: BillingOrder[]; billingPlans?: BillingPlan[]; billingInstallments?: BillingInstallment[] };
+export type ProductionData = { deliveries: Delivery[]; sessions: Session[]; bookings: Booking[]; tasks: Task[]; blockers: Blocker[]; quality: QualityIssue[]; actuals: Actual[]; billing: Billing[]; orders?: QueueOrder[]; billingPlans?: BillingPlan[]; billingInstallments?: BillingInstallment[] };
 
 export const EMPTY_PRODUCTION: ProductionData = { deliveries: [], sessions: [], bookings: [], tasks: [], blockers: [], quality: [], actuals: [], billing: [] };
 export const DAY = 86_400_000;
@@ -85,7 +86,7 @@ export const PRODUCTION_FORMULAS: Record<string, string> = {
   billingReady: 'Vahvistetun sopimussuunnitelman avoimet erät Helsingin laskutuspäivään mennessä; ei koulutuksen valmistumismittari',
 };
 
-export type QueueRow = { id: string; deliveryId: string; title: string; detail: string; ownerId: string | null };
+export type QueueRow = { id: string; deliveryId: string | null; title: string; detail: string; ownerId: string | null; href?: string };
 export function productionQueue(d: ProductionData, key: string, now: Date, mineId?: string): QueueRow[] {
   const t = now.getTime();
   const byId = new Map(d.deliveries.map(x => [x.id, x]));
@@ -99,11 +100,6 @@ export function productionQueue(d: ProductionData, key: string, now: Date, mineI
     return [{ id: x.id, deliveryId: x.id, title: x.title, detail: r.ready ? 'Valmis aloitukseen' : r.missing.join(' · '), ownerId: x.production_owner_id }];
   });
   else if (key === 'overdue' || key === 'exceptions') rows = exceptions(d, now).filter(e => key === 'exceptions' || e.kind === 'overdue_task').map(e => ({ id: e.key, deliveryId: e.deliveryId, title: `${EXCEPTION_LABEL[e.kind]}: ${e.label}`, detail: byId.get(e.deliveryId)?.title ?? '', ownerId: e.ownerId }));
-  else if (key === 'billingReady') rows = live.flatMap(delivery => {
-    const order = d.orders?.find(o => o.id === delivery.order_id);
-    if (!order) return [];
-    const billing = contractBilling(order, d.billingPlans?.find(p => p.order_id === order.id), d.billingInstallments ?? [], now);
-    return billing.due.map(i => ({ id: i.id, deliveryId: delivery.id, title: delivery.title, detail: `Erä ${i.seq} · ${i.due_on} · ${Number(i.amount).toLocaleString('fi-FI')} € (alv 0 %)`, ownerId: delivery.sales_owner_id }));
-  });
+  else if (key === 'billingReady') rows = orderBillingQueue(d, now);
   return mineId ? rows.filter(r => r.ownerId === mineId) : rows;
 }

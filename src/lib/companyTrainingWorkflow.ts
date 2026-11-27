@@ -73,6 +73,20 @@ export function nextRevisionInput(input: { caseId: string; current: CompanyStaff
   };
 }
 const COMPANY_ERRORS: Record<string, string> = {
+  VAT_SELECTION_REQUIRED: 'Valitse ALV-käsittely tietoisesti ennen tilauksen vahvistamista.',
+  VAT_RATE_INVALID: 'ALV-kanta ei vastaa valittua käsittelyä.',
+  VAT_REASON_REQUIRED: 'Kirjoita valitun ALV-käsittelyn peruste.',
+  ORDER_CHANGE_APPROVAL_REQUIRED: 'Tarjous ja tilaus poikkeavat. Kirjaa asiakkaan hyväksyntä, hyväksymistapa ja viite.',
+  ORDER_RELOAD_REQUIRED: 'Avaa tilausvahvistus uudelleen: ALV ja hyväksytty tarjousversio on tarkistettava.',
+  ACCEPTED_VERSION_REQUIRED: 'Asiakkaan hyväksymä tarjousversio puuttuu.',
+  ACCEPTED_LINES_REQUIRED: 'Hyväksytyn tarjousversion hinnoitellut rivit puuttuvat.',
+  OFFER_CHANGED: 'Tarjouksesta on hyväksytty uudempi versio. Lataa kortti uudelleen.',
+  LINK_CHANGED: 'Asiakasvalintaa muutettiin toisaalla. Lataa kortti uudelleen.',
+  ORDER_ALREADY_CONFIRMED: 'Tästä tarjouksesta on jo vahvistettu tilaus. Lataa kortti uudelleen.',
+  ORDER_LINE_TOTAL_MISMATCH: 'Tilauksen summa ja rivien summa eivät vastaa toisiaan.',
+  BUYER_BUSINESS_ID_REQUIRED: 'Ostajan Y-tunnus on vahvistettava asiakasvalinnassa.',
+  ORDER_DATES_INVALID: 'Vahvista kelvolliset alku- ja loppupäivät.',
+  OP_KEY_REUSED: 'Tallennustunnus on jo käytetty eri tietoihin. Avaa kortti uudelleen.',
   COMPANY_STALE_REVISION: 'Ohjelmasta on tallennettu uudempi revisio. Lataa kortti uudelleen.',
   COMPANY_SALES_REQUIRED: 'Vain asiakkaan vastuumyyjä voi tehdä tämän.',
   COMPANY_RESPONSIBILITIES_INVALID: 'Tuotantovastaavan tai kouluttajan rooli ei kelpaa.',

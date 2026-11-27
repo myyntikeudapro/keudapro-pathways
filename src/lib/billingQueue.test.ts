@@ -1,0 +1,23 @@
+import {describe,it,expect} from 'vitest';
+import {orderBillingQueue,type BillingQueueData} from './billingQueue';
+import {productionQueue,EMPTY_PRODUCTION} from './productionCenter';
+import {flowBoard} from './flowBoard';
+import {contractBilling} from './contractBilling';
+const now=new Date('2026-11-26T12:00:00Z');
+const base=():BillingQueueData=>({orders:[{id:'o',organization_id:'org',owner_id:'owner',service_key:'osaaminen',total_net:900,starts_on:'2026-11-26',ends_on:'2026-12-10'}],billingPlans:[{order_id:'o',mode:'start',version:1,total_net:900,starts_on:'2026-11-26',ends_on:'2026-12-10'}],billingInstallments:[{id:'i',order_id:'o',seq:1,amount:900,due_on:'2026-11-26',payment_status:'ei_laskutettu'}],deliveries:[]});
+describe('order-scoped billing queues',()=>{
+ it('due start installment without a delivery yields exactly one row',()=>expect(orderBillingQueue(base(),now).map(i=>i.id)).toEqual(['i']));
+ it('no delivery links to the existing customer order pane',()=>expect(orderBillingQueue(base(),now)[0].href).toBe('/admin/asiakkaat/org?osio=tilaukset&tilaus=o'));
+ it('multiple deliveries never duplicate the installment',()=>{const d=base();d.deliveries=[{id:'d1',order_id:'o',title:'A'},{id:'d2',order_id:'o',title:'B'}];expect(orderBillingQueue(d,now)).toHaveLength(1);});
+ it('future installment is excluded',()=>expect(orderBillingQueue(base(),new Date('2026-11-25T21:59:59Z'))).toEqual([]));
+ it('invoiced installment is excluded',()=>{const d=base();if(d.billingInstallments)d.billingInstallments[0].payment_status='laskutettu';expect(orderBillingQueue(d,now)).toEqual([]);});
+ it('paid installment is excluded',()=>{const d=base();if(d.billingInstallments)d.billingInstallments[0].payment_status='maksettu';expect(orderBillingQueue(d,now)).toEqual([]);});
+ it('cancelled order without delivery is excluded',()=>{const d=base();if(d.orders)d.orders[0].cancelled_at='2026-11-26T10:00:00Z';expect(orderBillingQueue(d,now)).toEqual([]);});
+ it('retains current cancelled delivery rule',()=>{const d=base();d.deliveries=[{id:'d',order_id:'o',title:'A',production_status:'peruttu'}];expect(orderBillingQueue(d,now)).toEqual([]);});
+ it('missing plan remains unconfirmed rather than zero or ready',()=>{const d=base();const o=d.orders?.[0];if(!o)throw new Error('fixture');expect(contractBilling(o,null,[],now).state).toBe('unconfirmed');d.billingPlans=[];expect(orderBillingQueue(d,now)).toEqual([]);});
+ it('same installment and count in production, flow center and customer contract calculation',()=>{const d=base();const prod={...EMPTY_PRODUCTION,...d,deliveries:[]};const flow=flowBoard({offers:[],orders:[],handoffs:[],deliveries:[],sessions:[],actuals:[],tasks:[],blockers:[],billing:[],billingData:d},now.getTime()).find(x=>x.key==='billing');const o=d.orders?.[0];if(!o)throw new Error('fixture');expect(productionQueue(prod,'billingReady',now).map(i=>i.id)).toEqual(['i']);expect(flow?.items.map(i=>i.id)).toEqual(['i']);expect(contractBilling(o,d.billingPlans?.[0],d.billingInstallments??[],now).due.map(i=>i.id)).toEqual(['i']);});
+ it('Helsinki winter midnight is 22 UTC',()=>{expect(orderBillingQueue(base(),new Date('2026-11-25T21:59:59Z'))).toHaveLength(0);expect(orderBillingQueue(base(),new Date('2026-11-25T22:00:00Z'))).toHaveLength(1);});
+ it('Helsinki summer midnight is 21 UTC',()=>{const d=base();if(d.orders){d.orders[0].starts_on='2026-06-01';d.orders[0].ends_on='2026-06-02';}if(d.billingPlans){d.billingPlans[0].starts_on='2026-06-01';d.billingPlans[0].ends_on='2026-06-02';}if(d.billingInstallments)d.billingInstallments[0].due_on='2026-06-01';expect(orderBillingQueue(d,new Date('2026-05-31T20:59:59Z'))).toHaveLength(0);expect(orderBillingQueue(d,new Date('2026-05-31T21:00:00Z'))).toHaveLength(1);});
+ it('scope uses the order owner and service even without production',()=>{expect(orderBillingQueue(base(),now,{ownerId:'owner',service:'osaaminen'})).toHaveLength(1);expect(orderBillingQueue(base(),now,{ownerId:'other'})).toHaveLength(0);expect(orderBillingQueue(base(),now,{service:'aly'})).toHaveLength(0);});
+ it('start billing never marks production ready',()=>{const d={...EMPTY_PRODUCTION,...base(),deliveries:[]};expect(productionQueue(d,'billingReady',now)).toHaveLength(1);expect(d.actuals).toEqual([]);expect(d.deliveries).toEqual([]);});
+});
