@@ -101,6 +101,9 @@
 - [x] Loppuraportti docs/lean-etenemisohjaus-2026-11-27.md; ei migraatioita, hyväksyntää tai julkaisua
 - [ ] Yhdistämisriippuvuus: vakautusluonnoksen hyväksynnän jälkeen yhteensopivuuden uusintatesti ennen tämän hyväksymistä
 
+## Myynnin asiakaskortin jatkokehitys UX-2
+- [ ] Toteutus erillisessä luonnoksessa: lähteistetty Asiakkaalle luvattu -ehdotus ihmisen tarkistettavaksi, ristiriidasta suoraan korjauskenttään, ristiriitojen määrä kanbanissa ja PDF-/sähköpostiaineiston erillinen pysyvä tallennus; ei oikeiden asiakastietojen muutoksia eikä julkaisua.
+
 ## Myynnin asiakaskortti UX-1 (luonnos)
 - [x] Kortin otsikko yritys + koulutus, perustiedot, tilat, LEAN Seuraava vaihe, kolme välilehteä ja Historia ja aineisto; lomakkeet avattavina
 - [x] Lähdeaineisto (PDF ja sähköposti erikseen) ja viisi näyttöön perustuvaa ristiriitasääntöä testeineen
