@@ -1,8 +1,11 @@
 - [x] Yhteyshenkilöt ja avainhenkilöt: nykytilan lukukartoitus ja seitsemän kohdan päätösesitys docs/yhteyshenkilot-paatosesitys-2026-11-26.md; ei toteutusta, tietomuutoksia, julkaisua tai markkinointilähetyksiä. 1C-A toteutettu luonnoksessa.
 - [x] Yhteyshenkilöt 1C-A: lukeva Yhteyshenkilöt-osio ja henkilökortti luonnoksessa; testattu.
 - [x] 1C-A viimeistely: suomenkieliset tarjoustilat, tyhjän rekisterin selaintesti admin/editor 320/390 px, 403-kirjasinvaroitusten toisto pääprojektin käyttöliittymällä samassa testiympäristössä ja ajantasaisen main-version rajausvertailu; GO-raportti docs/yhteyshenkilot-1C-A-hyvaksyntatarkistus-2026-11-26.md. Ei hyväksyntää tai julkaisua.
-- [ ] Yhteyshenkilöt 1C-B: suunnitelma docs/yhteyshenkilot-1C-B-toteutussuunnitelma-2026-11-26.md; odottaa hyväksyntää.
-- [ ] 1C-A luonnoksen hyväksyntä ja julkaisu: odottaa käyttäjää.
+- [x] Yhteyshenkilöt 1C-A ja 1C-B: hyväksytty ja julkaistu 27.11.2026.
+- [x] Vakautustarkastus 27.11.2026: docs/tyotila-vakautus-tarkastus-2026-11-27.md
+- [ ] Korjaus 1: tietoinen ALV-valinta tilausvahvistukseen; odottaa hyväksyntää
+- [ ] Korjaus 2: tilauksen poikkeama hyväksytystä tarjouksesta vaatii erillisen hyväksynnän; odottaa hyväksyntää
+- [ ] Korjaus 3: laskutusjono tilauksista ja eristä, ei tuotantototeutuksista; odottaa hyväksyntää
 - [ ] Aito asiakastapaus: Attendo Oy; 26.11.2026 lukutarkistuksessa 0 vastaavaa organisaatiota, yhteydenottoa ja tarjousta. Käyttäjän tarjous-PDF (2.11.2026) ja asiakkaan sähköpostivastaus luettu: yksi 2 h Teams-toteutus, 900 € + alv 25,5 %, laskutus toteutuksen jälkeen / 14 pv netto. Käyttäjä vahvisti 26.11.2026 klo 18.56 UTC yhden toteutuksen tarjouksen hyväksytyksi. Asiakas ehdottaa tammikuun puolivälin jälkeistä aikaa klo 13–15, mutta tarkka päivä ja vuosi eivät ole vahvistettuja. Asiakasvalinta, tilaus ja Sadun vastaanotto odottavat varmuuskopion vahvistusta. Ei liiketoimintatallennuksia, viestejä, laskuja tai maksuja.
 - [ ] Varmuuskopion tarkistusapu: käyttäjä ei tiedä uusinta UTC-aikaa; pyydetty kuva More → Database → Manage → Backups -näkymän uusimmasta rivistä. Työkaluilla ei voi lukea varmuuskopioluetteloa, eikä palautusta käynnistetä.
 - [x] Asiakkaat 1A + 1B julkaisun jälkeinen lukutarkistus: julkaistu ohjelmaversio Heikin istunnolla, live-anonyymi esto, 0033/0034 ja roolisuojat, 21 testiä, muuttumattomat sisältötiivisteet; raportti docs/asiakkaat-julkaisun-jalkeinen-tarkistus-2026-11-26.md
