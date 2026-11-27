@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { buildSourceDocs, sourceFilePath, SOURCE_RPC } from '@/lib/offerImport';
 import { BILLING_LABELS, FIELD_LABELS, IMPORT_FIELDS, buildImportCommand, fieldsToValues, importErrorMessage, normalizeExtraction, validateForm, type ImportFieldKey, type ImportFields } from '@/lib/offerImport';
 
 type LeadOption = { id: string; name: string; organization: string | null };
@@ -35,7 +36,7 @@ export function OfferImportDialog({ leads, onImported }: { leads: LeadOption[]; 
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<'input' | 'review'>('input');
   const [email, setEmail] = useState('');
-  const [pdf, setPdf] = useState<{ name: string; text: string } | null>(null);
+  const [pdf, setPdf] = useState<{ name: string; text: string; file: File } | null>(null);
   const [busy, setBusy] = useState(false);
   const [fields, setFields] = useState<ImportFields | null>(null);
   const [values, setValues] = useState<Record<ImportFieldKey, string> | null>(null);
@@ -53,7 +54,7 @@ export function OfferImportDialog({ leads, onImported }: { leads: LeadOption[]; 
     try {
       const text = (await pdfText(file)).trim();
       if (!text) toast.error('PDF:stä ei löytynyt tekstiä. Liitä tarjouksen teksti käsin.');
-      else setPdf({ name: file.name, text });
+      else setPdf({ name: file.name, text, file });
     } catch { toast.error('PDF:n lukeminen epäonnistui.'); }
     setBusy(false);
   };
@@ -83,11 +84,23 @@ export function OfferImportDialog({ leads, onImported }: { leads: LeadOption[]; 
     if (!check.ok) return toast.error(check.errors.join(' · '));
     setBusy(true);
     const cmd = buildImportCommand(form, opKey);
-    const { data, error } = await supabase.rpc(cmd.rpc, cmd.args);
+    // The original PDF goes to private storage first; the database links it only if the import commits.
+    const path = pdf ? sourceFilePath(opKey) : null;
+    if (pdf && path) {
+      const up = await supabase.storage.from('crm-source-files').upload(path, pdf.file, { contentType: 'application/pdf', upsert: false });
+      if (up.error && !/exists|duplicate/i.test(up.error.message)) { setBusy(false); return toast.error('Alkuperäisen PDF:n tallennus epäonnistui. Mitään ei kirjattu.'); }
+    }
+    const sources = buildSourceDocs({ pdf: pdf ? { name: pdf.name, text: pdf.text, storagePath: path } : null, email });
+    const { data, error } = await supabase.rpc(SOURCE_RPC as any, { ...cmd.args, p_sources: sources } as any);
+    if (error) {
+      // Unlinked upload is removed so no file is left without its import (storage policy allows only unlinked removal).
+      if (path && !/OP_KEY_REUSED/.test(error.message)) await supabase.storage.from('crm-source-files').remove([path]);
+      setBusy(false);
+      return toast.error(importErrorMessage(error.message));
+    }
     setBusy(false);
-    if (error) return toast.error(importErrorMessage(error.message));
-    const res = data as { organization_id?: string; lead_id?: string; offer_id?: string };
-    toast.success('Tiedot kirjattu: asiakas, tarjousluonnos ja alkuperäinen teksti historiaan. Tilausta ei vahvistettu.');
+    const res = data as { organization_id?: string; lead_id?: string; offer_id?: string; sources_saved?: number; replayed?: boolean };
+    toast.success(`${res.replayed ? 'Tuonti oli jo kirjattu – mitään ei tallennettu kahdesti. ' : 'Tiedot kirjattu: asiakas ja tarjousluonnos. '}Lähteitä tallennettu erikseen: ${res.sources_saved ?? 0}. Tilausta ei vahvistettu.`);
     onImported(); setOpen(false); reset();
     const destination = importedCustomerHref(res);
     if (destination) navigate(destination);
@@ -104,7 +117,7 @@ export function OfferImportDialog({ leads, onImported }: { leads: LeadOption[]; 
       </DialogHeader>
       {step === 'input' ? <div className="space-y-4">
         <div className="space-y-2"><Label htmlFor="import-email">Sähköpostiketju tai muu teksti</Label><Textarea id="import-email" rows={10} maxLength={MAX_TEXT} placeholder="Liitä tähän sähköpostikeskustelu tai tarjouksen teksti" value={email} onChange={e => setEmail(e.target.value)} /></div>
-        <div className="space-y-2"><Label htmlFor="import-pdf">Tarjous-PDF (luetaan selaimessa, tiedostoa ei tallenneta)</Label><Input id="import-pdf" type="file" accept="application/pdf" disabled={busy} onChange={e => onFile(e.target.files?.[0])} />{pdf && <p className="text-xs text-muted-foreground">Luettu: {pdf.name} · {pdf.text.length.toLocaleString('fi-FI')} merkkiä</p>}</div>
+        <div className="space-y-2"><Label htmlFor="import-pdf">Tarjous-PDF (alkuperäinen tiedosto tallennetaan yksityisesti vasta vahvistettaessa)</Label><Input id="import-pdf" type="file" accept="application/pdf" disabled={busy} onChange={e => onFile(e.target.files?.[0])} />{pdf && <p className="text-xs text-muted-foreground">Luettu: {pdf.name} · {pdf.text.length.toLocaleString('fi-FI')} merkkiä</p>}</div>
         <div className="flex justify-end"><Button onClick={extract} disabled={busy || source.length < 20}>{busy ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FileUp className="mr-2 h-4 w-4" />}Poimi tiedot</Button></div>
       </div> : values && fields && <div className="space-y-4">
         <p className="flex items-start gap-2 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />Tarkista jokainen kenttä. Korostetut kentät ovat epävarmoja, tyhjät puuttuvat lähteestä. Asiakas tunnistetaan Y-tunnuksella.</p>

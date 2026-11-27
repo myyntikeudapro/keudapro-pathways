@@ -37,3 +37,5 @@
 - Production list, timeline and card share productionBoard so guidance never diverges.
 - Lead customer links/order buyers: only crm_link_lead_customer / crm_confirm_company_order; no name matching.
 - AI offer import only proposes fields (staff-only, nothing stored/logged); saving goes through crm_import_offer after human review, linking by business ID and never approving, winning, confirming orders, billing or messaging, so AI output cannot create commitments.
+
+- Imported PDF and email sources persist separately in crm_source_documents via crm_import_offer_with_sources (same transaction as crm_import_offer, replay-safe by op key); original PDFs live in the private crm-source-files bucket at `<op_key>/tarjous.pdf`, staff-only, opened as blobs — legacy chunked history stays as a read fallback and is never presented as an original file.

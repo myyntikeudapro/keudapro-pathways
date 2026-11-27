@@ -7,11 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "14.5"
-  }
   public: {
     Tables: {
       ai_talent_members: {
@@ -1861,6 +1856,63 @@ export type Database = {
           wins_target?: number
         }
         Relationships: []
+      }
+      crm_source_documents: {
+        Row: {
+          created_at: string
+          created_by: string
+          file_size: number | null
+          id: string
+          import_op_key: string
+          kind: string
+          lead_id: string
+          offer_id: string | null
+          original_name: string | null
+          storage_path: string | null
+          text_content: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string
+          file_size?: number | null
+          id?: string
+          import_op_key: string
+          kind: string
+          lead_id: string
+          offer_id?: string | null
+          original_name?: string | null
+          storage_path?: string | null
+          text_content: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          file_size?: number | null
+          id?: string
+          import_op_key?: string
+          kind?: string
+          lead_id?: string
+          offer_id?: string | null
+          original_name?: string | null
+          storage_path?: string | null
+          text_content?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_source_documents_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_source_documents_offer_id_fkey"
+            columns: ["offer_id"]
+            isOneToOne: false
+            referencedRelation: "crm_offers"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       crm_tasks: {
         Row: {
@@ -3722,6 +3774,10 @@ export type Database = {
         }[]
       }
       crm_import_offer: { Args: { p: Json; p_op_key: string }; Returns: Json }
+      crm_import_offer_with_sources: {
+        Args: { p: Json; p_op_key: string; p_sources: Json }
+        Returns: Json
+      }
       crm_link_lead_customer: {
         Args: {
           p_contact_id: string
@@ -4069,3 +4125,4 @@ export const Constants = {
     },
   },
 } as const
+

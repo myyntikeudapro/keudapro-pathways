@@ -1,3 +1,10 @@
+## Myyntikortti UX-2 (luonnos, ei Acceptia eikä julkaisua)
+- [x] 1) Asiakkaalle luvattu -ehdotus lähdelainauksin (PDF/sähköposti), ei automaattitallennusta, siirto nykyiseen lomakkeeseen
+- [x] 2) Ristiriidan Korjaa/Tarkista-kohde oikeaan välilehteen, lomakkeeseen ja kenttään (fokus), totuudenmukaiset esteet
+- [x] 3) Kanbanin ristiriitamäärä samoilla cardIssues-säännöillä, eräkohtaiset haut, ei väärää nollaa
+- [x] 4) Erillinen pysyvä PDF- ja sähköpostilähteiden tallennus (yksityinen tiedosto, staff-only), vanhojen tuontien fallback
+- [x] Testit, regressiot, kirjautunut synteettinen selainkoe mobiili/desktop, AGENTS.md, raportti ja GO/NO-GO
+- [ ] Hyväksynnän jälkeen: yksityinen crm-source-files-tallennustila luotava pääprojektiin ennen julkaisua (luonnoksessa luotu tila ei siirry hyväksynnässä)
 - [x] Yhteyshenkilöt ja avainhenkilöt: nykytilan lukukartoitus ja seitsemän kohdan päätösesitys docs/yhteyshenkilot-paatosesitys-2026-11-26.md; ei toteutusta, tietomuutoksia, julkaisua tai markkinointilähetyksiä. 1C-A toteutettu luonnoksessa.
 - [x] Yhteyshenkilöt 1C-A: lukeva Yhteyshenkilöt-osio ja henkilökortti luonnoksessa; testattu.
 - [x] 1C-A viimeistely: suomenkieliset tarjoustilat, tyhjän rekisterin selaintesti admin/editor 320/390 px, 403-kirjasinvaroitusten toisto pääprojektin käyttöliittymällä samassa testiympäristössä ja ajantasaisen main-version rajausvertailu; GO-raportti docs/yhteyshenkilot-1C-A-hyvaksyntatarkistus-2026-11-26.md. Ei hyväksyntää tai julkaisua.

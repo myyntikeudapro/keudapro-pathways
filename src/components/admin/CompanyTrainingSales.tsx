@@ -4,7 +4,9 @@ import { BillingPlanPanel } from './BillingPlanPanel';
 import { salesFlow } from '@/lib/companyFlow';
 import { FlowStepper } from './FlowStepper';
 import { WorkspacePerson } from "./WorkspacePerson";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { PROMISE_EVENT } from './SalesCardParts';
+import { appendPromise } from '@/lib/salesCard';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -88,7 +90,7 @@ function CaseProgramme({ leadId, team, refreshKey, part = 'all' }: { leadId: str
   const [busy, setBusy] = useState(false); const [error, setError] = useState(''); const [result, setResult] = useState('');
   const run = async (fn: () => Promise<unknown>, ok: string) => {
     setBusy(true); setError(''); setResult('');
-    try { await fn(); await qc.invalidateQueries({ queryKey: ['customer_register'] }); await qc.invalidateQueries({ queryKey: ['next_step_programme'] }); await qc.invalidateQueries({ queryKey: key }); await qc.refetchQueries({ queryKey: key }); setResult(ok); }
+    try { await fn(); qc.invalidateQueries({ queryKey: ['sales_card_facts', leadId] }); qc.invalidateQueries({ queryKey: ['sales_conflicts'] }); await qc.invalidateQueries({ queryKey: ['customer_register'] }); await qc.invalidateQueries({ queryKey: ['next_step_programme'] }); await qc.invalidateQueries({ queryKey: key }); await qc.refetchQueries({ queryKey: key }); setResult(ok); }
     catch (e) { setError(companyErrorText(e)); await qc.invalidateQueries({ queryKey: key }); }
     finally { setBusy(false); }
   };
@@ -100,7 +102,7 @@ function CaseProgramme({ leadId, team, refreshKey, part = 'all' }: { leadId: str
   if (params.get('tilaus') && !orders.some(o => o.id === params.get('tilaus'))) return <p role="alert">Valittu tilaus ei kuulu tähän myyntimahdollisuuteen.</p>;
   const selectedOrders = orders.filter(o => !params.get('tilaus') || o.id === params.get('tilaus'));
   const showOrder = part !== 'production'; const showProduction = part !== 'order';
-  return <>{showOrder && <>{selectedOrders.map((o: { id: string }) => <div key={o.id} data-flow-task={params.get('tilaus') === o.id || selectedOrders.length === 1 ? 'order' : `order-${o.id}`}><BillingPlanPanel orderId={o.id} /></div>)}{orders.length > 0 && <p className="rounded-md border bg-muted/40 p-2 text-sm">Tilaus on vahvistettu. Etenemisen tehtävä näkyy kortin Seuraava vaihe -alueessa.</p>}{orders.length === 0 && offers.length === 0 && <p className="rounded-md border border-dashed p-2 text-sm text-muted-foreground">Vahvista tilaus -lomake ilmestyy tähän, kun asiakkaan tarjouksen tila on Hyväksytty.</p>}{orders.length === 0 && offers.length > 0 && <div data-flow-task="order"><OrderConfirmationForm key={params.get('tarjous') ?? 'choose'} initialOfferId={params.get('tarjous')} lead={lead} buyer={buyer} buyerContact={buyerContact} offers={offers} busy={busy} run={run} onLinked={() => qc.invalidateQueries({ queryKey: key })} /></div>}</>}{showProduction && <ProgrammeForm hasOffer={offers.length > 0} key={`${snapshot?.id ?? 'new'}:${params.get('tilaus') ?? ''}`} lead={lead} snapshot={snapshot} team={team} orders={orders} handoffs={handoffs} deliveries={deliveries} templates={templates} busy={busy} run={run} error={error} result={result} />}</>;
+  return <>{showOrder && <><div id={orders.length ? 'order-review' : undefined} tabIndex={-1} className={orders.length ? 'space-y-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md' : 'hidden'}>{selectedOrders.map((o: { id: string }) => <div key={o.id} data-flow-task={params.get('tilaus') === o.id || selectedOrders.length === 1 ? 'order' : `order-${o.id}`}><BillingPlanPanel orderId={o.id} /></div>)}</div>{orders.length > 0 && <p className="rounded-md border bg-muted/40 p-2 text-sm">Tilaus on vahvistettu. Etenemisen tehtävä näkyy kortin Seuraava vaihe -alueessa.</p>}{orders.length === 0 && offers.length === 0 && <p className="rounded-md border border-dashed p-2 text-sm text-muted-foreground">Vahvista tilaus -lomake ilmestyy tähän, kun asiakkaan tarjouksen tila on Hyväksytty.</p>}{orders.length === 0 && offers.length > 0 && <div data-flow-task="order"><OrderConfirmationForm key={params.get('tarjous') ?? 'choose'} initialOfferId={params.get('tarjous')} lead={lead} buyer={buyer} buyerContact={buyerContact} offers={offers} busy={busy} run={run} onLinked={() => qc.invalidateQueries({ queryKey: key })} /></div>}</>}{showProduction && <ProgrammeForm hasOffer={offers.length > 0} key={`${snapshot?.id ?? 'new'}:${params.get('tilaus') ?? ''}`} lead={lead} snapshot={snapshot} team={team} orders={orders} handoffs={handoffs} deliveries={deliveries} templates={templates} busy={busy} run={run} error={error} result={result} />}</>;
 }
 
 function ProgrammeForm({ hasOffer, lead, snapshot, team, orders, handoffs, deliveries, templates, busy, run, error, result }: any) {
@@ -108,6 +110,12 @@ function ProgrammeForm({ hasOffer, lead, snapshot, team, orders, handoffs, deliv
   const s = snapshot as CompanyStaffSnapshot | null;
   const [text, setText] = useState(s?.programme?.text ?? '');
   const [promises, setPromises] = useState(s?.promises ?? '');
+  // A reviewed suggestion is appended (never replacing existing text); saving stays the form's own button.
+  useEffect(() => {
+    const onDraft = (e: Event) => { const d = (e as CustomEvent<{ text: string; handled: boolean }>).detail; setPromises(p => appendPromise(p, d.text)); d.handled = true; window.setTimeout(() => document.getElementById('ct-promises')?.focus(), 0); };
+    window.addEventListener(PROMISE_EVENT, onDraft);
+    return () => window.removeEventListener(PROMISE_EVENT, onDraft);
+  }, []);
   const [start, setStart] = useState(local(s?.programme?.startsAt)); const [end, setEnd] = useState(local(s?.programme?.endsAt));
   const [receiver, setReceiver] = useState(s?.production_owner_id ?? ''); const [trainer, setTrainer] = useState(s?.responsible_trainer_id ?? '');
   const [note, setNote] = useState(''); const [order, setOrder] = useState(orders.find((o: { id: string }) => o.id === params.get('tilaus'))?.id ?? (orders.length === 1 ? orders[0].id : '')); const [template, setTemplate] = useState(templates.some((t: any) => t.key === 'yrityskoulutus_tilaus') ? 'yrityskoulutus_tilaus' : '');

@@ -190,10 +190,26 @@ export const IMPORT_ERRORS: Record<string, string> = {
   CONTACT_EXISTS: "Yhteyshenkilö on jo olemassa.",
   ORGANIZATION_EXISTS: "Organisaatio luotiin juuri toisaalla – yritä uudelleen.",
   OP_KEY_REUSED: "Tuonti on jo tehty eri tiedoilla. Avaa ikkuna uudelleen.",
+  SOURCE_FILE_MISSING: "Alkuperäistä PDF-tiedostoa ei löytynyt tallennuksesta. Mitään ei kirjattu.",
+  SOURCE_FILE_INVALID: "PDF-tiedoston tallennuspaikka on virheellinen. Mitään ei kirjattu.",
+  SOURCES_INVALID: "Lähdeaineisto on puutteellinen. Mitään ei kirjattu.",
   BILLING_TOTAL_MISMATCH: "Laskutuserien summa ei vastaa kokonaishintaa.",
   CONFIRMED_BUYER_CONFLICT: "Yhteydenotolla on jo vahvistettu tilaus toiselle ostajalle.",
 };
 export function importErrorMessage(message: string | undefined): string {
   const key = Object.keys(IMPORT_ERRORS).find((k) => message?.includes(k));
   return key ? IMPORT_ERRORS[key] : "Kirjaus epäonnistui. Tietoja ei tallennettu.";
+}
+
+/** Import with separately stored sources; wraps crm_import_offer in the same transaction. */
+export const SOURCE_RPC = "crm_import_offer_with_sources" as const;
+export type SourceDocInput = { kind: "pdf" | "email"; name: string | null; text: string; storage_path: string | null };
+/** Private storage path, deterministic per import so a retried upload cannot create a second file. */
+export const sourceFilePath = (opKey: string) => `${opKey}/tarjous.pdf`;
+/** PDF and email are separate sources; the email text is kept exactly as entered (only outer whitespace trimmed). */
+export function buildSourceDocs(input: { pdf: { name: string; text: string; storagePath: string | null } | null; email: string }): SourceDocInput[] {
+  const out: SourceDocInput[] = [];
+  if (input.pdf && input.pdf.text.trim()) out.push({ kind: "pdf", name: input.pdf.name.slice(0, 255), text: input.pdf.text, storage_path: input.pdf.storagePath });
+  if (input.email.trim()) out.push({ kind: "email", name: null, text: input.email.trim(), storage_path: null });
+  return out;
 }

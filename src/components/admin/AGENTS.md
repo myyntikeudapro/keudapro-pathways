@@ -4,3 +4,6 @@
 
 - Workspace next-step navigation is derived from existing companyFlow/productionBoard and explicit lead/offer/order/handoff relations; shared NextStep opens tasks using URL parameters only, never runs decisions or infers links — keeps guidance reloadable and independent of approval and billing rules.
 - The sales customer card (LeadEditor) is a read-only summary over existing panels: three URL-addressable tabs (`kortti`, defaulting from `tehtava`), add/log forms collapsed, conflicts from src/lib/salesCard.ts display-only — keeps one card per opportunity without changing writes, approvals or schema.
+- Sales card facts and kanban conflict badges share fetchCardRaw/buildCardFacts (src/lib/salesCardData.ts): chunked, fully paginated batch reads and the latest programme revision by case — badge counts equal the open card and never cause per-lead requests.
+- Conflict fix buttons only navigate (`kortti` + whitelisted `korjaa` field id via useIssueFix); confirmed orders route to read-only review with a truthful note — no save or approval from a link.
+- Promise suggestions are deterministic sentence quotes (explicit commitment verb; negative, conditional and question sentences skipped) and are appended to the programme form only by a user action — no AI, no automatic save.

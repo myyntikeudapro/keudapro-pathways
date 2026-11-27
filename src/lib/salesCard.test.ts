@@ -27,7 +27,7 @@ describe('sales card conflicts', () => {
   });
   it('flags promised materials, recording or certificates with an empty promises field', () => {
     const i = cardIssues({ ...base, sourceText: 'Hintaan sisältyy materiaalit, tallenne ja todistukset.' }).find(x => x.key === 'promises');
-    expect(i?.text).toContain('materiaalit, tallenne, todistukset');
+    expect(i?.text).toContain('Hintaan sisältyy materiaalit');
     expect(keys({ sourceText: 'materiaalit', programme: { trainers: [], trainerLabel: null, promises: 'Materiaalit PDF', startsAt: null } })).not.toContain('promises');
   });
   it('flags a preliminary timing without a confirmed date', () => {

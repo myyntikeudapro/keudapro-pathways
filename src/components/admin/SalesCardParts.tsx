@@ -3,50 +3,34 @@ import { supabase } from '@/integrations/supabase/client';
 import { Badge } from '@/components/ui/badge';
 import { AlertTriangle, CircleDashed, FileText, Mail } from 'lucide-react';
 import { CRM_SERVICES, dateTime, money, type Lead, type TeamMember } from '@/lib/crm';
-import { companyWorkflow, type CompanyStaffSnapshot } from '@/lib/companyTrainingWorkflow';
-import { cardIssues, importedSources, type CardFacts, type CardIssue } from '@/lib/salesCard';
+import { fetchCardRaw, buildCardFacts } from '@/lib/salesCardData';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { issueTarget, promiseDraft, promiseSuggestions, sourceLabel, type CardFacts, type CardIssue, type IssueTarget } from '@/lib/salesCard';
 
 const db = supabase as any;
-const workflow = companyWorkflow(async (name, args) => { const { data, error } = await db.rpc(name, args); if (error) throw new Error(error.message || 'rpc_failed'); return data; });
 const OFFER_STATUS: Record<string, string> = { draft: 'Luonnos', sent: 'Lähetetty', accepted: 'Hyväksytty', declined: 'Hylätty' };
 const HANDOFF: Record<string, string> = { submitted: 'Luovutettu, odottaa vastaanottoa', accepted: 'Tuotanto vastaanotti', returned: 'Palautettu täydennettäväksi' };
+export const SOURCE_BUCKET = 'crm-source-files';
 
-/** Read-only facts for the card header; all writes stay in the existing panels. */
+/** Read-only facts for the card header; built with the same batched reads and rules as the kanban badges. */
 export function useSalesCardFacts(lead: Lead, team: TeamMember[]) {
   return useQuery({ queryKey: ['sales_card_facts', lead.id], queryFn: async () => {
-    const offers = await db.from('crm_offers').select('id,title,amount,status,expected_close,created_at').eq('lead_id', lead.id).order('created_at', { ascending: false });
-    if (offers.error) throw offers.error;
-    const ids = (offers.data ?? []).map((o: any) => o.id);
-    const versions = ids.length ? await db.from('crm_offer_versions').select('id,offer_id,version_no,vat_rate,approved_at,content,starts_on,imported').in('offer_id', ids).order('version_no', { ascending: false }) : { data: [], error: null };
-    if (versions.error) throw versions.error;
-    const orders = await db.from('crm_orders').select('id,total_net,vat_rate,vat_basis,starts_on,cancelled_at,created_at').eq('lead_id', lead.id).is('cancelled_at', null).order('created_at', { ascending: false });
-    if (orders.error) throw orders.error;
-    const handoffs = orders.data.length ? await db.from('crm_production_handoffs').select('order_id,company_state').in('order_id', orders.data.map((o: any) => o.id)) : { data: [], error: null };
+    const raw = await fetchCardRaw(db, [lead]);
+    const orderIds = raw.orders.map(o => o.id);
+    const handoffs = orderIds.length ? await db.from('crm_production_handoffs').select('order_id,company_state').in('order_id', orderIds) : { data: [], error: null };
     if (handoffs.error) throw handoffs.error;
-    const inter = await db.from('crm_interactions').select('id,kind,summary,occurred_at').eq('lead_id', lead.id).order('occurred_at', { ascending: false });
-    if (inter.error) throw inter.error;
-    let snapshot: CompanyStaffSnapshot | null = null;
-    if (lead.company_programme_id) { try { snapshot = await workflow.read(lead.company_programme_id) as CompanyStaffSnapshot; } catch { snapshot = null; } }
+    const latest = await db.from('crm_interactions').select('id,kind,summary,occurred_at').eq('lead_id', lead.id).not('summary', 'like', 'Tuotu alkuperäinen teksti (%').order('occurred_at', { ascending: false }).limit(1);
+    if (latest.error) throw latest.error;
     const org = lead.organization_id ? await db.from('crm_organizations').select('id,name').eq('id', lead.organization_id).maybeSingle() : { data: null };
     const contact = lead.contact_id ? await db.from('crm_contacts').select('id,name,email').eq('id', lead.contact_id).maybeSingle() : { data: null };
-    return { offers: offers.data as any[], versions: versions.data as any[], orders: orders.data as any[], handoffs: handoffs.data as any[], interactions: inter.data as any[], snapshot, org: org.data, contact: contact.data };
+    return { raw, handoffs: handoffs.data as any[], latest: (latest.data?.[0] ?? null) as any, org: org.data, contact: contact.data };
   }, select: d => {
-    const offer = d.offers.find(o => o.status === 'accepted') ?? d.offers[0] ?? null;
-    const version = offer ? d.versions.find(v => v.offer_id === offer.id) ?? null : null;
-    const order = d.orders[0] ?? null;
-    const sources = importedSources(d.interactions);
-    const sourceText = sources.map(s => [s.pdf, s.email, s.other].join('\n')).join('\n');
-    const s = d.snapshot;
-    const trainerLabel = s?.responsible_trainer_id ? team.find(t => t.id === s.responsible_trainer_id)?.email ?? null : null;
-    const facts: CardFacts = {
-      offer: offer ? { status: offer.status, vatRate: version?.vat_rate ?? null, approved: !!version?.approved_at, content: version?.content ?? null, startsOn: version?.starts_on ?? null } : null,
-      order: order ? { vatRate: order.vat_rate, vatBasis: order.vat_basis, startsOn: order.starts_on } : null,
-      programme: s ? { trainers: s.programme?.trainers ?? [], trainerLabel, promises: s.promises ?? '', startsAt: s.programme?.startsAt ?? null } : null,
-      sourceText, organizationLinked: !!lead.organization_id, contactLinked: !!lead.contact_id, ownerSet: !!lead.owner_id, valueSet: lead.deal_value !== null,
-    };
-    const handoff = order ? d.handoffs.find(h => h.order_id === order.id) : null;
-    const latest = d.interactions.find(i => !/^Tuotu alkuperäinen teksti \(/.test(i.summary)) ?? null;
-    return { ...d, offer, version, order, sources, facts, issues: cardIssues(facts), handoff, latest };
+    const built = buildCardFacts(lead, d.raw, team);
+    const handoff = built.order ? d.handoffs.find(h => h.order_id === built.order.id) : null;
+    return { ...d, ...built, handoff, programmeState: built.programme?.state as string | undefined };
   } });
 }
 export type SalesCardData = NonNullable<ReturnType<typeof useSalesCardFacts>['data']>;
@@ -64,7 +48,7 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
 export function SalesCardHeader({ lead, data, team }: { lead: Lead; data?: SalesCardData; team: TeamMember[] }) {
   const owner = team.find(t => t.id === lead.owner_id)?.email ?? 'Ei myyntivastaavaa';
   const value = data?.order ? `${money(Number(data.order.total_net))} (vahvistettu tilaus)` : data?.offer ? `${money(Number(data.offer.amount))} (tarjottu)` : lead.deal_value !== null ? `${money(Number(lead.deal_value))} (arvio)` : 'Arvo puuttuu';
-  const prod = data?.handoff ? HANDOFF[data.handoff.company_state] ?? 'Luovutus kesken' : data?.snapshot ? (data.snapshot.state === 'approved' ? 'Ohjelma hyväksytty' : 'Ohjelmaluonnos') : 'Ei aloitettu';
+  const prod = data?.handoff ? HANDOFF[data.handoff.company_state] ?? 'Luovutus kesken' : data?.programme ? (data.programmeState === 'approved' ? 'Ohjelma hyväksytty' : 'Ohjelmaluonnos') : 'Ei aloitettu';
   if (!data) return <p role="status" className="rounded-lg border bg-muted/30 p-3 text-sm text-muted-foreground">Ladataan kortin perustietoja…</p>;
   return <section aria-label="Kortin perustiedot" className="rounded-lg border bg-muted/30 p-3 space-y-3">
     <dl className="grid gap-3 grid-cols-2 sm:grid-cols-3">
@@ -85,19 +69,61 @@ export function SalesCardHeader({ lead, data, team }: { lead: Lead; data?: Sales
   </section>;
 }
 
-export function IssueList({ issues }: { issues: CardIssue[] }) {
+export function IssueList({ issues, facts, onFix }: { issues: CardIssue[]; facts?: CardFacts; onFix?: (issue: CardIssue, target: IssueTarget) => void }) {
   if (!issues.length) return <p className="text-sm text-muted-foreground">Ei havaittuja ristiriitoja tai puuttuvia tietoja.</p>;
-  return <ul aria-label="Ristiriidat ja puuttuvat tiedot" className="space-y-1.5">{issues.map(i => <li key={i.key} className={`flex gap-2 text-sm ${i.kind === 'conflict' ? 'text-destructive' : 'text-muted-foreground'}`}>{i.kind === 'conflict' ? <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" /> : <CircleDashed className="h-4 w-4 shrink-0 mt-0.5" />}<span>{i.text}</span></li>)}
-    <li className="text-xs text-muted-foreground pt-1">Tiedot vain näytetään: mitään ei korjata tai hyväksytä automaattisesti.</li></ul>;
+  return <ul aria-label="Ristiriidat ja puuttuvat tiedot" className="space-y-1.5">{issues.map(i => { const target = facts ? issueTarget(i, facts) : null; return <li key={i.key} data-issue={i.key} className={`flex flex-wrap items-start gap-2 text-sm ${i.kind === 'conflict' ? 'text-destructive' : 'text-muted-foreground'}`}>{i.kind === 'conflict' ? <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" /> : <CircleDashed className="h-4 w-4 shrink-0 mt-0.5" />}<span className="min-w-0 flex-1">{i.text}</span>{target && onFix && <Button type="button" size="sm" variant="outline" className="h-7 shrink-0" aria-label={`${target.action}: ${i.text}`} onClick={() => onFix(i, target)}>{target.action}</Button>}</li>; })}
+    <li className="text-xs text-muted-foreground pt-1">Painikkeet vain avaavat oikean kentän: mitään ei korjata, tallenneta tai hyväksytä automaattisesti.</li></ul>;
+}
+
+/** Sends a reviewed draft to the open programme form. The form decides; nothing is saved here. */
+export const PROMISE_EVENT = 'keuda:promise-draft';
+export function PromiseSuggestionPanel({ data }: { data?: SalesCardData }) {
+  const items = promiseSuggestions(data?.sources ?? []);
+  const [picked, setPicked] = useState<Set<number>>(() => new Set(items.map((_, i) => i)));
+  const [draft, setDraft] = useState<string | null>(null);
+  const [dismissed, setDismissed] = useState(false);
+  const [note, setNote] = useState('');
+  const current = data?.facts.programme?.promises ?? '';
+  const text = draft ?? promiseDraft(items.filter((_, i) => picked.has(i)));
+  const transfer = () => {
+    const detail = { text, handled: false };
+    window.dispatchEvent(new CustomEvent(PROMISE_EVENT, { detail }));
+    if (!detail.handled) return setNote('Ohjelmalomake ei ole auki tällä kortilla. Ehdotusta ei siirretty.');
+    setNote('Ehdotus siirretty Asiakkaalle luvattu -kenttään. Tarkista ja tallenna ohjelma lomakkeen omalla painikkeella.');
+    toast.message('Ehdotus siirretty lomakkeeseen – ei vielä tallennettu');
+  };
+  return <section id="promise-suggestion" tabIndex={-1} aria-label="Asiakkaalle luvattu – ehdotus" className="rounded-md border border-dashed p-3 space-y-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+    <h3 className="text-sm font-semibold">Asiakkaalle luvattu – ehdotus lähdeaineistosta</h3>
+    {!data ? <p role="status" className="text-sm text-muted-foreground">Ladataan lähdeaineistoa…</p>
+      : dismissed ? <p className="text-sm text-muted-foreground">Ehdotus hylätty tältä kerralta. Kenttään ei tehty muutoksia. <button type="button" className="underline" onClick={() => setDismissed(false)}>Näytä uudelleen</button></p>
+      : items.length === 0 ? <p className="text-sm text-muted-foreground">Lähdeaineistosta ei löytynyt yksiselitteisesti luvattuja asioita. Kenttä jätetään tyhjäksi ehdotuksen osalta.</p>
+      : <>
+        <p className="text-xs text-muted-foreground">Vain lähteessä suoraan luvatut asiat. Kielteiset, ehdolliset ja kysymysmuotoiset maininnat on jätetty pois. Ehdotus ei korvaa nykyistä kenttää.</p>
+        <ul className="space-y-1.5">{items.map((it, i) => <li key={i} className="flex items-start gap-2 text-sm"><input id={`promise-${i}`} type="checkbox" className="mt-1" checked={picked.has(i)} onChange={e => { const n = new Set(picked); if (e.target.checked) n.add(i); else n.delete(i); setPicked(n); setDraft(null); }} /><label htmlFor={`promise-${i}`} className="min-w-0"><span className="font-medium">{it.text}</span><span className="block text-xs text-muted-foreground"><Badge variant="outline" className="mr-1 text-[10px]">{it.source}</Badge>”{it.quote}”</span></label></li>)}</ul>
+        <label htmlFor="promise-draft" className="text-xs text-muted-foreground">Muokattava ehdotus</label>
+        <Textarea id="promise-draft" rows={3} maxLength={4000} value={text} onChange={e => setDraft(e.target.value)} />
+        {current.trim() && <p className="text-xs text-muted-foreground">Kentässä on jo tekstiä. Siirto lisää ehdotuksen sen perään eikä korvaa olemassa olevaa.</p>}
+        <div className="flex flex-wrap gap-2"><Button type="button" size="sm" disabled={!text.trim()} onClick={transfer}>Siirrä lomakkeeseen</Button><Button type="button" size="sm" variant="ghost" onClick={() => { setDismissed(true); setNote(''); }}>Hylkää ehdotus</Button></div>
+      </>}
+    {note && <p role="status" className="text-xs">{note}</p>}
+  </section>;
+}
+
+async function openStoredPdf(path: string) {
+  const { data, error } = await supabase.storage.from(SOURCE_BUCKET).download(path);
+  if (error || !data) return toast.error('PDF-tiedostoa ei voitu avata.');
+  const url = URL.createObjectURL(data);
+  window.open(url, '_blank', 'noopener,noreferrer');
+  window.setTimeout(() => URL.revokeObjectURL(url), 60000);
 }
 
 export function SourceMaterial({ data }: { data?: SalesCardData }) {
   const sources = data?.sources ?? [];
   return <details className="rounded-md border p-3"><summary className="cursor-pointer font-semibold text-sm">Lähdeaineisto ({sources.length})</summary>
-    <div className="space-y-3 pt-3">{sources.length === 0 ? <p className="text-sm text-muted-foreground">Tuotua tarjousta tai keskustelua ei ole.</p> : sources.map((s, i) => <div key={i} className="space-y-2">
-      <p className="text-xs text-muted-foreground">Tuotu {s.importedAt ? dateTime(s.importedAt) : ''}</p>
-      {s.pdf && <details className="rounded border p-2"><summary className="cursor-pointer text-sm inline-flex items-center gap-2"><FileText className="h-4 w-4" />Tarjous-PDF{s.pdfName ? `: ${s.pdfName}` : ''}</summary><pre className="mt-2 max-h-80 overflow-auto whitespace-pre-wrap break-words text-xs">{s.pdf}</pre></details>}
-      {s.email && <details className="rounded border p-2"><summary className="cursor-pointer text-sm inline-flex items-center gap-2"><Mail className="h-4 w-4" />Sähköpostikeskustelu</summary><pre className="mt-2 max-h-80 overflow-auto whitespace-pre-wrap break-words text-xs">{s.email}</pre></details>}
-      {s.other && <details className="rounded border p-2"><summary className="cursor-pointer text-sm">Tuotu teksti</summary><pre className="mt-2 max-h-80 overflow-auto whitespace-pre-wrap break-words text-xs">{s.other}</pre></details>}
-    </div>)}</div></details>;
+    <div className="space-y-3 pt-3">{sources.length === 0 ? <p className="text-sm text-muted-foreground">Tuotua tarjousta tai keskustelua ei ole.</p> : sources.map((s, i) => <details key={i} className="rounded border p-2" data-source-kind={s.kind}>
+      <summary className="cursor-pointer text-sm inline-flex flex-wrap items-center gap-2">{s.kind === 'pdf' ? <FileText className="h-4 w-4" /> : <Mail className="h-4 w-4" />}{sourceLabel(s)}<span className="text-xs text-muted-foreground">· {s.at ? dateTime(s.at) : ''} · {s.stored ? 'tallennettu erillisenä lähteenä' : 'vanha tuonti (historiasta)'}</span></summary>
+      {s.storagePath && <Button type="button" size="sm" variant="outline" className="mt-2" onClick={() => openStoredPdf(s.storagePath!)}>Avaa alkuperäinen PDF</Button>}
+      {!s.stored && s.kind === 'pdf' && <p className="mt-2 text-xs text-muted-foreground">Vanhasta tuonnista on tallessa vain luettu teksti, ei alkuperäistä tiedostoa.</p>}
+      <pre className="mt-2 max-h-80 overflow-auto whitespace-pre-wrap break-words text-xs">{s.text}</pre>
+    </details>)}</div></details>;
 }
