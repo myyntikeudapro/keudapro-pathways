@@ -3,3 +3,4 @@
 - Contacts linked to an approved offer version or any order keep their name/email, cannot change organisation, and edited/verified markers are set only by the RPCs (guard_contact_update trigger) — offers/orders reference contacts without snapshots, so history must not drift.
 
 - Workspace next-step navigation is derived from existing companyFlow/productionBoard and explicit lead/offer/order/handoff relations; shared NextStep opens tasks using URL parameters only, never runs decisions or infers links — keeps guidance reloadable and independent of approval and billing rules.
+- The sales customer card (LeadEditor) is a read-only summary over existing panels: three URL-addressable tabs (`kortti`, defaulting from `tehtava`), add/log forms collapsed, conflicts from src/lib/salesCard.ts display-only — keeps one card per opportunity without changing writes, approvals or schema.

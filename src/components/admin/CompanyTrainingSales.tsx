@@ -36,25 +36,26 @@ function Pick({ label, value, onChange, options }: { label: string; value: strin
       <option value="">Valitse</option>{options.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select>{/kouluttaja|vastaava/i.test(label) && value && <div className="mt-2"><WorkspacePerson person={{ id: value }} name={options.find(([v]) => v === value)?.[1]} size="xs" /></div>}</div>;
 }
 
-export function CompanyTrainingSales({ leadId, refreshKey = '' }: { leadId?: string; refreshKey?: string }) {
+export type CompanyPart = 'all' | 'order' | 'production';
+export function CompanyTrainingSales({ leadId, refreshKey = '', part = 'all' }: { leadId?: string; refreshKey?: string; part?: CompanyPart }) {
   const [params, setParams] = useSearchParams();
   const selected = leadId ?? params.get('tapaus') ?? '';
   const setSelected = (id: string) => { const n = new URLSearchParams(params); n.set('tapaus', id); setParams(n); };
   const team = useQuery({ queryKey: ['mt_team'], queryFn: async () => { const { data, error } = await supabase.functions.invoke('admin-users', { body: { action: 'team' } }); if (error) throw error; return data.users as Team; } });
   const cases = useQuery({ enabled: !leadId, queryKey: ['company_cases'], queryFn: async () => readAll((f, t) => db.from('booking_requests').select('id,name,organization').eq('mt_personal', false).not('organization', 'is', null).order('organization').order('id').range(f, t)) as Promise<any[]> });
   return <section className="space-y-4 border-t pt-5">
-    <h2 className="text-lg font-semibold text-keuda-blue">Yrityskoulutuksen ohjelma</h2>
+    <h2 className="text-lg font-semibold text-keuda-blue">{part === 'order' ? 'Tilauksen vahvistus ja laskutus' : part === 'production' ? 'Ohjelma ja tuotanto' : 'Yrityskoulutuksen ohjelma'}</h2>
     {!leadId && <Pick label="Yrityskoulutuksen asiakas" value={selected} onChange={setSelected} options={(cases.data ?? []).map(c => [c.id, c.organization ?? c.name])} />}
     {!leadId && cases.isPending && <p role="status" className="text-sm text-muted-foreground">Ladataan yritysasiakkaita…</p>}
     {!leadId && cases.isError && <p role="alert" className="text-sm text-destructive">Yritysasiakkaita ei voitu hakea.</p>}
     {!leadId && cases.isSuccess && cases.data.length === 0 && <p className="text-sm text-muted-foreground">Ei yritysasiakkaita.</p>}
     {team.isError && <p role="alert" className="text-sm text-destructive">Tiimihakemistoa ei saatu. Vain jo tallennetut vastuuhenkilöt voidaan säilyttää.</p>}
     {selected && !leadId && <LeadNextStep leadId={selected} person={id => team.data?.find(t => t.id === id)?.email ?? 'Nimi ei saatavilla'} />}
-    {selected && <CaseProgramme key={selected} leadId={selected} team={team.data ?? []} refreshKey={refreshKey} />}
+    {selected && <CaseProgramme key={selected} leadId={selected} team={team.data ?? []} refreshKey={refreshKey} part={part} />}
   </section>;
 }
 
-function CaseProgramme({ leadId, team, refreshKey }: { leadId: string; team: Team; refreshKey: string }) {
+function CaseProgramme({ leadId, team, refreshKey, part = 'all' }: { leadId: string; team: Team; refreshKey: string; part?: CompanyPart }) {
   const qc = useQueryClient();
   const [params] = useSearchParams();
   const key = ['company_case', leadId, refreshKey];
@@ -98,7 +99,8 @@ function CaseProgramme({ leadId, team, refreshKey }: { leadId: string; team: Tea
   if (params.get('tehtava') === 'order' && params.get('tarjous') && !offers.some(o => o.id === params.get('tarjous'))) return <p role="alert">Valittua hyväksyttyä tarjousta ei löydy tästä myyntimahdollisuudesta. Tilauslomaketta ei avattu toiselle tarjoukselle.</p>;
   if (params.get('tilaus') && !orders.some(o => o.id === params.get('tilaus'))) return <p role="alert">Valittu tilaus ei kuulu tähän myyntimahdollisuuteen.</p>;
   const selectedOrders = orders.filter(o => !params.get('tilaus') || o.id === params.get('tilaus'));
-  return <>{selectedOrders.map((o: { id: string }) => <div key={o.id} data-flow-task={params.get('tilaus') === o.id || selectedOrders.length === 1 ? 'order' : `order-${o.id}`}><BillingPlanPanel orderId={o.id} /></div>)}{orders.length > 0 && <p className="rounded-md border bg-muted/40 p-2 text-sm">Tilaus on vahvistettu. Etenemisen tehtävä näkyy kortin Seuraava vaihe -alueessa.</p>}{orders.length === 0 && offers.length === 0 && <p className="rounded-md border border-dashed p-2 text-sm text-muted-foreground">Vahvista tilaus -lomake ilmestyy tähän, kun asiakkaan tarjouksen tila on Hyväksytty.</p>}{orders.length === 0 && offers.length > 0 && <div data-flow-task="order"><OrderConfirmationForm key={params.get('tarjous') ?? 'choose'} initialOfferId={params.get('tarjous')} lead={lead} buyer={buyer} buyerContact={buyerContact} offers={offers} busy={busy} run={run} onLinked={() => qc.invalidateQueries({ queryKey: key })} /></div>}<ProgrammeForm hasOffer={offers.length > 0} key={`${snapshot?.id ?? 'new'}:${params.get('tilaus') ?? ''}`} lead={lead} snapshot={snapshot} team={team} orders={orders} handoffs={handoffs} deliveries={deliveries} templates={templates} busy={busy} run={run} error={error} result={result} /></>;
+  const showOrder = part !== 'production'; const showProduction = part !== 'order';
+  return <>{showOrder && <>{selectedOrders.map((o: { id: string }) => <div key={o.id} data-flow-task={params.get('tilaus') === o.id || selectedOrders.length === 1 ? 'order' : `order-${o.id}`}><BillingPlanPanel orderId={o.id} /></div>)}{orders.length > 0 && <p className="rounded-md border bg-muted/40 p-2 text-sm">Tilaus on vahvistettu. Etenemisen tehtävä näkyy kortin Seuraava vaihe -alueessa.</p>}{orders.length === 0 && offers.length === 0 && <p className="rounded-md border border-dashed p-2 text-sm text-muted-foreground">Vahvista tilaus -lomake ilmestyy tähän, kun asiakkaan tarjouksen tila on Hyväksytty.</p>}{orders.length === 0 && offers.length > 0 && <div data-flow-task="order"><OrderConfirmationForm key={params.get('tarjous') ?? 'choose'} initialOfferId={params.get('tarjous')} lead={lead} buyer={buyer} buyerContact={buyerContact} offers={offers} busy={busy} run={run} onLinked={() => qc.invalidateQueries({ queryKey: key })} /></div>}</>}{showProduction && <ProgrammeForm hasOffer={offers.length > 0} key={`${snapshot?.id ?? 'new'}:${params.get('tilaus') ?? ''}`} lead={lead} snapshot={snapshot} team={team} orders={orders} handoffs={handoffs} deliveries={deliveries} templates={templates} busy={busy} run={run} error={error} result={result} />}</>;
 }
 
 function ProgrammeForm({ hasOffer, lead, snapshot, team, orders, handoffs, deliveries, templates, busy, run, error, result }: any) {
@@ -141,7 +143,7 @@ function ProgrammeForm({ hasOffer, lead, snapshot, team, orders, handoffs, deliv
         <Pick label="Vahvistettu tilaus" value={order} onChange={setOrder} options={orders.map((o: any) => [o.id, `Tilaus ${new Date(o.created_at).toLocaleDateString('fi-FI')} · ${o.id.slice(0, 8)}`])} />
         <Pick label="Toteutuspohja" value={template} onChange={setTemplate} options={templates.map((t: any) => [t.key, t.name])} />
       </div>
-      <div data-flow-task="capacity"><CompanyCapacityPanel programmeId={s.id} onChanged={() => run(async () => {}, 'Kapasiteetti päivitetty')} /></div>
+      <details data-flow-task="capacity" open={params.get('tehtava') === 'capacity' || undefined} className="rounded-md border p-2"><summary className="cursor-pointer text-sm font-medium">Kapasiteetti ja sen hyväksyntä (tuotanto)</summary><div className="pt-3"><CompanyCapacityPanel programmeId={s.id} onChanged={() => run(async () => {}, 'Kapasiteetti päivitetty')} /></div></details>
       {orders.length === 0 && <p className="text-sm text-muted-foreground">Asiakkaalla ei ole vahvistettua tilausta.</p>}
       <div data-flow-task="handoff" className="flex flex-wrap items-center gap-2">
         <Button variant="outline" disabled={busy || !order || !template || !!delivery} onClick={() => run(() => workflow.attachOrder(s.id, order, template), 'Tilaus kytketty toteutukseen')}><Link2 className="mr-2 h-4 w-4" />{delivery ? 'Tilaus kytketty' : 'Kytke tilaus'}</Button>

@@ -100,3 +100,9 @@
 - [x] Kirjautunut synteettinen selainpolku myynnistä vastaanottoon ja valmisteluun; admin/editor/trainer, 320/390/1280 px
 - [x] Loppuraportti docs/lean-etenemisohjaus-2026-11-27.md; ei migraatioita, hyväksyntää tai julkaisua
 - [ ] Yhdistämisriippuvuus: vakautusluonnoksen hyväksynnän jälkeen yhteensopivuuden uusintatesti ennen tämän hyväksymistä
+
+## Myynnin asiakaskortti UX-1 (luonnos)
+- [x] Kortin otsikko yritys + koulutus, perustiedot, tilat, LEAN Seuraava vaihe, kolme välilehteä ja Historia ja aineisto; lomakkeet avattavina
+- [x] Lähdeaineisto (PDF ja sähköposti erikseen) ja viisi näyttöön perustuvaa ristiriitasääntöä testeineen
+- [x] Ehdotukset A/B ja lähdeaineiston DB-ehdotus: docs/myyntikortti-ux1-ehdotukset-2026-11-27.md (ei toteutettu)
+- [ ] Odottaa käyttäjän katselmointia ja hyväksyntää; ei julkaistu

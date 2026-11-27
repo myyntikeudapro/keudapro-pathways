@@ -1,4 +1,7 @@
 import { LeadNextStep } from './CaseNextStep';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { SalesCardHeader, IssueList, SourceMaterial, useSalesCardFacts, cardTitle } from './SalesCardParts';
+import { tabForTask } from '@/lib/salesCard';
 import { useFlowTaskFocus } from '@/hooks/useFlowTaskFocus';
 import { useQueryClient } from '@tanstack/react-query';
 import { CompanyTrainingSales } from '@/components/admin/CompanyTrainingSales';
@@ -28,7 +31,7 @@ const teamOptions = (team:TeamMember[]) => team.map(u=>[u.id,u.email] as [string
 export function CrmLeads({ leads, tasks, team, me, onSaved, offers=[], openId }: { leads:Lead[]; tasks:Task[]; team:TeamMember[]; me:TeamMember; onSaved:()=>void; offers?:Offer[]; openId?:string }) {
   const [params,setParams]=useSearchParams();
   const search=params.get('haku')??''; const owner=params.get('vastuu')??(params.get('oma')==='1'?'mine':'all'); const status=params.get('tila')??'all'; const selected = leads.find(l => l.id === openId) ?? null;
-  const setSelected = (l: Lead | null) => { const n = new URLSearchParams(params); if (l) n.set('asiakas', l.id); else { n.delete('asiakas'); n.delete('tehtava'); n.delete('tarjous'); n.delete('tilaus'); } setParams(n); };
+  const setSelected = (l: Lead | null) => { const n = new URLSearchParams(params); if (l) n.set('asiakas', l.id); else { n.delete('asiakas'); n.delete('tehtava'); n.delete('tarjous'); n.delete('tilaus'); n.delete('kortti'); } setParams(n); };
   const setFilter=(key:string,value:string)=>{const n=new URLSearchParams(params);n.set(key,value);if(key==='vastuu')n.delete('oma');setParams(n,{replace:true});};
   const setSearch=(v:string)=>setFilter('haku',v); const setOwner=(v:string)=>setFilter('vastuu',v); const setStatus=(v:string)=>setFilter('tila',v); const view=params.get('nakyma')==='lista'?'lista':'kanban';
 
@@ -51,10 +54,10 @@ export function CrmLeads({ leads, tasks, team, me, onSaved, offers=[], openId }:
 }
 function LeadEditor({lead,leads,offers,tasks,team,me,onSaved,onRefresh}:{lead:Lead;leads:Lead[];offers:Offer[];tasks:Task[];team:TeamMember[];me:TeamMember;onSaved:()=>void;onRefresh:()=>void}) {
  useFlowTaskFocus();
- const [routeParams] = useSearchParams();
+ const [routeParams, setRouteParams] = useSearchParams();
  const backCard = routeParams.get('paluuKortti');
  const qc = useQueryClient();
- const refresh = () => { qc.invalidateQueries({ queryKey: ['customer_register'] }); qc.invalidateQueries({ queryKey: ['next_step_programme'] }); onRefresh(); };
+ const refresh = () => { qc.invalidateQueries({ queryKey: ['customer_register'] }); qc.invalidateQueries({ queryKey: ['next_step_programme'] }); qc.invalidateQueries({ queryKey: ['sales_card_facts', lead.id] }); onRefresh(); };
  const [status,setStatus]=useState(lead.status); const [owner,setOwner]=useState(lead.owner_id??'none'); const [service,setService]=useState(lead.service_key??'muu'); const [notes,setNotes]=useState(lead.notes??''); const [value,setValue]=useState(lead.deal_value===null?'':String(lead.deal_value)); const [closed,setClosed]=useState(lead.sale_closed_at?.slice(0,10)??''); const [lost,setLost]=useState(lead.lost_reason??''); const [busy,setBusy]=useState(false);
  const activity=useQuery({queryKey:['lead_activity',lead.id],queryFn:async()=>{const {data,error}=await supabase.from('lead_activity').select('*').eq('lead_id',lead.id).order('created_at',{ascending:false}).limit(30);if(error)throw error;return data}});
  const save=async()=>{
@@ -66,16 +69,33 @@ function LeadEditor({lead,leads,offers,tasks,team,me,onSaved,onRefresh}:{lead:Le
    if(error||!data?.length)return toast.error('Tallennus epäonnistui.');toast.success('Asiakaskortti tallennettu');if(lead.owner_id!==(owner==='none'?null:owner)){const {error:notifyError}=await supabase.functions.invoke('crm-notify',{body:{lead_id:lead.id}});if(notifyError)toast.warning('Asiakas tallennettu; sähköposti-ilmoitusta ei voitu vahvistaa.');}onSaved();
  };
  const fieldNames:Record<string,string>={status:'Tila',notes:'Muistiinpanot',owner_id:'Vastuuhenkilö',service_key:'Palvelu',deal_value:'Kaupan arvo',sale_closed_at:'Kaupan päivämäärä',lost_reason:'Ei jatkoon -syy'};
- return <><DialogHeader><DialogTitle>{lead.name}</DialogTitle><DialogDescription className="break-all">{lead.organization??'Yhteydenotto'} · {dateTime(lead.created_at)}</DialogDescription></DialogHeader>
+ const facts = useSalesCardFacts(lead, team); const d = facts.data;
+ const tab = tabForTask(routeParams.get('tehtava'), routeParams.get('kortti'));
+ const setTab = (v: string) => { const n = new URLSearchParams(routeParams); n.set('kortti', v); setRouteParams(n, { replace: true }); };
+ const openTasks = tasks.filter(t => !t.completed_at);
+ return <><DialogHeader><DialogTitle className="pr-6 break-words">{cardTitle(lead, d)}</DialogTitle><DialogDescription className="break-all">{d?.contact?.name ?? lead.name} · {lead.email} · saapui {dateTime(lead.created_at)}</DialogDescription></DialogHeader>
  {backCard?.startsWith('/admin/asiakkaat') && <Button asChild variant="ghost" size="sm"><Link to={backCard}>Takaisin asiakaskorttiin</Link></Button>}
  <div className="sticky -top-6 z-10 bg-background py-2"><LeadNextStep leadId={lead.id} person={id => team.find(t => t.id === id)?.email ?? 'Nimi ei saatavilla'} /></div>
- <div className="flex flex-wrap gap-3 text-sm"><a href={`mailto:${lead.email}`} target="_blank" rel="noopener noreferrer" className="text-primary underline break-all">{lead.email}</a>{lead.phone&&<a href={`tel:${lead.phone}`} className="text-primary underline">{lead.phone}</a>}</div>
- <div className="border-y py-3"><p className="text-xs text-muted-foreground mb-1">Alkuperäinen viesti · {lead.source??lead.meeting_format}</p><p className="text-sm whitespace-pre-wrap break-words">{lead.message}</p></div>
- <div className="grid sm:grid-cols-2 gap-3"><Choice label="Asiakkaan tila" value={status} onChange={setStatus} options={CRM_STATUSES.map(s=>[s,s])}/><Choice label="Asiakkaan vastuuhenkilö" value={owner} onChange={setOwner} options={[["none","Ei vastuuhenkilöä"],...teamOptions(team)]}/><Choice label="Asiakkaan palvelu" value={service} onChange={setService} options={Object.entries(CRM_SERVICES).filter(([k])=>k!=='all')}/><div><label htmlFor="deal-value" className="text-xs text-muted-foreground">Kaupan arvo € (ilman alv:tä)</label><Input id="deal-value" inputMode="decimal" value={value} onChange={e=>setValue(e.target.value)} placeholder="Ei tiedossa"/></div>{status==='koulutukseen'&&<div><label htmlFor="closed-date" className="text-xs text-muted-foreground">Kaupan päivämäärä</label><Input id="closed-date" type="date" value={closed} onChange={e=>setClosed(e.target.value)}/></div>}{status==='ei jatkoon'&&<div><label htmlFor="lost-reason" className="text-xs text-muted-foreground">Miksi ei jatkoon?</label><Input id="lost-reason" maxLength={500} value={lost} onChange={e=>setLost(e.target.value)}/></div>}</div>
- <div><label htmlFor="lead-notes" className="text-xs text-muted-foreground">Muistiinpanot</label><Textarea id="lead-notes" maxLength={4000} rows={3} value={notes} onChange={e=>setNotes(e.target.value)}/></div><Button onClick={save} disabled={busy}><Save className="h-4 w-4 mr-2"/>{busy?'Tallennetaan…':'Tallenna asiakaskortti'}</Button>
- <section className="border-t pt-4 space-y-3"><h3 className="font-semibold text-sm">Seuraavat tehtävät</h3><TaskForm leadId={lead.id} team={team} defaultOwner={owner==='none'?me.id:owner} onSaved={onRefresh}/>{tasks.map(t=><TaskRow key={t.id} task={t} team={team} onSaved={onRefresh}/>)}</section>
- <ContactHistory lead={lead} leads={leads} onSaved={refresh}/><OffersPanel offers={offers} leads={leads} fixedLead={lead.id} onSaved={refresh}/>{!lead.mt_personal&&lead.organization&&<CompanyTrainingSales leadId={lead.id} refreshKey={offers.filter(o=>o.lead_id===lead.id&&o.status==='accepted').map(o=>o.id).join(',')}/>}
- <section className="border-t pt-4"><h3 className="font-semibold text-sm mb-2">Muutoshistoria</h3>{activity.isError?<p className="text-sm text-destructive">Historiaa ei voitu hakea.</p>:activity.data?.length?activity.data.map(a=><p key={a.id} className="text-xs text-muted-foreground border-b py-2">{dateTime(a.created_at)} · {team.find(t=>t.id===a.actor_id)?.email??'Järjestelmä'} · {Object.keys(a.changes??{}).map(k=>fieldNames[k]??k).join(', ')}</p>):<p className="text-xs text-muted-foreground">Ei vielä muutoksia.</p>}</section></>;
+ <SalesCardHeader lead={lead} data={d} team={team} />
+ <Tabs value={tab} onValueChange={setTab} className="space-y-3">
+ <TabsList className="grid w-full grid-cols-3 h-auto"><TabsTrigger value="yhteenveto">Yhteenveto</TabsTrigger><TabsTrigger value="tarjous">Tarjous ja tilaus</TabsTrigger><TabsTrigger value="tuotanto">Tuotanto</TabsTrigger></TabsList>
+ <TabsContent value="yhteenveto" className="space-y-4">
+  <section className="space-y-2"><h3 className="font-semibold text-sm">Ristiriidat ja puuttuvat tiedot</h3>{facts.isError ? <p role="alert" className="text-sm text-destructive">Tarkistuksia ei voitu hakea.</p> : facts.isPending ? <p role="status" className="text-sm text-muted-foreground">Tarkistetaan tietoja…</p> : <IssueList issues={d?.issues ?? []} />}</section>
+  <section className="space-y-1"><h3 className="font-semibold text-sm">Viimeisin yhteydenotto</h3>{d?.latest ? <p className="text-sm break-words"><span className="text-muted-foreground">{dateTime(d.latest.occurred_at)} · </span>{d.latest.summary.slice(0, 280)}</p> : <p className="text-sm text-muted-foreground">Ei kirjattua yhteydenpitoa.</p>}<div className="flex flex-wrap gap-3 text-sm pt-1"><a href={`mailto:${lead.email}`} target="_blank" rel="noopener noreferrer" className="text-primary underline break-all">{lead.email}</a>{lead.phone&&<a href={`tel:${lead.phone}`} className="text-primary underline">{lead.phone}</a>}</div></section>
+  <section className="space-y-3"><h3 className="font-semibold text-sm">Tehtävät ({openTasks.length} avointa)</h3>{tasks.map(t=><TaskRow key={t.id} task={t} team={team} onSaved={onRefresh}/>)}<details className="rounded-md border p-2"><summary className="cursor-pointer text-sm font-medium">Lisää tehtävä</summary><div className="pt-3"><TaskForm leadId={lead.id} team={team} defaultOwner={owner==='none'?me.id:owner} onSaved={onRefresh}/></div></details></section>
+  <section className="space-y-3 border-t pt-3"><h3 className="font-semibold text-sm">Myyntimahdollisuuden perustiedot</h3>
+  <div className="grid sm:grid-cols-2 gap-3"><Choice label="Asiakkaan tila" value={status} onChange={setStatus} options={CRM_STATUSES.map(s=>[s,s])}/><Choice label="Asiakkaan vastuuhenkilö" value={owner} onChange={setOwner} options={[["none","Ei vastuuhenkilöä"],...teamOptions(team)]}/><Choice label="Asiakkaan palvelu" value={service} onChange={setService} options={Object.entries(CRM_SERVICES).filter(([k])=>k!=='all')}/><div><label htmlFor="deal-value" className="text-xs text-muted-foreground">Kaupan arvo € (ilman alv:tä)</label><Input id="deal-value" inputMode="decimal" value={value} onChange={e=>setValue(e.target.value)} placeholder="Ei tiedossa"/></div>{status==='koulutukseen'&&<div><label htmlFor="closed-date" className="text-xs text-muted-foreground">Kaupan päivämäärä</label><Input id="closed-date" type="date" value={closed} onChange={e=>setClosed(e.target.value)}/></div>}{status==='ei jatkoon'&&<div><label htmlFor="lost-reason" className="text-xs text-muted-foreground">Miksi ei jatkoon?</label><Input id="lost-reason" maxLength={500} value={lost} onChange={e=>setLost(e.target.value)}/></div>}</div>
+  <div><label htmlFor="lead-notes" className="text-xs text-muted-foreground">Muistiinpanot</label><Textarea id="lead-notes" maxLength={4000} rows={3} value={notes} onChange={e=>setNotes(e.target.value)}/></div><Button onClick={save} disabled={busy}><Save className="h-4 w-4 mr-2"/>{busy?'Tallennetaan…':'Tallenna asiakaskortti'}</Button></section>
+ </TabsContent>
+ <TabsContent value="tarjous" className="space-y-4"><OffersPanel offers={offers} leads={leads} fixedLead={lead.id} onSaved={refresh}/>{!lead.mt_personal&&lead.organization&&<CompanyTrainingSales part="order" leadId={lead.id} refreshKey={offers.filter(o=>o.lead_id===lead.id&&o.status==='accepted').map(o=>o.id).join(',')}/>}</TabsContent>
+ <TabsContent value="tuotanto" className="space-y-4">{!lead.mt_personal&&lead.organization?<CompanyTrainingSales part="production" leadId={lead.id} refreshKey={offers.filter(o=>o.lead_id===lead.id&&o.status==='accepted').map(o=>o.id).join(',')}/>:<p className="text-sm text-muted-foreground">Tuotanto koskee yrityskoulutuksia. Tällä yhteydenotolla ei ole yritysohjelmaa.</p>}</TabsContent>
+ </Tabs>
+ <details className="rounded-lg border p-3"><summary className="cursor-pointer font-semibold">Historia ja aineisto</summary><div className="space-y-4 pt-3">
+ <div><p className="text-xs text-muted-foreground mb-1">Alkuperäinen viesti · {lead.source??lead.meeting_format}</p><p className="text-sm whitespace-pre-wrap break-words">{lead.message}</p></div>
+ <SourceMaterial data={d} />
+ <ContactHistory lead={lead} leads={leads} onSaved={refresh}/>
+ <section className="border-t pt-4"><h3 className="font-semibold text-sm mb-2">Muutoshistoria</h3>{activity.isError?<p className="text-sm text-destructive">Historiaa ei voitu hakea.</p>:activity.data?.length?activity.data.map(a=><p key={a.id} className="text-xs text-muted-foreground border-b py-2">{dateTime(a.created_at)} · {team.find(t=>t.id===a.actor_id)?.email??'Järjestelmä'} · {Object.keys(a.changes??{}).map(k=>fieldNames[k]??k).join(', ')}</p>):<p className="text-xs text-muted-foreground">Ei vielä muutoksia.</p>}</section>
+ </div></details></>;
 }
 function TaskForm({leadId,team,defaultOwner,onSaved}:{leadId:string;team:TeamMember[];defaultOwner:string;onSaved:()=>void}) {
  const [title,setTitle]=useState('');const [due,setDue]=useState('');const [owner,setOwner]=useState(defaultOwner);const [busy,setBusy]=useState(false);
