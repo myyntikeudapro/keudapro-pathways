@@ -7,3 +7,4 @@
 - Sales card facts and kanban conflict badges share fetchCardRaw/buildCardFacts (src/lib/salesCardData.ts): chunked, fully paginated batch reads and the latest programme revision by case — badge counts equal the open card and never cause per-lead requests.
 - Conflict fix buttons only navigate (`kortti` + whitelisted `korjaa` field id via useIssueFix); confirmed orders route to read-only review with a truthful note — no save or approval from a link.
 - Promise suggestions are deterministic sentence quotes (explicit commitment verb; negative, conditional and question sentences skipped) and are appended to the programme form only by a user action — no AI, no automatic save.
+- Section separation is CSS-only (src/index.css: area-coloured title bars, alternating tint; dialogs via .ws-dialog) — one visual rule without logic changes.
