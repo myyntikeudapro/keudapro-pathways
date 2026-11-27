@@ -14,8 +14,8 @@ const METHODS=[['sahkoposti','Sähköposti'],['allekirjoitus','Allekirjoitus'],[
 function Select({id,label,value,onChange,options}:{id:string;label:string;value:string;onChange:(v:string)=>void;options:readonly (readonly [string,string])[]}) {
  return <div className="min-w-0"><label htmlFor={id} className="text-xs text-muted-foreground">{label}</label><select id={id} className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={value} onChange={e=>onChange(e.target.value)}><option value="">Valitse</option>{options.map(([k,l])=><option key={k} value={k}>{l}</option>)}</select></div>;
 }
-export function OrderConfirmationForm({lead,buyer,buyerContact,offers,busy,run,onLinked}:{lead:any;buyer:any;buyerContact:any;offers:AcceptedOffer[];busy:boolean;run:(fn:()=>Promise<unknown>,ok:string)=>void;onLinked:()=>void}) {
- const [offerId,setOfferId]=useState(offers[0]?.id??'');
+export function OrderConfirmationForm({lead,buyer,buyerContact,offers,busy,run,onLinked,initialOfferId}:{initialOfferId?:string|null;lead:any;buyer:any;buyerContact:any;offers:AcceptedOffer[];busy:boolean;run:(fn:()=>Promise<unknown>,ok:string)=>void;onLinked:()=>void}) {
+ const [offerId,setOfferId]=useState(offers.find(o=>o.id===initialOfferId)?.id??offers[0]?.id??'');
  const offer=offers.find(o=>o.id===offerId);
  return <section className="space-y-3 rounded-lg border p-3"><h3 className="font-semibold text-keuda-blue">Vahvista tilaus hyväksytystä tarjouksesta</h3><Select id="order-offer" label="Hyväksytty tarjous" value={offerId} onChange={setOfferId} options={offers.map(o=>[o.id,o.title])}/>
  <div className="space-y-2 border-y py-3 text-sm"><p className="text-xs text-muted-foreground">Ostaja ja tilaajan yhteyshenkilö (vahvistettu asiakasvalinta)</p><p className="break-words">{buyer?`${buyer.name} · ${buyer.business_id??'ei Y-tunnusta'}`:'Ostajaa ei ole valittu'} · {buyerContact?`${buyerContact.name} (${buyerContact.email})`:'Yhteyshenkilö puuttuu'}</p><CustomerLinkDialog lead={lead} label={buyer?'Vaihda asiakasvalinta':'Valitse asiakas'} onLinked={onLinked}/></div>

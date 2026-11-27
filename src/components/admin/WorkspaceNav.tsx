@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { LayoutDashboard, Users, Megaphone, Factory, FileText, BookOpen, Building2 } from "lucide-react";
@@ -32,5 +33,6 @@ export function WorkspaceNav() {
         return <Link key={to} to={to} aria-current={active ? "page" : undefined} className={`${area} ws-nav-link`}><Icon className="h-4 w-4 shrink-0" aria-hidden />{label}</Link>;
       })}
     </div>)}
+    {isEditor && !salesTab && !pathname.startsWith('/admin/asiakkaat') && !pathname.startsWith('/admin/tuotanto') && <div className="ws-nav-group"><p className="ws-nav-title">Työjonot</p><Button asChild variant="ghost" size="sm" className="h-auto justify-start whitespace-normal"><Link to="/admin/markkinointi?tab=daily">Avaa myynnin työjono</Link></Button><Button asChild variant="ghost" size="sm" className="h-auto justify-start whitespace-normal"><Link to="/admin/tuotanto?osio=paiva">Avaa tuotannon päivän työ</Link></Button></div>}
   </nav>;
 }

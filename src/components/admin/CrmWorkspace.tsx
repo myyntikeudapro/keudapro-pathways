@@ -1,5 +1,8 @@
+import { LeadNextStep } from './CaseNextStep';
+import { useFlowTaskFocus } from '@/hooks/useFlowTaskFocus';
+import { useQueryClient } from '@tanstack/react-query';
 import { CompanyTrainingSales } from '@/components/admin/CompanyTrainingSales';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { ContactHistory, OffersPanel } from './SalesOperations';
 import type { Offer } from '@/lib/salesOperations';
 import { useQuery } from '@tanstack/react-query';
@@ -24,15 +27,16 @@ export function Choice({ label, value, onChange, options }: { label:string; valu
 const teamOptions = (team:TeamMember[]) => team.map(u=>[u.id,u.email] as [string,string]);
 export function CrmLeads({ leads, tasks, team, me, onSaved, offers=[], openId }: { leads:Lead[]; tasks:Task[]; team:TeamMember[]; me:TeamMember; onSaved:()=>void; offers?:Offer[]; openId?:string }) {
   const [params,setParams]=useSearchParams();
-  const search=params.get('haku')??''; const owner=params.get('vastuu')??(params.get('oma')==='1'?'mine':'all'); const status=params.get('tila')??'all'; const [selected,setSelected]=useState<Lead|null>(null);
+  const search=params.get('haku')??''; const owner=params.get('vastuu')??(params.get('oma')==='1'?'mine':'all'); const status=params.get('tila')??'all'; const selected = leads.find(l => l.id === openId) ?? null;
+  const setSelected = (l: Lead | null) => { const n = new URLSearchParams(params); if (l) n.set('asiakas', l.id); else { n.delete('asiakas'); n.delete('tehtava'); n.delete('tarjous'); n.delete('tilaus'); } setParams(n); };
   const setFilter=(key:string,value:string)=>{const n=new URLSearchParams(params);n.set(key,value);if(key==='vastuu')n.delete('oma');setParams(n,{replace:true});};
   const setSearch=(v:string)=>setFilter('haku',v); const setOwner=(v:string)=>setFilter('vastuu',v); const setStatus=(v:string)=>setFilter('tila',v); const view=params.get('nakyma')==='lista'?'lista':'kanban';
-  const openedId=useRef<string>();
-  useEffect(()=>{if(openId&&openedId.current!==openId){const lead=leads.find(l=>l.id===openId);if(lead){setSelected(lead);openedId.current=openId;}}},[openId,leads]);
+
   const ownedLeads = owner==='mine' ? myLeads(leads,me.id) : leads;
   const filtered = ownedLeads.filter(l => (owner==='all' || owner==='mine' || (owner==='none' ? !l.owner_id : l.owner_id===owner)) && (status==='all'||l.status===status) && `${l.name} ${l.email} ${l.organization ?? ''}`.toLowerCase().includes(search.toLowerCase()));
   const overdue = tasks.filter(t=>taskOverdue(t)&&leads.some(l=>l.id===t.lead_id)).length;
   return <div className="space-y-4">
+    {!selected && <p className="text-sm text-muted-foreground">Valitse myyntimahdollisuus kanbanista tai listalta avataksesi seuraavan tehtävän.</p>}
     <div className="flex flex-wrap gap-2"><Badge variant="outline">{leads.filter(l=>!l.owner_id&&!['koulutukseen','ei jatkoon'].includes(l.status)).length} ilman vastuuhenkilöä</Badge><Badge variant={overdue?'destructive':'secondary'}>{overdue} erääntynyttä tehtävää</Badge></div>
     <div className="flex flex-wrap gap-2"><Button variant={owner==='mine'?'default':'outline'} onClick={()=>setOwner('mine')}><UserRound className="h-4 w-4 mr-2"/>Omat asiakkaat ({myLeads(leads,me.id).length})</Button><Button variant={owner==='all'?'default':'outline'} onClick={()=>setOwner('all')}>Koko tiimi</Button></div>
     <div className="grid sm:grid-cols-3 gap-3 items-end"><div className="relative"><Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground"/><Input aria-label="Hae asiakasta" className="pl-9" placeholder="Hae nimi, sähköposti tai yritys" value={search} onChange={e=>setSearch(e.target.value)}/></div><Choice label="Vastuuhenkilö" value={owner} onChange={setOwner} options={[["all","Kaikki"],["mine","Omat asiakkaat"],["none","Ei vastuuhenkilöä"],...teamOptions(team)]}/><Choice label="Tila" value={status} onChange={setStatus} options={[["all","Kaikki tilat"],...CRM_STATUSES.map(s=>[s,s] as [string,string])]}/></div>
@@ -46,6 +50,11 @@ export function CrmLeads({ leads, tasks, team, me, onSaved, offers=[], openId }:
   </div>;
 }
 function LeadEditor({lead,leads,offers,tasks,team,me,onSaved,onRefresh}:{lead:Lead;leads:Lead[];offers:Offer[];tasks:Task[];team:TeamMember[];me:TeamMember;onSaved:()=>void;onRefresh:()=>void}) {
+ useFlowTaskFocus();
+ const [routeParams] = useSearchParams();
+ const backCard = routeParams.get('paluuKortti');
+ const qc = useQueryClient();
+ const refresh = () => { qc.invalidateQueries({ queryKey: ['customer_register'] }); qc.invalidateQueries({ queryKey: ['next_step_programme'] }); onRefresh(); };
  const [status,setStatus]=useState(lead.status); const [owner,setOwner]=useState(lead.owner_id??'none'); const [service,setService]=useState(lead.service_key??'muu'); const [notes,setNotes]=useState(lead.notes??''); const [value,setValue]=useState(lead.deal_value===null?'':String(lead.deal_value)); const [closed,setClosed]=useState(lead.sale_closed_at?.slice(0,10)??''); const [lost,setLost]=useState(lead.lost_reason??''); const [busy,setBusy]=useState(false);
  const activity=useQuery({queryKey:['lead_activity',lead.id],queryFn:async()=>{const {data,error}=await supabase.from('lead_activity').select('*').eq('lead_id',lead.id).order('created_at',{ascending:false}).limit(30);if(error)throw error;return data}});
  const save=async()=>{
@@ -58,12 +67,14 @@ function LeadEditor({lead,leads,offers,tasks,team,me,onSaved,onRefresh}:{lead:Le
  };
  const fieldNames:Record<string,string>={status:'Tila',notes:'Muistiinpanot',owner_id:'Vastuuhenkilö',service_key:'Palvelu',deal_value:'Kaupan arvo',sale_closed_at:'Kaupan päivämäärä',lost_reason:'Ei jatkoon -syy'};
  return <><DialogHeader><DialogTitle>{lead.name}</DialogTitle><DialogDescription className="break-all">{lead.organization??'Yhteydenotto'} · {dateTime(lead.created_at)}</DialogDescription></DialogHeader>
+ {backCard?.startsWith('/admin/asiakkaat') && <Button asChild variant="ghost" size="sm"><Link to={backCard}>Takaisin asiakaskorttiin</Link></Button>}
+ <div className="sticky -top-6 z-10 bg-background py-2"><LeadNextStep leadId={lead.id} person={id => team.find(t => t.id === id)?.email ?? 'Nimi ei saatavilla'} /></div>
  <div className="flex flex-wrap gap-3 text-sm"><a href={`mailto:${lead.email}`} target="_blank" rel="noopener noreferrer" className="text-primary underline break-all">{lead.email}</a>{lead.phone&&<a href={`tel:${lead.phone}`} className="text-primary underline">{lead.phone}</a>}</div>
  <div className="border-y py-3"><p className="text-xs text-muted-foreground mb-1">Alkuperäinen viesti · {lead.source??lead.meeting_format}</p><p className="text-sm whitespace-pre-wrap break-words">{lead.message}</p></div>
  <div className="grid sm:grid-cols-2 gap-3"><Choice label="Asiakkaan tila" value={status} onChange={setStatus} options={CRM_STATUSES.map(s=>[s,s])}/><Choice label="Asiakkaan vastuuhenkilö" value={owner} onChange={setOwner} options={[["none","Ei vastuuhenkilöä"],...teamOptions(team)]}/><Choice label="Asiakkaan palvelu" value={service} onChange={setService} options={Object.entries(CRM_SERVICES).filter(([k])=>k!=='all')}/><div><label htmlFor="deal-value" className="text-xs text-muted-foreground">Kaupan arvo € (ilman alv:tä)</label><Input id="deal-value" inputMode="decimal" value={value} onChange={e=>setValue(e.target.value)} placeholder="Ei tiedossa"/></div>{status==='koulutukseen'&&<div><label htmlFor="closed-date" className="text-xs text-muted-foreground">Kaupan päivämäärä</label><Input id="closed-date" type="date" value={closed} onChange={e=>setClosed(e.target.value)}/></div>}{status==='ei jatkoon'&&<div><label htmlFor="lost-reason" className="text-xs text-muted-foreground">Miksi ei jatkoon?</label><Input id="lost-reason" maxLength={500} value={lost} onChange={e=>setLost(e.target.value)}/></div>}</div>
  <div><label htmlFor="lead-notes" className="text-xs text-muted-foreground">Muistiinpanot</label><Textarea id="lead-notes" maxLength={4000} rows={3} value={notes} onChange={e=>setNotes(e.target.value)}/></div><Button onClick={save} disabled={busy}><Save className="h-4 w-4 mr-2"/>{busy?'Tallennetaan…':'Tallenna asiakaskortti'}</Button>
  <section className="border-t pt-4 space-y-3"><h3 className="font-semibold text-sm">Seuraavat tehtävät</h3><TaskForm leadId={lead.id} team={team} defaultOwner={owner==='none'?me.id:owner} onSaved={onRefresh}/>{tasks.map(t=><TaskRow key={t.id} task={t} team={team} onSaved={onRefresh}/>)}</section>
- <ContactHistory lead={lead} leads={leads} onSaved={onRefresh}/><OffersPanel offers={offers} leads={leads} fixedLead={lead.id} onSaved={onRefresh}/>{!lead.mt_personal&&lead.organization&&<CompanyTrainingSales leadId={lead.id} refreshKey={offers.filter(o=>o.lead_id===lead.id&&o.status==='accepted').map(o=>o.id).join(',')}/>}
+ <ContactHistory lead={lead} leads={leads} onSaved={refresh}/><OffersPanel offers={offers} leads={leads} fixedLead={lead.id} onSaved={refresh}/>{!lead.mt_personal&&lead.organization&&<CompanyTrainingSales leadId={lead.id} refreshKey={offers.filter(o=>o.lead_id===lead.id&&o.status==='accepted').map(o=>o.id).join(',')}/>}
  <section className="border-t pt-4"><h3 className="font-semibold text-sm mb-2">Muutoshistoria</h3>{activity.isError?<p className="text-sm text-destructive">Historiaa ei voitu hakea.</p>:activity.data?.length?activity.data.map(a=><p key={a.id} className="text-xs text-muted-foreground border-b py-2">{dateTime(a.created_at)} · {team.find(t=>t.id===a.actor_id)?.email??'Järjestelmä'} · {Object.keys(a.changes??{}).map(k=>fieldNames[k]??k).join(', ')}</p>):<p className="text-xs text-muted-foreground">Ei vielä muutoksia.</p>}</section></>;
 }
 function TaskForm({leadId,team,defaultOwner,onSaved}:{leadId:string;team:TeamMember[];defaultOwner:string;onSaved:()=>void}) {

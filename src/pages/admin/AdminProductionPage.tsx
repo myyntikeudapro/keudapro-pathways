@@ -1,6 +1,7 @@
+import { NextStep } from '@/components/admin/NextStep';
+import { productionNextStep } from '@/lib/workspaceNextStep';
+import { useFlowTaskFocus } from '@/hooks/useFlowTaskFocus';
 import { BillingPlanPanel } from '@/components/admin/BillingPlanPanel';
-import { productionFlow } from '@/lib/companyFlow';
-import { FlowStepper } from '@/components/admin/FlowStepper';
 import { WorkspaceHeader, headerGhost } from '@/components/admin/WorkspaceHeader';
 import { WorkspaceNav } from "@/components/admin/WorkspaceNav";
 import { AttendancePanel } from '@/components/admin/AttendancePanel';
@@ -74,6 +75,7 @@ function useAct() {
 }
 
 function StaffView({ userId }: { userId: string }) {
+  useFlowTaskFocus();
   const [params, setParams] = useSearchParams();
   const query = useProductionData(true);
   const data = query.data ?? EMPTY_PRODUCTION;
@@ -85,7 +87,7 @@ function StaffView({ userId }: { userId: string }) {
   const queue = params.get('jono'); const mine = params.get('omat') === '1'; const selected = params.get('toteutus');
   if (query.isPending) return <p role="status" className="flex items-center gap-2"><Loader2 className="h-5 w-5 animate-spin" />Ladataan…</p>;
   if (query.isError) return <p role="alert" className="text-destructive">Tuotannon tietoja ei voitu hakea.</p>;
-  if (selected) return <DeliveryDetail id={selected} data={data} team={team.data ?? []} email={email} back={() => { params.delete('toteutus'); setParams(params); }} />;
+  if (selected) return <DeliveryDetail id={selected} data={data} team={team.data ?? []} email={email} back={() => { const n = new URLSearchParams(params); n.delete('toteutus'); n.delete('valilehti'); setParams(n); }} />;
   const osio = productionSection(params.get('osio'));
   const go = (k: string) => setParams(k === 'projektit' ? {} : { osio: k });
   const exc = exceptions(data, now);
@@ -98,7 +100,7 @@ function StaffView({ userId }: { userId: string }) {
   const rs = readinessSummary(active.length, readyN);
   const mineN = boardRows(data, now, userId).length;
   const qn = (k: string) => productionQueue(queueData, k, now, mine ? userId : undefined).length;
-  const openD = (id: string) => setParams({ toteutus: id });
+  const openD = (id: string) => { const n = new URLSearchParams(params); n.set('toteutus', id); n.set('valilehti', 'yhteenveto'); setParams(n); };
   const tabs = <nav aria-label="Tuotannon osiot" className="flex gap-1 overflow-x-auto rounded-xl border bg-card p-1 shadow-card">{PRODUCTION_SECTIONS.map(([k, label]) => <Button key={k} size="sm" aria-current={!queue && osio === k ? 'page' : undefined} variant={!queue && osio === k ? 'default' : 'ghost'} className="shrink-0" onClick={() => go(k)}>{label}{k === 'laskutus' && qn('billingReady') > 0 && <span className="ml-1.5 rounded-full bg-muted px-1.5 text-xs tabular-nums text-foreground">{qn('billingReady')}</span>}</Button>)}
     <Button size="sm" variant="outline" className="ml-auto shrink-0 border-ws-bronze/50 text-ws-bronze hover:bg-ws-bronze-light hover:text-ws-bronze" disabled={query.isFetching} onClick={() => query.refetch()}><RefreshCw className={`mr-2 h-4 w-4 ${query.isFetching ? 'animate-spin' : ''}`} />Päivitä</Button></nav>;
   const queueBar = <div className="flex flex-wrap items-center gap-2 rounded-xl border bg-card p-3 shadow-card">{Object.entries(PRODUCTION_QUEUES).map(([k, label]) => <Button key={k} size="sm" variant={queue === k ? 'default' : 'outline'} onClick={() => setParams({ jono: k, ...(mine ? { omat: '1' } : {}) })}>{label} <span className="ml-1.5 rounded-full bg-muted px-1.5 text-xs tabular-nums text-foreground">{qn(k)}</span></Button>)}
@@ -108,6 +110,7 @@ function StaffView({ userId }: { userId: string }) {
   if (rows) return <>{tabs}{queueBar}{queueList(rows, PRODUCTION_QUEUES[queue ?? ''])}</>;
   return <>
     {tabs}
+    <p className="text-sm text-muted-foreground">Valitse koulutus tai luovutus avataksesi sen seuraavan tehtävän.</p>
     {osio === 'projektit' && <>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <SummaryCard icon={Activity} label="Aktiiviset projektit" value={active.length} meta={`${running} käynnissä · ${planning} suunnittelussa`} />
@@ -260,7 +263,7 @@ function DeliveryDetail({ id, data, team, email, back }: { id: string; data: typ
   const staff: [string, string][] = team.filter(m => m.kind !== 'trainer').map(m => [m.id, m.email]);
   return <article className="space-y-5">
     <Button variant="ghost" onClick={back}><ArrowLeft className="mr-2 h-4 w-4" />Kaikki toteutukset</Button>
-    <FlowStepper title="Toteutuksen eteneminen" flow={productionFlow({ sessions: sessions.length, sessionsBooked: sessions.every(x => data.bookings.some(b => b.session_id === x.id && b.status !== 'peruttu')), ready: r.ready, allHeld: canBill, billingReady: !!billing?.billing_ready && canBill })} />
+    <NextStep step={productionNextStep(row, data.orders.find(o => o.id === d.order_id) ? `/admin/tuotanto?${new URLSearchParams({ toteutus: id, valilehti: 'toteumat' })}` : undefined)} owner={email(d.production_owner_id)} />
     <div className="flex flex-wrap items-start justify-between gap-3 rounded-xl border bg-card p-4 shadow-card sm:p-5"><div><h2 className="text-2xl font-bold text-keuda-navy-section">{d.title}</h2><p className="mt-1 text-sm text-muted-foreground">Pohja {d.template_key} · luotu {dateTime(d.created_at)} · myynnin vastuu {email(d.sales_owner_id)}</p></div>
       <div className="grid w-full gap-2 sm:w-auto sm:grid-cols-2"><Choice label="Tuotannon tila" value={d.production_status} onChange={v => act.mutate(() => db.from('prod_deliveries').update({ production_status: v }).eq('id', id))} options={STATUS} /><Choice label="Tuotannon vastuuhenkilö" value={d.production_owner_id} onChange={v => act.mutate(() => db.from('prod_deliveries').update({ production_owner_id: v }).eq('id', id))} options={staff.length ? staff : [[d.production_owner_id, email(d.production_owner_id)]]} /></div></div>
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -269,7 +272,7 @@ function DeliveryDetail({ id, data, team, email, back }: { id: string; data: typ
       <SummaryCard icon={CheckCircle2} tone={r.ready ? 'ok' : 'warn'} label="Aloitusvalmius" value={r.ready ? 'Valmis' : 'Ei valmis'} meta={r.ready ? 'Kaikki edellytykset kunnossa' : `${r.missing.length} puuttuu`} />
       <SummaryCard icon={AlertTriangle} tone={exc.length ? 'risk' : 'ok'} label="Poikkeamat" value={exc.length} meta={exc.length ? 'Vaatii toimenpiteitä' : 'Ei avoimia'} />
     </div>
-    <div className={`flex flex-col items-start gap-3 rounded-xl border border-l-4 p-4 shadow-card sm:flex-row sm:items-center ${row.tone === 'ok' ? 'border-l-ws-ok' : row.tone === 'warn' ? 'border-l-ws-warn' : 'border-l-destructive'}`}><Light tone={row.tone} /><div className="min-w-0 w-full sm:flex-1"><p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Seuraava askel · {STAGE_LABEL[row.stage]}</p><p className="font-semibold text-foreground">{row.next}</p><p className={`text-xs ${TONE[row.tone].text}`}>{row.reason}{row.total ? ` · kriittiset tehtävät ${row.done}/${row.total}` : ''}</p></div>{row.tab !== tab && <Button className="h-auto max-w-full whitespace-normal py-2" onClick={() => goTab(row.tab)}>Siirry: {TABS.find(t => t[0] === row.tab)?.[1].replace(/ \(\d+\)$/, '')}</Button>}</div>
+
     <div role="tablist" aria-label="Koulutuskortin osiot" className="flex gap-1 overflow-x-auto rounded-xl border bg-card p-1 shadow-card">{TABS.map(([k, label]) => <Button key={k} role="tab" aria-selected={tab === k} size="sm" variant={tab === k ? 'default' : 'ghost'} className="shrink-0" onClick={() => goTab(k)}>{label}</Button>)}</div>
     {show('yhteenveto') && <>
     <div className={`rounded-xl border border-l-4 p-4 shadow-card sm:p-5 ${r.ready ? 'border-l-ws-ok bg-ws-ok-light' : 'border-l-ws-warn bg-ws-warn-light'}`}><h3 className={`flex items-center gap-2 text-lg font-semibold ${r.ready ? 'text-ws-ok' : 'text-ws-warn'}`}>{r.ready ? <CheckCircle2 className="h-5 w-5" /> : <AlertTriangle className="h-5 w-5" />}{r.ready ? 'Aloitusvalmis' : 'Ei aloitusvalmis'}</h3>{!r.ready && <ul className="mt-2 list-disc space-y-0.5 pl-6 text-sm text-foreground">{r.missing.map(m => <li key={m}>{m}</li>)}</ul>}</div>

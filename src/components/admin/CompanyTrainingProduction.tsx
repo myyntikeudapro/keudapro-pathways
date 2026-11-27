@@ -1,3 +1,7 @@
+import { useAuth } from '@/hooks/useAuth';
+import { NextStep } from './NextStep';
+import { receiveHref, salesTaskHref, trainingTaskHref } from '@/lib/workspaceNextStep';
+import { useFlowTaskFocus } from '@/hooks/useFlowTaskFocus';
 import { WorkspacePerson } from "./WorkspacePerson";
 import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -23,6 +27,7 @@ function Missing({ items }: { items: string[] }) {
 
 /* ---------- Kouluttajan rajattu kapasiteettinäkymä ---------- */
 export function CompanyTrainerCapacity() {
+  useFlowTaskFocus();
   const [params, setParams] = useSearchParams();
   const id = params.get('ohjelma') ?? '';
   const open = (next: string) => { const n = new URLSearchParams(params); n.set('ohjelma', next); setParams(n, { replace: true }); };
@@ -65,6 +70,9 @@ function TrainerProgramme({ id, onRevision }: { id: string; onRevision: (id: str
 }
 
 function CapacityForm({ snap, onSaved, reload, canSave = true, onBehalf = false }: { snap: CompanySnapshot & { resources?: any[] }; onSaved: (id: string) => Promise<void>; reload: () => Promise<unknown>; canSave?: boolean; onBehalf?: boolean }) {
+  const { isEditor } = useAuth();
+  const caseId = 'case_lead_id' in snap && typeof snap.case_lead_id === 'string' ? snap.case_lead_id : null;
+  const capacityHref = isEditor && caseId ? salesTaskHref(caseId, 'capacity') : `/admin/tuotanto?${new URLSearchParams({ ohjelma: snap.id, tehtava: 'capacity' })}`;
   const cap = (snap.capacity ?? {}) as any;
   const trainerId: string = cap.responsibleTrainerId ?? '';
   const machines: string[] = (Array.isArray((snap as any).resources) ? (snap as any).resources : Array.isArray((snap as any).resource_plan) ? (snap as any).resource_plan : []).map((r: any) => String(r.resourceId)).filter(Boolean);
@@ -80,7 +88,8 @@ function CapacityForm({ snap, onSaved, reload, canSave = true, onBehalf = false 
   const s0Machine = (ids?: string[]) => ids?.[0] ?? '';
   const shortId = (m: string) => `Kone ${m.slice(-4)}`;
   const capacityMissing = snap.readiness.missing.filter(m => !['handoff_not_accepted', 'preparation_tasks_open', 'blockers_open', 'confirmed_order_delivery_missing', 'programme_unapproved'].includes(m));
-  return <div className="space-y-4 border-t pt-3">
+  return <div data-flow-task="capacity" className="space-y-4 border-t pt-3">
+    {!isEditor && <NextStep owner={snap.programme?.trainers?.[0]} step={{ stage: 'Kapasiteetin valmistelu', role: 'Vastuukouluttaja', ownerId: trainerId, issues: capacityMissing, action: { label: 'Tarkista osallistujamäärä ja kapasiteetti', href: capacityHref } }} />}
     {snap.company_name !== undefined && <h3 className="break-words text-base font-semibold text-keuda-blue">{snap.company_name ?? 'Yrityksen nimi puuttuu'}</h3>}
     <div className="flex flex-wrap items-center gap-2 text-sm"><Badge variant="outline">Revisio {snap.revision}</Badge><span>{fmt(snap.programme?.startsAt)} – {fmt(snap.programme?.endsAt)}</span></div>
     <div className="text-sm"><WorkspacePerson person={{ id: trainerId }} name={snap.programme?.trainers?.[0] ?? "Vastuukouluttaja"} role="Vastuukouluttaja" /></div><p className="whitespace-pre-wrap text-sm">{snap.programme?.text}</p>
@@ -137,12 +146,15 @@ export function CompanyHandoffsPanel({ userId }: { userId: string }) {
       return { row, snap, delivery: d.data, tasks: (t as any).data as any[], blockers: (b as any).data as any[] };
     }));
   } });
+  const [params] = useSearchParams();
+  const selectedId = params.get('luovutus');
   return <section className="space-y-3 rounded-lg border bg-background p-4">
     <h2 className="text-lg font-semibold text-keuda-blue">Yrityskoulutusten luovutukset</h2>
     {q.isPending && <p role="status" className="text-sm">Ladataan luovutuksia…</p>}
     {q.isError && <p role="alert" className="text-sm text-destructive">Luovutuksia ei voitu lukea. Mitään ei näytetä vastaanotettuna.</p>}
     {q.data?.length === 0 && <p className="text-sm text-muted-foreground">Ei yrityskoulutusten luovutuksia.</p>}
-    {q.data?.map(item => <HandoffCard key={item.row.id} item={item} mine={item.row.production_owner_id === userId} refresh={() => qc.refetchQueries({ queryKey: ['company_handoffs'] })} />)}
+    {selectedId && q.isSuccess && !q.data.some(item => item.row.id === selectedId) && <p role="alert">Valittua luovutusta ei löydy tai siihen ei ole oikeutta.</p>}
+    {q.data?.filter(item => !selectedId || item.row.id === selectedId).map(item => <HandoffCard key={item.row.id} item={item} mine={item.row.production_owner_id === userId} refresh={() => qc.refetchQueries({ queryKey: ['company_handoffs'] })} />)}
   </section>;
 }
 
@@ -156,7 +168,8 @@ function HandoffCard({ item, mine, refresh }: { item: any; mine: boolean; refres
   const state = ({ submitted: 'Odottaa vastaanottoa', accepted: 'Vastaanotettu', returned: 'Palautettu' } as Record<string, string>)[row.company_state] ?? row.company_state;
   const stale = row.company_revision !== snap.revision;
   const critical = tasks.filter((t: any) => t.blocks_start);
-  return <article className="space-y-3 rounded border p-3">
+  return <article data-flow-task={`handoff-${row.id}`} className="space-y-3 rounded border p-3">
+    <NextStep owner={mine ? 'Oma tuotantovastuu' : null} step={{ stage: stale ? 'Luovutus koskee aiempaa revisiota' : state, role: row.company_state === 'returned' || stale ? 'Myyjä' : 'Tuotantovastaava', ownerId: row.company_state === 'returned' || stale ? snap.sales_owner_id : row.production_owner_id, waiting: !mine && row.company_state === 'submitted', issues: row.company_state === 'returned' ? [row.company_return_reason || 'Palautuksen syy puuttuu'] : missing, action: row.company_state === 'returned' || stale ? { label: 'Korjaa luovutuksen ohjelma', href: salesTaskHref(snap.case_lead_id, 'programme', undefined, row.order_id) } : row.company_state === 'accepted' && delivery ? { label: 'Avaa koulutuksen valmistelu', href: trainingTaskHref(delivery.id, 'aikataulu') } : { label: 'Tarkista vastaanoton tiedot', href: receiveHref(row.id) + '&tehtava=receive-review' } }} />
     <div className="flex flex-wrap items-center gap-2"><strong>{delivery?.title ?? 'Toteutus'}</strong><Badge variant="outline">Revisio {row.company_revision}</Badge><Badge variant={row.company_state === 'accepted' ? 'default' : row.company_state === 'returned' ? 'destructive' : 'secondary'}>{state}</Badge>{snap.readiness.ready ? <Badge>Aloitusvalmis</Badge> : null}</div>
     {stale && <p className="text-sm text-destructive">Ohjelmasta on uudempi revisio {snap.revision}; tämä luovutus vaatii uuden luovutuksen.</p>}
     <div className="text-sm"><WorkspacePerson person={{ id: snap.responsible_trainer_id }} name={snap.programme?.trainers?.[0] ?? "Vastuukouluttaja"} role="Vastuukouluttaja" /></div><p className="whitespace-pre-wrap text-sm">{snap.programme?.text}</p>
@@ -164,7 +177,7 @@ function HandoffCard({ item, mine, refresh }: { item: any; mine: boolean; refres
     <div><div className="flex items-center justify-between text-xs"><span>Aloitusvalmius</span><span>{snap.readiness.ready ? 'Valmis' : `${missing.length} puutetta`}{crit.length ? ` · kriittiset ${doneN}/${crit.length}` : ''}</span></div>
       <div className="mt-1 h-2 w-full rounded bg-muted" role="meter" aria-label="Aloitusvalmius" aria-valuemin={0} aria-valuemax={100} aria-valuenow={snap.readiness.ready ? 100 : pct}><div className="h-2 rounded bg-primary" style={{ width: `${snap.readiness.ready ? 100 : pct}%` }} /></div>
       <div className="mt-2"><Missing items={missing} /></div></div>
-    <div className="grid gap-3 sm:grid-cols-2 text-sm">
+    <div data-flow-task={`receive-review-${row.id}`} className="grid gap-3 sm:grid-cols-2 text-sm">
       <div><h4 className="font-semibold">Kriittiset tehtävät</h4>{critical.length ? <ul>{critical.map((t: any) => <li key={t.id}>{t.completed_at ? '✓' : '○'} {t.title}</li>)}</ul> : <p className="text-muted-foreground">Ei kriittisiä tehtäviä.</p>}</div>
       <div><h4 className="font-semibold">Puutteet</h4>{blockers.length ? <ul>{blockers.map((b: any) => <li key={b.id}>{b.resolved_at ? '✓' : '○'} {b.description}</li>)}</ul> : <p className="text-muted-foreground">Ei kirjattuja puutteita.</p>}</div>
     </div>

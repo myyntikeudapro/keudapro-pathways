@@ -92,3 +92,11 @@
 ## Tarjouksen tuonti tekoälyllä (luonnos)
 - [x] Tuo tarjous tai keskustelu: syöttö (teksti + PDF selaimessa), staff-only poiminta, tarkistusnäkymä, vahvistettu kirjaus; synteettinen Attendo-tyyppinen läpivienti luonnoksen tietokannassa
 - [ ] Luonnoksen hyväksyntä ja julkaisu odottavat käyttäjää
+
+## Työtilan LEAN-etenemisohjaus (tämä luonnos)
+- [x] Yhteinen näkyvä seuraavan tehtävän alue ja puhdas kohdelaskenta
+- [x] Asiakas-, myynti-, henkilö-, luovutus- ja koulutuskorttien kohdelinkit
+- [x] Pysyvät vaihe-/kohdetestit ja regressiot: 27 uutta testiä, yhteensä 93 kohdennettua testiä
+- [x] Kirjautunut synteettinen selainpolku myynnistä vastaanottoon ja valmisteluun; admin/editor/trainer, 320/390/1280 px
+- [x] Loppuraportti docs/lean-etenemisohjaus-2026-11-27.md; ei migraatioita, hyväksyntää tai julkaisua
+- [ ] Yhdistämisriippuvuus: vakautusluonnoksen hyväksynnän jälkeen yhteensopivuuden uusintatesti ennen tämän hyväksymistä

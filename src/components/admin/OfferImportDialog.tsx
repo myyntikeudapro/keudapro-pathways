@@ -1,3 +1,4 @@
+import { importedCustomerHref } from '@/lib/workspaceNextStep';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AlertTriangle, FileUp, Loader2, Sparkles } from 'lucide-react';
@@ -85,10 +86,11 @@ export function OfferImportDialog({ leads, onImported }: { leads: LeadOption[]; 
     const { data, error } = await supabase.rpc(cmd.rpc, cmd.args);
     setBusy(false);
     if (error) return toast.error(importErrorMessage(error.message));
-    const res = data as { organization_id?: string };
+    const res = data as { organization_id?: string; lead_id?: string; offer_id?: string };
     toast.success('Tiedot kirjattu: asiakas, tarjousluonnos ja alkuperäinen teksti historiaan. Tilausta ei vahvistettu.');
     onImported(); setOpen(false); reset();
-    if (res?.organization_id) navigate(`/admin/asiakkaat/${encodeURIComponent(res.organization_id)}`);
+    const destination = importedCustomerHref(res);
+    if (destination) navigate(destination);
   };
 
   const setValue = (k: ImportFieldKey, v: string) => setValues(prev => (prev ? { ...prev, [k]: v } : prev));

@@ -1,3 +1,6 @@
+import { LeadNextStep } from './CaseNextStep';
+import { NextStep } from './NextStep';
+import { chooseRelated } from '@/lib/workspaceNextStep';
 import type { ReactNode } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, Building2, ChevronLeft, ChevronRight, Search, Star, UserRound } from 'lucide-react';
@@ -39,7 +42,9 @@ const Row = ({ label, children }: { label: string; children: ReactNode }) => <di
 const Empty = ({ children }: { children: ReactNode }) => <p className="py-4 text-sm text-muted-foreground">{children}</p>;
 
 export function ContactCard({ record: r, person, onSaved }: { record: ContactRecord; person: (id: string | null) => string; onSaved: () => void }) {
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
+  const cases = [...new Map([...r.leads.map(l => [l.id, { id: l.id, label: `${serviceLabel(l.service_key)} · ${shortDate(l.created_at)}` }] as const), ...r.offers.map(o => [o.lead_id, { id: o.lead_id, label: o.title }] as const), ...r.orders.map(o => [o.lead_id, { id: o.lead_id, label: serviceLabel(o.service_key) }] as const)].map(([id, c]) => [id, c])).values()];
+  const selected = chooseRelated(cases, params.get('henkiloTapaus'));
   const back = params.get('paluu');
   const orgHref = r.organization ? `/admin/asiakkaat/${encodeURIComponent(r.organization.id)}?osio=yhteyshenkilot` : null;
   return <div className="space-y-6">
@@ -48,6 +53,8 @@ export function ContactCard({ record: r, person, onSaved }: { record: ContactRec
       <div className="mt-3 flex flex-wrap gap-2"><ContactEditDialog record={r} onSaved={onSaved} /><VerifyContactButton record={r} onSaved={onSaved} /></div>
       <p className="mt-2 text-sm text-muted-foreground">{orgHref ? <Link to={orgHref} className="inline-flex items-center text-primary underline"><Building2 className="mr-1 h-4 w-4" />{r.organizationName}</Link> : r.organizationName}</p>
       {r.sameName > 0 && <p className="mt-2 text-xs text-muted-foreground">Rekisterissä on {r.sameName} muu samanniminen henkilö. Tiedot on yhdistetty vain tunnisteiden perusteella.</p>}</div>
+    {cases.length > 1 && <div><label htmlFor="person-case" className="text-xs text-muted-foreground">Henkilöön liitetty tapaus</label><select id="person-case" className="h-10 w-full rounded-md border border-input bg-background px-2 text-sm" value={selected?.id ?? ''} onChange={e => { const n = new URLSearchParams(params); n.set('henkiloTapaus', e.target.value); setParams(n); }}><option value="">Valitse tapaus</option>{cases.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}</select></div>}
+    {selected ? <LeadNextStep leadId={selected.id} person={person} /> : <NextStep step={{ stage: cases.length ? 'Valitse henkilöön liitetty tapaus' : 'Ei henkilöön liitettyjä tapauksia', role: 'Myyjä', issues: [] }} />}
     <section aria-labelledby="ch-info"><h3 id="ch-info" className="text-lg">Perustiedot</h3><dl className="divide-y">
       <Row label="Sähköposti">{r.email === MISSING ? MISSING : <a className="break-all text-primary underline" href={`mailto:${r.email}`} target="_blank" rel="noopener noreferrer">{r.email}</a>}</Row>
       <Row label="Puhelin">{r.phone === MISSING ? MISSING : <a className="text-primary underline" href={`tel:${r.phone}`} target="_blank" rel="noopener noreferrer">{r.phone}</a>}</Row>

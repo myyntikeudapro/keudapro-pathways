@@ -1,7 +1,7 @@
 import { Check, ArrowRight } from 'lucide-react';
 import type { FlowState } from '@/lib/companyFlow';
 
-export function FlowStepper({ title, flow }: { title: string; flow: FlowState }) {
+export function FlowStepper({ title, flow, showNext = true }: { title: string; flow: FlowState; showNext?: boolean }) {
   return <section aria-label={title} className="space-y-3 rounded-lg border bg-card p-3">
     <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{title}</p>
     <ol className="flex flex-wrap items-center gap-1.5">
@@ -15,7 +15,7 @@ export function FlowStepper({ title, flow }: { title: string; flow: FlowState })
         </li>;
       })}
     </ol>
-    {flow.next ? <div className="rounded-md border-l-4 border-keuda-blue bg-muted/40 p-2.5 text-sm"><strong>Seuraava askel</strong> <span className="text-muted-foreground">({flow.next.who})</span>: {flow.next.text}</div>
-      : <div className="rounded-md border-l-4 border-primary bg-primary/10 p-2.5 text-sm"><strong>Valmis.</strong> Kaikki tämän näkymän vaiheet on tehty.</div>}
+    {showNext && (flow.next ? <div className="rounded-md border-l-4 border-keuda-blue bg-muted/40 p-2.5 text-sm"><strong>Seuraava askel</strong> <span className="text-muted-foreground">({flow.next.who})</span>: {flow.next.text}</div>
+      : <div className="rounded-md border-l-4 border-primary bg-primary/10 p-2.5 text-sm"><strong>Valmis.</strong> Kaikki tämän näkymän vaiheet on tehty.</div>)}
   </section>;
 }
